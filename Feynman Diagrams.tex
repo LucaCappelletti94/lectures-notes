@@ -1,0 +1,353 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{feynmf}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\geometry{
+    a4paper,
+    total={130mm,250mm},
+}
+
+
+\title{Feynman Diagrams Challenge}
+\author{Luca Cappelletti}
+\date{27 July 2017}
+
+\begin{document}
+
+\maketitle
+
+\vspace{2em}
+
+{\hypersetup{hidelinks}
+\tableofcontents
+}
+
+\newpage
+
+\section{What is a Feynman diagram}
+A Feynman diagram is a graphical representations of the math describing the behavior of subatomic particles, as described by the quantum electrodynamics (QED) model. In the following notes, we will follow the convention that places time on the abscissas and space on the ordinates.
+
+\begin{fmffile}{introduction}
+\subsection{Electron}
+An electron $e^{-}$ (Figure \ref{fig:electron}) is a subatomic particle of matter. It holds a negative charge, equals in module to the one of a positron. It is classified as fermion. It is represented as:
+\begin{figure}[H]
+ \centering
+ \begin{fmfgraph*}(120,80)
+    \fmfleft{i1}
+    \fmfright{o1}
+    \fmf{fermion,label=$e^{-}$}{i1,o1}
+\end{fmfgraph*}
+\caption{Representation of an Electron.}
+\label{fig:electron}
+\end{figure}
+
+\subsection{Positron}
+A positron $e^{+}$ (Figure \ref{fig:positron}), an anti-electron, is a subatomic particle of anti-matter. It holds a positive charge, equals in module to the one of an electron. It is classified as fermion. Note that a positron looks as an electron that travels back in time, according to the mathematics of QED. It is represented as:
+\begin{figure}[H]
+ \centering
+ \begin{fmfgraph*}(120,80)
+    \fmfleft{i1}
+    \fmfright{o1}
+    \fmf{fermion,label=$e^{+}$}{o1,i1}
+\end{fmfgraph*}
+\caption{Representation of a Positron.}
+\label{fig:positron}
+\end{figure}
+
+\subsection{Photon}
+A photon $\gamma$ (Figure \ref{fig:photon}) is a subatomic particle representing a discrete packet of energy. It can produce a couple positron-electron and be produced by the annihilation of a couple of positron-electron. It can be transmitted by scattering between two particles. As the absence of arrows implies, to a photon the time direction is not important.
+\begin{figure}[H]
+ \centering
+ \begin{fmfgraph*}(120,80)
+    \fmfleft{i1}
+    \fmfright{o1}
+    \fmf{photon,label=$\gamma$}{i1,o1}
+\end{fmfgraph*}
+\caption{Representation of a Photon.}
+\label{fig:photon}
+\end{figure}
+
+\newpage
+
+\subsection{Vertex}
+A vertex $v$ (Figure \ref{fig:vertex}) is a point where three particles meet. In QED, only a vertex is allowed, one where a Positron $e^{+}$, an Electron $e^{-}$ and a Photon $\gamma$ meet. By rotating a vertex, its representation change. It can represent 6 different interactions.
+\begin{figure}[H]
+ \centering
+ \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1}
+    \fmf{fermion,label=$e^{-}$}{i1,v1}
+    \fmf{fermion,label=$e^{+}$}{v1,i2}
+    \fmf{photon,label=$\gamma$}{v1,o1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{A vertex of a Feynman diagram.}
+\label{fig:vertex}
+\end{figure}
+
+
+\begin{figure}[H]
+ \centering
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1}
+    \fmf{fermion,label=$e^{-}$}{i1,v1}
+    \fmf{photon,label=$\gamma$}{v1,i2}
+    \fmf{fermion,label=$e^{-}$}{v1,o1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{Electron absorbs a photon.}
+ \end{minipage}\hfill
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1}
+    \fmf{photon,label=$\gamma$}{i1,v1}
+    \fmf{fermion,label=$e^{+}$}{v1,i2}
+    \fmf{fermion,label=$e^{+}$}{o1,v1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{Positron absorbs photon.}
+ \end{minipage}\hfill
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1}
+    \fmfright{o1,o2}
+    \fmf{photon,label=$\gamma$}{o1,v1}
+    \fmf{fermion,label=$e^{-}$}{v1,o2}
+    \fmf{fermion,label=$e^{-}$}{i1,v1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{Electron emits a photon.}
+ \end{minipage}\hfill
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1}
+    \fmfright{o1,o2}
+    \fmf{photon,label=$\gamma$}{o1,v1}
+    \fmf{fermion,label=$e^{+}$}{o2,v1}
+    \fmf{fermion,label=$e^{+}$}{v1,i1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{Positron emits a photon.}
+ \end{minipage}\hfill
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{+}$}{o1,v1}
+    \fmf{fermion,label=$e^{-}$}{v1,o2}
+    \fmf{photon,label=$\gamma$}{i1,v1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{Photon produces an electron - positron pair.}
+ \end{minipage}\hfill
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1}
+    \fmf{fermion,label=$e^{-}$}{i1,v1}
+    \fmf{fermion,label=$e^{+}$}{v1,i2}
+    \fmf{photon,label=$\gamma$}{v1,o1}
+    \fmflabel{$v$}{v1}
+\end{fmfgraph*}
+\caption{Fermions annihilate and produce a photon.}
+ \end{minipage}\hfill
+\end{figure}
+
+\end{fmffile}
+
+\newpage
+
+\section{First question}
+Draw the two-vertex diagrams for Bhabha scattering showing a single virtual photon interaction and describe what's happening at these vertices.
+\subsection{Answer}
+With time on the abscissas and space on the ordinates, we have the following two diagrams:
+
+\begin{fmffile}{first-question}
+
+\vspace{1em} % Not important, just adds some space
+
+\begin{figure}[H]
+ \centering
+ \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{-}$}{i1,v1,o1}
+    \fmf{fermion,label=$e^{+}$}{o2,v2,i2}
+    \fmf{photon,label=$\gamma$}{v1,v2}
+    \fmflabel{$v_1$}{v1}
+    \fmflabel{$v_2$}{v2}
+\end{fmfgraph*}
+\caption{Electron-Positron scattering.}
+\label{fig:scattering}
+\end{figure}
+
+\vspace{1em}
+
+Figure \ref{fig:scattering} denotes an electron-positron scattering by emission of a virtual photon.
+We can choose to view the graph either as the positron emitting the virtual photon in $v_2$ and the electron absorbing it in $v_1$ or vice versa, with no more correct interpretation.
+
+\vspace{1em}
+
+\begin{figure}[H]
+ \centering
+ \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{-}$}{i1,v1}
+    \fmf{fermion,label=$e^{+}$}{v1,i2}
+    \fmf{fermion,label=$e^{+}$}{o2,v2}
+    \fmf{fermion,label=$e^{-}$}{v2,o1}
+    \fmf{photon,label=$\gamma$}{v1,v2}
+    \fmflabel{$v_1$}{v1}
+    \fmflabel{$v_2$}{v2}
+\end{fmfgraph*}
+\caption{Electron-Positron annihilation.}
+\label{fig:annihilation}
+\end{figure}
+
+\vspace{1em}
+
+Figure \ref{fig:annihilation} denotes an electron-positron annihilation by emission of a virtual photon.
+A couple positron-electron annihilates in $v_1$ and emits a virtual photon, that then produces a pair positron-electron in $v_2$.
+
+\end{fmffile}
+
+\vspace{1em}
+
+The two graphs have the same on-shell particles, while the difference is found in what the virtual particles, in this case a single photon, does. Considering that by definition, the virtual particles mathematically speaking travel each and every possible path, the two graphs can be considered in this sense the same one.
+
+\newpage
+
+\section{Second question}
+Draw all possible four-vertex diagrams, ignoring self-energy diagrams (when a particle emits and then re-absorbs a virtual particle or a cople of virtual particles).
+
+\subsection{Answer}
+With time on the abscissas and space on the ordinates, we have the following diagrams:
+
+\begin{fmffile}{second-question}
+
+\begin{figure}[H]
+ \centering
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{-}$}{i1,v2}
+    \fmf{fermion,label=$e^{-}$}{i2,v1}
+    \fmf{fermion,label=$e^{-}$}{v2,v3}
+    \fmf{fermion,label=$e^{-}$}{v3,o1}
+    \fmf{fermion,label=$e^{-}$}{v1,v4}
+    \fmf{fermion,label=$e^{-}$}{v4,o2}
+    \fmf{photon,label=$\gamma$}{v1,v2}
+    \fmf{photon,label=$\gamma$}{v3,v4}
+\end{fmfgraph*}
+\caption{Electrons exchange photons.}
+\label{fig:ep}
+ \end{minipage}\hfill
+ \begin{minipage}{0.5\textwidth}
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{+}$}{v2,i1}
+    \fmf{fermion,label=$e^{+}$}{v1,i2}
+    \fmf{fermion,label=$e^{+}$}{v3,v2}
+    \fmf{fermion,label=$e^{+}$}{o1,v3}
+    \fmf{fermion,label=$e^{+}$}{v4,v1}
+    \fmf{fermion,label=$e^{+}$}{o2,v4}
+    \fmf{photon,label=$\gamma$}{v2,v1}
+    \fmf{photon,label=$\gamma$}{v4,v3}
+\end{fmfgraph*}
+\caption{Positrons exchange photons.}
+\label{fig:pp}
+ \end{minipage}\hfill
+ \vspace{1em}
+The graphs in figures \ref{fig:ep} and \ref{fig:pp} are the same, only with reversed time.
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{+}$}{v2,i1}
+    \fmf{fermion,label=$e^{-}$}{i2,v1}
+    \fmf{fermion,label=$e^{+}$}{v3,v2}
+    \fmf{fermion,label=$e^{+}$}{o1,v3}
+    \fmf{fermion,label=$e^{-}$}{v1,v4}
+    \fmf{fermion,label=$e^{-}$}{v4,o2}
+    \fmf{photon,label=$\gamma$}{v1,v2}
+    \fmf{photon,label=$\gamma$}{v3,v4}
+\end{fmfgraph*}
+\caption{Electron and Positron exchange photons.}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{-}$}{i1,v2}
+    \fmf{photon,label=$\gamma$}{i2,v1}
+    \fmf{photon,label=$\gamma_1$}{v3,v2}
+    \fmf{fermion,label=$e^{-}$}{v3,o1}
+    \fmf{fermion,label=$e^{-}$}{v1,v4}
+    \fmf{photon,label=$\gamma$}{v4,o2}
+    \fmf{fermion,label=$e^{+}$}{v2,v1}
+    \fmf{fermion,label=$e^{+}$}{v4,v3}
+    \fmflabel{$v_1$}{v1}
+    \fmflabel{$v_2$}{v2}
+    \fmflabel{$v_3$}{v3}
+    \fmflabel{$v_4$}{v4}
+\end{fmfgraph*}
+\caption{One of the possible interpretation is: a photon $\gamma$ produces a virtual couple $e^{-}$, $e^{+}$ in $v_1$, then in $v_2$ an electron annihilates with the positron from $v_1$, producing a virtual photon $\gamma_1$. $\gamma_1$ then produces a couple $e^{-}$, $e^{+}$ in $v_3$ and in $v_4$ the previously produced fermions annihilates and produce a photon.}
+\label{fig:ep4}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+    \begin{fmfgraph*}(120,80)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmf{fermion,label=$e^{+}$}{v2,i1}
+    \fmf{photon,label=$\gamma$}{i2,v1}
+    \fmf{photon,label=$\gamma$}{v3,v2}
+    \fmf{fermion,label=$e^{+}$}{o1,v3}
+    \fmf{fermion,label=$e^{+}$}{v4,v1}
+    \fmf{photon,label=$\gamma$}{o2,v4}
+    \fmf{fermion,label=$e^{-}$}{v1,v2}
+    \fmf{fermion,label=$e^{-}$}{v3,v4}
+    \fmflabel{$v_1$}{v1}
+    \fmflabel{$v_2$}{v2}
+    \fmflabel{$v_3$}{v3}
+    \fmflabel{$v_4$}{v4}
+\end{fmfgraph*}
+\caption{One of the possible interpretation is: a photon $\gamma$ produces a virtual couple $e^{-}$, $e^{+}$ in $v_1$, then in $v_2$ a positron annihilates with the electron from $v_2$, producing a virtual photon $\gamma_1$. $\gamma_1$ then produces a couple $e^{-}$, $e^{+}$ in $v_3$ and in $v_4$ the previously produced fermions annihilates and produce a photon.}
+\label{fig:pp4}
+\end{figure}
+\vspace{1em}
+The graphs in figures \ref{fig:ep4} and \ref{fig:pp4} are the same, only with reversed time.
+\end{fmffile}
+
+\end{document}
