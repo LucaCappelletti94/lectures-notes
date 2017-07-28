@@ -10,4 +10,4 @@ Notes are currently available about:
 
 Feel absolutely **FREE** to correct my errors.
 
-For any question, contact me either here or by mail at "cappelletti (dot) luca (ninetyfour) at gmail (dot) com"
+For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*"
