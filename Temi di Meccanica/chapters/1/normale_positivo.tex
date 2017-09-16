@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{0}{1};
+  \point{c}{1}{1};
+  \point{d}{1}{0};
+
+  \point{z}{0.5}{0.5}
+
+  \point{h}{0.5}{1}
+  \point{w}{0.5}{0}
+
+  \point{m}{0}{0.5}
+  \point{n}{1}{0.5}
+
+  \point{m1}{-1.25}{0.5}
+  \point{n1}{2.25}{0.5}
+
+  \beam{2}{a}{b}[0][1]
+  \beam{2}{b}{c}[0][1]
+  \beam{2}{c}{d}[0][1]
+  \beam{2}{d}{a}[0][1]
+
+  \load{1}{m1}
+
+  \load{1}{n1}[180]
+
+  \notation{6}{z}{+};
+
+
+\end{tikzpicture}

@@ -1,0 +1,36 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Principio del lavoro virtuale (PLV)}
+A differenza dell'approccio che studia l'equilibrio di \textit{forze} e \textit{momenti}, esiste un approccio basato su considerazioni di tipo energetico.
+
+\begin{definition}[Spostamento o rotazione virtuale]
+Uno spostamento o rotazione virtuale, è rispettivamente uno spostamento o una rotazione che rispetta le seguenti caratteristiche:
+\begin{enumerate}
+\item È infinitesimo.
+\item È arbitrario.
+\item È compatibile con i vincoli (non rompe le condizioni di vincolo).
+\item È reversibile, cioè può avvenire in entrambi i sensi.
+\item Avviene in tempo congelato.
+\end{enumerate}
+Vengono indicati con il simbolo: $\delta\vec{S}_i$ e $\delta\vec{\theta}_j$.
+\end{definition}
+
+\begin{definition}[Principio del lavoro virtuale]
+In un sistema meccanico con vincoli fissi e in assenza di attrito, condizione necessaria e sufficiente per l ’equilibrio è che sia nullo il \textit{lavoro virtuale} compiuto dalle forze e dalle coppie attive per qualsiasi spostamento virtuale del sistema.
+\\
+Viene calcolato come il prodotto scalare di forze e spostamenti virtuali sommati a quello di coppie e rotazioni virtuali.
+\[
+	\delta L = \sum_i \vec{F}_i\bullet \delta\vec{S}_i + \sum_j \vec{C}_j\bullet \delta\vec{\theta}_j = 0
+\]
+\end{definition}
+
+\subsection{Cosa cambia dal metodo delle equazioni cardinali della statica}
+Per risolvere un esercizio con il metodo delle \textbf{equazioni cardinali della statica} venivano aggiunte come incognite le reazioni vincolari (le reazioni orizzontali, verticali e momenti), ma in questo metodo esse vengono interamente ignorate poichè non compiono lavoro.
+\\
+\\
+Nel caso, per esempio, di un'asta inclinata di massa non trascurabile su cui viene applicata una forza $F_1$ esterna, nel bilancio del \textbf{PLV} sarebbero considerate unicamente la forza peso $F_g$ agente sul centro di massa dell'asta e la forza $F_1$. Le incognite introdotte saranno gli spostamenti e rotazioni virtuali che le forze producono sul sistema.
+
+
+\end{document}

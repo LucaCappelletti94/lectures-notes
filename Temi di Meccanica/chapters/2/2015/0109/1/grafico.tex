@@ -1,0 +1,30 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+	\point{o}{0}{0};
+  \point{a}{-1.4}{1.4};
+  \point{b}{4}{0};
+  \point{c}{4}{1.4};
+
+	 \beam{2}{o}{a}[0][1];
+	 \beam{2}{a}{b}[0][1];
+	 \beam{2}{b}{o}[0][1];
+
+	 \addon{3}{o}{a}{b}[-1];
+	 %\addon{3}{c}{a}{e}[-1];
+	 \addon{3}{a}{c}{b}[1];
+
+	 \support{3}{o};
+
+   %Degrees
+   \notation{1}{o}{$\alpha$}[above];
+   \notation{1}{a}{$\beta$}[above];
+
+   \notation{5}{o}{a}[$a$];
+   \notation{5}{a}{b}[$b$];
+   \notation{5}{o}{b}[$c$];
+
+\end{tikzpicture}

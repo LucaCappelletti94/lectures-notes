@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{2}{0};
+  \point{c}{4}{0};
+  \point{d}{6}{0};
+  \point{e}{8}{0};
+
+  \notation{5}{a}{b}[$t_1$][.5][above][1];
+  \notation{5}{d}{e}[$t_2$][.5][above][1];
+  \notation{1}{c}{$S_1$}[above];
+
+  \beam{2}{a}{b};
+  \beam{2}{d}{e};
+
+  \load{1}{b}
+  \load{1}{b}[-90]
+  \load{3}{b}
+
+  \load{1}{d}[180]
+  \load{1}{d}[90]
+  \load{2}{d}
+
+\end{tikzpicture}

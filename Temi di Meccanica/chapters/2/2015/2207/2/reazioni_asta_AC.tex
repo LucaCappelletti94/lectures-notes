@@ -1,0 +1,41 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{h}{-1}{0};
+	\point{a}{0}{0};
+  \point{b}{1}{0};
+  \point{c}{2}{0};
+
+  \beam{2}{a}{c}
+
+  \load{1}{b}[90]
+
+  \load{1}{c}[135]
+
+  \load{1}{a}[180]
+
+  \load{2}{a}
+
+  \notation{1}{a}{A}[below];
+  \notation{1}{b}{B}[below];
+  \notation{1}{c}{C}[below];
+
+  \notation{1}{a}{$M_A$}[above];
+  \notation{1}{h}{$H_A$}[above right];
+  \notation{1}{b}{$F$}[above right];
+  \notation{1}{c}{$R_C$}[above right];
+
+  %  \notation{1}{b}{B}[above left];
+  %  \notation{1}{c}{C}[above=0.1];
+  %  \notation{1}{d}{D}[above right];
+  %  \notation{1}{e}{E}[above right];
+  %  \notation{1}{f}{$\vec{F}$}[above right];
+
+  %  %Degrees
+  %  \notation{1}{a}{$\frac{\pi}{3}$}[above right=0.325];
+  %  \notation{1}{e}{$\frac{\pi}{3}$}[above left=0.325];
+
+\end{tikzpicture}

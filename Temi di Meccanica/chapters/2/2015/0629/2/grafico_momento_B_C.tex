@@ -1,0 +1,20 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{0.5}{0.866};
+  \point{c}{1}{2*0.866};
+
+  \point{m}{0.66*1}{0.66*2*0.866};
+
+  \beam{2}{a}{c};
+
+  \internalforces{a}{b}{0}{-0.866}[0][red];
+  \internalforces{b}{m}{-0.866}{0}[0][red];
+  \internalforces{m}{c}{0}{2*0.866}[0][blue];
+
+
+\end{tikzpicture}

@@ -1,0 +1,53 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+
+  \point{c}{0}{0}
+  \point{c1}{0}{0.8}
+  \point{c2}{-0.8}{0}
+  \point{a}{2-1.41421}{1.41421}
+  \point{a1}{2-1.41421}{0.8+1.41421}
+  \point{d}{2}{0}
+  \point{b}{2+1.41421}{-1.41421}
+  \point{b1}{2+1.41421}{-1.41421-1.3}
+
+  \beam{2}{c}{d}[0][1];
+  \beam{2}{a}{b};
+
+  \load{1}{a}[180][0.5]
+  \load{1}{a1}[270][0.5]
+
+  \load{2}{c}
+  \load{1}{c}[180][0.5]
+  \load{1}{c}[270][0.5]
+
+  \load{1}{b1}[90][1]
+
+  \notation{1}{c}{$\vec{M}_C$}[below right]
+  \notation{1}{c}{$\vec{H}_C$}[below left]
+  \notation{1}{c}{$\vec{V}_C$}[above right]
+
+  \notation{1}{a}{$\vec{H}_A$}[below left]
+  \notation{1}{a}{$\vec{V}_A$}[above right]
+
+  \notation{1}{b}{$\vec{F}$}[below right]
+
+  % \notation{1}{a1}{$\vec{H}_A$}
+  % % \notation{1}{d1}{$\vec{R}_D$}
+  % % \notation{1}{b1}{$\vec{H}_B$}[below left]
+  % \notation{1}{c1}{$\vec{F}$}[above left]
+
+  %  % \support{3}{o};
+
+  %  % %Degrees
+  %  % \notation{1}{o}{$\alpha$}[above];
+  %  % \notation{1}{a}{$\beta$}[above];
+
+  %  % \notation{5}{o}{a}[$a$];
+  %  % \notation{5}{a}{b}[$b$];
+  %  % \notation{5}{o}{b}[$c$];
+
+\end{tikzpicture}

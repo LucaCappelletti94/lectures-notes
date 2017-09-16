@@ -1,0 +1,47 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+	\point{a}{0}{0};
+    \point{b}{0.5}{0.866};
+    \point{c}{1}{2*0.866};
+    \point{d}{1.5}{0.866};
+    \point{e}{2}{0};
+    \point{f}{2.5}{0};
+
+	 \beam{2}{a}{c};
+	 \beam{2}{c}{e};
+	 \beam{2}{b}{d};
+
+	 \hinge{1}{c};
+	 \hinge{2}{b}[a][c][2];
+	 \hinge{2}{d}[c][e][2];
+
+	 \addon{3}{a}{c}{e}[-1];
+	 %\addon{3}{c}{a}{e}[-1];
+	 \addon{3}{e}{a}{c}[-1];
+
+	 \support{3}{a};
+
+   \dimensioning{1}{a}{c}{-1}[$L$]
+   \dimensioning{1}{c}{e}{-1}[$L$]
+
+   \dimensioning{2}{a}{b}{-1}[$L\frac{\sqrt{3}}{2}$]
+   \dimensioning{2}{b}{c}{-1}[$L\frac{\sqrt{3}}{2}$]
+
+	 \load{1}{e};
+
+   \notation{1}{a}{A}[above left];
+   \notation{1}{b}{B}[above left];
+   \notation{1}{c}{C}[above=0.1];
+   \notation{1}{d}{D}[above right];
+   \notation{1}{e}{E}[above right];
+   \notation{1}{f}{$\vec{F}$}[above right];
+
+   %Degrees
+   \notation{1}{a}{$\frac{\pi}{3}$}[above right=0.325];
+   \notation{1}{e}{$\frac{\pi}{3}$}[above left=0.325];
+
+\end{tikzpicture}

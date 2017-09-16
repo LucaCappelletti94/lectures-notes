@@ -1,0 +1,18 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+
+  \point{c}{0}{0}
+  \point{a}{1.73}{0}
+  \point{b}{1.73}{1}
+  \point{b1}{1.73}{0.5}
+
+  \beam{2}{b}{a};
+
+  \internalforces{b}{b1}{0}{-1}[0][red];
+  \internalforces{b1}{a}{-1}{-1}[0][red];
+
+\end{tikzpicture}

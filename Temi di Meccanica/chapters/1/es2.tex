@@ -1,0 +1,21 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{2}{0};
+  \point{c}{4}{0};
+
+  \support{2}{a}
+  \support{2}{b}
+  \support{2}{c}
+
+  \hinge{2}{b}[a][c][2]
+
+  \beam{2}{a}{c}
+
+  \load{1}{b}[90]
+
+\end{tikzpicture}

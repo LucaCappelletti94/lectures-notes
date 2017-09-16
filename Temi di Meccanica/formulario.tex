@@ -1,0 +1,180 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\chapter{Formulario}
+Qui sono elencate alcune formule che risultano utili in generale nello studio e nella risoluzione della materia.
+\\
+Sebbene dovrebbero essere cose note, ripresento queste piccole formule perchè sono necessarie per lo svolgimento di esercizi.
+\section{Formule per la cinematica}
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\vec{v} = \vec{\omega}\times\vec{r} = \omega r \sin\theta
+\]
+  \caption{Legame cinematico tra $\vec{v}$ e $\vec{\omega}$}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\vec{a}_t = \vec{\dot{\omega}}\times\vec{r} = \dot{\omega} r \sin\theta
+\]
+  \caption{Legame cinematico tra $\vec{a}_t$ e $\vec{\dot{\omega}}$}
+  \end{subfigure}
+  \caption{Legami cinematici}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+\[
+	a_n = \omega^2 r = \omega v = \dfrac{v^2}{r}
+\]
+  \caption{Accelerazione centripeta}
+\end{figure}
+\subsection{Brevissimo formulario per le derivate}
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\dfrac{d\sin\alpha}{dt} = \cos\alpha
+\]
+  \caption{Derivata di seno.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\dfrac{d\cos\alpha}{dt} = -\sin\alpha
+\]
+  \caption{Derivata di coseno.}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+\[
+	\dfrac{d(a(t)b(t)c(t))}{dt} = \dot{a}(t)b(t)c(t) + a(t)\dot{b}(t)c(t) + a(t)b(t)\dot{c}(t)
+\]
+  \caption{Derivata di prodotto.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+\[
+	\dfrac{a(b(t))}{dt} = \dot{b}(t)\dot{a}(b(t))
+\]
+  \caption{Derivata di funzione composta.}
+\end{figure}
+
+\subsection{Brevissimo formulario per numeri complessi}
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	ie^{i\alpha} = e^{i\left (\dfrac{\pi}{2} + \alpha \right )}
+\]
+  \caption{Traslazione dell'esponente in exp. complessa.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\dfrac{d(e^{i\alpha})}{dt} = i\dot{\alpha}e^{i\alpha} = \dot{\alpha}e^{i\left (\dfrac{\pi}{2} + \alpha \right )}
+\]
+  \caption{Derivare exp. complessa.}
+  \end{subfigure}
+\end{figure}
+\section{Formule per la statica}
+\begin{figure}[H]
+  \centering
+\[
+	F_{el} = k(l_o - l)
+\]
+  \caption{Forza elastica}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+\[
+	gdv_{cerniera} = 2(n_{aste} - 1)
+\]
+  \caption{Gradi di vincolo di cerniera interna}
+\end{figure}
+
+
+\section{Formule per motori}
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	W_m + W_r + W_p = \dfrac{dE_c}{dt}
+\]
+  \caption{Bilancio di potenze}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\begin{align*}
+	\dot{\omega}_m = 0 \qquad \dfrac{dE_c}{dt} = 0
+\end{align*}
+  \caption{Condizione di regime}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	W_m = C_m\bullet\omega_m
+\]
+  \caption{Potenza motrice}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\begin{align*}
+	W_r = 	\sum &(\text{Forze applicate su corpi in moto})\\&\bullet(\text{velocità baricentriche dei corpi})
+\end{align*}
+  \caption{Potenza resistente o utilizzatore}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\dfrac{dE_c}{dt} = \dfrac{dE_{c_r}}{dt} + \dfrac{dE_{c_m}}{dt}
+\]
+  \caption{Variazione di energia cinetica}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	\dfrac{dE_{c_m}}{dt} = \omega_m \dot{\omega}_m J_m
+\]
+  \caption{Variazione di energia cinetica motrice}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	W_p = -(1-\mu_D)(W_m - \dfrac{dE_{c_m}}{dt})
+\]
+  \caption{Potenza perduta per moto diretto}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+\[
+	W_p = -(1-\mu_R)(W_r - \dfrac{dE_{c_r}}{dt})
+\]
+  \caption{Potenza perduta per moto retrogrado}
+  \end{subfigure}
+\end{figure}
+
+
+\end{document}

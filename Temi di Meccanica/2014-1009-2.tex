@@ -1,0 +1,208 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Secondo esercizio}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{2014-1009-2.jpg}
+\end{figure}
+
+La struttura in figura è soggetta al solo carico verticale F. Si chiede di calcolare:
+
+\begin{enumerate}
+\item Le reazioni vincolari in A e C.
+\item Le azioni interne nell’asta AB (disegnare i corrispondenti diagrammi).
+\end{enumerate}
+
+\clearpage
+
+\subsection{Soluzione secondo esercizio (non verificata)}
+
+\subsubsection{Osservazioni}
+
+\begin{enumerate}
+\item La struttura è composta da 2 aste e 3 vincoli: un carrello, una cerniera esterna ed un incastro.
+\item Il punto A \textbf{NON} si trova ad un'ascissa $x = \dfrac{L}{2}$ ma $x = L(1-\dfrac{\sqrt{2}}{2})$
+\end{enumerate}
+
+\subsubsection{Analisi preliminare di isostaticità}
+Verifico che $gdl_{tot} = gdv_{tot}$:
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdv: \begin{cases}
+		gdv_{cerniera_{esterna}} = 2\\
+		gdv_{incastro} = 3\\
+		gdv_{carrello} = 1
+  	\end{cases}
+  \]
+  \caption{Gradi di vincolo del sistema.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdl: \begin{cases}
+  		gdl_{aste} = 6\\
+  	\end{cases}  
+  \]
+  \caption{Gradi di libertà del sistema.}
+  \end{subfigure}
+  \caption{Verifica preliminare di isostaticità.}
+\end{figure}
+
+\subsubsection{Vincoli esterni}
+Considerando il sistema come un corpo rigido, andiamo a sostituire le reazioni vincolari dei soli vincoli esterni (Figura \ref{vincoli_esterni_2014_1009_2}):
+
+\[
+	\begin{cases}
+		H_A = -H_C \\
+		V_A + V_C = F\\
+		M_C + L\dfrac{\sqrt{2}}{2}H_A - L(1 - \dfrac{\sqrt{2}}{2})V_A + L(1+\dfrac{\sqrt{2}}{2})F = 0
+	\end{cases}
+\]
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/1009/2/esterni.tex}}
+\caption{Analisi dei vincoli esterni}
+\label{vincoli_esterni_2014_1009_2}
+\end{figure}
+
+\subsubsection{Reazioni vincolari nell'asta CD}
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/1009/2/asta_CD.tex}}
+\caption{Reazioni vincolari nell'asta CD}
+\end{figure}
+
+\[
+	\begin{cases}
+	R_{D_x} = H_C\\
+	R_{D_y} = V_C\\
+	M_C = -LR_{D_y} = -LV_C
+	\end{cases}
+\]
+
+Siccome la rezione vincolare del carrello agisce ad un angolo di $45\deg$, è possibile affermare che: $R_{D_x} = R_{D_y}$.
+
+Ne segue che:
+
+\[
+	\begin{cases}
+	R_{D_x} = R_{D_y}\\
+	H_C = V_C\\
+	M_C = -LR_{D_y} = -LV_C
+	\end{cases}
+\]
+
+Risolvo il sistema dei vincoli esterni sostituendo:
+
+\[
+	M_C = -LV_C;\quad
+	V_A = F - V_C;\quad
+	H_A = -H_C = -V_C;
+\]
+
+\begin{equation}
+	M_C + L\dfrac{\sqrt{2}}{2}H_A - L(1 - \dfrac{\sqrt{2}}{2})V_A + L(1+\dfrac{\sqrt{2}}{2})F = 0
+\end{equation}
+
+\begin{equation}
+	-LV_C - L\dfrac{\sqrt{2}}{2}V_C - L(1 - \dfrac{\sqrt{2}}{2})(F - V_C) + L(1+\dfrac{\sqrt{2}}{2})F = 0
+\end{equation}
+
+\begin{equation}
+	-LV_C - L\dfrac{\sqrt{2}}{2}V_C  + L(1 - \dfrac{\sqrt{2}}{2})V_C - L(1 - \dfrac{\sqrt{2}}{2})F + L(1+\dfrac{\sqrt{2}}{2})F = 0
+\end{equation}
+
+\begin{equation}
+	-\sqrt{2}V_C +\sqrt{2}F = 0
+\end{equation}
+
+\begin{equation}
+	V_C = F
+\end{equation}
+
+
+\subsubsection{Ricapitolo soluzione primo punto}
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	A: \begin{cases}
+		H_A = -F\\
+		V_A = 0
+  	\end{cases}
+  \]
+  \caption{Reazioni vincolari in A.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	C: \begin{cases}
+  		H_C = F\\
+  		V_C = F\\
+  		M_C = -LF
+  	\end{cases}  
+  \]
+  \caption{Reazioni vincolari in C.}
+  \end{subfigure}
+\end{figure}
+
+\subsubsection{Secondo punto}
+Per meglio visualizzare le componenti di taglio e sforzo normale, ridisegno l'asta AB con i vettori secondo i versi corretti:
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/1009/2/asta_AB_corretta.tex}}
+\caption{Reazioni vincolari nell'asta AB con modulo e verso corretto}
+\end{figure}
+
+La forza $R_D$ impone solo un taglio, mentre le rimanenti impongono sia una componente di taglio che una di sforzo.
+
+\[
+R_D = \sqrt{2}F
+\]
+
+\paragraph{Sforzo normale}
+Le forze $H_A$ ed $F$ impongono uno sforzo normale di \textbf{trazione}, quindi positivo.
+
+\[
+N = \dfrac{\sqrt{2}}{2}F
+\]
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/1009/2/sforzo.tex}}
+\caption{Sforzo normale nell'asta AB}
+\end{figure}
+
+\paragraph{Taglio}
+Le forze $H_A$ ed $R_D$ impongono una rotazione \textbf{anti-oraria}, quindi negativa, mentre le forze $R_D$ e $F$ una \textbf{oraria}, quindi, sempre seguendo la convenzione, positiva.
+
+\[
+T = \dfrac{\sqrt{2}}{2}F
+\]
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/1009/2/taglio.tex}}
+\caption{Taglio nell'asta AB}
+\end{figure}
+
+\paragraph{Momento flettente}
+Il momento flettente raggiunge il valore massimo nel punto di taglio massimo, cioè D, in cui $M_{max} = \dfrac{\sqrt{2}}{2}LF$. Le fibre tese, in questo caso, si trovano sul lato di destra.
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/1009/2/momento.tex}}
+\caption{Momento flettente nell'asta AB}
+\end{figure}
+
+\end{document}

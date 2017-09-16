@@ -1,0 +1,635 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{4}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Cinematica del corpo rigido}{4}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}Analisi dimensionali e come pu\IeC {\`o} aiutare.}{4}{subsection.1.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Esempio 1}{4}{section*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.2}Considerazioni ed errori comuni nelle derivate in meccanica}{5}{subsection.1.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Traccia generale di un esercizio di cinematica}{6}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.1}Avvertenze}{6}{subsection.1.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.2}Argomenti}{6}{subsection.1.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.3}Traccia primo punto}{6}{subsection.1.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.4}Traccia secondo punto}{7}{subsection.1.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Statica del corpo rigido}{8}{section.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.1}Fonti di studio}{8}{subsection.1.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.2}Gradi di libert\IeC {\`a}}{8}{subsection.1.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.3}Asta nel piano}{8}{subsection.1.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.4}Vincoli}{8}{subsection.1.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Carrello}{8}{section*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Pendolo semplice o Biella}{8}{section*.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Cerniera}{9}{section*.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Incastro}{9}{section*.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.5}L'analisi (o computo) dei vincoli}{9}{subsection.1.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Struttura Isostatica: $gdv = gdl$}{9}{section*.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Struttura Iperstatica: $gdv > gdl$}{9}{section*.18}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Struttura Labile: $gdv < gdl$}{9}{section*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.6}Limiti del computo dei vincoli}{10}{subsection.1.3.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Esempio 1}{10}{section*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Esempio 2}{10}{section*.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.7}Caratteristiche della sollecitazione interna}{10}{subsection.1.3.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Convenzione per lo sforzo normale baricentrico}{11}{section*.26}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Convenzione per il taglio}{11}{section*.28}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Convenzione per il momento flettente}{11}{section*.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.8}Grafici della sollecitazione interna}{12}{subsection.1.3.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Convenzione grafica dello sforzo normale}{12}{section*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Convenzione grafica del taglio}{12}{section*.34}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Convenzione grafica del momento flettente}{12}{section*.36}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}Traccia generale di un esercizio di statica}{13}{section.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4.1}Avvertenze}{13}{subsection.1.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4.2}Argomenti}{13}{subsection.1.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4.3}Traccia primo punto}{13}{subsection.1.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4.4}Traccia secondo punto}{13}{subsection.1.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.5}Principio del lavoro virtuale (PLV)}{14}{section.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.5.1}Cosa cambia dal metodo delle equazioni cardinali della statica}{14}{subsection.1.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.6}Motori}{15}{section.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.6.1}Come identificare il tipo di moto, se diretto o retrogrado}{15}{subsection.1.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.7}Traccia generale di un esercizio di motori}{16}{section.1.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.7.1}Avvertenze}{16}{subsection.1.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.7.2}Argomenti}{16}{subsection.1.7.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.7.3}Traccia generale}{16}{subsection.1.7.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}2014}{17}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Tema d'esame del 4/07/2014}{17}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.1}Secondo esercizio}{17}{subsection.2.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.2}Soluzione secondo esercizio}{18}{subsection.2.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{18}{section*.43}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi preliminare di isostaticit\IeC {\`a}}{18}{section*.44}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{18}{section*.46}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi dei vincoli esterni}{18}{figure.caption.48}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi delle reazioni vincolari in DC}{18}{section*.49}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{19}{section*.52}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale baricentrico}{20}{section*.53}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{20}{section*.55}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{20}{section*.57}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Tema d'esame del 22/07/2014}{21}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Secondo esercizio}{21}{subsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Soluzione secondo esercizio (non verificata)}{22}{subsection.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{22}{section*.60}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi preliminare di isostaticit\IeC {\`a}}{22}{section*.61}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{22}{section*.63}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi dei vincoli esterni}{22}{figure.caption.65}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Considerazioni sulla reazione assiale della biella}{22}{section*.66}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{23}{section*.69}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale baricentrico}{23}{section*.70}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{24}{section*.72}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{24}{section*.74}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Tema d'esame del 10/09/2014}{25}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.1}Primo esercizio}{25}{subsection.2.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.2}Soluzione primo esercizio (non verificata)}{26}{subsection.2.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{26}{section*.76}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{26}{section*.77}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Definizione dell'equazione di chiusura}{26}{section*.78}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Spostamento}{26}{section*.79}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Velocit\IeC {\`a}}{26}{section*.80}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Accelerazione}{26}{section*.81}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{27}{section*.82}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Energia cinetica totale}{27}{section*.83}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Derivo energia cinetica}{27}{section*.84}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza totale}{27}{section*.85}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Uso il bilancio delle potenze}{27}{equation.2.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.3}Secondo esercizio}{29}{subsection.2.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.4}Soluzione secondo esercizio (non verificata)}{30}{subsection.2.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{30}{section*.88}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi preliminare di isostaticit\IeC {\`a}}{30}{section*.89}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Vincoli esterni}{30}{section*.91}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Reazioni vincolari nell'asta CD}{31}{section*.93}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Ricapitolo soluzione primo punto}{32}{section*.95}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{32}{section*.97}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{33}{section*.99}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{33}{section*.101}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{34}{section*.103}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Tema d'esame del 24/09/2014}{35}{section.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.1}Secondo esercizio}{35}{subsection.2.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.2}Soluzione secondo esercizio}{36}{subsection.2.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{36}{section*.105}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi preliminare di isostaticit\IeC {\`a}}{36}{section*.106}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{36}{section*.108}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Vincoli esterni}{36}{section*.109}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Asta CD}{37}{section*.111}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Riassunto soluzione primo punto}{38}{section*.113}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{39}{section*.115}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{39}{section*.117}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{39}{section*.119}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{40}{section*.121}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.3}Terzo esercizio}{41}{subsection.2.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.4}Soluzione terzo esercizio}{42}{subsection.2.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{42}{section*.123}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Legami cinematici}{42}{section*.124}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza motrice}{42}{section*.125}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza resistente}{42}{section*.126}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Forza d'attrito volvente}{42}{section*.127}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Forza areodinamica resistente}{42}{section*.128}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Identificazione del tipo di moto}{43}{section*.129}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenze perduta}{43}{section*.130}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio di potenze}{43}{section*.131}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{44}{section*.132}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Verifico il tipo di moto}{44}{section*.133}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza perduta}{44}{section*.134}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio di potenze}{44}{equation.2.4.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}Tema d'esame del 4/02/2015}{46}{section.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.1}Secondo esercizio}{46}{subsection.2.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.2}Soluzione secondo esercizio (non verificata)}{47}{subsection.2.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{47}{section*.136}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi dei vincoli}{47}{section*.137}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{47}{section*.139}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi dei vincoli esterni}{47}{section*.140}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi delle reazioni vincolari nell'asta CD}{48}{figure.caption.143}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{48}{section*.144}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{48}{figure.caption.146}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{48}{section*.147}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{49}{section*.149}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.6}Tema d'esame del 26/02/2015}{50}{section.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6.1}Secondo esercizio}{50}{subsection.2.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6.2}Soluzione secondo esercizio}{51}{subsection.2.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{51}{section*.152}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi preliminare di isostaticit\IeC {\`a}}{51}{section*.153}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{51}{section*.155}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi dei vincoli esterni}{51}{figure.caption.157}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi delle reazioni vincolari nell'asta CB}{52}{figure.caption.159}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Riassumendo}{52}{figure.caption.161}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{52}{section*.162}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{53}{section*.163}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{53}{section*.165}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{53}{section*.167}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}2015}{54}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Tema d'esame del 29/06/2015}{54}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Primo esercizio}{54}{subsection.3.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}Soluzione primo esercizio}{56}{subsection.3.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Osservazioni importanti}{56}{section*.169}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Primo punto}{57}{section*.170}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Secondo punto}{57}{section*.171}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Calcolo le potenze totali:}{57}{section*.172}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Calcolo l'energia cinetica totale:}{58}{figure.caption.174}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Derivo l'energia cinetica totale e applico il bilancio delle potenze:}{59}{figure.caption.176}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.3}Secondo esercizio}{60}{subsection.3.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.4}Soluzione secondo esercizio}{60}{subsection.3.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{60}{section*.178}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Verifica preliminare di isostaticit\IeC {\`a}}{60}{section*.179}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Richiami sulle cerniere interne}{61}{theorem.3.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Limiti dell'analisi dei vincoli}{61}{section*.181}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{61}{section*.182}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Vincoli esterni}{61}{section*.184}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Asta CE}{62}{section*.186}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Ricapitolo primo punto}{62}{section*.188}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{63}{section*.190}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Nota sulla divisione in componenti di un vettore}{63}{section*.191}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{1) Asta orizzontale con forza agente sul lato in alto, inclinata}{63}{section*.192}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{2) Asta orizzontale con forza agente sul lato in basso, inclinata}{64}{section*.194}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{3) Asta inclinata con forza agente sul lato in alto, inclinata.}{64}{section*.196}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{4) Asta inclinata con forza agente sul lato in basso, inclinata.}{64}{section*.198}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Divisione in componenti}{64}{section*.200}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Calcolo dello sforzo normale}{66}{section*.202}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{disegniamo il grafico dello sforzo normale}{66}{section*.203}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Calcolo del taglio}{66}{section*.205}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{disegniamo il grafico del taglio}{67}{section*.206}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Calcolo del momento flettente}{67}{section*.208}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Visualizzazione della sovrapposizione degli effetti}{68}{section*.210}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Sovrapposizione degli effetti per lo sforzo normale}{69}{section*.211}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Sovrapposizione degli effetti per il taglio}{69}{section*.214}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Sovrapposizione degli effetti per il momento flettente}{69}{section*.217}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.5}Terzo esercizio}{71}{subsection.3.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.6}Soluzione terzo esercizio}{72}{subsection.3.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni importanti}{72}{section*.220}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{72}{section*.221}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza resistente}{72}{section*.223}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Calcolo della velocit\IeC {\`a} del disco}{73}{section*.224}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Assembliamo la potenza resistente}{73}{section*.225}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza motrice}{74}{section*.226}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza perduta in cond. di regime e moto diretto}{74}{section*.227}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della coppia motrice}{74}{section*.228}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Secondo punto}{74}{section*.229}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcoliamo la nuova coppia motrice}{74}{section*.230}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcoliamo la nuova potenza motrice}{74}{section*.231}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcoliamo l'energia cinetica}{74}{section*.232}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcoliamo la nuova potenza perduta}{75}{section*.233}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Uso il bilancio delle potenze per calcolare l'accelerazione}{75}{section*.234}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Tema d'esame del 22/07/2015}{77}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.1}Primo esercizio}{77}{subsection.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.2}Soluzione primo esercizio (non corrispondente)}{78}{subsection.3.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Osservazioni importanti}{78}{section*.235}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Primo punto}{78}{section*.236}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Spostamento}{78}{section*.237}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Velocit\IeC {\`a}}{78}{section*.238}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Accelerazione}{79}{section*.239}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Secondo punto}{80}{section*.240}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Energia cinetica totale:}{80}{section*.242}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{La potenza totale:}{81}{section*.243}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Bilancio delle potenze}{81}{section*.244}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.3}Secondo esercizio}{82}{subsection.3.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.4}Soluzione secondo esercizio}{82}{subsection.3.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni importanti}{82}{section*.245}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Verifica preliminare di isostaticit\IeC {\`a}}{82}{section*.246}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{83}{section*.248}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{84}{section*.252}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{84}{figure.caption.254}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{84}{figure.caption.257}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{85}{section*.259}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.5}Terzo esercizio}{86}{subsection.3.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.6}Soluzione terzo esercizio}{87}{subsection.3.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{87}{section*.261}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza motrice}{87}{section*.262}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza resistente}{87}{section*.263}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza perduta}{88}{section*.264}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio delle potenze}{88}{section*.265}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{89}{section*.266}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo energia cinetica totale}{89}{section*.267}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Tipo del moto}{89}{section*.268}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo potenza perduta in moto diretto}{89}{section*.269}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Applico il bilancio delle potenze}{90}{section*.270}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Tema d'esame del 01/09/2015}{91}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.1}Primo esercizio}{91}{subsection.3.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.2}Soluzione primo esercizio}{92}{subsection.3.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni importanti}{92}{section*.271}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{92}{section*.272}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Spostamento}{92}{section*.274}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Velocit\IeC {\`a}}{93}{section*.275}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Accelerazione}{93}{section*.276}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{94}{section*.277}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo energia cinetica totale}{94}{section*.278}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo la potenza totale}{94}{section*.279}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Uso il bilancio delle potenze}{95}{equation.3.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.3}Secondo esercizio}{96}{subsection.3.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.4}Soluzione secondo esercizio}{97}{subsection.3.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{97}{section*.281}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi dei vincoli}{97}{section*.282}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{97}{section*.284}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi dei vincoli esterni}{97}{section*.285}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi delle reazioni vincolari nell'asta AB}{98}{figure.caption.288}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{punto}{98}{section*.290}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{98}{section*.291}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{99}{section*.293}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{99}{section*.295}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.5}Terzo esercizio}{101}{subsection.3.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.6}Soluzione terzo esercizio}{102}{subsection.3.3.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{102}{section*.297}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{102}{section*.298}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza motrice}{102}{section*.299}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza resistente}{102}{section*.300}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Indentificazione del tipo di moto}{103}{section*.301}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo della potenza perduta}{103}{section*.302}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio delle potenze}{103}{section*.303}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{104}{section*.304}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Identifico legame cinematico per accelerazione}{104}{section*.305}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo energia cinetica totale}{104}{section*.306}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Identifico il tipo del moto}{105}{section*.307}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Calcolo la potenza perduta}{105}{section*.308}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio delle potenze}{105}{section*.309}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}2017}{107}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Tema d'esame del 11/09/2017}{107}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.1}Primo esercizio}{107}{subsection.4.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.2}Risoluzione primo esercizio (non verificata)}{108}{subsection.4.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{108}{section*.311}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Equazione di chiusura}{108}{section*.312}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Spostamento}{108}{section*.313}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Velocit\IeC {\`a}}{108}{section*.314}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Accelerazione}{108}{section*.315}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{109}{section*.316}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Energia cinetica}{109}{section*.317}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza totale}{109}{section*.318}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio di potenze}{109}{section*.319}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.3}Secondo esercizio}{110}{subsection.4.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.4}Soluzione secondo esercizio (non verificata)}{111}{subsection.4.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Osservazioni}{111}{section*.321}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Analisi preliminare di isostaticit\IeC {\`a}}{111}{section*.322}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{111}{section*.324}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi dei vincoli esterni}{111}{figure.caption.326}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Analisi delle reazioni vincolari nell'asta AC}{112}{figure.caption.328}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Riassumendo}{113}{figure.caption.330}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{113}{section*.331}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sforzo normale}{113}{section*.332}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Taglio}{113}{section*.334}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Momento flettente}{114}{section*.336}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.5}Terzo esercizio}{115}{subsection.4.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.6}Soluzione terzo esercizio (non verificata)}{116}{subsection.4.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Primo punto}{116}{section*.339}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Legami cinematici}{116}{section*.340}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza motrice}{116}{section*.341}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Energia cinetica}{116}{section*.342}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Tipo di moto}{117}{section*.343}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza resistente}{117}{section*.344}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Potenza perduta}{117}{section*.345}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bilancio di potenze}{118}{section*.346}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Verifico ipotesi di moto diretto}{118}{section*.347}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Secondo punto}{118}{section*.348}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Terzo punto}{119}{section*.349}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Formulario}{120}{appendix.A}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}Formule per la cinematica}{120}{section.A.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.1}Brevissimo formulario per le derivate}{120}{subsection.A.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.2}Brevissimo formulario per numeri complessi}{121}{subsection.A.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.2}Formule per la statica}{121}{section.A.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.3}Formule per motori}{121}{section.A.3}

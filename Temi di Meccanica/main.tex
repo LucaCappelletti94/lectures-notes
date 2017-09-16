@@ -1,0 +1,105 @@
+\documentclass[12pt]{report} % We use report to allow for chapers etc...
+\usepackage[utf8]{inputenc} % This allows for utf support.
+%\usepackage{marginnote} % Enables margin notes.
+%\reversemarginpar % This allows the margin to be to the left of the page.
+\usepackage{geometry} % More rich support for page layout.
+\geometry{
+ a4paper,
+ total={170mm,250mm},
+ left=20mm,
+ top=25mm,
+ }
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}  % Enable table of contents and links.
+\usepackage{microtype} % for automatic micro fitting of characters
+\usepackage{amsmath} % for math rendering
+\usepackage{float} % to enable floating graphics
+\usepackage{graphicx} % for images and generally graphics
+\usepackage{caption} % enabling of nice captions
+\usepackage{subcaption} % and subcaptions of images
+\usepackage{fancyhdr} % This allows for the headings in the chapters
+\pagestyle{fancy} % This activates it
+\graphicspath{ {images/} } % We'll put all the images in the folder "images"
+\usepackage[style=authoryear,sorting=ynt, backend=bibtex]{biblatex} % Package to handle the bibliography
+\nocite{*} % This allows for having entried in the bib file that do not have to be necesseraly used
+\usepackage{subfiles} % To use subfiles without cruxifying saints
+\usepackage{chngcntr} % Has functions to reset counters
+\usepackage{structuralanalysis} % This is used to draw the structural analysis graphs easily
+
+\usepackage{fourier} % For icons such as \bomb, \noway, \danger and various others. For more info, go here: http://ctan.mirror.garr.it/mirrors/CTAN/fonts/fourier-GUT/doc/latex/fourier/fourier-orns.pdf
+
+\usepackage{mathtools} % To use custom delimiters that Latex did not implement cos duh
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
+\usepackage{enumitem,amssymb} % For a todo check list 
+\newlist{todolist}{itemize}{2} % For a  todo check list 
+\setlist[todolist]{label=$\square$}  % For a todo check list 
+
+\renewcommand{\chaptername}{Capitolo}% So that it uses the italian version
+\renewcommand{\contentsname}{Indice}% So that it uses the italian version
+
+\counterwithin*{equation}{section}% Reset equation at \section
+\counterwithin*{equation}{subsection}% Reset equation at \subsection
+%\counterwithin*{equation}{subsubsection}% Reset equation at \subsubsectionù // Doesn't work for god knows why.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPORTANT NOTE ON BIBLIOGRAPHY USE %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To use the bibliography, run BibTex on this file. If everything is correct, it will terminate with no errors.
+% The warning "Using fall-back BibTeX(8) backend: (biblatex) functionality may be reduced/unavailable." is expected.
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\input{titlepage}
+
+{\hypersetup{hidelinks}
+	\tableofcontents  % Generates the table of contents
+	%\listoffigures  % Generates the list of images and figures
+	 %\listoftables % Generates the list of tables
+}
+
+
+\chapter{Introduzione}
+\subfile{introduction}
+
+\chapter{2014}
+\subfile{2014-0407}
+\clearpage
+\subfile{2014-2207}
+\clearpage
+\subfile{2014-1009}
+\clearpage
+\subfile{2014-2409}
+\clearpage
+\subfile{2015-0402}
+\clearpage
+\subfile{2015-2602}
+\clearpage
+
+\chapter{2015}
+\subfile{2015-2906}
+\clearpage
+\subfile{2015-2207}
+\clearpage
+\subfile{2015-0109}
+\clearpage
+
+\chapter{2017}
+\subfile{2017-1109}
+\clearpage
+
+\appendix
+\subfile{formulario}
+
+%\printbibliography
+
+\end{document}

@@ -1,0 +1,29 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{0.7}{0.866};
+  \point{c}{1}{2*0.866};
+  \point{g}{-1}{0};
+  \point{f}{1.5}{0.866};
+  \point{d}{0}{2*0.866};
+
+  \beam{2}{a}{c};
+
+  \load{1}{a}[240][0.5];
+  \load{1}{a}[150][0.866];
+
+  \load{1}{c}[240][0.5][-0.6];
+  \load{1}{c}[150][0.866];
+
+  \load{1}{b}[60][0.5];
+  \load{1}{b}[-30][0.866][-0.1];
+
+  % \notation{1}{a}{A}[above left];
+  % \notation{1}{b}{B}[above left];
+  % \notation{1}{c}{C}[above right];
+
+\end{tikzpicture}

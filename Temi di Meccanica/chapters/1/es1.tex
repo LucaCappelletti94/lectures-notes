@@ -1,0 +1,36 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{1}{0};
+  \point{c}{2}{0};
+  \point{d}{3}{0};
+  \point{e}{4}{0};
+  \point{f}{5}{0};
+  \point{g}{6}{0};
+  \point{h}{7}{0};
+
+  \support{2}{a}
+  \support{2}{b}
+  \support{2}{c}
+  \support{2}{d}
+  \support{2}{e}
+  \support{2}{f}
+  \support{2}{g}
+  \support{2}{h}
+
+  \hinge{2}{b}[a][h][2]
+  \hinge{2}{c}[a][h][2]
+  \hinge{2}{d}[a][h][2]
+  \hinge{2}{e}[a][h][2]
+  \hinge{2}{f}[a][h][2]
+  \hinge{2}{g}[a][h][2]
+
+  \beam{2}{a}{h}
+
+  \load{1}{d}[45]
+
+\end{tikzpicture}

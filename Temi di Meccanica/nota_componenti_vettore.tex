@@ -1,0 +1,144 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\paragraph{Nota sulla divisione in componenti di un vettore}
+Prendiamo in considerazione quattro esempi:
+
+\begin{enumerate}
+	\item Asta orizzontale con forza agente sul lato in alto, inclinata.
+	\item Asta orizzontale con forza agente sul lato in basso, inclinata.
+	\item Asta inclinata con forza agente sul lato in alto, inclinata.
+	\item Asta inclinata con forza agente sul lato in basso, inclinata.
+\end{enumerate}
+
+\subparagraph{1) Asta orizzontale con forza agente sul lato in alto, inclinata}
+La forza $\vec{F}$ viene applicata nel punto B con un angolo $\alpha<\pi$ (figura \ref{asta_orizzontale_forza_inclinata_alto_intera}).
+
+Dobbiamo ricondurre questa forza nelle sue componenti di \textit{taglio} e \textit{sforzo normale} (figura \ref{asta_orizzontale_forza_inclinata_alto_separata}), per cui, usando della cara vecchia trigonometria si ottiene:
+\[
+	\vec{F}: \begin{cases}
+		N_F = \abs{F}\cos{\alpha}\\
+		T_F = \abs{F}\sin{\alpha}
+	\end{cases}
+\]
+
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_orizzontale_forza_inclinata_alto.tex}}
+  \caption{Asta orizzontale con forza agente sul lato in alto, inclinata.}
+  \label{asta_orizzontale_forza_inclinata_alto_intera}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_orizzontale_forza_inclinata_alto_separate.tex}}
+  \caption{Asta orizzontale con forza agente sul lato in alto, separata in componenti.}
+  \label{asta_orizzontale_forza_inclinata_alto_separata}
+  \end{subfigure}
+  \caption{Asta orizzontale con forza agente sul lato in alto}
+  \label{asta_orizzontale_forza_inclinata_alto}
+\end{figure}
+
+\subparagraph{2) Asta orizzontale con forza agente sul lato in basso, inclinata}
+La forza $\vec{F}$ viene applicata nel punto B con un angolo $\alpha<0$ (figura \ref{asta_orizzontale_forza_inclinata_basso_intera}).
+
+Dobbiamo nuovamente ricondurre questa forza nelle sue componenti di \textit{taglio} e \textit{sforzo normale} (figura \ref{asta_orizzontale_forza_inclinata_basso_separata}), per cui, usando della cara vecchia trigonometria, ricordando le regole per angoli $>\pi$ si ottiene:
+\[
+	\vec{F}: \begin{cases}
+		N_F = \abs{F}\cos{(2\pi - \alpha)}\\
+		T_F = \abs{F}\sin{(2\pi-\alpha)}
+	\end{cases}
+	\Longrightarrow
+	\begin{cases}
+		N_F = \abs{F}\cos{\alpha}\\
+		T_F = -\abs{F}\sin{\alpha}
+	\end{cases}
+\]
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_orizzontale_forza_inclinata_basso.tex}}
+  \caption{Asta orizzontale con forza agente sul basso in alto, inclinata.}
+  \label{asta_orizzontale_forza_inclinata_basso_intera}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_orizzontale_forza_inclinata_basso_separate.tex}}
+  \caption{Asta orizzontale con forza agente sul lato in basso, separata in componenti.}
+  \label{asta_orizzontale_forza_inclinata_basso_separata}
+  \end{subfigure}
+  \caption{Asta orizzontale con forza agente sul lato in basso}
+  \label{asta_orizzontale_forza_inclinata_basso}
+\end{figure}
+
+\subparagraph{3) Asta inclinata con forza agente sul lato in alto, inclinata.}
+La forza $\vec{F}$ viene applicata nel punto B con un angolo $\alpha>0$ (figura \ref{asta_inclinata_forza_inclinata_alto_intera}) su di un'asta inclinata di un angolo $\beta$.
+
+È necessario calcolare l'angolo $\alpha$ con un sistema di riferimento solidale con l'asta AC, per cui ruotato di $\beta$.
+
+\[
+	\vec{F}: \begin{cases}
+		N_F = \abs{F}\cos{\alpha}\\
+		T_F = \abs{F}\sin{\alpha}
+	\end{cases}
+\]
+
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_inclinata_forza_inclinata_alto.tex}}
+  \caption{Asta inclinata con forza agente sul alto in alto, inclinata.}
+  \label{asta_inclinata_forza_inclinata_alto_intera}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_inclinata_forza_inclinata_alto_separata.tex}}
+  \caption{Asta inclinata con forza agente sul lato in alto, separata in componenti.}
+  \label{asta_inclinata_forza_inclinata_alto_separata}
+  \end{subfigure}
+  \caption{Asta inclinata con forza agente sul lato in alto}
+  \label{asta_inclinata_forza_inclinata_alto}
+\end{figure}
+
+\subparagraph{4) Asta inclinata con forza agente sul lato in basso, inclinata.}
+La forza $\vec{F}$ viene applicata nel punto B con un angolo $\alpha<0$ (figura \ref{asta_inclinata_forza_inclinata_basso_intera}) su di un'asta inclinata di un angolo $\beta$.
+
+È necessario calcolare l'angolo $\alpha$ con un sistema di riferimento solidale con l'asta AC, per cui ruotato di $\beta$.
+
+\[
+  \vec{F}: \begin{cases}
+    N_F = \abs{F}\cos{(2\pi-\alpha)}\\
+    T_F = \abs{F}\sin{(2\pi-\alpha)}
+  \end{cases}
+  \Longrightarrow
+	\begin{cases}
+		N_F = \abs{F}\cos{\alpha}\\
+		T_F = -\abs{F}\sin{\alpha}
+	\end{cases}
+\]
+
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_inclinata_forza_inclinata_basso.tex}}
+  \caption{Asta inclinata con forza agente sul basso in basso, inclinata.}
+  \label{asta_inclinata_forza_inclinata_basso_intera}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/asta_inclinata_forza_inclinata_basso_separata.tex}}
+  \caption{Asta inclinata con forza agente sul lato in basso, separata in componenti.}
+  \label{asta_inclinata_forza_inclinata_basso_separata}
+  \end{subfigure}
+  \caption{Asta inclinata con forza agente sul lato in basso}
+  \label{asta_inclinata_forza_inclinata_basso}
+\end{figure}
+
+\end{document}

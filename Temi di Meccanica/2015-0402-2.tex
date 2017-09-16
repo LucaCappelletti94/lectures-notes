@@ -1,0 +1,138 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Secondo esercizio}
+\includegraphics[width=\textwidth]{2015-0402-2.jpg}
+
+La struttura in figura è soggetta alla sola forza verticale $F$.
+Si chiede di calcolare:
+
+\begin{enumerate}
+\item Le reazioni vincolari a terra (punti A e D).
+\item Le azioni interne nell’asta AB (disegnare i corrispondenti diagrammi).
+\end{enumerate}
+\clearpage
+
+\subsection{Soluzione secondo esercizio (non verificata)}
+
+\subsubsection{Osservazioni}
+
+\begin{enumerate}
+\item La struttura è formata da due aste, un vincolo a incastro, un vincolo a carrello ed una cerniera interna.
+\end{enumerate}
+
+\subsubsection{Analisi dei vincoli}
+Tramite il computo dei gradi di vincolo possiamo fare una verifica preliminare si isostaticità:
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdv: \begin{cases}
+		gdv_{incastro} = 3\\
+		gdv_{carrello} = 1\\
+		gdv_{cerniera} = 2(2-1) = 2
+  	\end{cases}
+  \]
+  \caption{Gradi di vincolo del sistema.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdl: \begin{cases}
+  		gdl_{aste} = 6\\
+  	\end{cases}
+  \]
+  \caption{Gradi di libertà del sistema.}
+  \end{subfigure}
+  \caption{Verifica preliminare di isostaticità.}
+\end{figure}
+
+Per la verifica preliminare, la struttura risulta isostatica.
+
+\subsubsection{Primo punto}
+
+\paragraph{Analisi dei vincoli esterni}
+I vincoli ancorati a terra sono A e D:
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0402/2/esterni.tex}}
+\caption{Reazioni vincolari dei vincoli esterni}
+\end{figure}
+
+\[
+\begin{cases}
+	V_A + V_D= F \\
+	H_D = 0 \\
+	M_D + LV_A + 2LF = 0
+\end{cases}
+\]
+
+\paragraph{Analisi delle reazioni vincolari nell'asta CD}
+
+\begin{figure}[H]
+\centering
+\resizebox{.25\textwidth}{!}{\input{chapters/2/2015/0402/2/asta_CD.tex}}
+\caption{Reazioni vincolari nell'asta AB}
+\end{figure}
+
+\[
+\begin{cases}
+	V_C = V_D\\
+	H_C = 0\\
+	M_D = 0
+\end{cases}
+\]
+
+Sostituisco le identità ottenute nel sistema precedente ed ottengo:
+
+\[
+\begin{cases}
+	V_D= 3F \\
+	H_D = 0 \\
+	V_A = -2F
+\end{cases}
+\]
+
+\subsubsection{Secondo punto}
+I tre vettori possiedono unicamente componenti di taglio.
+
+\paragraph{Sforzo normale}
+
+\begin{figure}[H]
+\centering
+\resizebox{.3\textwidth}{!}{\input{chapters/2/2015/0402/2/sforzo.tex}}
+\caption{Grafico sforzo normale nell'asta AB}
+\end{figure}
+
+\paragraph{Taglio}
+In questo caso, il taglio coincide con il valore dei vettori che agiscono sull'asta.
+
+Partendo da sinistra, il vettore $V_A$ impone una rotazione \textbf{anti-oraria} al tronco AC, mentre il vettore $V_D$ va ad imporre una rotazione oraria con $F$ nel tronco di destra CB.
+
+\begin{figure}[H]
+\centering
+\resizebox{.3\textwidth}{!}{\input{chapters/2/2015/0402/2/taglio.tex}}
+\caption{Grafico taglio nell'asta AB}
+\end{figure}
+
+\paragraph{Momento flettente}
+
+\[
+	M_{max} = 2LF
+\]
+
+Il momento aumenta linearmente fino a raggiungere il massimo nel punto C, in cui la forza $V_D$ viene applicata, che impone un momento negativo e porta a decrescere linearmente il momento flettente sino a raggiungere 0 nell'estremo opposto.
+\\
+Le fibre tese risultano sul lato superiore.
+
+\begin{figure}[H]
+\centering
+\resizebox{.3\textwidth}{!}{\input{chapters/2/2015/0402/2/momento.tex}}
+\caption{Grafico momento flettente nell'asta AB}
+\end{figure}
+
+\end{document}

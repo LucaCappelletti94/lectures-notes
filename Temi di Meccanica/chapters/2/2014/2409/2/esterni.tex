@@ -1,0 +1,29 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0}
+  \point{c}{1}{0}
+  \point{b}{2}{2}
+  \point{d}{1}{1}
+
+  \beam{2}{a}{b}
+  \beam{2}{c}{d}[0][1]
+
+  \load{1}{b}[180][0.5]
+  \load{1}{a}[0][0.5]
+  \load{1}{a}[90][0.5]
+  \load{1}{c}[0][0.5]
+  \load{1}{c}[270][0.5]
+
+  \notation{1}{a}{$\vec{H}_A$}[below right]
+  \notation{1}{a}{$\vec{V}_A$}[above left]
+
+  \notation{1}{c}{$\vec{H}_C$}[below left]
+  \notation{1}{c}{$\vec{V}_C$}[above right]
+
+  \notation{1}{b}{$\vec{F}$}[above left]
+
+\end{tikzpicture}

@@ -1,0 +1,31 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{h}{-1.2}{0};
+  \point{a}{0}{0};
+  \point{b}{1}{0};
+  \point{c}{2}{0};
+
+  \beam{2}{a}{c}
+
+
+  \notation{1}{a}{A}[above];
+  \notation{1}{b}{B}[above];
+  \notation{1}{c}{C}[above];
+
+  %  \notation{1}{b}{B}[above left];
+  %  \notation{1}{c}{C}[above=0.1];
+  %  \notation{1}{d}{D}[above right];
+  %  \notation{1}{e}{E}[above right];
+  %  \notation{1}{f}{$\vec{F}$}[above right];
+
+  %  %Degrees
+  %  \notation{1}{a}{$\frac{\pi}{3}$}[above right=0.325];
+  %  \notation{1}{e}{$\frac{\pi}{3}$}[above left=0.325];
+
+  \internalforces{b}{c}{1}{1}[0][blue];
+
+\end{tikzpicture}

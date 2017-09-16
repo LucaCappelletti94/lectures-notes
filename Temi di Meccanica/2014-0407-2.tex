@@ -1,0 +1,182 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Secondo esercizio}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{2014-0407-2.jpg}
+\end{figure}
+
+La struttura in figura è soggetta al solo carico verticale P. Si chiede di calcolare:
+
+\begin{enumerate}
+\item Le reazioni vincolari in A e D.
+\item Le azioni interne nell’asta AE.
+\end{enumerate}
+
+\clearpage
+
+\subsection{Soluzione secondo esercizio}
+
+\subsubsection{Osservazioni}
+
+\begin{enumerate}
+\item La struttura è composta da 2 aste e 3 vincoli: un incastro, una cerniera esterna ed un pendolo (o biella).
+\end{enumerate}
+
+\subsubsection{Analisi preliminare di isostaticità}
+Verifico che $gdl_{tot} = gdv_{tot}$:
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdv: \begin{cases}
+		gdv_{cerniera_{esterna}} = 2\\
+		gdv_{incastro} = 3\\
+		gdv_{biella} = 1
+  	\end{cases}
+  \]
+  \caption{Gradi di vincolo del sistema.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdl: \begin{cases}
+  		gdl_{aste} = 6\\
+  	\end{cases}
+  \]
+  \caption{Gradi di libertà del sistema.}
+  \end{subfigure}
+  \caption{Verifica preliminare di isostaticità.}
+\end{figure}
+
+\subsubsection{Primo punto}
+
+\paragraph{Analisi dei vincoli esterni}
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/0407/2/esterni.tex}}
+\caption{Analisi dei vincoli esterni}
+\end{figure}
+
+\[
+\begin{cases}
+	H_A = - H_D\\
+	V_A + V_D = P\\
+	M_D + LH_A + 3LP = 0
+\end{cases}
+\]
+
+\paragraph{Analisi delle reazioni vincolari in DC}
+La biella trasmette unicamente la reazione assiale, che è inclinata di $45\deg$. Le componenti cartesiane di questa reazione assiale sono quindi uguali: $R_{C_x} = R_{C_y}$.
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/0407/2/asta_DC.tex}}
+\caption{Analisi delle reazioni vincolari in DC.}
+\end{figure}
+
+\[
+\begin{cases}
+	R_{C_x} = R_{C_y}\\
+	R_{C_x} = H_D\\
+	R_{C_y} = V_D\\
+	V_D = H_D\\
+	M_D = -LR_{C_y} = -LV_D
+\end{cases}
+\]
+
+Sostituisco queste relazioni nel sistema precedente e risolvo l'ultima equazione ponendo $H_A = -H_D = -V_D$ e $M_D = -LV_D$:
+
+\[
+	(-LV_D) + L(-V_D) + 3LP = 0
+\]
+
+\[
+	-LV_D - LV_D + 3LP = 0
+\]
+
+\[
+	V_D = \dfrac{3}{2}P
+\]
+
+Sostituisco il valore così ottenuto nelle relazioni rimanenti ed ottengo:
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	A: \begin{cases}
+		H_A = - \dfrac{3}{2}P\\
+		V_A = - \dfrac{1}{2}P\\
+  	\end{cases}
+  \]
+  \caption{Reazioni vincolari in A.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	D: \begin{cases}
+  		H_D =  \dfrac{3}{2}P\\
+  		V_D =  \dfrac{3}{2}P\\
+  		M_D =  -\dfrac{3L}{2}P
+  	\end{cases}
+  \]
+  \caption{Reazioni vincolari in B.}
+  \end{subfigure}
+  \caption{Riassunto soluzione primo punto.}
+\end{figure}
+
+\subsubsection{Secondo punto}
+Essendo l'asta posizionata orizzontalmente, l'asse normale e  tangente corrispondono rispettivamente con ascisse ed ordinate.
+
+\[
+	A: \begin{cases}
+		N = - \dfrac{3}{2}P\\
+		T = - \dfrac{1}{2}P\\
+	\end{cases}
+	\qquad
+	B: \begin{cases}
+		N =  \dfrac{3}{2}P\\
+  		T =  \dfrac{3}{2}P\\
+	\end{cases}
+	\qquad
+	P: \begin{cases}
+		N =  0
+  		T =  -P\\
+	\end{cases}
+\]
+
+\paragraph{Sforzo normale baricentrico} Nel tronco di asta AB lo sforzo normale risulta positivo, poiché di \textbf{trazione}. Nel tronco di asta BE invece non avviene sforzo normale.
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/0407/2/sforzo.tex}}
+\caption{Sforzo normale nell'asta AE.}
+\end{figure}
+
+\paragraph{Taglio} Nel tronco di asta AB le forze $T_A$ ed $T_B$ impongono nel tronco una rotazione \textbf{anti-oraria}, che è quindi considerata negativa, mentre nel secondo tronco BE le forze $T_B$ e $P$ impongono una rotazione \textbf{oraria}.
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/0407/2/taglio.tex}}
+\caption{Taglio nell'asta AE.}
+\end{figure}
+
+\paragraph{Momento flettente} Partendo da A, che impone un taglio $T_A$ dall'alto verso il basso, possiamo vedere che le fibre tese risultano sul lato superiore dell'asta. Il momento imposto da $T_A$ raggiunge il massimo nel punto B $M_{max} = LP$, in cui viene applicata una forza $T_B$ indirizzata in senso opposto che porta il momento a raggiungere lo zero linearmente in E.
+\\
+\\
+Percorrendo il percorso a ritroso, partendo da E, è possibile ottenere lo stesso risultato.
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2014/0407/2/momento.tex}}
+\caption{Momento flettente nell'asta AE.}
+\end{figure}
+
+\end{document}

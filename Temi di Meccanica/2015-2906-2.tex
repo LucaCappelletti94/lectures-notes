@@ -1,0 +1,457 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Secondo esercizio}
+
+\begin{figure}[htb]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/1.tex}}
+\caption{Isostatica con biella, incastro e cerniera con forza puntiforme}
+\end{figure}
+
+L'esercizio richiede di calcolare:
+\begin{enumerate}
+  \item Le reazioni vincolari a terra (in A) e nel punto C;
+  \item Le azioni interne nell’asta AC.
+\end{enumerate}
+
+\subsection{Soluzione secondo esercizio}
+\subsubsection{Osservazioni}
+Prima di iniziare l'esercizio, è importante osservare che:
+\begin{itemize}
+  \item La struttura forma un triangolo equilatero.
+  \item Possiede un unico punto A, che la vincola a terra.
+  \item L'asta BD si comporta come una \textit{biella} o \textit{pendolo semplice}.
+  \item Nella struttura son presenti $2$ corpi rigidi.
+  \item Nella struttura son presenti 3 vincoli, una biella, una cerniera ed un incastro.
+\end{itemize}
+\subsubsection{Verifica preliminare di isostaticità}
+Noi sappiamo risolvere solamente sistemi isostatici, per cui verifichiamo la condizione di isostaticità: $gdv_{totali} = gdl_{totali}$
+\begin{gather*}
+gdl_{totali}= 3 + 3 = 6
+\end{gather*}
+Ci aspettiamo quindi che i gradi di vincolo siano pari a $6$:
+\begin{gather*}
+gdv_{totali}= gdv_{biella} + gdv_{cerniera} + gdv_{incastro}
+\end{gather*}
+\subparagraph{Richiami sulle cerniere interne}
+\begin{definition}[Cerniera interna]
+Una cerniera è detta interna quando non è fissata a terra ed è compresa tra un numero $n$ di aste tale per cui:
+\[ n>1 \]
+\end{definition}
+\begin{theorem}[Formula delle cerniere interne]
+Una cerniera interna compresa tra $n$ aste impone un numero di gradi di vincolo pari a:
+\[ gdv_{cerniera} = 2(n-1) \]
+\end{theorem}
+
+Per cui, sommando i gradi di vincolo di biella, cerniera ed incastro si ottiene:
+\begin{gather*}
+gdv_{totali}= 1 + 2(2-1) + 3 = 6
+\end{gather*}
+
+Quindi, in base all'analisi preliminare, la struttura è \textit{isostatica}.
+
+\subparagraph{Limiti dell'analisi dei vincoli} L'analisi dei vincoli dà un risultato decisamente limitato: esistono infatti casi in cui la struttura risulta persino \textit{iperstatica} che in base ad un'analisi dei gradi di libertà risulterebbe \textit{labile}, cioè in grado di muoversi, e strutture che questa analisi descriverebbe \textit{iperstatiche} che in realtà son \textit{labili}.
+Per vedere esempi di questi casi particolari, leggete la parte relativa alla statica nell'introduzione della dispensa.
+
+In questo corso tuttavia, solo strutture \textit{isostatiche} son considerate, per cui non preoccupiamoci oltre.
+
+\subsubsection{Primo punto}
+
+\begin{figure}[htb]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/2.tex}}
+\caption{Analisi dei vincoli esterni}
+\label{vincoli_esterni_1}
+\end{figure}
+
+\subparagraph{Vincoli esterni}
+Iniziamo con l'analisi dei vincoli esterni (Figura \ref{vincoli_esterni_1}), che in questo caso sono unicamente A. Consideriamo quindi l'intero sistema come un corpo rigido, rimuovendo tutti i dettagli che non ci interessano e sostituiamo all'incastro in A le rispettive reazioni vincolari.
+
+Normalmente, un vincolo ad incastro presenta 3 reazioni vincolari: una verticale ($V_A$), una orizzontale ($H_A$) ed un momento resistente ($M_A$) che si contrappone al momento imposto dalla forza esterna.
+
+In questo caso, però, sul corpo rigido agisce una forza orientata sul piano orizzontale, senza alcuna componente verticale, per cui il vincolo a incastro non contrappone alcuna reazione verticale.
+
+Inoltre il vettore $\vec{r}$, che rappresenta la distanza dal punto di applicazione della forza E al punto di applicazione del vincolo A, possiede unicamente una componente orizzontale, percui la forza esterna non va ad applicare alcun momento sul corpo rigido, essendo i due vettori paralleli.
+
+Procedendo con le leggi di equilibrio della statica otteniamo:
+
+\[
+R_A : \begin{cases}
+H_A - F = 0\\
+V_A = 0\\
+M_A = 0
+\end{cases}
+\Longrightarrow \begin{cases}
+H_A = F\\
+V_A = 0\\
+M_A = 0
+\end{cases}
+\]
+
+\begin{figure}[htb]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/3.tex}}
+\caption{Analisi dell'asta CE}
+\label{vincoli_asta_CE_1}
+\end{figure}
+
+\subparagraph{Asta CE}
+Ora per andare a calcolare le reazioni vincolari in C, andiamo a considerare l'asta CE e ne sostituiamo i vincoli con reazioni vincolari corrispondenti (figura \ref{vincoli_asta_CE_1}).
+
+È importante ricordare che l'asta BD agisce da biella, e una biella trasmette unicamente la reazione assiale, indirizzata appunto con l'asse della biella.
+
+Possiamo quindi notare che nulla agisce in direzione verticale sull'asta CE, per cui la C non impone una reazione verticale.
+
+Procediamo nuovamente con la legge dell'equilibrio della statica, scegliendo (arbitrariamente\footnote{generalmente si sceglie il punto con più forze applicate, così che non debbano essere considerate per semplificare l'equazione dell'equilibrio dei momenti. In questo caso in tutti i punti vi è applicata al più una forza, per cui è indifferente. Oltre a questo motivo, se fosse presente un momento (applicato dall'esterno, o presente per via di un momento resistente) verrebbe scelto il punto in cui vi è il momento.}) come punto in cui calcolare l'equilibrio dei momenti il punto C, otteniamo:
+
+\[
+R_C : \begin{cases}
+H_C + R_D - F = 0\\
+V_C = 0\\
+M_C = 0 = LR_D - 2LF
+\end{cases}
+\Longrightarrow \begin{cases}
+H_C = F - R_D\\
+V_C = 0\\
+R_D = 2F
+\end{cases}
+\Longrightarrow \begin{cases}
+H_C = -F\\
+V_C = 0\\
+R_D = 2F
+\end{cases}
+\]
+
+Siccome $\vec{H_C}$ è risultato negativo, ne abbiamo scelto una direzione "sbagliata". Poco male. Correggiamo quindi la figura, per avere un'immagine che meglio rifletta la realtà (figura \ref{vincoli_asta_CE_2}):
+
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/4.tex}}
+  \caption{Asta CE con reazioni vincolari.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/6.tex}}
+  \caption{Asta CE con modulo della forza esterna.}
+  \end{subfigure}
+  \caption{Analisi corretta dell'asta CE.}
+  \label{vincoli_asta_CE_2}
+\end{figure}
+\subparagraph{Ricapitolo primo punto}
+
+\[
+R_A : \begin{cases}
+H_A = F\\
+V_A = 0\\
+M_A = 0
+\end{cases}
+;
+R_C : \begin{cases}
+H_C = F\\
+V_C = 0\\
+M_C = 0
+\end{cases}
+\]
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/5.tex}}
+  \caption{Reazioni vincolari nell'asta AC.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/7.tex}}
+  \caption{Asta AC con modulo della forza esterna.}
+  \end{subfigure}
+  \caption{Analisi dell'asta AC.}
+  \label{vincoli_asta_AC_1}
+\end{figure}
+
+\subsubsection{Secondo punto}
+Per calcolare le azioni interne dell'asta AC, iniziamo disegnando le reazioni vincolari (e le forze e momenti applicati, se vi fossero) che la caratterizzano (figura \ref{vincoli_asta_AC_1}). Riassumendo, sull'asta AC agiscono:
+
+In B agisce la reazione assiale $\vec{R_D} = \vec{R_B}$ (pari ed opposta a quanto vista nell'asta CE in D);
+
+In C agisce la reazione vincolare $\vec{H_C}$;
+
+In A agisce la reazione vincolare $\vec{H_A}$;
+
+\subfile{nota_componenti_vettore.tex}
+
+\paragraph{Divisione in componenti}
+Separiamo ora le singole componenti in taglio e sforzo normale.
+
+\begin{figure}[htb]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/8.tex}}
+\caption{Componenti nell'asta AC}
+\label{separated_components_1}
+\end{figure}
+
+\subparagraph{Calcolo dello sforzo normale}
+Procediamo al calcolo della componente di sforzo normale di ogni forza applicata all'asta AC:
+\[
+	N: \begin{cases}
+		\vec{N_A} = H_A\cos(\frac{\pi}{3})\\
+		\vec{N_B} = R_B\cos(-\frac{\pi}{3})\\
+		\vec{N_C} = H_C\cos(\frac{\pi}{3})
+	\end{cases}
+	\Longrightarrow
+	\begin{cases}
+		\vec{N_A} = \frac{1}{2}F\\
+		\vec{N_B} = F\\
+		\vec{N_C} = \frac{1}{2}F
+	\end{cases}
+\]
+
+\subparagraph{disegniamo il grafico dello sforzo normale}
+Ricordando la convenzione dello sforzo normale, \textbf{positivo} quando produce \textit{trazione} e \textbf{negativo} quando produce \textit{contrazione},  procediamo al disegno del grafico:
+
+Mentre si disegna un grafico di questo tipo, è importante ricordare che il grafico deve risultare, quando è verticale, di un'altezza pari al vettore che agisce in quel punto. Per esempio, nel punto B il grafico ha un'altezza complessiva pari al valore di $N_B$, così come è analogamente in A ed in C.
+
+Si può iniziare a disegnare il grafico partendo da un qualsiasi estremo del corpo rigido.
+
+Iniziamo per esempio dall'estremo A. Spostiamoci di un $ds$ verso l'alto e osserviamo per questo \textit{concio elementare} se lo sforzo normale sia di trazione o contrazione. In questo caso, lo sforzo è di contrazione, per cui nella nostra convenzione definiamo il valore come negativo. Procedendo via via lungo l'asta, arriviamo al punto B, in cui è applicata una nuova forza. Qui, sommiamo i due valori dello sforzo e procediamo oltre. Da questo punto, siccome $N_B>N_A$ lo sforzo diviene di trazione e così rimane sino alla fine dell'asta in C.
+
+Come già detto, se si esegue la stessa operazione partendo dall'estremo C al posto che in A si \textit{deve} ottenere lo stesso risultato.
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/sforzi_baricentrici.tex}}
+  \caption{Sforzi normali baricentrici in AC.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzi_baricentrici.tex}}
+  \caption{Grafico dello sforzo normale.}
+  \end{subfigure}
+  \caption{Analisi dello sforzo normale nell'asta AC.}
+\end{figure}
+
+\subparagraph{Calcolo del taglio}
+Procediamo al calcolo della componente di taglio di ogni forza applicata all'asta AC:
+
+\[
+	T: \begin{cases}
+		\vec{T_A} = H_A\sin(\frac{\pi}{3})\\
+		\vec{T_B} = R_B\sin(-\frac{\pi}{3})\\
+		\vec{T_C} = H_C\sin(\frac{\pi}{3})
+	\end{cases}
+	\Longrightarrow
+	\begin{cases}
+		\vec{T_A} = \frac{\sqrt{3}}{2}F\\
+		\vec{T_B} = -\sqrt{3}F\\
+		\vec{T_C} = \frac{\sqrt{3}}{2}F
+	\end{cases}
+\]
+
+\subparagraph{disegniamo il grafico del taglio}
+Ricordando la convenzione del taglio, \textbf{positivo} quando produce \textit{rotazione oraria} e \textbf{negativo} quando produce \textit{rotazione anti-oraria},  procediamo al disegno del grafico:
+
+Mentre si disegna un grafico di questo tipo, è importante ricordare che il grafico deve risultare, quando è verticale, di un'altezza pari al vettore che agisce in quel punto. Per esempio, nel punto B il grafico ha un'altezza complessiva pari al valore di $T_B$, così come è analogamente in A ed in C.
+
+Si può iniziare a disegnare il grafico partendo da un qualsiasi estremo del corpo rigido.
+
+Iniziamo per esempio dall'estremo A. Spostiamoci di un $ds$ verso l'alto e osserviamo per questo \textit{concio elementare} se il taglio produca rotazione oraria o anti-oraria. In questo caso, produce una rotazione anti-oraria. Procedendo via via lungo l'asta, arriviamo al punto B, in cui è applicata una nuova forza. Qui, sommiamo i due valori del taglio e procediamo oltre. Da questo punto, siccome $T_B>T_A$ il taglio produce una rotazione oraria e così rimane sino alla fine dell'asta in C.
+
+Come già detto, se si esegue la stessa operazione partendo dall'estremo C al posto che in A si \textit{deve} ottenere lo stesso risultato.
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/taglio_AC.tex}}
+  \caption{Taglio in AC.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_AC.tex}}
+  \caption{Grafico del taglio.}
+  \end{subfigure}
+  \caption{Analisi del taglio nell'asta AC.}
+\end{figure}
+
+\subparagraph{Calcolo del momento flettente}
+Procediamo al calcolo della componente del momento flettente. Scegliamo, per esempio, A come punto di origine del nostro calcolo del momento flettente. Un qualsiasi altro estremo dovrà dare lo stesso risultato.
+
+La forza normale all'asta (che in questo caso è $T_A$) che viene applicata in A, se per un attimo immaginiamo l'asta come duttile, \textit{piega l'asta verso destra}. In A quindi, le fibre saranno \textit{tese sul lato di sinistra}.
+
+Chiamiamo $\Delta{S}$ la distanza dal punto A. Il momento, in un generico punto tra A e B, sarà pari quindi a $M = \Delta{S}T_A$. Quando arriviamo in B, viene introdotta un'altra forza normale all'asta, $T_B$, di direzione opposta. Chiamiamo la distanza dal punto B $\Delta{k}$ e procediamo. Questo porta il momento a divenire pari a $M = \Delta{S}T_A - \Delta{K}T_B$, e gradualmente riduce il valore del momento sino ad azzerarsi in C.
+
+Come già detto, se si esegue la stessa operazione partendo dall'estremo C al posto che in A si \textit{deve} ottenere lo stesso risultato.
+
+\[
+	M_{max} = \Delta{S}_{M_{max}}T_A = LT_A = L\frac{\sqrt{3}}{2}F
+\]
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/taglio_AC.tex}}
+  \caption{Forze che producono momento flettente in AC.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_AC.tex}}
+  \caption{Grafico del momento flettente.}
+  \end{subfigure}
+  \caption{Analisi del momento flettente nell'asta AC.}
+\end{figure}
+
+\paragraph{Visualizzazione della sovrapposizione degli effetti}
+Questo può essere un utile strumento per visualizzare l'effetto di ogni singola forza, anche se in alcune combinazioni questi effetti considerati uno per volta possono non avere una reale controparte fisica.
+
+\subparagraph{Sovrapposizione degli effetti per lo sforzo normale}
+Disegnando l'effetto di una sola forza per volta (figura \ref{sforzo_forza_singola}), l'effetto delle forze accoppiate due a due  (figura \ref{sforzo_coppia_forze}) si capisce come l'applicazione di forze diverse in punti diversi vada a imporre uno sforzo normale differente.
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzo_A.tex}}
+  \caption{Sforzo normale di $N_A$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzo_B.tex}}
+  \caption{Sforzo normale di $N_B$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzo_C.tex}}
+  \caption{Sforzo normale di $N_C$.}
+  \end{subfigure}
+  \caption{Sforzo normale delle singole forze.}
+  \label{sforzo_forza_singola}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzo_A_B.tex}}
+  \caption{Sforzo normale di $N_A$ e $N_B$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzo_B_C.tex}}
+  \caption{Sforzo normale di $N_B$ e $N_C$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_sforzo_A_C.tex}}
+  \caption{Sforzo normale di $N_C$ e $N_A$.}
+  \end{subfigure}
+  \caption{Sforzo normale di forze accoppiate due a due.}
+  \label{sforzo_coppia_forze}
+\end{figure}
+
+\subparagraph{Sovrapposizione degli effetti per il taglio}
+Disegnando l'effetto di una sola forza per volta (figura \ref{taglio_forza_singola}), l'effetto delle forze accoppiate due a due  (figura \ref{taglio_coppia_forze}) si capisce come l'applicazione di forze diverse in punti diversi vada a imporre un taglio differente.
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_A.tex}}
+  \caption{Taglio di $T_A$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_B.tex}}
+  \caption{Taglio di $T_B$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_C.tex}}
+  \caption{Taglio di $T_C$.}
+  \end{subfigure}
+  \caption{Taglio delle singole forze.}
+  \label{taglio_forza_singola}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_A_B.tex}}
+  \caption{Taglio di $T_A$ e $T_B$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_B_C.tex}}
+  \caption{Taglio di $T_B$ e $T_C$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_taglio_A_C.tex}}
+  \caption{Taglio di $T_C$ e $T_A$.}
+  \end{subfigure}
+  \caption{Taglio di forze accoppiate due a due.}
+  \label{taglio_coppia_forze}
+\end{figure}
+
+\subparagraph{Sovrapposizione degli effetti per il momento flettente}
+È possibile calcolare il momento flettente anche tramite la sovrapposizione degli effetti di tutte le varie forze che agiscono in direzione normale rispetto allo spostamento.
+
+A seguire, disegnando l'effetto di una sola forza per volta (figura \ref{momento_forza_singola}), l'effetto delle forze accoppiate due a due  (figura \ref{momento_coppia_forze}) si capisce come l'applicazione di forze diverse in punti diversi vada a formare dei momenti flettenti diversi.
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_A.tex}}
+  \caption{Momento flettente di $T_A$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_B.tex}}
+  \caption{Momento flettente di $T_B$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_C.tex}}
+  \caption{Momento flettente di $T_C$.}
+  \end{subfigure}
+  \caption{Momento flettente delle singole forze.}
+  \label{momento_forza_singola}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_A_B.tex}}
+  \caption{Momento flettente di $T_A$ e $T_B$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_B_C.tex}}
+  \caption{Momento flettente di $T_B$ e $T_C$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.3\textwidth}
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{chapters/2/2015/0629/2/grafico_momento_A_C.tex}}
+  \caption{Momento flettente di $T_C$ e $T_A$.}
+  \end{subfigure}
+  \caption{Momento flettente di forze accoppiate due a due.}
+  \label{momento_coppia_forze}
+\end{figure}
+
+\end{document}

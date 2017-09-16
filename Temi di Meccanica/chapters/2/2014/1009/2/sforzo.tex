@@ -1,0 +1,22 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+
+  \point{c}{0}{0}
+  \point{c1}{0}{0.8}
+  \point{c2}{-0.8}{0}
+  \point{a}{2-1.41421}{1.41421}
+  \point{a1}{2-1.41421}{0.8+1.41421}
+  \point{d}{2}{0}
+  \point{d1}{2-0.8}{0}
+  \point{b}{2+1.41421}{-1.41421}
+  \point{b1}{2+1.41421}{-1.41421-1.3}
+
+  \beam{2}{a}{b};
+
+  \internalforces{a}{b}{0.707}{0.707}[0][red];
+
+\end{tikzpicture}

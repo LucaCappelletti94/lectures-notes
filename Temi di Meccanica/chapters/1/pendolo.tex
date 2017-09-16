@@ -1,0 +1,23 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{b}{5}{0};
+  \point{c}{-1}{-1}
+
+  %\load{1}{a}[90];
+  \beam{2}{a}{b};
+  \beam{2}{c}{a};
+
+  \hinge{1}{a}
+  \hinge{1}{c}
+
+  \support{1}{c}
+
+  \notation{1}{a}{A}[above left];
+  \notation{1}{b}{B}[above right];
+
+\end{tikzpicture}

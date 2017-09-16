@@ -1,0 +1,81 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Cinematica del corpo rigido}
+
+\subsection{Analisi dimensionali e come può aiutare.}
+Un \textbf{forte aiuto} nella risoluzione di esercizi, in meccanica, è \textit{l'analisi dimensionale}. Quando ci si trova di fronte ad equazioni di una grossa mole, come per esempio quella in figura \ref{big_equation}, ci si può sentire istintivamente intimoriti, ma un ottimo strumento per identificare eventuali errori è proprio il \textit{controllo delle unità di misura}.
+
+
+\begin{figure}[H]
+  \begin{equation}
+\begin{split}
+\dot{\omega_m} = \frac{gR_p\tau(m -\frac{M}{2}(\sin(\alpha) + f_v\cos(\alpha))) + \mu_{d}C_m}{\mu_{d}J_m  + m(R_p\tau)^2 + \frac{1}{4}M(R_p\tau)^2 + J_p \tau^2 + \frac{1}{4}J \frac{(R_p\tau)^2}{R^2}}
+\end{split}
+\end{equation}
+\caption{Soluzione di uno dei punti di un esercizio d'esame, che descrive l'accelerazione di un motore, dato un determinato sistema.}
+\label{big_equation}
+\end{figure}
+
+\paragraph{Esempio 1}
+Prendiamo ad esempio un sottoinsieme della formula qui sopra. Potrebbe risultare possibile che, per distrazione ricopiando oppure con un errore di derivazione, al posto della formula corretta (figura \ref{formula_corretta_1}) si finisce per scrivere un errore (figura \ref{formula_sbagliata_1}).
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  m -\frac{M}{2}(\sin(\alpha) + f_v\cos(\alpha))
+  \]
+  \caption{Formula corretta.}
+  \label{formula_corretta_1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  m -\omega\frac{M}{2}(\sin(\alpha) + f_v\cos(\alpha))
+  \]
+  \caption{Formula con un errore.}
+  \label{formula_sbagliata_1}
+  \end{subfigure}
+  \caption{Sottoinsieme della formula vista sopra.}
+\end{figure}
+
+Nel nostro esempio, appare una velocità angolare che fa assumere un significato dimensionalmente completamente diverso. Ora, questo errore posto nella formula di grosse dimensioni può sfuggire di vista, ma ogni singola somma e sottrazione \textbf{deve} essere tra termini nella stessa unità di misura, altrimenti risulta priva di senso.
+
+Possiamo quindi controllare per ogni sottoinsieme dove viene effettuata un'addizione aritmetica se i due termini (previa assenza di sostituzioni precedenti) abbiano dimensionalmente lo stesso significato.
+
+Per quanto ovvio possa essere che non è possibile sommare mele e pere, questo piccolo strumento può risultare molto utile controllando i passaggi di equazioni di grande dimensione, senza dover immediatamente rifare completamente i calcoli.
+
+\subsection{Considerazioni ed errori comuni nelle derivate in meccanica}
+Quando si eseguono derivazioni in meccanica, è importante tenere a mente che non si sta derivando in funzione dell'incognita (figura \ref{derivazione_incognita}), ma del tempo (figure \ref{derivazione_tempo_1} e \ref{derivazione_tempo_2}), e la dipendenza delle variabili sul tempo è spesso implicita:
+
+\begin{figure}[H]
+  \begin{align*}
+    f(x) &= x^2 \\
+    \frac{df(t)}{dx}  &= 2x
+  \end{align*}
+  \caption{Derivata in funzione dell'incognita $x$.}
+  \label{derivazione_incognita}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{align*}
+    f(t) &= be^{i\alpha} + b \\
+    \frac{df(t)}{dt}  &= b\dot{\alpha} e^{i(\frac{\pi}{2}+\alpha)}
+  \end{align*}
+  \caption{Derivata in funzione del tempo, con $\alpha$ variabile nel tempo e $b$ costante.}
+  \label{derivazione_tempo_1}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{align*}
+    f(t) &= be^{i\alpha} + b \\
+    \frac{df(t)}{dt} &= b\dot{\alpha} e^{i(\frac{\pi}{2}+\alpha)} +\dot{b}e^{i\alpha} + \dot{b}
+  \end{align*}
+  \caption{Derivata in funzione del tempo, con $\alpha$ e $b$ variabili nel tempo.}
+  \label{derivazione_tempo_2}
+\end{figure}
+
+\end{document}

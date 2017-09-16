@@ -1,0 +1,40 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{a1}{0.5}{0};
+  \point{d}{0.5}{sqrt(3)/2}
+  \point{d1}{1}{sqrt(3)/2}
+  \point{b}{1}{2/(sqrt(3)/2)}
+  \point{b1}{0.5}{(sqrt(3)/2)}
+  \point{c}{2}{0}
+  \point{c1}{1.5}{0}
+
+  \beam{2}{a}{b}[0][1];
+  \beam{2}{b}{c};
+
+  \load{1}{a}[0][0.75]
+  % \load{1}{d}
+  % \load{1}{b}[180]
+  \load{1}{c}[180][0.75]
+
+
+  \notation{1}{a1}{$\vec{H}_A$}
+  % \notation{1}{d1}{$\vec{R}_D$}
+  % \notation{1}{b1}{$\vec{H}_B$}[below left]
+  \notation{1}{c1}{$\vec{F}$}[above left]
+
+   % \support{3}{o};
+
+   % %Degrees
+   % \notation{1}{o}{$\alpha$}[above];
+   % \notation{1}{a}{$\beta$}[above];
+
+   % \notation{5}{o}{a}[$a$];
+   % \notation{5}{a}{b}[$b$];
+   % \notation{5}{o}{b}[$c$];
+
+\end{tikzpicture}

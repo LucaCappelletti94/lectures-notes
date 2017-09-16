@@ -1,0 +1,76 @@
+\documentclass[main.tex]{subfiles}
+ 
+\begin{document}
+
+\section{Motori}
+
+\subsection{Come identificare il tipo di moto, se diretto o retrogrado}
+
+Definita $W_m$ (o $W_1$) come la potenza motrice, $W_r$ (o $W_2$) come la potenza resistente, chiamata a volte anche potenza dell'utilizzatore $W_u$ e $W_p$ come potenza perduta, procediamo a identificare il tipo del moto in condizioni di regime e di transitorio.
+
+\begin{figure}[H]
+	\[
+		\dfrac{dE_{c_m}}{dt} = J_m\omega\dot{\omega}
+	\]
+	\caption{Spesso la derivata dell'$E_{c_m}$ assume questo valore.}
+\end{figure}
+
+\begin{figure}[H]
+\[
+	\dfrac{dE_c}{dt} = \dfrac{dE_{c_m}}{dt} + \dfrac{dE_{c_r}}{dt}
+	\Longrightarrow
+	\dfrac{dE_{c_r}}{dt} = \dfrac{dE_c}{dt} - \dfrac{dE_{c_m}}{dt} 
+\]
+\caption{Come si definisce la derivata di $E_{c_r}$.}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+	\text{Moto diretto}: \begin{cases}
+		W_m - \dfrac{dE_{c_m}}{dt} > 0 \\
+		W_u - \dfrac{dE_{c_u}}{dt} < 0
+	\end{cases}  
+  \]
+  \caption{Condizioni di moto diretto.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+	\text{Moto retrogrado}: \begin{cases}
+		W_m - \dfrac{dE_{c_m}}{dt} < 0 \\
+		W_u - \dfrac{dE_{c_u}}{dt} > 0
+	\end{cases}    
+  \]
+  \caption{Condizioni di moto retrogrado.}
+  \end{subfigure}
+  \caption{Analisi del tipo di moto.}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+	\text{Moto diretto}: \begin{cases}
+		W_m > 0 \\
+		W_u < 0
+	\end{cases}  
+  \]
+  \caption{Condizioni di moto diretto a regime.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+	\text{Moto retrogrado}: \begin{cases}
+		W_m < 0 \\
+		W_u > 0
+	\end{cases}    
+  \]
+  \caption{Condizioni di moto retrogrado a regime.}
+  \end{subfigure}
+  \caption{Analisi del tipo di moto a regime.}
+\end{figure}
+\end{document}

@@ -1,0 +1,43 @@
+% First image 2015 06 29
+
+\begin{tikzpicture}
+
+  \tiny
+
+
+  \point{d}{0}{0}
+  \point{a}{0}{2}
+  \point{c}{2}{0}
+  \point{b}{4}{2}
+  \point{e}{6}{2}
+
+  \beam{2}{d}{c}[0][1];
+  % \beam{2}{c}{b}[0][1];
+  % \beam{2}{a}{e};
+
+  % \load{1}{e}[90]
+
+  \load{1}{d}[270]
+  \load{1}{d}[180]
+  \load{2}{d}
+
+  \load{1}{c}[0]
+  \load{1}{c}[90]
+
+  % \load{1}{a}[270]
+  % \load{1}{a}[180]
+
+
+  \notation{1}{d}{$\vec{M}_D$}[above]
+  \notation{1}{d}{$\vec{H}_D$}[below left]
+  \notation{1}{d}{$\vec{V}_D$}[below right]
+
+  \notation{1}{c}{$\vec{R}_{C_x}$}[above left]
+  \notation{1}{c}{$\vec{R}_{C_y}$}[above right]
+
+  % \notation{1}{a}{$\vec{H}_A$}[below left]
+  % \notation{1}{a}{$\vec{V}_A$}[below right]
+
+  % \notation{1}{e}{$\vec{P}$}[above right]
+
+\end{tikzpicture}

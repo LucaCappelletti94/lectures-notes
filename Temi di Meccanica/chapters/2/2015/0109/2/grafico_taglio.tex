@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{a1}{0.5}{0};
+  \point{d}{0.5}{1/(0.866)}
+  \point{d1}{0}{1/(0.866)}
+  \point{b}{1}{2/(0.866)}
+  \point{b1}{1.5}{2/(0.866)}
+
+  \beam{2}{a}{b};
+
+  \internalforces{a}{d}{-0.866}{-0.866}[0][red];
+  \internalforces{d}{b}{0.866}{0.866}[0][blue];
+
+\end{tikzpicture}

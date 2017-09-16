@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+
+  \tiny
+
+  \point{a}{0}{0};
+  \point{a1}{0.5}{0};
+  \point{d}{0.5}{1/(sqrt(3)/2)}
+  \point{d1}{0}{1/(sqrt(3)/2)}
+  \point{b}{1}{2/(sqrt(3)/2)}
+  \point{b1}{1.5}{2/(sqrt(3)/2)}
+
+  \beam{2}{a}{b};
+
+  \internalforces{a}{d}{-0.5}{-0.5}[0][red];
+  \internalforces{d}{b}{0.5}{0.5}[0][blue];
+
+\end{tikzpicture}

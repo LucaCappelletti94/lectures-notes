@@ -1,0 +1,171 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Secondo esercizio}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{2015-2602-2.jpg}
+\end{figure}
+
+La struttura in figura è soggetta alla sola forza orizzontale P.
+\\
+Si chiede di calcolare:
+\begin{enumerate}
+\item Le reazioni vincolari a terra (punti A e C).
+\item Le azioni interne nell’asta AB (disegnare i corrispondenti diagrammi).
+\end{enumerate}
+
+\clearpage
+
+\subsection{Soluzione secondo esercizio}
+
+\subsubsection{Osservazioni}
+
+\begin{enumerate}
+\item La struttura è composta da un'asta AC, un pattino ed una biella CB.
+\item La biella agisce inclinata di $30\deg$, per cui le componenti della reazione assiale saranno rispettivamente $\dfrac{2}{2}$ e $\dfrac{\sqrt{3}}{2}$ della reazione.
+\end{enumerate}
+
+\subsubsection{Analisi preliminare di isostaticità}
+Verifico che $gdl_{tot} = gdv_{tot}$:
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdv: \begin{cases}
+		gdv_{pattino} = 2\\
+		gdv_{biella} = 1
+  	\end{cases}
+  \]
+  \caption{Gradi di vincolo del sistema.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	gdl: \begin{cases}
+  		gdl_{asta} = 3\\
+  	\end{cases}
+  \]
+  \caption{Gradi di libertà del sistema.}
+  \end{subfigure}
+  \caption{Verifica preliminare di isostaticità.}
+\end{figure}
+
+\subsubsection{Primo punto}
+
+\paragraph{Analisi dei vincoli esterni}
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/2602/2/esterni.tex}}
+\caption{Analisi dei vincoli esterni}
+\end{figure}
+
+\[
+\begin{cases}
+	H_C = -P\\
+	V_C = -V_A\\
+	M_A + \dfrac{1}{2}LP + \sqrt{3}LV_C = 0
+\end{cases}
+\]
+
+\paragraph{Analisi delle reazioni vincolari nell'asta CB}
+
+\begin{figure}[H]
+\centering
+\resizebox{.5\textwidth}{!}{\input{chapters/2/2015/2602/2/asta_CB.tex}}
+\caption{Reazioni vincolari nell'asta CB}
+\end{figure}
+
+\[
+\begin{cases}
+	H_C = R_{B_x} = -P\\
+	V_C = R_{B_y}\\
+	M_C = 0 = \sqrt{3}LR_{B_y} - LR_{B_x}\\
+\end{cases}
+\Longrightarrow
+\begin{cases}
+	H_C = R_{B_x} = -P\\
+	V_C = R_{B_y}\\
+	V_C = -\dfrac{\sqrt{3}}{3}P\\
+\end{cases}
+\]
+
+Sostituisco nell'equazione di equilibrio dei momenti ed ottengo:
+
+\[
+	M_A + \dfrac{1}{2}LP - \sqrt{3}L\dfrac{\sqrt{3}}{3}P = 0
+\]
+
+\[
+	M_A + \dfrac{1}{2}LP - LP = 0
+\]
+
+\[
+	M_A  = \dfrac{1}{2}LP
+\]
+
+\paragraph{Riassumendo}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	A: \begin{cases}
+		V_A = \dfrac{\sqrt{3}}{3}P\\
+		M_A = \dfrac{1}{2}LP
+  	\end{cases}
+  \]
+  \caption{Reazioni vincolari in A.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+  \[
+  	C: \begin{cases}
+  		V_C = -\dfrac{\sqrt{3}}{3}P\\\\
+  		H_C = -P\\
+  	\end{cases}
+  \]
+  \caption{Reazioni vincolari in C.}
+  \end{subfigure}
+\end{figure}
+
+
+\subsubsection{Secondo punto}
+Le componenti dei vettori, dato che l'asta AB è 	verticale, coincidono già con le componenti di sforzo normale e taglio.
+
+\paragraph{Sforzo normale}
+Lo sforzo normale è di contrazione e quindi è negativo.
+
+\begin{figure}[H]
+\centering
+\resizebox{.25\textwidth}{!}{\input{chapters/2/2015/2602/2/sforzo.tex}}
+\caption{Sforzo normale nell'asta AB}
+\end{figure}
+
+\paragraph{Taglio}
+Nella tronco superiore, le forze $H_B$ e $P$ originano una rotazione \textbf{anti-oraria}, e creano quindi un taglio \textbf{negativo}. Nella tronco inferiore non è presente taglio.
+
+\begin{figure}[H]
+\centering
+\resizebox{.25\textwidth}{!}{\input{chapters/2/2015/2602/2/taglio.tex}}
+\caption{Taglio nell'asta AB}
+\end{figure}
+
+\paragraph{Momento flettente}
+Il momento flettente raggiunge il punto massimo nel punto di applicazione della forza $P$, dove vale $LP$. Successivamente si mantiene costante sino a raggiungere il punto A.
+\\
+\\
+Le fibre tese si trovano sul lato di destra.
+
+\begin{figure}[H]
+\centering
+\resizebox{.25\textwidth}{!}{\input{chapters/2/2015/2602/2/momento.tex}}
+\caption{Momento flettente nell'asta AB}
+\end{figure}
+
+\end{document}
