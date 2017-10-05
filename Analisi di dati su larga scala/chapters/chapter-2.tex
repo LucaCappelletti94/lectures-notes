@@ -1,0 +1,143 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Analisi di complessità di un job map-reduce}
+
+\subsection{Es: moltiplicazione di matrici}
+
+\[
+	A_{m\times n} \times B_{m \times o} \\
+	(i,j,a_{ij}) \longmapsto{M_A} ((i,j), (A, k, a_{ik})) \forall j = 1,...,o \\
+	(k,j,b_{kj}) \longmapsto{M_B} ((i,j), (B, k, b_{ik})) \forall i = 1,...,m \\
+	(i,j)[(A, 1, a_{i1}), ..., (A, m, a_{im}), (B, 1, b_{1j}), ..., (B, m, b_{mj})]
+\]
+
+
+\[
+	R(A,B) \Join S(B,C) \Join T(C,D) \\
+	(a, b) \longmapsto_{M_R} (b, (R,a))\\
+	(b, c) \longmapsto_{M_S} (b, (S,a))\\
+\]
+
+Quale è il costo di questo algoritmo.
+Indichiamo con $r, s, t$ i rispettivi numeri di tuple delle tabelle R, S, T.
+Il primo processo $M_R$ riceve tutte e sole le tuple di R, quindi ha costo r. Il secondo, similmente, ha costo s.
+
+Il risultato del costo di complessità sarà quindi un $O(r+s)$. Ma questo è tra due relazioni. Se volessi farlo da 3 relazioni (\textbf{join in cascata}) cosa andrei ad ottenere?
+
+$(R \Join S) \Join T$
+
+Ottengo il costo $O(r+s+t+rsp)$, con $p$ rappresentante la probabilità che due valori di $R$ e $S$ hanno un attributo uguale.
+
+\subsection{Join multi-way}
+Date due funzioni di hash, una $h$ per l'attributo $B$ ed una g per l'attributo $C$, con $b$ \textbf{bucket} e $c$ \textbf{bucket}, avendo che $bc = k$.
+\\
+Nel caso di una tupla $(u,v) \in R$ viene inviata ad un'unica colonna verticale, riducendo i nodi (\textbf{c reducer}).
+\\
+Nel caso di una tupla $(w,z) \in T$ viene inviata ad un'unica colonna orizzontale, riducendo i nodi (\textbf{b reducer}).
+\\
+Nel caso di una tupla $(v,w) \in S$ viene inviata ad un'unica cella, riducendo i nodi ad uno soltanto (\textbf{1 reducer}).
+\\
+Il costo quindi risulta essere:
+
+\[
+	O(r+2s+t+cr+bt)
+\]
+
+\subsection{Rilassamento lagrangiano}
+N.B. Il parametro lambda non può essere negativo.
+
+\[
+	L(b,c) = cr+br - \lambda(bc-k)
+\]
+
+\[
+	\dfrac{dL(b,c)}{db} = 0
+\]
+
+\[
+	\dfrac{dL(b,c)}{dc} = 0
+\]
+
+Ottengo quindi un sistema:
+
+\[
+	\begin{cases}
+		t - \lambdac = 0 \\
+		r - \lambdab = 0 \\
+	\end{cases}
+	\Longrightarrow
+	\begin{cases}
+		t = \lambdac \\
+		r = \lambdab \\
+	\end{cases}
+\]
+
+\[
+	\lambda = \sqrt{\dfrac{rt}{k}}
+\]
+
+\[
+	c = \sqrt{\dfrac{kt}{r}}
+\]
+
+\[
+	b = \sqrt{\dfrac{kr}{t}}
+\]
+
+Il \textbf{costo ottimizzato} della \textbf{join multiway} risulta quindi essere:
+
+\[
+	O(r+2s+t+2\sqrt{krt})
+\]
+
+\subsection{Es: Join sui nodi di facebook}
+Prendiamo ad esempio il grafo dei nodi facebook, dotato di $10^9$ nodi.
+
+$R(U_1, U_2)$, $\abs{R} = r = 3\times10^11$ (dati arbitrari)
+
+\[
+	R\Join R \Join R
+\]
+
+Approccio Multi-way: $r+2r + r + 2r\sqrt{k} = 4r + 2r\sqrt{k} = 1\times 2\times 10^12 + 6\times 10^11 \sqrt{k}$
+\\
+Approccio cascata (nell'ipotesi che $abs{R \Join R} = 30r$): $r + r + r + r^2\times p = ... = 2r + 60r = 1 \times 2 \times 10^12 + 1\times 86 \times 10^13$
+
+Ottengo quindi che: $6\times 10^11 \sqrt{k} \leq 1\times 86 \times 10^33 \longrightarrow k \leq 961$, e risulta quindi migliore utilizzare l'approccio multi way quando si hanno meno di 961 nodi da allocare a dei reducer.
+
+\subsection{Es: Google pagerank}
+Come funziona \textbf{pagerank}:
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+  & A & B & C & D \\ 
+ \hline
+ A & 0 & $\dfrac{1}{2}$ & 1 & 0 \\ 
+ \hline
+ B & $\dfrac{1}{3}$ & 0 & 0 & $\dfrac{1}{2}$ \\ 
+ \hline
+ C & $\dfrac{1}{3}$ & 0 & 0 & $\dfrac{1}{2}$ \\ 
+ \hline
+ D & $\dfrac{1}{3}$ & $\dfrac{1}{2}$ & 0 & 0 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\[
+	v_j(t+1) = P(\text{Trovarsi in j al tempo t+1}) = \sum_i P (\text{trovarsi in i al tempo t})\bulletP(\text{spostarsi da i a j | trovarsi in i al punto t})
+\]
+
+\[
+	\sum_i v_i(t) m_{ji} = \sum_i m_{ji}v_i(t) = (Mv(t))_j
+\]
+
+con $M_{ij} = P \text{Spostarsi da j a i}$.
+
+\[
+	\vec{V}(t+1) = M\vec{v}(t)
+\]
+
+\end{document}

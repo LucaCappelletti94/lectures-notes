@@ -1,0 +1,91 @@
+\documentclass{report} % We use report to allow for chapers etc...
+\usepackage[utf8]{inputenc} % This allows for utf support.
+\usepackage[T1]{fontenc}  % Defines true type fonts
+\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
+\usepackage{csquotes} % Package required by babel
+\usepackage{geometry} % More rich support for page layout.
+\geometry{
+ a4paper,
+ total={170mm,250mm},
+ left=20mm,
+ top=25mm,
+ }
+\usepackage{emptypage} % When a page is empty, Latex won't generate page number or other page elements.
+\usepackage{multicol} % For the possibility of using columns with  \begin{multicols}{n}.
+\usepackage[colorlinks=true,urlcolor=blue,pdfpagelabels,hyperindex=false]{hyperref}  % Enable table of contents and links.
+\usepackage{microtype} % for automatic micro fitting of characters
+\usepackage{amsmath} % for math rendering
+\usepackage{float} % to enable floating graphics
+\usepackage{graphicx} % for images and generally graphics
+\usepackage{caption} % enabling of nice captions
+\usepackage{subcaption} % and subcaptions of images
+\graphicspath{ {images/} } % We'll put all the images in the folder "images"
+\usepackage[style=authoryear,sorting=ynt, backend=biber]{biblatex} % Package to handle the bibliography
+\nocite{*} % This allows for having entried in the bib file that do not have to be necesseraly used
+\usepackage{subfiles} % To use subfiles without cruxifying saints
+\usepackage{chngcntr} % Has functions to reset counters
+
+\usepackage{xcolor} % To highlight text
+\usepackage[cache=false]{minted} % For highlighting code
+\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+\setminted{
+bgcolor=mintedbackground,
+fontfamily=tt,
+linenos=true,
+numberblanklines=true,
+numbersep=5pt,
+gobble=0,
+frame=leftline,
+framerule=0.4pt,
+framesep=2mm,
+funcnamehighlighting=true,
+tabsize=4,
+obeytabs=false,
+mathescape=false
+samepage=false, %with this setting you can force the list to appear on the same page
+showspaces=false,
+showtabs =false,
+texcl=false,
+}
+
+\usepackage{paralist} % For compacted enumerations
+\usepackage[automake,style=long,nonumberlist,toc,xindy,acronym,nomain]{glossaries} % for glossaries and acronyms
+\makeglossaries % Enables the package above
+
+\usepackage{imakeidx} % instead of makeidx, so you don't need to run MakeIndex
+\makeindex[program=makeindex,columns=2,intoc=true,options={-s ../pyro.ist}] % Enables the package above
+\indexsetup{firstpagestyle=empty, othercode=\small} % No page number in the first page of analytical index
+
+\usepackage{bookmark} % Enables bookmarks in generated pdf
+
+\usepackage{fourier} % For icons such as \bomb, \noway, \danger and various others. For more info, go here: http://ctan.mirror.garr.it/mirrors/CTAN/fonts/fourier-GUT/doc/latex/fourier/fourier-orns.pdf
+
+\usepackage{mathtools} % To use custom delimiters that Latex did not implement cos duh
+
+\usepackage{fancyhdr} % This allows for the headings in the chapters
+\pagestyle{fancy} % This activates it
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
+\usepackage{enumitem,amssymb} % For a todo check list
+\newlist{todolist}{itemize}{2} % For a  todo check list
+\setlist[todolist]{label=$\square$}  % For a todo check list
+
+\counterwithin*{equation}{section}% Reset equation at \section
+\counterwithin*{equation}{subsection}% Reset equation at \subsection
+%\counterwithin*{equation}{subsubsection}% Reset equation at \subsubsection // Doesn't work for god knows why.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPORTANT NOTE ON BIBLIOGRAPHY USE %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To use the bibliography, run BibTex on this file. If everything is correct, it will terminate with no errors.
+% The warning "Using fall-back BibTeX(8) backend: (biblatex) functionality may be reduced/unavailable." is expected.
+
+\input{\main/../acronyms.tex}

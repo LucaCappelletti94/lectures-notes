@@ -1,11 +1,12 @@
-# Various Notes
-## My latex notes on whichever subject I'm currently studying.
+# QED Notes
+## My latex notes on QED.
 All are available to the public, but please take them with a grain of salt :)
+
+I study computer engeneering, not quantum mechanics.
 
 ## Index
 Notes are currently available about:
-- [Feynman Diagrams Introduction 🇬🇧](https://github.com/LucaCappelletti94/qed-notes/blob/master/Feynman%20Diagrams/Feynman%20Diagrams.pdf)
-- [Esami di Meccanica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Temi%20di%20Meccanica/Temi%20di%20Meccanica%20v1.1.pdf)
+- [Feynman Diagrams](https://github.com/LucaCappelletti94/qed-notes/blob/master/Feynman%20Diagrams/Feynman%20Diagrams.pdf)
 
 Feel absolutely **FREE** to correct my errors.
 

@@ -1,0 +1,31 @@
+\providecommand{\main}{.}
+\input{\main/../packages.tex}
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\subfile{\main/titlepage}
+
+{\hypersetup{hidelinks}
+	\tableofcontents  % Generates the table of contents
+	 %\listoffigures  % Generates the list of images and figures
+	 %\listoftables % Generates the list of tables
+}
+
+\chapter{Introduction}
+\subfile{\main/chapters/introduction}
+
+\chapter{Chapter 2}
+\subfile{\main/chapters/chapter-2}
+
+\chapter{Conclusion}
+\subfile{\main/chapters/conclusion}
+
+\appendix
+\chapter{Appendix}
+\subfile{\main/chapters/appendix}
+
+\input{\main/../footer.tex}
+
+\end{document}

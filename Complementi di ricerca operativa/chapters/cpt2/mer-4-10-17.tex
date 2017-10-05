@@ -1,0 +1,103 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Modelli quadratici}
+
+Algoritmi di ottimizzazione che approssimano localmente $f$ con modelli quadratici:
+
+\[
+	\text{min} f(x) = \dfrac{1}{2}x^T Qx - b^Tx, \text{t.c.} c \in \mathbb{R}^n
+\]
+
+dove $Q$ è una matrice quadrata di ordine $n$.
+
+\subsection{Casi Possibili}
+
+- $Q$ non è semi-definita positiva: $f$ non ha un minimo.
+- $Q$ è definita positiva: $x^* = Q^{-1}b$ è l'unico minimo locale. Il punto $x^*$ è il \textbf{punto di ottimo globale}.
+- $Q$ è definita semi-positiva:
+	- $Q$ non è singolare: $x^* = Q^{-1} b$ è l'unico minimo globale. 
+	- $Q$ è singolare:
+		- non ho soluzioni.
+		- ho infinite soluzioni.
+
+
+\subsection{Esempio}
+
+\[
+	f(x,y) = \dfrac{1}{2} (ax^2 + by^2) - x
+\]
+
+Riscrivo nei termini della formula per l'algoritmo:
+
+\[
+	f(x) = \dfrac{1}{2}
+	\begin{bmatrix}
+    	x & y 
+	\end{bmatrix}
+	\begin{bmatrix}
+    	a & 0 \\
+    	0 & b 
+	\end{bmatrix}
+	\begin{bmatrix}
+    	x\\
+    	y 
+	\end{bmatrix}
+	- 
+	\begin{bmatrix}
+    	x & y 
+	\end{bmatrix}
+	\begin{bmatrix}
+    	1\\
+    	0 
+	\end{bmatrix}
+\]
+
+
+\section{Introduzione agli algoritmi}
+
+Metodi di ottimizzazione continua:
+
+- Dato un punto di inizio $x_0$, generiam una sequenza ${x_k}^\infty_{k=0}$.
+- Terminato l'algoritmo, quando le condizioni necessarie sono soddisfatte con una certa precisione, per esempio $\norm{\nabla f(x_k)}\leq \epsilon$
+- Monotone algorithms requires that $f(x_k) < f(x_{k-1}) \forall k$
+
+\subsection{Quanto è buono un algoritmo di ottimizzazione?}
+
+Un algoritmo è \textbf{decente} se \textbf{converge}.
+
+\begin{definition}[Convergente globalmente]
+	Un algoritmo è chiamato convergente globalmente se converge a un punto $x^*$
+\end{definition}
+
+// PERSE COSE DA SLIDE QUI
+
+Un algoritmo è \textbf{buono} se \textbf{converge rapidamente}
+\\
+
+Chiamando $x_k$ una sequenza in $\mathbb{R}^n$ che converge a $x^*$. La \textbf{convergenza} è chiamata:
+
+- \textbf{Q-lineare} se $\exists r \in (0,1) \text{s.t.} \dfrac{\norm{x_{k+1-x^*}}}{\norm{x_k - x^*}} \leq r, \text{for} k \geq \overline{k}$
+
+- \textbf{Q-superlineaee} se $\lim_{k\rightarrow \infty} \dfrac{\norm{x_{k+1-x^*}}}{\norm{x_k - x^*}} = 0$
+
+- \textbf{Q-quadratica} se $\exists C > 0 \text{s.t.} \dfrac{\norm{x_{k+1-x^*}}}{\norm{x_k - x^*}^2} \leq C, \text{for} k \geq \overline{k}$
+\\
+
+Q-quadratica implica superlineare che implica lineare.
+
+
+\subsection{Come determiniamo un punto di minimo}
+
+\subsubsection{Line search}
+Dato il punto corrente determino la direzione e dopo di che determino di quanto muovermi.
+
+\subsubsection{Trust Region}
+Costruisco un modello quadratico in base alle informazioni locali, quindi scelgo un parametro $\Delta k$, un raggio, e scelgo la direzione risolvendo un problema di ottimizzazione vincolato al parametro $\Delta_k$.
+
+\subsection{Condizioni di Wolf}
+
+// Iniziare a guardare queste
+
+\end{document}
