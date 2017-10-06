@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  4 OCT 2017 16:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  5 OCT 2017 15:05
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1906,38 +1906,84 @@ runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
 ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
 o ampl.out.pyg ../chapters/ampl/es2/example2.dat)...executed.
 
-
-(./ampl.out.pyg) [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/p
-dftex.map}
+ [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 \openout7 = `ampl.xdy'.
 
-]
+] (./ampl.out.pyg)
 runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
 ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
 o ampl.out.pyg ../chapters/ampl/es2/example2.mod)...executed.
 
- (./ampl.out.pyg)
+(./ampl.out.pyg)
 runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
 ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
 o ampl.out.pyg ../chapters/ampl/es2/example2.run)...executed.
 
  (./ampl.out.pyg) [2]
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ../chapters/ampl/steel/steel.dat)...executed.
+
+ (./ampl.out.pyg)
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ../chapters/ampl/steel/steel.mod)...executed.
+
+ (./ampl.out.pyg)
+[3]
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ../chapters/ampl/transp/transp.dat)...executed.
+
+ (./ampl.out.pyg)
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ../chapters/ampl/transp/transp.mod)...executed.
+
+ (./ampl.out.pyg)
+\openout5 = `ampl.pyg'.
+
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ampl.pyg)...executed.
+
+ (./ampl.out.pyg)
+\openout5 = `ampl.pyg'.
+
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ampl.pyg)...executed.
+
+ [4
+
+] (./ampl.out.pyg)
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ../chapters/ampl/multi/multi.dat)...executed.
+
+
+(./ampl.out.pyg)
+runsystem(pygmentize -l ampl -f latex -P commandprefix=PYG -F tokenmerge -F gob
+ble:n=0 -P funcnamehighlighting=True -P mathescape=False -P texcomments=False -
+o ampl.out.pyg ../chapters/ampl/multi/multi.mod)...executed.
+
+ (./ampl.out.pyg) [5]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 38.
-[3
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 80.
+[6
 runsystem(xindy -I xindy -L english -M ampl -C utf8 -t ampl.alg -o ampl.acr amp
 l.acn)...executed.
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 38.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 80.
  (./ampl.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 38.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 38.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 80.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 80.
 
 
 LaTeX Warning: There were undefined references.
@@ -1947,6 +1993,8 @@ Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                ampl
 (biblatex)                and rerun LaTeX afterwards.
 
+runsystem(rm ampl.pyg)...executed.
+
 runsystem(rm ampl.out.pyg)...executed.
 
 Package logreq Info: Writing requests to 'ampl.run.xml'.
@@ -1954,13 +2002,13 @@ Package logreq Info: Writing requests to 'ampl.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27416 strings out of 492995
- 472414 string characters out of 6132704
- 1080893 words of memory out of 5000000
- 30422 multiletter control sequences out of 15000+600000
- 71335 words of font info for 88 fonts, out of 8000000 for 9000
+ 27455 strings out of 492995
+ 472842 string characters out of 6132704
+ 1084893 words of memory out of 5000000
+ 30427 multiletter control sequences out of 15000+600000
+ 71496 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,11n,45p,2030b,1844s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,11n,45p,2030b,1843s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
 live/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/20
@@ -1970,10 +2018,10 @@ mf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texmf-dist
 type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
 public/cm-super/sfit1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
 blic/cm-super/sftt1000.pfb>
-Output written on ampl.pdf (3 pages, 132400 bytes).
+Output written on ampl.pdf (6 pages, 149406 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 25625 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 121 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 25665 words of extra memory for PDF output out of 29859 (max. 10000000)
 
