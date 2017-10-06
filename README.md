@@ -9,10 +9,9 @@ Notes are currently available about:
 
 ## Courses from University of Milan
 Notes from the courses (that I'm currently following, these notes are not complete!) of:
-- [Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
 - [Analisi di dati su larga scala 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Analisi%20di%20dati%20su%20larga%20scala/main.pdf)
 - [Complementi di ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Complementi%20di%20ricerca%20operativa/main.pdf)
-- [Complementi di ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Complementi%20di%20ricerca%20operativa/main.pdf)
+- [Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
 - [Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Ricerca%20operativa/main.pdf)
 - [Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Sistemi%20Intelligenti/main.pdf)
 
