@@ -1,5 +1,5 @@
 # Various Notes
-## My latex notes on whichever subject I'm currently studying.
+## Crafted with ~~Latex~~ Love
 All are available to the public, but please take them with a grain of salt :)
 These are notes from courses that I might be currently following, so might not be complete.
 
