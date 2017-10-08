@@ -8,6 +8,7 @@ To get started, follow these simple steps:
 3. Run **sudo easy_install Pygments** to get minted running
 3. Change the lualatex command to **"lualatex" -synctex=1 -interaction=nonstopmode --shell-escape %.tex**
 4. Change the pdflatex command to **pdflatex -synctex=1 -interaction=nonstopmode --shell-escape %.tex**
+5. [For Linux User] "sudo apt-get install texlive-lang-italian"
 
 ## Basic Structure
 The template is structured as follows:
