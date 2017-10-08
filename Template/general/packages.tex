@@ -27,6 +27,9 @@
 
 \usepackage{parskip} % To leave spaces in paragraphs
 \usepackage{bm} % To have bold vectors
+\usepackage{etoolbox} % To enable some parts of luacode
+\usepackage{luacode} % Used to script stuff
+\usepackage{luatex85}
 
 \usepackage{xcolor} % To highlight text
 \usepackage[cache=false]{minted} % For highlighting code
@@ -52,7 +55,7 @@ texcl=false,
 }
 
 \usepackage{paralist} % For compacted enumerations
-\usepackage[automake,style=long,nonumberlist,toc,xindy,acronym,nomain]{glossaries} % for glossaries and acronyms
+\usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
 \makeglossaries % Enables the package above
 
 \usepackage{imakeidx} % instead of makeidx, so you don't need to run MakeIndex
@@ -92,3 +95,5 @@ texcl=false,
 % The warning "Using fall-back BibTeX(8) backend: (biblatex) functionality may be reduced/unavailable." is expected.
 
 \input{\main/../../general/acronyms.tex}
+\addbibresource{references.bib}
+\input{\main/../../general/metadataLoader.tex}

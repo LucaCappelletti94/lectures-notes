@@ -1,11 +1,9 @@
 \providecommand{\main}{.}
 \input{\main/../../general/packages.tex}
 
-\addbibresource{references.bib}
-
 \begin{document}
 
-\subfile{\main/titlepage}
+\input{\main/../../general/title.tex}
 
 {\hypersetup{hidelinks}
 	\tableofcontents  % Generates the table of contents
@@ -16,11 +14,11 @@
 \chapter{Introduction}
 \subfile{\main/chapters/introduction}
 
-\chapter{A chapter}
+\chapter{Chapter 2}
 \subfile{\main/chapters/chapter-2}
 
 \chapter{Conclusion}
-\subfile{\main/chapters/conclusion}r
+\subfile{\main/chapters/conclusion}
 
 \appendix
 \chapter{Appendix}

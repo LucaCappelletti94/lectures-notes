@@ -1,0 +1,63 @@
+\begin{luacode}
+--[[Load data into variables to simplify code afterwards]]
+title = metadata["title"]
+cfu = metadata["cfu"]
+year = metadata["year"]
+degree = metadata["degree"]
+university = metadata["university"]
+notesType = metadata["notesType"]
+professors = metadata["professors"]
+authors = metadata["authors"]
+\end{luacode}
+
+
+\begin{titlepage}
+\begin{center}
+\vspace*{1em}
+\begin{luacode}
+		tex.print("\\MakeUppercase{\\textbf{\\large{"..title.."}}}")
+\end{luacode}
+
+\vspace{1em}
+
+\begin{luacode}
+		for key, value in pairs(professors) do
+			 tex.print('Prof. '..value["name"] .. " " .. value["surname"].."\\\\")
+		end
+\end{luacode}
+\begin{luacode}
+		tex.print(cfu.." CFU\\\\")
+\end{luacode}
+
+\vspace{1em}
+
+\begin{luacode}
+		for key, value in pairs(authors) do
+			 tex.print('\\textbf{'..value["name"] .. " " .. value["surname"].."}\\\\")
+		end
+\end{luacode}
+                
+\vfill
+        
+\begin{luacode}
+		tex.print(notesType.."\\\\")
+\end{luacode}
+\begin{luacode}
+		tex.print(year.."\\\\")
+\end{luacode}
+
+\includegraphics[width=0.1\textwidth]{logo}
+
+\vspace{1em}
+
+\begin{luacode}
+		tex.print(degree.."\\\\")
+\end{luacode}
+\begin{luacode}
+		tex.print(university.."\\\\")
+\end{luacode}
+Italy \\
+\today
+
+\end{center}
+\end{titlepage}
