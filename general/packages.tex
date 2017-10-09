@@ -27,9 +27,6 @@
 
 \usepackage{parskip} % To leave spaces in paragraphs
 \usepackage{bm} % To have bold vectors
-\usepackage{etoolbox} % To enable some parts of luacode
-\usepackage{luacode} % Used to script stuff
-\usepackage{luatex85}
 
 \usepackage{xcolor} % To highlight text
 \usepackage[cache=false]{minted} % For highlighting code
@@ -94,6 +91,23 @@ texcl=false,
 % To use the bibliography, run BibTex on this file. If everything is correct, it will terminate with no errors.
 % The warning "Using fall-back BibTeX(8) backend: (biblatex) functionality may be reduced/unavailable." is expected.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% LUATEX CODE %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{iftex} % Used for if
+\ifLuaTeX
+	\usepackage{etoolbox} % To enable some parts of luacode
+	\usepackage{luacode} % Used to script stuff
+	\usepackage{luatex85}
+	\input{\main/../../general/metadataLoader.tex}
+\else
+	% Lua not enabled
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXTERNAL FILES %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \input{\main/../../general/acronyms.tex}
 \addbibresource{references.bib}
-\input{\main/../../general/metadataLoader.tex}

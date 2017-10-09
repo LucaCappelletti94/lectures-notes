@@ -1,3 +1,4 @@
+\ifLuaTeX
 \begin{luacode}
 --[[Load data into variables to simplify code afterwards]]
 title = metadata["title"]
@@ -63,3 +64,10 @@ Italy \\
 
 \end{center}
 \end{titlepage}
+\else
+\begin{titlepage}
+\begin{center}
+\textbf{\large{TITLEPAGE NOT RENDERED!\\RECOMPILE WITH LUATEX!}}
+\end{center}
+\end{titlepage}
+\fi
