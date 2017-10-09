@@ -40,13 +40,13 @@ Per esempio, ponendo $F = \{f, f', f''\}$, otteniamo un prodotto cartesiano: \[F
 
 La \textbf{preferenza} è la volontà per cui il decisore risulta disponibile a fare uno scambio.
 
-Un esempio di preferenza è: \[ f' \leq_d f' \Leftrightarrow (f', f'')\in \Pi_d \]. In un ambiente ingegneristico si usa il $\leq_d$, minimizzando i costi, mentre in un ambiente economico si cerca di massimizzare i costi $\geq_d$.
+Un esempio di preferenza è: \[ f' \preccurlyeq_d f' \Leftrightarrow (f', f'')\in \Pi_d \]. In un ambiente ingegneristico si usa il $\preccurlyeq_d$, minimizzando i costi, mentre in un ambiente economico si cerca di massimizzare i costi $\succcurlyeq_d$.
 
 \begin{definition}[indifferenza]
 Due preferenze $f'$ e $f''$ sono dette \textbf{indifferenti} quando:
 
 \[
-	f' ~ f'' \Leftrightarrow \begin{cases} f' \leq_d f'' \\ f' \geq_d f'' \end{cases}
+	f' ~ f'' \Leftrightarrow \begin{cases} f' \preccurlyeq_d f'' \\ f' \succcurlyeq_d f'' \end{cases}
 \] 
 \end{definition}
 
@@ -54,7 +54,11 @@ Due preferenze $f'$ e $f''$ sono dette \textbf{indifferenti} quando:
 Una preferenza $f'$ è detta \textbf{preferenza stretta} quando:
 
 \[
-	f' <_d f'' \Leftrightarrow \begin{cases} f' \leq_d f'' \\ f' \ngeq_d f'' \end{cases}
+	f' <_d f'' \Leftrightarrow
+	\begin{cases}
+		f' \preccurlyeq_d f'' \\
+		f' \nsucc_d f''
+	\end{cases}
 \] 
 \end{definition}
 
@@ -62,7 +66,11 @@ Una preferenza $f'$ è detta \textbf{preferenza stretta} quando:
 Due preferenze $f'$ e $f''$ sono dette \textbf{incomparabili} quando:
 
 \[
-	f' \Join_d f'' \Leftrightarrow \begin{cases} f' \nleq_d f'' \\ f' \ngeq_d f'' \end{cases}
+	f' \Join_d f'' \Leftrightarrow
+	\begin{cases}
+		f' \nprec_d f'' \\
+		f' \nsucc_d f''
+	\end{cases}
 \] 
 \end{definition}
 
@@ -70,30 +78,130 @@ Due preferenze $f'$ e $f''$ sono dette \textbf{incomparabili} quando:
 \subsection{Proprietà delle preferenze}
 \subsubsection{Proprietà riflessiva}
 \[
-	f \leq f \qquad \forall f \in F
+	f \preccurlyeq f \qquad \forall f \in F
 \]
 
 \subsubsection{Proprietà di completezza}
 Un decisore può sempre concludere una decisione (ipotesi molto forte che talvolta porta a risultati impossibili):
 \[
-	f \nleq f' \Rightarrow f' \leq f \qquad \forall f, f' \in F
+	f \nprec f' \Rightarrow f' \preccurlyeq f \qquad \forall f, f' \in F
 \]
 
 \subsubsection{Proprietà di anti-simmetria}
 \[
-	f \leq f' \wedge f' \leq f \Rightarrow f' = f \qquad \forall f, f' \in F
+	f \preccurlyeq f' \wedge f' \preccurlyeq f \Rightarrow f' = f \qquad \forall f, f' \in F
 \]
 
 \subsubsection{Proprietà Transitiva}
-Solitamente i decisori non possiedono questa proprietà, anche perché è necessario modellare lo scorrere del tempo, per cui le proprietà valgono potenzialmente solo in un determinato periodo temporale.
+Solitamente i decisori non possiedono questa proprietà, anche perché è necessario modellare lo scorrere del tempo, per cui le proprietà valgono potenzialmente solo in un determinato periodo temporale. Viene generalmente considerata verificata.
 \[
-	f \leq f' \wedge f' \leq f'' \Rightarrow f \leq f'' \qquad \forall f, f', f'' \in F
+	f \preccurlyeq f' \wedge f' \preccurlyeq f'' \Rightarrow f \preccurlyeq f'' \qquad \forall f, f', f'' \in F
 \]
 
 \subsection{Ipotesi funzione del valore}
 Un decisore che ha in mente una funzione valore $v$, ha in mente una relazione di preferenza $\Pi$ \textbf{riflessiva}, \textbf{completa}, \textbf{non necessariamente anti simmetrica} e \textbf{transitiva}. Quando una relazione possiede queste proprietà viene chiamata \textbf{ordine debole}, debole perché possono esiste dei \textit{pari merito}. Un campo di applicazione sono i campionati sportivi.
 \[
-	\exists v: F\rightarrow \mathbb{R}: f \leq f' \Leftrightarrow v_{(f)} \geq v_{(f')}
+	\exists v: F\rightarrow \mathbb{R}: f \preccurlyeq f' \Leftrightarrow v_{(f)} \succcurlyeq v_{(f')}
 \]
+
+\subsubsection{Condizioni di preordine}
+Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} si ottiene la condizione di \textbf{preordine}.
+
+\subsubsection{Ordini deboli}
+Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} e \textbf{completezza} si ha la condizione di ordine debole, che è molto utilizzata.
+
+\subsubsection{Ordine parziale}
+Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} e \textbf{antisimmetria} si ottiene la condizione di \textbf{ordine parziale}.
+
+\subsubsection{Ordine totale}
+Avendo le condizioni di \textbf{riflessività}, \textbf{transitività}, \textbf{completezza} e \textbf{antisimmetria} si ottiene la condizione di \textbf{ordine totale}.
+
+\subsection{Tabella riassuntiva}
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textit{Proprietà} & \textbf{Preordine} & \textbf{Ordine debole} & \textbf{Ordine parziale} & \textbf{Ordine totale}\\
+		\hline
+		\textbf{Riflessività} & \checkmark & \checkmark & \checkmark & \checkmark \\
+		\hline
+		\textbf{Transitività} & \checkmark & \checkmark & \checkmark & \checkmark \\
+		\hline
+		\textbf{Completezza} &  & \checkmark &  & \checkmark \\
+		\hline
+		\textbf{Antisimmetria} &  &  & \checkmark & \checkmark \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Conto di Borda}
+La formula in figura \ref{borda} utilizzato per costruire una \textbf{funzione valore}:
+
+\begin{figure}[H]
+\[ 
+	v(f) = \abs{\{f' \in F: f \preccurlyeq f' \}}
+\]
+\caption{Conto di Borda}
+\label{borda}
+\end{figure}
+
+Il valore di un impatto è pari al numero di impatti cui esso è preferibile, compreso l'impatto stesso.
+
+Quando la cardinalità dell'insieme è $\mathbb{N}\times\mathbb{R}$ è possibile ottenere una \textbf{funzione valore}, ma quando ci si trova in condizioni come $\mathbb{R}\times\mathbb{R}$ che non risultano più mappabili sull'insieme $\mathbb{R}$ non risulta più possibile realizzare una \textbf{funzione valore}.
+
+\section{Problemi semplici}
+Un problema viene detto \textit{semplice} quando essi possiedono queste caratteristiche:
+
+\begin{enumerate}
+\item $\exists v(f) $ conforme
+\item $\abs{\Omega} = 1 \Rightarrow f: X \rightarrow \mathbb{R}$, cioè esiste un $f(x)$
+\item $\abs{D} = 1$
+\item $X = \{x \in \mathbb{R}^n: g_j (x) \leq 0 \forall j = 1,..., n \} \text{ con } g_j \in C^1(\mathbb{R}^n)$
+\end{enumerate}
+
+\subsection{Esempio: programmazione matematica}
+Minimizzo $f(x)$, con la condizione di $g_j(x) \leq 0 \forall j = 1...n $.
+
+Supponiamo di voler identificare la posizione migliore di una discarica, e che il punto in cui i rifiuti vengono prodotti sia $R = (1,0)$, che in punto $C = (0,0)$ vi sia in una città e che si debba avere una distanza di almeno $2$ dalla città. Inoltre, la nostra discarica deve trovarsi a sinistra di $\dfrac{3}{2}$, cioè $x_0 < \dfrac{3}{2}$, perché li vi è un confine.
+
+\begin{center}
+\begin{tikzpicture}
+% axis
+\draw[->] (-1,0) -- (3,0) node[right] {$x_1$};
+\draw[->] (0,-1) -- (0,3) node[above] {$x_2$};
+
+% points
+\foreach \Point/\PointLabel in {(1,0)/R, (0,0)/C}
+\draw[fill=black] \Point circle (0.05) node[above right] {$\PointLabel$};
+
+\draw[domain=-1:3,smooth,variable=\y,red]  plot ({3/2},{\y});
+\end{tikzpicture}
+\end{center}
+
+La funzione di minimo che vado a definire risulta:
+
+\[
+	\text{min} f(x) = \begin{cases}
+		(x_1-1)^2 + x_2^2\\
+		x_1^2 + x_2^2 = 4\\
+		x_1  < \dfrac{3}{2}	
+	\end{cases}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	grid=major,
+	samples=\samples,
+	xlabel=$x_1$,
+    ylabel=$x_2$,
+    zlabel=$fitness$
+]
+
+\addplot3[surf, unbounded coords=jump]
+{x^2 + y^2 > 4 && x < 3/2 ? (x-1)^2 + y^2 : NaN};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
 \end{document}

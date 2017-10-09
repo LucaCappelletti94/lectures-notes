@@ -51,6 +51,15 @@ showtabs =false,
 texcl=false,
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% GRAPHICAL EXTRAVAGANZA %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pgfplots} % to draw 3d graphs
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+
 \usepackage{paralist} % For compacted enumerations
 \usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
 \makeglossaries % Enables the package above
@@ -100,9 +109,11 @@ texcl=false,
 	\usepackage{etoolbox} % To enable some parts of luacode
 	\usepackage{luacode} % Used to script stuff
 	\usepackage{luatex85}
+	\providecommand{\samples}{80} % Drawing hd graphs when compiling for the final time (production)
 	\input{\main/../../general/metadataLoader.tex}
 \else
 	% Lua not enabled
+	\providecommand{\samples}{30} % Drawing ld graphs when compiling for development
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
