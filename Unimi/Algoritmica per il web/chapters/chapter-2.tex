@@ -2,6 +2,74 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-capitolo due
+\section{Robots.txt}
+Si tratta di un file standard, inserito nella root di siti web, con il quale è possibile inserire rule che i crawler devono rispettare. Solitamente quando una persona vuole crawlare un sito va a leggere e parsare questo file una volta all'ora.
+
+\inputminted{ApacheConf}{\main/chapters/robots.txt}
+
+\section{Multi-threading}
+Siccome l'IO della scheda di rete è a 2-3 decadi di tempo superiore rispetto all'analisi effettiva dei dati, è necessario creare una grande parallelizzazione (anche 5000 thread), con \textbf{crivello} o struttura condivisa.
+
+\subsection{Design sincrono}
+Un approccio è creare un thread immaginandolo come solitario, quindi avviarne 10000 e affidare il lavoro di sincronizzazione al sistema operativo.
+Questa sarà la versione che andremo a realizzare in questo corso.
+Con questo approccio abbiamo i seguenti problemi:
+
+\begin{enumerate}
+\item Ogni thread deve lavorare su un unico url, altrimenti incontriamo problemi con i siti. Viene risolto con la \textbf{coda con delay}, che aspetta che l'elemento in cima alla coda abbia un timestamp inferiore al timestamp corrente e blocca il thread fino a che non riceve l'ok dalla coda.
+\end{enumerate}
+
+\subsection{Design asincrono}
+Un altro approccio è lavorare alla sincronizzazione tra i thread avviando tante richieste e lasciando lavorare i thread mano a mano che arrivano le risposte delle richieste.
+
+È dibattuto quale dei due approcci sia il più veloce.
+
+\section{Visit State (VS)}
+Per ogni sito abbiamo una coda fifo di url ed un timestamp, e quando un thread incontra un timestap minore di quello corrente acquisisce il \textbf{visit state} ed esegue la richiesta, scaricando alcuni degli url presenti alla lista connessa a quel nodo. Ad ogni visit state corrisponde un host, per cui nessun thread può fare richieste allo stesso host.
+
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline
+	\# & Timestamp & Host\\
+	\hline
+	0 & 1507621197 & https://google.com\\
+	\hline
+	1 & 1507621097 & https://facebook.com\\
+	\hline
+	$i$ & ... & ... \\
+	\hline
+	$n$ & 1507601097 & https://twitter.com\\
+	\hline
+\end{tabular}
+\end{center}
+\caption{Coda di host del Visit State}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline
+	\# & Timestamp & URL\\
+	\hline
+	0 & 1507621197 & https://google.com/search\\
+	\hline
+	1 & 1507601197 & https://google.com/images\\
+	\hline
+	$i$ & ... & ... \\
+	\hline
+	$n$ & 1504621197 & https://google.com/maps\\
+	\hline
+\end{tabular}
+\end{center}
+\caption{Coda degli url del primo Visit State}
+\end{figure}
+
+\section{Problemi comuni}
+
+\begin{enumerate}
+\item I server DNS centrali raramente reggono grossi carichi, per cui è necessario realizzare un \textbf{server ricorsivo locale}, per agente, separato. Le richieste a questo modo risultano apparire da IP diversi.
+\item In aggiunta, per rispettare l'\textbf{IP politeness} è possibile realizzabile una coda di IP, contenente un timestamp che è i primo momento in cui si intende visitare quell'ip e un puntatore alla coda di visit state, di cui ogni nodo ha come priorità il valore pari al massimo tra il timestamp dell'ip e quello dei vhost.
+\end{enumerate}
 
 \end{document}
