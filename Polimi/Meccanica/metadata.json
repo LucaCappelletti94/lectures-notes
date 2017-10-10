@@ -1,0 +1,12 @@
+{
+	"title":"Meccanica",
+	"professors":[{
+		"name":"Alan",
+		"surname":"Facchinetti"
+	}],
+	"authors":[{
+		"name":"Luca",
+		"surname":"Cappelletti"
+	}],
+	"cfu":5
+}

@@ -115,13 +115,13 @@ Come funziona \textbf{pagerank}:
  \hline
   & A & B & C & D \\ 
  \hline
- A & 0 & $\dfrac{1}{2}$ & 1 & 0 \\ 
+ A & 0 & $\sfrac{1}{2}$ & 1 & 0 \\ 
  \hline
- B & $\dfrac{1}{3}$ & 0 & 0 & $\dfrac{1}{2}$ \\ 
+ B & $\sfrac{1}{3}$ & 0 & 0 & $\sfrac{1}{2}$ \\ 
  \hline
- C & $\dfrac{1}{3}$ & 0 & 0 & $\dfrac{1}{2}$ \\ 
+ C & $\sfrac{1}{3}$ & 0 & 0 & $\sfrac{1}{2}$ \\ 
  \hline
- D & $\dfrac{1}{3}$ & $\dfrac{1}{2}$ & 0 & 0 \\ 
+ D & $\sfrac{1}{3}$ & $\sfrac{1}{2}$ & 0 & 0 \\ 
  \hline
 \end{tabular}
 \end{center}
@@ -139,5 +139,190 @@ con $M_{ij} = P \text{Spostarsi da j a i}$.
 \[
 	\vec{V}(t+1) = M\vec{v}(t)
 \]
+
+\subsubsection{Prova di convergenza}
+
+\begin{definition}[Determinante]
+	\[
+		\text{det}A = \sum_i a_{ij} c_{ij} = \sum_j a_{ij} c_{ij}	
+	\]
+\end{definition}
+
+\begin{definition}[Determinante di matrice trasposta]
+Una matrice e la sua trasposta possiedono lo stesso determinante.
+	\[
+		\text{det}A^T = \sum_i a^T_{ij} c^T_{ij} = \sum_i a_{ji} c_{ji}	 =  \sum_j a_{ij} c_{ij}	
+	\]
+\end{definition}
+
+\begin{definition}[Autovalori]
+Si ottengono trovando gli zeri dell'equazione caratteristica.
+\[
+	\text{det}(A-\lambda I) = 0 \leftrightarrow \text{det}(A-\lambda I)^T = 0 \leftrightarrow  \text(A^T-\lambda I) = 0
+\]
+\end{definition}
+
+\begin{definition}[Matrice stocastica per righe]
+Una qualsiasi matrice stocastica per righe ammette $1$ come autovettore.
+\[
+	\forall i \sum_j a_{ij} = 1
+\]
+\end{definition}
+
+\begin{definition}[Matrice stocastica per colonne]
+Una qualsiasi matrice stocastica per colonne ammette $1$ come autovettore poiché si tratta della trasposta di una matrice stocastica per righe.
+\end{definition}
+
+\begin{theorem}[La potenza di una matrice stocastica è sempre stocastica]
+Il risultato dell'elevazione a potenza di una matrice stocastica risulta sempre essere stocastico. Dimostriamo per induzione:
+\[
+	\text{Base: } k=1 \qquad A^k = A
+\] 
+\[
+	\text{Passo: } A^k \text{ stocastica } \rightarrow A^{k+1} \text{ stocastica }
+\]
+Dimostriamo che ad un generico passo $k$, otteniamo sempre 1 quando andiamo a sommare i termini.
+\[
+	a_{ij}^{k+1} = \sum_s a^k_{ij} a_{sj}\\
+	\sum_j a^k_{ij} = \sum_j \sum_s a^k_{is}a_{sj}
+\] 
+Inverto le sommatorie ed ottengo:
+\[
+	\sum_s a_{is}^k \sum_j a_{sj} = \sum_s a^k_{is} = 1
+\]
+\end{theorem}
+
+\begin{theorem}[Autovalori di una stocastica]
+Se A è stocastica per colonne, il suo autovalore massimo è 1.
+
+\textbf{Procediamo a dimostrare per assurdo.}
+
+Sappiamo che 1 è un autovale di A, poiché A è stocastica. Affermiamo che, per assurdo, esista un $\lambda > 1$ autovalore di A (che è anche l'autovalore di $A^T$) e $v$ un autovettore per $\lambda$.
+
+\[
+	A^Tv \Rightarrow \lambda v
+\]
+
+\[
+	A^{2T} v = A^T \times A^T v = A (\lambda v) = \lambda A^T v = \lambda ^2 v \Rightarrow A^{Tk} v = \lambda ^ k v
+\]
+
+Maggioriamo / minoriamo la sommatoria:
+
+\[
+	\sum_j a^{Tk}_{ij} v_{max} \geq \sum_j a_{ij}^{Tk} v_j = \lambda ^ k v_i > G
+\]
+
+\[
+	v_{max} \sum_j a_{ij}^{Tk} > G
+\]
+
+Ma siccome la sommatoria è dei termini di una matrice stocastica per righe (essendo la trasposta di A), deve essere pari a 1, per cui:
+
+\[
+	v_{max} \sum_j a_{ij}^{Tk} = v_{max} > G
+\]
+
+\[
+	1 > \dfrac{G}{v_{max}} \Rightarrow \text{assurdo!}
+\]
+
+\end{theorem}
+
+\begin{theorem}[Autovalori di potenza di matrice]
+\[
+	v_0 \rightarrow v_1 = A v_0 \rightarrow v_2 = A v_1 = A^2 v_0 \rightarrow ... \rightarrow v_k = A^k v_0	
+\]
+
+\textbf{Dimostrazione}
+
+\begin{align*}
+	A v_0 &= A(\alpha_1 x_1 + \alpha_2 x_2 + ... + \alpha_n x_n)
+			 &= \alpha_1 A x_1 + \alpha_2 A x_2 + ... + \alpha_n A x_n
+			 &= \alpha_1 \lambda_1 x_1 + \alpha_2 \lambda_2 x_2 + ... + \alpha_n \lambda_n x_n
+\end{align*}
+
+\[
+	v_k = A^k v_0 = \alpha_1 \lambda_1^k x_1 +  \alpha_2 x_2  \dfrac{ \lambda_2^k \lambda_1^k}{ \lambda_1^k}+ ... +  \alpha_k x_k  \dfrac{ \lambda_k^k \lambda_1^k}{ \lambda_1^k}
+\]
+
+\[
+	v_k = A^k v_0 =  \lambda_1^k (\alpha_1 x_1 +  \alpha_2 x_2  \dfrac{ \lambda_2^k}{ \lambda_1^k}+ ... +  \alpha_k x_k  \dfrac{ \lambda_k^k}{ \lambda_1^k})
+\]
+
+per $k$ "grande" $v_k = A^k v_0 \approx \lambda^k_1 \alpha_1 x_1$, nel nostro caso $\lambda_1 = 1$, cioè $\lim_{k \rightarrow \infty} \alpha_1 \lambda_1^k x_1 = 1$.
+
+\end{theorem}
+
+\begin{figure}[H]
+\begin{center}
+\begin {tikzpicture}[-latex ,auto ,node distance =4 cm and 5cm ,on grid ,
+semithick ,
+state/.style ={ circle ,top color =white , bottom color = processblue!20 ,
+draw,processblue , text=blue , minimum width =1 cm}]
+\node[state] (A) [above] {A};
+\node[state] (B) [ right =of A] {B};
+\node[state] (D)[below right =of A]{D};
+\node[state] (C)[below =of A]{C};
+
+\path (A) edge [left =25] node[below =0.15 cm] {} (B);
+\path (A) edge [left =25] node[below =0.15 cm] {} (C);
+\path (A) edge [left =25] node[below =0.15 cm] {} (D);
+
+\path (B) edge [bend left =25] node[below =0.15 cm] {} (D);
+\path (B) edge [bend left =25] node[below =0.15 cm] {} (A);
+
+\path (C) edge [bend left =25] node[below =0.15 cm] {} (A);
+
+\path (D) edge [left =25] node[below =0.15 cm] {} (B);
+\path (D) edge [left =25] node[below =0.15 cm] {} (C);
+\end{tikzpicture}
+\end{center}
+\caption{In questo grafo, dopo 10 esecuzioni, pagerank assegna assegna ai nodi A, B, C, D rispettivamente $\sfrac{3}{9}, \sfrac{2}{9}, \sfrac{2}{9} \text{e} \sfrac{2}{9}$}.
+\end{figure}
+
+\subsection{Trappole per ragni}
+Nodi di grafi (figura \ref{trappola_ragni}) con loop, da cui gli spider non possono uscire.
+
+\begin{figure}[H]
+\begin{center}
+\begin {tikzpicture}[-latex ,auto ,node distance =4 cm and 5cm ,on grid ,
+semithick ,
+state/.style ={ circle ,top color =white , bottom color = processblue!20 ,
+draw,processblue , text=blue , minimum width =1 cm}]
+\node[state] (A) [above] {A};
+\node[state] (B) [ right =of A] {B};
+\node[state] (D)[below right =of A]{D};
+\node[state] (C)[below =of A]{C};
+\node[state] (E)[below =of C]{E};
+
+\path (A) edge [left =25] node[below =0.15 cm] {} (B);
+\path (A) edge [left =25] node[below =0.15 cm] {} (C);
+\path (A) edge [left =25] node[below =0.15 cm] {} (D);
+
+\path (B) edge [bend left =25] node[below =0.15 cm] {} (D);
+\path (B) edge [bend left =25] node[below =0.15 cm] {} (A);
+
+\path (C) edge [bend left =25] node[below =0.15 cm] {} (A);
+\path (C) edge [left =25] node[below =0.15 cm] {} (E);
+
+\path (D) edge [left =25] node[below =0.15 cm] {} (B);
+\path (D) edge [left =25] node[below =0.15 cm] {} (C);
+
+\path (E) edge [loop left =25] node[below =0.15 cm] {} (E);
+\end{tikzpicture}
+\end{center}
+\caption{Dopo un certo numero di iterazioni, tutta la "massa" distribuita inizialmente sul grafo sarà finita su E}.
+\label{trappola_ragni}
+\end{figure}
+
+\subsection{Risolvere le trappole per ragni col teletrasporto}
+ Per evitare le trappole per ragni, andiamo a inserire una certa probabilità $\beta$ di teletrasportarci da un nodo ad un altro al posto di continuare a navigare tramite link.
+ 
+ \[
+ 	\bm{v}_{t+1} = \beta M \bm{v}_t + (1-\beta) \dfrac{1}{n} \bm{1}
+ \] 
+
+P(mi trovo in $i$ al tempo $t+1$) = P(spostarsi tramite link in $i$ | scelgo i link) P(scelgo i link) + P (teletrasportarsi in i | mi teletrasporto) P(scegliere teletrasporto)
 
 \end{document}

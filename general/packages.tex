@@ -20,7 +20,7 @@
 \usepackage{caption} % enabling of nice captions
 \usepackage{subcaption} % and subcaptions of images
 \graphicspath{ {images/} } % We'll put all the images in the folder "images"
-\usepackage[style=authoryear,sorting=ynt, backend=biber]{biblatex} % Package to handle the bibliography
+\usepackage[style=authoryear,sorting=ynt, backend=bibtex]{biblatex} % Package to handle the bibliography
 \nocite{*} % This allows for having entried in the bib file that do not have to be necesseraly used
 \usepackage{subfiles} % To use subfiles without cruxifying saints
 \usepackage{chngcntr} % Has functions to reset counters
@@ -29,6 +29,7 @@
 \usepackage{bm} % To have bold vectors
 
 \usepackage{xcolor} % To highlight text
+\usepackage{xfrac} % To allow for sideways fractions
 \usepackage[cache=false]{minted} % For highlighting code
 \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setminted{
@@ -57,6 +58,8 @@ texcl=false,
 
 \usepackage{pgfplots} % to draw 3d graphs
 \usepackage{tikz}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+\usetikzlibrary {positioning}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
 
@@ -79,11 +82,6 @@ texcl=false,
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}[theorem]{Definizione}
 
 \usepackage{enumitem,amssymb} % For a todo check list
 \newlist{todolist}{itemize}{2} % For a  todo check list
@@ -111,9 +109,11 @@ texcl=false,
 	\usepackage{luatex85}
 	\providecommand{\samples}{80} % Drawing hd graphs when compiling for the final time (production)
 	\input{\main/../../general/metadataLoader.tex}
+	\input{\main/../../general/languageSwitch.tex}
 \else
 	% Lua not enabled
 	\providecommand{\samples}{30} % Drawing ld graphs when compiling for development
+	\input{\main/../../general/italian.tex}
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,31 +1,10 @@
-\documentclass{article}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\providecommand{\main}{.}
+\input{\main/../../general/packages.tex}
 \usepackage{feynmf}
-\usepackage{float}
-\usepackage{geometry}
-\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
-\geometry{
-    a4paper,
-    total={130mm,250mm},
-}
-
-
-\title{Feynman Diagrams Challenge}
-\author{Luca Cappelletti}
-\date{27 July 2017}
 
 \begin{document}
 
-\maketitle
-
-\vspace{2em}
-
-{\hypersetup{hidelinks}
-\tableofcontents
-}
-
-\newpage
+\input{\main/../../general/title.tex}
 
 \section{What is a Feynman diagram}
 A Feynman diagram is a graphical representations of the math describing the behavior of subatomic particles, as described by the quantum electrodynamics (QED) model. In the following notes, we will follow the convention that places time on the abscissas and space on the ordinates.
@@ -37,7 +16,7 @@ An electron $e^{-}$ (Figure \ref{fig:electron}) is a subatomic particle of matte
  \centering
  \begin{fmfgraph*}(120,80)
     \fmfleft{i1}
-    \fmfright{o1}
+    \fmfright{o1}1
     \fmf{fermion,label=$e^{-}$}{i1,o1}
 \end{fmfgraph*}
 \caption{Representation of an Electron.}
@@ -112,7 +91,7 @@ A vertex $v$ (Figure \ref{fig:vertex}) is a point where three particles meet. In
     \fmf{fermion,label=$e^{+}$}{o1,v1}
     \fmflabel{$v$}{v1}
 \end{fmfgraph*}
-\caption{Positron absorbs photon.}
+\caption{Positron absorbs photon.}1
  \end{minipage}\hfill
 \end{figure}
 
