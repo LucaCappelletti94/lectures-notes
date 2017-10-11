@@ -1,0 +1,60 @@
+\providecommand{\main}{../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Problema del mix produttivo}
+Dato un sistema produttivo caratterizzato da:
+
+\begin{enumerate}
+\item $m$ risorse produttive limitate.
+\item $b_j$, con $i=1...m$ quantità massima della risorsa $i$. 
+\item $n$ diversi prodotti che ottengo dalle risorse.
+\item $a_{ij}$ assorbimento unitario di risorsa $i$ per il prodotto $j$ (quantità di risorsa $i$ che utilizzo per produrre un'unità di $j$).
+\item $c_j$ profitto unitario per il prodotto $j$.
+\end{enumerate}
+
+Sia data inoltre l'ipotesi aggiuntiva che tutta la produzione venga venduta e non sono costretto a produrre tutti i prodotti.
+Si chiede di determinare quali prodotti produrre e in quali quantità.
+
+\paragraph{Obbiettivo:} massimizzare il profitto complessivo.
+\paragraph{Variabili: } definisco una variabile intera che rappresenta il numero di unità di prodotte di un determinato prodotto.
+\[
+	X_{j} \geq 0
+\]
+
+\subsection{Modello}
+\begin{figure}[H]
+ \centering
+ \begin{minipage}{0.5\textwidth}
+ \centering
+ \[
+	\max \sum_{i=1}^n x_jc_j
+ \]
+\caption{Funzione da massimizzare.}
+ \end{minipage}\hfill
+ \begin{minipage}{0.5\textwidth}
+ \[
+	\sum_{j=1}^n x_j a_{ij} \leq b_i \forall i = 1...m
+ \]
+\caption{Numero di unità per ogni prodotto.}
+ \end{minipage}\hfill
+\end{figure}
+
+\subsection{Esempio 1}
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+& Modello light & Modello plus & Ore uomo \\
+\hline
+Profitto unitario & 30 & 20 & \# \\
+\hline
+Assemblaggio & 8 & 4 & 640 \\ 
+\hline
+Finitura & 4 & 6 & 540 \\
+\hline
+Controllo qualità & 1 & 1 & 100
+\end{tabular}
+\end{center}
+
+
+\end{document}

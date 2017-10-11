@@ -1,0 +1,46 @@
+\providecommand{\main}{../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Problema di assegnamento}
+Dati $n$ lavoratori, $n$ attività e considerando maggiore o uguale di zero il tempo impiegato dal lavoratore $i$ per svolgere l'attività $j$ ($t_{ij}>0$), assegnare a ciascun lavoratore una ed una sola attività in modo che tutte le attività vengano svolte.
+
+\paragraph{Obbiettivo:} minimizzare la somma dei tempi impiegati per svolgere le attività.
+
+\paragraph{Variabili:} utilizzo solo una variabile booleana per indicare se il lavoro $i$-esimo è svolto dal lavoratore $j$-esimo:
+
+\[
+	x_{ij} = \begin{cases}
+		1 \qquad \text{ se il lavoro } i \text{ è svolto da } j\\
+		0 \qquad \text{altrimenti}
+	\end{cases}
+\]
+
+\subsection{Modello}
+
+\begin{figure}[H]
+\[
+	\min \sum_{i=1}^n \sum_{j=1}^n t_{ij}x_{ij}
+\]
+\caption{Funzione di cui calcolare il minimo, pari alla somma dei tempi per eseguire ogni azione}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \begin{minipage}{0.5\textwidth}
+ \centering
+ \[
+	\sum_{i=1}^n x_ij = 1 \forall j = 1...n 
+ \]
+\caption{Ogni attività viene svolta da un lavoratore.}
+ \end{minipage}\hfill
+ \begin{minipage}{0.5\textwidth}
+ \[
+	\sum_{j=1}^n x_ij = 1 \forall j = 1...n 
+ \]
+\caption{Ogni lavoratore svolge un'attività.}
+ \end{minipage}\hfill
+\end{figure}
+
+
+\end{document}
