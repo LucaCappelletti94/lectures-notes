@@ -1,0 +1,32 @@
+\providecommand{\main}{..}
+\input{\main/../../general/packages.tex}
+
+\begin{document}
+
+\textbf{Spark} è un motore generale e veloce per il processo di dati su larga scala che disaccoppia completamente il concetto di storage da quello di calcolo distribuito, consentendo di avere software esterni per il file system distribuito come Hadoop.
+
+\section{Resilient Distributed Dataced RDD}
+Ho la stessa garanzia di \textbf{Hadoop} per quanto riguarda la computazione, partendo da file distribuiti su un cluster sulla home/RDD.
+
+\subsection{Trasformazioni}
+Una funzione che prende un dataset e lo modifica. Esempi di questa categoria sono \textbf{map}, \textbf{filter}, \textbf{flatMap} e \textbf{groupByKey}.
+
+\subsection{Actions}
+Una funzione che compie un'azione sul dataset. Esempi di questa categoria sono \textbf{reduce}, \textbf{count}, \textbf{collect} e \textbf{take}.
+
+\subsection{Variabile broadcast}
+Variabile a sola lettura condivisa tra tutti i nodi.
+
+\subsection{Accumulatori}
+Un accumulatore può essere usato solo per operazioni strettamente associative, come conteggi.
+
+\section{Metodo di tassazione}
+Fino ad ora lo abbiamo visto come risoluzione per i problemi di convergenza dell'algoritmo di pagerank, ma è utilizzabile anche in altri casi come la personalizzazione del risultato del vettore prodotto, e viene utilizzato in algoritmi come \textbf{topic-sensitive pagerank}, dove per esempio se volessi personalizzare i risultati di un utente appassionato di sport farei teletrasportare il crawler a pagine sicure che so che parlano di sport.
+
+\subsection{Pagerank vs Trustrank}
+Se chiamiamo pagerank $p$ e trustrank $t$, proviamo a calcolare $\dfrac{p-t}{p}$. Se questa quantità è negativa o vicina a zero, sono contento, se invece si avvicina all'uno probabilmente su quel nodo sono attive delle tecniche che falsano il pagerank e riducono il Trustrank.
+
+\subsection{HITS, chiamato anche Hub\&Authorities}
+Definisce le pagine "buone" come fa pagerank, ma utilizza una ricorsione indiretta. Divide tutte le pagine web in due categorie, \textbf{hub} e \textbf{authorities}. Una pagina è \textbf{hub} quando linka delle buone authorities, mentre chiamata \textbf{authority} quando è linkata da un buon hub.
+
+\end{document}
