@@ -17,11 +17,11 @@ These are notes from courses that I might be currently following, so might not b
 
 ## Various
 Notes are currently available about:
-- [Feynman Diagrams Introduction 🇬🇧](https://github.com/LucaCappelletti94/qed-notes/blob/master/Various/Feynman%20Diagrams/Feynman%20Diagrams.pdf)
+- [Feynman Diagrams Introduction 🇬🇧](https://github.com/LucaCappelletti94/qed-notes/blob/master/Various/Feynman%20Diagrams/main.pdf)
 
 Feel absolutely **FREE** to correct my errors.
 
 ## Latex template
-If you like the way I setup my notes, [here](https://github.com/LucaCappelletti94/various-notes/tree/master/Template) you can find a template you can play with.
+If you like the way I setup my notes, [here](https://github.com/LucaCappelletti94/various-notes/tree/master/Template) you can find a template you can play with. Also, here is available a quick start guide if you'd like to work with any of these projects.
 
 For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*"
