@@ -43,3 +43,4 @@ Backup[ ]of[ ]*.numbers/
 .DS_Store
 .DS_Store
 *.alg
+.ipynb_checkpoints/mainCompiler-checkpoint.ipynb
