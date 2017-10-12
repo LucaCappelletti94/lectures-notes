@@ -1,0 +1,67 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Probabilità o visione frequentista}
+Per il teorema centrale del limite la frequenza di un evento su infinite realizzazioni è uguale alla sua probabilità.
+\[
+	P(A=a_1) = lim_{N\rightarrow \infty} \dfrac{n_{A=a_i}}{N} = \lim_{N\rightarrow \infty} \dfrac{n_i}{N}
+\]
+
+\subsection{Probabilità di eventi indipendenti e contemporanei}
+Il prodotto nelle probabilità rappresenta la probabilità che entrambi gli eventi descritti dalle probabilità siano veri, premesso che gli eventi siano \textbf{INDIPENDENTI} ed essi non avvengano successivamente.
+Per esempio, sia $P(A)$ la probabilità che un dato $A$ cada con la faccia esposta pari a $4$ e $P(B)$ che un dato $B$ mostri $6$. La probabilità che entrambi gli eventi avvengano, cioè sia il dato $A$ cade su $4$ e il dato $B$ su $6$ è pari al prodotto, cioè $P(A)P(B) = P(A \wedge B)$.
+
+\subsection{Probabilità condizionata (eventi indipendenti e successivi)}
+Quando un evento avviene prima di un altro si parla di probabilità condizionata (Figura \ref{probCond}), cioè una tecnica che restringe lo spazio di ricerca della probabilità con cui un evento accadrà sapendo che l'altro ha avuto un determinato esito, probabilisticamente parlando. Ora, se tirassi il dato $A$ dell'esempio precedente, leggendo il risultato prima di tirare il dato $B$ vado a calcolare la probabilità $P(A \wedge B)$ come:
+
+\[
+	P(A \wedge B) = P(B | A)
+\]
+
+In cui la barra verticale nella probabilità viene letta come "La probabilità di B dato che so A".
+
+\begin{figure}[H]
+\[
+	P(A, B) = P(A|B) P(B)
+\]
+\caption{Formula delle probabilità condizionate}
+\label{probCond}
+\end{figure}
+
+\subsubsection{Esempio su probabilità condizionata: gioco delle carte}
+Sia dato un mazzo di 40 carte con 12 figure, di cui 4 re.
+
+\paragraph{P. di estrarre un re} $P(E) = \dfrac{\text{Numero di re}}{\text{Numero di carte}} = \dfrac{4}{40} = \dfrac{1}{10}$
+\paragraph{P. di estrarre un re, sapendo di avere estratto una figura} $P(E) = \dfrac{\text{Numero di re}}{\text{Numero di carte che sono figure}} = \dfrac{4}{12} = \dfrac{1}{3}$
+
+\subsection{Teorema di Bayes}
+Si tratta di un teorema estremamente utilizzato in statistica e nel machine learning come strumento per l'apprendimento statistico, la cui principale caratteristica è il fatto che permette di trarre deduzioni dalle conclusioni alle cause (inverte le Y con le X), viene chiamato anche \textbf{stima a posteriori}. SI deriva dalla formula della probabilità condizionata. In generale, la statistica bayesiana si basa su una modellizzazione tramite la quale è possibile trarre deduzioni sulla realtà, utilizzando il teorema di Bayes (figura \ref{teorBayes}).
+
+\begin{figure}[H]
+\[
+	P(X|Y) = \dfrac{P(Y|X)P(X)}{P(Y)}
+\]
+\caption{Teorema di Bayes}
+\label{teorBayes}
+\end{figure}
+
+\subsubsection{Esempio su teorema di bayes: i taxi}
+In una città abbiamo due società di taxi, ed uno di questi investe un anziano che non è particolarmente credibile. Bisogna, con i seguenti dati, andare a capire a quale società questo taxi appartenesse a una delle società.
+
+\[
+	Taxi = \{ verde, blue \} = \{85\%, 15\%\}
+\]
+\[
+	Attendibilità_{anziano} = \{vero, falso\} = \{80\%, 20\%\}
+\]
+
+Applico il teorema di Bayes:
+
+\[
+	P(\text{Taxi incidente blue} | \text{Taxi testimone blu}) = \dfrac{P(\text{Taxi testimone blu}| \text{Taxi incidente blu})P(\text{Taxi incidente blu})}{P(\text{Taxi testimone blu})}
+\]
+
+
+
+\end{document}
