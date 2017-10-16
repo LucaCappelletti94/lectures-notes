@@ -40,8 +40,6 @@ a temperatura ambiente \[n_i \sim 1.5 \times 10^{10} \frac{tdc}{cm^3}\]
 \subsection{NMOS ed PMOS}
 Esistono due tipi duali e complementari di MOSFET: NMOS (Piu' usati e con caratteristiche migliori) e i PMOS.
 
-Nota: La corrente nei MOSFET scorre sempre in senso conocorde alla freccia.
-
 Definisco due costanti:
 
 \[K_n = \frac{1}{2} \mu_n C_{ox}'\left(\frac{W}{L}\right)\]
@@ -136,18 +134,61 @@ e quindi la corrente
 
 \[ I_{SD} = K_p \left( |V_{GS}| - |V_t| \right)^2\]
 
+\clearpage
 
-
-\subsubsection{Come Capire Se il Mosfet e' in Zona Ohmmica o Saturazione}
+\subsubsection{Come in che stato di funzionamento e' il MOSFET}
 Prendiamo un NMOS per comodita'.
+Metodo dei Diodi:
 
-Basta seguire 3 punti:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[nmos] (mos) {}
+(mos.gate) node[anchor=east] {G}
+(mos.drain) node[anchor=south] {D}
+(mos.source) node[anchor=north] {S}
+;\end{circuitikz}
+\end{center}
 
-$(1)$ Calcolare la corrente $I_{DS}$ del NMOS quando $V_{DS} = V_{ow} = V_{GS} - V_{t}$
+Il Mosfet essendo in fondo una giunzione NPN e' approssimabile a due diodi in antiserie.
+Quindi sostanzialmente ci sono 3 fasi di funzionamento del MOSFET: Off,Ohm,Sat (Spento,Ohmmica,Saturazione).
 
-$(2)$ Calcolare le correnti ad un nodo a scelta tra SOURCE e DRAIN imponendo che $V_{DS} = V_{ow}$
+Off e' quando non vi e' canale da nessuno dei due lati.
 
-$(3)$ Confrontare i due valori.
+Ohm e' quando vi e' canale da entrambi i lati.
+
+Sat quando vi e' canale da solo un lato.
+
+Le regole normali sono:
+
+Se la tensione $V_{GS} < V_t$ allora il MOSFET e' Off
+
+Altrimenti se  $V_{DS} < V_{GS} - V_t$ Il MOSFET e' Ohm
+
+Ed in fine se  $V_{DS} > V_{GS} - V_t$ Il Mosfet e' Sat
+
+Ora osserviamo che
+\[V_{DS} < V_{GS} - V_t\]
+\[V_{DS} - V_{GS} <  - V_t\]
+\[-V_{GS} <  - V_t\]
+\[V_{DG} > V_t\]
+
+quindi se $V_{GS} < V_t$ allora vi e' canale dal lato del Source
+
+e se $V_{DG} > V_t$ allora vi e' canale dal lato del Drain
+
+ora se sono entrambe vere si e' in zona Ohmmica, se una sola delle due e' vera si e' in Saturazione, quando sono entrambe false il MOSFET e' spento.
+
+
+Metodo Grafico :
+Basta seguire 4 punti:
+
+$(1)$ Verificare che la $V_{GS} > V_t$
+
+$(2)$ Calcolare la corrente $I_{DS}$ del NMOS quando $V_{DS} = V_{ow} = V_{GS} - V_{t}$
+
+$(3)$ Calcolare le correnti ad un nodo a scelta tra SOURCE e DRAIN imponendo che $V_{DS} = V_{ow}$
+
+$(4)$ Confrontare i due valori.
 
 Se la corrente del NMOS e' maggiore della somma di quelle del nodo allora il NMOS e' in zona ohmmica.
 
@@ -158,7 +199,15 @@ Dimosrazione:
 QUA METTI GRAFICI BELLI PLZ
 
 \subsubsection{Tips and Tricks}
-Per Piccole $V_{DS}$ si puo' approssimare:
+$(1)$ I MOSFET sono simmetrici e quindi non ha senso parlare di Source e Drain pero' per aiutare convenzione si ha che:
+
+La corrente nei MOSFET scorre sempre in senso concorde alla freccia.
+
+La tensione $V_{GS}$ si misura sempre tra il piedino dove vi e' la freccia e il gate ed ha sempre senso contrario alla freccia.
+
+In pratica queste sono convenzioni per suggerire il funzionamento del MOSFET a chi sta studiando il circuito.
+
+$(2)$ Per Piccole $V_{DS}$ si puo' approssimare:
 
 \[I_n = K_n \left[ 2 \left( V_{GS} -V_t \right)V_{DS} - V_{DS}^2 \right] \sim K_n \left[ 2 \left( V_{GS} -V_t \right)V_{DS} \right]\]
 Poiche' se $V_{DS}$ e' piccolo $V_{DS}^2$ e' ancora piu' piccolo e quindi si puo' trascurare senza grossi problemi.
