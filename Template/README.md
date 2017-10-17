@@ -5,7 +5,7 @@ To get started, follow these simple steps:
 
 1. Download a Latex IDE, like [TexMaker](http://www.xm1math.net/texmaker/)
 2. Download the Latex framework, for example [MacTex](http://www.tug.org/mactex/mactex-download.html)
-3. Run **sudo easy_install Pygments** to get minted running
+3. Run **sudo easy_install Pygments** to get minted running. Be **SURE** to have it linked in "/usr/local/bin".
 3. Change the lualatex command to **"lualatex" -synctex=1 -interaction=nonstopmode --shell-escape %.tex**
 4. Change the pdflatex command to **pdflatex -synctex=1 -interaction=nonstopmode --shell-escape %.tex**
 5. [For Linux User] "sudo apt-get install texlive-lang-italian"

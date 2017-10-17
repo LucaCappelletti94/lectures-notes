@@ -1,0 +1,31 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+
+\begin{document}
+
+\begin{definition}[Indice di similarità di Jaccard]
+Dati due insiemi $\mathbb{S}$ e $\mathbb{T}$, la similarità dei due insiemi sarà definita come:
+\[
+	\text{SIM}(\mathbb{S}, \mathbb{T}) = \dfrac{\abs{\mathbb{S} \cap \mathbb{T}}}{\abs{\mathbb{S} \cup \mathbb{T}}}
+\]
+\end{definition}
+
+Es: due utenti sono definibili simile dall'insieme di oggetti che essi hanno acquistato.
+
+\begin{definition}[K-gramma]
+Stringa di $k$ caratteri che appare in un documento.
+\end{definition}
+
+\begin{definition}[Stop word]
+Parole comuni nel linguaggio naturale ma che non aggiungono particolare valore semantico ad un testo.
+\end{definition}
+
+In alcuni contesti vengono tolti gli spazi nei documenti per calcolare il k-gramma di un documento, ma questo in alcuni casi può far perdere informazioni sul documento (Es: "Touch down" nel contesto dell'atterraggio di un aereo o di una partita di rugby).
+
+\begin{definition}[Matrice caratteristica]
+Una matrice che ha come colonne i documenti e le righe come le funzioni di hash.
+\end{definition}
+
+
+
+\end{document}
