@@ -1,8 +1,9 @@
 \providecommand{\main}{.}
 \input{\main/../../general/packages.tex}
 
-\begin{document}
+\addbibresource{references.bib}
 
+\begin{document}
 \input{\main/../../general/title.tex}
 
 {\hypersetup{hidelinks}
@@ -15,10 +16,13 @@
 %\subfile{\main/chapters/introduction}
 
 \chapter{Jobs}
-\subfile{\main/chapters/chapter-2}
+\subfile{\main/chapters/map_reduce}
 
 \chapter{Spark}
 \subfile{\main/chapters/spark}
+
+\chapter{Similarità}
+\subfile{\main/chapters/similarity}
 
 %\chapter{Conclusion}
 %\subfile{\main/chapters/conclusion}
