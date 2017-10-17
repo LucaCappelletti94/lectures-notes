@@ -18,14 +18,15 @@ Il numero a fianco della domanda rappresenta il numero di volte che è stata pos
 \subsection{Definire l’algoritmo di Q-learning, descrivendo le equazioni opportune.}
 \subsection{Scrivere le equazioni dell'algoritmo Q-learning in cui si consideri anche la traccia. [2]}
 \subsection{Cosa si intende per politica epsilon-greedy? Come entra nell’algoritmo di Q-learning? }
-\subsection{Che differenza c’è tra Q-learning e SARSA?}
+\subsection{Che differenza c'è tra Q-learning e SARSA?}
 \subsection{Dato un problema a piacere si descriva uno degli algoritmi e mostrare due passaggi di addestramento}
 \subsection{Quale criterio si sceglie per definire i Reward?}
 \subsection{A quali elementi sono associati i reward? Allo stato? All'azione? Allo stato prossimo? Perchè? [2]}
 \subsection{Impostare un problema su griglia (apprendimento del percorso di un agente, con partenza ed arrivo prescelti + ostacoli). La griglia fornisce un reward, diverso da zero, in ogni transizione.}
 \subsubsection{Definire chiaramente il problema, farne un modello definendo le variabili e le funzioni che le legano.}
-\subsubsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente.}
+\subsubsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente.} 
 
+\clearpage
 \section{Fuzzy System}
 
 \subsection{Definire i passi per costruire un sistema fuzzy. [2]}
@@ -34,6 +35,7 @@ Il numero a fianco della domanda rappresenta il numero di volte che è stata pos
 \subsection{Definire un problema per FAM a piacere che involva almeno due variabili in ingresso e due in uscita. [2]}
 \subsection{Definire tutti i componenti e calcolare l'uscita passo a passo per un valore di input a piacere [2]}
 
+\clearpage
 \section{Macchine e intelligenza}
 
 \subsection{Descrivere il test di Turing [2]}
@@ -44,17 +46,205 @@ Il numero a fianco della domanda rappresenta il numero di volte che è stata pos
 \subsection{Cosa voleva dimostrare l'esperimento della scatola cinese? [2]}
 \subsection{Cosa si intende per ipotesi forte ed ipotesi debole dell'AI? [2]}
 \subsection{Riportare almeno due elementi del contraddittorio sulle ipotesi su cui è basata l'ipotesi debole sull'AI [2]}
-\subsection{Descrivere il “Brain prosthesis thought experiment” di Moravec e commentarlo. [2]}
+\subsection{Descrivere il "Brain prosthesis thought experiment" di Moravec e commentarlo. [2]}
 
+\clearpage
 \section{Statistica}
 
 \subsection{Esercizio 1}
-In una città lavorano due compagnie di taxi: blue e verde, la maggior parte dei taxisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: 85\% di taxi verdi e 15\% di taxi blu. Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua affidabilità è stata valutata del 70\%. Qual è la probabilità che il taxi fosse effettivamente blu? Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%? Enunciare il teorema di Bayes. Discutere l'analisi di varianza per un sistema lineare. Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come?
+In una città lavorano due compagnie di taxi: blue e verde, la maggior parte dei taxisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: $85\%$ di taxi verdi e $15\%$ di taxi blu. Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua affidabilità è stata valutata del $70\%$. Qual è la probabilità che il taxi fosse effettivamente blu? Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%? 
 
 \subsection{Esercizio 2}
-Lo strumento principe per lo screaning per il tumore al seno è la radiografia (mammografia). Definiamo X la situazione della donna: X={sana, malata}, che non conosciamo. Definiamo Y l'esito della mammografia: Y={positiva, negativa}, che viene misurato. Sappiamo che la sensitività della mammografia è intorno al 90\% ( P(Y=positiva | X=malata) ) e che la specificità sia anch'essa del 90\% ( P(Y=negativa | X=sana) ). Qual è la probabilità che l'esame dia risultato positivo ( P(Y = positivo) ), sapendo che le donne malate sono lo 0,01\% ( P(X=malata) = 0,01\%)? Qual è la percentuale di donne che hanno uno screening positivo, di essere effettivamente malate? Discutere l'analisi di varianza per un sistema lineare. Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come?
+Lo strumento principe per lo screaning per il tumore al seno è la radiografia (mammografia). Definiamo X la situazione della donna: X={sana, malata}, che non conosciamo. Definiamo Y l'esito della mammografia: Y={positiva, negativa}, che viene misurato. Sappiamo che la sensitività della mammografia è intorno al 90\% ( P(Y=positiva | X=malata) ) e che la specificità sia anch'essa del 90\% ( P(Y=negativa | X=sana) ). Qual è la probabilità che l'esame dia risultato positivo ( P(Y = positivo) ), sapendo che le donne malate sono lo 0,01\% ( P(X=malata) = 0,01\%)? Qual è la percentuale di donne che hanno uno screening positivo, di essere effettivamente malate?
 
+\subsection{Enunciare il teorema di Bayes}
+Data una partizione dello spazio degli eventi $A_1...A_n$, vale che:
 
+\[
+	P(A_i|E) = \dfrac{P(E|A_i)P(A_i)}{\sum_{j=1}^n P(E|A_j)P(A_j)}
+\]
+
+\subsection{Discutere l'analisi di varianza per un sistema lineare}
+Svolgere un'analisi di varianza per un sistema lineare significa analizzare quanto la stima di un parametro possa variare nelle diverse misure dei dati relativi al problema. 
+L'analisi consente di esaminare a matrice dei covarianti, misurare quanto varia una misura di una variabile al variare del rumore e misurare quanto covariano due misure di due variabilità.
+\textbf{L'indice di correlazione} di due variabili viene calcolato proprio per misurare quanto le variabili si trovino lungo una funzione.
+
+\subsection{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come?}
+Scriviamo il logaritmo negativo della verosimiglianza:
+
+\begin{align}
+P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)  &=
+	- \sum_{i=1}^n 
+	\ln \left\{
+		\dfrac{1}{\sqrt{2\pi}\sigma}
+		\exp \left[
+		-\dfrac{1}{2}	\left(\dfrac{ y_i - mx_i - b}{\sigma} \right)^2
+	 	\right]
+	 \right\}\\
+	 &= 
+	 - \sum_{i=1}^n \ln
+	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+	 - \sum_{i=1}^n
+		\left[
+		-\dfrac{1}{2}	\left(\dfrac{ y_i - mx_i - b}{\sigma} \right)^2
+	 	\right]\\
+	 &= 
+	 - \sum_{i=1}^n \ln
+	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+	 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n
+		\left(y_i - mx_i - b \right)^2
+\end{align}
+
+Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a $m$:
+
+\begin{align}
+	\dfrac{\partial P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)}{\partial m}  &= \dfrac{\partial}{\partial m} \left [ - \sum_{i=1}^n \ln
+	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+	 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n
+		\left(y_i - mx_i - b \right)^2
+	 	 \right ]\\
+	 &= 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-x_i)\\
+	 &= -\dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2  x_i
+\end{align}
+
+\[
+	-\dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2  x_i = 0
+\]
+
+\[
+	\sum_{i=1}^n \left(y_i - mx_i - b \right)^2  x_i = 0
+\]
+
+\begin{figure}[H]
+\[
+	m\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] + q \left [ \sum_{i=1}^n \left(x_i \right) \right ] = \left [ \sum_{i=1}^n \left(y_i x_i \right) \right ]
+\]
+\caption{Prima equazione}
+\end{figure}
+
+Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a $q$:
+
+\begin{align}
+	\dfrac{\partial P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)}{\partial q}  &= \dfrac{\partial}{\partial q} \left [ - \sum_{i=1}^n \ln
+	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+	 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n
+		\left(y_i - mx_i - b \right)^2
+	 	 \right ]\\
+	 &= 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-1)\\
+	 &= \dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2
+\end{align}
+
+\[
+	\dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2  = 0
+\]
+
+\[
+	\sum_{i=1}^n \left(y_i - mx_i - b \right)^2 = 0
+\]
+
+\begin{figure}[H]
+\[
+	m\left [ \sum_{i=1}^n \left(x_i \right) \right ] + q \left [ \sum_{i=1}^n \left(1 \right) \right ] = \left [ \sum_{i=1}^n \left(y_i \right) \right ]
+\]
+\caption{Seconda equazione}
+\end{figure}
+
+Ponendo a sistema le equazioni così ottenute ottengo:
+\[
+\begin{bmatrix}
+	\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] &  \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
+	\left [ \sum_{i=1}^n \left(x_i \right) \right ] & n
+\end{bmatrix}
+\begin{bmatrix}
+m\\
+b
+\end{bmatrix}
+= 
+\begin{bmatrix}
+	\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
+	\left [ \sum_{i=1}^n \left(y_i \right) \right ]
+\end{bmatrix}
+\]
+
+Lo stesso problema visto dal punto di vista dei \textbf{minimi quadrati} è impostato nel seguente modo.
+
+\[
+\begin{bmatrix}
+	x_1 & 1\\
+	\vdots & \vdots \\
+	x_n & n
+\end{bmatrix}
+\begin{bmatrix}
+	m\\
+	b
+\end{bmatrix}
+= 
+\begin{bmatrix}
+	y_1\\
+	\vdots\\
+	y_n
+\end{bmatrix}
+\]
+
+L'obbiettivo è trovare una $x$ tale che $(Ax-b)^T(Ax-b)$ è minima (minimizzazione di residui).
+La soluzione si ottiene calcolando $A^TAx = A^Tb$.
+
+\[
+A^TA = \begin{bmatrix}
+	x_1 & \dots & x_n\\
+	1 & \dots & n
+\end{bmatrix}
+\begin{bmatrix}
+	x_1 & 1\\
+	\vdots & \vdots \\
+	x_n & n
+\end{bmatrix}
+=
+\begin{bmatrix}
+	\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] &  \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
+	\left [ \sum_{i=1}^n \left(x_i \right) \right ] & n
+\end{bmatrix}
+\]
+
+\[
+A^Tb = \begin{bmatrix}
+	x_1 & \dots & x_n\\
+	1 & \dots & n
+\end{bmatrix}
+\begin{bmatrix}
+	y_1\\
+	\vdots\\
+	y_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+	\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
+	\left [ \sum_{i=1}^n \left(y_i \right) \right ]
+\end{bmatrix}
+\]
+
+Ovvero:
+
+\[
+\begin{bmatrix}
+	\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] &  \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
+	\left [ \sum_{i=1}^n \left(x_i \right) \right ] & n
+\end{bmatrix}
+\begin{bmatrix}
+m\\
+b
+\end{bmatrix}
+= 
+\begin{bmatrix}
+	\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
+	\left [ \sum_{i=1}^n \left(y_i \right) \right ]
+\end{bmatrix}
+\]
+
+Che è la stessa soluzione ottenuta per la stima a massima verosimiglianza. Queste metodologie offrono una stima dei parametri di una funzione tramite la minimizzazione dei residui.
+La soluzione è quella che minimizza lo scarto quadratico medio dei residui, ovvero è a minima varianza.
+
+\clearpage
 \section{Apprendimento supervisionato}
 
 \subsection{Definire l'algoritmo di apprendimento di una rete neurale con unità arbitrarie. [2]}
@@ -68,16 +258,92 @@ Lo strumento principe per lo screaning per il tumore al seno è la radiografia 
 \subsection{Cosa si intende per un problema di regressione ed illustrare una possibile soluzione.}
 \subsection{Come funziona l'approssimazione incrementale multi-scala, cosa garantisce e quali vantaggi può avere?}
 
+\clearpage
 \section{AI}
 
 \subsection{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo?}
+L'idea è quella di esplorare il grafo partendo dal nodo iniziale, provando a trovare la strada per arrivare ad uno stato di goal. Ad ogni step della ricerca un nodo può essere etichettato in 3 modi:
+
+\begin{enumerate}
+\item \textbf{Unvisited}: deve essere ancora visitato dall'algoritmo.
+\item \textbf{Alive}: visitato, ma l'algoritmo deve ancora visitare i nodi direttamente raggoiungibili da esso. I nodi alive sono raccolti di una coda di priorità $a$.
+\item \textbf{Dead}: visitato, ed anche ogni nodo vicino è stato visitato.
+\end{enumerate}
+
+È considera un template e non un algoritmo perché non è specificato il criterio con cui ordinare $a$.
+
+%\begin{algorithm}
+%\DontPrintSemicolon
+%\KwData{Un grafo $G$ e un nodo $v \in G$.}
+%\KwResult{Tutti i nodi raggiungibili da $v$ son segnati come visitati.}
+%\Begin{
+%$V \longleftarrow U$\;
+%$S \longleftarrow \emptyset$\;
+%\For{$x\in X$}{
+%$NbSuccInS(x) \longleftarrow 0$\;
+%$NbPredInMin(x) \longleftarrow 0$\;
+%$NbPredNotInMin(x) \longleftarrow |ImPred(x)|$\;
+%}
+%\For{$x \in X$}{
+%\If{$NbPredInMin(x) = 0$ {\bf and} $NbPredNotInMin(x) = 0$}{
+%$AppendToMin(x)$}
+%}
+%\nl\While{$S \neq \emptyset$}{
+%\lnl{InRes2}\While{$|S \cap ImSucc(x)| \neq |S|$}{
+%\For{$ y \in S-ImSucc(x)$}{
+%\{ remove from $V$ all the arcs $zy$ : \}\;
+%\For{$z \in ImPred(y) \cap Min$}{
+%remove the arc $zy$ from $V$\;
+%$NbSuccInS(z) \longleftarrow NbSuccInS(z) - 1$\;
+%move $z$ in $T$ to the list preceding its present list\;
+%\{i.e. If $z \in T[k]$, move $z$ from $T[k]$ to1
+%$T[k-1]$\}\;
+%}
+%$NbPredInMin(y) \longleftarrow 0$\;
+%$NbPredNotInMin(y) \longleftarrow 0$\;
+%$S \longleftarrow S - \{y\}$\;
+%$AppendToMin(y)$\;
+%}
+%}
+%$RemoveFromMin(x)$\;
+%}
+%
+%procedure DFS(G,v):
+%    label v as discovered
+%    for all edges from v to w in G.adjacentEdges(v) do
+%        if vertex w is not labeled as discovered then
+%            recursively call DFS(G,w)
+%            
+%     \For{$x \in X$}{
+%		\If{$NbPredInMin(x) = 0$ {\bf and} $NbPredNotInMin(x) = 0$}{
+%			$AppendToMin(x)$
+%		}
+%	}
+%
+%}
+%\caption{Depth-first search}
+%\end{algorithm}
+
 \subsection{Si elenchino due possibili implementazioni di Forward Search elencandone proprietà, vantaggi e svantaggi.}
 
+\subsubsection{Breadth first search}
+La coda $a$ è gestita in modo FIFO (First-in First-out). I percorsi con $k+1$ azioni vengono valutati dopo che ogni percorso con $k$ azioni è stato esplorato. Se viene trovato il percorso, è garantino che questo avrà il minor numeri di azioni (percorso più breve). 
+Funziona in un tempo $O(\abs{v}+ \abs{\epsilon})$.
+Per costruire l'albero di ricerca individua in tutti i figli con la stessa profondità e garantisce il percorso più breve. Inoltre è simmetrico.
+
+\subsubsection{Deapth first search}
+La coda $a$ è uno stack gestito con una politica LIFO (Last-in First-out). È un algoritmo più "aggressivo" e cerca prima soluzioni nei percorsi più lunghi.
+Funziona con un tempo $O(\abs{v}+ \abs{\epsilon})$.
+Ha il vantaggio di ignorare cammini sbagliati nel caso in cui si trovi immediatamente una soluzione.
+Non è sistematico su spazi infiniti.
+
+\clearpage
 \section{Clustering}
 
 \subsection{Cosa si intende per clustering? In quali famiglie vengono divisi?}
 \subsection{Che relazione c'è tra clustering e classificazione e quali sono le criticità?}
 
+\clearpage
 \section{Biologia}
 
 \subsection{Definire il neurone biologico evidenziandone le parti più significative per la trasmissione dell'informazione ed il loro comportamento.}
