@@ -2,11 +2,14 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Esercizio 1}
+\section{Esercizio sui Taxi}
 In una città lavorano due compagnie di taxi: blue e verde, la maggior parte dei taxisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: $85\%$ di taxi verdi e $15\%$ di taxi blu. Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua affidabilità è stata valutata del $70\%$. Qual è la probabilità che il taxi fosse effettivamente blu? Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%? 
 
-\section{Esercizio 2}
+\section{Esercizio sul Tumore al seno}
 Lo strumento principe per lo screaning per il tumore al seno è la radiografia (mammografia). Definiamo X la situazione della donna: X={sana, malata}, che non conosciamo. Definiamo Y l'esito della mammografia: Y={positiva, negativa}, che viene misurato. Sappiamo che la sensitività della mammografia è intorno al 90\% ( P(Y=positiva | X=malata) ) e che la specificità sia anch'essa del 90\% ( P(Y=negativa | X=sana) ). Qual è la probabilità che l'esame dia risultato positivo ( P(Y = positivo) ), sapendo che le donne malate sono lo 0,01\% ( P(X=malata) = 0,01\%)? Qual è la percentuale di donne che hanno uno screening positivo, di essere effettivamente malate?
+
+\section{Esercizio delle Macchine [2]}
+Tre macchine, A B, e C, producono rispettivamente il 50\%, il 40\%, e il 10\% del numero totale dei pezzi prodotti da una fabbrica. Le percentuali di produzione difettosa di queste macchine sono rispettivamente del 2\%, 1\% e 4\%. Determinare la probabilità di estrarre un pezzo difettoso.Viene estratto a caso un pezzo che risulta difettoso. Determinare la probabilità che quel pezzo sia stato prodotto dalla macchina C.
 
 \section{Enunciare il teorema di Bayes}
 Data una partizione dello spazio degli eventi $A_1...A_n$, vale che:
@@ -15,12 +18,12 @@ Data una partizione dello spazio degli eventi $A_1...A_n$, vale che:
 	P(A_i|E) = \dfrac{P(E|A_i)P(A_i)}{\sum_{j=1}^n P(E|A_j)P(A_j)}
 \]
 
-\section{Discutere l'analisi di varianza per un sistema lineare}
+\section{Discutere l'analisi di varianza per un sistema lineare [4]}
 Svolgere un'analisi di varianza per un sistema lineare significa analizzare quanto la stima di un parametro possa variare nelle diverse misure dei dati relativi al problema. 
 L'analisi consente di esaminare a matrice dei covarianti, misurare quanto varia una misura di una variabile al variare del rumore e misurare quanto covariano due misure di due variabilità.
 \textbf{L'indice di correlazione} di due variabili viene calcolato proprio per misurare quanto le variabili si trovino lungo una funzione.
 
-\section{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come?}
+\section{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come? [3]}
 Scriviamo il logaritmo negativo della verosimiglianza:
 
 \begin{align}

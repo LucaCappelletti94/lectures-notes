@@ -2,7 +2,7 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo?}
+\section{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo? [2]}
 L'idea è quella di esplorare il grafo partendo dal nodo iniziale, provando a trovare la strada per arrivare ad uno stato di goal. Ad ogni step della ricerca un nodo può essere etichettato in 3 modi:
 
 \begin{enumerate}
@@ -65,7 +65,7 @@ L'idea è quella di esplorare il grafo partendo dal nodo iniziale, provando a tr
 %\caption{Depth-first search}
 %\end{algorithm}
 
-\section{Si elenchino due possibili implementazioni di Forward Search elencandone proprietà, vantaggi e svantaggi.}
+\section{Si elenchino due possibili implementazioni di Forward Search elencandone proprietà, vantaggi e svantaggi. [2]}
 
 \subsection{Breadth first search}
 La coda $a$ è gestita in modo FIFO (First-in First-out). I percorsi con $k+1$ azioni vengono valutati dopo che ogni percorso con $k$ azioni è stato esplorato. Se viene trovato il percorso, è garantino che questo avrà il minor numeri di azioni (percorso più breve). 
