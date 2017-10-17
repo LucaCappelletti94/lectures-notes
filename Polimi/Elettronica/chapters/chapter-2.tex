@@ -51,36 +51,6 @@ e quindi la corrente
 
 \[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
 
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
- grid=major,
- samples=\samples,
- xlabel=$V_{GS}$,
-    ylabel=$V_{DS}$,
-    ]
-   \draw [green,domain=0:2*pi] plot (\x, {(sin(\x r)* ln(\x+1))/2});
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
- grid=major,
- samples=\samples,
- xlabel=$V_{GS}$,
-    ylabel=$V_{DS}$,
-    zlabel=$I_{DS}$
-]
-
-\addplot3[surf, unbounded coords=jump]
-{x^2 + y^2 > 4 && x < 3/2 ? (x-1)^2 + y^2 : NaN};
-
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
 INSERIRE QUI GRAFICI I/VDS I/VGS VDS/VGS
 \clearpage
 \subsubsection{PMOS}
@@ -119,6 +89,10 @@ e quindi la corrente
 
 \subsection{Come capire in che stato di funzionamento e' il MOSFET}
 Prendiamo un NMOS per comodita'.
+Metodo per assurdo:
+
+Si suppone che il mosfet sia in un certo funzionamento e poi si va avanti a risolvere fino ad un assurdo logico.
+
 Metodo dei Diodi:
 
 \begin{center}
@@ -247,41 +221,23 @@ Dato il Circuito sottostante Calcolare $V_{out}$ nei casi
 $(a)$ $V_{in} = 0V$
 $(b)$ $V_{in} = 3.3V$
 
-Poi si calcoli Soglia logica $V_{th}$, Potenza Statica $P_{STAT}$.
-
-
-\begin{center}
-\begin{circuitikz}
-\draw (0,-3)
- node[nmos] (mos) {}
-(mos.gate) node[anchor=east] {G,$V_{in}$}
-(mos.drain) node[anchor=south,xshift=-0.25cm] {D}
-(mos.source) node[anchor=north,xshift=-0.25cm] {S};
-\draw (0,0)
-node[vcc]{3.3V}
-to[R=$R$,v<=$V_r$,i=$i_r$] (0,-2)
--- (mos.drain);
-\draw (mos.source)
-node[ground] {Gnd} (0,-4);
-\draw (mos.drain)
-to[short, *-] (1,-2.25)
-to[short] (1,-2.50)
-to[C=$C_l$,v<=$V_{out}$] (1,-3.50)
-to[short] (1,-4)
-to[short] (0,-4)
-;
-\end{circuitikz}
-\end{center}
+Poi si calcoli Soglia logica $V_{th}$, Potenza Statica $P_{STAT}$ .
 
 Dati:
 
-\[V_{cc} = 3.3V\]
-\[R = 1k\Omega\]
-\[K_n = 5 \frac{mA}{V^2}\]
-\[|V_t| = 1V\]
-\[C_l = 10pF\]
+$V_{cc} = 3.3V$
+
+$R = 1k\Omega$
+ 
+$K_n = 5 \frac{mA}{V^2}$
+  
+$|V_t| = 1V$
+
+$C_l = 10pF$
+
+\clearpage
 \subsubsection{Risoluzione Esercizio 1}
-$(a)$ $V_{in} = 0V$
+\textbf{$(a)$ $V_{in} = 0V$}
 
 poiche' sia $V_{in}$ che la tensione al SOURCE allora la tensione $V_{GS} = V_G - V_S = 0$ quindi l'NMOS e' spento quindi $I_n = 0$ e poiche' il NMOS si comporta come circuito aperto anche la corrente della resistenza $I_r = I_n = 0$ e di conseguenza anche la caduta di tensione sulla resistenza e' $0$ poiche' la sua eq caratteristica e' $V = RI$ quindi non essendoci caduta di tensione sulla resistenza $V_{out} = V_{cc} = 3.3V$.
 
@@ -289,7 +245,7 @@ Quindi:
  \[V_{in} = 0V \Rightarrow V_{out} = 3.3V\]
  
 
-$(b)$ $V_{in} = V_{GS} = 3.3V$
+\textbf{$(b)$ $V_{in} = V_{GS} = 3.3V$}
 
 quindi $V_{ow} = |V_{GS}| - |V_t| = 2,3V$ quindi $V_{GS} > V_t$ quindi l'NMOS e' Acceso.
 Ora bisogna stabilire se si trova in regime ohmmico o di saturazione e procediamo per metodo grafico:
@@ -316,8 +272,8 @@ Che e' una equazione di secondo grado in $V_{DS}$
 
 La quale parabola ha come radici:
 
-\[V_{DS1} = 4.6V\]
-\[V_{DS2} = 0.14V\]
+\[V_{DS1} = 4.6V \]
+\[V_{DS2} = 0.14V \]
 
 Ovviamente ci puo' essere un solo valore vero, quindi uno e' da scartare.
 In questo caso Poiche' $V_{DS1} > V_{cc}$ e $V_{DS1} > V_{ow}$ ci porta a scartare $V_{DS1}$
@@ -330,15 +286,40 @@ E quindi in sinossi:
 
 \[V_{in} = 3.3V \Rightarrow V_{out} = 0.14V\]
 
-Calcolo della soglia logica $V_{th}$:
+\textbf{Calcolo della soglia logica $V_{th}$:}
 
 La soglia logica e' la tensione che separa la zona che consideriamo ON da quella che consideriamo OFF.
 
 L'ideale sarebbe $V_{th} = \frac{V_{cc}}{2}$
 
-\[V_{th} = \frac{\bigtriangleup V}{2} = \frac{\left | V_{on} - V_{off} \right |}{2} = \frac{3.3V - 0.14V}{2} = 1.58V\]
+\[V_{in} = V_{out}\]
+quindi la $V_{GD} = 0V$ quindi non vi e' canale dal lato del drain quindi il mosfet puo' essere o spento o in saturazione.
 
-Calcolo Delle Potenze Statiche $P_{STAT}$:
+Procediamo per assurdo:
+
+Supponiamo che il Mosfet fosse spento:
+Se il Mosfet e' spento allora $I_{DS} = 0A$ e (supponendo a regime quindi $I_c = 0A$) allora la tensione $V_r = I_{DS} R = 0V$ quindi $V_{out} = V_{in} = V_{GS} = V_{cc} = 3.3V$
+Ma se $V_{GS} = 3.3V > V_t$ quindi il mosfet sarebbe acceso!
+ASSURDO.
+
+Quindi il mosfet e' in saturazione
+\[I_{DS} = K_n \left(V_{ow}\right)^2 \]
+e quindi poiche' consideriamo a regime quindi $I_c = 0A$
+da una KCL al nodo del drain abiamo che
+\[I_r = I_{DS} \]
+quindi la tensione
+\[V_{out} = V_{in} = V_{GS} = V_{cc} - V_r = V_{cc} - R I_r\]
+\[V_{GS} = V_{cc} - R K_n \left(V_{GS} - V_t \right)^2\]
+Ora si ha una eq di secondo grado da risolvere in $V_{GS}$
+\[(R K_n)V_{GS}^2 - (2 R K_n V_t + 1)V_{GS} + V_t^2 + V_{cc} = 0\]
+questa la risolvo a casa couz sbatta
+\[V_{GS,1} = 0.7753V\]
+\[V_{GS,2} = 1.2047V\]
+Ovviamente la prima e' sbagliata poiche' $0.7753V < V_t$ quidni il mos sarebbe spento e quindi in contraddizione con quanto detto prima.
+
+Quindi La soglia logica e' \[V_{th} = V_{GS,2} = 1.2047V\]
+
+\textbf{Calcolo Delle Potenze Statiche $P_{STAT}$:}
 
 In questo circuito abbiamo due potenze statiche, quando la porta e' ON e quando e' OFF.
 
@@ -375,6 +356,8 @@ Dati:
 \[C = 1pF\]
 \[|K_p| = 2 \frac{mA}{V^2}\]
 \[|V_t| = 1V\]
+
+\clearpage
 \subsubsection{Risoluzione Esercizio 2}
 $(b)$ $V_{in} = 3.3V$
 
@@ -417,6 +400,117 @@ Ora concludiamo con una KVL dalla quale si ottiene $V_{out} = V_{cc} - V_{SD} = 
 
 In Sinossi:
 \[V_{in} = 0V \Rightarrow V_{out} = 2.96V\]
-.
+
+\textbf{Calcolo del Tempo Di Propagazione $t_p$:}
+
+Il Tempo di propagazione e' il tempo che la porta ci mette per fare dal 0\% al 50\% della transizione.
+
+Calcoliamo il tempo di propagazione sul fronte di discesa:
+
+Il PMOS e' spento quindi e' un circuito aperto ed il condensatore puo' scaricarsi solo sulla resistenza quindi \[\tau_{FE} = R * C = 1ns\]
+quindi \[t_{p,FE} = 0.69 * \tau = 0.69ns\]
+
+Calcoliamo il tempo di propagazione sul fronte di salita:
+Approssimiamo il PMOS acceso ad una resistenza
+\[R_{eq} = \frac{V_{cc}}{I_{SAT}} \sim 330\Omega\]
+quindi a questo punto la resistenza vista dal condesnatore (poiche' si deve cortocircuitare masse ed alimentazioni) e' il parallelo tra le due resistenze.
+E poiche' $R_{eq} << R$ allora il loro parallelo $R_p \sim 320\Omega$
+quindi \[\tau_{RE} = C * R_p << \tau_{FE}\]
+\[t_{p,RE} << t_{p,FE}\]
+
+quindi prendiamo \[t_p = t_{p,FE} = 0.69ns\]
+
+\textbf{Calcolo della Potenza Statica $P_{STAT}$:}
+
+Nel caso il PMOS sia spento la corrente che circola nel circuito e' $0A$ quindi la $P_{STAT,OFF} = 0W$
+
+Nel caso il PMOS sia acceso la potenza, calcoliamo la corrente:
+precedentemente avevamo calcolato $V_{out} = 2.95V$
+il consatore e' gia' carico perche' guardiamo a regime quindi non assorbe corrente
+quindi la corrente
+\[I_r = \frac{V_{out}}{R} = 2.95mA\] 
+\[P_{STAT,ON} = I_r V_cc = 9.74mW\]
+
+
+\clearpage
+\subsubsection{Esercizio 3}
+Dato il Circuito sottostante,
+Calcolare $V_{out}$ quando $V_{in} = 0V$, dimensionare $\frac{W}{L}$ in modo che $V_{in} = 5V \Rightarrow V_{out} = 0.5V$, Calcolare il tempo di propagazione  $t_p$ , e potenze statiche $P_{STAT}$ e dinamiche $P_{DIN}$ con un clock di $f_{CLK} = 10kHz$.
+
+
+
+Dati:
+
+\[V_{cc} = 5V\]
+\[C = 10pF\]
+\[|K_p| = 200 \frac{\mu A}{V^2}\]
+\[K_n' = 50 \frac{\mu A}{V^2}\]
+\[|V_{t,n}| = |V_{t,p}| = 1V\]
+
+\clearpage
+\subsubsection{Risoluzione Esercizio 3}
+
+\textbf{$(1)$ $V_{in} = 0V$}
+
+$V_{in} = V_{GS,n} = 0V < |V_{t,n}|$ quindi il NMOS e' spento o in saturazione.
+Pero' per essere in saturazione $V_{GD} = V_{out} - V_{in} = V_{out} < -V_{t,n}$
+e poiche' $V_{out}$ puo' assumere solo valori positivi cio' implica che il NMOS e' spento.
+
+$|V_{SG,p}| = 5V > |V_{t,p}|$ quindi il PMOS e' acceso.
+
+Poiche' il condensatore non assorbe corrente poiche' presupposto a regime e l'NMOS e' spento allora la corrente che passa da entrambi i MOS $I_{mos} = 0A$
+
+Per caratteristica dei MOS il PMOS anche se acceso ha tensione $V_{DS,p} = 0V$
+
+Per KVL si ha che $V_{out} = 5V - V_{DS,p} = 5V$
+
+Quindi \[ V_{in} = 0V \Rightarrow V_{out} = 5V\]
+
+\textbf{Dimensionamento di $\frac{W}{L}$ in modo che $V_{in} = 5V \Rightarrow V_{out} = 0.5V$}
+
+\[ K_n = K_n' \frac{W}{L} \]
+
+Iniziamo a studiare le fasi di funzionamento dei MOS.
+la tensione $|V_{GD,p}| = 5V > |V_{t,p}|$ quindi il PMOS e' acceso.
+
+la tensione $|V_{GS,p}| = |V_{out}| = 0.5V < |V_{t,p}|$ quindi il PMOS e' in Saturazione.
+
+La tensione $V_{GS,n} = V_{in} > V_{t,n}$ quindi il NMOS e' acceso.
+
+La tensione $|V_{GD,n}| = |V_{in} - V_{out}| > |V_{t,n}|$ quindi l'NMOS e' in Ohmmica.
+
+La corrente dei due mos e' uguale poiche' sono in serie e il condensatore e' gia' a regime.
+Quindi dal bilancio delle correnti posso ricavare il parametro ricercato.
+
+\[I_{SAT,p} = I_{OHM,n}\]
+\[K_p \left(V_{SG} - |V_{t,p}| \right)^2 = K_n' \frac{W}{L} \left[ 2 \left( V_{GS} - V_{t,n} \right) V_{DS} - V_{DS}^2 \right]\]
+\[\frac{W}{L} = 17\]
+
+\textbf{Calcolo del tempo di propagazione $t_p$}
+
+Calcoliamo solo il tempo di propagazione del fronte di discesa del input poiche' con quello di salita il condensatore si scarica a massa attraverso l'NMOS ed ha sicuramente un tempo inferiore a quello di salita.
+
+Usiamo l'approssimazione a corrente costante.
+\[I_p = K_p \left(|V_{GS}| - |V_{t,p}| \right)^2 = 3.2mA\]
+\[I_p = C \frac{V_f - V_i}{t_p} = C \frac{2.25V}{t_P}\]
+ora basta unire le due equazioni
+\[ K_p \left(|V_{GS}| - |V_{t,p}| \right)^2 = 3.2mA = C \frac{2.25V}{t_p}\]
+\[t_p = C \frac{2.25V}{3.2mA} = 7.03ns\]
+VALORE DA CONTROLLARE NON SON SICURO SIA GIUSTO
+
+\textbf{Calcolo delle Potenze Statiche $P_{STAT}$}
+
+$(a)$ $V_{in} = 0V$ per i motivi sopra scritti Il' NMOS e' spento quindi la corrente del generatore e' $I = 0$ quindi la potenza statica off
+\[P_{STAT,Off} = 0W\]
+
+$(b)$ $V_{in} = 5V$ abbiam gia' calcolato che la corrente nei MOS e' $I = 3.2mA$ quindi
+\[ P_{STAT,On} = I V_{cc} = 16mW\]
+
+\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $f_{CLK} = 10kHz$}
+
+\[ I = \frac{\bigtriangleup Q}{T_{CLK}} = C \frac{V_f - V_i}{T_{CLK}}\]
+\[ P_{DIN} = V_{cc} I = V_{cc} C \frac{V_f - V_i}{T_{CLK}}\]
+\[ P_{DIN} = V_{cc} C \bigtriangleup V f_{CLK} = 225 \mu W\]
+CONTROLLA FREQUENZA DI CLOCK CHE LA HO MESSA A CASOH
 
 \end{document}
