@@ -53,7 +53,7 @@ L &\text{ e' la lunghezza del canale}
 quindi $K_n = K_n' \left(\frac{W}{L}\right)$
 
 \clearpage
-Per l'NMOS:
+\subsubsection{NMOS}
 
 \begin{center}
 \begin{circuitikz} \draw
@@ -82,6 +82,18 @@ e quindi la corrente
 
 \[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
 
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ grid=major,
+ samples=\samples,
+ xlabel=$V_{GS}$,
+    ylabel=$V_{DS}$,
+    ]
+   \draw [green,domain=0:2*pi] plot (\x, {(sin(\x r)* ln(\x+1))/2});
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
 \begin{center}
 \begin{tikzpicture}
@@ -102,7 +114,7 @@ e quindi la corrente
 
 INSERIRE QUI GRAFICI I/VDS I/VGS VDS/VGS
 \clearpage
-E Dualmente per il PMOS:
+\subsubsection{PMOS}
 
 
 \begin{center}
@@ -136,7 +148,7 @@ e quindi la corrente
 
 \clearpage
 
-\subsubsection{Come in che stato di funzionamento e' il MOSFET}
+\subsection{Come capire in che stato di funzionamento e' il MOSFET}
 Prendiamo un NMOS per comodita'.
 Metodo dei Diodi:
 
@@ -198,7 +210,43 @@ Dimosrazione:
 
 QUA METTI GRAFICI BELLI PLZ
 
-\subsubsection{Tips and Tricks}
+\subsection{Caratteristiche Importanti dei MOSFET}
+\textbf{Tensione di Overdrive $V_{ow}$}
+\[ V_{ow} = V_{GS} - V_t\]
+e' utile per scrivere le formule in modo piu' compatto.
+
+\textbf{Tensione di soglia logica $V_{th}$}
+\[V_{th} \triangleq V \text{ t.c. } V_{in} = V_{out}\]
+
+\textbf{Potenza Statica $P_{STAT}$}
+Sono le potenze consumate dalla porta per rimanere in ogni suo stato.
+
+\textbf{Potenza Statica $P_{DIM}$}
+Sono le potenze consumate dalla porta per commutare da stato a stato.
+
+\textbf{Tempo di propagazione $t_p$}
+Il Tempo di propagazione e' quanto ci mette la porta a fare da 0\% al 50\% della sua escurisione di tensione.
+Vi sono due approssimazioni usabili per calcolarla:
+
+$(1)$ Approssimazione a corrente costante
+In questa approssimazione si considera il mosfet sempre in saturazione, questa approssimazione di solito sottostima del 10\%.
+\[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
+
+$(2)$ Approssimazione a Resistenza
+In questa approssimazione si approssima il mosfet ad una resistenza di resistivita', questa approssimazione di solito sovrastima.
+\[R_{eq} = \frac{V_f}{I_{sat}} \]
+Comunque una volta decisa l'approssimazione si calcola la corrente del condensatore $I_c$ poi si calcola il delta di carica che serve per caricare il condensatore:
+\[Q_i = C V_i\]
+\[Q_f = C V_f\]
+\[\bigtriangleup Q = Q_f - Q_i = C \left( V_f - V_il\right) \]
+a questo punto vale la relazione:
+\[I_c = \frac{\bigtriangleup Q}{t_p}\]
+e si ricava $t_p$:
+\[t_p = \frac{\bigtriangleup Q}{I_c} = C \frac{V_f - V_i}{I_c}\]
+
+
+
+\subsection{Tips and Tricks}
 $(1)$ I MOSFET sono simmetrici e quindi non ha senso parlare di Source e Drain pero' per aiutare convenzione si ha che:
 
 La corrente nei MOSFET scorre sempre in senso concorde alla freccia.
@@ -235,14 +283,24 @@ Poi si calcoli Soglia logica $V_{th}$, Potenza Statica $P_{STAT}$.
 
 \begin{center}
 \begin{circuitikz}
-\draw (0,0)
-node[vcc]{3.3V}
-to[R=$10k\Omega$](0,-2) -- (0,-4)
+\draw (0,-3)
  node[nmos] (mos) {}
 (mos.gate) node[anchor=east] {G,$V_{in}$}
-(mos.drain) node[anchor=south] {D,$V_{out}$}
-(mos.source) node[anchor=north] {S}
-node[ground] {GND};
+(mos.drain) node[anchor=south,xshift=-0.25cm] {D}
+(mos.source) node[anchor=north,xshift=-0.25cm] {S};
+\draw (0,0)
+node[vcc]{3.3V}
+to[R=$R$,v<=$V_r$,i=$i_r$] (0,-2)
+-- (mos.drain);
+\draw (mos.source)
+node[ground] {Gnd} (0,-4);
+\draw (mos.drain)
+to[short, *-] (1,-2.25)
+to[short] (1,-2.50)
+to[C=$C_l$,v<=$V_{out}$] (1,-3.50)
+to[short] (1,-4)
+to[short] (0,-4)
+;
 \end{circuitikz}
 \end{center}
 
@@ -252,6 +310,7 @@ Dati:
 \[R = 1k\Omega\]
 \[K_n = 5 \frac{mA}{V^2}\]
 \[|V_t| = 1V\]
+\[C_l = 10pF\]
 \subsubsection{Risoluzione Esercizio 1}
 $(a)$ $V_{in} = 0V$
 

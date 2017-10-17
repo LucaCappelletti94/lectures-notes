@@ -1,4 +1,4 @@
-\providecommand{\main}{..}
+\providecommand{\main}{../../}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
@@ -74,7 +74,6 @@ Un algoritmo è \textbf{decente} se \textbf{converge}.
 // PERSE COSE DA SLIDE QUI
 
 Un algoritmo è \textbf{buono} se \textbf{converge rapidamente}
-\\
 
 Chiamando $x_k$ una sequenza in $\mathbb{R}^n$ che converge a $x^*$. La \textbf{convergenza} è chiamata:
 
@@ -83,9 +82,8 @@ Chiamando $x_k$ una sequenza in $\mathbb{R}^n$ che converge a $x^*$. La \textbf{
 - \textbf{Q-superlineaee} se $\lim_{k\rightarrow \infty} \dfrac{\norm{x_{k+1-x^*}}}{\norm{x_k - x^*}} = 0$
 
 - \textbf{Q-quadratica} se $\exists C > 0 \text{s.t.} \dfrac{\norm{x_{k+1-x^*}}}{\norm{x_k - x^*}^2} \leq C, \text{for} k \geq \overline{k}$
-\\
 
-Q-quadratica implica superlineare che implica lineare.
+Q-quadratica $\Rightarrow$ superlineare  $\Rightarrow$ lineare.
 
 
 \subsection{Come determiniamo un punto di minimo}
@@ -96,8 +94,43 @@ Dato il punto corrente determino la direzione e dopo di che determino di quanto 
 \subsubsection{Trust Region}
 Costruisco un modello quadratico in base alle informazioni locali, quindi scelgo un parametro $\Delta k$, un raggio, e scelgo la direzione risolvendo un problema di ottimizzazione vincolato al parametro $\Delta_k$.
 
-\subsection{Condizioni di Wolf}
+\subsection{Condizioni di Wolfe}
+Per essere efficiente, la \textbf{linesearch inesatta} richiede alcune condizioni:
 
-// Iniziare a guardare queste
+\subsubsection{Decremento sufficiente}
+Sono accettabili solo i valori di $\phi (\alpha)$ che siano inferiori a quelli della funzione.
+\[
+	f(\bm{x} + \alpha \bm{d}) \leq f(\bm{x}) + c_1\alpha \nabla f(\bm{x})^T \bm{d}, c \in (0,1) 
+\]
+\[
+	\phi(\alpha) \leq \phi(0) + \alpha c_1 \phi' (0)
+\]
+
+\subsection{Condizione di curvatura}
+
+\[
+	\nabla f(\bm{x} + \alpha \bm{d})^T \bm{d} \geq c_2 \nabla f(x)^T
+\]
+
+
+%{x^2 + y^2 > 4 && x < 3/2 ? (x-1)^2 + y^2 : NaN};
+STUDIARE BENE TEOREMA DI ZOUTENDIJK CON DIMOSTRAZIONE
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	grid=major,
+	samples=\samples,
+	xlabel=$x$,
+    ylabel=$y$,
+    zlabel=$z$
+]
+
+\addplot3[surf, unbounded coords=jump]
+{100(y-x^2)^2 + (1-x)^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
 
 \end{document}
