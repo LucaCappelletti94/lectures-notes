@@ -1,0 +1,81 @@
+\providecommand{\main}{../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo? [2]}
+L'idea è quella di esplorare il grafo partendo dal nodo iniziale, provando a trovare la strada per arrivare ad uno stato di goal. Ad ogni step della ricerca un nodo può essere etichettato in 3 modi:
+
+\begin{enumerate}
+\item \textbf{Unvisited}: deve essere ancora visitato dall'algoritmo.
+\item \textbf{Alive}: visitato, ma l'algoritmo deve ancora visitare i nodi direttamente raggoiungibili da esso. I nodi alive sono raccolti di una coda di priorità $a$.
+\item \textbf{Dead}: visitato, ed anche ogni nodo vicino è stato visitato.
+\end{enumerate}
+
+È considera un template e non un algoritmo perché non è specificato il criterio con cui ordinare $a$.
+
+%\begin{algorithm}
+%\DontPrintSemicolon
+%\KwData{Un grafo $G$ e un nodo $v \in G$.}
+%\KwResult{Tutti i nodi raggiungibili da $v$ son segnati come visitati.}
+%\Begin{
+%$V \longleftarrow U$\;
+%$S \longleftarrow \emptyset$\;
+%\For{$x\in X$}{
+%$NbSuccInS(x) \longleftarrow 0$\;
+%$NbPredInMin(x) \longleftarrow 0$\;
+%$NbPredNotInMin(x) \longleftarrow |ImPred(x)|$\;
+%}
+%\For{$x \in X$}{
+%\If{$NbPredInMin(x) = 0$ {\bf and} $NbPredNotInMin(x) = 0$}{
+%$AppendToMin(x)$}
+%}
+%\nl\While{$S \neq \emptyset$}{
+%\lnl{InRes2}\While{$|S \cap ImSucc(x)| \neq |S|$}{
+%\For{$ y \in S-ImSucc(x)$}{
+%\{ remove from $V$ all the arcs $zy$ : \}\;
+%\For{$z \in ImPred(y) \cap Min$}{
+%remove the arc $zy$ from $V$\;
+%$NbSuccInS(z) \longleftarrow NbSuccInS(z) - 1$\;
+%move $z$ in $T$ to the list preceding its present list\;
+%\{i.e. If $z \in T[k]$, move $z$ from $T[k]$ to1
+%$T[k-1]$\}\;
+%}
+%$NbPredInMin(y) \longleftarrow 0$\;
+%$NbPredNotInMin(y) \longleftarrow 0$\;
+%$S \longleftarrow S - \{y\}$\;
+%$AppendToMin(y)$\;
+%}
+%}
+%$RemoveFromMin(x)$\;
+%}
+%
+%procedure DFS(G,v):
+%    label v as discovered
+%    for all edges from v to w in G.adjacentEdges(v) do
+%        if vertex w is not labeled as discovered then
+%            recursively call DFS(G,w)
+%            
+%     \For{$x \in X$}{
+%		\If{$NbPredInMin(x) = 0$ {\bf and} $NbPredNotInMin(x) = 0$}{
+%			$AppendToMin(x)$
+%		}
+%	}
+%
+%}
+%\caption{Depth-first search}
+%\end{algorithm}
+
+\section{Si elenchino due possibili implementazioni di Forward Search elencandone proprietà, vantaggi e svantaggi. [2]}
+
+\subsection{Breadth first search}
+La coda $a$ è gestita in modo FIFO (First-in First-out). I percorsi con $k+1$ azioni vengono valutati dopo che ogni percorso con $k$ azioni è stato esplorato. Se viene trovato il percorso, è garantino che questo avrà il minor numeri di azioni (percorso più breve). 
+Funziona in un tempo $O(\abs{v}+ \abs{\epsilon})$.
+Per costruire l'albero di ricerca individua in tutti i figli con la stessa profondità e garantisce il percorso più breve. Inoltre è simmetrico.
+
+\subsection{Deapth first search}
+La coda $a$ è uno stack gestito con una politica LIFO (Last-in First-out). È un algoritmo più "aggressivo" e cerca prima soluzioni nei percorsi più lunghi.
+Funziona con un tempo $O(\abs{v}+ \abs{\epsilon})$.
+Ha il vantaggio di ignorare cammini sbagliati nel caso in cui si trovi immediatamente una soluzione.
+Non è sistematico su spazi infiniti.
+
+\end{document}

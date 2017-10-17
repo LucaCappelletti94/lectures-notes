@@ -27,10 +27,12 @@
 
 \usepackage{parskip} % To leave spaces in paragraphs
 \usepackage{bm} % To have bold vectors
+\usepackage{soul} % To cancel text with a line using the commant \st
 
 \usepackage{xcolor} % To highlight text
 \usepackage{xfrac} % To allow for sideways fractions
 \usepackage[cache=false]{minted} % For highlighting code
+\usepackage[algoruled,linesnumbered,titlenumbered,vlined]{algorithm2e} % To highlight pseudocode
 \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setminted{
 bgcolor=mintedbackground,
@@ -76,6 +78,7 @@ texcl=false,
 \usepackage{fourier} % For icons such as \bomb, \noway, \danger and various others. For more info, go here: http://ctan.mirror.garr.it/mirrors/CTAN/fonts/fourier-GUT/doc/latex/fourier/fourier-orns.pdf
 
 \usepackage{mathtools} % To use custom delimiters that Latex did not implement cos duh
+ \renewcommand*{\arraystretch}{1.5} % Stretching arrays
 
 \usepackage{fancyhdr} % This allows for the headings in the chapters
 \pagestyle{fancy} % This activates it
@@ -112,7 +115,7 @@ texcl=false,
 	\input{\main/../../general/languageSwitch.tex}
 \else
 	% Lua not enabled
-	\providecommand{\samples}{30} % Drawing ld graphs when compiling for development
+	\providecommand{\samples}{50} % Drawing ld graphs when compiling for development
 	\input{\main/../../general/italian.tex}
 \fi
 
@@ -121,4 +124,3 @@ texcl=false,
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{\main/../../general/acronyms.tex}
-\addbibresource{references.bib}
