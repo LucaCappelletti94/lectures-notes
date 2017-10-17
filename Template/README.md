@@ -3,7 +3,7 @@
 ## Get started
 To get started, follow these simple steps:
 
-1. Download a Latex IDE, like [TexMaker](http://www.xm1math.net/texmaker/) or 
+1. Download a Latex IDE, like [TexMaker](http://www.xm1math.net/texmaker/) or [TexStudio](https://www.texstudio.org/).
 2. Download the Latex framework, for example [MacTex](http://www.tug.org/mactex/mactex-download.html)
 3. Run **sudo easy_install Pygments** to get minted running. Be **SURE** to have it linked in "/usr/local/bin".
 3. Change the lualatex command to **lualatex -synctex=1 -interaction=nonstopmode --shell-escape %.tex**
