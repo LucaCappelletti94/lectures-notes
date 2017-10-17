@@ -2,6 +2,17 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
+Nelle applicazioni moderne del data-mining vengono effettuati calcoli che necessitano un grande potere computazionale. Questo non viene computato da un super-computer, ma da un cluster di computer, realizzato con un \textbf{file system distribuito} ed un sistema di programmazione chiamato \textbf{MapReduce}.
+
+\section{Distributed file system (DFS)}
+Vengono realizzati su cluster di computer, in cui i file son ridondati e le computazioni divise in tasks, in modo tale da prevenire possibili errori. Esempi di DFS sono il \textit{Google File System (GFS)} e \textit{Hadoop}. I file tendenzialmente sono enormi, anche TB di dimensione e sono raramente aggiornati.
+
+\subsection{La funzione Map}
+È una funzione scritta dall'utente che, data una collezione di oggetti in input, converte ognuno in una o più coppie chiave-valore (key-value). Le chiavi in questo caso non sono necessariamente uniche.
+
+\subsection{La funzione Reduce}
+Il sistema MapReduce si occupa di suddividere le coppie key-value prodotte dai Map tasks ai Reduce tasks. Ogni Reduce task combina gli elementi su ogni lista, applicandovi la funzione scritta dall'utente. Il risultato prodotto forma l'output del processo MapReduce.
+
 \section{Analisi di complessità di un job map-reduce}
 
 \subsection{Es: moltiplicazione di matrici}
