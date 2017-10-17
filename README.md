@@ -13,7 +13,6 @@ These are notes from courses that I might be currently following, so might not b
 - [Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
 - [Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
 - [Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sistemi%20Intelligenti/main.pdf)
-- [Algoritmi per il Web 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Algoritmica%20per%20il%20web/main.pdf)
 
 ## Various
 Notes are currently available about:
