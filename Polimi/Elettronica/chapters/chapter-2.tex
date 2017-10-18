@@ -239,7 +239,8 @@ $C_l = 10pF$
 \subsubsection{Risoluzione Esercizio 1}
 \textbf{$(a)$ $V_{in} = 0V$}
 
-poiche' sia $V_{in}$ che la tensione al SOURCE allora la tensione $V_{GS} = V_G - V_S = 0$ quindi l'NMOS e' spento quindi $I_n = 0$ e poiche' il NMOS si comporta come circuito aperto anche la corrente della resistenza $I_r = I_n = 0$ e di conseguenza anche la caduta di tensione sulla resistenza e' $0$ poiche' la sua eq caratteristica e' $V = RI$ quindi non essendoci caduta di tensione sulla resistenza $V_{out} = V_{cc} = 3.3V$.
+poiche' sia $V_{in}$ che la tensione al SOURCE allora la tensione $V_{GS} = V_G - V_S = 0$ quindi l'NMOS e' spento o in saturazione.
+la $V_{DG} = V_{in} - V_{out} = -V_{out}$ e piche' $V_{out}$ ha solo valori positivi allora $-V_{out} < V_t$ a prensindere dal valore, quindi non vi e' canale sul lato del drain e quindi il NMOS e' spento quindi $I_n = 0$ e poiche' il NMOS si comporta come circuito aperto anche la corrente della resistenza $I_r = I_n = 0$ e di conseguenza anche la caduta di tensione sulla resistenza e' $0$ poiche' la sua eq caratteristica e' $V = RI$ quindi non essendoci caduta di tensione sulla resistenza $V_{out} = V_{cc} = 3.3V$.
 
 Quindi:
  \[V_{in} = 0V \Rightarrow V_{out} = 3.3V\]
