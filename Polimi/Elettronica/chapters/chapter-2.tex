@@ -218,30 +218,26 @@ $V_r = 0.1435V$
 \clearpage
 \subsection{Come Risolvere gli esercizi sui MOSFET}
 \subsubsection{Esercizio 1}
-Dato il Circuito sottostante Calcolare $V_{out}$ nei casi 
-$(a)$ $V_{in} = 0V$
-$(b)$ $V_{in} = 3.3V$
+Dato il Circuito sottostante
+\begin{enumerate}
+\item  Calcolare $V_{out}$ nel caso $V_{in} = 0V$
+\item  Calcolare $V_{out}$ nel caso $V_{in} = 3.3V$
+\item  Calcolare Soglia logica $V_{th}$
+\item  Potenza Statica $P_{STAT}$
+\end{enumerate}
 
-Poi si calcoli Soglia logica $V_{th}$, Potenza Statica $P_{STAT}$ .
-
-
+\begin{center}
 \includegraphics{esercizio1}
-
-Dati:
-
-$V_{cc} = 3.3V$
-
-$R = 1k\Omega$
- 
-$K_n = 5 \frac{mA}{V^2}$
-  
-$|V_t| = 1V$
-
-$C_l = 10pF$
+\end{center}
+\[V_{cc} = 3.3V\]
+\[R = 1k\Omega\]
+\[K_n = 5 \frac{mA}{V^2}\]
+\[|V_t| = 1V\]
+\[C_l = 10pF\]
 
 \clearpage
 \subsubsection{Risoluzione Esercizio 1}
-\textbf{$(a)$ $V_{in} = 0V$}
+\textbf{$V_{in} = 0V$}
 
 poiche' sia $V_{in}$ che la tensione al SOURCE allora la tensione $V_{GS} = V_G - V_S = 0$ quindi l'NMOS e' spento o in saturazione.
 la $V_{DG} = V_{in} - V_{out} = -V_{out}$ e piche' $V_{out}$ ha solo valori positivi allora $-V_{out} < V_t$ a prensindere dal valore, quindi non vi e' canale sul lato del drain e quindi il NMOS e' spento quindi $I_n = 0$ e poiche' il NMOS si comporta come circuito aperto anche la corrente della resistenza $I_r = I_n = 0$ e di conseguenza anche la caduta di tensione sulla resistenza e' $0$ poiche' la sua eq caratteristica e' $V = RI$ quindi non essendoci caduta di tensione sulla resistenza $V_{out} = V_{cc} = 3.3V$.
@@ -250,7 +246,7 @@ Quindi:
  \[V_{in} = 0V \Rightarrow V_{out} = 3.3V\]
  
 
-\textbf{$(b)$ $V_{in} = V_{GS} = 3.3V$}
+\textbf{$V_{in} = V_{GS} = 3.3V$}
 
 quindi $V_{ow} = |V_{GS}| - |V_t| = 2,3V$ quindi $V_{GS} > V_t$ quindi l'NMOS e' Acceso.
 Ora bisogna stabilire se si trova in regime ohmmico o di saturazione e procediamo per metodo grafico:
@@ -346,17 +342,18 @@ Un consumo veramente grande per una porta cosi piccola. SI puo' fare di meglio.
 
 \clearpage
 \subsubsection{Esercizio 2}
-Dato il Circuito sottostante Calcolare $V_{out}$ nei casi 
-$(a)$ $V_{in} = 0V$
-$(b)$ $V_{in} = 3.3V$
+Dato il Circuito sottostante
+\begin{enumerate}
+\item  Calcolare $V_{out}$ nel caso $V_{in} = 0V$
+\item  Calcolare $V_{out}$ nel caso $V_{in} = 3.3V$
+\item  Calcolare soglia logica $V_{th}$
+\item  Potenza Statica $P_{STAT}$
+\item  Tempo di propagazione $t_p$
+\end{enumerate}
 
-Poi si calcoli Soglia logica $V_{th}$, Potenza Statica $P_{STAT}$, Potenza Dinamica $P_{DIN}$, e tempo di propagazione $t_p$.
-
-
+\begin{center}
 \includegraphics{esercizio2}
-
-Dati:
-
+\end{center}
 \[V_{cc} = 3.3V\]
 \[R = 1k\Omega\]
 \[C = 1pF\]
@@ -365,14 +362,14 @@ Dati:
 
 \clearpage
 \subsubsection{Risoluzione Esercizio 2}
-$(b)$ $V_{in} = 3.3V$
+\textbf{$V_{in} = 3.3V$}
 
 Poiche' $V_{cc} = V_{in} = 3.3V$ allora $V_{SG} = V_{cc} - V_{in} = 0V$ e 
 $V_{SG} < |V_t|$ quindi il PMOS e' spento! Quindi $I_p = I_{SD} = 0A$ ora con una KCL al nodo del DRAIN otteniamo che $I_p = I_r + I_c$ quindi $I_r + I_c = 0$ ora poiche' l'eq caratteristica del condensatore e' $i_c(t) = C \frac{d}{dt}V_c$ e si suppone sempre che i transitori siano finiti allora il condensatore e' scarico $V_c = 0$ e quindi la sua corrente $I_c = 0$, il che implica che $I_r + I_c = I_r = 0$ e quindi la tensione $V_r = R I_r = 0$ e di conseguenza: $V_{out} = V_c = V_r = 0V$.
 
-\[V_{in} = 0V \Rightarrow V_{out} = 0V\]
+\[V_{in} = 3.3V \Rightarrow V_{out} = 0V\]
 
-$(a)$ $V_{in} = 0V$
+\textbf{$V_{in} = 0V$}
 
 $V_{SG} = V_{in} - V_{cc} = -3.3V$ e $|V_{SG}| > |V_t|$ e $V_{ow} = |V_{SG}| - |V_t| = -2.3V$ quindi il PMOS e' Acceso.
 Ora bisogna stabilire in che zona di lavoro sia, procediamo per metodo grafico.
@@ -441,22 +438,27 @@ quindi la corrente
 \clearpage
 \subsubsection{Esercizio 3}
 Dato il Circuito sottostante,
-Calcolare $V_{out}$ quando $V_{in} = 0V$, dimensionare $\frac{W}{L}$ in modo che $V_{in} = 5V \Rightarrow V_{out} = 0.5V$, Calcolare il tempo di propagazione  $t_p$ , e potenze statiche $P_{STAT}$ e dinamiche $P_{DIN}$ con un clock di $f_{CLK} = 10kHz$.
+\begin{enumerate}
+\item Calcolare $V_{out}$ quando $V_{in} = 0V$
+\item Dimensionare $\frac{W}{L}$ in modo che $V_{in} = 5V \Rightarrow V_{out} = 0.5V$
+\item Calcolare il tempo di propagazione  $t_p$ 
+\item Calcolare Potenze statiche $P_{STAT}$ e dinamiche $P_{DIN}$ con un clock di $T_{CLK} = 0.5\mu s$.
+\end{enumerate}
 
+\begin{center}
 \includegraphics{esercizio3}
-
-Dati:
-
+\end{center}
 \[V_{cc} = 5V\]
 \[C = 10pF\]
 \[|K_p| = 200 \frac{\mu A}{V^2}\]
 \[K_n' = 50 \frac{\mu A}{V^2}\]
 \[|V_{t,n}| = |V_{t,p}| = 1V\]
+\[T_{CLK} = 0.5\mu s\]
 
 \clearpage
 \subsubsection{Risoluzione Esercizio 3}
 
-\textbf{$(1)$ $V_{in} = 0V$}
+\textbf{$V_{in} = 0V$}
 
 $V_{in} = V_{GS,n} = 0V < |V_{t,n}|$ quindi il NMOS e' spento o in saturazione.
 Pero' per essere in saturazione $V_{GD} = V_{out} - V_{in} = V_{out} < -V_{t,n}$
@@ -512,11 +514,33 @@ $(a)$ $V_{in} = 0V$ per i motivi sopra scritti Il' NMOS e' spento quindi la corr
 $(b)$ $V_{in} = 5V$ abbiam gia' calcolato che la corrente nei MOS e' $I = 3.2mA$ quindi
 \[ P_{STAT,On} = I V_{cc} = 16mW\]
 
-\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $f_{CLK} = 10kHz$}
+\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $T_{CLK} = 10 \mu s$}
 
 \[ I = \frac{\bigtriangleup Q}{T_{CLK}} = C \frac{V_f - V_i}{T_{CLK}}\]
 \[ P_{DIN} = V_{cc} I = V_{cc} C \frac{V_f - V_i}{T_{CLK}}\]
 \[ P_{DIN} = V_{cc} C \bigtriangleup V f_{CLK} = 225 \mu W\]
-CONTROLLA FREQUENZA DI CLOCK CHE LA HO MESSA A CASOH
+
+\clearpage
+\subsubsection{Esercizio 4}
+Dato il Circuito sottostante,
+\begin{enumerate}
+\item Trovare la tabella di verita' della porta (aka Calcolare $V_{out}$ quando $V_{in} = 0V$ e quando $V_{in} = V_{cc}$)
+\item Calcolare la soglia logica $V_{th}$
+\item Calcolare il tempo di propagazione  $t_p$ sul fronte di salita del ingresso
+\item Calcolare le Potenze statiche $P_{STAT}$ e dinamiche $P_{DIN}$ con un clock TTL\footnote{Tensioni secondo lo standard Transistor Transistor Logic, LOW = 0V , HIGH = 5V} ideal di $T_{CLK} = 0.5\mu s$.
+\end{enumerate}
+
+\begin{center}
+\includegraphics{esercizio4}
+\end{center}
+\[V_{cc}= 5V\]
+\[C = 100fF\]
+\[K_n = |K_p| = 500 \frac{\mu A}{V^2}\]
+\[|V_{t,n}| = |V_{t,p}| = 1V\]
+\[T_{CLK} = 0.5\mu s\]
+
+\clearpage
+\subsubsection{Risoluzione Esercizio 4}
+
 
 \end{document}
