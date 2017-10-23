@@ -1,8 +1,7 @@
 \providecommand{\main}{..}
 \documentclass[\main/main.tex]{subfiles}
 
-\usepackage{graphicx}
-\graphicspath{ {circuiti/}} 
+\graphicspath{ {\main/chapters/circuiti/}} 
 
 \begin{document}
 
@@ -237,7 +236,7 @@ Dato il Circuito sottostante
 
 \clearpage
 \subsubsection{Risoluzione Esercizio 1}
-\textbf{$V_{in} = 0V$}
+\textbf{Caso $V_{in} = 0V$}
 
 poiche' sia $V_{in}$ che la tensione al SOURCE allora la tensione $V_{GS} = V_G - V_S = 0$ quindi l'NMOS e' spento o in saturazione.
 la $V_{DG} = V_{in} - V_{out} = -V_{out}$ e piche' $V_{out}$ ha solo valori positivi allora $-V_{out} < V_t$ a prensindere dal valore, quindi non vi e' canale sul lato del drain e quindi il NMOS e' spento quindi $I_n = 0$ e poiche' il NMOS si comporta come circuito aperto anche la corrente della resistenza $I_r = I_n = 0$ e di conseguenza anche la caduta di tensione sulla resistenza e' $0$ poiche' la sua eq caratteristica e' $V = RI$ quindi non essendoci caduta di tensione sulla resistenza $V_{out} = V_{cc} = 3.3V$.
@@ -246,7 +245,7 @@ Quindi:
  \[V_{in} = 0V \Rightarrow V_{out} = 3.3V\]
  
 
-\textbf{$V_{in} = V_{GS} = 3.3V$}
+\textbf{Caso $V_{in} = V_{GS} = 3.3V$}
 
 quindi $V_{ow} = |V_{GS}| - |V_t| = 2,3V$ quindi $V_{GS} > V_t$ quindi l'NMOS e' Acceso.
 Ora bisogna stabilire se si trova in regime ohmmico o di saturazione e procediamo per metodo grafico:
@@ -362,14 +361,14 @@ Dato il Circuito sottostante
 
 \clearpage
 \subsubsection{Risoluzione Esercizio 2}
-\textbf{$V_{in} = 3.3V$}
+\textbf{Caso $V_{in} = 3.3V$}
 
 Poiche' $V_{cc} = V_{in} = 3.3V$ allora $V_{SG} = V_{cc} - V_{in} = 0V$ e 
 $V_{SG} < |V_t|$ quindi il PMOS e' spento! Quindi $I_p = I_{SD} = 0A$ ora con una KCL al nodo del DRAIN otteniamo che $I_p = I_r + I_c$ quindi $I_r + I_c = 0$ ora poiche' l'eq caratteristica del condensatore e' $i_c(t) = C \frac{d}{dt}V_c$ e si suppone sempre che i transitori siano finiti allora il condensatore e' scarico $V_c = 0$ e quindi la sua corrente $I_c = 0$, il che implica che $I_r + I_c = I_r = 0$ e quindi la tensione $V_r = R I_r = 0$ e di conseguenza: $V_{out} = V_c = V_r = 0V$.
 
 \[V_{in} = 3.3V \Rightarrow V_{out} = 0V\]
 
-\textbf{$V_{in} = 0V$}
+\textbf{Caso $V_{in} = 0V$}
 
 $V_{SG} = V_{in} - V_{cc} = -3.3V$ e $|V_{SG}| > |V_t|$ e $V_{ow} = |V_{SG}| - |V_t| = -2.3V$ quindi il PMOS e' Acceso.
 Ora bisogna stabilire in che zona di lavoro sia, procediamo per metodo grafico.
@@ -458,7 +457,7 @@ Dato il Circuito sottostante,
 \clearpage
 \subsubsection{Risoluzione Esercizio 3}
 
-\textbf{$V_{in} = 0V$}
+\textbf{Caso $V_{in} = 0V$}
 
 $V_{in} = V_{GS,n} = 0V < |V_{t,n}|$ quindi il NMOS e' spento o in saturazione.
 Pero' per essere in saturazione $V_{GD} = V_{out} - V_{in} = V_{out} < -V_{t,n}$
@@ -542,5 +541,70 @@ Dato il Circuito sottostante,
 \clearpage
 \subsubsection{Risoluzione Esercizio 4}
 
+\textbf{Caso $V_{in} = 0V$}
+
+$V_{GS,n} = 0V < V_{t,n}$ quindi non vi e' canale dal lato del source del NMOS.
+
+$V_{DG,n} = -V_{out} $ e poiche' $V_{out}$ puo' assumere solo valori positivi allora $V_{DG,n} = -V_{out} < V_{t,n}$ quindi non vi e' canale neanche dal lato del drain.
+
+Quindi non essendoci canale da nessuno dei due lati allora il NMOS e' spento e quindi la corrente che circola nei due MOS in serie $I = 0A$.
+
+
+$V_{GS,p} = V_{dd} > V_{t,p}$ quindi vi e' canale dal lato del source del PMOS.
+
+Quindi il PMOS puo' essere o in zona ohmmica o in saturazione.
+
+Ora se il condesatore e' scarico allora il PMOS e' in saturazione poiche' $V_{GD,p} = V_{out} = 0V < V_{t,p}$ quindi non vi e' canale.
+
+quindi il condensatore si carica con la corrente $I_{SAT,p}$ fino a raggiungere $V_{t,p}$ al quale punto il mosfet diventa in zona ohmmica
+e continua a caricarsi fino a $V_{dd}$ dove il mos e' acceso in zona ohmmica pero' la sua $V_{SD} = 0V$ quindi ha corrente $I = 0$.
+
+In conclusione dopo i transitori il condensatore , quindi $V_{out}$ si carica a $V_{dd}$
+
+\[V_{in} = 0V \Rightarrow V_{out} = 5V\]
+
+
+
+\textbf{Caso $V_{in} = 5V$}
+
+$V_{GS,p} = V_{dd} - V_{in} = 0V < V_{t,p}$ quindi non vi e' canale al source.
+
+$V_{DG,p} = V_{out} - V_{in}$ e poiche' $V_{in} = V_{dd}$ e la $V_{out}$ e' la tensione sul condesnatore ,il quale puo' caricarsi al massimo a $V_{dd}$ allora $V_{out} - V_{in} \le 0 < V_{t,p}$
+
+Quindi non vi puo' essere canale al lato del drain  quindi il PMOS e' sicuraemnte spento il che implica che la corrente che circola nei MOS in serie e' $I = 0$.
+
+$V_{GS,n} = V_{in} > V_{t,n}$ quindi vi e' canale dal lato del source del NMOS.
+
+Quindi il NMOS puo' essere in zona ohmmica o in saturazione.
+
+$V_{DG,n} = V_{in} - V_{out}$ ora supponiamo che il condensatore sia carico a $V_{dd}$ in questo caso le $V_{DG,n} = 0V < V_{t,n}$ quindi non vi e' canale e quindi il NMOS e' in saturazione.
+
+Il consenatore si scarica a massa attraverso l'NMOS finche' non arriva alla tensione $V_{out} = V_{dd} - V_{t,n}$ alla quale l'NMOS passa in zona Ohmmica e il condensatore si scarica piu' lentamente fino ad arrivare $V_{out} = 0V$.
+
+Quindi finiti i transitori $V_{out} = 0V$
+
+\[V_{in} = 5V \Rightarrow V_{out} = 0V\]
+
+\textbf{Calcolo della soglia logica $V_{th}$}
+
+La soglia logica e' la tensione $V_{in}$ per la quale $V_{in} = V_{out}$.
+
+Quindi Sicuraemnte $|V_{DG,n}| = |V_{DG,p}| = |V_{in} - V_{out}| = 0V$ quindi entrambi i MOS non hanno canale dal lato del drain quindi sono o spenti o in saturazione.
+
+Ora procediamo per assurdo.
+
+Supponiamo $V_{in} = 1V$
+
+Allora $V_{GS,p} = V_{dd} - V_{in} = 4V > V_{t,p}$ quindi vi e' canale al source e quindi il PMOS e' in sautrazione.
+
+E $V_{GS,n} = V_{in} = 1V = V_{t,n}$ quindi vi e' canale al source e quindi l'NMOS e' in saturazione.
+
+E poiche' non sembra ci siano contraddizioni prendiamo per vero che entrambi i MOS siano in saturazione.
+
+Ora supponendo che il condensatore sia completamente carico esso non assorbe corrente quindi la corrente dei due MOS e' uguale poiche' in serie.
+\[I_{SAT,n} = I_{SAT,p}\]
+\[K_n \left(V_{in} - V_{t,n} \right )^2 = K_p \left(V_{dd} - V_{in} - |V_{t,p}| \right )^2\]
+e da questo bilancio delle correnti si ricava che la tensione
+\[V_{in} = V_{th} = 2.5V\]
 
 \end{document}
