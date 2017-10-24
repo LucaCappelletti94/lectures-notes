@@ -226,8 +226,23 @@ Dato il Circuito sottostante
 \end{enumerate}
 
 \begin{center}
-\includegraphics{esercizio1}
+\begin{circuitikz} \draw(0,0)
+ node[nmos] (mos) {}
+(mos.gate) node[above] {G}
+(mos.drain) node[right] {D}
+(mos.source) node[right] {S};
+\draw (mos.gate)
+node[left] {$V_{in}$};
+\draw (mos.source)
+ node[ground] {};
+\draw (0,4)
+node[above] {$V_{dd}$}
+to[resistor = R, i=$I_D$, -*] (0,1) -- (mos.drain);
+\draw (0,1) -- (2,1)
+node[above] {$V_{out}$};
+\end{circuitikz}
 \end{center}
+
 \[V_{cc} = 3.3V\]
 \[R = 1k\Omega\]
 \[K_n = 5 \frac{mA}{V^2}\]
@@ -351,8 +366,26 @@ Dato il Circuito sottostante
 \end{enumerate}
 
 \begin{center}
-\includegraphics{esercizio2}
+\begin{circuitikz} \draw(0,4)
+ node[pmos] (mos) {}
+(mos.gate) node[above] {G}
+(mos.drain) node[above right] {D}
+(mos.source) node[right] {S};
+\draw (mos.gate)
+node[left] {$V_{in}$};
+\draw (0,5)
+node[above] {$V_{dd}$} -- (mos.source);
+\draw (0,2) to[short,*-] (4,2)
+node[above] {$V_{out}$};
+\draw (mos.drain) to[short,i^=$I_D$] (0,2)
+to[resistor = R, i=$I_r$] (0,0)
+ node[ground] {};
+\draw (2,2)
+to[capacitor = C, *-] (2,0)
+ node[ground] {};
+\end{circuitikz}
 \end{center}
+
 \[V_{cc} = 3.3V\]
 \[R = 1k\Omega\]
 \[C = 1pF\]
@@ -445,8 +478,27 @@ Dato il Circuito sottostante,
 \end{enumerate}
 
 \begin{center}
-\includegraphics{esercizio3}
+\begin{circuitikz}
+\draw(0,4)
+ node[pmos] (pmos) {}
+(pmos.gate) node[above] {G}
+(pmos.drain) node[right] {D}
+(pmos.source) node[right] {S};
+\draw(0,1)
+ node[nmos] (nmos) {}
+(nmos.gate) node[above] {G}
+(nmos.drain) node[right] {D}
+(nmos.source) node[right] {S};
+\draw (nmos.gate) node[left] {$V_{in}$};
+\draw (0,5.5) node[above] {$V_{dd}$} --(pmos.source);
+\draw (pmos.drain) -- (nmos.drain);
+\draw (pmos.gate) -- (-1.5,4) -- (-1.5,3.5) node[ground] {};
+\draw (nmos.source) -- (0,0) node[ground] {}; 
+\draw (0,2.5) to[short, *-] (3,2.5) node[above] {$V_{out}$};
+\draw (2,2.5) to[short, *-] (2,2) to[capacitor = C] (2,0) node[ground] {};
+\end{circuitikz}
 \end{center}
+
 \[V_{cc} = 5V\]
 \[C = 10pF\]
 \[|K_p| = 200 \frac{\mu A}{V^2}\]
@@ -530,8 +582,28 @@ Dato il Circuito sottostante,
 \end{enumerate}
 
 \begin{center}
-\includegraphics{esercizio4}
+\begin{circuitikz}
+\draw(0,4)
+ node[pmos] (pmos) {}
+(pmos.gate) node[above] {G}
+(pmos.drain) node[right] {D}
+(pmos.source) node[right] {S};
+\draw(0,1)
+ node[nmos] (nmos) {}
+(nmos.gate) node[above] {G}
+(nmos.drain) node[right] {D}
+(nmos.source) node[right] {S};
+\draw (nmos.gate) -- (-1.5,1);
+\draw (pmos.gate) -- (-1.5,4) -- (-1.5,1);
+\draw (-1.5,2.5) to[short, *-] (-2,2.5) node[left] {$V_{in}$};
+\draw (0,5.5) node[above] {$V_{dd}$} --(pmos.source);
+\draw (pmos.drain) -- (nmos.drain);
+\draw (nmos.source) -- (0,0) node[ground] {}; 
+\draw (0,2.5) to[short, *-] (3,2.5) node[above] {$V_{out}$};
+\draw (2,2.5) to[short, *-] (2,2) to[capacitor = C] (2,0) node[ground] {};
+\end{circuitikz}
 \end{center}
+
 \[V_{cc}= 5V\]
 \[C = 100fF\]
 \[K_n = |K_p| = 500 \frac{\mu A}{V^2}\]
