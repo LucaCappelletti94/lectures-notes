@@ -96,8 +96,9 @@ Si "divide" il circuito:
 	(0,0) node[ground] {};
 	\draw (0,4)
     to[resistor = R, i^>=$I_D$] (3,4) 
+    to[short, -o] (3,4)
 	to[open] (4,4)      
-	to[short] (5,4)
+	to[short, o-] (5,4)
 	to[diode , v^<=$V_D$, ] node[ground] {} (5,0);
 \end{circuitikz}
 \end{center}
@@ -164,7 +165,8 @@ Diodo ON:
 \begin{center}
 \begin{circuitikz}
 	\draw (4,8) 
-	node[right] {$V_{DD}{=5V}$}
+	node[above] {$V_{DD}{=5V}$} (4,8)
+	node[tground] {} (4,8)
 	to[american voltage source, v<=$V{=0.7}$ ](4,4)
     to[resistor = R, i=$I_D$,] (0,4)
 	to[american voltage source, v^<= $V_{IN}$] (0,0)
@@ -184,10 +186,12 @@ Diodo OFF:
 	(0,0) node[ground] {};
 	\draw (0,4)
     to[resistor = R, i=$I_D$,] (4,4)
-    to[short] (4,5.5) 
+    to[short, -o] (4,5.5) 
     to[open] (4,6.5)
-    to[short] (4,8) {} node[right] {$V_{DD}{=5V}$}
-    (4,4) to[short] (6,4) {} node[right] {$V_{OUT}{=V_IN}$}
+    to[short, o-] (4,8) 
+	node[above] {$V_{DD}{=5V}$} (4,8)
+	node[tground] {} (4,8)
+    (4,4) to[short, -o] (6,4) {} node[right] {$V_{OUT}=V_{IN}$}
 ;\end{circuitikz}
 \end{center}
 
