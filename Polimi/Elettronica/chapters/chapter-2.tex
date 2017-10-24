@@ -6,9 +6,9 @@
 \begin{document}
 
 
-\section{MOSFET}
+\section{MOS}
 \subsection{NMOS ed PMOS}
-Esistono due tipi duali e complementari di MOSFET: NMOS (Piu' usati e con caratteristiche migliori) e i PMOS.
+Esistono due tipi duali e complementari di MOS: NMOS (Piu' usati e con caratteristiche migliori) e i PMOS.
 
 Definisco due costanti:
 
@@ -52,9 +52,53 @@ e quindi la corrente
 
 \[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
 
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}[
+        axis/.style={very thick, ->, >=stealth'} ]
+\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{DS}$};
+\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_{DS}$};
+
+\draw[dotted] (2,0) -- (2,5);
+\draw[dotted] (0,4) -- (2,4);
+
+\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{GS} - V_t$};
+
+\filldraw [blue] (0,0) circle (1pt);
+
+\draw[scale=1,domain=0:2,smooth,variable=\x,blue] plot ({\x},{(4*\x-\x^2}); 
+\draw[scale=1,domain=2:6,smooth,variable=\x,blue] plot ({\x},{4});   
+
+\filldraw [black] (0, 4) circle (1pt) node[above right, black] {$I_{SAT}$};
+
+\node[] at (1,4.5) {Ohm};
+\node[] at (4,4.5) {Saturazione};
+
+\end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}[
+        axis/.style={very thick, ->, >=stealth'} ]
+\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{GS}$};
+\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_{DS}$};
+
+\draw[dotted] (2,0) -- (2,5);
+
+\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_t$};
+
+\draw[scale=1,domain=2:4,smooth,variable=\x,blue] plot ({\x},{(\x-2)^2}); 
+
+\node[] at (1,5) {Spento};
+\node[] at (4,5) {Acceso};
+
+\end{tikzpicture}
+\end{figure}
+
 \clearpage
 \subsubsection{PMOS}
-
 
 \begin{center}
 \begin{circuitikz} \draw
@@ -86,26 +130,85 @@ e quindi la corrente
 \[ I_{SD} = K_p \left( |V_{GS}| - |V_t| \right)^2\]
 
 \clearpage
+\subsection{$\lambda$: Modello piu' accurato del MOS}
 
-\subsection{Come capire in che stato di funzionamento e' il MOSFET}
+Secondo il modello sopra descritto una volta che si raggiunge il pitck-off la corrente non dipende piu' dalla $V_{DS}$ ma nella realta' la corrente aumenta leggermente comunque poiche' con l'aumentare della $V_{DS}$ il punto di pitchoff dal source si sposta verso il drain.
+
+Questo effetto chiamato Modulazaione di Canale fa si che accorciandosi il canale diminusica la resistenza ad esso associata e quindi aumenti la corrente.
+
+Per questo introduciamo un nuovo parametro $\lambda$ che tipicamente assume valori del tipo $0.05$ e le nuove equazioni del NMOS sono:
+
+\[ I_{Ohm} = K_p \left( |V_{GS}| - |V_t| \right)^2(1+\lambda V_{DS})\]
+\[ I_{Sat} = K_n \left( V_{GS} - V_t \right)^2(1+\lambda V_{DS})\]
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}[
+        axis/.style={very thick, ->, >=stealth'} ]
+\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{DS}$};
+\draw[axis] (0,0) -- (0,6) node(yline)[above] {$I_{DS}$};
+
+\draw[dotted] (2,0) -- (2,6);
+\draw[dotted] (0,4.40) -- (6,4.40);
+
+\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{GS} - V_t$};
+
+\filldraw [blue] (0,0) circle (1pt);
+
+\draw[scale=1,domain=0:2,smooth,variable=\x,blue] plot ({\x},{(4*\x-\x^2 )*(1+\x*0.05)}); 
+\draw[scale=1,domain=2:6,smooth,variable=\x,blue] plot ({\x},{4*(1+\x*0.05)});   
+
+\filldraw [black] (0, 4.40) circle (1pt) node[above right, black] {$I_{SAT}$};
+
+\node[] at (1,6) {Ohm};
+\node[] at (4,6) {Saturazione};
+
+\end{tikzpicture}
+\end{figure}
+
+\clearpage
+\subsection{Come capire in che stato di funzionamento e' il MOS}
 Prendiamo un NMOS per comodita'.
-Metodo per assurdo:
 
-Si suppone che il mosfet sia in un certo funzionamento e poi si va avanti a risolvere fino ad un assurdo logico.
+\textbf{Metodo per assurdo:}
 
-Metodo dei Diodi:
+Si suppone che il MOS sia in un certo funzionamento e poi si va avanti a risolvere fino a che si raggiunge un assurdo logico( e in quel caso non e' corretta la supposizione) o si raggiunge la fine della risoluzione ( ed in quel caso poiche' non vi sono assurdi la supposizione si puo' considerare corretta).
 
-\begin{center}
-\begin{circuitikz} \draw
-(0,0) node[nmos] (mos) {}
-(mos.gate) node[anchor=east] {G}
-(mos.drain) node[anchor=south] {D}
-(mos.source) node[anchor=north] {S}
-;\end{circuitikz}
-\end{center}
+\textbf{Metodo dei Diodi:}
 
-Il Mosfet essendo in fondo una giunzione NPN e' approssimabile a due diodi in antiserie.
-Quindi sostanzialmente ci sono 3 fasi di funzionamento del MOSFET: Off,Ohm,Sat (Spento,Ohmmica,Saturazione).
+Ora osserviamo che
+\[V_{DS} < V_{GS} - V_t\]
+\[V_{DS} - V_{GS} <  - V_t\]
+\[-V_{GS} <  - V_t\]
+\[V_{DG} > V_t\]
+Quindi il MOS essendo in fondo una giunzione NPN e' approssimabile a due diodi in antiserie.
+
+\begin{figure}[H] 
+	\centering 
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\begin{circuitikz}
+			\draw(0,0) node[nmos] (mos) {}
+			(mos.gate) node[anchor=east] {G}
+			(mos.drain) node[anchor=south] {D}
+			(mos.source) node[anchor=north] {S};
+		\end{circuitikz}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\begin{circuitikz}
+			\draw(0,0) to[empty diode] (0, 2);
+			\draw(0,0) to[empty diode] (0,-2);
+		\end{circuitikz}
+		\end{subfigure}
+\end{figure}
+
+quindi se $V_{GS} < V_t$ allora vi e' canale dal lato del Source
+
+e se $V_{DG} > V_t$ allora vi e' canale dal lato del Drain
+
+
+Quindi sostanzialmente ci sono 3 fasi di funzionamento del MOS: Off,Ohm,Sat (Spento,Ohmmica,Saturazione).
 
 Off e' quando non vi e' canale da nessuno dei due lati.
 
@@ -113,38 +216,14 @@ Ohm e' quando vi e' canale da entrambi i lati.
 
 Sat quando vi e' canale da solo un lato.
 
-Le regole normali sono:
-
-Se la tensione $V_{GS} < V_t$ allora il MOSFET e' Off
-
-Altrimenti se  $V_{DS} < V_{GS} - V_t$ Il MOSFET e' Ohm
-
-Ed in fine se  $V_{DS} > V_{GS} - V_t$ Il Mosfet e' Sat
-
-Ora osserviamo che
-\[V_{DS} < V_{GS} - V_t\]
-\[V_{DS} - V_{GS} <  - V_t\]
-\[-V_{GS} <  - V_t\]
-\[V_{DG} > V_t\]
-
-quindi se $V_{GS} < V_t$ allora vi e' canale dal lato del Source
-
-e se $V_{DG} > V_t$ allora vi e' canale dal lato del Drain
-
-ora se sono entrambe vere si e' in zona Ohmmica, se una sola delle due e' vera si e' in Saturazione, quando sono entrambe false il MOSFET e' spento.
-
-
-Metodo Grafico :
+\textbf{Metodo Grafico :}
 Basta seguire 4 punti:
-
-$(1)$ Verificare che la $V_{GS} > V_t$
-
-$(2)$ Calcolare la corrente $I_{DS}$ del NMOS quando $V_{DS} = V_{ow} = V_{GS} - V_{t}$
-
-$(3)$ Calcolare le correnti ad un nodo a scelta tra SOURCE e DRAIN imponendo che $V_{DS} = V_{ow}$
-
-$(4)$ Confrontare i due valori.
-
+\begin{enumerate}
+\item Verificare che la $V_{GS} > V_t$
+\item Calcolare la corrente $I_{DS}$ del NMOS quando $V_{DS} = V_{ow} = V_{GS} - V_{t}$
+\item Calcolare le correnti ad un nodo a scelta tra SOURCE e DRAIN imponendo che $V_{DS} = V_{ow}$
+\item Confrontare i due valori.
+\end{enumerate}
 Se la corrente del NMOS e' maggiore della somma di quelle del nodo allora il NMOS e' in zona ohmmica.
 
 Altrimenti Se la somma delle correnti del nodo e' maggiore di quella del NMOS allora esso e' in saturazione.
@@ -153,7 +232,8 @@ Dimosrazione:
 
 QUA METTI GRAFICI BELLI PLZ
 
-\subsection{Caratteristiche Importanti dei MOSFET}
+\clearpage
+\subsection{Caratteristiche Importanti delle porte a MOS}
 \textbf{Tensione di Overdrive $V_{ow}$}
 \[ V_{ow} = V_{GS} - V_t\]
 e' utile per scrivere le formule in modo piu' compatto.
@@ -172,11 +252,11 @@ Il Tempo di propagazione e' quanto ci mette la porta a fare da 0\% al 50\% della
 Vi sono due approssimazioni usabili per calcolarla:
 
 $(1)$ Approssimazione a corrente costante
-In questa approssimazione si considera il mosfet sempre in saturazione, questa approssimazione di solito sottostima del 10\%.
+In questa approssimazione si considera il MOS sempre in saturazione, questa approssimazione di solito sottostima del 10\%.
 \[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
 
 $(2)$ Approssimazione a Resistenza
-In questa approssimazione si approssima il mosfet ad una resistenza di resistivita', questa approssimazione di solito sovrastima.
+In questa approssimazione si approssima il MOS ad una resistenza di resistivita', questa approssimazione di solito sovrastima.
 \[R_{eq} = \frac{V_f}{I_{sat}} \]
 Comunque una volta decisa l'approssimazione si calcola la corrente del condensatore $I_c$ poi si calcola il delta di carica che serve per caricare il condensatore:
 \[Q_i = C V_i\]
@@ -190,15 +270,16 @@ e si ricava $t_p$:
 
 
 \subsection{Tips and Tricks}
-$(1)$ I MOSFET sono simmetrici e quindi non ha senso parlare di Source e Drain pero' per aiutare convenzione si ha che:
+\begin{enumerate}
+\item I MOS sono simmetrici e quindi non ha senso parlare di Source e Drain pero' per aiutare convenzione si ha che:
 
-La corrente nei MOSFET scorre sempre in senso concorde alla freccia.
+La corrente nei MOS scorre sempre in senso concorde alla freccia.
 
 La tensione $V_{GS}$ si misura sempre tra il piedino dove vi e' la freccia e il gate ed ha sempre senso contrario alla freccia.
 
-In pratica queste sono convenzioni per suggerire il funzionamento del MOSFET a chi sta studiando il circuito.
+In pratica queste sono convenzioni per suggerire il funzionamento del MOS a chi sta studiando il circuito.
 
-$(2)$ Per Piccole $V_{DS}$ si puo' approssimare:
+\item Per Piccole $V_{DS}$ si puo' approssimare:
 
 \[I_n = K_n \left[ 2 \left( V_{GS} -V_t \right)V_{DS} - V_{DS}^2 \right] \sim K_n \left[ 2 \left( V_{GS} -V_t \right)V_{DS} \right]\]
 Poiche' se $V_{DS}$ e' piccolo $V_{DS}^2$ e' ancora piu' piccolo e quindi si puo' trascurare senza grossi problemi.
@@ -212,10 +293,10 @@ $V_r = 0.1416V$
 mentre con la seconda equazione si ottiene
 
 $V_r = 0.1435V$
-
+\end{enumerate}
 
 \clearpage
-\subsection{Come Risolvere gli esercizi sui MOSFET}
+\subsection{Come Risolvere gli esercizi sui MOS}
 \subsubsection{Esercizio 2.1}
 Dato il Circuito sottostante
 \begin{enumerate}
@@ -299,6 +380,7 @@ E quindi in sinossi:
 
 \[V_{in} = 3.3V \Rightarrow V_{out} = 0.14V\]
 
+\clearpage
 \textbf{Calcolo della soglia logica $V_{th}$:}
 
 La soglia logica e' la tensione che separa la zona che consideriamo ON da quella che consideriamo OFF.
@@ -306,16 +388,16 @@ La soglia logica e' la tensione che separa la zona che consideriamo ON da quella
 L'ideale sarebbe $V_{th} = \frac{V_{cc}}{2}$
 
 \[V_{in} = V_{out}\]
-quindi la $V_{GD} = 0V$ quindi non vi e' canale dal lato del drain quindi il mosfet puo' essere o spento o in saturazione.
+quindi la $V_{GD} = 0V$ quindi non vi e' canale dal lato del drain quindi il MOS puo' essere o spento o in saturazione.
 
 Procediamo per assurdo:
 
-Supponiamo che il Mosfet fosse spento:
-Se il Mosfet e' spento allora $I_{DS} = 0A$ e (supponendo a regime quindi $I_c = 0A$) allora la tensione $V_r = I_{DS} R = 0V$ quindi $V_{out} = V_{in} = V_{GS} = V_{cc} = 3.3V$
-Ma se $V_{GS} = 3.3V > V_t$ quindi il mosfet sarebbe acceso!
+Supponiamo che il MOS fosse spento:
+Se il MOS e' spento allora $I_{DS} = 0A$ e (supponendo a regime quindi $I_c = 0A$) allora la tensione $V_r = I_{DS} R = 0V$ quindi $V_{out} = V_{in} = V_{GS} = V_{cc} = 3.3V$
+Ma se $V_{GS} = 3.3V > V_t$ quindi il MOS sarebbe acceso!
 ASSURDO.
 
-Quindi il mosfet e' in saturazione
+Quindi il MOS e' in saturazione
 \[I_{DS} = K_n \left(V_{ow}\right)^2 \]
 e quindi poiche' consideriamo a regime quindi $I_c = 0A$
 da una KCL al nodo del drain abiamo che
@@ -427,6 +509,7 @@ Ora concludiamo con una KVL dalla quale si ottiene $V_{out} = V_{cc} - V_{SD} = 
 In Sinossi:
 \[V_{in} = 0V \Rightarrow V_{out} = 2.96V\]
 
+\clearpage
 \textbf{Calcolo del Tempo Di Propagazione $t_p$:}
 
 Il Tempo di propagazione e' il tempo che la porta ci mette per fare dal 0\% al 50\% della transizione.
@@ -548,6 +631,7 @@ ora basta unire le due equazioni
 \[t_p = C \frac{2.25V}{3.2mA} = 7.03ns\]
 VALORE DA CONTROLLARE NON SON SICURO SIA GIUSTO
 
+\clearpage
 \textbf{Calcolo delle Potenze Statiche $P_{STAT}$}
 
 $(a)$ $V_{in} = 0V$ per i motivi sopra scritti Il' NMOS e' spento quindi la corrente del generatore e' $I = 0$ quindi la potenza statica off
@@ -619,7 +703,7 @@ Quindi il PMOS puo' essere o in zona ohmmica o in saturazione.
 
 Ora se il condesatore e' scarico allora il PMOS e' in saturazione poiche' $V_{GD,p} = V_{out} = 0V < V_{t,p}$ quindi non vi e' canale.
 
-quindi il condensatore si carica con la corrente $I_{SAT,p}$ fino a raggiungere $V_{t,p}$ al quale punto il mosfet diventa in zona ohmmica
+quindi il condensatore si carica con la corrente $I_{SAT,p}$ fino a raggiungere $V_{t,p}$ al quale punto il MOS diventa in zona ohmmica
 e continua a caricarsi fino a $V_{dd}$ dove il mos e' acceso in zona ohmmica pero' la sua $V_{SD} = 0V$ quindi ha corrente $I = 0$.
 
 In conclusione dopo i transitori il condensatore , quindi $V_{out}$ si carica a $V_{dd}$
@@ -648,6 +732,19 @@ Quindi finiti i transitori $V_{out} = 0V$
 
 \[V_{in} = 5V \Rightarrow V_{out} = 0V\]
 
+\textbf{Riassumendo:}
+\begin{center}
+\begin{tabular}{ c | c }
+  $V_{in}$ & $V_{out}$ \\
+  \hline			
+  1 & 0\\ 		
+  0 & 1\\
+\end{tabular}
+\end{center}
+quindi e' una porta NOT!
+
+
+\clearpage
 \textbf{Calcolo della soglia logica $V_{th}$}
 
 La soglia logica e' la tensione $V_{in}$ per la quale $V_{in} = V_{out}$.
@@ -683,25 +780,25 @@ Dato il Circuito sottostante,
 \begin{center}
 \begin{circuitikz}
 \draw(0,8)
- node[pmos] (pmos1) {}
+ node[pmos] (pmos1) {PMOS1}
 (pmos1.gate) node[above] {G}
-(pmos1.drain) node[right] {D}
-(pmos1.source) node[right] {S};
+(pmos1.drain) node[left] {D}
+(pmos1.source) node[left] {S};
 \draw(0,6)
- node[pmos] (pmos2) {}
+ node[pmos] (pmos2) {PMOS2}
 (pmos2.gate) node[above] {G}
-(pmos2.drain) node[right] {D}
-(pmos2.source) node[right] {S};
+(pmos2.drain) node[left] {D}
+(pmos2.source) node[left] {S};
 \draw(0,3)
- node[nmos] (nmos1) {}
+ node[nmos] (nmos1) {NMOS2}
 (nmos1.gate) node[above] {G}
-(nmos1.drain) node[right] {D}
-(nmos1.source) node[right] {S};
+(nmos1.drain) node[left] {D}
+(nmos1.source) node[left] {S};
 \draw(0,1)
- node[nmos] (nmos2) {}
+ node[nmos] (nmos2) {NMOS1}
 (nmos2.gate) node[above] {G}
-(nmos2.drain) node[right] {D}
-(nmos2.source) node[right] {S};
+(nmos2.drain) node[left] {D}
+(nmos2.source) node[left] {S};
 
 \draw (0,9) node[above] {$V_{dd}$} (0,9) node[tground] {} (0,9) -- (pmos1.source);
 
@@ -730,6 +827,73 @@ Dato il Circuito sottostante,
 
 \clearpage
 \subsubsection{Risoluzione Esercizio 3.2}
+\textbf{Calcolo della tabella di verita'}
+
+Dobbiamo riempire:
+\begin{center}
+\begin{tabular}{ c  c | c}
+  $EN$ & $A$ & $B$\\
+  \hline				
+  0 & 0 & ?\\	
+  0 & 1 & ?\\	
+  1 & 0 & ?\\ 	
+  1 & 1 & ?\\ 
+\end{tabular}
+\end{center}
+
+\textbf{Casi con $EN = 1$}
+
+Poiche' $EN = 1$ allora sicuramente NMOS2 e PMOS2 saranno accesi, quindi li approssimo a cortocircuito per semplificare i conti e riconosco che il circuito e' l'inverter di esercizio 3.2.
+
+\textbf{Caso $A = 0$}
+
+$A = 0V$ implica che la $V_{GS,N1} = 0V$ quindi NMOS1 e' spento quindi la $I_{NMOS}  = 0A$
+
+$A = 0V$ implica che la $V_{GS,P1} = V_{dd}$ quindi il PMOS1 e' acceso.
+E a prescindere dal comportamento degli altri due MOS , una volta che il condensatore' carico la corrente $I_{PMOS} = 0A$ quindi la $V_{DS,P1} = 0V$
+\begin{center}
+\begin{tabular}{ c  c | c}
+  $EN$ & $A$ & $B$\\
+  \hline				
+  0 & 0 & ?\\	
+  0 & 1 & ?\\	
+  1 & 0 & ?\\ 	
+  1 & 1 & 0\\ 
+\end{tabular}
+\end{center}
+
+\textbf{Caso  $A = 1$}
+
+Il caso e' duale a quello sopra quindi PMOS1 e' spento, NMOS2 ed NMOS1 sono accesi, quindi $V_{out} = 0V$
+
+\begin{center}
+\begin{tabular}{ c  c | c}
+  $EN$ & $A$ & $B$\\
+  \hline				
+  0 & 0 & ?\\	
+  0 & 1 & 0\\	
+  1 & 0 & ?\\ 	
+  1 & 1 & 1\\ 
+\end{tabular}
+\end{center}
+
+\textbf{Altri Casi}
+
+In entrambi i $EN = 0$ quindi PMOS2 e NMOS2 saranno spenti di sicuro.
+Quindi siamo in uno stato di alta impedenza nel quale l'uscita rimane quella che era.
+
+\textbf{Risultato}
+\begin{center}
+\begin{tabular}{ c  c | c}
+  $EN$ & $A$ & $B$\\
+  \hline				
+  0 & 0 & Hiz\\	
+  0 & 1 & 0\\	
+  1 & 0 & Hiz\\ 	
+  1 & 1 & 1\\ 
+\end{tabular}
+\end{center}
+
 
 \clearpage
 \subsubsection{Esercizio 3.3}

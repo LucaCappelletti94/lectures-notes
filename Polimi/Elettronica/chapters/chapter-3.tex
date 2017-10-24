@@ -154,7 +154,7 @@ Diodo OFF:
 	to[american voltage source, v^<= $V_{IN}$]
 	(0,0) node[ground] {};
 	\draw (0,4)
-    to[resistor = R, i^>=$I{=0}$] (3,4);
+    to[resistor = R, i^>=$I{=0}$] (3,4) to[short, o-] (3,4);
 \end{circuitikz}
 \end{center}
 
@@ -221,8 +221,8 @@ La tensione trasmessa dal trasformatore è a sua volta sinusoidale:
 \center
 \begin{tikzpicture}[
         axis/.style={very thick, ->, >=stealth'} ]
-\draw[axis] (0,0)  -- (6.5,0) node(xline)[right] {$V_D$};
-\draw[axis] (0,-3) -- (0,3) node(yline)[above] {};
+\draw[axis] (0,0)  -- (6.5,0) node(xline)[right] {$t$};
+\draw[axis] (0,-3) -- (0,3) node(yline)[above] {$V_D$};
 \draw plot[scale=0.5, domain=0:4*pi,smooth] (\x,{sin(\x r)});
 \end{tikzpicture}
 \caption{Tensione sinusoidale}
