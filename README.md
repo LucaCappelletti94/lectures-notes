@@ -29,6 +29,7 @@ Here's what you need to get started:
 So, if you've never dealt with the bash, here's a setup that starts from the beginning. If you're alredy a power user, you can skip these commands and go to the next part.
 #### Installing brew, anaconda and git
 So, [brew](https://brew.sh/) is this pretty awesome package manager for macOs, similar to **apt-get** in many ways. Here's how you get it. You need to have [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) installed to proceed.
+Open up the terminal and proceed with these commands:
 ```sh
 # We Install the command line tools
 xcode-select --install
@@ -40,7 +41,7 @@ sudo xcodebuild -license accept
 brew doctor
 brew update
 # We install Anaconda
-# If the command fails (it's a big file), try downloading from https://anaconda.org/
+# If the command fails (it's a big file), try downloading from https://www.anaconda.com/download/#macos
 brew cask install anaconda
 # We install git
 brew install git
@@ -51,7 +52,7 @@ brew cask install gitkraken
 Here starts the actual setup for Latex:
 ```sh
 # We install the MacTex.
-# If the command fails (it's a big file), try downloading from http://www.tug.org/mactex/
+# If the command fails (it's a big file), try downloading from http://www.tug.org/mactex/mactex-download.html
 brew cask install mactex-no-ghostscript
 # We install a LaTex IDE
 brew cask install texmaker
