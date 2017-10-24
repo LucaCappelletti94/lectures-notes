@@ -58,7 +58,10 @@ brew cask install mactex-no-ghostscript
 brew cask install texmaker
 # We install a couple of packages we're gonna need for LaTex
 # Pygments handles highlighting
-sudo pip install Pygments
+# It should already be installed with Anaconda, so you shouldn't need to run this command.
+# sudo pip install Pygments
+# We need though to create a link:
+sudo ln -s /anaconda3/bin/pygmentize /usr/local/bin/pygmentize
 # Gnuplot draws nice graphs
 brew install gnuplot
 ```
