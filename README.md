@@ -1,7 +1,7 @@
 # Various Notes
 ## Crafted with ~~Latex~~ Love
 All are available to the public, but please take them with a grain of salt :)
-These are notes from courses that I might be currently following, so might not be complete.
+These are notes from courses that we might be currently following, so they might not be complete.
 
 ## Polytechnic University of Milan
 
@@ -20,7 +20,43 @@ Notes are currently available about:
 
 Feel absolutely **FREE** to correct my errors.
 
+## Contributors are WELCOME!
+If you feel like sharing your work, helping us to offer everyone better notes, feel free to either ask to be added as contributor or to go for a pull request!
+
+Here's what you need to get started:
+
+### Setup for macOs users
+So, if you've never dealt with the bash, here's a setup that starts from the beginning. If you're alredy a power user, you can skip these commands and go to the next part.
+#### Installing brew
+So, (brew)[https://brew.sh/] is this pretty awesome package manager for macOs, similar to **apt-get** in many ways. Here's how you get it. You need to have (Xcode)[https://itunes.apple.com/us/app/xcode/id497799835?mt=12] installed to proceed.
+```sh
+# We Install the command line tools
+xcode-select --install
+# We accept the developer license
+sudo xcodebuild -license accept
+# We install brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# We run a couple checks on brew
+brew doctor
+brew update
+# We install (Anaconda)[https://anaconda.org/]. If the command fails (it's a big file), try downloading from the website.
+brew cask install anaconda 
+```
+Here starts the actual setup for Latex:
+```sh
+# We install the (MacTex)[http://www.tug.org/mactex/].  If the command fails (it's a big file), try downloading from the website.
+brew cask install mactex-no-ghostscript
+# We install a LaTex IDE
+brew cask install texmaker
+# We install a couple of packages we're gonna need for LaTex
+# Pygments handles highlighting
+sudo pip install Pygments
+# Gnuplot draws nice graphs
+brew install gnuplot
+```
+Now you just need to clone the repo and get working!
+
 ## Latex template
-If you like the way I setup my notes, [here](https://github.com/LucaCappelletti94/various-notes/tree/master/Template) you can find a template you can play with. Also, here is available a quick start guide if you'd like to work with any of these projects.
+If you like the way I setup my notes, [here](https://github.com/LucaCappelletti94/various-notes/tree/master/Template) you can find a template you can play with.
 
 For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*"
