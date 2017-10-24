@@ -1,0 +1,111 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{relsize}
+\usetikzlibrary{arrows,calc}
+\ctikzset{tripoles/mos style/arrows}
+
+\begin{document}
+
+\section{Diodi}
+Il diodo è un componente elettronico composto da una giunzione PN. 
+Il lato P è chiamato "anodo", mentre il lato N è chiamato "catodo". 
+La presenza delle zone N e P fa sì che gli elettroni liberi e le lacune si muovano, svuotando così la parte centrale del diodo. 
+A seconda del segno tensione applicata ai capi del diodo, cambia l'estensione della zona centrale svuotata: 
+\begin{itemize} 
+    \item Se la tensione è positiva: il diodo lavora in regime di \textbf{polarizzazione dirett}a e la zona svuotata si restringe.  
+	\item Se la tensione è negativa: il diodo lavora in regime di \textbf{polarizzazione inversa} e la zona svuotata si allarga.  
+\end{itemize}
+In un diodo ideale, in regime di polarizzazione diretta nel diodo scorre corrente, mentre in regime di polarizzazione inversa non scorre corrente: in questo caso il diodo (ideale) si comporta infatti come un circuito aperto. 
+
+Consideriamo invece un diodo reale. 
+Le cariche all'interno del diodo si muovono di moto casuale dovuto all'agitazione termica. Questo moto causa una corrente di diffusione non nulla, che può essere calcolata attraverso la \textbf{Legge di Fick}:
+\[I_{diff} = A \left[(-q)D_p\frac{\partial p(x)}{\partial x} - (-q)D_n\frac{\partial n(x)}{\partial x} \right]\]
+Dove  $D_{p}$ e  $D_{n} $ sono detti "coefficienti di diffusione".
+
+Per calcolare la corrente in regime di polarizzazione \textbf{diretta} si usa la seguente formula:
+\[I_D = I_0 \left[e^{\frac{V_D}{V_{Th}}}-1 \right]\]
+Dove  $I_0$ è detta "corrente inversa di saturazione" e  $V_{Th} $ è detta "Tensione Termica".
+La tensione termica viene calcolata come segue:
+\[V_{Th} = \frac{KT}{q}\]
+essendo K la costante di Bolzmann. A temperatura ambiente (circa 300 K) essa vale circa 26 mV.
+
+Possiamo descrivere un diodo attraverso tre modelli, con diversi gradi di precisione.
+
+\textbf{Modello 0}:
+\begin{itemize} 
+  	  \item Inversa: I=0  $\Rightarrow$ Il diodo può essere approssimato a un circuito aperto.
+  	  \item Diretta: I$\rightarrow\infty$  $\Rightarrow$ Il diodo può essere approssimato a un circuito chiuso.
+\end{itemize}
+\textbf{Modello 1}:
+\begin{itemize} 
+  	  \item Inversa:  I=0  $\Rightarrow$  Il diodo può essere approssimato a un circuito aperto come nel modello precedente.
+  	  \item Diretta: Il diodo può essere approssimato a un circuito chiuso a cui sia stato aggiunto un generatore che imponga una tensione di 0.7 V. 
+\end{itemize} 
+\textbf{Modello 2}:
+\begin{itemize} 
+  	  \item Inversa: I=0  $\Rightarrow$ Il diodo può essere approssimato a un circuito aperto come nei modelli precedenti.
+  	  \item Diretta: Oltre a collegare in serie al circuito chiuso un generatore di tensione da 0.7 V, aggiungiamo anche una resistenza $R_D$ tale che \[R_D = \frac{V_{Th}}{I_D}\]. 
+\end{itemize} 
+
+In un diodo reale può verificarsi l'\textbf{Effetto di Run-Out}: questo fenomeno consiste nel fatto che, a mano a mano che il circuito si scalda, il diodo porta una quantità maggiore di corrente per Effetto Joule, scaldandosi così maggiormente e dissipando maggiore potenza. Per evitare questo può essere collegata in serie al diodo una resistenza "limite", che limiti, appunto, la corrente passante per il diodo. 
+
+
+\textbf{Diodi Zener}
+Quando il diodo lavora in regime di polarizzazione inversa (quindi con valori negativi di tensione), esiste una soglia di tensione, detta tensione di Break-Down, oltre la quale nel diodo ricomincia a scorrere corrente. 
+Lavorando a tensione di Break-Down ($V_{BD}$) nel diodo passerà corrente a tensione costante. Questo può essere utile in alcune circostanze, e per questo esiste un tipo di diodi, detti diodi \textbf{Zener}, che lavorano sempre a $V_{BD}$. 
+
+
+\subsection{Metodi di risoluzione per circuiti con diodi}
+Per risolvere un circuito contenente un diodo come il seguente, esistono tre differenti metodi.
+\begin{enumerate} 
+	\item Metodo analitico
+	\item Metodo grafico
+	\item Approssimazione
+\end{enumerate}
+
+Prendiamo in esame il seguente circuito:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i^>=$I_D$,] (4,4) 
+      to[diode , v^>=$V_D$, ] node[ground] {} (4,0)
+;\end{circuitikz}
+\end{center}
+
+\textbf{1. Metodo analitico:}
+Si imposta il sistema:
+\[I_D = I_0 \left[e^{\frac{V_D}{V_{Th}}}-1 \right]\]
+\[V_D = V_{IN} - RI_D\]
+Da esso ricaviamo:
+\[V_D = V_{IN} - RI_0[e^{\frac{V_D}{V_{Th}}}-1]\]
+Questa equazione può essere risolta iterativamente, "provando" diversi valori fino ad arrivare a una convergenza, oppure con un simulatore (ad esempio PSpice).
+Si tratta però di un metodo poco efficiente.
+
+
+\textbf{2. Metodo grafico:}
+Si disegna la curva caratteristica del diodo (figura \ref{grafico_1})
+
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}[
+        axis/.style={very thick, ->, >=stealth'} ]
+\draw[axis] (0,0)  -- (5,0) node(xline)[right] {$V_D$};
+\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_D$};
+\draw[scale=1,domain=0:1.8,smooth,variable=\x,blue] plot ({\x},{e^\x-1});  
+\end{tikzpicture}
+\caption{}
+\label{grafico_1}
+\end{figure}
+
+INSERIRE CIRCUITO E GRAFICO
+
+\[V_D = V_{IN} - RI_D\]
+\[I_D = \frac{V_{IN}-V_D}{R}\]
+
+\textbf{3. Linearizzazione a tratti}
+
+\end{document}

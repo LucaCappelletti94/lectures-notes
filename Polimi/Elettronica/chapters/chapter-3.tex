@@ -1,9 +1,248 @@
 \providecommand{\main}{..}
 \documentclass[\main/main.tex]{subfiles}
-
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{relsize}
+\usetikzlibrary{arrows,calc}
+\ctikzset{tripoles/mos style/arrows}
 
 \begin{document}
 
-\section{}
+\section{Diodi}
+Il diodo è un componente elettronico composto da una giunzione PN. 
+Il lato P è chiamato "anodo", mentre il lato N è chiamato "catodo". 
+La presenza delle zone N e P fa sì che gli elettroni liberi e le lacune si muovano, svuotando così la parte centrale del diodo. 
+A seconda del segno tensione applicata ai capi del diodo, cambia l'estensione della zona centrale svuotata: 
+\begin{itemize} 
+    \item Se la tensione è positiva: il diodo lavora in regime di \textbf{polarizzazione diretta} e la zona svuotata si restringe.  
+	\item Se la tensione è negativa: il diodo lavora in regime di \textbf{polarizzazione inversa} e la zona svuotata si allarga.  
+\end{itemize}
+In un diodo ideale, in regime di polarizzazione diretta nel diodo scorre corrente, mentre in regime di polarizzazione inversa non scorre corrente: in questo caso il diodo (ideale) si comporta infatti come un circuito aperto. 
+
+Consideriamo invece un diodo reale. 
+Le cariche all'interno del diodo si muovono di moto casuale dovuto all'agitazione termica. Questo moto causa una corrente di diffusione non nulla, che può essere calcolata attraverso la \textbf{Legge di Fick}:
+\[I_{diff} = A \left[(-q)D_p\frac{\partial p(x)}{\partial x} - (-q)D_n\frac{\partial n(x)}{\partial x} \right]\]
+Dove  $D_{p}$ e  $D_{n} $ sono detti "coefficienti di diffusione".
+
+Per calcolare la corrente in regime di polarizzazione \textbf{diretta} si usa la seguente formula:
+\[I_D = I_0 \left[e^{\frac{V_D}{V_{Th}}}-1 \right]\]
+Dove  $I_0$ è detta "corrente inversa di saturazione" e  $V_{Th} $ è detta "Tensione Termica".
+La tensione termica viene calcolata come segue:
+\[V_{Th} = \frac{KT}{q}\]
+essendo K la costante di Bolzmann. A temperatura ambiente (circa 300 K) essa vale circa 26 mV.
+
+Possiamo descrivere un diodo attraverso tre modelli, con diversi gradi di precisione.
+
+\textbf{Modello 0}:
+\begin{itemize} 
+  	  \item Inversa: I=0  $\Rightarrow$ Il diodo può essere approssimato a un circuito aperto.
+  	  \item Diretta: I$\rightarrow\infty$  $\Rightarrow$ Il diodo può essere approssimato a un circuito chiuso.
+\end{itemize}
+\textbf{Modello 1}:
+\begin{itemize} 
+  	  \item Inversa:  I=0  $\Rightarrow$  Il diodo può essere approssimato a un circuito aperto come nel modello precedente.
+  	  \item Diretta: Il diodo può essere approssimato a un circuito chiuso a cui sia stato aggiunto un generatore che imponga una tensione di 0.7 V. 
+\end{itemize} 
+\textbf{Modello 2}:
+\begin{itemize} 
+  	  \item Inversa: I=0  $\Rightarrow$ Il diodo può essere approssimato a un circuito aperto come nei modelli precedenti.
+  	  \item Diretta: Oltre a collegare in serie al circuito chiuso un generatore di tensione da 0.7 V, aggiungiamo anche una resistenza $R_D$ tale che \[R_D = \frac{V_{Th}}{I_D}\]. 
+\end{itemize} 
+
+In un diodo reale può verificarsi l'\textbf{Effetto di Run-Out}: questo fenomeno consiste nel fatto che, a mano a mano che il circuito si scalda, il diodo porta una quantità maggiore di corrente per Effetto Joule, scaldandosi così maggiormente e dissipando maggiore potenza. Per evitare questo può essere collegata in serie al diodo una resistenza "limite", che limiti, appunto, la corrente passante per il diodo. 
+
+
+\textbf{Diodi Zener}
+Quando il diodo lavora in regime di polarizzazione inversa (quindi con valori negativi di tensione), esiste una soglia di tensione, detta tensione di Break-Down, oltre la quale nel diodo ricomincia a scorrere corrente. 
+Lavorando a tensione di Break-Down ($V_{BD}$) nel diodo passerà corrente a tensione costante. Questo può essere utile in alcune circostanze, e per questo esiste un tipo di diodi, detti diodi \textbf{Zener}, che lavorano sempre a $V_{BD}$. 
+
+
+\subsection{Metodi di risoluzione per circuiti con diodi}
+Per risolvere un circuito contenente un diodo come il seguente, esistono tre differenti metodi.
+\begin{enumerate} 
+	\item Metodo analitico
+	\item Metodo grafico
+	\item Approssimazione
+\end{enumerate}
+
+Prendiamo in esame il seguente circuito:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i^>=$I_D$,] (4,4) 
+      to[diode , v^>=$V_D$, ] node[ground] {} (4,0)
+;\end{circuitikz}
+\end{center}
+
+\textbf{1. Metodo analitico:}
+
+Si imposta il sistema:
+\[I_D = I_0 \left[e^{\frac{V_D}{V_{Th}}}-1 \right]\]
+\[V_D = V_{IN} - RI_D\]
+Da esso ricaviamo:
+\[V_D = V_{IN} - RI_0[e^{\frac{V_D}{V_{Th}}}-1]\]
+Questa equazione può essere risolta iterativamente, "provando" diversi valori fino ad arrivare a una convergenza, oppure con un simulatore (ad esempio Spice).
+Si tratta però di un metodo poco efficiente.
+
+
+\textbf{2. Metodo grafico:}
+
+Si "divide" il circuito:
+
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i^>=$I_D$] (3,4) 
+(3,4) to[open] (4,4)      
+(4,4)  to[short]  (5,4)
+(5,4)      to[diode , v^>=$V_D$, ] node[ground] {} (5,0)
+;\end{circuitikz}
+\end{center}
+
+Si disegnano su un grafico le caratteristiche delle due "porzioni di circuito": quella del resistore (in verde) e quella del diodo (in blu)
+
+La retta di carico del resistore è:
+\[V_D = V_{IN} - RI_D\]
+La disegniamo sul grafico ricavando i due punti di intersezione con gli assi (cioè ponendo prima $I_D$ nulla e ricavando così l'intersezione con l'asse delle ascisse, poi $V_D$ nulla per ottenere l'intersezione con l'asse delle ordinate.)
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}[
+        axis/.style={very thick, ->, >=stealth'} ]
+\draw[axis] (0,0)  -- (6.5,0) node(xline)[right] {$V_D$};
+\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_D$};
+\draw[olive,thick] (0,3.5) -- (5,0);
+ \filldraw [black] 
+     (1.27,2.57) circle (2pt) node[above right, black] {$Q$};
+\draw[scale=1,domain=0:1.8,smooth,variable=\x,blue] plot ({\x},{e^\x-1});  
+ \filldraw [black] 
+     (5, 0) circle (1pt) node[above right, black] {$V_{IN}$};
+\filldraw [black] 
+	(0, 3.5) circle (1pt) node[above right, black] {$\frac{V_{IN}}{R}$};
+\end{tikzpicture}
+\caption{}
+\label{grafico_1}
+\end{figure}
+
+Si può ora notare che la retta e la curva del diodo si intersecano in un unico punto Q, che rappresenta il punto dal quale il circuito "funziona". Possiamo ora ricavare dal grafico le coordinate di Q, che rappresentano rispettivamente la tensione e la corrente cercate e dunque la nostra soluzione. 
+
+\textbf{3. Linearizzazione a tratti}
+
+Possiamo considerare il diodo con il suo modello ideale (Modello 0) e "linearizzare" così il circuito. Esistono ora due casi possibili: diodo ON  e diodo OFF. Poiché stiamo approssimando il diodo a un diodo ideale, nel caso ON potremo sostituirlo con un generatore di tensione da 0.7 Volt, mentre nel caso OFF lo sostituiremo con un circuito aperto.
+
+Diodo on:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i=$I_D$,] (4,4) 
+      to[american voltage source, v=$V{=0.7}$ ] node[ground] {} (4,0)
+;\end{circuitikz}
+\end{center}
+
+
+Diodo OFF:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i^>=$I{=0}$] (3,4) 
+;\end{circuitikz}
+\end{center}
+
+
+Alimentiamo il circuito preso in esame precedentemente e analizziamo i due casi.
+
+Diodo ON:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i=$I_D$,] (4,4) 
+      to[american voltage source, v=$V{=0.7}$ ] (4,8) {} node[right] {$V_{DD}{=5V}$}
+;\end{circuitikz}
+\end{center}
+
+\[I_D = \frac{V_{IN}-(5V+0.7V)}{R}\]
+Se il diodo è ON, $I_D$ deve essere >0, $\Rightarrow$ $V_{IN}>5.7V$
+Quindi il diodo è acceso per valori di $V_{IN}$ che siano maggiori di 5.7 V
+
+Diodo OFF:
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[ground] {}
+(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
+      to[resistor = R, i=$I_D$,] (4,4)
+      to[short] (4,5.5) 
+      to[open] (4,6.5)
+      to[short] (4,8) {} node[right] {$V_{DD}{=5V}$}
+      (4,4) to[short] (6,4) {} node[right] {$V_{OUT}{=V_IN}$}
+;\end{circuitikz}
+\end{center}
+
+Per 0<$V_{IN}$<5.7 il diodo è OFF.
+
+Dopo aver studiato i due casi, possiamo guardare la $V_{IN}$ data dal testo dell'esercizio che ci interessa risolvere, vedere in quale dei due casi cade e risolvere il circuito lineare del caso di nostro interesse. 
+
+\subsection{Raddrizzatori di tensione}
+I diodi possono essere utilizzati per realizzare un raddrizzatore di tensione, ovvero convertire una tensione alternata in una tensione continua.
+Quando consideriamo un alimentatore che fornisce tensione alternata, ci interessa sapere il suo valore efficace. Esso viene calcolato con la seguente formula:
+\[V_{eff} = \frac{V_{Picco}}{\sqrt{2}}\]
+Componente necessario per il raddrizzatore di tensione, insieme al diodo, è il trasformatore.
+Il trasformatore è una macchina elettrica, composta da due avvolgimenti di spire su un nucleo:
+\begin{figure}[H]
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[transformer]{} 
+;\end{circuitikz}
+\end{center}
+\caption{Un trasformatore}
+\end{figure}
+Essendo $V_1$ e $V_2$ le tensioni sui due avvolgimenti, $n_1$ e $n_2$ i rispettivi numeri di spire, l'equazione del trasformatore è \[ \frac{V_{1}}{n_1}= \frac{V_{2}}{n_2}\]
+Consideriamo un trasformatore collegato ad alimentazione, con l'alimentatore che lavora in regime sinusoidale.
+La tensione trasmessa dal trasformatore è a sua volta sinusoidale:
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}[
+        axis/.style={very thick, ->, >=stealth'} ]
+\draw[axis] (0,0)  -- (6.5,0) node(xline)[right] {$V_D$};
+\draw[axis] (0,-3) -- (0,3) node(yline)[above] {};
+\draw plot[scale=0.5, domain=0:4*pi,smooth] (\x,{sin(\x r)});
+\end{tikzpicture}
+\caption{Tensione sinusoidale}
+\label{grafico_1}
+\end{figure}
+
+
+Di seguito mostriamo la struttura di un semplice raddrizzatore:
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) node[transformer core]{} (1,0)
+(1,0) to[empty diode, i=$I$] (3,0)
+(3,0) to[capacitor](3,-2.1)
+(3,0) to[short] (5,0)
+(5,0) to[resistor] (5,-2.1)
+(5,-2.1) to[short] (1,-2.1)
+;\end{circuitikz}
+\end{center}
+\caption{Un semplice raddrizzatore di tensione}
+\end{figure}
+
+Quando il circuito della \textbf{figura 4} viene alimentato, $V_{OUT}$ raggiunga il valore $V_{Picco}-V{ON}$ quando l'ingresso raggiunge il valore di picco. Nel mentre il condensatore si carica. 
+Quando l'ingresso comincia a diminuire, il diodo si spegne e il condensatore inizia a scaricarsi.
+Quando $V_{IN}-V{OUT}$ torna ad essere maggiore di $V_{ON}$, il diodo torna ON e il condensatore ricomincia a caricarsi.
+
+\begin{figure}
+\begin{tikzpicture}
+\includegraphics{raddrizzatore.png}
+\end{tikzpicture}
+\end{figure}
+
 
 \end{document}
