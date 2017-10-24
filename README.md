@@ -39,12 +39,18 @@ sudo xcodebuild -license accept
 # We run a couple checks on brew
 brew doctor
 brew update
-# We install (Anaconda)[https://anaconda.org/]. If the command fails (it's a big file), try downloading from the website.
-brew cask install anaconda 
+# We install Anaconda
+# If the command fails (it's a big file), try downloading from https://anaconda.org/
+brew cask install anaconda
+# We install git
+brew install git
+# We install a git IDE
+brew cask install gitkraken
 ```
 Here starts the actual setup for Latex:
 ```sh
-# We install the (MacTex)[http://www.tug.org/mactex/].  If the command fails (it's a big file), try downloading from the website.
+# We install the MacTex.
+# If the command fails (it's a big file), try downloading from http://www.tug.org/mactex/
 brew cask install mactex-no-ghostscript
 # We install a LaTex IDE
 brew cask install texmaker
