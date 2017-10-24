@@ -28,7 +28,7 @@ Here's what you need to get started:
 ### Setup for macOs users
 So, if you've never dealt with the bash, here's a setup that starts from the beginning. If you're alredy a power user, you can skip these commands and go to the next part.
 #### Installing brew, anaconda and git
-So, (brew)[https://brew.sh/] is this pretty awesome package manager for macOs, similar to **apt-get** in many ways. Here's how you get it. You need to have (Xcode)[https://itunes.apple.com/us/app/xcode/id497799835?mt=12] installed to proceed.
+So, [brew](https://brew.sh/) is this pretty awesome package manager for macOs, similar to **apt-get** in many ways. Here's how you get it. You need to have [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) installed to proceed.
 ```sh
 # We Install the command line tools
 xcode-select --install
@@ -40,7 +40,7 @@ sudo xcodebuild -license accept
 brew doctor
 brew update
 # We install Anaconda
-# If the command fails (it's a big file), try downloading from https://anaconda.org/
+# If the command fails (it's a big file), try downloading from [here](https://anaconda.org/)
 brew cask install anaconda
 # We install git
 brew install git
