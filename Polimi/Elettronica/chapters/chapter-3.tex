@@ -5,7 +5,8 @@
 
 \begin{document}
 
-\section{Diodi}
+\section{Introduzione ai diodi}
+
 Il diodo è un componente elettronico composto da una giunzione PN. 
 Il lato P è chiamato "anodo", mentre il lato N è chiamato "catodo". 
 La presenza delle zone N e P fa sì che gli elettroni liberi e le lacune si muovano, svuotando così la parte centrale del diodo. 
@@ -54,7 +55,7 @@ Quando il diodo lavora in regime di polarizzazione inversa (quindi con valori ne
 Lavorando a tensione di Break-Down ($V_{BD}$) nel diodo passerà corrente a tensione costante. Questo può essere utile in alcune circostanze, e per questo esiste un tipo di diodi, detti diodi \textbf{Zener}, che lavorano sempre a $V_{BD}$. 
 
 
-\subsection{Metodi di risoluzione per circuiti con diodi}
+\section{Metodi di risoluzione per circuiti con diodi}
 Per risolvere un circuito contenente un diodo come il seguente, esistono tre differenti metodi.
 \begin{enumerate} 
 	\item Metodo analitico
@@ -199,7 +200,7 @@ Per 0<$V_{IN}$<5.7 il diodo è OFF.
 
 Dopo aver studiato i due casi, possiamo guardare la $V_{IN}$ data dal testo dell'esercizio che ci interessa risolvere, vedere in quale dei due casi cade e risolvere il circuito lineare del caso di nostro interesse. 
 
-\subsection{Raddrizzatori di tensione}
+\section{Raddrizzatori di tensione}
 I diodi possono essere utilizzati per realizzare un raddrizzatore di tensione, ovvero convertire una tensione alternata in una tensione continua.
 Quando consideriamo un alimentatore che fornisce tensione alternata, ci interessa sapere il suo valore efficace. Esso viene calcolato con la seguente formula:
 \[V_{eff} = \frac{V_{Picco}}{\sqrt{2}}\]
@@ -229,7 +230,7 @@ La tensione trasmessa dal trasformatore è a sua volta sinusoidale:
 \label{grafico_1}
 \end{figure}
 
-\subsubsection{Un semplice raddrizzatore di tensione}
+\subsection{Un semplice raddrizzatore di tensione}
 Di seguito mostriamo la struttura di un semplice raddrizzatore:
 
 
@@ -255,7 +256,7 @@ Quando $V_{IN}-V{OUT}$ torna ad essere maggiore di $V_{ON}$, il diodo torna ON e
 \includegraphics{\main/chapters/raddrizzatore}
 \end{center}
 
-\subsubsection{Altri raddrizzatori di tensione}
+\subsection{Altri raddrizzatori di tensione}
 
 Funzionano in modo analogo fra loro il raddrizzatore a ponte e il raddrizzatore a doppia semi-onda.
 
