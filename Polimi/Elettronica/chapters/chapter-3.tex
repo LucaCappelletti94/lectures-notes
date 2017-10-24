@@ -64,12 +64,14 @@ Per risolvere un circuito contenente un diodo come il seguente, esistono tre dif
 
 Prendiamo in esame il seguente circuito:
 \begin{center}
-\begin{circuitikz} \draw
-(0,0) node[ground] {}
-(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
-      to[resistor = R, i^>=$I_D$,] (4,4) 
-      to[diode , v^>=$V_D$, ] node[ground] {} (4,0)
-;\end{circuitikz}
+\begin{circuitikz} 
+	\draw (0,4) 
+	to[american voltage source, v^<= $V_{IN}$]
+	(0,0) node[ground] {};
+	\draw (0,4)
+    to[resistor = R, i^>=$I_D$,] (4,4) 
+    to[diode , v^<=$V_D$, ] node[ground] {} (4,0);
+\end{circuitikz}
 \end{center}
 
 \textbf{1. Metodo analitico:}
@@ -88,14 +90,16 @@ Si tratta però di un metodo poco efficiente.
 Si "divide" il circuito:
 
 \begin{center}
-\begin{circuitikz} \draw
-(0,0) node[ground] {}
-(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
-      to[resistor = R, i^>=$I_D$] (3,4) 
-(3,4) to[open] (4,4)      
-(4,4)  to[short]  (5,4)
-(5,4)      to[diode , v^>=$V_D$, ] node[ground] {} (5,0)
-;\end{circuitikz}
+\begin{circuitikz}
+	\draw (0,4) 
+	to[american voltage source, v^<= $V_{IN}$]
+	(0,0) node[ground] {};
+	\draw (0,4)
+    to[resistor = R, i^>=$I_D$] (3,4) 
+	to[open] (4,4)      
+	to[short] (5,4)
+	to[diode , v^<=$V_D$, ] node[ground] {} (5,0);
+\end{circuitikz}
 \end{center}
 
 Si disegnano su un grafico le caratteristiche delle due "porzioni di circuito": quella del resistore (in verde) e quella del diodo (in blu)
@@ -131,22 +135,26 @@ Possiamo considerare il diodo con il suo modello ideale (Modello 0) e "linearizz
 
 Diodo on:
 \begin{center}
-\begin{circuitikz} \draw
-(0,0) node[ground] {}
-(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
-      to[resistor = R, i=$I_D$,] (4,4) 
-      to[american voltage source, v=$V{=0.7}$ ] node[ground] {} (4,0)
+\begin{circuitikz}
+	\draw (0,4) 
+	to[american voltage source, v^<= $V_{IN}$]
+	(0,0) node[ground] {};
+	\draw (0,4)
+    to[resistor = R, i=$I_D$,] (4,4) 
+    to[american voltage source, v<=$V{=0.7}$ ] node[ground] {} (4,0)
 ;\end{circuitikz}
 \end{center}
 
 
 Diodo OFF:
 \begin{center}
-\begin{circuitikz} \draw
-(0,0) node[ground] {}
-(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
-      to[resistor = R, i^>=$I{=0}$] (3,4) 
-;\end{circuitikz}
+\begin{circuitikz}
+	\draw (0,4) 
+	to[american voltage source, v^<= $V_{IN}$]
+	(0,0) node[ground] {};
+	\draw (0,4)
+    to[resistor = R, i^>=$I{=0}$] (3,4);
+\end{circuitikz}
 \end{center}
 
 
@@ -154,12 +162,14 @@ Alimentiamo il circuito preso in esame precedentemente e analizziamo i due casi.
 
 Diodo ON:
 \begin{center}
-\begin{circuitikz} \draw
-(0,0) node[ground] {}
-(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
-      to[resistor = R, i=$I_D$,] (4,4) 
-      to[american voltage source, v=$V{=0.7}$ ] (4,8) {} node[right] {$V_{DD}{=5V}$}
-;\end{circuitikz}
+\begin{circuitikz}
+	\draw (4,8) 
+	node[right] {$V_{DD}{=5V}$}
+	to[american voltage source, v<=$V{=0.7}$ ](4,4)
+    to[resistor = R, i=$I_D$,] (0,4)
+	to[american voltage source, v^<= $V_{IN}$] (0,0)
+	node[ground] {};
+    \end{circuitikz}
 \end{center}
 
 \[I_D = \frac{V_{IN}-(5V+0.7V)}{R}\]
@@ -168,14 +178,16 @@ Quindi il diodo è acceso per valori di $V_{IN}$ che siano maggiori di 5.7 V
 
 Diodo OFF:
 \begin{center}
-\begin{circuitikz} \draw
-(0,0) node[ground] {}
-(0,0) to[american voltage source, v^>= $V_{IN}$] (0,4) 
-      to[resistor = R, i=$I_D$,] (4,4)
-      to[short] (4,5.5) 
-      to[open] (4,6.5)
-      to[short] (4,8) {} node[right] {$V_{DD}{=5V}$}
-      (4,4) to[short] (6,4) {} node[right] {$V_{OUT}{=V_IN}$}
+\begin{circuitikz}
+	\draw (0,4) 
+	to[american voltage source, v^<= $V_{IN}$]
+	(0,0) node[ground] {};
+	\draw (0,4)
+    to[resistor = R, i=$I_D$,] (4,4)
+    to[short] (4,5.5) 
+    to[open] (4,6.5)
+    to[short] (4,8) {} node[right] {$V_{DD}{=5V}$}
+    (4,4) to[short] (6,4) {} node[right] {$V_{OUT}{=V_IN}$}
 ;\end{circuitikz}
 \end{center}
 
