@@ -59,6 +59,7 @@ brew cask install texmaker
 # We install a couple of packages we're gonna need for LaTex
 # Pygments handles highlighting
 # It should already be installed with Anaconda, so you shouldn't need to run this command.
+# If you haven't installed Anaconda for whatever reason, install the package and then create the symlink as well.
 # sudo pip install Pygments
 # We need though to create a link:
 sudo ln -s /anaconda3/bin/pygmentize /usr/local/bin/pygmentize
