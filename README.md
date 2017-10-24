@@ -40,7 +40,7 @@ sudo xcodebuild -license accept
 brew doctor
 brew update
 # We install Anaconda
-# If the command fails (it's a big file), try downloading from [here](https://anaconda.org/)
+# If the command fails (it's a big file), try downloading from https://anaconda.org/
 brew cask install anaconda
 # We install git
 brew install git
