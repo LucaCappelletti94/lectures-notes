@@ -1,0 +1,60 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\usetikzlibrary{arrows,calc}
+\ctikzset{tripoles/mos style/arrows}
+
+\begin{document}
+
+\section{Elementi di memoria}
+\subsection{Classificazione}
+Gli elementi di memoria sono utilizzati per salvare informazioni.
+Le memorie possono essere classificate secondi diversi criteri.
+\begin{enumerate}
+\item \textbf{Accesso:}
+
+	- \textit{Casuale:} Sono memorie in cui i bit sono immagazzinati in una matrice, e l'accesso ai dati non è sequenziale. Ne sono un esempio le RAM. 
+	
+	- \textit{Sequenziale:} sono memorie in cui i bit sono immagazzinato in modo sequenziale. Ne sono un esempio le memorie di massa (CD, HD-Disk)
+\item \textbf{Volatilità:}
+
+	- \textit{Memorie volatili:} sono memorie che perdono i dati memorizzati allo spegnimento del dispositivo.
+	
+	- \textit{Memorie non volatili:} sono memorie che mantengono i dati memorizzati anche quando il dispositivo viene spento.
+\end{enumerate}
+
+A loro volta le memorie non volatili possono essere:
+	- \textit{One Time Programmable:} sono memorie che vengono scritte una sola volta e da quel momento non possono essere modificate.
+	- \textit{Riprogrammabili:} sono memorie che possono essere modificate anche dopo la prima scrittura.
+	
+\subsection{RAM}
+Le memorie RAM possono essere statiche (SRAM) oppure dinamiche (DRAM). Le SRAM si basano sulla retroazione, mentre le DRAM utilizzano una capacità.
+
+\subsubsection{Latch}
+Le memorie RAM sono basate su due diversi tipi di elementi di memoria: i \textbf{latch} e i \textbf{flip-flop}.
+Sono entrambi elementi di tipo sequenziale, cioè aggiornano la loro uscita solo in determinati intervalli scanditi dal clock. La differenza è nella scansione degli intervalli.
+A seguito di un cambiamento nell'ingresso, i latch aggiornano l'uscita se il clock è "alto" (cioè il segnale di clock vale "1").
+I flip-flop, invece, aggiornano l'uscita solo durante i fronti di commutazione del clock. 
+Un flip-flop viene realizzato ponendo in cascata due latch. 
+
+Abbiamo detto che le RAM utilizzano flip-flop e latch. Dopo averne visto il funzionamento, possiamo ora affermare che, nel dettaglio, le SRAM sono basate sui flip-flop, mentre le DRAM sfruttano i latch. 
+
+\subsubsection{Operazioni di lettura e scrittura}
+Abbiamo detto che le SRAM utilizzano la retroazione (in particolare, nella realizzazione fisica, questo si traduce nell'impiego di due inverter); questo logicamente corrisponde all'uso dei flip-flop. 
+Per questo, i cicli di lettura e scrittura avvengono nel seguente modo: viene letto un dato (dalla memoria oppure in ingresso). Se esso non viene modificato prima che il segnale di clock giunga a un fronte di commutazione (salita o discesa), allora il dato viene ritenuto valido.
+Se si tratta di un'operazione di scrittura allora il dato viene scritto in memoria, se si tratta di un'operazione di lettura viene fornito in output. 
+
+Le DRAM, invece, utilizzano una condensatore per immagazzinare i risultati; questo logicamente corrisponde all'uso di un latch.
+Il ciclo di scrittura avviene nel modo seguente: si seleziona la word-line desiderata e si trasmette il bit da memorizzare nella bit-line che ci interessa. Il bit è immagazzinato nel condensatore. 
+Questo, però, rende l'informazione immagazzinata "a rischio" di cancellazione: nel circuito infatti nascono correnti di perdita che portano il condensatore a scaricarsi. Per questo motivo, le DRAM hanno bisogno di fare un \textbf{refresh periodico}, cioè di ri-scrivere periodicamente, ricaricando il condensatore, gli "1" memorizzati su di esso, per evitare che vadano persi. 
+Anche l'operazione di lettura nelle DRAM risulta molto delicata. La bit-line, infatti, si comporta a sua volta come se fosse una capacità: questo compromette la lettura del dato immagazzinato sul condensatore, perché riduce di molto la tensione effettiva ai capi del condensatore. Per questo, la tensione che rappresenta "1" è molto piccola, e potrebbe talvolta essere confusa con una tensione nulla che rappresenta invece lo "0" logico. 
+Inoltre, la lettura è distruttiva: l'operazione di lettura porta a scaricare parte della carica immagazzinata sul condensatore, rendendo l'informazione memorizzata illeggibile. 
+
+\subsubsection{Decoder}
+Un elemento importante necessario per costruire una RAM è il \textbf{decoder}.
+Il decoder è un dispositivo che funziona da multiplexer: da \textit{n} ingressi è in grado di fornire $2^n$ uscite.
+Essendo, come abbiamo accennato, la RAM una memoria a struttura matriciale, saranno necessari due decoder: uno per le colonne e uno per le righe. 
+Quindi, se abbiamo a disposizione \textit{n} bit per ogni parola di memoria, avremo $2^{2n}$ celle di memoria.
+
+
+
+\end{document}
