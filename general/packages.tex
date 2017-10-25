@@ -1,8 +1,17 @@
 \documentclass{report} % We use report to allow for chapers etc...
 \usepackage[utf8]{inputenc} % This allows for utf support.
 \usepackage[T1]{fontenc}  % Defines true type fonts
-\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
-\usepackage{csquotes} % Package required by babel
+
+\usepackage{iftex} % Used for if
+\ifLuaTeX
+	\usepackage{polyglossia}
+	\setdefaultlanguage{italian}
+	\setotherlanguage{english}
+	\usepackage{fontspec}	
+\else
+	\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
+\fi
+
 \usepackage{geometry} % More rich support for page layout.
 \geometry{
  a4paper,
@@ -32,7 +41,7 @@
 \usepackage{xcolor} % To highlight text
 \usepackage{xfrac} % To allow for sideways fractions
 \usepackage[cache=false]{minted} % For highlighting code
-\usepackage[algoruled,linesnumbered,titlenumbered,vlined]{algorithm2e} % To highlight pseudocode
+\usepackage[algoruled,linesnumbered,titlenumbered,vlined]{\main/../../packages/algorithm2e} % To highlight pseudocode
 \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setminted{
 bgcolor=mintedbackground,
@@ -53,6 +62,9 @@ showspaces=false,
 showtabs =false,
 texcl=false,
 }
+
+% CDQUOTES HAS TO BE LOADED AFTER THE MINTED
+\usepackage{csquotes} % Package required by babel AND polyglossia. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % GRAPHICAL EXTRAVAGANZA %
@@ -105,7 +117,6 @@ texcl=false,
 % LUATEX CODE %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{iftex} % Used for if
 \ifLuaTeX
 	\usepackage{etoolbox} % To enable some parts of luacode
 	\usepackage{luacode} % Used to script stuff
@@ -124,3 +135,4 @@ texcl=false,
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{\main/../../general/acronyms.tex}
+\addbibresource{references.bib}
