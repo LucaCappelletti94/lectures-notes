@@ -45,6 +45,8 @@ brew update
 brew cask install anaconda
 # We install git
 brew install git
+# And the extension of git that handles large files
+brew install git-lfs
 # We install a git IDE
 brew cask install gitkraken
 ```
