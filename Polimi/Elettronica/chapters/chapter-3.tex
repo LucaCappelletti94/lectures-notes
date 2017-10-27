@@ -5,7 +5,8 @@
 
 \begin{document}
 
-\section{Diodi}
+\section{Introduzione ai diodi}
+
 Il diodo è un componente elettronico composto da una giunzione PN. 
 Il lato P è chiamato "anodo", mentre il lato N è chiamato "catodo". 
 La presenza delle zone N e P fa sì che gli elettroni liberi e le lacune si muovano, svuotando così la parte centrale del diodo. 
@@ -54,7 +55,7 @@ Quando il diodo lavora in regime di polarizzazione inversa (quindi con valori ne
 Lavorando a tensione di Break-Down ($V_{BD}$) nel diodo passerà corrente a tensione costante. Questo può essere utile in alcune circostanze, e per questo esiste un tipo di diodi, detti diodi \textbf{Zener}, che lavorano sempre a $V_{BD}$. 
 
 
-\subsection{Metodi di risoluzione per circuiti con diodi}
+\section{Metodi di risoluzione per circuiti con diodi}
 Per risolvere un circuito contenente un diodo come il seguente, esistono tre differenti metodi.
 \begin{enumerate} 
 	\item Metodo analitico
@@ -199,7 +200,7 @@ Per 0<$V_{IN}$<5.7 il diodo è OFF.
 
 Dopo aver studiato i due casi, possiamo guardare la $V_{IN}$ data dal testo dell'esercizio che ci interessa risolvere, vedere in quale dei due casi cade e risolvere il circuito lineare del caso di nostro interesse. 
 
-\subsection{Raddrizzatori di tensione}
+\section{Raddrizzatori di tensione}
 I diodi possono essere utilizzati per realizzare un raddrizzatore di tensione, ovvero convertire una tensione alternata in una tensione continua.
 Quando consideriamo un alimentatore che fornisce tensione alternata, ci interessa sapere il suo valore efficace. Esso viene calcolato con la seguente formula:
 \[V_{eff} = \frac{V_{Picco}}{\sqrt{2}}\]
@@ -229,7 +230,7 @@ La tensione trasmessa dal trasformatore è a sua volta sinusoidale:
 \label{grafico_1}
 \end{figure}
 
-\subsubsection{Un semplice raddrizzatore di tensione}
+\subsection{Un semplice raddrizzatore di tensione}
 Di seguito mostriamo la struttura di un semplice raddrizzatore:
 
 
@@ -255,7 +256,7 @@ Quando $V_{IN}-V{OUT}$ torna ad essere maggiore di $V_{ON}$, il diodo torna ON e
 \includegraphics{\main/chapters/raddrizzatore}
 \end{center}
 
-\subsubsection{Altri raddrizzatori di tensione}
+\subsection{Altri raddrizzatori di tensione}
 
 Funzionano in modo analogo fra loro il raddrizzatore a ponte e il raddrizzatore a doppia semi-onda.
 
@@ -311,5 +312,139 @@ La differenza fra questi raddrizzatori e il raddrizzatore semplice visto precede
 \begin{center}
 \includegraphics{\main/chapters/raddrizzatore2}
 \end{center}
+
+
+\section{Come Risolvere gli esercizi sui diodi}
+\subsection{Esercizio 3.1}
+Consideriamo i seguenti circuiti:
+
+\paragraph{(a)}
+\begin{center}
+\begin{circuitikz}
+\draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5) 
+(0,5.5) to[resistor=$R_1$] (0,2.5)
+(0,2.5) to[resistor=$R_2$] (0,0)
+(0,0) node[ground] {};
+\draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$}
+(2,2.7) node[right] {A} 
+(2,2.5) to[short, *-] (2,0) node[ground] {} (2,0) to[diode=$D_1$,v<=$V_{D}$ ](2,2);
+\end{circuitikz}
+\end{center}
+
+\paragraph{(b)}
+\begin{center}
+\begin{circuitikz}
+\draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5) 
+(0,5.5) to[resistor=$R_1$] (0,2.5)
+(0,2.5) to[resistor=$R_2$] (0,0)
+(0,0) node[ground] {};
+\draw (0,2.5) to[resistor=$R_3$, *-o] (2,2.5)
+(2,2.7) node[right] {A} 
+(0,2.5) node[left] {$V_x$}
+(2,2.5) to[short, *-] (3,2.5) node[above] {$V_{out}$}
+(2,2.5) to[short, *-] (2,2) to[diode=$D_1$,v<=$V_{D}$ ](2,0) node[below] {$V_{ss}$};
+\end{circuitikz}
+\end{center}
+
+
+
+\begin{center}
+$V_{DD}=5V$
+
+$V_{SS}=1V$
+ 
+$R_1=2k\Omega$
+
+$R_2=3k\Omega$
+
+$R_2=1k\Omega$
+
+\end{center}
+
+Si chiede di studiare il funzionamento dei diodi e ricavare $V_{OUT}$ e $V_x$ (quest'ultima per il punto b).
+\subsection{Soluzione Esercizio 3.1}
+Solitamente questi circuiti vengono risolti facendo una supposizione iniziale sullo stato di funzionamento e verificando se questa porta a una condizione di assurdo. Se questo accade, l'ipotesi va scartata, altrimenti la accettiamo come valida. 
+
+\paragraph{(a)}
+Prendiamo il circuito (a).
+Supponiamo che il diodo sia ON.
+Se il diodo è ON allora $V_D$ deve essere 0.7 V.
+Supponiamo dunque $V_D=0.7 V$ e calcoliamo le correnti che scorrono nel circuito.
+
+\[I_{R1} = \frac{V_{R1}}{R_1} = \frac{5V - (-0.7V)}{2k\Omega} = 2.85mA\]
+\[I_{R2} = \frac{V_{R2}}{R_2} = \frac{0V - (-0.7V)}{3k\Omega} = 0.3mA\]
+
+Applicando la legge di Kirchhoff al nodo si ottiene che nel diodo scorre una corrente \[I_{D} = I_{R1}+I_{R2} = 3.15mA\] positiva nel verso evidenziato nella figura sottostante:
+
+CONTROLLARE I SEGNI E I VERSI DELLE CORRENTI!!!!
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5) 
+(0,5.5) to[resistor=$R_1$, i>=$I_{R1}$] (0,2.5)
+(0,2.5) to[resistor=$R_2$, i<=$I_{R2}$] (0,0)
+(0,0) node[ground] {};
+\draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$}
+(2,2.5) to[short, *-] (2,0) node[ground] {} 
+(2,2.7) node[right] {A} 
+(2,2)to[short, i>=$I_D$] (2, 1.4)
+(2,0) to[diode=$D_1$,v<=$V_{D}$ ](2,1.4);
+\end{circuitikz}
+\end{center}
+
+Questo è assurdo: in un diodo, se scorre corrente, non può scorrere in quel verso ma soltanto nel verso opposto.
+Dunque il diodo non può essere acceso.
+
+Ricaviamo ora $V_{OUT}$.
+Possiamo applicare il partitore di tensione:
+\[V_{OUT} = V_{DD}\frac{R_2}{R_1+R_2} = 3V\]
+Quindi $V_D=-3V$. Questo verifica che non porta corrente, dunque conferma l'ipotesi per cui debba essere OFF.
+
+
+\paragraph{(b)}
+Procediamo in modo analogo al punto precedente.
+Supponiamo però, stavolta, che il diodo sia spento.
+Se il diodo è spento \[I_{R1}=I_D=0\].
+Applichiamo il partitore di tensione:
+\[V_{X} = V_{DD}\frac{R_2}{R_1+R_2} = 3V\].
+La caduta di tensione ai capi del diodo è proprio 3V, che è \textbf{maggiore} di 0.7V. 
+Questo significa che il diodo \textbf{non} può essere spento.
+Dobbiamo scartare l'ipotesi del diodo OFF.
+
+Studiamo quindi il caso diodo ON e cerchiamo $V_x$.
+Se il diodo è ON $V_{OUT}=0.7V$ e la corrente $I_D$ deve essere nulla.
+Applichiamo quindi la legge di Kirchhoff al nodo A con ipotesi $V_D=0$. Ne segue: $I_{R1}+I_{R2}+I_{R3}=0$.
+Applico la legge di Ohm per ricavare le correnti in funzione di $V_x$.
+Ricavo:
+\[\frac{V_x-5V}{R_1} + \frac{V_x}{R_2} + \frac{V_x-0.7V}{R_3} =0 \]
+Svolgendo i calcoli ottengo \[V_x = \frac{5V}{2k\Omega} + \frac{0.7V}{k\Omega} \]
+da cui \[V_x=1.49V\].
+
+\subsection{Esercizio 3.2}
+Sia dato il circuito:
+
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} 
+(0,5.5) to[resistor=$R_1$] (0,2.5)
+(0,2.5) to[diode] (0,0)
+(0,0) to[resistor=$R_2$] (0,-2)
+(0,-2) node[below] {$V_{ss1}$}
+(0,-2) node[tground] {};
+\draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$}
+(2,2.5) to[short, *-] (2,2.3) 
+(2,-2) node[below] {$V_{ss2}$} {}
+(2,-2) node[tground] {}
+(2,2.3) to[resistor=$R_4$] (2,0)
+(2,-2) to[diode=$D_1$,v<=$V_{D}$ ](2,0);
+\draw (2,6.5) node[above] {$V_{dd}$} (2,6.5) node[tground] {}
+(2,4.5) to[diode] (2,6.5)
+(2,4.5) to[resistor] (2,2.5)
+;
+\end{circuitikz}
+\end{center}
+
+ 
 
 \end{document}
