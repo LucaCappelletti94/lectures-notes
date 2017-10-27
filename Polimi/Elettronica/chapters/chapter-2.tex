@@ -1487,9 +1487,21 @@ Scelgo di approssimare a corrente costante e poiche' i PMOS hanno $V_{GS,P1} = V
 \[ I = \frac{Q}{t} = \frac{\triangle Q}{t_p} = C \frac{V_{dd}}{2 t_p} \]
 \[ t_p = C \frac{V_{dd}}{2 I_{SAT,P}} = 3.3ns\]
 
+\textbf{Calcolo della potenza dinamica $P_{DIN}$}
+
+Calcoliamo solo la potenza usata per caricare il condensatore perche' per la scarica lo fa attraverso il mos e quindi l'alimentazione non eroga corrente.
+
+\[P_{DIN} = V_{dd} I = V_{dd} \triangle Q f_{CLK} = C V_{dd}^2 f_{CLK} = 40 \mu W\]
+
 \clearpage
 \subsection{Esercizio 3.3}
-Dato il Circuito sottostante,
+Dato il Circuito sottostante, A e B sono segnali digitali con livelli $0V$ e $3.3V$
+\begin{enumerate}
+\item Determinare la tabella di verita' del circuito specificando il valore di tensione di $V_{out}$ .
+\item Che Funzione Logica svolge il circuito?
+\item Calcolare il tempo di propagazione della porta logica quando gli ingessi commutano istantaneamente da $A=1,B=1$ a $A=1,B=0$
+\item Calcolare la potenza dissipata quando il circuito $A=1$ e B e' un onda quadra a frquenza $f_{clk} = 2MHz$ e $D = 30%$
+\end{enumerate}
 
 \begin{center}
 \begin{circuitikz}
