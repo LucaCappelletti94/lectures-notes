@@ -76,6 +76,12 @@ texcl=false,
 \usetikzlibrary {positioning}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
+\usepgfplotslibrary{external} 
+\tikzexternalize
+
+\pgfmathdeclarefunction{gauss}{3}{%
+  \pgfmathparse{1/(#3*sqrt(2*pi))*exp(-((#1-#2)^2)/(2*#3^2))}%
+}
 
 \usepackage{paralist} % For compacted enumerations
 \usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
