@@ -1325,6 +1325,29 @@ Ora supponendo che il condensatore sia completamente carico esso non assorbe cor
 e da questo bilancio delle correnti si ricava che la tensione
 \[V_{in} = V_{th} = 2.5V\]
 
+\textbf{Calcolo del tempo di propagazione $t_p$}
+
+Scelgo di approssimare con l'approssimazione a corrente costante.
+
+\[I_{SAT,n} = K_n \left( V_{GS,n} - V_{t,n} \right)^2 = 16 K_n = 8mA\]
+
+Calcoliamo il differenziale di crica del condensatore d'uscita.
+
+\[ \triangle Q = C \left( V_f  - V_i\right) = 2.5 C = 2.5 fC\]
+
+ora applichiamo la definizione di corrente
+
+\[ I = \frac{Q}{t} = \frac{\triangle Q}{t_p} \]
+
+\[ t_p = \frac{\triangle Q}{I} = 31.25 ps \]
+
+
+\textbf{Calcolo della potenza dinamica $P_{DIN}$}
+
+\[ P_{DIN} = V_{dd} I = V_{dd} \frac{\triangle Q}{T_{CLK}} = V_{dd} \frac{V_{dd} C }{T_{CLK}} = C \frac{V_{dd}^2}{T_{CLK}} = 5mW\]
+
+
+
 \clearpage
 \subsection{Esercizio 3.2}
 Dato il Circuito sottostante,
@@ -1452,6 +1475,17 @@ Quindi siamo in uno stato di alta impedenza nel quale l'uscita rimane quella che
 \end{tabular}
 \end{center}
 
+\textbf{Calcolo del tempo di propagazione $t_p$}
+
+Il tempo di propagazione e' quello di carica del condesnatore.
+
+Scelgo di approssimare a corrente costante e poiche' i PMOS hanno $V_{GS,P1} = V_{GS,P2}$ e $K_p$ uguali allora li apporssimo come un unico MOS che ha $K_{p,eq} =  \frac{K_p}{2}$.
+
+\[I_{SAT,p} = \frac{K_p}{2} \left( V_{GS,p} - |V_t| \right)^2 = 3mA\]
+
+\[ \triangle Q = C \frac{V_{dd}}{2} \]
+\[ I = \frac{Q}{t} = \frac{\triangle Q}{t_p} = C \frac{V_{dd}}{2 t_p} \]
+\[ t_p = C \frac{V_{dd}}{2 I_{SAT,P}} = 3.3ns\]
 
 \clearpage
 \subsection{Esercizio 3.3}
