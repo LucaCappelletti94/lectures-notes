@@ -1,8 +1,17 @@
 \documentclass{report} % We use report to allow for chapers etc...
 \usepackage[utf8]{inputenc} % This allows for utf support.
 \usepackage[T1]{fontenc}  % Defines true type fonts
-\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
-\usepackage{csquotes} % Package required by babel
+
+\usepackage{iftex} % Used for if
+\ifLuaTeX
+	\usepackage{polyglossia}
+	\setdefaultlanguage{italian}
+	\setotherlanguage{english}
+	\usepackage{fontspec}	
+\else
+	\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
+\fi
+
 \usepackage{geometry} % More rich support for page layout.
 \geometry{
  a4paper,
@@ -32,7 +41,7 @@
 \usepackage{xcolor} % To highlight text
 \usepackage{xfrac} % To allow for sideways fractions
 \usepackage[cache=false]{minted} % For highlighting code
-\usepackage[algoruled,linesnumbered,titlenumbered,vlined]{algorithm2e} % To highlight pseudocode
+\usepackage[algoruled,linesnumbered,titlenumbered,vlined]{\main/../../packages/algorithm2e} % To highlight pseudocode
 \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setminted{
 bgcolor=mintedbackground,
@@ -54,6 +63,9 @@ showtabs =false,
 texcl=false,
 }
 
+% CDQUOTES HAS TO BE LOADED AFTER THE MINTED
+\usepackage{csquotes} % Package required by babel AND polyglossia. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % GRAPHICAL EXTRAVAGANZA %
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -64,6 +76,9 @@ texcl=false,
 \usetikzlibrary {positioning}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
+\pgfmathdeclarefunction{gauss}{3}{%
+  \pgfmathparse{1/(#3*sqrt(2*pi))*exp(-((#1-#2)^2)/(2*#3^2))}%
+}
 
 \usepackage{paralist} % For compacted enumerations
 \usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
@@ -105,7 +120,6 @@ texcl=false,
 % LUATEX CODE %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{iftex} % Used for if
 \ifLuaTeX
 	\usepackage{etoolbox} % To enable some parts of luacode
 	\usepackage{luacode} % Used to script stuff
@@ -124,3 +138,7 @@ texcl=false,
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{\main/../../general/acronyms.tex}
+\addbibresource{references.bib}
+
+%\usepgfplotslibrary{external} 
+%\tikzexternalize

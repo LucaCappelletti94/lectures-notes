@@ -1,0 +1,307 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+
+\graphicspath{ {\main/chapters/circuiti/}} 
+
+\begin{document}
+
+
+\begin{center}
+\begin{circuitikz} 
+	\draw (0,4) 
+	to[american voltage source, v^<= $V_{IN}$]
+	(0,0) node[ground] {};
+	\draw (0,4)
+    to[resistor = R1, i^>=$I_{R1}$,] (4,4) 
+    to[short, *-] (6,4)
+    to[diode , v^<=$V_D$, ] node[tground] {} (6,-0.1)
+    node[below] {$2V$} (6,-0.1);
+    \draw (4,4) to[resistor = R2, i^>=$I_{R2}$,] (4,0) node[ground] {} (4,0); 
+\end{circuitikz}
+\end{center}
+
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}
+
+\draw[->] (-1,0) -- (11,0);
+\draw[->] (0,-6) -- (0,6);
+
+\node[] at (11,-0.5) {t};
+\node[] at (-0.5,5) {$10V$};
+\node[] at (-0.5,-5) {$-10V$};
+\node[] at (-0.5,6) {$V_{in}$};
+
+\draw[thick] (0,0) -- (2.5,5) -- (5,0) -- (7.5,-5) -- (10,0);
+
+% projection dot
+\draw[dotted] (0,5) -- (10,5);
+\draw[dotted] (0,-5) -- (10,-5);
+
+\end{tikzpicture}
+\caption{Andamento della tensione $V_{in}$ nel tempo}
+\end{figure}
+
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}
+
+\draw[->] (-1,0) -- (11,0);
+\draw[->] (0,-6) -- (0,6);
+
+\node[] at (11,-0.5) {t};
+\node[] at (-0.5,1.35) {$2.7V$};
+\node[] at (-0.5,2.7) {$5.4V$};
+\node[] at (-0.5,-5) {$-10V$};
+\node[] at (-0.5,5) {$10V$};
+\node[red] at (-0.5,2.2) {$5V$};
+\node[red] at (-0.5,-2.5) {$-5V$};
+\node[] at (-0.5,6) {$V_{in}$};
+\node[red] at (-0.5,5.5) {$V_{out}$};
+
+\node[blue] at (0.75,-5.5) {$D_{OFF}$};
+\node[blue] at (2.5,-5.5) {$D_{ON}$};
+\node[blue] at (7.5,-5.5) {$D_{OFF}$};
+
+\draw[thick] (0,0) -- (2.5,5) -- (5,0) -- (7.5,-5) -- (10,0);
+\draw[red,thick] (0,0) -- (1.35,1.35);
+\draw[red, dotted] (1.35,1.35) -- (2.5,2.5) -- (3.65,1.35);
+\draw[red,thick] (3.65,1.35) -- (5,0) -- (7.5,-2.5) -- (10,0);
+\draw[red,thick] (1.35,1.35) -- (3.65,1.35);
+
+% projection dot
+\draw[dotted] (0,1.35) -- (10,1.35);
+\draw[dotted] (0,2.7) -- (10,2.7);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,5) -- (10,5);
+\draw[red,dotted] (0,2.5) -- (10,2.5);
+\draw[dotted] (0,-5) -- (10,-5);
+\draw[red,dotted] (0,-2.5) -- (10,-2.5);
+
+\draw[dotted] (1.35,-6) -- (1.35,6);
+\draw[dotted] (3.65,-6) -- (3.65,6);
+
+\end{tikzpicture}
+\caption{Andamento della tensione $V_{out}$ nel tempo}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}
+
+\draw[->] (-1,0) -- (11,0);
+\draw[->] (0,-6) -- (0,6);
+
+\node[] at (11,-0.5) {t};
+\node[] at (-0.5,1.35) {$2.7V$};
+\node[red] at (-0.5,1) {$540 \mu A$};
+\node[] at (-0.5,2.7) {$5.4V$};
+\node[] at (-0.5,5) {$10V$};
+\node[red] at (-0.5,-2.5) {$-1mA$};
+\node[] at (-0.5,6) {$V_{in}$};
+\node[red] at (-0.5,5.5) {$I_{R2}$};
+
+\node[blue] at (0.75,-5.5) {$D_{OFF}$};
+\node[blue] at (2.5,-5.5) {$D_{ON}$};
+\node[blue] at (7.5,-5.5) {$D_{OFF}$};
+
+\draw[thick] (0,0) -- (2.5,5) -- (5,0) -- (7.5,-5) -- (10,0);
+\draw[red,thick] (0,0) -- (1.35,1.35);
+\draw[red, dotted] (1.35,1.35) -- (2.5,2.5) -- (3.65,1.35);
+\draw[red,thick] (3.65,1.35) -- (5,0) -- (7.5,-2.5) -- (10,0);
+\draw[red,thick] (1.35,1.35) -- (3.65,1.35);
+
+% projection dot
+\draw[dotted, red] (0,1.35) -- (10,1.35);
+\draw[dotted] (0,2.7) -- (10,2.7);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,5) -- (10,5);
+\draw[red,dotted] (0,2.5) -- (10,2.5);
+\draw[dotted] (0,-5) -- (10,-5);
+\draw[red,dotted] (0,-2.5) -- (10,-2.5);
+
+\draw[dotted] (1.35,-6) -- (1.35,6);
+\draw[dotted] (3.65,-6) -- (3.65,6);
+
+\end{tikzpicture}
+\caption{Andamento della corrente $I_{R2}$ nel tempo}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}
+
+\draw[->] (-1,0) -- (11,0);
+\draw[->] (0,-6) -- (0,6);
+
+\node[] at (11,-0.5) {t};
+\node[] at (-0.5,1.35) {$2.7V$};
+\node[red] at (-0.5,2.2) {$920 \mu A$};
+\node[] at (-0.5,2.7) {$5.4V$};
+\node[] at (-0.5,5) {$10V$};
+\node[] at (-0.5,6) {$V_{in}$};
+\node[red] at (-0.5,5.5) {$I_{D}$};
+
+\node[blue] at (0.75,-5.5) {$D_{OFF}$};
+\node[blue] at (2.5,-5.5) {$D_{ON}$};
+\node[blue] at (7.5,-5.5) {$D_{OFF}$};
+
+\draw[thick] (0,0) -- (2.5,5) -- (5,0) -- (7.5,-5) -- (10,0);
+\draw[red, thick] (1.35,0) -- (2.5,2.5) -- (3.65,0);
+\draw[red, thick] (1.35,0) -- (0,0);
+\draw[red, thick] (3.65,0) -- (10,0);
+
+% projection dot
+\draw[dotted] (0,1.35) -- (10,1.35);
+\draw[dotted] (0,2.7) -- (10,2.7);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,5) -- (10,5);
+\draw[red,dotted] (0,2.5) -- (10,2.5);
+\draw[dotted] (0,-5) -- (10,-5);
+
+\draw[dotted] (1.35,-6) -- (1.35,6);
+\draw[dotted] (3.65,-6) -- (3.65,6);
+
+\end{tikzpicture}
+\caption{Andamento della corrente $I_{D}$ nel tempo}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\begin{tikzpicture}
+
+\draw[->] (-1,0) -- (11,0);
+\draw[->] (0,-6) -- (0,6);
+
+\node[] at (11,-0.5) {t};
+\node[] at (-0.5,1.35) {$2.7V$};
+\node[red] at (-0.5,1) {$540\mu A$};
+\node[red] at (-0.5,4) {$1.46 m A$};
+\node[] at (-0.5,2.7) {$5.4V$};
+\node[] at (-0.5,5) {$10V$};
+\node[red] at (-0.5,-2.5) {$-1mA$};
+\node[] at (-0.5,6) {$V_{in}$};
+\node[red] at (-0.5,5.5) {$I_{R1}$};
+
+\node[blue] at (0.75,-5.5) {$D_{OFF}$};
+\node[blue] at (2.5,-5.5) {$D_{ON}$};
+\node[blue] at (7.5,-5.5) {$D_{OFF}$};
+
+\draw[thick] (0,0) -- (2.5,5) -- (5,0) -- (7.5,-5) -- (10,0);
+\draw[red,thick] (0,0) -- (1.35,1.35);
+\draw[red] (1.35,1.35) -- (2.5,4) -- (3.65,1.35);
+\draw[red,thick] (3.65,1.35) -- (5,0) -- (7.5,-2.5) -- (10,0);
+
+% projection dot
+\draw[dotted] (0,1.35) -- (10,1.35);
+\draw[dotted] (0,2.7) -- (10,2.7);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,2.7) -- (0,1.35);
+\draw[dotted] (0,5) -- (10,5);
+\draw[red,dotted] (0,4) -- (10,4);
+\draw[dotted] (0,-5) -- (10,-5);
+\draw[red,dotted] (0,-2.5) -- (10,-2.5);
+
+\draw[dotted] (1.35,-6) -- (1.35,6);
+\draw[dotted] (3.65,-6) -- (3.65,6);
+
+\end{tikzpicture}
+\caption{Andamento della corrente $I_{R1}$ nel tempo}
+\end{figure}
+
+
+\begin{center}
+\begin{circuitikz} 
+	\draw (0,4) node[above] {$10V$} node[tground] {} 
+    to[resistor = R1, i^>=$I_{R1}$,] (0,2)
+    to[resistor = R2, i^>=$I_{R2}$,] (0,0)
+     node[ground] {} (0,0); 
+     \draw (0,2) to[short, *-o] (1,2) node[right] (1,2) {$V_{out}$};
+\end{circuitikz}
+\end{center}
+
+\begin{center}
+\begin{circuitikz} 
+	\draw (0,4) node[above] {$10V$} node[tground] {} 
+    to[resistor = R1, i^>=$I_{R1}$,] (0,2)
+    to[resistor = R2, i^>=$I_{R2}$,] (0,0)
+     node[ground] {} (0,0); 
+     \draw (0,2) to[short, *-] (2,2) to[resistor = RL,i^>=$I_{R_l}$] (2,0) node[ground] {} (2,0);
+     \draw (2,2)  node[right] (2,2) {$V_{out}$};
+\end{circuitikz}
+\end{center}
+
+\begin{center}
+\begin{circuitikz} 
+	\draw (0,4) node[above] {$10V$} node[tground] {} to[resistor = R1, i^>=$I_{R1}$,] (0,2);
+    \draw(0,0.1) node[ground] {} (0,0.1) to[zzDo] (0,2);
+	\draw [->] (-0.5,0) to [out=135,in=225] (-0.5,2);
+	\node[] at (-1.5,1) {$V_{BD}$};
+    \draw (0,2) to[short, *-o] (2.1,2); 
+    \node[] at (2.5,2) {$V_{out}$};
+\end{circuitikz}
+\end{center}
+
+
+\begin{center}
+\begin{circuitikz} 
+	\draw (0,4) node[above] {$10V$} node[tground] {} to[resistor = R1, i^>=$I_{R1}$,] (0,2);
+    \draw(0,0.1) node[ground] {} (0,0.1) to[zzDo] (0,2);
+	\draw [->] (-0.5,0) to [out=135,in=225] (-0.5,2);
+	\node[] at (-1.5,1) {$V_{BD}$};
+    \draw (0,2) to[short, *-] (2.1,2) to[resistor = R2] (2.1,0) node[ground]{}; 
+    \node[] at (2.5,2) {$V_{out}$};
+\end{circuitikz}
+\end{center}
+
+
+\begin{center}
+\begin{circuitikz} 
+	\draw (0,0) 
+    node[below] (0,0) {$-5V$}
+    node[tground] {} (0,0)
+    to[diode , v^<=$V_{D2}$, ](0,3)
+    to[diode , v^<=$V_{D1}$, ] (0,6)
+	node[above] {$5V$} node[tground] {};
+    \draw (-3,3) node[left] (-3,3) {$V_{in}$} to[short, o-](-2.5,3) to[resistor = R] (-0.5,3) to[short,-*](0,3) to[short, -o] (1,3);
+     \draw (1,3)  node[right] (1,3) {$V_{out}$};
+\end{circuitikz}
+\end{center}
+
+\begin{center}
+\begin{circuitikz} 
+    \draw (-3,3) node[left] (-3,3) {$V_{in}$} to[short, o-](-2.5,3) to[resistor = R] (-0.5,3) to[short,-*](0,3) to[short, -o] (4,3);
+    
+    \draw (4,3)  node[right] (4,3) {$V_{out}$};
+    
+	\draw (2,0)  node[ground] {} (2,0) to[diode , v_<=$V_{D2}$](2,3) to[short,-*] (2,3); 
+    
+    \draw (0,3) to[diode , v^<=$V_{D1}$](0,0.1) -- (0,0);
+    \draw (0,0) node[ground] {} (0,0); ;
+     
+\end{circuitikz}
+\end{center}
+
+\begin{center}
+\begin{circuitikz} 
+	\node[left] at (-3,3) {$V_{in}$};
+    \draw (-3,3) to[short, o-](-2.5,3);
+    \draw (-2.5,3)to[resistor = R] (-0.5,3);
+    \draw (-0.5,3) to[short, -o] (3.9,3);
+    
+    \draw (4,3)  node[right] (4,3) {$V_{out}$};
+    
+	\draw (2,-1)  node[ground] {} (2,-1) to[zzDo , v_<=$V_{D1}$](2,1) ;
+	\draw (2,3) to[short,-*] (2,3) to[zzDo , v^<=$V_{D2}$](2,1);
+    
+     
+\end{circuitikz}
+\end{center}
+
+
+\end{document}
