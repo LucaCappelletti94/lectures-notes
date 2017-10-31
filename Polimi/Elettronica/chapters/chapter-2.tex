@@ -51,7 +51,8 @@ I
 % Drain Terminal
 \draw (2,0) -- (2,2);
 \node[] at (2,2.5) {Source};
-R% Letters
+
+% Letters
 \node[] at (2,-0.5) {N};
 \node[] at (10,-0.5) {N};
 \node[] at (6,-1) {P};
@@ -376,205 +377,7 @@ In questa situazione in cui vi e' il canale da entrambi i lati si dice che il MO
 \end{figure}
 
 Ora se impongo una tensione $V_{DS}$ il canale inizia ad essere attratto verso il drain quindi il canale non e' piu' parallelo al' ossido ma diventa.
-<<<<<<< HEAD
-=======
 
-
-\begin{figure}[H]
-\center
-\begin{circuitikz}
-% Silicon Top
-\draw (0,0)  -- (12,0);
-\draw (0,-2)  -- (12,-2);
-\draw [line width=0.2cm] (0,-2.1)  -- (12,-2.1);
-
-% Piazzola Source
-\draw (1,0)  -- (1,-1);
-\draw (1,-1) -- (3,-1);
-\draw (3,-1) -- (3,-0.6);
-\draw [line width=0.2cm] (1,0.1)  -- (3,0.1);
-\draw (0.9,0)  -- (0.9,-1.1);
-\draw (0.9,-1.1) -- (3.1,-1.1);
-\draw (3.1,-1.1) -- (3.1,-0.7);
-
-% Piazzola Drain
-\draw (9,-0.2)  -- (9,-1);
-\draw (9,-1) -- (11,-1);
-\draw (11,-1) -- (11,0);
-\draw [line width=0.2cm] (9,0.1)  -- (11,0.1);
-\draw (8.9,-0.3)  -- (8.9,-1.1);
-\draw (8.9,-1.1) -- (11.1,-1.1);
-\draw (11.1,-1.1) -- (11.1,0);
-\draw (6,-2) -- (6,-3);
-\draw (6,-3) -- (-1,-3);
-\draw (-1,-3) -- (-1,1);
-\draw (-1,1) -- (2,1);
-
-\filldraw [black] (2,1) circle (1pt) node[below, black] {};
-
-% Gate
-\draw (3,0)  -- (3,1);
-\draw [line width=0.2cm] (3,1)  -- (9,1);
-\draw (9,1)  -- (9,0);
-\draw (3,-0.6)  -- (9,-0.2);
-\draw (3.1,-0.7)  -- (8.9,-0.3);
-
-% Gate Terminal
-\draw (6,1) -- (6,2);
-\node[] at (6,2.5) {Gate};
-
-% Source Terminal
-\draw (10,0) -- (10,3.5);
-\node[] at (11,2.5) {Drain};
-
-% Drain Terminal
-\draw (2,0) -- (2,3.5);
-\node[] at (1,2.5) {Source};
-
-% Letters
-\node[] at (2,-0.5) {N};
-\node[] at (10,-0.5) {N};
-\node[] at (6,-1) {P};
-\node[] at (6,0.5) {Oxide};
-
-\draw (6,2) to[american voltage source, v_<= $V_{GS}$] (2,2);
-
-\filldraw [black] (2,2) circle (1pt) node[below, black] {};
->>>>>>> master
-
-\draw (10,3.5)  to[american voltage source, v_<= $V_{DS}$] (2,3.5);
-
-\draw[dotted] (3,0) -- (3,-0.6);
-\draw[dotted] (9,0) -- (9,-0.2);
-
-\end{circuitikz}
-\caption{Sezione di un NMOS applicando una tnesione tra Source e Drain}
-\end{figure}
-
-Se la tensione $V_{DS} > V_{GS} - V_t$ allora si verifica il fenomeno del pintchoff nel quale il canale e' totalmente spostato verso un lato ed a questo punto la resistivita' del canale non dipende piu' dalla $V_{DS}$ ma solo dalla $V_{GS}$.
-
-\[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
-
-Si dice che il MOS si trova in regime di saturazione.
-
-\begin{figure}[H]
-\center
-\begin{circuitikz}
-% Silicon Top
-\draw (0,0)  -- (12,0);
-\draw (0,-2)  -- (12,-2);
-\draw [line width=0.2cm] (0,-2.1)  -- (12,-2.1);
-
-% Piazzola Source
-\draw (1,0)  -- (1,-1);
-\draw (1,-1) -- (3,-1);
-\draw (3,-1) -- (3,-1);
-\draw [line width=0.2cm] (1,0.1)  -- (3,0.1);
-\draw (0.9,0)  -- (0.9,-1.1);
-\draw (0.9,-1.1) -- (3.1,-1.1);
-\draw (3.1,-1.1) -- (3.1,-1.1);
-
-% Piazzola Drain
-\draw (9,-0)  -- (9,-1);
-\draw (9,-1) -- (11,-1);
-\draw (11,-1) -- (11,0);
-\draw [line width=0.2cm] (9,0.1)  -- (11,0.1);
-\draw (8.9,-0.1)  -- (8.9,-1.1);
-\draw (8.9,-1.1) -- (11.1,-1.1);
-\draw (11.1,-1.1) -- (11.1,0);
-\draw (6,-2) -- (6,-3);
-\draw (6,-3) -- (-1,-3);
-\draw (-1,-3) -- (-1,1);
-\draw (-1,1) -- (2,1);
-
-\filldraw [black] (2,1) circle (1pt) node[below, black] {};
-
-% Gate
-\draw (3,0)  -- (3,1);
-\draw [line width=0.2cm] (3,1)  -- (9,1);
-\draw (9,1)  -- (9,0);
-\draw (3,-1)  -- (9,-0);
-\draw (3.1,-1.1)  -- (8.9,-0.1);
-
-% Gate Terminal
-\draw (6,1) -- (6,2);
-\node[] at (6,2.5) {Gate};
-
-% Source Terminal
-\draw (10,0) -- (10,3.5);
-\node[] at (11,2.5) {Drain};
-
-% Drain Terminal
-\draw (2,0) -- (2,3.5);
-\node[] at (1,2.5) {Source};
-
-% Letters
-\node[] at (2,-0.5) {N};
-\node[] at (10,-0.5) {N};
-\node[] at (6,-1) {P};
-\node[] at (6,0.5) {Oxide};
-
-\draw (6,2) to[american voltage source, v_<= $V_{GS}$] (2,2);
-
-\filldraw [black] (2,2) circle (1pt) node[below, black] {};
-
-\draw (10,3.5)  to[american voltage source, v_<= $V_{DS}$] (2,3.5);
-
-
-\draw[dotted] (3,0) -- (3,-1);
-
-\draw [->] (8,-1) -- (8.8,-0.2);
-
-\node[] at (8,-1.3) {Pintchoff};
-
-\end{circuitikz}
-\caption{Sezione di un NMOS in saturazione}
-\end{figure}
-
-Quindi riassumendo Le caratteristiche del MOS sono:
-
-\begin{figure}[H]
-\center
-\begin{tikzpicture}[
-        axis/.style={very thick, ->, >=stealth'} ]
-\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{DS}$};
-\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_{DS}$};
-
-\draw[dotted] (2,0) -- (2,5);
-\draw[dotted] (0,4) -- (2,4);
-\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{GS} - V_t$};
-
-\filldraw [blue] (0,0) circle (1pt);
-
-\draw[scale=1,domain=0:2,smooth,variable=\x,blue] plot ({\x},{(4*\x-\x^2}); 
-\draw[scale=1,domain=2:6,smooth,variable=\x,blue] plot ({\x},{4});   
-
-\filldraw [black] (0, 4) circle (1pt) node[above right, black] {$I_{SAT}$};
-
-\node[] at (1,4.5) {Ohm};
-\node[] at (4,4.5) {Saturazione};
-
-\end{tikzpicture}
-\end{figure}
-
-\begin{figure}[H]
-\center
-\begin{tikzpicture}[
-        axis/.style={very thick, ->, >=stealth'} ]
-\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{GS}$};
-\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_{DS}$};
-
-\draw[dotted] (2,0) -- (2,5);
-
-\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_t$};
-
-\draw[scale=1,domain=2:4,smooth,variable=\x,blue] plot ({\x},{(\x-2)^2}); 
-
-\node[] at (1,5) {Spento};
-\node[] at (4,5) {Acceso};
-
-\end{tikzpicture}
-\end{figure}
 
 \begin{figure}[H]
 \center
@@ -728,10 +531,8 @@ Si dice che il MOS si trova in regime di saturazione.
 
 Quindi riassumendo Le caratteristiche del MOS sono:
 
-\begin{figure}[H] 
-	\centering 
-	\begin{subfigure}{.5\textwidth}
-		\centering
+\begin{figure}[H]
+\center
 \begin{tikzpicture}[
         axis/.style={very thick, ->, >=stealth'} ]
 \draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{DS}$};
@@ -752,9 +553,10 @@ Quindi riassumendo Le caratteristiche del MOS sono:
 \node[] at (4,4.5) {Saturazione};
 
 \end{tikzpicture}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
+\end{figure}
+
+\begin{figure}[H]
+\center
 \begin{tikzpicture}[
         axis/.style={very thick, ->, >=stealth'} ]
 \draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{GS}$};
@@ -770,22 +572,21 @@ Quindi riassumendo Le caratteristiche del MOS sono:
 \node[] at (4,5) {Acceso};
 
 \end{tikzpicture}
-		\end{subfigure}
 \end{figure}
 
 \clearpage
-\section{NMOS}
+\section{NMOS ed PMOS}
+Esistono due tipi duali e complementari di MOS: NMOS (Piu' usati e con caratteristiche migliori) e i PMOS.
+
+\subsection{NMOS}
 
 \begin{center}
 \begin{circuitikz} \draw
 (0,0) node[nmos] (mos) {}
 (mos.gate) node[anchor=east] {G}
 (mos.drain) node[anchor=south] {D}
-(mos.source) node[anchor=north] {S};
-\draw (mos.source) to[open, v^=$V_{GS}$] (mos.gate);
-\draw (mos.drain)  to[open, v_=$V_{GD}$] (mos.gate);
-\draw (mos.source) to[open, v_=$V_{DS}$] (mos.drain);
-\end{circuitikz}
+(mos.source) node[anchor=north] {S}
+;\end{circuitikz}
 \end{center}
 
 \[K_n = K_n' \left(\frac{W}{L}\right) = \frac{1}{2} \mu_n C_{ox}'\left(\frac{W}{L}\right)\]
@@ -809,10 +610,9 @@ e quindi la corrente
 
 \[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
 
-\begin{figure}[H] 
-	\centering 
-	\begin{subfigure}{.5\textwidth}
-		\centering
+
+\begin{figure}[H]
+\center
 \begin{tikzpicture}[
         axis/.style={very thick, ->, >=stealth'} ]
 \draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{DS}$};
@@ -833,9 +633,10 @@ e quindi la corrente
 \node[] at (4,4.5) {Saturazione};
 
 \end{tikzpicture}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
+\end{figure}
+
+\begin{figure}[H]
+\center
 \begin{tikzpicture}[
         axis/.style={very thick, ->, >=stealth'} ]
 \draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{GS}$};
@@ -851,27 +652,23 @@ e quindi la corrente
 \node[] at (4,5) {Acceso};
 
 \end{tikzpicture}
-		\end{subfigure}
 \end{figure}
 
 \clearpage
-\section{PMOS}
+\subsection{PMOS}
 
 \begin{center}
 \begin{circuitikz} \draw
 (0,0) node[pmos] (mos) {}
 (mos.gate) node[anchor=east] {G}
 (mos.drain) node[anchor=north] {D}
-(mos.source) node[anchor=south] {S};
-\draw (mos.gate) to[open, v^=$V_{SG}$] (mos.source);
-\draw (mos.gate)  to[open, v_=$V_{DG}$] (mos.drain);
-\draw (mos.drain) to[open, v_=$V_{SD}$] (mos.source);
-\end{circuitikz}
+(mos.source) node[anchor=south] {S}
+;\end{circuitikz}
 \end{center}
 ATTENZIONE AI SEGNI
 \[K_p = K_p' \left(\frac{W}{L}\right) = \frac{1}{2} \mu_p C_{ox}'\left(\frac{W}{L}\right)\]
 
-Il PMOS e' spento se la $V_{SG} < \left|V_t\right|$
+Il PMOS e' spento se la $\left|V_{GS}\right| < \left|V_t\right|$
 
 e quindi la corrente
  \[I_{SD} = 0\]
@@ -881,212 +678,19 @@ Il PMOS e' in regime ohmico o lineare se $V_{SD} < V_{SG} - |V_t|$
 
 e quindi la corrente 
 
-\[I_{SD} = K_p \left[ 2 \left(V_{SG} - |V_t| \right)V_{SD} - V_{SD}^2 \right]\]
+\[I_{SD} = K_p \left[ 2 \left(V_{GS} - |V_t| \right)V_{SD} - V_{SD}^2 \right]\]
 
 
-Il PMOS e' in zona di saturazione se $V_{SD} > V_{SG} - |V_t|$
+Il PMOS e' in zona di saturazione se $V_{SD} > V_{GS} - |V_t|$
 
 e quindi la corrente 
 
-\[ I_{SD} = K_p \left( |V_{SG}| - |V_t| \right)^2\]
-
-\begin{figure}[H] 
-	\centering 
-	\begin{subfigure}{.5\textwidth}
-		\centering
-\begin{tikzpicture}[
-        axis/.style={very thick, ->, >=stealth'} ]
-\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{SD}$};
-\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_{SD}$};
-
-\draw[dotted] (2,0) -- (2,5);
-\draw[dotted] (0,4) -- (2,4);
-\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{SG} - |V_t|$};
-
-\filldraw [blue] (0,0) circle (1pt);
-
-\draw[scale=1,domain=0:2,smooth,variable=\x,blue] plot ({\x},{(4*\x-\x^2}); 
-\draw[scale=1,domain=2:6,smooth,variable=\x,blue] plot ({\x},{4});   
-
-\filldraw [black] (0, 4) circle (1pt) node[above right, black] {$I_{SAT}$};
-
-\node[] at (1,4.5) {Ohm};
-\node[] at (4,4.5) {Saturazione};
-
-\end{tikzpicture}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-\begin{tikzpicture}[
-        axis/.style={very thick, ->, >=stealth'} ]
-\draw[axis] (0,0)  -- (6,0) node(xline)[right] {$V_{SG}$};
-\draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_{SD}$};
-
-\draw[dotted] (2,0) -- (2,5);
-
-\filldraw [black] (2,0) circle (1pt) node[below, black] {$|V_t|$};
-
-\draw[scale=1,domain=2:4,smooth,variable=\x,blue] plot ({\x},{(\x-2)^2}); 
-
-\node[] at (1,5) {Spento};
-\node[] at (4,5) {Acceso};
-
-\end{tikzpicture}
-		\end{subfigure}
-\end{figure}
+\[ I_{SD} = K_p \left( |V_{GS}| - |V_t| \right)^2\]
 
 \clearpage
 \section{$\lambda$: Modello piu' accurato del MOS}
 
 Secondo il modello sopra descritto una volta che si raggiunge il pitck-off la corrente non dipende piu' dalla $V_{DS}$ ma nella realta' la corrente aumenta leggermente comunque poiche' con l'aumentare della $V_{DS}$ il punto di pitchoff dal source si sposta verso il drain.
-
-\begin{figure}[H] 
-	\centering 
-	\begin{subfigure}{.5\textwidth}
-		\centering
-\begin{circuitikz}[scale=0.6]
-% Silicon Top
-\draw (0,0)  -- (12,0);
-\draw (0,-2)  -- (12,-2);
-\draw [line width=0.2cm] (0,-2.1)  -- (12,-2.1);
-
-% Piazzola Source
-\draw (1,0)  -- (1,-1);
-\draw (1,-1) -- (3,-1);
-\draw (3,-1) -- (3,-1);
-\draw [line width=0.2cm] (1,0.1)  -- (3,0.1);
-\draw (0.9,0)  -- (0.9,-1.1);
-\draw (0.9,-1.1) -- (3.1,-1.1);
-\draw (3.1,-1.1) -- (3.1,-1.1);
-
-% Piazzola Drain
-\draw (9,-0)  -- (9,-1);
-\draw (9,-1) -- (11,-1);
-\draw (11,-1) -- (11,0);
-\draw [line width=0.2cm] (9,0.1)  -- (11,0.1);
-\draw (8.9,-0.1)  -- (8.9,-1.1);
-\draw (8.9,-1.1) -- (11.1,-1.1);
-\draw (11.1,-1.1) -- (11.1,0);
-\draw (6,-2) -- (6,-3);
-\draw (6,-3) -- (-1,-3);
-\draw (-1,-3) -- (-1,1);
-\draw (-1,1) -- (2,1);
-
-\filldraw [black] (2,1) circle (1pt) node[below, black] {};
-
-% Gate
-\draw (3,0)  -- (3,1);
-\draw [line width=0.2cm] (3,1)  -- (9,1);
-\draw (9,1)  -- (9,0);
-\draw (3,-1)  -- (9,-0);
-\draw (3.1,-1.1)  -- (8.9,-0.1);
-
-% Gate Terminal
-\draw (6,1) -- (6,2);
-\node[] at (6,2.5) {Gate};
-
-% Source Terminal
-\draw (10,0) -- (10,3.5);
-\node[] at (11,2.5) {Drain};
-
-% Drain Terminal
-\draw (2,0) -- (2,3.5);
-\node[] at (1,2.5) {Source};
-
-% Letters
-\node[] at (2,-0.5) {N};
-\node[] at (10,-0.5) {N};
-\node[] at (6,-1) {P};
-\node[] at (6,0.5) {Oxide};
-
-\draw (6,2) to[american voltage source, v_<= $V_{GS}$] (2,2);
-
-\filldraw [black] (2,2) circle (1pt) node[below, black] {};
-
-\draw (10,3.5)  to[american voltage source, v_<= $V_{DS}$] (2,3.5);
-
-
-\draw[dotted] (3,0) -- (3,-1);
-
-\draw [->] (8,-1) -- (8.8,-0.2);
-
-\node[] at (8,-1.3) {Pintchoff};
-
-\end{circuitikz}
-		
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-\begin{circuitikz}[scale=0.6]
-% Silicon Top
-\draw (0,0)  -- (12,0);
-\draw (0,-2)  -- (12,-2);
-\draw [line width=0.2cm] (0,-2.1)  -- (12,-2.1);
-
-% Piazzola Source
-\draw (1,0)  -- (1,-1);
-\draw (1,-1) -- (3,-1);
-\draw (3,-1) -- (3,-1);
-\draw [line width=0.2cm] (1,0.1)  -- (3,0.1);
-\draw (0.9,0)  -- (0.9,-1.1);
-\draw (0.9,-1.1) -- (3.1,-1.1);
-\draw (3.1,-1.1) -- (3.1,-1.1);
-
-% Piazzola Drain
-\draw (9,-0)  -- (9,-1);
-\draw (9,-1) -- (11,-1);
-\draw (11,-1) -- (11,0);
-\draw [line width=0.2cm] (9,0.1)  -- (11,0.1);
-\draw (8.9,-0.1)  -- (8.9,-1.1);
-\draw (8.9,-1.1) -- (11.1,-1.1);
-\draw (11.1,-1.1) -- (11.1,0);
-\draw (6,-2) -- (6,-3);
-\draw (6,-3) -- (-1,-3);
-\draw (-1,-3) -- (-1,1);
-\draw (-1,1) -- (2,1);
-
-\filldraw [black] (2,1) circle (1pt) node[below, black] {};
-
-% Gate
-\draw (3,0)  -- (3,1);
-\draw [line width=0.2cm] (3,1)  -- (9,1);
-\draw (9,1)  -- (9,0);
-\draw (3,-1)  -- (8.5,-0);
-\draw (3.1,-1.1)  -- (8.5,-0.1);
-\draw (8.5,-0.1) -- (8.9,-0.1);
-
-% Gate Terminal
-\draw (6,1) -- (6,2);
-\node[] at (6,2.5) {Gate};
-
-% Source Terminal
-\draw (10,0) -- (10,3.5);
-\node[] at (11,2.5) {Drain};
-
-% Drain Terminal
-\draw (2,0) -- (2,3.5);
-\node[] at (1,2.5) {Source};
-
-% Letters
-\node[] at (2,-0.5) {N};
-\node[] at (10,-0.5) {N};
-\node[] at (6,-1) {P};
-\node[] at (6,0.5) {Oxide};
-
-\draw (6,2) to[american voltage source, v_<= $V_{GS}$] (2,2);
-
-\filldraw [black] (2,2) circle (1pt) node[below, black] {};
-
-\draw (10,3.5)  to[american voltage source, v_<= $V_{DS}$] (2,3.5);
-
-
-\draw[dotted] (3,0) -- (3,-1);
-
-
-\end{circuitikz}
-		
-		\end{subfigure}
-\end{figure}
 
 Questo effetto chiamato Modulazaione di Canale fa si che accorciandosi il canale diminusica la resistenza ad esso associata e quindi aumenti la corrente.
 
@@ -1124,16 +728,16 @@ Per questo introduciamo un nuovo parametro $\lambda$ che tipicamente assume valo
 \section{Come capire in che stato di funzionamento e' il MOS}
 Prendiamo un NMOS per comodita'.
 
-\subsection{Metodo per assurdo}
+\textbf{Metodo per assurdo:}
 
 Si suppone che il MOS sia in un certo funzionamento e poi si va avanti a risolvere fino a che si raggiunge un assurdo logico( e in quel caso non e' corretta la supposizione) o si raggiunge la fine della risoluzione ( ed in quel caso poiche' non vi sono assurdi la supposizione si puo' considerare corretta).
 
-\subsection{Metodo dei Diodi}
+\textbf{Metodo dei Diodi:}
 
 Ora osserviamo che
 \[V_{DS} < V_{GS} - V_t\]
 \[V_{DS} - V_{GS} <  - V_t\]
-\[-V_{GD} <  - V_t\]
+\[-V_{GS} <  - V_t\]
 \[V_{DG} > V_t\]
 Quindi il MOS essendo in fondo una giunzione NPN e' approssimabile a due diodi in antiserie.
 
@@ -1146,22 +750,13 @@ Quindi il MOS essendo in fondo una giunzione NPN e' approssimabile a due diodi i
 			(mos.gate) node[anchor=east] {G}
 			(mos.drain) node[anchor=south] {D}
 			(mos.source) node[anchor=north] {S};
-			\draw (mos.source) to[open, v^=$V_{GS}$] (mos.gate);
-			\draw (mos.drain)  to[open, v_=$V_{GD}$] (mos.gate);
 		\end{circuitikz}
 	\end{subfigure}%
 	\begin{subfigure}{.5\textwidth}
 		\centering
 		\begin{circuitikz}
-			\draw(0,0) to[empty diode, v^<=$V_{GD}$] (0, 2);
-			\draw(0,0) to[empty diode, v<=$V_{GS}$] (0,-2);
-			\draw(0,2) to[short,o-] (0,2);
-			\draw(0,-2) to[short,o-] (0,-2);
-			\draw(-2,0) to[short,o-] (0,0);
-			\draw(0,0) to[short,*-] (0,0);
-			\node[] at (0,2.5) {D};
-			\node[] at (0,-2.5) {S};
-			\node[] at (-2.5,0) {G};
+			\draw(0,0) to[empty diode] (0, 2);
+			\draw(0,0) to[empty diode] (0,-2);
 		\end{circuitikz}
 		\end{subfigure}
 \end{figure}
@@ -1179,8 +774,7 @@ Ohm e' quando vi e' canale da entrambi i lati.
 
 Sat quando vi e' canale da solo un lato.
 
-\clearpage
-\subsection{Metodo Grafico}
+\textbf{Metodo Grafico :}
 Basta seguire 4 punti:
 \begin{enumerate}
 \item Verificare che la $V_{GS} > V_t$
@@ -1188,55 +782,13 @@ Basta seguire 4 punti:
 \item Calcolare le correnti ad un nodo a scelta tra SOURCE e DRAIN imponendo che $V_{DS} = V_{ow}$
 \item Confrontare i due valori.
 \end{enumerate}
+Se la corrente del NMOS e' maggiore della somma di quelle del nodo allora il NMOS e' in zona ohmmica.
 
-Ora per confrontare bisogna analizzare la funzione di carico e confrontarla coi due punti calcolati per capire se l'intersezione e' prima o dopo la tensione di overdrive $V_{ow}$ quindi per capire se il MOS e' in zona ohhmica o saturazione.
+Altrimenti Se la somma delle correnti del nodo e' maggiore di quella del NMOS allora esso e' in saturazione.
 
-\textbf{Esempio:}
+Dimosrazione:
 
-Supponiamo di avere circuito con Carico di equazione:
-\[I_L = I_{DS} = I_0 - \frac{V_{DS}}{R}\]
-Ora il grafico delle correnti e':
-
-\begin{center}
-\begin{tikzpicture}[
-        axis/.style={very thick, ->, >=stealth'} ,scale=1.75]
-\draw[axis] (-1,0)  -- (6,0) node(xline)[right] {$V_{DS}$};
-\draw[axis] (0,-1) -- (0,5) node(yline)[above] {$I_{DS}$};
-
-\draw[dotted] (2,0) -- (2,5);
-\draw[dotted] (0,4) -- (2,4);
-\filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{GS} - V_t$};
-
-\filldraw [blue] (0,0) circle (1pt);
-
-\draw[scale=1,domain=0:2,smooth,variable=\x,blue] plot ({\x},{(4*\x-\x^2}); 
-\draw[scale=1,domain=2:6,smooth,variable=\x,blue] plot ({\x},{4});   
-
-\filldraw [black] (0, 4) circle (1pt) node[above right, black] {$I_{SAT}$};
-
-\node[] at (1,4.5) {Ohm};
-\node[] at (4,4.5) {Saturazione};
-
-\draw[red] (0,3) -- (5,0);
-
-\filldraw [blue] (2, 4) circle (1.5pt) node[above right, blue] {$I_{mos}|_{ow}$};
-
-\filldraw [black] (0.8, 2.51) circle (1.5pt) node[right, black,yshift=0.5] {$I_{work}$};
-
-\filldraw [red] (2, 1.8) circle (1.5pt) node[above right, red] {$I_{L}|_{ow}$};
-
-\filldraw [red] (0,3) circle (1pt) node[left , red] {$I_0$};
-\filldraw [red] (5,0) circle (1pt) node[below, red] {$R I_0$};
-
-\end{tikzpicture}
-\end{center}
-
-A e la corrente effettiva e' l'intersezione tra i due grafici.
-
-Per calcolarla bisogna capire in che funzionamento e' il MOS, Per farlo calcolimo la corrente di saturazione del Mos e la corrente del carico $I_L$ alla tensione di overdrive $V_{ow}$:
-\[I_L|_{ow} = I_0 - \frac{V_{ow}}{R}\]
-\[ I_{mos}|_{ow} = K_n \left(V_{ow} \right)^2\]
-e poiche' $I_L|_{ow} < I_{mos}|_{ow}$ e Il carico e' una retta con coefficente angolare negativo posso dedurre che il punto di intersezione sia prima della tensione di overdrive $V_{ow}$, quindi il mos e' in zona Ohmmica.
+QUA METTI GRAFICI BELLI PLZ
 
 \clearpage
 \section{Caratteristiche Importanti delle porte a MOS}
@@ -1277,36 +829,13 @@ e si ricava $t_p$:
 
 \section{Tips and Tricks}
 \begin{enumerate}
+\item I MOS sono simmetrici e quindi non ha senso parlare di Source e Drain pero' per aiutare convenzione si ha che:
 
-\item La tensione $V_{GS}$ si misura sempre tra il piedino dove vi e' la freccia e il Gate ed ha sempre senso contrario alla freccia , e la $V_{GD}$ e' sempre simmetrica alla $V_{GS}$ rispetto al Gate.
+La corrente nei MOS scorre sempre in senso concorde alla freccia.
 
-\begin{figure}[H] 
-	\centering 
-	\begin{subfigure}{.5\textwidth}
-		\centering
-\begin{circuitikz} \draw
-(0,0) node[nmos] (mos) {}
-(mos.gate) node[anchor=east] {G}
-(mos.drain) node[anchor=south] {D}
-(mos.source) node[anchor=north] {S};
-\draw (mos.source) to[open, v^=$V_{GS}$] (mos.gate);
-\draw (mos.drain)  to[open, v_=$V_{GD}$] (mos.gate);
-\draw (mos.source) to[open, v_=$V_{DS}$] (mos.drain);
-\end{circuitikz}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-\begin{circuitikz} \draw
-(0,0) node[pmos] (mos) {}
-(mos.gate) node[anchor=east] {G}
-(mos.drain) node[anchor=north] {D}
-(mos.source) node[anchor=south] {S};
-\draw (mos.gate) to[open, v^=$V_{SG}$] (mos.source);
-\draw (mos.gate)  to[open, v_=$V_{DG}$] (mos.drain);
-\draw (mos.drain) to[open, v_=$V_{SD}$] (mos.source);
-\end{circuitikz}
-		\end{subfigure}
-\end{figure}
+La tensione $V_{GS}$ si misura sempre tra il piedino dove vi e' la freccia e il gate ed ha sempre senso contrario alla freccia.
+
+In pratica queste sono convenzioni per suggerire il funzionamento del MOS a chi sta studiando il circuito.
 
 \item Per Piccole $V_{DS}$ si puo' approssimare:
 
@@ -1316,8 +845,11 @@ Poiche' se $V_{DS}$ e' piccolo $V_{DS}^2$ e' ancora piu' piccolo e quindi si puo
 La quale e' una equazione lineare e quindi piu' semplice da risolvere.
 
 Per esempio sul circuito del esercizio 1 con la equazione corretta si ottiene 
+
 $V_r = 0.1416V$
+
 mentre con la seconda equazione si ottiene
+
 $V_r = 0.1435V$
 \end{enumerate}
 
@@ -1339,7 +871,6 @@ Dato il Circuito sottostante
 (mos.drain) node[right] {D}
 (mos.source) node[right] {S};
 \draw (mos.gate) to[short,-o] (-1.5,0) node[left] {$V_{in}$};
-\draw (mos.source) to[open, v^=$V_{GS}$] (mos.gate);
 \draw (mos.source)
  node[ground] {};
 \draw (0,4) node[tground] {} (0,4)
@@ -1475,7 +1006,7 @@ Dato il Circuito sottostante
 \begin{center}
 \begin{circuitikz} \draw(0,4)
  node[pmos] (mos) {}
-(mos.gate) node[above left] {G}
+(mos.gate) node[above] {G}
 (mos.drain) node[above right] {D}
 (mos.source) node[right] {S};
 \draw (mos.gate) to[short, -o] (-1.5,4) node[left] {$V_{in}$};
@@ -1483,7 +1014,6 @@ Dato il Circuito sottostante
 \draw (0,2) to[short,*-o] (4,2) node[above] {$V_{out}$};
 \draw (mos.drain) to[short,i^=$I_D$] (0,2) to[resistor = R, i=$I_r$] (0,0) node[ground] {};
 \draw (2,2)to[capacitor = C, *-] (2,0) node[ground] {};
-\draw (mos.gate) to[open, v^=$V_{SG}$] (mos.source);
 \end{circuitikz}
 \end{center}
 
@@ -1583,7 +1113,7 @@ Dato il Circuito sottostante,
 \begin{circuitikz}
 \draw(0,4)
  node[pmos] (pmos) {}
-(pmos.gate) node[above left] {G}
+(pmos.gate) node[above] {G}
 (pmos.drain) node[right] {D}
 (pmos.source) node[right] {S};
 \draw(0,1)
@@ -1598,9 +1128,6 @@ Dato il Circuito sottostante,
 \draw (nmos.source) -- (0,0) node[ground] {}; 
 \draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$};
 \draw (2,2.5) to[short, *-] (2,2) to[capacitor = C] (2,0) node[ground] {};
-
-\draw (nmos.source) to[open, v^=$V_{GS}$] (nmos.gate);
-\draw (pmos.gate) to[open, v^=$V_{SG}$] (pmos.source);
 \end{circuitikz}
 \end{center}
 
@@ -1691,7 +1218,7 @@ Dato il Circuito sottostante,
 \begin{circuitikz}
 \draw(0,4)
  node[pmos] (pmos) {}
-(pmos.gate) node[above left] {G}
+(pmos.gate) node[above] {G}
 (pmos.drain) node[right] {D}
 (pmos.source) node[right] {S};
 \draw(0,1)
@@ -1707,9 +1234,6 @@ Dato il Circuito sottostante,
 \draw (nmos.source) -- (0,0) node[ground] {}; 
 \draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$};
 \draw (2,2.5) to[short, *-] (2,2) to[capacitor = C] (2,0) node[ground] {};
-
-\draw (nmos.source) to[open, v^=$V_{GS}$] (nmos.gate);
-\draw (pmos.gate) to[open, v^=$V_{SG}$] (pmos.source);
 \end{circuitikz}
 \end{center}
 
@@ -1838,29 +1362,24 @@ Dato il Circuito sottostante,
 \begin{circuitikz}
 \draw(0,8)
  node[pmos] (pmos1) {PMOS1}
-(pmos1.gate) node[above left] {}
-(pmos1.drain) node[left] {}
-(pmos1.source) node[right] {};
+(pmos1.gate) node[above] {G}
+(pmos1.drain) node[left] {D}
+(pmos1.source) node[left] {S};
 \draw(0,6)
  node[pmos] (pmos2) {PMOS2}
-(pmos2.gate) node[above left] {}
-(pmos2.drain) node[left] {}
-(pmos2.source) node[right] {};
+(pmos2.gate) node[above] {G}
+(pmos2.drain) node[left] {D}
+(pmos2.source) node[left] {S};
 \draw(0,3)
  node[nmos] (nmos1) {NMOS2}
-(nmos1.gate) node[above] {}
-(nmos1.drain) node[left] {}
-(nmos1.source) node[right] {};
+(nmos1.gate) node[above] {G}
+(nmos1.drain) node[left] {D}
+(nmos1.source) node[left] {S};
 \draw(0,1)
  node[nmos] (nmos2) {NMOS1}
-(nmos2.gate) node[above] {}
-(nmos2.drain) node[left] {}
-(nmos2.source) node[right] {};
-
-\draw (nmos1.source) to[open, v^=$V_{GS}$] (nmos1.gate);
-\draw (pmos1.gate) to[open, v^=$V_{SG}$] (pmos1.source);
-\draw (nmos2.source) to[open, v^=$V_{GS}$] (nmos2.gate);
-\draw (pmos2.gate) to[open, v^=$V_{SG}$] (pmos2.source);
+(nmos2.gate) node[above] {G}
+(nmos2.drain) node[left] {D}
+(nmos2.source) node[left] {S};
 
 \draw (0,9) node[above] {$V_{dd}$} (0,9) node[tground] {} (0,9) -- (pmos1.source);
 
@@ -1956,10 +1475,6 @@ Quindi siamo in uno stato di alta impedenza nel quale l'uscita rimane quella che
 \end{tabular}
 \end{center}
 
-<<<<<<< HEAD
-\clearpage
-=======
->>>>>>> master
 \textbf{Calcolo del tempo di propagazione $t_p$}
 
 Il tempo di propagazione e' quello di carica del condesnatore.
@@ -1981,19 +1496,11 @@ Calcoliamo solo la potenza usata per caricare il condensatore perche' per la sca
 \clearpage
 \subsection{Esercizio 3.3}
 Dato il Circuito sottostante, A e B sono segnali digitali con livelli $0V$ e $3.3V$
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 \begin{enumerate}
 \item Determinare la tabella di verita' del circuito specificando il valore di tensione di $V_{out}$ .
 \item Che Funzione Logica svolge il circuito?
 \item Calcolare il tempo di propagazione della porta logica quando gli ingessi commutano istantaneamente da $A=1,B=1$ a $A=1,B=0$
-<<<<<<< HEAD
-\item Calcolare la potenza dissipata quando il circuito $A=1$ e B e' un onda quadra a frquenza $f_{clk} = 2MHz$ e $D = 30\%$.
-=======
 \item Calcolare la potenza dissipata quando il circuito $A=1$ e B e' un onda quadra a frquenza $f_{clk} = 2MHz$ e $D = 30%$
->>>>>>> master
 \end{enumerate}
 
 \begin{center}
@@ -2038,5 +1545,16 @@ Dato il Circuito sottostante,
 \clearpage
 \subsection{Risoluzione Esercizio 3.4}
 \clearpage
+\subsection{Esercizio 8}
+Dato il Circuito sottostante,
+
+\clearpage
+\subsection{Risoluzione Esercizio 8}
+\clearpage
+\subsection{Esercizio 9}
+Dato il Circuito sottostante,
+
+\clearpage
+\subsection{Risoluzione Esercizio 9}
 
 \end{document}
