@@ -1,13 +1,9 @@
 \providecommand{\main}{.}
 \input{\main/../../general/packages.tex}
 
-\usepackage{tikz}
-\usepackage{relsize}
 \usepackage{circuitikz}
-\usepackage{graphicx}
 
 \ctikzset{tripoles/mos style/arrows}
-\ctikzset{tripoles/pmos style/emptycircle}
 \setlength\arraycolsep{2em}
 
 \begin{document}
@@ -15,24 +11,16 @@
 \input{\main/../../general/title.tex}
 
 {\hypersetup{hidelinks}
-  \tableofcontents  % Generates the table of contents
-  %\listoffigures  % Generates the list of images and figures
-  %\listoftables % Generates the list of tables
+	\tableofcontents  % Generates the table of contents
+	 %\listoffigures  % Generates the list of images and figures
+	 %\listoftables % Generates the list of tables
 }
 
 %\chapter{Introduction}
 %\subfile{\main/chapters/introduction}
 
-\clearpage
-\chapter{Semiconduttori}
+\chapter{Chapter 1}
 \subfile{\main/chapters/chapter-1}
-\clearpage
-\chapter{MOS}
-\subfile{\main/chapters/chapter-2}
-\clearpage
-\chapter{Diodi}
-\subfile{\main/chapters/chapter-3}
-\clearpage
 
 %\chapter{Conclusion}
 %\subfile{\main/chapters/conclusion}

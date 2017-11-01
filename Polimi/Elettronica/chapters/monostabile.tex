@@ -1,0 +1,43 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\usetikzlibrary{arrows,calc}
+\ctikzset{tripoles/mos style/arrows}
+\begin{document}
+
+
+\subsection{Esercizio}
+Al circuito in figura (a) viene applicato il segnale mostrato nella figura (b). 
+Si considerino porte logiche ideali alimentate a 0V e 5V, caratterizzate da soglia di commutazione pari a $\frac{V_{DD}}{2}$. Si chiede:
+
+a)Disegnare l'andamento dell'uscita considerando $\Delta$ $T_{LOW,IN}=1s$.
+
+a)Disegnare l'andamento dell'uscita considerando $\Delta$ $T_{LOW,IN}=20\mu s$.
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[american nand port] (mynand1) {}
+(2,0) node[american not port] (mynot) {}
+(mynand1.out) -| (mynot.in)
+(1,0) to[short, *-] (1,1.26)
+(mynot.out) -| (3,0) 
+(3,0) to[resistor=$100k\Omega$] (5,0)
+(5,0) to[short, *-] (5,-0.5)
+(5,-0.5) to[capacitor=$10nF$] (5, -2)
+(5,-2) node[ground] {};
+\draw (5,0) to[short] (5.5,0)
+(5.5,0) to[short] (5.5,0.7)
+(6.9,1) node[american nand port] (mynand2) {}
+(mynand2.in 1) -| (1,1.26) 
+(mynand2.in 2) -| (5.5,0.7)
+(mynand2.out) -| (7.6, 2) -| (0,2) -| (mynand1.in 1) 
+;
+\draw (7.6, 1) to[short, *-] (8.2, 1)
+(8.2, 1) node[right] {$V_{OUT}$}
+;
+\draw (mynand1.in 2) -| (-2,-0.2555)
+(-2,-0.2555) node[above] {IN}
+;
+\end{circuitikz}
+\end{center}
+
+\end{document}
