@@ -8,21 +8,20 @@
 Per risolvere un problema utilizzando ampl è necessario utilizzare 3 tipi diversi di file:
 
 \begin{enumerate}
-\item Model file (.mod)
-\item Data file (.dat)
-\item Command file (.run)
+  \item Model file (.mod)
+  \item Data file (.dat)
+  \item Command file (.run)
 \end{enumerate}
 
 Ampl carica questi file e li invia al \textit{solver} (cplex, minos, ...), che quindi legge ed elabora il \textit{Command file}.
-\\
 
 \vspace{1em}
 \textbf{\textit{Gli esempi che seguono sono tratti dal canale youtube "Yong Wang"}}: \url{https://www.youtube.com/channel/UCXEnJBeaJx3P87A_UfZpd0Q}
 
 \subsection{Tips \& Tricks}
 \begin{enumerate}
-\item Quando si hanno problemi ad identificare il path dei file \textit{.mod}, \textit{.dat} e \textit{.run} è sufficiente fare click destro e selezionare \textbf{AMPL commands}.
-\item Volendo stampare i valori di una variabile si può usare \textbf{display nome-variabile}.
+  \item Quando si hanno problemi ad identificare il path dei file \textit{.mod}, \textit{.dat} e \textit{.run} è sufficiente fare click destro e selezionare \textbf{AMPL commands}.
+  \item Volendo stampare i valori di una variabile si può usare \textbf{display nome-variabile}.
 \end{enumerate}
 
 \subsection{Primo esempio}
@@ -59,16 +58,16 @@ Ampl carica questi file e li invia al \textit{solver} (cplex, minos, ...), che q
 Una volta inclusi i due file va eseguito il comando \textit{solve} e si ottiene:
 
 \begin{minted}{ampl}
-MINOS 5.51: optimal solution found.
-13 iterations, objective 196200
+  MINOS 5.51: optimal solution found.
+  13 iterations, objective 196200
 \end{minted}
 
 Un possibile Command file che va ad includere ed eseguire i file potrebbe essere:
 
 \begin{minted}{ampl}
-model transp.mod;
-data transp.dat;
-solve;
+  model transp.mod;
+  data transp.dat;
+  solve;
 \end{minted}
 
 \subsection{Secondo esercizio}
@@ -76,5 +75,6 @@ solve;
 \inputminted{ampl}{\main/chapters/ampl/multi/multi.dat}
 \subsubsection{Model file}
 \inputminted{ampl}{\main/chapters/ampl/multi/multi.mod}
+
 
 \end{document}
