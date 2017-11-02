@@ -1,3 +1,4 @@
+\hypersetup{pageanchor=false}
 \ifLuaTeX
 \begin{luacode}
 --[[Load data into variables to simplify code afterwards]]
@@ -39,9 +40,9 @@ authors = metadata["authors"]
 			 tex.print('\\textbf{'..value["name"] .. " " .. value["surname"].."}\\\\")
 		end
 \end{luacode}
-                
+
 \vfill
-        
+
 \begin{luacode}
 		tex.print(notesType.."\\\\")
 \end{luacode}
@@ -73,3 +74,4 @@ Italy \\
 \end{center}
 \end{titlepage}
 \fi
+\hypersetup{pageanchor=true}

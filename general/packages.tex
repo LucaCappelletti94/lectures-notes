@@ -1,3 +1,4 @@
+% !TEX options=--shell-escape
 \documentclass{report} % We use report to allow for chapers etc...
 \usepackage[utf8]{inputenc} % This allows for utf support.
 \usepackage[T1]{fontenc}  % Defines true type fonts
@@ -8,9 +9,18 @@
 	\setdefaultlanguage{italian}
 	\setotherlanguage{english}
 	\usepackage{fontspec}
+	\usepackage{fontspec}
 \else
+	\usepackage[utf8]{inputenc} % This allows for utf support.
 	\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
 \fi
+
+\usepackage[T1]{fontenc}  % Defines true type fonts
+
+\usepackage{silence}
+%Disable all warnings issued by latex starting with "You have..."
+\WarningFilter{latex}{You have requested package}
+\WarningFilter{biblatex}{Using fall-back BibTeX(8)}
 
 \usepackage{geometry} % More rich support for page layout.
 \geometry{
@@ -71,7 +81,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{pgfplots} % to draw 3d graphs
-\pgfplotsset{compat=1.7}
+\pgfplotsset{compat=1.14}
 \usepackage{tikz}
 \definecolor {processblue}{cmyk}{0.96,0,0,0}
 \usetikzlibrary {positioning}
