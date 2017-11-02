@@ -1,7 +1,5 @@
 % !TEX options=--shell-escape
 \documentclass{report} % We use report to allow for chapers etc...
-\usepackage[utf8]{inputenc} % This allows for utf support.
-\usepackage[T1]{fontenc}  % Defines true type fonts
 
 \usepackage{iftex} % Used for if
 \ifLuaTeX
@@ -20,6 +18,7 @@
 \usepackage{silence}
 %Disable all warnings issued by latex starting with "You have..."
 \WarningFilter{latex}{You have requested package}
+\WarningFilter{latex}{Command}
 \WarningFilter{biblatex}{Using fall-back BibTeX(8)}
 \WarningFilter{auxhook}{Cannot patch}
 \WarningFilter{glossaries}{No \printglossary or \printglossaries found.}
