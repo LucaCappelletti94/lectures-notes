@@ -112,8 +112,7 @@ La disegniamo sul grafico ricavando i due punti di intersezione con gli assi (ci
 
 \begin{figure}[H]
 \center
-\begin{tikzpicture}[
-        axis/.style={very thick, ->, >=stealth'} ]
+\begin{tikzpicture}[axis/.style={very thick, ->, stealth} ]
 \draw[axis] (0,0)  -- (6.5,0) node(xline)[right] {$V_D$};
 \draw[axis] (0,0) -- (0,5) node(yline)[above] {$I_D$};
 \draw[olive,thick] (0,3.5) -- (5,0);
