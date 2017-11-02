@@ -2,24 +2,24 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Cosa si intende per Apprendimento con Rinforzo?}
+\subsection{Cosa si intende per Apprendimento con Rinforzo?}
 L'apprendimento per rinforzo è una tecnica di apprendimento automatico che viene utilizzata per ideare sistemi capaci di apprendere ed adattarsi all'ambiente che li circonda grazie ad una "ricompensa", detta rinforzo, che consiste nella valutazione delle loro prestazioni. L'apprendimento avviene mediante l'interazione con l'ambiente ed è funzione del raggiungimento di uno o più obiettivi.
 
-\section{Quali sono gli attori?}
-I principale attori quando si parla di reinforcement learning sono: 
+\subsection{Quali sono gli attori?}
+I principale attori quando si parla di reinforcement learning sono:
 \begin{description}
-\item [Agente] software che svolge servizi per conto di un altro programma, solitamente in modo automatico ed invisibile. Formulato un problema l’agente cerca una soluzione e la implementa. Valuta inoltre la soluzione implementata e ragiona se ha avuto successo o no, se e quanto è adeguata e cerca di ottimizzare le prestazioni per creare agenti migliori. L'agente sente l'input, modifica lo stato e genera un'azione che massimizza la ricompensa a lungo termine.
-\item [Stato] variabile interna all’agente che contiene una rappresentazione interna dell’ambiente. I possibili stati sono un insieme finito.
-\item [Azione] le possibili azioni applicabili sull’ambiente. Sono un insieme finito contenuto nell’agente. Viene selezionata l’azione da effettuare in base alla policy.
-\item [Policy] descrive l’azione scelta dall’agente. Mapping tra stato (input dall’ambiente) e azione. Funzione di controllo. Le policy possono avere una componente stocastica. 
-\item [Ambiente] descrive tutto quello su cui agisce la policy. È tutto quanto quello che non è modificabile direttamente dall’agente. Si può rappresentare come una funzione che preso uno stato e una azione come input restituisce un altro stato come output, ma è una funzione non conosciuta a priori. L’agente deve costruirsi una rappresentazione implicita dell’ambiente attraverso la value function e deve selezionare i comportamenti che ripetutamente risultano favorevoli a lungo termine.
-\item [Segnale di rinforzo] è un’informazione qualitativa (a volte binaria: giusto/sbagliato, successo/fallimento), puntuale. Due tipi: istantaneo, cioè azione per azione (condizionamento classico), o una tantum, (condizionamente operante) cioè viene rinforzata una catena di azioni, un comportamento. Viene generato all’esterno dell’agente e per esso rappresenta un input.
-\item [Reward/Quality function] è la ricompensa immediata. Associata all’azione intrapresa in un certo stato. Può essere data al raggiungimento di un goal. È uno scalare (può essere associato allo stato e/o input e/o stato prossimo).
-\item [Value function] ricompensa a lungo termine. Somma dei reward: costi associati alle azioni scelte istante per istante più costo associato allo stato finale. Orizzonte temporale ampio. Rinforzo secondario. Ricompensa attesa. Viene stimata all’interno dell’agente.
-\item [Goal] obiettivo che deve raggiungere l’agente. Si può aggiungere che l’agente deve raggiungere l’obiettivo con una policy ottima.
+  \item [Agente] software che svolge servizi per conto di un altro programma, solitamente in modo automatico ed invisibile. Formulato un problema l’agente cerca una soluzione e la implementa. Valuta inoltre la soluzione implementata e ragiona se ha avuto successo o no, se e quanto è adeguata e cerca di ottimizzare le prestazioni per creare agenti migliori. L'agente sente l'input, modifica lo stato e genera un'azione che massimizza la ricompensa a lungo termine.
+  \item [Stato] variabile interna all’agente che contiene una rappresentazione interna dell’ambiente. I possibili stati sono un insieme finito.
+  \item [Azione] le possibili azioni applicabili sull’ambiente. Sono un insieme finito contenuto nell’agente. Viene selezionata l’azione da effettuare in base alla policy.
+  \item [Policy] descrive l’azione scelta dall’agente. Mapping tra stato (input dall’ambiente) e azione. Funzione di controllo. Le policy possono avere una componente stocastica.
+  \item [Ambiente] descrive tutto quello su cui agisce la policy. È tutto quanto quello che non è modificabile direttamente dall’agente. Si può rappresentare come una funzione che preso uno stato e una azione come input restituisce un altro stato come output, ma è una funzione non conosciuta a priori. L’agente deve costruirsi una rappresentazione implicita dell’ambiente attraverso la value function e deve selezionare i comportamenti che ripetutamente risultano favorevoli a lungo termine.
+  \item [Segnale di rinforzo] è un’informazione qualitativa (a volte binaria: giusto/sbagliato, successo/fallimento), puntuale. Due tipi: istantaneo, cioè azione per azione (condizionamento classico), o una tantum, (condizionamente operante) cioè viene rinforzata una catena di azioni, un comportamento. Viene generato all’esterno dell’agente e per esso rappresenta un input.
+  \item [Reward/Quality function] è la ricompensa immediata. Associata all’azione intrapresa in un certo stato. Può essere data al raggiungimento di un goal. È uno scalare (può essere associato allo stato e/o input e/o stato prossimo).
+  \item [Value function] ricompensa a lungo termine. Somma dei reward: costi associati alle azioni scelte istante per istante più costo associato allo stato finale. Orizzonte temporale ampio. Rinforzo secondario. Ricompensa attesa. Viene stimata all’interno dell’agente.
+  \item [Goal] obiettivo che deve raggiungere l’agente. Si può aggiungere che l’agente deve raggiungere l’obiettivo con una policy ottima.
 \end{description}
 
-\section{Cosa rappresenta la critica?}
+\subsection{Cosa rappresenta la critica?}
 L'ambiente o l'interazione con esso può essere complessa e/o variabile, inoltre il rinforzo può avvenire solo dopo una più o meno lunga sequenza di azioni (delayed reward).
 Questo genera difficoltà nell'analisi e nella valutazione di ambiente e azioni, questi problemi prendono il nome di: temporal credit assignment e structural credit assignment.
 L'apprendimento non è più determinato da esempi, ma dall'osservazione del proprio comportamento nell'ambiente.
@@ -27,52 +27,52 @@ L'apprendimento non è più determinato da esempi, ma dall'osservazione del prop
 Il problema consiste nell'identificare quali siano le azioni che hanno inferito maggiormente nel raggiungimento di uno stato di goal ad alto reward.
 La critica è la value function stimata, ovvero una componente che definisce per ogni stato un'altra value function, che si unisce a quella dell'agente e in questo modo si rinforza. È una value function alternativa.
 
-\section{Che tipo di architettura si può ipotizzare nell'apprendimento con rinforzo?}
+\subsection{Che tipo di architettura si può ipotizzare nell'apprendimento con rinforzo?}
 L'architettura dei sistemi di RL si basa sulla retroazione. L'agente si muove nell'ambiente utilizzando una Policy, l'ambiente fornisce un reward e fa cambiare lo stato dell'agente il quale utilizza i risultati ottenuti per aggiornare la propria Policy così da raggiungere il goal.
 Tramite dei sensori l'agente monitora continuamente l'ambiente (input), tramite degli attuatori compie azioni che modificano lo stato dell'ambiente.
 
-\section{Condizionamento classico e condizionamento operante}
+\subsection{Condizionamento classico e condizionamento operante}
 Nel condizionamento classico il rinforzo viene eseguito istante per istante o azione per azione e permette di ottenere un riscontro ad ogni azione eseguita o ad ogni variazione dell'ambiente o dello stato.
 Nel condizionamento operante invece il rinforzo avviene "una-tantum", viene quindi valutata una catena di azioni, un comportamento nel suo insieme e non nella singola azione.
 
-\section{Quale relazione c'è con l'intelligenza?}
+\subsection{Quale relazione c'è con l'intelligenza?}
 Se consideriamo l’intelligenza come una funzione attiva, che permetta di prendere decisioni e compiere azioni nell’interazione con l’ambiente, il Reinforcement Learning consente di far comportare un agente in modo intelligente.
 
-\section{Come potreste illustrare: Exploration vs Exploitation?}
+\subsection{Come potreste illustrare: Exploration vs Exploitation?}
 L'esplorazione (exploration) consiste nel provare varie azioni per scoprire nuove possibili azioni(promettenti). Esplorazione dello spazio delle azioni per scoprire quelle migliori.
 Un agente che esplora solamente raramente troverà una buona soluzione.
 Exploitation consiste nello scegliere sempre la soluzione che garantisca il miglior reward tra quelle conosciute (le informazioni vengono raccolte tramite exploration).
 Se un agente non esplora nuove soluzioni potrebbe essere surclassato da nuovi agenti più dinamici. Inoltre l'ambiente potrebbe essere mutevole e una soluzione potrebbe non restare valida. Occorre quindi non interrompere del tutto l'esplorazione e usare un approccio statistico per valutare le bontà delle azioni bilanciando Exploration ed exploitation.
 
 
-\section{Cos'è il problema del credit assignement? È un problema che riguarda la dimensione temporale o spaziale del task?}
+\subsection{Cos'è il problema del credit assignement? È un problema che riguarda la dimensione temporale o spaziale del task?}
 I sistemi time-extended single-agent hanno il problema di valutare il contributo di un'azione rispetto alle altre (temporal credit assignment).
 Questo problema viene accentuato se le azioni rilevanti sono temporalmente molto distanti tra di loro perché è come se fossero spalmate su azioni non rilevanti e questo può portare a cattive valutazioni. Un algoritmo dovrebbe riuscire a valutare l'influenza di azioni precedenti rispetto all'azione finale.
 Sistemi multi-agente hanno inoltre il problema di determinare il contributo di un particolare agente ad un compito comune (structural credit assignment).
 
-\section{Cos'è l'eligibility trace (traccia) e quale è il suo ruolo?}
+\subsection{Cos'è l'eligibility trace (traccia) e quale è il suo ruolo?}
 L'eligibility trace è un buffer di memoria contenente tracce di eventi passati.
 Quando viene calcolato un errore usando metodi basati su TD (Temporal Difference), l'eligibility trace suggerisce quali variabili aggiornare.
-Amplia l’orizzonte temporale sul quale fare l’aggiornamento a più di 1 passo definendo così se uno stato è eleggibile e "quanto", cioè che percentuale di aggiornamento meriti. 
+Amplia l’orizzonte temporale sul quale fare l’aggiornamento a più di 1 passo definendo così se uno stato è eleggibile e "quanto", cioè che percentuale di aggiornamento meriti.
 L'eligibility trace è la base per risolvere i problemi di credit assignment.
 Gli eventi passati che vengono chiamati tracce e rappresentano stati visitati, azioni compiute, ecc. evaporano nel tempo, cioè diventano sempre meno rilevanti fino a scomparire.
 
-\section{Definire l’algoritmo di Q-learning, descrivendo le equazioni opportune. [2]}
+\subsection{Definire l’algoritmo di Q-learning, descrivendo le equazioni opportune. [2]}
 L'algoritmo Q-Learning è un algoritmo di apprendimento per rinforzo il cui obiettivo è permettere al sistema di adattarsi all'ambiente circostante migliorando la scelta delle azioni da eseguire allo scopo di massimizzare la ricompensa totale.
-\section{Scrivere le equazioni dell'algoritmo Q-learning in cui si consideri anche la traccia. [2]}
-\section{Cosa si intende per politica epsilon-greedy? Come entra nell’algoritmo di Q-learning? }
-\section{Che differenza c'è tra Q-learning e SARSA? [2]}
+\subsection{Scrivere le equazioni dell'algoritmo Q-learning in cui si consideri anche la traccia. [2]}
+\subsection{Cosa si intende per politica epsilon-greedy? Come entra nell’algoritmo di Q-learning? }
+\subsection{Che differenza c'è tra Q-learning e SARSA? [2]}
 Le differenze risiedono nel modo in cui viene aggiornato il valore di Q ad ogni azione verificatasi, SARSA è on-policy mentre Q-Learning è off-policy. Ovvero Q­Learning aggiorna il valore in funzione della migliore possibile scelta futura, mentre SARSA aggiorna il valore in funzione della scelta che verrà applicata dalla policy. Nella pratica Q­learning converge più lentamente di SARSA, ma è in grado di imparare più rapidamente nel caso l’ambiente si modifichi in quanto SARSA continuerebbe a seguire la propria policy.
 
-\section{Dato un problema a piacere si descriva uno degli algoritmi e mostrare due passaggi di addestramento}
-\section{Quale criterio si sceglie per definire i Reward? A quali elementi sono associati? Allo stato? All'azione? Allo stato prossimo? Perché? [2]}
+\subsection{Dato un problema a piacere si descriva uno degli algoritmi e mostrare due passaggi di addestramento}
+\subsection{Quale criterio si sceglie per definire i Reward? A quali elementi sono associati? Allo stato? All'azione? Allo stato prossimo? Perché? [2]}
 L'ambiente fornisce un'informazione qualitativa, ad esempio success or fail.
 L'informazione disponibile si chiama segnale di rinforzo e non dà alcuna informazione su come aggiornare il comportamento dell'agente (e.g. i pesi).
 É per questo che il reward deve essere definito dall'agente in base alla politica adottata, e quindi si necessita di sistemi intelligenti che riescano a valutare al meglio le azioni da intraprendere.
 In base alla politica adottata il reward sarà legato allo stato, all'azione, allo stato prossimo o a un mix di essi.
 
-\section{Impostare un problema su griglia (apprendimento del percorso di un agente, con partenza ed arrivo prescelti + ostacoli). La griglia fornisce un reward, diverso da zero, in ogni transizione. [2]}
-\subsection{Definire chiaramente il problema, farne un modello definendo le variabili e le funzioni che le legano. [2]}
-\subsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente. [2]} 
+\subsection{Impostare un problema su griglia (apprendimento del percorso di un agente, con partenza ed arrivo prescelti + ostacoli). La griglia fornisce un reward, diverso da zero, in ogni transizione. [2]}
+\subsubsection{Definire chiaramente il problema, farne un modello definendo le variabili e le funzioni che le legano. [2]}
+\subsubsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente. [2]}
 
 \end{document}

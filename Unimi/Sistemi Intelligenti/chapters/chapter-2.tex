@@ -8,7 +8,7 @@ In logica classica la funzione che descrive la verità di un'affermazione è rap
 
 \[
 	\begin{cases}
-		1 \quad x > 0\\
+		1 \quad x > 0    \\
 		0 \quad x \leq 0
 	\end{cases}
 \]
@@ -16,9 +16,9 @@ In logica classica la funzione che descrive la verità di un'affermazione è rap
 Mentre la funzione di appartenenza nella logica fuzzy sono più adeguate funzioni come:
 
 \begin{enumerate}
-\item Una lineare che aumenta progressivamente da 0 a 1 in un certo $\Delta x$ determinato.
-\item Un sigmoide.
-\item Funzioni probabilistiche, come una normale.
+	\item Una lineare che aumenta progressivamente da 0 a 1 in un certo $\Delta x$ determinato.
+	\item Un sigmoide.
+	\item Funzioni probabilistiche, come una normale.
 \end{enumerate}
 
 \subsection{Classi di appartenenza}
@@ -26,17 +26,17 @@ In logica classica le classi sono nette, come nel caso della funzione istintiva 
 
 \[
 	\begin{cases}
-		A \quad x \geq 0 \wedge x<1\\
-		B \quad x \geq 1 \wedge x<2\\
-		C \quad x \geq 2 \wedge x<3\\
-		D \quad x \geq 3 \wedge x<4\\
+		A \quad x \geq 0 \wedge x<1 \\
+		B \quad x \geq 1 \wedge x<2 \\
+		C \quad x \geq 2 \wedge x<3 \\
+		D \quad x \geq 3 \wedge x<4 \\
 	\end{cases}
 \]
 
 Nella logica fuzzy, vengono descritte per ogni gruppo funzioni che assumono valori anche negli insiemi in cui nella logica classica esse non sono definite. Linearmente esse raggiungono lo 0 mano a mano che esse si sovrappongono con le altre funzioni. In un qualsiasi punto di ascissa, vale la formula:
 
 \[
-	\sum_{i=0}^{n} m_i = 1 
+	\sum_{i=0}^{n} m_i = 1
 \]
 
 \section{Logica fuzzy e probabilità}
@@ -47,17 +47,17 @@ Ulteriormente, una volta che un evento è avvenuto la sua \textbf{probabilità} 
 \section{Gli operatori logici nella logica fuzzy}
 
 \begin{center}
-\begin{tabular}{ |c|c|c| } 
- \hline
- Operatore & Logica Classica & Logica Fuzzy \\ 
- \hline
- $\wedge$ & $A \wedge B$ & $min(T(A), T(B))$ \\ 
- \hline
- $\vee$ & $A \vee B$ & $max(T(A), T(B))$ \\ 
- \hline
-$ \neg$ & $\neg A$ & $1 - T(A)$ \\ 
- \hline
-\end{tabular}
+	\begin{tabular}{ |c|c|c| }
+		\hline
+		Operatore & Logica Classica & Logica Fuzzy      \\
+		\hline
+		$\wedge$  & $A \wedge B$    & $min(T(A), T(B))$ \\
+		\hline
+		$\vee$    & $A \vee B$      & $max(T(A), T(B))$ \\
+		\hline
+		$ \neg$   & $\neg A$        & $1 - T(A)$        \\
+		\hline
+	\end{tabular}
 \end{center}
 
 \section{Misure in un insieme fuzzy}
@@ -66,7 +66,7 @@ $ \neg$ & $\neg A$ & $1 - T(A)$ \\
 
 \begin{figure}[H]
 	\[
-	M(A) = \sqrt[p]{\sum_{i=1}^{n} \abs{m_A(x_i)}^p}
+		M(A) = \sqrt[p]{\sum_{i=1}^{n} \abs{m_A(x_i)}^p}
 	\]
 	\caption{Norma di un vettore}
 \end{figure}
@@ -80,7 +80,7 @@ Dato un certo punto $A$, definisco due vettori $\vec{a}$ e $\vec{b}$ che descriv
 
 \begin{figure}[H]
 	\[
-	E(A) = \dfrac{a}{b} = \dfrac{l^1(A, A_{vicino})}{l^1(A, A_{lontano})}
+		E(A) = \dfrac{a}{b} = \dfrac{l^1(A, A_{vicino})}{l^1(A, A_{lontano})}
 	\]
 	\caption{Entropia}
 \end{figure}
@@ -95,12 +95,12 @@ Una FAM va a descrivere un insieme di classi ed assegna un valore di una funzion
 \subsection{Come opera il sistema}
 
 \begin{enumerate}
-\item Riceve le classi attivate in input
-\item Riceve il grado di fit per ogni classe
-\item Identifica le regole attivate
-\item Determino le classi in uscita attivate
-\item Determino il grado di fitness per ogni classe in uscita (regola)
-\item Defuzzyficazione
+	\item Riceve le classi attivate in input
+	\item Riceve il grado di fit per ogni classe
+	\item Identifica le regole attivate
+	\item Determino le classi in uscita attivate
+	\item Determino il grado di fitness per ogni classe in uscita (regola)
+	\item Defuzzyficazione
 \end{enumerate}
 
 \end{document}

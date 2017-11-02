@@ -2,63 +2,63 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Esercizio sui Taxi}
-In una città lavorano due compagnie di taxi: blue e verde, la maggior parte dei taxisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: $85\%$ di taxi verdi e $15\%$ di taxi blu. Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua affidabilità è stata valutata del $70\%$. Qual è la probabilità che il taxi fosse effettivamente blu? Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%? 
+\subsection{Esercizio sui Taxi}
+In una città lavorano due compagnie di taxi: blue e verde, la maggior parte dei taxisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: $85\%$ di taxi verdi e $15\%$ di taxi blu. Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua affidabilità è stata valutata del $70\%$. Qual è la probabilità che il taxi fosse effettivamente blu? Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%?
 
-\section{Esercizio sul Tumore al seno}
+\subsection{Esercizio sul Tumore al seno}
 Lo strumento principe per lo screaning per il tumore al seno è la radiografia (mammografia). Definiamo X la situazione della donna: X={sana, malata}, che non conosciamo. Definiamo Y l'esito della mammografia: Y={positiva, negativa}, che viene misurato. Sappiamo che la sensitività della mammografia è intorno al 90\% ( P(Y=positiva | X=malata) ) e che la specificità sia anch'essa del 90\% ( P(Y=negativa | X=sana) ). Qual è la probabilità che l'esame dia risultato positivo ( P(Y = positivo) ), sapendo che le donne malate sono lo 0,01\% ( P(X=malata) = 0,01\%)? Qual è la percentuale di donne che hanno uno screening positivo, di essere effettivamente malate?
 
-\section{Esercizio delle Macchine [2]}
+\subsection{Esercizio delle Macchine [2]}
 Tre macchine, A B, e C, producono rispettivamente il 50\%, il 40\%, e il 10\% del numero totale dei pezzi prodotti da una fabbrica. Le percentuali di produzione difettosa di queste macchine sono rispettivamente del 2\%, 1\% e 4\%. Determinare la probabilità di estrarre un pezzo difettoso.Viene estratto a caso un pezzo che risulta difettoso. Determinare la probabilità che quel pezzo sia stato prodotto dalla macchina C.
 
-\section{Enunciare il teorema di Bayes}
+\subsection{Enunciare il teorema di Bayes}
 Data una partizione dello spazio degli eventi $A_1...A_n$, vale che:
 
 \[
 	P(A_i|E) = \dfrac{P(E|A_i)P(A_i)}{\sum_{j=1}^n P(E|A_j)P(A_j)}
 \]
 
-\section{Discutere l'analisi di varianza per un sistema lineare [4]}
-Svolgere un'analisi di varianza per un sistema lineare significa analizzare quanto la stima di un parametro possa variare nelle diverse misure dei dati relativi al problema. 
+\subsection{Discutere l'analisi di varianza per un sistema lineare [4]}
+Svolgere un'analisi di varianza per un sistema lineare significa analizzare quanto la stima di un parametro possa variare nelle diverse misure dei dati relativi al problema.
 L'analisi consente di esaminare a matrice dei covarianti, misurare quanto varia una misura di una variabile al variare del rumore e misurare quanto covariano due misure di due variabilità.
 \textbf{L'indice di correlazione} di due variabili viene calcolato proprio per misurare quanto le variabili si trovino lungo una funzione.
 
-\section{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come? [3]}
+\subsection{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come? [3]}
 Scriviamo il logaritmo negativo della verosimiglianza:
 
 \begin{align}
-P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)  &=
-	- \sum_{i=1}^n 
+	P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right) & =
+	- \sum_{i=1}^n
 	\ln \left\{
-		\dfrac{1}{\sqrt{2\pi}\sigma}
-		\exp \left[
+	\dfrac{1}{\sqrt{2\pi}\sigma}
+	\exp \left[
 		-\dfrac{1}{2}	\left(\dfrac{ y_i - mx_i - b}{\sigma} \right)^2
-	 	\right]
-	 \right\}\\
-	 &= 
-	 - \sum_{i=1}^n \ln
-	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
-	 - \sum_{i=1}^n
-		\left[
+		\right]
+	\right\}\\
+	                                                 & =
+	- \sum_{i=1}^n \ln
+	\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+	- \sum_{i=1}^n
+	\left[
 		-\dfrac{1}{2}	\left(\dfrac{ y_i - mx_i - b}{\sigma} \right)^2
-	 	\right]\\
-	 &= 
-	 - \sum_{i=1}^n \ln
-	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
-	 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n
-		\left(y_i - mx_i - b \right)^2
+		\right]\\
+	                                                 & =
+	- \sum_{i=1}^n \ln
+	\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+	+ \dfrac{1}{2\sigma^2} \sum_{i=1}^n
+	\left(y_i - mx_i - b \right)^2
 \end{align}
 
 Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a $m$:
 
 \begin{align}
-	\dfrac{\partial P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)}{\partial m}  &= \dfrac{\partial}{\partial m} \left [ - \sum_{i=1}^n \ln
-	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
-	 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n
+	\dfrac{\partial P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)}{\partial m} & = \dfrac{\partial}{\partial m} \left [ - \sum_{i=1}^n \ln
+		\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+		+ \dfrac{1}{2\sigma^2} \sum_{i=1}^n
 		\left(y_i - mx_i - b \right)^2
-	 	 \right ]\\
-	 &= 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-x_i)\\
-	 &= -\dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2  x_i
+		\right ]\\
+	                                                                              & = 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-x_i) \\
+	                                                                              & = -\dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2  x_i
 \end{align}
 
 \[
@@ -70,22 +70,22 @@ Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a
 \]
 
 \begin{figure}[H]
-\[
-	m\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] + q \left [ \sum_{i=1}^n \left(x_i \right) \right ] = \left [ \sum_{i=1}^n \left(y_i x_i \right) \right ]
-\]
-\caption{Prima equazione}
+	\[
+		m\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] + q \left [ \sum_{i=1}^n \left(x_i \right) \right ] = \left [ \sum_{i=1}^n \left(y_i x_i \right) \right ]
+	\]
+	\caption{Prima equazione}
 \end{figure}
 
 Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a $q$:
 
 \begin{align}
-	\dfrac{\partial P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)}{\partial q}  &= \dfrac{\partial}{\partial q} \left [ - \sum_{i=1}^n \ln
-	 \left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
-	 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n
+	\dfrac{\partial P \left(y_1,...,y_n; n, b; x_1, ..., x_n \right)}{\partial q} & = \dfrac{\partial}{\partial q} \left [ - \sum_{i=1}^n \ln
+		\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
+		+ \dfrac{1}{2\sigma^2} \sum_{i=1}^n
 		\left(y_i - mx_i - b \right)^2
-	 	 \right ]\\
-	 &= 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-1)\\
-	 &= \dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2
+		\right ]\\
+	                                                                              & = 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-1) \\
+	                                                                              & = \dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2
 \end{align}
 
 \[
@@ -97,102 +97,102 @@ Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a
 \]
 
 \begin{figure}[H]
-\[
-	m\left [ \sum_{i=1}^n \left(x_i \right) \right ] + q \left [ \sum_{i=1}^n \left(1 \right) \right ] = \left [ \sum_{i=1}^n \left(y_i \right) \right ]
-\]
-\caption{Seconda equazione}
+	\[
+		m\left [ \sum_{i=1}^n \left(x_i \right) \right ] + q \left [ \sum_{i=1}^n \left(1 \right) \right ] = \left [ \sum_{i=1}^n \left(y_i \right) \right ]
+	\]
+	\caption{Seconda equazione}
 \end{figure}
 
 Ponendo a sistema le equazioni così ottenute ottengo:
 \[
-\begin{bmatrix}
-	\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] &  \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
-	\left [ \sum_{i=1}^n \left(x_i \right) \right ] & n
-\end{bmatrix}
-\begin{bmatrix}
-m\\
-b
-\end{bmatrix}
-= 
-\begin{bmatrix}
-	\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
-	\left [ \sum_{i=1}^n \left(y_i \right) \right ]
-\end{bmatrix}
+	\begin{bmatrix}
+		\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] & \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
+		\left [ \sum_{i=1}^n \left(x_i \right) \right ]   & n
+	\end{bmatrix}
+	\begin{bmatrix}
+		m \\
+		b
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
+		\left [ \sum_{i=1}^n \left(y_i \right) \right ]
+	\end{bmatrix}
 \]
 
 Lo stesso problema visto dal punto di vista dei \textbf{minimi quadrati} è impostato nel seguente modo.
 
 \[
-\begin{bmatrix}
-	x_1 & 1\\
-	\vdots & \vdots \\
-	x_n & n
-\end{bmatrix}
-\begin{bmatrix}
-	m\\
-	b
-\end{bmatrix}
-= 
-\begin{bmatrix}
-	y_1\\
-	\vdots\\
-	y_n
-\end{bmatrix}
+	\begin{bmatrix}
+		x_1    & 1      \\
+		\vdots & \vdots \\
+		x_n    & n
+	\end{bmatrix}
+	\begin{bmatrix}
+		m \\
+		b
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		y_1    \\
+		\vdots \\
+		y_n
+	\end{bmatrix}
 \]
 
 L'obbiettivo è trovare una $x$ tale che $(Ax-b)^T(Ax-b)$ è minima (minimizzazione di residui).
 La soluzione si ottiene calcolando $A^TAx = A^Tb$.
 
 \[
-A^TA = \begin{bmatrix}
-	x_1 & \dots & x_n\\
-	1 & \dots & n
-\end{bmatrix}
-\begin{bmatrix}
-	x_1 & 1\\
-	\vdots & \vdots \\
-	x_n & n
-\end{bmatrix}
-=
-\begin{bmatrix}
-	\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] &  \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
-	\left [ \sum_{i=1}^n \left(x_i \right) \right ] & n
-\end{bmatrix}
+	A^TA = \begin{bmatrix}
+		x_1 & \dots & x_n \\
+		1   & \dots & n
+	\end{bmatrix}
+	\begin{bmatrix}
+		x_1    & 1      \\
+		\vdots & \vdots \\
+		x_n    & n
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] & \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
+		\left [ \sum_{i=1}^n \left(x_i \right) \right ]   & n
+	\end{bmatrix}
 \]
 
 \[
-A^Tb = \begin{bmatrix}
-	x_1 & \dots & x_n\\
-	1 & \dots & n
-\end{bmatrix}
-\begin{bmatrix}
-	y_1\\
-	\vdots\\
-	y_n
-\end{bmatrix}
-=
-\begin{bmatrix}
-	\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
-	\left [ \sum_{i=1}^n \left(y_i \right) \right ]
-\end{bmatrix}
+	A^Tb = \begin{bmatrix}
+		x_1 & \dots & x_n \\
+		1   & \dots & n
+	\end{bmatrix}
+	\begin{bmatrix}
+		y_1    \\
+		\vdots \\
+		y_n
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
+		\left [ \sum_{i=1}^n \left(y_i \right) \right ]
+	\end{bmatrix}
 \]
 
 Ovvero:
 
 \[
-\begin{bmatrix}
-	\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] &  \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
-	\left [ \sum_{i=1}^n \left(x_i \right) \right ] & n
-\end{bmatrix}
-\begin{bmatrix}
-m\\
-b
-\end{bmatrix}
-= 
-\begin{bmatrix}
-	\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
-	\left [ \sum_{i=1}^n \left(y_i \right) \right ]
-\end{bmatrix}
+	\begin{bmatrix}
+		\left [ \sum_{i=1}^n \left(x_i^2 \right) \right ] & \left [ \sum_{i=1}^n \left(x_i \right) \right ] \\
+		\left [ \sum_{i=1}^n \left(x_i \right) \right ]   & n
+	\end{bmatrix}
+	\begin{bmatrix}
+		m \\
+		b
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\left [ \sum_{i=1}^n \left(y_i x_i \right) \right ] \\
+		\left [ \sum_{i=1}^n \left(y_i \right) \right ]
+	\end{bmatrix}
 \]
 
 Che è la stessa soluzione ottenuta per la stima a massima verosimiglianza. Queste metodologie offrono una stima dei parametri di una funzione tramite la minimizzazione dei residui.
