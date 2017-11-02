@@ -1,13 +1,20 @@
 % !TEX options=--shell-escape
+% !TEX options=--enable-write18
+% !TEX options=-enable-write18
 \documentclass{report} % We use report to allow for chapers etc...
 
 \usepackage{iftex} % Used for if
 \ifLuaTeX
+	\usepackage{shellesc}
 	\usepackage{polyglossia}
 	\setdefaultlanguage{italian}
 	\setotherlanguage{english}
 	\usepackage{fontspec}
-	\usepackage{fontspec}
+	\usepackage{etoolbox} % To enable some parts of luacode
+	\usepackage{luacode} % Used to script stuff
+	\usepackage{luatex85}
+	\usepackage{luaotfload}
+	\usepackage{shellesc}
 \else
 	\usepackage[utf8]{inputenc} % This allows for utf support.
 	\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
@@ -84,8 +91,16 @@
 \usepackage{pgfplots} % to draw 3d graphs
 \pgfplotsset{compat=1.14}
 \usepackage{tikz}
+\usepackage{relsize}
+\usepackage{circuitikz}
+
+\ctikzset{tripoles/mos style/arrows}
+\ctikzset{tripoles/pmos style/emptycircle}
+\ctikzset{tripoles/mos style/arrows}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+\usepgfplotslibrary{external}
+
 \definecolor {processblue}{cmyk}{0.96,0,0,0}
-\usetikzlibrary {positioning}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 
 \pgfmathdeclarefunction{gauss}{3}{%
@@ -110,9 +125,8 @@
 \usepackage{fancyhdr} % This allows for the headings in the chapters
 \pagestyle{fancy} % This activates it
 
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
-\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
-
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \usepackage{enumitem,amssymb} % For a todo check list
 \newlist{todolist}{itemize}{2} % For a  todo check list
 \setlist[todolist]{label=$\square$}  % For a todo check list
@@ -133,9 +147,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifLuaTeX
-	\usepackage{etoolbox} % To enable some parts of luacode
-	\usepackage{luacode} % Used to script stuff
-	\usepackage{luatex85}
 	\providecommand{\samples}{80} % Drawing hd graphs when compiling for the final time (production)
 	\input{\main/../../general/metadataLoader.tex}
 	\input{\main/../../general/languageSwitch.tex}
@@ -152,5 +163,4 @@
 \input{\main/../../general/acronyms.tex}
 \addbibresource{references.bib}
 
-\usepgfplotslibrary{external}
 \tikzexternalize
