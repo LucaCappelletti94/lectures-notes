@@ -1,0 +1,37 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Introduzione}
+Il materiale di questa sezione del corso, erogata dal prof. Basilico, è disponibile sul \href{http://teaching.basilico.di.unimi.it/doku.php/pub/sistemi-intelligenti-2017-2018}{sito personale del docente}. Le slide son generalmente sufficienti, i libri presenti in elenco sono per approfondimenti.
+
+\section{``Flavours'' nella piantificazione discreta}
+Si può pianificare per \textbf{fattibilità} o per \textbf{ottimalità}, e rispettivamente vengono chiamati \textit{problem solving} e \textit{ricerca della soluzione ottima}.
+
+\begin{definition}[Soluzione ottima]
+  La soluzione tale per cui non è peggiore di nessun'altra.
+\end{definition}
+
+\section{Formulazione del problema}
+In un problema abbiamo:
+
+\begin{enumerate}
+  \item Uno o più agenti
+  \item $\bm{X}$ è un set di stati, $x$ lo stato generico. Questa è un'astrazione.
+  \item $\bm{U}(x)$ è il set di azioni che possono essere intraprese in un determinato stato $x$. L'azione generica è indicata con $u$.
+  \item Se un'azione $u$ è intrapresa in uno stato $x$, allora viene raggiunto lo stato $x' = f(x,u)$ e $f$ viene chiamata \textbf{funzione di transizione}, ed è deterministica. (Questo implica che stiamo modellando un mondo deterministico).
+  \item Ci deve essere uno \textbf{stato di partenza} $x_i$ ed un set di \textbf{stati di goal} $\bm{X}_G$.
+\end{enumerate}
+
+Un problema viene rappresentato con un grafo chiamato \textbf{grafo di transizioni}.
+
+\section{Ricerca sistematica}
+In una ricerca valgono le seguenti proprietà: in un grafo \textbf{finito} un grafo eventualmente visiterà tutti gli stati raggiungibili (evita l`esplorazione ridondante.).
+
+Se il grafo è \textbf{infinito}, se la risposta è \textit{si} l'algoritmo deve terminare, mentre se la risposta è \textit{no} va bene che esso vada avanti all'infinito, però nel limite asintotico tutti gli stati devono essere visitati.
+
+\subsection{Forward Search}
+
+PRENDI ALGORITMO FORWARD SEARCH DA SLIDE
+
+\end{document}
