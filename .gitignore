@@ -21,6 +21,14 @@
 *.ilg
 *.ind
 *.lof
+*.md5
+*.dpth
+*.bak
+*-figure*.pdf
+*.fls
+*-blx.bib
+*.auxlock
+*.fdb_latexmk
 *.lot
 *.maf
 *.mtc
