@@ -38,6 +38,8 @@
 *.xml
 *.bcf
 *.xdy
+*.pdf
+!main.pdf
 
 # Mac IDE files
 *.swp
