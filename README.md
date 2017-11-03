@@ -6,6 +6,8 @@ These are notes from courses that we might be currently following, so they might
 ## Polytechnic University of Milan
 
 - [Meccanica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Meccanica/Temi%20di%20Meccanica%20v1.1.pdf)
+- [Elettronica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Elettronica/main.pdf)
+- [Sistemi Informativi 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Sistemi%20Informativi/main.pdf)
 
 ## University of Milan
 - [Analisi di dati su larga scala 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Analisi%20di%20dati%20su%20larga%20scala/main.pdf)
