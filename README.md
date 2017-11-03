@@ -26,51 +26,12 @@ If you feel like sharing your work, helping us to offer everyone better notes, f
 Here's what you need to get started:
 
 ### Setup for macOs users
-So, if you've never dealt with the bash, here's a setup that starts from the beginning. If you're alredy a power user, you can skip these commands and go to the next part.
-#### Installing brew, anaconda and git
-So, [brew](https://brew.sh/) is this pretty awesome package manager for macOs, similar to **apt-get** in many ways. Here's how you get it. You need to have [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) installed to proceed.
-Open up the terminal and proceed with these commands:
-```sh
-# We Install the command line tools
-xcode-select --install
-# We accept the developer license
-sudo xcodebuild -license accept
-# We install brew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# We run a couple checks on brew
-brew doctor
-brew update
-# We install Anaconda
-# If the command fails (it's a big file), try downloading from https://www.anaconda.com/download/#macos
-brew cask install anaconda
-# We install git
-brew install git
-# And the extension of git that handles large files
-brew install git-lfs
-# We install a git IDE
-brew cask install gitkraken
-```
-#### Setting up everything for latex.
-Here starts the actual setup for Latex:
-```sh
-# We install the MacTex.
-# If the command fails (it's a big file), try downloading from http://www.tug.org/mactex/mactex-download.html
-brew cask install mactex-no-ghostscript
-# We install a LaTex IDE
-brew cask install texmaker
-# We install a couple of packages we're gonna need for LaTex
-# Pygments handles highlighting
-# It should already be installed with Anaconda, so you shouldn't need to run this command.
-# If you haven't installed Anaconda for whatever reason, install the package and then create the symlink as well.
-# sudo pip install Pygments
-# We need though to create a link:
-sudo ln -s /anaconda3/bin/pygmentize /usr/local/bin/pygmentize
-# Gnuplot draws nice graphs
-brew install gnuplot
-```
-Now you just need to clone the repo and get working!
+Luca wrote a set of small tutorials just for you:
+- [MacOs quick setup](https://gist.github.com/LucaCappelletti94/c9ead039ecaf08dfaf8b975862d9d15e): getting started with macOS in a quick bashy way.
+- [Sublime Text on Steroids](https://gist.github.com/LucaCappelletti94/d12c4c003e126f864402a887339fa912): a quick guide to get a super sublime text.
+- [Firing up LaTex on macOS 🔥](https://gist.github.com/LucaCappelletti94/920186303d71c85e66e76ff989ea6b62): a setup for making latex just work.
 
 ## Latex template
-If you like the way I setup my notes, [here](https://github.com/LucaCappelletti94/various-notes/tree/master/Template) you can find a template you can play with.
+If you like the way I setup my notes, [here](https://github.com/LucaCappelletti94/various-notes/tree/master/Template) you can find a template you can play with. Notify us when you use it, as sometimes we need to update it.
 
 For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*"
