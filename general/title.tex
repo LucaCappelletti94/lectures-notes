@@ -17,7 +17,7 @@ authors = metadata["authors"]
 \begin{center}
 \vspace*{1em}
 \begin{luacode}
-		tex.print("\\MakeUppercase{\\textbf{\\large{"..title.."}}}")
+		tex.print("\\bfseries{\\MakeUppercase{\\large{"..title.."}}}")
 \end{luacode}
 
 \vspace{1em}
@@ -37,7 +37,7 @@ authors = metadata["authors"]
 
 \begin{luacode}
 		for key, value in pairs(authors) do
-			 tex.print('\\textbf{'..value["name"] .. " " .. value["surname"].."}\\\\")
+			 tex.print('\\bfseries{'..value["name"] .. " " .. value["surname"].."}\\\\")
 		end
 \end{luacode}
 
@@ -70,7 +70,7 @@ Italy \\
 \else
 \begin{titlepage}
 \begin{center}
-\textbf{\large{TITLEPAGE NOT RENDERED!\\RECOMPILE WITH LUATEX!}}
+\large{TITLEPAGE NOT RENDERED!\\RECOMPILE WITH LUATEX!}
 \end{center}
 \end{titlepage}
 \fi

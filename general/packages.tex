@@ -7,8 +7,8 @@
 \ifLuaTeX
 	\usepackage{shellesc}
 	\usepackage{polyglossia}
-	\setdefaultlanguage{italian}
 	\setotherlanguage{english}
+	\setdefaultlanguage{italian}
 	\usepackage{fontspec}
 	\usepackage{etoolbox} % To enable some parts of luacode
 	\usepackage{luacode} % Used to script stuff
@@ -17,7 +17,7 @@
 	\usepackage{shellesc}
 \else
 	\usepackage[utf8]{inputenc} % This allows for utf support.
-	\usepackage[italian, english]{babel}   % Set up supported languages. Last one is default.
+	\usepackage[english, italian]{babel}   % Set up supported languages. Last one is default.
 \fi
 
 \usepackage[T1]{fontenc}  % Defines true type fonts
@@ -41,12 +41,13 @@
 \usepackage{multicol} % For the possibility of using columns with  \begin{multicols}{n}.
 \usepackage[colorlinks=true,urlcolor=blue,pdfpagelabels,hyperindex=false]{hyperref}  % Enable table of contents and links.
 \usepackage{microtype} % for automatic micro fitting of characters
+\usepackage{amsfonts} % for math font rendering
 \usepackage{amsmath} % for math rendering
 \usepackage{float} % to enable floating graphics
 \usepackage{graphicx} % for images and generally graphics
 \usepackage{caption} % enabling of nice captions
 \usepackage{subcaption} % and subcaptions of images
-\graphicspath{ {images/} } % We'll put all the images in the folder "images"
+\graphicspath{ {\main/images/} } % We'll put all the images in the folder "images"
 \usepackage[style=authoryear,sorting=ynt, backend=bibtex]{biblatex} % Package to handle the bibliography
 \nocite{*} % This allows for having entried in the bib file that do not have to be necesseraly used
 \usepackage{subfiles} % To use subfiles without cruxifying saints
@@ -56,9 +57,13 @@
 \usepackage{bm} % To have bold vectors
 \usepackage{\main/../../packages/soul} % To cancel text with a line using the commant \st, to underline text and highlight.
 
-\usepackage{xcolor} % To highlight text
+\usepackage[Lenny]{fncychap}
+
+\usepackage{sectsty}
+\usepackage[x11names]{xcolor} % To highlight text
+
 \usepackage{xfrac} % To allow for sideways fractions
-\usepackage[cache=false]{minted} % For highlighting code
+\usepackage[cache=true]{minted} % For highlighting code
 \usepackage[algoruled,linesnumbered,titlenumbered,vlined]{\main/../../packages/algorithm2e} % To highlight pseudocode
 \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setminted{
@@ -164,3 +169,6 @@
 \addbibresource{references.bib}
 
 \tikzexternalize
+
+%\input{\main/../../general/toc.tex}
+
