@@ -1,0 +1,39 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+La teoria MAUT (multiple attribute utility theory) ipotizza di trovarsi nella situazione in cui un decisore è in grado di ordinare gli indicatori, creando un set $\Pi$ con un ordine debole. Ipotizza inoltre l'esistenza di una funzione valore $u(f)$ conforme a $\Pi$. Spesso la $u(f)$ non si conosce ed è necessario costruire il passaggio da $\pi$ a $u(f)$
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{\main/images/MAUT.png}
+  \caption{MAUT in progress}
+\end{figure}
+
+Campiono quuindi gli impatti e connetto quelli che risultano indifferenti preferenzialmente, cercando di identificare forme analitiche che le descrivano.
+
+\[
+  u(b) = f_1f_2 \rightarrow u(b) = f_1^{\alpha_{1}}f_2^{\alpha_{2}}
+\]
+
+Definita quindi una formula vado a verificare che valga su quei punti:
+
+\[
+  u(f_1) = u(f_2) \Rightarrow  f_1^{\alpha_{1}}f_1^{\alpha_{2}} = f_2^{\alpha_{1}}f_2^{\alpha_{2}}
+\]
+
+\begin{figure}[H]
+  \[
+    u(f) = \prod_{l=1}^p f_l^{\alpha_l}
+  \]
+  \caption{\textbf{Funzioni di Cobb-Douglas:} descrive un consumatore, viene usata in economia}
+\end{figure}
+
+Questo procedimento diventa rapidamente insolubile all'aumentare dei decisori e degli indicatori. Viene quindi \textit{ipotizzato} che la funzione di utilità sia \textbf{additiva}, cioè che valga:
+
+\[
+  u(f) = \sum_{l=1}^p u_l(f_l)
+\]
+
+
+\end{document}

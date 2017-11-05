@@ -154,7 +154,23 @@ Dato un punto $x^*$ \textbf{globalmente paretiano} per $\begin{cases}
 		\min f_p \\
 	\end{cases} \Rightarrow x^*$ è un \textbf{ottimo globale} per $f_l(x)$, cioè vale che $f_l(x) \leq \epsilon_l = f_l(x^*)$ con $x \in X$
 
-\subsection{Esempio grafico}
+\section{Metodo Lessicografico}
+\begin{enumerate}
+	\item Si chiede al \textbf{decisore} di introdurre un \textbf{ordinamento totale} sugli indicatori, cioè ${1, \dots, P}\leadsto{\pi_1, \dots, \pi_P}$, dove $\pi_1$ viene considerato \textbf{l'indicatore principale}.
+	\item Vado a selezionare tutti i \textbf{cammini a costo minimo}, limitandomi all'indicatore principale: $\min_{x \in X} f_{\pi_1} \rightarrow X_1^*$
+	\item Continuo a cercare i cammini a costo minimo degli indicatori successivi, sino a che rimango con un'unica soluzione minimante valida. Se arrivo all'ultimo indicatore con più di una soluzione ne scelgo una a caso. La soluzione così ottenuta è \textbf{globalmente paretiana} (benchè tendenzialmente molto squilibrata e che non da un compromesso) perchè è un ottimo per tutte le funzioni.
+\end{enumerate}
 
+\section{Metodo lessicografico con livelli di aspirazione}
+In aggiunta al passaggio preliminare visto precedentemente fisso i \textbf{livelli di aspirazione} $\epsilon_l \quad \forall l \not = \pi_1$
+
+\section{Metodo del punto utopia}
+Viene aggiunto un punto che viene descritto dal decisore come il migliore possibile, ignorando temporaneamente i vincoli, e si va quindi ad identificare una regione paretiana come quella che ne minimizza la distanza.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{\main/images/utopia.jpg}
+	\caption{Metodo del punto utopia}
+\end{figure}
 
 \end{document}

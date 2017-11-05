@@ -2,7 +2,7 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\subsection{Problemi complessi}
+\section{Problemi complessi}
 
 \begin{figure}[H]
 	\[
@@ -43,39 +43,39 @@ La \textbf{preferenza} è la volontà per cui il decisore risulta disponibile a 
 Un esempio di preferenza è: \[ f' \preccurlyeq_d f' \Leftrightarrow (f', f'')\in \Pi_d \]. In un ambiente ingegneristico si usa il $\preccurlyeq_d$, minimizzando i costi, mentre in un ambiente economico si cerca di massimizzare i costi $\succcurlyeq_d$.
 
 \begin{definition}[indifferenza]
-Due preferenze $f'$ e $f''$ sono dette \textbf{indifferenti} quando:
+	Due preferenze $f'$ e $f''$ sono dette \textbf{indifferenti} quando:
 
-\[
-	f' ~ f'' \Leftrightarrow \begin{cases} f' \preccurlyeq_d f'' \\ f' \succcurlyeq_d f'' \end{cases}
-\] 
+	\[
+		f' ~ f'' \Leftrightarrow \begin{cases} f' \preccurlyeq_d f'' \\ f' \succcurlyeq_d f'' \end{cases}
+	\]
 \end{definition}
 
 \begin{definition}[Preferenza Stretta]
-Una preferenza $f'$ è detta \textbf{preferenza stretta} quando:
+	Una preferenza $f'$ è detta \textbf{preferenza stretta} quando:
 
-\[
-	f' <_d f'' \Leftrightarrow
-	\begin{cases}
-		f' \preccurlyeq_d f'' \\
-		f' \nsucc_d f''
-	\end{cases}
-\] 
+	\[
+		f' <_d f'' \Leftrightarrow
+		\begin{cases}
+			f' \preccurlyeq_d f'' \\
+			f' \nsucc_d f''
+		\end{cases}
+	\]
 \end{definition}
 
 \begin{definition}[Incomparabilità]
-Due preferenze $f'$ e $f''$ sono dette \textbf{incomparabili} quando:
+	Due preferenze $f'$ e $f''$ sono dette \textbf{incomparabili} quando:
 
-\[
-	f' \Join_d f'' \Leftrightarrow
-	\begin{cases}
-		f' \nprec_d f'' \\
-		f' \nsucc_d f''
-	\end{cases}
-\] 
+	\[
+		f' \Join_d f'' \Leftrightarrow
+		\begin{cases}
+			f' \nprec_d f'' \\
+			f' \nsucc_d f''
+		\end{cases}
+	\]
 \end{definition}
 
 
-\subsection{Proprietà delle preferenze}
+\section{Proprietà delle preferenze}
 \subsubsection{Proprietà riflessiva}
 \[
 	f \preccurlyeq f \qquad \forall f \in F
@@ -98,7 +98,7 @@ Solitamente i decisori non possiedono questa proprietà, anche perché è necess
 	f \preccurlyeq f' \wedge f' \preccurlyeq f'' \Rightarrow f \preccurlyeq f'' \qquad \forall f, f', f'' \in F
 \]
 
-\subsection{Ipotesi funzione del valore}
+\section{Ipotesi funzione del valore}
 Un decisore che ha in mente una funzione valore $v$, ha in mente una relazione di preferenza $\Pi$ \textbf{riflessiva}, \textbf{completa}, \textbf{non necessariamente anti simmetrica} e \textbf{transitiva}. Quando una relazione possiede queste proprietà viene chiamata \textbf{ordine debole}, debole perché possono esiste dei \textit{pari merito}. Un campo di applicazione sono i campionati sportivi.
 \[
 	\exists v: F\rightarrow \mathbb{R}: f \preccurlyeq f' \Leftrightarrow v_{(f)} \succcurlyeq v_{(f')}
@@ -116,19 +116,19 @@ Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} e \textbf
 \subsubsection{Ordine totale}
 Avendo le condizioni di \textbf{riflessività}, \textbf{transitività}, \textbf{completezza} e \textbf{antisimmetria} si ottiene la condizione di \textbf{ordine totale}.
 
-\subsection{Tabella riassuntiva}
+\section{Tabella riassuntiva}
 \begin{center}
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
-		\textit{Proprietà} & \textbf{Preordine} & \textbf{Ordine debole} & \textbf{Ordine parziale} & \textbf{Ordine totale}\\
+		\textit{Proprietà}     & \textbf{Preordine} & \textbf{Ordine debole} & \textbf{Ordine parziale} & \textbf{Ordine totale} \\
 		\hline
-		\textbf{Riflessività} & \checkmark & \checkmark & \checkmark & \checkmark \\
+		\textbf{Riflessività}  & \checkmark         & \checkmark             & \checkmark               & \checkmark             \\
 		\hline
-		\textbf{Transitività} & \checkmark & \checkmark & \checkmark & \checkmark \\
+		\textbf{Transitività}  & \checkmark         & \checkmark             & \checkmark               & \checkmark             \\
 		\hline
-		\textbf{Completezza} &  & \checkmark &  & \checkmark \\
+		\textbf{Completezza}   &                    & \checkmark             &                          & \checkmark             \\
 		\hline
-		\textbf{Antisimmetria} &  &  & \checkmark & \checkmark \\
+		\textbf{Antisimmetria} &                    &                        & \checkmark               & \checkmark             \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -137,11 +137,11 @@ Avendo le condizioni di \textbf{riflessività}, \textbf{transitività}, \textbf{
 La formula in figura \ref{borda} utilizzato per costruire una \textbf{funzione valore}:
 
 \begin{figure}[H]
-\[ 
-	v(f) = \abs{\{f' \in F: f \preccurlyeq f' \}}
-\]
-\caption{Conto di Borda}
-\label{borda}
+	\[
+		v(f) = \abs{\{f' \in F: f \preccurlyeq f' \}}
+	\]
+	\caption{Conto di Borda}
+	\label{borda}
 \end{figure}
 
 Il valore di un impatto è pari al numero di impatti cui esso è preferibile, compreso l'impatto stesso.
@@ -152,9 +152,9 @@ Quando la cardinalità dell'insieme è $\mathbb{N}\times\mathbb{R}$ è possibile
 Un problema viene detto \textit{semplice} quando essi possiedono queste caratteristiche:
 
 \begin{enumerate}
-\item $\exists v(f) $ conforme
-\item $\abs{\Omega} = 1 \Rightarrow f: X \rightarrow \mathbb{R}$, cioè esiste un $f(x)$
-\item $\abs{D} = 1$
-\item $X = \{x \in \mathbb{R}^n: g_j (x) \leq 0 \forall j = 1,..., n \} \text{ con } g_j \in C^1(\mathbb{R}^n)$
+	\item $\exists v(f) $ conforme
+	\item $\abs{\Omega} = 1 \Rightarrow f: X \rightarrow \mathbb{R}$, cioè esiste un $f(x)$
+	\item $\abs{D} = 1$
+	\item $X = \{x \in \mathbb{R}^n: g_j (x) \leq 0 \forall j = 1,..., n \} \text{ con } g_j \in C^1(\mathbb{R}^n)$
 \end{enumerate}
 \end{document}
