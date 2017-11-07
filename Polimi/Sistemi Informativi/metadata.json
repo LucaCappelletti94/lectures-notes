@@ -1,18 +1,15 @@
 {
-	"title":"elettronica",
-	"cfu":10,
-	"authors":[{
-		"name":"Tommaso",
-		"surname":"Fontana"
-	}, {
-		"name":"Valentina",
-		"surname":"Deda"
-	}],
-	"professors":[{
-		"name":"Ivan",
-		"surname":"Rech"
-	}, {
-		"name":"Marco",
-		"surname":"Carminati"
-	}]
+  "title": "Sistemi Informativi",
+  "cfu": 5,
+  "authors": [{
+    "name": "Tommaso",
+    "surname": "Fontana"
+  }, {
+    "name": "Valentina",
+    "surname": "Deda"
+  }],
+  "professors": [{
+    "name": "Barbara",
+    "surname": "Pernici"
+  }]
 }
