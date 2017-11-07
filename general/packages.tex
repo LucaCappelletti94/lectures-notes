@@ -41,8 +41,9 @@
 \usepackage{multicol} % For the possibility of using columns with  \begin{multicols}{n}.
 \usepackage[colorlinks=true,urlcolor=blue,pdfpagelabels,hyperindex=false]{hyperref}  % Enable table of contents and links.
 \usepackage{microtype} % for automatic micro fitting of characters
-\usepackage{amsfonts} % for math font rendering
-\usepackage{amsmath} % for math rendering
+\usepackage{amsmath,amsthm,amsfonts}
+\usepackage{framed}
+\usepackage{mathtools}
 \usepackage{float} % to enable floating graphics
 \usepackage{graphicx} % for images and generally graphics
 \usepackage{caption} % enabling of nice captions
@@ -132,7 +133,7 @@
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
-\usepackage{enumitem,amssymb} % For a todo check list
+\usepackage{enumitem} % For a todo check list
 \newlist{todolist}{itemize}{2} % For a  todo check list
 \setlist[todolist]{label=$\square$}  % For a todo check list
 
@@ -154,7 +155,8 @@
 \ifLuaTeX
 	\providecommand{\samples}{80} % Drawing hd graphs when compiling for the final time (production)
 	\input{\main/../../general/metadataLoader.tex}
-	\input{\main/../../general/languageSwitch.tex}
+	% \input{\main/../../general/languageSwitch.tex}
+	\input{\main/../../general/italian.tex}
 \else
 	% Lua not enabled
 	\providecommand{\samples}{50} % Drawing ld graphs when compiling for development
