@@ -449,7 +449,7 @@ Ora se impongo una tensione $V_{DS}$ il canale inizia ad essere attratto verso i
 	\caption{Sezione di un NMOS applicando una tnesione tra Source e Drain}
 \end{figure}
 
-Se la tensione $V_{DS} > V_{GS} - V_t$ allora si verifica il fenomeno del pintchoff nel quale il canale e' totalmente spostato verso un lato ed a questo punto la resistivita' del canale non dipende piu' dalla $V_{DS}$ ma solo dalla $V_{GS}$.
+Se la tensione $V_{DS} > V_{GS} - V_t$ allora si verifica il fenomeno del pinch-off nel quale il canale e' totalmente spostato verso un lato ed a questo punto la resistivita' del canale non dipende piu' dalla $V_{DS}$ ma solo dalla $V_{GS}$.
 
 \[ I_{DS} = K_n \left( V_{GS} - V_t \right)^2\]
 
@@ -747,7 +747,7 @@ Questo effetto chiamato Modulazaione di Canale fa si che accorciandosi il canale
 
 Per questo introduciamo un nuovo parametro $\lambda$ che tipicamente assume valori del tipo $0.05$ e le nuove equazioni del NMOS sono:
 
-\[ I_{Ohm} = K_p \left( |V_{GS}| - |V_t| \right)^2(1+\lambda V_{DS})\]
+\[ I_{Ohm} = K_n \left( (V_{GS} - V_t)^2 V_{DS} - V_{DS}^2 \right)(1+\lambda V_{DS})\]
 \[ I_{Sat} = K_n \left( V_{GS} - V_t \right)^2(1+\lambda V_{DS})\]
 
 \begin{figure}[H]
@@ -1140,7 +1140,7 @@ Poiche' la resistenza ed il condensatore sono in parallelo $V_r = V_c$ e cosi co
 
 Quindi dalla KCL al nodo del DRAIN la corrente \[I_{DS}|_{ow} = I_r + I_c = I_r = \frac{V_r}{R}= \frac{ V_{cc} - V_{ow}}{R} =  \frac{ V_{cc} - V_{cc} + V_t}{R} = \frac{V_t}{R} = 1mA\]
 
-$(3)$ Confrontando le due correnti $I_{DS}|_{ow} = 1mA < I_p |_{ow} = 26mA$ quindi il PMOS si trova in zona Ohmmica.
+$(3)$ Confrontando le due correnti $I_{DS}|_{ow} = 1mA < I_p |_{ow} = 10.58mA$ quindi il PMOS si trova in zona Ohmmica.
 
 
 Stabilito cio' si calcola il punto di lavoro col bilancio delle correnti:
@@ -1294,7 +1294,7 @@ $(a)$ $V_{in} = 0V$ per i motivi sopra scritti Il' NMOS e' spento quindi la corr
 $(b)$ $V_{in} = 5V$ abbiam gia' calcolato che la corrente nei MOS e' $I = 3.2mA$ quindi
 \[ P_{STAT,On} = I V_{cc} = 16mW\]
 
-\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $T_{CLK} = 10 \mu s$}
+\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $T_{CLK} = 1 \mu s$}
 
 \[ I = \frac{\bigtriangleup Q}{T_{CLK}} = C \frac{V_f - V_i}{T_{CLK}}\]
 \[ P_{DIN} = V_{cc} I = V_{cc} C \frac{V_f - V_i}{T_{CLK}}\]
