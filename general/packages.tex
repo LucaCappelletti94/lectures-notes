@@ -133,6 +133,16 @@
 \usepackage{fancyhdr} % This allows for the headings in the chapters
 \pagestyle{fancy} % This activates it
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE FOLLOWING CENTERS ALL FLOATING ITEMS BY DEFAULT   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\g@addto@macro\@floatboxreset\centering
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \usepackage{enumitem} % For a todo check list
