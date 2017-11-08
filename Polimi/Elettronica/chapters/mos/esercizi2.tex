@@ -8,35 +8,35 @@
 \subsection{Esercizio 3.1}
 Dato il Circuito sottostante,
 \begin{enumerate}
-    \item Trovare la tabella di verita' della porta (aka Calcolare $V_{out}$ quando $V_{in} = 0V$ e quando $V_{in} = V_{cc}$)
-    \item Calcolare la soglia logica $V_{th}$
-    \item Calcolare il tempo di propagazione  $t_p$ sul fronte di salita del ingresso
-    \item Calcolare le Potenze statiche $P_{STAT}$ e dinamiche $P_{DIN}$ con un clock TTL\footnote{Tensioni secondo lo standard Transistor Transistor Logic, LOW = 0V , HIGH = 5V} ideal di $T_{CLK} = 0.5\mu s$.
+	\item Trovare la tabella di verita' della porta (aka Calcolare $V_{out}$ quando $V_{in} = 0V$ e quando $V_{in} = V_{cc}$)
+	\item Calcolare la soglia logica $V_{th}$
+	\item Calcolare il tempo di propagazione  $t_p$ sul fronte di salita del ingresso
+	\item Calcolare le Potenze statiche $P_{STAT}$ e dinamiche $P_{DIN}$ con un clock TTL\footnote{Tensioni secondo lo standard Transistor Transistor Logic, LOW = 0V , HIGH = 5V} ideal di $T_{CLK} = 0.5\mu s$.
 \end{enumerate}
 
 \begin{center}
-    \begin{circuitikz}
-        \draw(0,4)
-        node[pmos] (pmos) {}
-        (pmos.gate) node[above left] {G}
-        (pmos.drain) node[right] {D}
-        (pmos.source) node[right] {S};
-        \draw(0,1)
-        node[nmos] (nmos) {}
-        (nmos.gate) node[above] {G}
-        (nmos.drain) node[right] {D}
-        (nmos.source) node[right] {S};
-        \draw (nmos.gate) -- (-1.5,1);
-        \draw (pmos.gate) -- (-1.5,4) -- (-1.5,1);
-        \draw (-1.5,2.5) to[short, *-o] (-2,2.5) node[left] {$V_{in}$};
-        \draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5) --(pmos.source);
-        \draw (pmos.drain) -- (nmos.drain);
-        \draw (nmos.source) -- (0,0) node[ground] {};
-        \draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$};
-        \draw (2,2.5) to[short, *-] (2,2) to[capacitor = C] (2,0) node[ground] {};
-        \draw (nmos.gate) to[open, v_<=$V_{GS}$] (nmos.source);
-        \draw (pmos.gate) to[open, v^>=$V_{SG}$] (pmos.source);
-    \end{circuitikz}
+	\begin{circuitikz}
+		\draw(0,4)
+		node[pmos] (pmos) {}
+		(pmos.gate) node[above left] {G}
+		(pmos.drain) node[right] {D}
+		(pmos.source) node[right] {S};
+		\draw(0,1)
+		node[nmos] (nmos) {}
+		(nmos.gate) node[above] {G}
+		(nmos.drain) node[right] {D}
+		(nmos.source) node[right] {S};
+		\draw (nmos.gate) -- (-1.5,1);
+		\draw (pmos.gate) -- (-1.5,4) -- (-1.5,1);
+		\draw (-1.5,2.5) to[short, *-o] (-2,2.5) node[left] {$V_{in}$};
+		\draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5) --(pmos.source);
+		\draw (pmos.drain) -- (nmos.drain);
+		\draw (nmos.source) -- (0,0) node[ground] {};
+		\draw (0,2.5) to[short, *-o] (3,2.5) node[above] {$V_{out}$};
+		\draw (2,2.5) to[short, *-] (2,2) to[capacitor = C] (2,0) node[ground] {};
+		\draw (nmos.gate) to[open, v_<=$V_{GS}$] (nmos.source);
+		\draw (pmos.gate) to[open, v^>=$V_{SG}$] (pmos.source);
+	\end{circuitikz}
 \end{center}
 
 \[V_{cc}= 5V\]
@@ -94,12 +94,12 @@ Quindi finiti i transitori $V_{out} = 0V$
 
 \textbf{Riassumendo:}
 \begin{center}
-    \begin{tabular}{ c | c }
-        $V_{in}$ & $V_{out}$ \\
-        \hline
-        1        & 0         \\
-        0        & 1         \\
-    \end{tabular}
+	\begin{tabular}{ c | c }
+		$V_{in}$ & $V_{out}$ \\
+		\hline
+		1        & 0         \\
+		0        & 1         \\
+	\end{tabular}
 \end{center}
 quindi e' una porta NOT!
 
@@ -154,47 +154,47 @@ ora applichiamo la definizione di corrente
 \subsection{Esercizio 3.2}
 Dato il Circuito sottostante,
 \begin{enumerate}
-    \item Trovare la tabella di verita' della porta
-    \item Calcolare il tempo di propagazione  $t_p$  con $EN = 1$ e A che commuta tra $ 1 \rightarrow 0$
-    \item Calcolare la Potenza dinamiche $P_{DIN}$ con un clock di $f_{a} = 400kHz$.
+	\item Trovare la tabella di verita' della porta
+	\item Calcolare il tempo di propagazione  $t_p$  con $EN = 1$ e A che commuta tra $ 1 \rightarrow 0$
+	\item Calcolare la Potenza dinamiche $P_{DIN}$ con un clock di $f_{a} = 400kHz$.
 \end{enumerate}
 
 
 \begin{center}
-    \begin{circuitikz}
-        \draw(0,8)
-        node[pmos] (pmos1) {PMOS1};
-        \draw(0,6)
-        node[pmos] (pmos2) {PMOS2};
-        \draw(0,3)
-        node[nmos] (nmos1) {NMOS2};
-        \draw(0,1)
-        node[nmos] (nmos2) {NMOS1};
+	\begin{circuitikz}
+		\draw(0,8)
+		node[pmos] (pmos1) {PMOS1};
+		\draw(0,6)
+		node[pmos] (pmos2) {PMOS2};
+		\draw(0,3)
+		node[nmos] (nmos1) {NMOS2};
+		\draw(0,1)
+		node[nmos] (nmos2) {NMOS1};
 
-        \draw (0,9) node[above] {$V_{dd}$} (0,9) node[tground] {} (0,9) -- (pmos1.source);
+		\draw (0,9) node[above] {$V_{dd}$} (0,9) node[tground] {} (0,9) -- (pmos1.source);
 
-        \draw (pmos1.drain)  -- (pmos2.source);
-        \draw (pmos2.drain)  -- (nmos1.drain);
-        \draw (nmos1.source) -- (nmos2.drain);
-        \draw (nmos2.source) -- (0,0) node[ground] {} (0,0);
+		\draw (pmos1.drain)  -- (pmos2.source);
+		\draw (pmos2.drain)  -- (nmos1.drain);
+		\draw (nmos1.source) -- (nmos2.drain);
+		\draw (nmos2.source) -- (0,0) node[ground] {} (0,0);
 
-        \draw (pmos1.gate) -- (-2.5,8) -- (-2.5,1);
-        \draw (nmos2.gate) -- (-2.5,1);
-        \draw (-2.5,4.5) to[short, *-o] (-3,4.5) node[left] {$A$};
+		\draw (pmos1.gate) -- (-2.5,8) -- (-2.5,1);
+		\draw (nmos2.gate) -- (-2.5,1);
+		\draw (-2.5,4.5) to[short, *-o] (-3,4.5) node[left] {$A$};
 
-        \draw (0,4.5) to[short, *-o] (3,4.5) node[right] {$B$};
-        \draw (2,4.5) to[short, *-] (2,4.5) to[capacitor = C] (2,0) node[ground] {} (0,0);
+		\draw (0,4.5) to[short, *-o] (3,4.5) node[right] {$B$};
+		\draw (2,4.5) to[short, *-] (2,4.5) to[capacitor = C] (2,0) node[ground] {} (0,0);
 
-        \draw (pmos2.gate) node[left] {$\neg EN$};
-        \draw (nmos1.gate) node[left] {$EN$};
+		\draw (pmos2.gate) node[left] {$\neg EN$};
+		\draw (nmos1.gate) node[left] {$EN$};
 
 
-        \draw (nmos1.gate) to[open, v_<=$V_{GS}$] (nmos1.source);
-        \draw (pmos1.gate) to[open, v^>=$V_{SG}$] (pmos1.source);
-        \draw (nmos2.gate) to[open, v_<=$V_{GS}$] (nmos2.source);
-        \draw (pmos2.gate) to[open, v^>=$V_{SG}$] (pmos2.source);
+		\draw (nmos1.gate) to[open, v_<=$V_{GS}$] (nmos1.source);
+		\draw (pmos1.gate) to[open, v^>=$V_{SG}$] (pmos1.source);
+		\draw (nmos2.gate) to[open, v_<=$V_{GS}$] (nmos2.source);
+		\draw (pmos2.gate) to[open, v^>=$V_{SG}$] (pmos2.source);
 
-    \end{circuitikz}
+	\end{circuitikz}
 \end{center}
 
 \[K_n = K_p = 380\frac{\mu A}{V^2}\]
@@ -208,14 +208,14 @@ Dato il Circuito sottostante,
 
 Dobbiamo riempire:
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $EN$ & $A$ & $B$ \\
-        \hline
-        0    & 0   & ?   \\
-        0    & 1   & ?   \\
-        1    & 0   & ?   \\
-        1    & 1   & ?   \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$EN$ & $A$ & $B$ \\
+		\hline
+		0    & 0   & ?   \\
+		0    & 1   & ?   \\
+		1    & 0   & ?   \\
+		1    & 1   & ?   \\
+	\end{tabular}
 \end{center}
 
 \textbf{Casi con $EN = 1$}
@@ -229,14 +229,14 @@ $A = 0V$ implica che la $V_{GS,N1} = 0V$ quindi NMOS1 e' spento quindi la $I_{NM
 $A = 0V$ implica che la $V_{GS,P1} = V_{dd}$ quindi il PMOS1 e' acceso.
 E a prescindere dal comportamento degli altri due MOS , una volta che il condensatore' carico la corrente $I_{PMOS} = 0A$ quindi la $V_{DS,P1} = 0V$
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $EN$ & $A$ & $B$ \\
-        \hline
-        0    & 0   & ?   \\
-        0    & 1   & ?   \\
-        1    & 0   & ?   \\
-        1    & 1   & 0   \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$EN$ & $A$ & $B$ \\
+		\hline
+		0    & 0   & ?   \\
+		0    & 1   & ?   \\
+		1    & 0   & ?   \\
+		1    & 1   & 0   \\
+	\end{tabular}
 \end{center}
 
 \textbf{Caso  $A = 1$}
@@ -244,31 +244,33 @@ E a prescindere dal comportamento degli altri due MOS , una volta che il condens
 Il caso e' duale a quello sopra quindi PMOS1 e' spento, NMOS2 ed NMOS1 sono accesi, quindi $V_{out} = 0V$
 
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $EN$ & $A$ & $B$ \\
-        \hline
-        0    & 0   & ?   \\
-        0    & 1   & 0   \\
-        1    & 0   & ?   \\
-        1    & 1   & 1   \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$EN$ & $A$ & $B$ \\
+		\hline
+		0    & 0   & ?   \\
+		0    & 1   & 0   \\
+		1    & 0   & ?   \\
+		1    & 1   & 1   \\
+	\end{tabular}
 \end{center}
 
 \textbf{Altri Casi}
 
 In entrambi i $EN = 0$ quindi PMOS2 e NMOS2 saranno spenti di sicuro.
-Quindi siamo in uno stato di alta impedenza nel quale l'uscita rimane quella che era.
+Quindi la corrente sia per NMOS2 e PMOS2 e' zero.
+Quindi il condensatore non puo' ne caricarsi ne scaricarsi.
+Questo stato e' chiamato di alta impedenza nel quale l'uscita rimane quella che era.
 
 \textbf{Risultato}
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $EN$ & $A$ & $B$ \\
-        \hline
-        0    & 0   & Hiz \\
-        0    & 1   & 0   \\
-        1    & 0   & Hiz \\
-        1    & 1   & 1   \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$EN$ & $A$ & $B$ \\
+		\hline
+		0    & 0   & Hiz \\
+		0    & 1   & 0   \\
+		1    & 0   & Hiz \\
+		1    & 1   & 1   \\
+	\end{tabular}
 \end{center}
 
 \textbf{Calcolo del tempo di propagazione $t_p$}
@@ -294,27 +296,27 @@ Calcoliamo solo la potenza usata per caricare il condensatore perche' per la sca
 Dato il Circuito sottostante, A e B sono segnali digitali con livelli $0V$ e $3.3V$
 
 \begin{enumerate}
-    \item Determinare la tabella di verita' del circuito specificando il valore di tensione $V_{out}$
-    \item Quale funzione logica svolge il circuito?
-    \item Calcolare il tempo di propagazione della porta logica quando gli ingressi commutano istantaneamente da  $A,B = 1,1 \longrightarrow A,B = 1,0$
-    \item Calcolare la potenza dissipata dal circuito quando $A=1$ e B e' un' onda quadra a frequenza $2MHz$ e $D=30\%$
+	\item Determinare la tabella di verita' del circuito specificando il valore di tensione $V_{out}$
+	\item Quale funzione logica svolge il circuito?
+	\item Calcolare il tempo di propagazione della porta logica quando gli ingressi commutano istantaneamente da  $A,B = 1,1 \longrightarrow A,B = 1,0$
+	\item Calcolare la potenza dissipata dal circuito quando $A=1$ e B e' un' onda quadra a frequenza $2MHz$ e $D=30\%$
 \end{enumerate}
 
 
 \begin{center}
-    \begin{circuitikz}
-        \draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
-        \draw(-1,3) to[Tnmos, l=$N_1$](0,3);
-        \draw (-0.5,4) node[above] {$B$};
-        \draw (0,3) -- (1,3) -- (1,1);
+	\begin{circuitikz}
+		\draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
+		\draw(-1,3) to[Tnmos, l=$N_1$](0,3);
+		\draw (-0.5,4) node[above] {$B$};
+		\draw (0,3) -- (1,3) -- (1,1);
 
-        \draw(-1,1) to[Tnmos, l=$N_2$] (0,1);
-        \draw (-0.5,2) node[above] {$\neg B$};
-        \draw (0,1) -- (1,1);
-        \draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
+		\draw(-1,1) to[Tnmos, l=$N_2$] (0,1);
+		\draw (-0.5,2) node[above] {$\neg B$};
+		\draw (0,1) -- (1,1);
+		\draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
 
-        \draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
-    \end{circuitikz}
+		\draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
+	\end{circuitikz}
 \end{center}
 
 \[K_n = 200 \frac{\mu A}{V^2}\]
@@ -329,14 +331,14 @@ Dato il Circuito sottostante, A e B sono segnali digitali con livelli $0V$ e $3.
 \textbf{Calcolo della tabella di verita'}
 
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $A$ & $B$ & $V_{out}$ \\
-        \hline
-        0   & 0   & ?         \\
-        0   & 1   & ?         \\
-        1   & 0   & ?         \\
-        1   & 1   & ?         \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & ?         \\
+		0   & 1   & ?         \\
+		1   & 0   & ?         \\
+		1   & 1   & ?         \\
+	\end{tabular}
 \end{center}
 
 Analizziamo i casi con $B=0$:
@@ -352,14 +354,14 @@ Quindi a prescindere dallo stato del condensatore in entrambi i casi converge a 
 \[B=0 \Rightarrow V_{out} = 0\]
 
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $A$ & $B$ & $V_{out}$ \\
-        \hline
-        0   & 0   & 0V        \\
-        0   & 1   & ?         \\
-        1   & 0   & 0V        \\
-        1   & 1   & ?         \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & 0V        \\
+		0   & 1   & ?         \\
+		1   & 0   & 0V        \\
+		1   & 1   & ?         \\
+	\end{tabular}
 \end{center}
 
 Caso $A,B = 0,1$:
@@ -374,14 +376,14 @@ Quindi finiti i transitori $V_{out} = 0V$
 
 \[A,B = 0,1 \Rightarrow V_{out} = 0V\]
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $A$ & $B$ & $V_{out}$ \\
-        \hline
-        0   & 0   & 0V        \\
-        0   & 1   & 0V        \\
-        1   & 0   & 0V        \\
-        1   & 1   & ?         \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & 0V        \\
+		0   & 1   & 0V        \\
+		1   & 0   & 0V        \\
+		1   & 1   & ?         \\
+	\end{tabular}
 \end{center}
 
 Caso $A,B = 1,1$:
@@ -396,14 +398,14 @@ Quindi se il condensatore e' scarico esso si carichera' finche' $V_{out} \leq 2.
 
 \[A,B = 1,1 \Rightarrow V_{out} = 2.3V\]
 \begin{center}
-    \begin{tabular}{ c  c | c}
-        $A$ & $B$ & $V_{out}$ \\
-        \hline
-        0   & 0   & 0V        \\
-        0   & 1   & 0V        \\
-        1   & 0   & 0V        \\
-        1   & 1   & 2.3V      \\
-    \end{tabular}
+	\begin{tabular}{ c  c | c}
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & 0V        \\
+		0   & 1   & 0V        \\
+		1   & 0   & 0V        \\
+		1   & 1   & 2.3V      \\
+	\end{tabular}
 \end{center}
 
 \textbf{Quindi questa porta e' un AND.}
@@ -428,28 +430,22 @@ Calcolo solo la potenza erogata per caricare il condensatore poiche' la scarica 
 Dato il Circuito sottostante,
 
 \begin{center}
-    \begin{circuitikz}
-        \draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
-        \draw(-1,3) to[Tpmos] (0,3);
-        \draw (-0.5,4) node[above] {$\neg B$};
-        \draw (0,3) -- (1,3) -- (1,1);
+	\begin{circuitikz}
+		\draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
+		\draw(-1,3) to[Tpmos] (0,3);
+		\draw (-0.5,4) node[above] {$\neg B$};
+		\draw (0,3) -- (1,3) -- (1,1);
 
-        \draw(-1,1) to[Tpmos] (0,1);
-        \draw (-0.5,2) node[above] {$B$};
-        \draw (0,1) -- (1,1);
-        \draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
+		\draw(-1,1) to[Tpmos] (0,1);
+		\draw (-0.5,2) node[above] {$B$};
+		\draw (0,1) -- (1,1);
+		\draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
 
-        \draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
+		\draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
 
-    \end{circuitikz}
+	\end{circuitikz}
 \end{center}
 
 \clearpage
 \subsection{Risoluzione Esercizio 3.4}
-\clearpage
-\subsection{Esercizio 4.1}
-Dato il Circuito sottostante,
-
-\clearpage
-\subsection{Risoluzione Esercizio 4.1}
 \end{document}
