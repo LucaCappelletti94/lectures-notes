@@ -1405,7 +1405,7 @@ quindi e' una porta NOT!
 
 La soglia logica e' la tensione $V_{in}$ per la quale $V_{in} = V_{out}$.
 
-Quindi Sicuraemnte $|V_{DG,n}| = |V_{DG,p}| = |V_{in} - V_{out}| = 0V$ quindi entrambi i MOS non hanno canale dal lato del drain quindi sono o spenti o in saturazione.
+Quindi sicuramente $|V_{DG,n}| = |V_{DG,p}| = |V_{in} - V_{out}| = 0V$ quindi entrambi i MOS non hanno canale dal lato del drain quindi sono o spenti o in saturazione.
 
 Ora procediamo per assurdo.
 
@@ -1429,7 +1429,7 @@ Scelgo di approssimare con l'approssimazione a corrente costante.
 
 \[I_{SAT,n} = K_n \left( V_{GS,n} - V_{t,n} \right)^2 = 16 K_n = 8mA\]
 
-Calcoliamo il differenziale di crica del condensatore d'uscita.
+Calcoliamo il differenziale di carica del condensatore d'uscita.
 
 \[ \triangle Q = C \left( V_f  - V_i\right) = 2.5 C = 2.5 fC\]
 
@@ -1442,7 +1442,7 @@ ora applichiamo la definizione di corrente
 
 \textbf{Calcolo della potenza dinamica $P_{DIN}$}
 
-\[ P_{DIN} = V_{dd} I = V_{dd} \frac{\triangle Q}{T_{CLK}} = V_{dd} \frac{V_{dd} C }{T_{CLK}} = C \frac{V_{dd}^2}{T_{CLK}} = 5mW\]
+\[ P_{DIN} = V_{dd} I = V_{dd} \frac{\triangle Q}{T_{CLK}} = V_{dd} \frac{V_{dd} C }{T_{CLK}} = C \frac{V_{dd}^2}{T_{CLK}} = 5\mu W\]
 
 
 
