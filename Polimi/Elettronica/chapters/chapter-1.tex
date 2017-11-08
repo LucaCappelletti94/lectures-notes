@@ -4,6 +4,87 @@
 
 \begin{document}
 
+\section{Convenzioni}
+
+Per convenzione la tensione $V_{AB}$ e' misurata come $V_{A} - V{B}$ ed indicata con la punta della freccia in $A$ e la coda in $B$.
+\begin{center}
+  \begin{circuitikz}
+  \draw (4,0) to[open, v_>=$V_{AB}$] (0,3);
+  \node[] at (4,0) {$B$};
+  \node[] at (0,3) {$A$};
+  \end{circuitikz}
+\end{center}
+\[V_{AB} = V_{A} - V_{B}\]
+
+\section{Caratteristiche dei segnali}
+
+I segnali sono caratteristiche fisiche variabili nel tempo che trasportano informazione, tipicamente tensioni o correnti.
+
+Per Segnali sinuosidali:
+\begin{center}
+		\begin{tikzpicture}[axis/.style={very thick, ->, >=stealth'} ,scale=1.5]
+			\draw[axis] (-1,0)  -- (7,0) node(xline)[right] {$t$};
+			\draw[axis] (0,-3) -- (0,3) node(yline)[above] {};
+			
+    		\draw plot[scale=1, domain=-1:7,smooth] (\x,{sin(\x r)});
+    		
+    		\draw[red,<->] (0,-2) -- (2*pi,-2);
+    		\draw[dotted] (2*pi,-2) -- (2*pi,0);
+    		\node[red] at (pi,-2.3) {$T$};
+    		
+			\draw[red,<->] (pi/2,0) -- (pi/2,1);	
+			\node[red] at (1.3,0.5) {$ V_p$};		
+			
+			\draw[dotted] (pi/2,1) -- (3*pi/2,1);
+			\draw[red,<->] (3*pi/2,1) -- (3*pi/2,-1);
+			\node[red] at  (4,0.5) {$V_{pp}$};
+			
+		\end{tikzpicture}
+\end{center}
+
+\begin{align*}
+ V_p & \text{  Tensione di picco}\\
+ V_{pp} & \text{  Tensione Picco Picco}\\
+ T & \text{  Periodo}
+\end{align*}
+
+Per segnali ad onda quadra:
+\begin{center}
+		\begin{tikzpicture}[axis/.style={very thick, ->, >=stealth'} ,scale=1.5]
+			\draw[axis] (-1,0)  -- (7,0) node(xline)[right] {$t$};
+			\draw[axis] (0,-2.5) -- (0,3) node(yline)[above] {};
+			\draw (0,2) -- (2,2);
+			\draw (2,2) -- (2,0);
+			\draw (2,0) -- (5,0);
+			\draw (5,0) -- (5,2);
+			\draw (5,2) -- (7,2);
+			
+			\draw[<->,red] (0,-1) -- (2,-1);
+			\node[red] at (1,-0.75) {$T_{on}$};
+			\draw[<->,red] (2,-1) -- (5,-1);
+			\node[red] at (3.5,-0.75) {$T_{off}$};
+			
+			\draw[<->,red] (0,-2) -- (5,-2);
+			\node[red] at (2.5,-1.75) {$T$};
+			
+			\draw[dotted] (2,0) -- (2,-1);
+			\draw[dotted] (5,0) -- (5,-2);
+			
+		\end{tikzpicture}
+\end{center}
+
+\begin{align*}
+ T_{on} & \text{  Periodo On}\\
+ T_{off} & \text{  Periodo Off}\\
+ T & \text{  Periodo}\\
+ D & \text{  Duty-Cycle}
+\end{align*}
+
+\[T = T_{on} + T_{off}\]
+\[D = \frac{T_{on}}{T}\]
+
+
+\clearpage
 \section{Introduzione ai Semiconduttori}
 I semi conduttori sono una categoria di materiali che hanno una conduttivita' a meta' tra conduttori ed isolanti.
 
