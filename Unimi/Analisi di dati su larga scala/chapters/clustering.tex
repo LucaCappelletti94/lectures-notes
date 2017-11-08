@@ -120,8 +120,7 @@ Si tratta di un'estensione di k-means che non solo assume lo spazio euclideo ma 
 Prendiamo due variabili aleatorie, $X,Y \approx N(\mu, \sigma^2) \text{ con } X\bot Y$.
 
 \begin{align}
-  f_{X,Y} (x,y) & =                                                                                                                                     \\
-                & =f_X (x) f_Y(y)                                                                                                                       \\
+  f_{X,Y} (x,y) & =f_X (x) f_Y(y)                                                                                                                       \\
                 & = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \frac{(x-\mu)^2}{2\sigma^2}} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \frac{(y-\mu)^2}{2\sigma^2}} \\
                 & = \frac{1}{2 \pi \sigma^2} e^{-\frac{1}{2\sigma^2}[(x-\mu)^2+(y-\mu)^2]}
 \end{align}
@@ -185,6 +184,7 @@ La varianza $\sigma^2$ viene calcolata, dati gli attributi sovra elencati, come:
   \var(X) = E[X^2] - E[X]^2 \approx \sqrt{\frac{1}{N} \text{sumsq} - \left(\frac{1}{N} \text{sum}\right)^2}
 \]
 
+
 \begin{enumerate}
   \item Fisso un numero $k$ tramite una delle tecniche precedentemente elencate.
   \item Fisso $k$ cluster e determino per ognuno il centroide.
@@ -193,5 +193,35 @@ La varianza $\sigma^2$ viene calcolata, dati gli attributi sovra elencati, come:
   \item Ogni $n$ chunk elaboro i punti nel \textbf{retain set} e nel \textbf{discard set}, cercando di individuare nuovi cluster.
 \end{enumerate}
 
+\subsection{GRGPF}
+Come nel BFR, dopo aver definito che in un cluster esistono un determinato numero di punti, cerco di comprimere le informazioni tramite \textbf{rowsum($p$)}. Punto notevole di questo algoritmo è che \textbf{NON richiede di lavorare in uno spazio euclideo}.
+
+\subsubsection{RowSum($p$)}
+Si tratta della somma del quadrato delle distanze di $p$ rispetto agli altri punti nel suo cluster.
+
+\subsubsection{Come procedo}
+Dati $N$ punti nel cluster, un \textbf{clustroide} $c$ ottenuto tramite $\argmin_p rowsum(p)$, il rowsum del clustroide $c$, i $k$ punti più vicini al clustroide $c$ e la rowsum per ogni punto ed infine i $k$ punti più lontani al clustroide $c$ e la rowsum per ogni punto.
+
+I $k$ punti più vicini servono per eventualmente cambiare clustroide, mentre i $k$ punti più lontani vengono usati per fondere più cluster.
+
+\subsubsection{Calcolo del rowsum}
+Dato un punto $p^{\text{nuovo}}$ aggiunto al cluster.
+
+\[
+  \text{rowsum}\left(p^{\text{nuovo}}\right) = \sum_{q \in \text{cluster}}^k d\left(p^{\text{nuovo}}, q\right) ^2
+\]
+
+Negli spazi ad alte dimensioni vale che, ad alte dimensioni, due vettori son approssimativamente normali, per cui vale che:
+
+\[
+  d(p^{\text{nuovo}}, q)^2 \approx d(p^{\text{nuovo}}, c)^2 + d(c,q)^2
+\]
+
+\begin{align}
+  \text{rowsum}(p^{\text{nuovo}})
+    & = \sum_q^k d(p^{\text{nuovo}}, q)^2                    \\
+    & \approx N d(p^{\text{nuovo}}, c)^2 + \sum_q^k d(c,q)^2 \\
+    & \approx N d(\text{nuovo}, c)^2 + \text{rowsum}(c)
+\end{align}
 
 \end{document}
