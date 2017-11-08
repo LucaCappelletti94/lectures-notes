@@ -1,0 +1,37 @@
+\providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+
+
+\begin{document}
+
+\section{Introduzione ai Semiconduttori}
+I semi conduttori sono una categoria di materiali che hanno una conduttivita' a meta' tra conduttori ed isolanti.
+
+Ci sono due principali tipi di semiconduttori:
+\begin{enumerate}
+  \item Semiconduttori ad elemento singolo: ad esempio quelli al silicio o al germanio.
+  \item Semiconduttori composti:ad esempio quelli a lega di gallio-arsenico.
+\end{enumerate}
+Quindi quelli ad elemento singolo sono tutti elementi con 4 elettroni di valenza nel orbitale piu' esterno, mentre quelli composti sono lege di elementi con valenza 3-5 o 2-6 in modo che in media si comporti come se avesse valenza 4 cosi che si possa formare un reticolo di legami covalenti.
+
+Il principale utilizzo di semiconduttori composti e' per i LED.
+
+Il reticolo di legami covalenti non conduce poiche' non vi e' carica libera pero' col aumentare della temperatura i legami si rompono e generano coppie di elettrone-lacuna ,che in quanto cariche libere rendono il materiale capace di condurre, poi si ricombinano.
+
+Le lacune possono essere modellizzate come particelle di carica opposta al elettrone.
+
+Ovviamente il numero di elettroni liberi e di lacune sono uguali e questo numero per $cm^3$ vale:
+\[n_i = BT^{\frac{3}{2}}e^{\frac{-E_g}{2kT}}\]
+\begin{tabular}{l}
+  $T$ e' la temperatura espressa in gradi Kelvin
+
+  $B$ e' un valore che dipende dal materiale e nel silicio vale $7.3 \times 10^{15} cm^{-3} K^{-\frac{3}{2}}$
+
+  $E_g$ e' l'energia minima per rompere il legame covalente che nel silico vale $1.12 eV$ (ElettronVolt)
+
+  $k$ e' la costante di Boltzmann $8.62 \times 10^{-5} \frac{eV}{K}$
+\end{tabular}
+a temperatura ambiente \[n_i \sim 1.5 \times 10^{10} \frac{tdc}{cm^3}\]
+($tdc$ = Trasportatori di Carica)
+\clearpage
+\end{document}

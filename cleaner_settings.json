@@ -22,7 +22,9 @@
     ".fls",
     ".synctex(busy)",
     ".ilg",
-    ".fdb_latexmk"
+    ".fdb_latexmk",
+    ".pdf",
+    ".dpth"
   ],
   "white-list": [
     ".git"
