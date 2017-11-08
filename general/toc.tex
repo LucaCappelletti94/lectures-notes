@@ -1,0 +1,29 @@
+\usepackage{framed}
+\usepackage{titletoc}
+
+\definecolor{myred}{RGB}{50,40,40}
+\definecolor{myyellow}{RGB}{200,200,200}
+
+\patchcmd{\tableofcontents}{\contentsname}{\contentsname}{}{}
+
+\renewenvironment{leftbar}
+{\def\FrameCommand{\hspace{6em}%
+    {\color{myyellow}\vrule width 2pt depth 6pt}\hspace{1em}}%
+  \MakeFramed{\parshape 1 0cm \dimexpr\textwidth-6em\relax\FrameRestore}\vskip2pt%
+}
+{\endMakeFramed}
+
+\titlecontents{chapter}
+[0em]{\vspace*{2\baselineskip}}
+{\parbox{4.5em}{%
+    \hfill\Huge\bfseries\color{myred}\thecontentspage}%
+  \vspace*{-2.3\baselineskip}\leftbar\textsc{\small\chaptername~\thecontentslabel}\\\sffamily}
+{}{\endleftbar}
+\titlecontents{section}
+[8.4em]
+{\sffamily\contentslabel{3em}}{}{}
+{\dotfill\nobreak\color{myred}\contentspage}
+\titlecontents{subsection}
+[8.4em]
+{\sffamily\contentslabel{3em}}{}{}
+{\dotfill\nobreak\color{myred}\contentspage}
