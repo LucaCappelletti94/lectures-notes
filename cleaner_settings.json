@@ -1,0 +1,30 @@
+{
+  "black-list": [
+    ".mf",
+    ".600pk",
+    ".tfm",
+    ".glsdefs",
+    ".idx",
+    ".pack",
+    ".sample",
+    ".alg",
+    ".log",
+    ".acn",
+    ".toc",
+    ".gz",
+    ".xml",
+    ".acr",
+    ".ist",
+    ".aux",
+    ".md5",
+    ".auxlock",
+    ".ind",
+    ".fls",
+    ".synctex(busy)",
+    ".ilg",
+    ".fdb_latexmk"
+  ],
+  "white-list": [
+    ".git"
+  ]
+}
