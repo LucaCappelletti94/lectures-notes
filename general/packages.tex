@@ -2,6 +2,7 @@
 % !TEX options=--enable-write18
 % !TEX options=-enable-write18
 \documentclass{report} % We use report to allow for chapers etc...
+\usepackage{etoolbox}
 
 \usepackage{iftex} % Used for if
 \ifLuaTeX
@@ -10,7 +11,6 @@
 	\setotherlanguage{english}
 	\setdefaultlanguage{italian}
 	\usepackage{fontspec}
-	\usepackage{etoolbox} % To enable some parts of luacode
 	\usepackage{luacode} % Used to script stuff
 	\usepackage{luatex85}
 	\usepackage{luaotfload}
@@ -142,6 +142,10 @@
 
 \makeatletter
 \g@addto@macro\@floatboxreset\centering
+\makeatother
+
+\makeatletter
+\apptocmd\subcaption@minipage{\centering}{}{}
 \makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
