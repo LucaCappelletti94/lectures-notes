@@ -1,5 +1,7 @@
 {
-	"degree":"Youtube Challenge",
-	"university":"Youtube university",
-	"year": "Year 2017/2018"
+  "year": "Year 2017/2018",
+  "authors": [{
+    "name": "Luca",
+    "surname": "Cappelletti"
+  }]
 }
