@@ -311,10 +311,9 @@ La differenza fra questi raddrizzatori e il raddrizzatore semplice visto precede
 
 
 \section{Come Risolvere gli esercizi sui diodi}
-\subsection{Esercizio 3.1}
-Consideriamo i seguenti circuiti:
+\subsection{Esercizio 5.1a}
+Consideriamo il seguente circuito:
 
-\paragraph{(a)}
 \begin{center}
   \begin{circuitikz}
     \draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5)
@@ -327,22 +326,6 @@ Consideriamo i seguenti circuiti:
   \end{circuitikz}
 \end{center}
 
-\paragraph{(b)}
-\begin{center}
-  \begin{circuitikz}
-    \draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5)
-    (0,5.5) to[resistor=$R_1$] (0,2.5)
-    (0,2.5) to[resistor=$R_2$] (0,0)
-    (0,0) node[ground] {};
-    \draw (0,2.5) to[resistor=$R_3$, *-o] (2,2.5)
-    (2,2.7) node[right] {A}
-    (0,2.5) node[left] {$V_x$}
-    (2,2.5) to[short, *-] (3,2.5) node[above] {$V_{out}$}
-    (2,2.5) to[short, *-] (2,2) to[diode=$D_1$,v<=$V_{D}$ ](2,0) node[below] {$V_{ss}$};
-  \end{circuitikz}
-\end{center}
-
-
 
 \begin{center}
   $V_{DD}=5V$
@@ -353,16 +336,15 @@ Consideriamo i seguenti circuiti:
 
   $R_2=3k\Omega$
 
-  $R_2=1k\Omega$
-
 \end{center}
 
-Si chiede di studiare il funzionamento dei diodi e ricavare $V_{OUT}$ e $V_x$ (quest'ultima per il punto b).
-\subsection{Soluzione Esercizio 5.1}
+\paragraph{(a)} Studiare lo stato di polarizzazione del diodo \paragraph{(b)} Ricavare $V_{OUT}$.
+
+
+\subsection{Soluzione Esercizio 5.1a}
 Solitamente questi circuiti vengono risolti facendo una supposizione iniziale sullo stato di funzionamento e verificando se questa porta a una condizione di assurdo. Se questo accade, l'ipotesi va scartata, altrimenti la accettiamo come valida.
 
 \paragraph{(a)}
-Prendiamo il circuito (a).
 Supponiamo che il diodo sia ON.
 Se il diodo è ON allora $V_D$ deve essere 0.7 V.
 Supponiamo dunque $V_D=0.7 V$ e calcoliamo le correnti che scorrono nel circuito.
@@ -389,16 +371,49 @@ CONTROLLARE I SEGNI E I VERSI DELLE CORRENTI!!!!
 \end{center}
 
 Questo è assurdo: in un diodo, se scorre corrente, non può scorrere in quel verso ma soltanto nel verso opposto.
-Dunque il diodo non può essere acceso.
+Dunque il diodo non può essere acceso. Ci aspettiamo quindi che $V_{OUT}$ sia una tensione "piccola" (o negativa). 
 
-Ricaviamo ora $V_{OUT}$.
-Possiamo applicare il partitore di tensione:
+
+\paragraph{(b)} Vogliamo ora calcolare $V_{OUT}$. Per farlo possiamo applicare il partitore di tensione:
 \[V_{OUT} = V_{DD}\frac{R_2}{R_1+R_2} = 3V\]
-Quindi $V_D=-3V$. Questo verifica che non porta corrente, dunque conferma l'ipotesi per cui debba essere OFF.
+Quindi $V_D=-3V$. 
+Questo verifica l'ipotesi per cui il diodo debba essere OFF.
 
 
-\paragraph{(b)}
-Procediamo in modo analogo al punto precedente.
+
+\subsection{Esercizio 5.1b}
+\begin{center}
+  \begin{circuitikz}
+    \draw (0,5.5) node[above] {$V_{dd}$} (0,5.5) node[tground] {} (0,5.5)
+    (0,5.5) to[resistor=$R_1$] (0,2.5)
+    (0,2.5) to[resistor=$R_2$] (0,0)
+    (0,0) node[ground] {};
+    \draw (0,2.5) to[resistor=$R_3$, *-o] (2,2.5)
+    (2,2.7) node[right] {A}
+    (0,2.5) node[left] {$V_x$}
+    (2,2.5) to[short, *-] (3,2.5) node[above] {$V_{out}$}
+    (2,2.5) to[short, *-] (2,2) to[diode=$D_1$,v<=$V_{D}$ ](2,0) node[below] {$V_{ss}$};
+  \end{circuitikz}
+\end{center}
+
+\begin{center}
+  $V_{DD}=5V$
+
+  $V_{SS}=1V$
+
+  $R_1=2k\Omega$
+
+  $R_2=3k\Omega$
+
+  $R_3=1k\Omega$
+
+\end{center}
+
+\paragraph{(a)} Studiare lo stato di polarizzazione del diodo \paragraph{(b)} Ricavare $V_{OUT}$ e $V_x$.
+
+\subsection{Soluzione Esercizio 5.1b}
+\paragraph{(a)}
+Procediamo in modo analogo all'esercizio precedente.
 Supponiamo però, stavolta, che il diodo sia spento.
 Se il diodo è spento \[I_{R1}=I_D=0\].
 Applichiamo il partitore di tensione:
