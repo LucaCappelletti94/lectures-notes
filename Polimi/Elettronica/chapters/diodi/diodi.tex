@@ -418,13 +418,14 @@ Supponiamo però, stavolta, che il diodo sia spento.
 Se il diodo è spento \[I_{R1}=I_D=0\].
 Applichiamo il partitore di tensione:
 \[V_{X} = V_{DD}\frac{R_2}{R_1+R_2} = 3V\].
-La caduta di tensione ai capi del diodo è proprio 3V, che è \textbf{maggiore} di 0.7V.
+La caduta di tensione ai capi del diodo è 2V, che è \textbf{maggiore} di 0.7V.
 Questo significa che il diodo \textbf{non} può essere spento.
 Dobbiamo scartare l'ipotesi del diodo OFF.
 
-Studiamo quindi il caso diodo ON e cerchiamo $V_x$.
+\paragraph{(b)}
+Prendiamo quindi il caso diodo ON e cerchiamo $V_x$.
 Se il diodo è ON $V_{OUT}=0.7V$ e la corrente $I_D$ deve essere nulla.
-Applichiamo quindi la legge di Kirchhoff al nodo A con ipotesi $V_D=0$. Ne segue: $I_{R1}+I_{R2}+I_{R3}=0$.
+Applichiamo quindi la legge di Kirchhoff al nodo A con ipotesi $I_D=0$. Ne segue: $I_{R1}+I_{R2}+I_{R3}=0$.
 Applico la legge di Ohm per ricavare le correnti in funzione di $V_x$.
 Ricavo:
 \[\frac{V_x-5V}{R_1} + \frac{V_x}{R_2} + \frac{V_x-0.7V}{R_3} =0 \]
