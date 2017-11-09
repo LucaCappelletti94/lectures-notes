@@ -9,6 +9,7 @@ degree = metadata["degree"]
 university = metadata["university"]
 notesType = metadata["notesType"]
 professors = metadata["professors"]
+speakers = metadata["speakers"]
 authors = metadata["authors"]
 \end{luacode}
 
@@ -25,6 +26,11 @@ authors = metadata["authors"]
 \begin{luacode}
 		for key, value in pairs(professors) do
 			 tex.print('Prof. '..value["name"] .. " " .. value["surname"].."\\\\")
+		end
+\end{luacode}
+\begin{luacode}
+		for key, value in pairs(speakers) do
+			 tex.print(value["name"] .. " " .. value["surname"].."\\\\")
 		end
 \end{luacode}
 \begin{luacode}
