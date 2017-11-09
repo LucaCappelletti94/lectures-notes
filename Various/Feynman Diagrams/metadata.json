@@ -1,12 +1,15 @@
 {
-	"title":"Feynman diagrams",
-	"professors":[{
-		"name":"Mattew",
-		"surname":"O’Dowd"
-	}],
-	"authors":[{
-		"name":"Luca",
-		"surname":"Cappelletti"
-	}],
-	"language":"en"
+  "degree": "Youtube Challenge",
+  "university": "Youtube university",
+  "year": "Year 2017/2018",
+  "title": "Feynman diagrams",
+  "professors": [{
+    "name": "Mattew",
+    "surname": "O’Dowd"
+  }],
+  "authors": [{
+    "name": "Luca",
+    "surname": "Cappelletti"
+  }],
+  "language": "en"
 }
