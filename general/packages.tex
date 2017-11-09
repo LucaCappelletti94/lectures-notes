@@ -50,10 +50,6 @@
 \usepackage{framed}
 \usepackage{mathtools}
 \usepackage{float} % to enable floating graphics
-\usepackage{graphicx} % for images and generally graphics
-\usepackage{caption} % enabling of nice captions
-\usepackage{subcaption} % and subcaptions of images
-\graphicspath{ {\main/images/} } % We'll put all the images in the folder "images"
 \usepackage[style=authoryear,sorting=ynt, backend=bibtex]{biblatex} % Package to handle the bibliography
 \nocite{*} % This allows for having entried in the bib file that do not have to be necesseraly used
 \usepackage{subfiles} % To use subfiles without cruxifying saints
@@ -136,34 +132,17 @@
 \usepackage{fancyhdr} % This allows for the headings in the chapters
 \pagestyle{fancy} % This activates it
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THE FOLLOWING CENTERS ALL FLOATING ITEMS BY DEFAULT   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\makeatletter
-\g@addto@macro\@floatboxreset\centering
-\makeatother
-
-\makeatletter
-\apptocmd\subcaption@minipage{\centering}{}{}
-\makeatother
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THE FOLLOWING SET DEFAULT LOCATION AD H FOR FLOATING   %
+% ALL THE PACKAGES FOR FIGURES   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makeatletter
-\providecommand*\setfloatlocations[2]{\@namedef{fps@#1}{#2}}
-\makeatother
-\setfloatlocations{figure}{H}
-\setfloatlocations{table}{H}
+\input{\main/../../general/packages_for_figures.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
 \usepackage{enumitem} % For a todo check list
 \newlist{todolist}{itemize}{2} % For a  todo check list
 \setlist[todolist]{label=$\square$}  % For a todo check list
@@ -186,7 +165,8 @@
 \ifLuaTeX
 	\providecommand{\samples}{80} % Drawing hd graphs when compiling for the final time (production)
 	\input{\main/../../general/metadataLoader.tex}
-	% \input{\main/../../general/languageSwitch.tex}
+	\input{\main/../../general/languageSwitch.tex}
+	% \input{\main/../../general/highlighter.tex}
 	\input{\main/../../general/italian.tex}
 \else
 	% Lua not enabled
@@ -198,6 +178,7 @@
 % EXTERNAL FILES %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+\input{\main/../../general/custom_math_commands.tex}
 \input{\main/../../general/acronyms.tex}
 \addbibresource{references.bib}
 

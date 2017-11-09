@@ -1,0 +1,11 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE FOLLOWING CENTERS ALL FLOATING ITEMS BY DEFAULT   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\g@addto@macro\@floatboxreset\centering
+\makeatother
+
+\makeatletter
+\apptocmd\subcaption@minipage{\centering}{}{}
+\makeatother
