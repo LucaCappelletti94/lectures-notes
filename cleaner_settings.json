@@ -7,6 +7,7 @@
     ".aux",
     ".auxlock",
     ".bbl",
+    ".bcf",
     ".blg",
     ".dpth",
     ".fdb_latexmk",
@@ -27,6 +28,7 @@
     ".synctex(busy)",
     ".tfm",
     ".toc",
+    ".xdy",
     ".xml"
   ],
   "white-list": [
