@@ -1,83 +1,11 @@
 \hypersetup{pageanchor=false}
-\ifLuaTeX
-\begin{luacode}
---[[Load data into variables to simplify code afterwards]]
-title = metadata["title"]
-cfu = metadata["cfu"]
-year = metadata["year"]
-degree = metadata["degree"]
-university = metadata["university"]
-notesType = metadata["notesType"]
-professors = metadata["professors"]
-speakers = metadata["speakers"]
-authors = metadata["authors"]
-\end{luacode}
-
-
 \begin{titlepage}
-\begin{center}
-\vspace*{1em}
-\begin{luacode}
-		tex.print("\\bfseries{\\MakeUppercase{\\large{"..title.."}}}")
-\end{luacode}
-
-\vspace{1em}
-
-\begin{luacode}
-		for key, value in pairs(professors) do
-			 tex.print('Prof. '..value["name"] .. " " .. value["surname"].."\\\\")
-		end
-\end{luacode}
-\begin{luacode}
-		for key, value in pairs(speakers) do
-			 tex.print(value["name"] .. " " .. value["surname"].."\\\\")
-		end
-\end{luacode}
-\begin{luacode}
-	if cfu > 0 then
-		tex.print(cfu.." CFU\\\\")
-	end
-\end{luacode}
-
-\vspace{1em}
-
-\begin{luacode}
-		for key, value in pairs(authors) do
-			 tex.print('\\bfseries{'..value["name"] .. " " .. value["surname"].."}\\\\")
-		end
-\end{luacode}
-
-\vfill
-
-\begin{luacode}
-		tex.print(notesType.."\\\\")
-\end{luacode}
-\begin{luacode}
-		tex.print(year.."\\\\")
-\end{luacode}
-
-\vspace{1em}
-
-\includegraphics[width=0.1\textwidth]{logo}
-
-\vspace{1em}
-
-\begin{luacode}
-		tex.print(degree.."\\\\")
-\end{luacode}
-\begin{luacode}
-		tex.print(university.."\\\\")
-\end{luacode}
-Italy \\
-\today
-
-\end{center}
+	\begin{center}
+		\ifLuaTeX
+			\directlua{dofile(deapness.."/general/lua/title.lua")}
+		\else
+			\large{TITLEPAGE NOT RENDERED!\\RECOMPILE WITH LUATEX!}
+		\fi
+	\end{center}
 \end{titlepage}
-\else
-\begin{titlepage}
-\begin{center}
-\large{TITLEPAGE NOT RENDERED!\\RECOMPILE WITH LUATEX!}
-\end{center}
-\end{titlepage}
-\fi
 \hypersetup{pageanchor=true}

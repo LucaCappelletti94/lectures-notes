@@ -21,6 +21,11 @@
 \fi
 
 \usepackage[T1]{fontenc}  % Defines true type fonts
+\usepackage{lmodern} % Allows for dynamic font size
+
+\let\oldtextbf\textbf % This is a backup for options may edit \textbf
+\let\oldtextit\textit % This is a backup for options may edit \textit
+\let\oldemph\emph % This is a backup for options may edit \emph
 
 \usepackage{silence}
 %Disable all warnings issued by latex starting with "You have..."
@@ -136,7 +141,7 @@
 % ALL THE PACKAGES FOR FIGURES   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{\main/../../general/packages_for_figures.tex}
+\input{\main/../../general/figures/packages_for_figures.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -163,11 +168,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifLuaTeX
+	\input{\main/../../general/lua/deapnessGuesser.tex}
 	\providecommand{\samples}{80} % Drawing hd graphs when compiling for the final time (production)
-	\input{\main/../../general/metadataLoader.tex}
-	%\input{\main/../../general/languageSwitch.tex}
-	% \input{\main/../../general/highlighter.tex}
-	\input{\main/../../general/italian.tex}
+	\directlua{dofile(deapness.."/general/lua/metadataLoader.lua")}
+	\directlua{dofile(deapness.."/general/lua/languageSwitch.lua")}
+	\directlua{dofile(deapness.."/general/lua/highlight.lua")}
+
+	% THE FOLLOWING IS AN EXAMPLE ON HOW TO DEFINE A LUA COMMAND
+	% \def\command{\directlua{dofile(deapness.."/general/lua/fileName.lua")}}
+	% \command
 \else
 	% Lua not enabled
 	\providecommand{\samples}{50} % Drawing ld graphs when compiling for development
