@@ -123,7 +123,6 @@ La disegniamo sul grafico ricavando i due punti di intersezione con gli assi (ci
     (0, 3.5) circle (1pt) node[above right, black] {$\frac{V_{IN}}{R}$};
   \end{tikzpicture}
   \caption{}
-  \label{grafico_1}
 \end{figure}
 
 Si può ora notare che la retta e la curva del diodo si intersecano in un unico punto Q, che rappresenta il punto dal quale il circuito "funziona". Possiamo ora ricavare dal grafico le coordinate di Q, che rappresentano rispettivamente la tensione e la corrente cercate e dunque la nostra soluzione.
@@ -223,7 +222,6 @@ La tensione trasmessa dal trasformatore è a sua volta sinusoidale:
     \draw plot[scale=0.5, domain=0:4*pi,smooth] (\x,{sin(\x r)});
   \end{tikzpicture}
   \caption{Tensione sinusoidale}
-  \label{grafico_1}
 \end{figure}
 
 \subsection{Un semplice raddrizzatore di tensione}
@@ -371,12 +369,12 @@ CONTROLLARE I SEGNI E I VERSI DELLE CORRENTI!!!!
 \end{center}
 
 Questo è assurdo: in un diodo, se scorre corrente, non può scorrere in quel verso ma soltanto nel verso opposto.
-Dunque il diodo non può essere acceso. Ci aspettiamo quindi che $V_{OUT}$ sia una tensione "piccola" (o negativa). 
+Dunque il diodo non può essere acceso. Ci aspettiamo quindi che $V_{OUT}$ sia una tensione "piccola" (o negativa).
 
 
 \paragraph{(b)} Vogliamo ora calcolare $V_{OUT}$. Per farlo possiamo applicare il partitore di tensione:
 \[V_{OUT} = V_{DD}\frac{R_2}{R_1+R_2} = 3V\]
-Quindi $V_D=-3V$. 
+Quindi $V_D=-3V$.
 Questo verifica l'ipotesi per cui il diodo debba essere OFF.
 
 
