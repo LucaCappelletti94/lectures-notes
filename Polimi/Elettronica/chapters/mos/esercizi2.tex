@@ -427,25 +427,147 @@ Calcolo solo la potenza erogata per caricare il condensatore poiche' la scarica 
 
 \clearpage
 \subsection{Esercizio 3.4}
-Dato il Circuito sottostante,
+Agli ingressi $A$ e $B$ vengono applicati segnali digirali con livello $0V$ e $3.3V$
+Dato il Circuito sottostante:
+
+\begin{enumerate}
+	\item Determinare la tabella di verita' del circuito specificando il valore di tensione $V_{out}$
+	\item Calcolare il tmepo di propoagazione della porta logica quando gli ingressi commutano istantaneamente da $A,B = 0,1 \longrightarrow A,B = 1,1$
+	\item Calcolare la potenza dissipata dal circuito quando $A=1$ e $B$ e' un onda quadra avente periodo $T=2\mu s$ e Duty-Cycle $D=50\%$
+	\item Disegnare lo schema circuitale di una porta logica CMOS che realizzi la medesima funione logica utilizzando solo i segnali $A,B,\neg B$. A che valore di tensione corrisponde il valore logico basso dell'uscita?
+\end{enumerate}
 
 \begin{center}
 	\begin{circuitikz}
 		\draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
 		\draw(-1,3) to[Tpmos] (0,3);
+		\node[] at (-0.5,2.8) {$Pmos1$};
 		\draw (-0.5,4) node[above] {$\neg B$};
 		\draw (0,3) -- (1,3) -- (1,1);
 
 		\draw(-1,1) to[Tpmos] (0,1);
+		\node[] at (-0.5,0.7) {$Pmos1$};
 		\draw (-0.5,2) node[above] {$B$};
 		\draw (0,1) -- (1,1);
 		\draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
 
 		\draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
 
+		\draw (-1,3) to[open, v^<=$V_a$] (-0.5,4);
+		\draw (0.1,3) to[open, v_<=$V_b$] (-0.5,4);
+
+		\draw (-1,1) to[open, v^<=$V_c$] (-0.5,2);
+		\draw (0,1) to[open, v_<=$V_d$] (-0.5,2);
+
 	\end{circuitikz}
 \end{center}
 
+\[|K_p| = 200 \frac{ \mu A}{V^2}\]
+\[|V_t| = 1V\]
+\[V_{dd} = 3.3V\]
+\[C = 0.2pF\]
+
+
 \clearpage
 \subsection{Risoluzione Esercizio 3.4}
+
+\textbf{Determinazione della tabella div erita' del circuito}
+
+\textbf{Riassumendo:}
+\begin{center}
+	\begin{tabular}{ c c | c }
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & ?         \\
+		0   & 1   & ?         \\
+		1   & 0   & ?         \\
+		1   & 1   & ?         \\
+	\end{tabular}
+\end{center}
+
+Dal circuito ricaviamo che:
+\[V_a = A - \neg B\]
+\[V_b = V_{out} - \neg B\]
+\[V_c =  - B\]
+\[V_d = V_{out} - B\]
+
+Analizziamo i casi con $B = 0$:
+
+\[V_a = A - 3.3V\]
+\[V_b = V_{out} -  3.3V\]
+\[V_c =  0V\]
+\[V_d = V_{out}\]
+
+Sicuramente Pmos1 e' spento poiche' $V_a \leq 0V$ e $V_b \leq 0V$ quindi nessuna delle due possono essere maggiori di una soglia $V_t$ e quindi non vi e' canale da entrambi i lati quindi e' spento.
+
+$V_c \leq 0V$  quindi Pmos2 e' o spento o in saturazione a second dell fatto che $V_{out} > V_t$ quindi se il condensatore e' carico con tensione superiore a $V_t$ il Pmos2 sara' in saturazione ed il condensatore si scarica attraverso di esso a massa.
+
+Quindi il condesnatore si scarica fino ad $V_t = V_{out} = 1V$
+
+\begin{center}
+	\begin{tabular}{ c c | c }
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & 1V        \\
+		0   & 1   & ?         \\
+		1   & 0   & 1V        \\
+		1   & 1   & ?         \\
+	\end{tabular}
+\end{center}
+
+Consideriamo i casi $B = 1$:
+
+\[V_a = A \]
+\[V_b = V_{out} \]
+\[V_c =  - 3.3V\]
+\[V_d = V_{out} - 3.3V\]
+
+Quindi Pmos2 e' sicuramente spento poiche' $V_c < V_t$ e $V_d \leq 0V < V_t$.
+
+Ora procediamo per casi:
+
+Se $A = 0$
+\[V_a = 0V \]
+\[V_b = V_{out} \]
+
+Quindi $V_a < V_t$ e quindi Pmos1 sara' spento o in saturazione a seconda se $V_{out} > V_t$ quindi se il condensatore fosse carico allora Pmos1 sarebbe in saturazione ed il condensatore si scarica su A verso massa fino a che $V_{out} = V_t$ al qual punto si spegne.
+
+\begin{center}
+	\begin{tabular}{ c c | c }
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & 1V        \\
+		0   & 1   & 1V        \\
+		1   & 0   & 1V        \\
+		1   & 1   & ?         \\
+	\end{tabular}
+\end{center}
+
+Se $A = 1$
+\[V_a = 3.3V \]
+\[V_b = V_{out} \]
+Quindi poiche' $V_a > V_t$ Pmos1 e' in zona ohmmica o in saturazione. In entrambi i casi il condensatore si carica fino a $V_{out} = A = 3.3V
+$
+
+\begin{center}
+	\begin{tabular}{ c c | c }
+		$A$ & $B$ & $V_{out}$ \\
+		\hline
+		0   & 0   & 1V        \\
+		0   & 1   & 1V        \\
+		1   & 0   & 1V        \\
+		1   & 1   & 3.3V      \\
+	\end{tabular}
+\end{center}
+
+\textbf{Calcolo del tempo di propagazione $t_p$}
+\[A,B = 1,1 \longrightarrow A,B = 1,0\]
+\[V_{out} = 3.3V \longrightarrow V_{out} = 1V\]
+quindi si deve calcolare il tempo che la prota ci mette a compiere meta' della escursione.
+
+Quindi si calcola il tempo che la porta ci mette a fare:
+\[V_{out} = 3.3V \longrightarrow V_{out} = \frac{3.3V+1V}{4}V = 1.15V\]
+\[I_{SAT} = K_p (2.3V)^2 = 1mA\]
+\[t_p = \frac{\Delta Q}{I_{SAT}} = C\frac{1.15V}{1mA} = 0.23ns\]
+
 \end{document}
