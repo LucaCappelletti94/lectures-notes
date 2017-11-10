@@ -52,4 +52,7 @@ Backup[ ]of[ ]*.numbers/
 .DS_Store
 .DS_Store
 *.alg
+_minted-main
 .ipynb_checkpoints
+
+Unimi/Algoritmica per il web/_minted-main/
