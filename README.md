@@ -19,6 +19,7 @@ These are notes from courses that we might be currently following, so they might
 ## Various
 Notes are currently available about:
 - [Feynman Diagrams Introduction 🇬🇧](https://github.com/LucaCappelletti94/qed-notes/blob/master/Various/Feynman%20Diagrams/main.pdf)
+- [I Giovani ed il Lavoro 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Various/I%20Giovani%20ed%20il%20Lavoro/main.pdf){:target="_blank"} 
 
 Feel absolutely **FREE** to correct my errors.
 
