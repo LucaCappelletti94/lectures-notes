@@ -4,49 +4,49 @@
 \begin{document}
 
 \begin{definition}[Indice di similarità di insiemi di Jaccard]
-Dati due insiemi $A$ e $B$, la similarità dei due insiemi sarà definita come:
-\[
-	\text{SIM}(A, B) = \dfrac{\abs{A \cap B}}{\abs{A \cup B}}
-\]
+  Dati due insiemi $A$ e $B$, la similarità dei due insiemi sarà definita come:
+  \[
+    \text{SIM}(A, B) = \dfrac{\abs{A \cap B}}{\abs{A \cup B}}
+  \]
 \end{definition}
 
 Es: due utenti sono definibili simile dall'insieme di oggetti che essi hanno acquistato.
 
 \begin{definition}[K-gramma (Shingling)]
-Stringa di $k$ caratteri che appare consecutivamente in un documento. Se volessimo rappresentare un documento tramite il suo k-gramma, il suo indice di Jaggard del k-gramma misura la similarità testuale dei documenti.
+  Stringa di $k$ caratteri che appare consecutivamente in un documento. Se volessimo rappresentare un documento tramite il suo k-gramma, il suo indice di Jaggard del k-gramma misura la similarità testuale dei documenti.
 \end{definition}
 
 \begin{definition}[Stop word]
-Parole comuni nel linguaggio naturale ma che non aggiungono particolare valore semantico ad un testo.
+  Parole comuni nel linguaggio naturale ma che non aggiungono particolare valore semantico ad un testo.
 \end{definition}
 
 In alcuni contesti vengono tolti gli spazi nei documenti per calcolare il k-gramma di un documento, ma questo in alcuni casi può far perdere informazioni sul documento (Es: "Touch down" nel contesto dell'atterraggio di un aereo o di una partita di rugby).
 
 \begin{definition}[Matrice rappresentativa di un Insieme]
-Le colonne della matrice corrispondono agli insiemi, mentre le righe corrispondono agli elementi del set universale da cui i set sono estratti. Viene posto un 1 nella cella sulla riga $r$ e colonna $c$ se l'elemento $r$ è un membro del set $c$, altrimenti è 0.
+  Le colonne della matrice corrispondono agli insiemi, mentre le righe corrispondono agli elementi del set universale da cui i set sono estratti. Viene posto un 1 nella cella sulla riga $r$ e colonna $c$ se l'elemento $r$ è un membro del set $c$, altrimenti è 0.
 
-\begin{figure}[H]
-\begin{center}
-\begin{tabular}{c|c|c|c|c}
-Elemento & $S_1$ & $S_2$ & $S_3$ & $S_4$ \\
-\hline
-\hline
-a & 1 & 0&0&1\\
-b & 0 &0&1&0\\
-c & 0 &1&0&1\\
-d & 1 &0&1&1\\
-e & 0 &0&1&0\\
-\end{tabular}
-\end{center}
-\caption{Nella matrice rappresentativa troviamo $\Delta = \{a,b,c,d,e\}, S_1 = \{a,d\}, S_2 = \{c\}, S_3 = \{b,d,e\}, S_4 = \{a,c,d\}$.}
-\end{figure}
+  \begin{figure}[H]
+    \begin{center}
+      \begin{tabular}{c|c|c|c|c}
+        Elemento & $S_1$ & $S_2$ & $S_3$ & $S_4$ \\
+        \hline
+        \hline
+        a        & 1     & 0     & 0     & 1     \\
+        b        & 0     & 0     & 1     & 0     \\
+        c        & 0     & 1     & 0     & 1     \\
+        d        & 1     & 0     & 1     & 1     \\
+        e        & 0     & 0     & 1     & 0     \\
+      \end{tabular}
+    \end{center}
+    \caption{Nella matrice rappresentativa troviamo $\Delta = \{a,b,c,d,e\}, S_1 = \{a,d\}, S_2 = \{c\}, S_3 = \{b,d,e\}, S_4 = \{a,c,d\}$.}
+  \end{figure}
 \end{definition}
 
 \section{Minhash}
 
 \begin{definition}[Minhash]
-Il valore di minhash di una qualsiasi colonna è il primo numero nella prima colonna, nella data permutazione (le righe della matrice possono essere permutate) che ha come valore 1.
-Ogni calcolo minhash va a costruire la firma di un set, che è composta da un grande numero di questi calcoli.
+  Il valore di minhash di una qualsiasi colonna è il primo numero nella prima colonna, nella data permutazione (le righe della matrice possono essere permutate) che ha come valore 1.
+  Ogni calcolo minhash va a costruire la firma di un set, che è composta da un grande numero di questi calcoli.
 \end{definition}
 
 \subsection{Connessione tra minhashing e indice di Jaccard}
