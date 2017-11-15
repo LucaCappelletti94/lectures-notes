@@ -1,10 +1,11 @@
 {
-	"authors":[{
-		"name":"Luca",
-		"surname":"Cappelletti"
-	}],
-	"cfu":6,
-	"degree":"Some Cool Degree",
-	"university":"University of Chipmunks",
-	"year": "Year 2017/2018"
+  "notesType": "Lecture Notes",
+  "year": "Year 2017/2018",
+  "language": "it",
+  "cfu": 0,
+  "highlight": false,
+  "country": "Italy",
+  "professors": [],
+  "speakers": [],
+  "authors": []
 }
