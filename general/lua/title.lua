@@ -36,7 +36,9 @@ if cfu > 0 then
   bsprint(cfu.." CFU")
 end
 
-vspace()
+if cpu > 0 or table.getn(speakers) > 0 or table.getn(professors) > 0 then
+  vspace()
+end
 
 for key, value in pairs(authors) do
   bsprint('\\oldtextbf{'..value["name"] .. " " .. value["surname"].."}")
