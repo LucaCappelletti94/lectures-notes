@@ -36,7 +36,7 @@ if cfu > 0 then
   bsprint(cfu.." CFU")
 end
 
-if cpu > 0 or table.getn(speakers) > 0 or table.getn(professors) > 0 then
+if cfu > 0 or table.getn(professors) > 0 or speakers.getn(professors) > 0 then
   vspace()
 end
 
