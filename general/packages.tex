@@ -188,6 +188,13 @@
 	\input{\main/../../general/italian.tex}
 \fi
 
+%
+% THE FOLLOWING CODE WRAPS THEOREMS IN A GRAY BOX
+%
+\colorlet{shadecolor}{gray!5}
+\let\oldTheorem\theorem
+\renewenvironment{theorem}{\begin{shaded}\begin{oldTheorem}}{\end{oldTheorem}\end{shaded}\ignorespacesafterend
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % EXTERNAL FILES %
 %%%%%%%%%%%%%%%%%%%%%%%%%
