@@ -1,0 +1,46 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 1}
+Si definisca in modo formale un problema di decisione complesso $(X, \Omega, F, f, D, \Pi)$ descrivendo brevemente il significato dei suoi elementi.
+
+Si indichino le proprietà di cui deve godere la relazione di preferenza $\Pi$ per essere un ordine debole e si spieghi se, in tal caso, essa ammette una funzione valore conforme.
+
+\subsection{Soluzione esercizio 1}
+Un problema di decisione complesso viene descritto dalla sestupla $(X, \Omega, F, f, D, \Pi)$:
+
+\begin{description}
+  \item [$X$] L'insieme delle \textbf{soluzioni possibili}.
+  \item [$\Omega$] L'insieme degli \textbf{scenari o esiti possibili}.
+  \item [$F$] L'insieme degli \textbf{impatti possibili}.
+  \item [$f(x, \omega): X \times \Omega  \rightarrow F$] La \textbf{funzione impatto}.
+  \item [$D$] L'insieme dei \textbf{decisori}.
+  \item [$\Pi(d): D \rightarrow 2^{F\times F}$] La \textbf{relazione di preferenza}.
+\end{description}
+
+\vspace{5mm}
+
+La \textbf{relazione di preferenza $\Pi$} per essere un \textit{ordine debole} deve godere delle proprietà \textbf{riflessiva}, \textbf{transitiva} e \textbf{di completezza}.
+
+\begin{description}
+  \item [Proprietà riflessiva] Ogni impatto è \textbf{indifferente} a se stesso: $f \preceq f$.
+  \item [Proprietà transitiva] Se un impatto $f_1$ è preferibile ad un altro $f_2$ e questo ad un terzo $f_3$, allora il primo è preferibile al terzo: $f_1 \preceq f_2 \land f_2 \preceq f_3 \Rightarrow f_1 \preceq f_3$.
+  \item [Proprietà di completezza] Dati due impatti, un dei due è certamente \textbf{preferibile} all'altro, o al limite sono \textbf{indifferenti}.
+\end{description}
+
+\vspace{5mm}
+
+Una \textbf{funzione valore} $v: F \rightarrow \mathbb{R}$ associa ad ogni impatto un valore reale, ed è conforme ad una relazione di preferenza $\Pi$ quando il valore di un impatto $f_1$ preferibile ad un impatto $f_2$ è maggiore del valore dell'impatto $f_2$:
+
+\[
+  f_1 \preceq f_2 \Leftrightarrow v(f_1) \geq v(f_2) \forall f_1, v_2 \in F
+\]
+
+Se una relazione di preferenza $\Pi$ ammette una funzione valore, allora $\Pi$ è un ordine debole.
+
+\textbf{Non vale però il contrario}, per esempio un \textit{ordine lessicografico} è un ordine totale che non ammette una funzione valore conforme.
+
+Una relazione $\Pi$ di ordine debole su $F$ ammette una funzione valore conforme \textbf{se e solo se} $\exists \tilde{F} \subseteq F$ numerabile e denso in $F$.
+
+\end{document}

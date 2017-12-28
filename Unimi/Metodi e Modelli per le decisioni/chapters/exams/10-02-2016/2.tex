@@ -32,7 +32,7 @@ a) La funzione nel suo dominio di definizione è la seguente:
 					zlabel=$f(x)$
 				]
 				\addplot3[surf, unbounded coords=jump]
-				{x^2 + y^2 -6*x - 4*y + 9 < 0 && y < 2 ? y^2 + x - 4*y : NaN};
+				{x^2 + y^2 -6*x - 4*y + 9 <  0 && y < 2 ? y^2 + x - 4*y : NaN};
 			\end{axis}
 		\end{tikzpicture}
 		\caption{La funzione $f(x)$}
@@ -80,7 +80,7 @@ Calcolo quindi i gradienti dei due vincoli, $\nabla g_1(x)$ e $\nabla g_2(x)$:
 	\end{bmatrix}
 \]
 
-Il primo gradiente si annulla per $P = (x_1 = 3, x_2 = 2)$, che è posto dove si attiva il vincolo $g_2$. Il secondo gradiente non si annulla mai. Il punto $P$ viene considerato un punto candidato.
+Il primo gradiente si annulla per $P = (x_1 = 3, x_2 = 2)$, che è posto dove si attiva il vincolo $g_2$ ma non $g_1$ ed il secondo gradiente non si annulla mai (menchemeno in $P$) per cui $P$ è considerato regolare.
 
 Identifichiamo ora i punti di intersezione dei vincoli:
 
@@ -287,7 +287,6 @@ Sostituisco i punti candidati nella funzione da minimizzare ed ottengo:
 
 \[
 	\begin{cases}
-		f(P) = f(3, 2) = 4 + 3 - 8 = -1          \\
 		f(A) = f(1,2) =  4 + 1 - 8 = -3          \\
 		f(B) = f(5,2) =  4 + 5 - 8 = 1           \\
 		f(C) = f(3 - \sqrt{14}, 2) \approx -4.74 \\
