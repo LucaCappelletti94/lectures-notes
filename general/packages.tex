@@ -4,6 +4,10 @@
 \documentclass{report} % We use report to allow for chapers etc...
 \usepackage{etoolbox}
 
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\theoremstyle{definition} % Sets the theorem style without italic
+\usepackage{bm} % To have bold vectors
+
 \usepackage{iftex} % Used for if
 \ifLuaTeX
 	\usepackage{shellesc}
@@ -47,8 +51,6 @@
 
 \usepackage[x11names,table]{xcolor} % To highlight text
 
-\usepackage{amsmath,amsthm,amsfonts,amssymb}
-\theoremstyle{definition} % Sets the theorem style without italic
 
 \usepackage{emptypage} % When a page is empty, Latex won't generate page number or other page elements.
 
@@ -66,7 +68,6 @@
 \usepackage{chngcntr} % Has functions to reset counters
 
 \usepackage{parskip} % To leave spaces in paragraphs
-\usepackage{bm} % To have bold vectors
 \usepackage{soul} % To cancel text with a line using the commant \st, to underline text and highlight.
 
 \usepackage{sectsty}
