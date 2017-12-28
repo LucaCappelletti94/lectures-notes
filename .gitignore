@@ -58,3 +58,9 @@ _minted-main
 Unimi/Algoritmica per il web/_minted-main/
 
 *.synctex(busy)
+
+*.mf
+
+*.tfm
+
+*.600pk
