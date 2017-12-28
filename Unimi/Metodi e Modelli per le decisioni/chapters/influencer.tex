@@ -1,0 +1,708 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Influencer}
+
+\begin{figure}
+	\includegraphics[width=0.6\textwidth]{influencer.jpg}
+	\caption{Influencer}
+\end{figure}
+
+\section{La necessità di modellare gli influencer}
+Nel mondo iper-connesso odierno, non è più possibile pensare ad una persona come un decisore indipendente da altri, ma è necessario considerare come la decisione di altri vada a modificare quella di una determinata persona.
+
+\section{Definizione di influencer}
+Un \textbf{influencer} è un decisore $d_i \in D$ in grado di modificare la decisione di almeno un altro decisore $d_j \in D$ in merito ad almeno un impatto $f$.
+
+\section{Funzione di influenza}
+La funzione di influenza $\Psi$ (formula \ref{influence_function}) è definita come l'influenza che il decisore $i-esimo$ ha sul decisore $j-esimo$ in merito all'impatto $k-esimo$.
+
+\begin{figure}
+	\[
+		\Psi(d_i, d_j, f_k): D \times D \times F \rightarrow [0,1]
+	\]
+	\caption{La funzione di influenza $\Psi$}
+	\label{influence_function}
+\end{figure}
+
+La somma di tutti le influenze che un decisore $d_j$ può ricevere relativamente ad un impatto $f_k$, cioè la somma del suo \textbf{vettore di influenze} (figura \ref{influence_vector}), è esattamente $1$ (formula \ref{influence_function_column_limit}). Se non vi sono influencer attivi su $d_j$, il decisore $d_i$ che influenza $d_j$ corrisponde con $d_j$.
+
+\begin{figure}
+	\begin{subfigure}{0.45\textwidth}
+		\[
+			\bm{\Psi}_{jk} = \begin{bmatrix}
+				\Psi(d_1,d_j,f_k)         \\
+				\vdots                    \\
+				\Psi(d_i,d_j,f_k)         \\
+				\vdots                    \\
+				\Psi(d_{\abs{D}},d_j,f_k) \\
+			\end{bmatrix}
+		\]
+		\caption{Vettore di influenze $\bm{\Psi}_{jk}$}
+		\label{influence_vector}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\[
+			\sum_{j=1}^{\abs{D}} \Psi(d_i, d_j, f_k)= 1 \quad \forall d_i \in D, \forall f_k \in F
+		\]
+		\caption{Vincolo del vettore di influenze $\bm{\Psi}_{jk}$}
+		\label{influence_function_column_limit}
+	\end{subfigure}
+	\caption{Vettore di influenze e vincolo del vettore di influenze}
+\end{figure}
+
+La somma di tutte le influenze in una matrice di influenza su impatto $k-esimo$ (figura \ref{matrice_influenza_k}) deve essere pari al numero di decisori $\abs{D}$ (formula \ref{influence_function_matrix_k_limit}).
+
+\begin{figure}
+	\[
+		\bm{\Psi}_{k} = \begin{bmatrix}
+			\Psi(d_1,d_1,f_k)          & \Psi(d_1,d_2,f_k)          & \ldots & \Psi(d_1,d_{\abs{D}},f_k))          \\
+			\Psi(d_2,d_1,f_k)          & \Psi(d_2,d_2,f_k)          & \ldots & \Psi(d_2,d_{\abs{D}},f_k))          \\
+			\vdots                     & \vdots                     & \ddots & \vdots                              \\
+			\Psi(d_{\abs{D}}, d_1,f_k) & \Psi(d_{\abs{D}}, d_2,f_k) & \ldots & \Psi(d_{\abs{D}}, d_{\abs{D}}, f_k)
+		\end{bmatrix}
+	\]
+	\caption{Matrice di influenza su impatto $k-esimo$ $\bm{\Psi}_k$}
+	\label{matrice_influenza_k}
+\end{figure}
+
+\begin{figure}
+	\[
+		\sum_{j=1}^{\abs{D}}\sum_{i=1}^{\abs{D}} \Psi(d_i, d_j, f_k) = \abs{D} \quad \forall f_k \in F
+	\]
+	\caption{Vincolo per matrice di influenza su impatto k-esimo $\bm{\Psi}_k$}
+	\label{influence_function_matrix_k_limit}
+\end{figure}
+
+\section{Matrice di influenza}
+Con matrice di influenza $\bm{\Psi}$ (figura \ref{influence_matrix}) si intende una matrice 3-dimensionale $D \times D \times F$ in cui il valore $\psi_{ijk}$ è definito come il valore della funzione di influenza $\Psi$ per quei decisori e impatto.
+
+\begin{figure}
+	\begin{tikzpicture}[every node/.style={anchor=north east,fill=white,minimum width=1.4cm,minimum height=7mm}]
+		\matrix (mA) [draw,matrix of math nodes]
+		{
+			\Psi(d_1,d_1,f_{\abs{F}}) & \Psi(d_1,d_2,f_{\abs{F}}) & \ldots & \Psi(d_1,d_{\abs{D}},f_{\abs{F}})) \\
+			\Psi(d_2,d_1,f_{\abs{F}}) & \Psi(d_2,d_2,f_{\abs{F}}) & \ldots & \Psi(d_2,d_{\abs{D}},f_{\abs{F}})) \\
+			\vdots                 & \vdots                 & \ddots & \vdots                  \\
+			\Psi(d_{\abs{D}}, d_1,f_{\abs{F}}) & \Psi(d_{\abs{D}}, d_2,f_{\abs{F}}) & \ldots & \Psi(d_{\abs{D}}, d_{\abs{D}},f_{\abs{F}})  \\
+		};
+
+		\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(5,1.5)$)
+		{
+			\Psi(d_1,d_1,f_k) & \Psi(d_1,d_2,f_k) & \ldots & \Psi(d_1,d_{\abs{D}},f_k)) \\
+			\Psi(d_2,d_1,f_k) & \Psi(d_2,d_2,f_k) & \ldots & \Psi(d_2,d_{\abs{D}},f_k)) \\
+			\vdots                 & \vdots                 & \ddots & \vdots                  \\
+			\Psi(d_{\abs{D}}, d_1,f_k) & \Psi(d_{\abs{D}}, d_2,f_k) & \ldots & \Psi(d_{\abs{D}}, d_{\abs{D}},f_k)  \\
+		};
+
+		\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(5,1.5)$)
+		{
+			\Psi(d_1,d_1,f_1) & \Psi(d_1,d_2,f_1) & \ldots & \Psi(d_1,d_{\abs{D}},f_1)) \\
+			\Psi(d_2,d_1,f_1) & \Psi(d_2,d_2,f_1) & \ldots & \Psi(d_2,d_{\abs{D}},f_1)) \\
+			\vdots                 & \vdots                 & \ddots & \vdots                  \\
+			\Psi(d_{\abs{D}}, d_1,f_1) & \Psi(d_{\abs{D}}, d_2,f_1) & \ldots & \Psi(d_{\abs{D}}, d_{\abs{D}},f_1)  \\
+		};
+
+		\draw[dashed](mA.north east)--(mC.north east);
+		\draw[dashed](mA.north west)--(mC.north west);
+		\draw[dashed](mA.south east)--(mC.south east);
+	\end{tikzpicture}
+	\caption{Matrice di Influenza $\bm{\Psi}$}
+	\label{influence_matrix}
+\end{figure}
+
+\subsection{Casi banali}
+
+\subsubsection{Matrice di influenza in assenza di influencer}
+La matrice di influenza in una condizione di assenza di influencers (figura \ref{no_influencer_influence_matrix}) è composta da $\abs{F}$ matrici \textbf{identità}, in cui ogni decisore è convinto solamente della propria decisione.
+
+\begin{figure}
+	\begin{tikzpicture}[every node/.style={anchor=north east,fill=white,minimum width=1.4cm,minimum height=7mm}]
+		\matrix (mA) [draw,matrix of math nodes]
+		{
+			1      & 0      & \ldots & 0      \\
+			0      & 1      & \ldots & 0      \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & \ldots & 1      \\
+		};
+
+		\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(2,1.5)$)
+		{
+			1      & 0      & \ldots & 0      \\
+			0      & 1      & \ldots & 0      \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & \ldots & 1      \\
+		};
+
+		\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(2,1.5)$)
+		{
+			1      & 0      & \ldots & 0      \\
+			0      & 1      & \ldots & 0      \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & \ldots & 1      \\
+		};
+
+		\draw[dashed](mA.north east)--(mC.north east);
+		\draw[dashed](mA.north west)--(mC.north west);
+		\draw[dashed](mA.south east)--(mC.south east);
+	\end{tikzpicture}
+	\caption{Matrice di influenza in assenza di influencer}
+	\label{no_influencer_influence_matrix}
+\end{figure}
+
+\subsubsection{Matrice di influenza in condizioni di dittatura}
+In condizioni di dittatura la matrice di influenza (figura \ref{dictator_influence_matrix}) sarà composto di soli $1$ quando $d_i$ è il dittatore, di soli $0$ altrimenti.
+
+\begin{figure}
+	\begin{tikzpicture}[every node/.style={anchor=north east,fill=white,minimum width=1.4cm,minimum height=7mm}]
+		\matrix (mA) [draw,matrix of math nodes]
+		{
+			0      & 0      & \ldots & 0      \\
+			0      & 0      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \vdots \\
+			1      & 1      & \ldots & 1      \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & \ldots & 0      \\
+		};
+
+		\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(2,2.5)$)
+		{
+			0      & 0      & \ldots & 0      \\
+			0      & 0      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \vdots \\
+			1      & 1      & \ldots & 1      \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & \ldots & 0      \\
+		};
+
+		\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(2,2.5)$)
+		{
+			0      & 0      & \ldots & 0      \\
+			0      & 0      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \vdots \\
+			1      & 1      & \ldots & 1      \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & \ldots & 0      \\
+		};
+
+		\draw[dashed](mA.north east)--(mC.north east);
+		\draw[dashed](mA.north west)--(mC.north west);
+		\draw[dashed](mA.south east)--(mC.south east);
+	\end{tikzpicture}
+	\caption{Matrice di Influenza in condizioni di dittatura}
+	\label{dictator_influence_matrix}
+\end{figure}
+
+\subsubsection{Matrice di influenza in condizioni di equa oligarchia}
+In condizioni di oligarchia la matrice di influenza (figura \ref{oligarchy_influence_matrix}) avrà il gruppo di decisori (nel caso rappresentato 4) a capo dell'oligarchia che si suddividono equamente l'influenza nei confronti degli altri e non si influenzano a vicenda.
+
+\begin{figure}
+	\begin{tikzpicture}[every node/.style={anchor=north east,fill=white,minimum width=1.4cm,minimum height=7mm}]
+		\matrix (mA) [draw,matrix of math nodes]
+		{
+			0      & \ldots & 0      & 0      & 0      & 0      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+			0.25   & \ldots & 0      & 0      & 0      & 1      & \ldots & 0.25   \\
+			0.25   & \ldots & 0      & 0      & 1      & 0      & \ldots & 0.25   \\
+			0.25   & \ldots & 0      & 1      & 0      & 0      & \ldots & 0.25   \\
+			0.25   & \ldots & 1      & 0      & 0      & 0      & \ldots & 0.25   \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+			0      & \ldots & 0      & 0      & 0      & 0      & \ldots & 0      \\
+		};
+
+		\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(9,5.5)$)
+		{
+			0      & \ldots & 0      & 0      & 0      & 0      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+			0.25   & \ldots & 0      & 0      & 0      & 1      & \ldots & 0.25   \\
+			0.25   & \ldots & 0      & 0      & 1      & 0      & \ldots & 0.25   \\
+			0.25   & \ldots & 0      & 1      & 0      & 0      & \ldots & 0.25   \\
+			0.25   & \ldots & 1      & 0      & 0      & 0      & \ldots & 0.25   \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+			0      & \ldots & 0      & 0      & 0      & 0      & \ldots & 0      \\
+		};
+
+		\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(9,5.5)$)
+		{
+			0      & \ldots & 0      & 0      & 0      & 0      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+			0.25   & \ldots & 0      & 0      & 0      & 1      & \ldots & 0.25   \\
+			0.25   & \ldots & 0      & 0      & 1      & 0      & \ldots & 0.25   \\
+			0.25   & \ldots & 0      & 1      & 0      & 0      & \ldots & 0.25   \\
+			0.25   & \ldots & 1      & 0      & 0      & 0      & \ldots & 0.25   \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+			0      & \ldots & 0      & 0      & 0      & 0      & \ldots & 0      \\
+		};
+
+		\draw[dashed](mA.north east)--(mC.north east);
+		\draw[dashed](mA.north west)--(mC.north west);
+		\draw[dashed](mA.south east)--(mC.south east);
+	\end{tikzpicture}
+	\caption{Matrice di Influenza in condizioni di equa oligarchia}
+	\label{oligarchy_influence_matrix}
+\end{figure}
+
+\clearpage
+
+\subsection{Matrice di influenza del decisore}
+La \textbf{matrice di influenza del decisore} è il taglio della matrice di influenze fissato un decisore $d_j$.
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$                         & $\ldots$ & $d_i$                         & $\ldots$ & $d_{\abs{D}}$                         \\
+		\hline
+		$f_1$         & $\Psi(d_1, d_j, f_1)$         & $\ldots$ & $\Psi(d_i, d_j, f_1)$         & $\ldots$ & $\Psi(d_{\abs{D}}, d_j, f_1)$         \\
+		\hline
+		$\vdots$      & $\vdots$                      & $\ddots$ & $\vdots$                      & $\vdots$ & $\vdots$                              \\
+		\hline
+		$f_k$         & $\Psi(d_1, d_j, f_k)$         & \ldots   & $\Psi(d_i, d_j, f_k)$         & $\ldots$ & $\Psi(d_{\abs{D}}, d_j, f_k)$         \\
+		\hline
+		$\vdots$      & $\vdots$                      & $\vdots$ & $\vdots$                      & $\ddots$ & $\vdots$                              \\
+		\hline
+		$f_{\abs{F}}$ & $\Psi(d_1, d_j, f_{\abs{F}})$ & \ldots   & $\Psi(d_i, d_j, f_{\abs{F}})$ & $\ldots$ & $\Psi(d_{\abs{D}}, d_j, f_{\abs{F}})$ \\
+		\hline
+	\end{tabular}
+	\caption{Matrice di influenza del decisore (sulle righe gli impatti, sulle colonne gli influencer)}
+\end{table}
+
+\subsubsection{Caso di assenza di influencer}
+Nel caso di assenza di influencer, i decisori influenzano unicamente se stessi:
+
+\[
+	\begin{cases}
+		\Psi(d_j, d_i, f_k) = 1                \\
+		\Psi(d_i, d_j, f_k) = 0 \quad i \neq j \\
+	\end{cases}
+	\forall f_k \in F
+\]
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$    & $\ldots$ & $d_{i=j}$ & $\ldots$ & $d_{\abs{D}}$ \\
+		\hline
+		$f_1$         & 0        & $\ldots$ & 1         & $\ldots$ & 0             \\
+		\hline
+		$\vdots$      & $\vdots$ & $\ddots$ & $\vdots$  & $\vdots$ & $\vdots$      \\
+		\hline
+		$f_k$         & 0        & \ldots   & 1         & $\ldots$ & 0             \\
+		\hline
+		$\vdots$      & $\vdots$ & $\vdots$ & $\vdots$  & $\ddots$ & $\vdots$      \\
+		\hline
+		$f_{\abs{F}}$ & 0        & \ldots   & 1         & $\ldots$ & 0             \\
+		\hline
+	\end{tabular}
+	\caption{Caso di assenza di infuencer}
+\end{table}
+
+\subsubsection{Caso di dittatura}
+Nel caso di dittatura, i decisori sono completamente influenzati dal dittatore $d_d$:
+
+\[
+	\begin{cases}
+		\Psi(d_d, d_i, f_k) = 1                \\
+		\Psi(d_i, d_j, f_k) = 0 \quad i \neq d \\
+	\end{cases}
+	\forall f_k \in F
+\]
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$    & $\ldots$ & $d_{i=d}$ & $\ldots$ & $d_{\abs{D}}$ \\
+		\hline
+		$f_1$         & 0        & $\ldots$ & 1         & $\ldots$ & 0             \\
+		\hline
+		$\vdots$      & $\vdots$ & $\ddots$ & $\vdots$  & $\vdots$ & $\vdots$      \\
+		\hline
+		$f_k$         & 0        & \ldots   & 1         & $\ldots$ & 0             \\
+		\hline
+		$\vdots$      & $\vdots$ & $\vdots$ & $\vdots$  & $\ddots$ & $\vdots$      \\
+		\hline
+		$f_{\abs{F}}$ & 0        & \ldots   & 1         & $\ldots$ & 0             \\
+		\hline
+	\end{tabular}
+	\caption{Caso di dittatura}
+\end{table}
+
+
+\subsection{Matrice di influenza dell'influencer}
+La \textbf{matrice di influenza dell'influncer} è il taglio della matrice di influenze fissato un decisore influencer $d_i$.
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$                         & $\ldots$ & $d_j$                         & $\ldots$ & $d_{\abs{D}}$                         \\
+		\hline
+		$f_1$         & $\Psi(d_i, d_1, f_1)$         & $\ldots$ & $\Psi(d_i, d_j, f_1)$         & $\ldots$ & $\Psi(d_i, d_{\abs{D}}, f_1)$         \\
+		\hline
+		$\vdots$      & $\vdots$                      & $\ddots$ & $\vdots$                      & $\vdots$ & $\vdots$                              \\
+		\hline
+		$f_k$         & $\Psi(d_i, d_1, f_k)$         & \ldots   & $\Psi(d_i, d_j, f_k)$         & $\ldots$ & $\Psi(d_i, d_{\abs{D}}, f_k)$         \\
+		\hline
+		$\vdots$      & $\vdots$                      & $\vdots$ & $\vdots$                      & $\ddots$ & $\vdots$                              \\
+		\hline
+		$f_{\abs{F}}$ & $\Psi(d_i, d_1, f_{\abs{F}})$ & \ldots   & $\Psi(d_i, d_j, f_{\abs{F}})$ & $\ldots$ & $\Psi(d_i, d_{\abs{D}}, f_{\abs{F}})$ \\
+		\hline
+	\end{tabular}
+	\caption{Matrice di influenza dell'influencer (sulle righe gli impatti, sulle colonne i decisori)}
+\end{table}
+
+\subsubsection{Caso di assenza di influencer}
+Nel caso di assenza di influencer, gli ``influencer'' influenzano unicamente se stessi:
+
+\[
+	\begin{cases}
+		\Psi(d_i, d_i, f_k) = 1                \\
+		\Psi(d_i, d_j, f_k) = 0 \quad i \neq j \\
+	\end{cases}
+	\forall f_k \in F
+\]
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$    & $\ldots$ & $d_{i=j}$ & $\ldots$ & $d_{\abs{D}}$ \\
+		\hline
+		$f_1$         & 0        & $\ldots$ & 1         & $\ldots$ & 0             \\
+		\hline
+		$\vdots$      & $\vdots$ & $\ddots$ & $\vdots$  & $\vdots$ & $\vdots$      \\
+		\hline
+		$f_k$         & 0        & \ldots   & 1         & $\ldots$ & 0             \\
+		\hline
+		$\vdots$      & $\vdots$ & $\vdots$ & $\vdots$  & $\ddots$ & $\vdots$      \\
+		\hline
+		$f_{\abs{F}}$ & 0        & \ldots   & 1         & $\ldots$ & 0             \\
+		\hline
+	\end{tabular}
+	\caption{Caso di assenza di infuencer}
+\end{table}
+
+\subsubsection{Caso di dittatura}
+Nel caso di dittatura, l'unico influencer che può influenzare è $d_d$:
+
+\[
+	\begin{cases}
+		\Psi(d_d, d_i, f_k) = 1                \\
+		\Psi(d_i, d_j, f_k) = 0 \quad i \neq d \\
+	\end{cases}
+	\forall f_k \in F
+\]
+
+Scegliendo come influencer $d_d$ la matrice è formata da soli $1$, mentre scegliendo come influencer $d_{i \neq d}$ la matrice è formata da soli $0$.
+
+\begin{figure}
+	\begin{subfigure}{0.48\textwidth}
+		\begin{table}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				              & $d_1$    & $\ldots$ & $d_j$    & $\ldots$ & $d_{\abs{D}}$ \\
+				\hline
+				$f_1$         & 1        & $\ldots$ & 1        & $\ldots$ & 1             \\
+				\hline
+				$\vdots$      & $\vdots$ & $\ddots$ & $\vdots$ & $\vdots$ & $\vdots$      \\
+				\hline
+				$f_k$         & 1        & \ldots   & 1        & $\ldots$ & 1             \\
+				\hline
+				$\vdots$      & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$      \\
+				\hline
+				$f_{\abs{F}}$ & 1        & \ldots   & 1        & $\ldots$ & 1             \\
+				\hline
+			\end{tabular}
+			\caption{Scegliendo come influencer $d_d$}
+		\end{table}
+	\end{subfigure}
+	\begin{subfigure}{0.48\textwidth}
+		\begin{table}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				              & $d_1$    & $\ldots$ & $d_j$    & $\ldots$ & $d_{\abs{D}}$ \\
+				\hline
+				$f_1$         & 0        & $\ldots$ & 0        & $\ldots$ & 0             \\
+				\hline
+				$\vdots$      & $\vdots$ & $\ddots$ & $\vdots$ & $\vdots$ & $\vdots$      \\
+				\hline
+				$f_k$         & 0        & \ldots   & 0        & $\ldots$ & 0             \\
+				\hline
+				$\vdots$      & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$      \\
+				\hline
+				$f_{\abs{F}}$ & 0        & \ldots   & 0        & $\ldots$ & 0             \\
+				\hline
+			\end{tabular}
+			\caption{Scegliendo come influencer $d_{i \neq d}$}
+		\end{table}
+	\end{subfigure}
+	\caption{Caso di dittatura}
+\end{figure}
+
+
+\subsection{Matrice di influenza dell'impatto}
+La \textbf{matrice di influenza dell'impatto} è il taglio della matrice di influenze fissato un impatto $f_k$.
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$                         & $\ldots$ & $d_i$                         & $\ldots$ & $d_{\abs{D}}$                         \\
+		\hline
+		$d_1$         & $\Psi(d_1, d_1, f_k)$         & $\ldots$ & $\Psi(d_i, d_1, f_k)$         & $\ldots$ & $\Psi(d_{\abs{D}}, d_1, f_k)$         \\
+		\hline
+		$\vdots$      & $\vdots$                      & $\ddots$ & $\vdots$                      & $\vdots$ & $\vdots$                              \\
+		\hline
+		$d_j$         & $\Psi(d_1, d_j, f_k)$         & \ldots   & $\Psi(d_i, d_j, f_k)$         & $\ldots$ & $\Psi(d_{\abs{D}}, d_j, f_k)$         \\
+		\hline
+		$\vdots$      & $\vdots$                      & $\vdots$ & $\vdots$                      & $\ddots$ & $\vdots$                              \\
+		\hline
+		$d_{\abs{D}}$ & $\Psi(d_1, d_{\abs{D}}, f_k)$ & \ldots   & $\Psi(d_i, d_{\abs{D}}, f_k)$ & $\ldots$ & $\Psi(d_{\abs{D}}, d_{\abs{D}}, f_k)$ \\
+		\hline
+	\end{tabular}
+	\caption{Matrice di influenza dell'impatto (sulle righe i decisori, sulle colonne gli influencer)}
+\end{table}
+
+\clearpage
+
+\section{Preferenza influenzata}
+Ora che abbiamo definito come andiamo a modellare l'influenza, procediamo a definire la \textbf{preferenza influenzata} e quali strumenti essa possa andare a fornire.
+
+Data una preferenza $\Pi$ che forma un \textbf{ordine debole} ed una funzione valore $v$ che assegna un valore ad ogni \textbf{impatto} o \textbf{soluzione}, andiamo a formare una matrice dei valori $V$ che rappresenta l'immagine della funzione $v(\Pi)$:
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		$d_1$    & $\ldots$ & $d_j$    & $\ldots$ & $d_{\abs{D}}$ \\
+		\hline
+		$f_1$    & $\ldots$ & $f_2$    & $\ldots$ & $f_5$         \\
+		\hline
+		$\vdots$ & $\ddots$ & $\vdots$ & $\vdots$ & $\vdots$      \\
+		\hline
+		$f_3$    & \ldots   & $f_1$    & $\ldots$ & $f_7$         \\
+		\hline
+		$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$      \\
+		\hline
+		$f_7$    & \ldots   & $f_4$    & $\ldots$ & $f_3$         \\
+		\hline
+	\end{tabular}
+	\caption{Preferenza $\Pi$, ogni decisore esprime il proprio ordinamento di $f_k \in F$}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		              & $d_1$                      & $\ldots$ & $d_j$                      & $\ldots$ & $d_{\abs{D}}$                      \\
+		\hline
+		$f_1$         & $v(\Pi_{f_1 d_1})$         & $\ldots$ & $v(\Pi_{f_1 d_j})$         & $\ldots$ & $v(\Pi_{f_1 d_{\abs{D}}})$         \\
+		\hline
+		$\vdots$      & $\vdots$                   & $\ddots$ & $\vdots$                   & $\vdots$ & $\vdots$                           \\
+		\hline
+		$f_k$         & $v(\Pi_{f_k d_1})$         & \ldots   & $v(\Pi_{f_k d_j})$         & $\ldots$ & $v(\Pi_{f_k d_{\abs{D}}})$         \\
+		\hline
+		$\vdots$      & $\vdots$                   & $\vdots$ & $\vdots$                   & $\ddots$ & $\vdots$                           \\
+		\hline
+		$f_{\abs{F}}$ & $v(\Pi_{f_{\abs{F}} d_1})$ & \ldots   & $v(\Pi_{f_{\abs{F}} d_j})$ & $\ldots$ & $v(\Pi_{f_{\abs{F}} d_{\abs{D}}})$ \\
+		\hline
+	\end{tabular}
+	\caption{Matrice dei valori $V$}
+\end{table}
+
+\begin{figure}
+	\begin{subfigure}{0.45\textwidth}
+		\[
+			V_{d_{j}f_{k}} = v(\Pi_{d_{j}f_{k}})
+		\]
+		\caption{Matrice di valori}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\[
+			v(\Pi_{d_{j}f_{k}}) = \text{posizione di }f_{k}\text{ nel vettore }\Pi_{d_{j}}
+		\]
+		\caption{Esempio di funzione valore}
+	\end{subfigure}
+\end{figure}
+
+Ora procediamo a calcolare una matrice dei valori normalizzata per ogni decisore.
+
+TODO HERE
+
+\subsection{Esempio}
+Abbiamo 4 decisori $D = \{d_1, d_2, d_3, d_4 \}$ che devono stabilire una soluzione tra 4 che andremo a rappresentare, per massima comprensibilità, con dei colori $X = \{ \text{red}, \text{green}, \text{blue}, \text{yellow}\}$.
+
+Ogni decisore ha già stabilito l'ordine delle soluzioni.
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\rowcolor{gray!10} $d_1$ & $d_2$                   & $d_3$                   & $d_4$                   \\
+		\hline
+		\cellcolor{red!50} r     & \cellcolor{green!50} g  & \cellcolor{red!50} r    & \cellcolor{yellow!50} y \\
+		\hline
+		\cellcolor{green!50} g   & \cellcolor{red!50} r    & \cellcolor{green!50} g  & \cellcolor{green!50} g  \\
+		\hline
+		\cellcolor{blue!50} b    & \cellcolor{blue!50} b   & \cellcolor{yellow!50} y & \cellcolor{red!50} r    \\
+		\hline
+		\cellcolor{yellow!50} y  & \cellcolor{yellow!50} y & \cellcolor{blue!50} b   & \cellcolor{blue!50} b   \\
+		\hline
+	\end{tabular}
+	\caption{Ordinamento delle soluzioni}
+	\label{not_influenced_example}
+\end{table}
+
+Procedendo tramite il \textbf{sistema di pluralità}, che conta i decisori che vedono una decisione buona, si ottiene:
+
+\[
+	V(x) = \abs{\{d \in D: x \preceq x' \forall x' \in X \}}
+\]
+
+\[
+	\Pi_D(x): x \preceq_D x' \Leftrightarrow V_D(x) \geq V_D(x')
+\]
+
+\begin{table}
+	\begin{tabular}{|c|c|}
+		\hline
+		$x$ & V(x) \\
+		\hline
+		r   & 2    \\
+		\hline
+		g   & 1    \\
+		\hline
+		b   & 0    \\
+		\hline
+		y   & 1    \\
+		\hline
+	\end{tabular}
+	\caption{Ordinamento delle soluzioni}
+\end{table}
+
+\subsubsection{Identificazione di influenza}
+Un possibile caso di utilizzo della preferenza influenzata è \textbf{l`identificazione dell'influenza}: supponiamo di conoscere la posizione ufficiale dei decisori \textit{prima} che questi la ufficializzino, e immaginiamo che essa coincida con quanto visto nella figura \ref{not_influenced_example}. Ora, supponiamo che la posizione ufficiale divenga:
+
+\begin{table}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\rowcolor{gray!10} $d_1$ & $d_2$                   & $d_3$                   & $d_4$                   \\
+		\hline
+		\cellcolor{green!50} g   & \cellcolor{green!50} g  & \cellcolor{green!50} g  & \cellcolor{yellow!50} y \\
+		\hline
+		\cellcolor{red!50} r     & \cellcolor{red!50} r    & \cellcolor{red!50} r    & \cellcolor{green!50} g  \\
+		\hline
+		\cellcolor{blue!50} b    & \cellcolor{blue!50} b   & \cellcolor{yellow!50} y & \cellcolor{red!50} r    \\
+		\hline
+		\cellcolor{yellow!50} y  & \cellcolor{yellow!50} y & \cellcolor{blue!50} b   & \cellcolor{blue!50} b   \\
+		\hline
+	\end{tabular}
+	\label{influenced_example}
+\end{table}
+
+È possibile a ritroso capire come i decisori sono stati influenzati in questa decisione.
+
+Andiamo a costruire per ogni decisore la \textbf{matrice delle preferenze} prima ($\Pi$) e dopo ($\Pi'$) l'ufficializzazione, definendo come nostra funzione valore la posizione della soluzione nella scala (0 il minimo e 3 il massimo, avendo 4 soluzioni) e come funzione di preferenza tra due soluzioni la differenza tra le due funzioni valore.
+
+\begin{align*}
+	\Pi_{d_1}  & = \begin{bmatrix}
+		0  & 1  & 2  & 3 \\
+		-1 & 0  & 1  & 2 \\
+		-2 & -1 & 0  & 1 \\
+		-3 & -2 & -1 & 0 \\
+	\end{bmatrix}
+	\quad
+	\Pi_{d_2}  & = \begin{bmatrix}
+		0  & -1 & 1  & 2 \\
+		1  & 0  & 2  & 3 \\
+		-1 & -2 & 0  & 1 \\
+		-2 & -3 & -1 & 0 \\
+	\end{bmatrix}
+	\quad
+	\Pi_{d_3}  & = \begin{bmatrix}
+		0  & 1  & 3 & 2  \\
+		-1 & 0  & 2 & 1  \\
+		-3 & -2 & 0 & -1 \\
+		-2 & -1 & 1 & 0  \\
+	\end{bmatrix}
+	\quad
+	\Pi_{d_4}  & = \begin{bmatrix}
+		0  & -1 & 1 & -2 \\
+		1  & 0  & 2 & -1 \\
+		-1 & -2 & 0 & -3 \\
+		2  & 1  & 3 & 0  \\
+	\end{bmatrix}
+	\\
+	\\
+	\Pi_{d_1}' & = \begin{bmatrix}
+		0  & -1 & 1  & 2 \\
+		1  & 0  & 2  & 3 \\
+		-1 & -2 & 0  & 1 \\
+		-2 & -3 & -1 & 0 \\
+	\end{bmatrix}
+	\quad
+	\Pi_{d_2}' & = \begin{bmatrix}
+		0  & -1 & 1  & 2 \\
+		1  & 0  & 2  & 3 \\
+		-1 & -2 & 0  & 1 \\
+		-2 & -3 & -1 & 0 \\
+	\end{bmatrix}
+	\quad
+	\Pi_{d_3}' & = \begin{bmatrix}
+		0  & -1 & 2 & 1  \\
+		1  & 0  & 3 & 2  \\
+		-2 & -2 & 0 & -1 \\
+		-1 & -1 & 1 & 0  \\
+	\end{bmatrix}
+	\quad
+	\Pi_{d_4}' & = \begin{bmatrix}
+		0  & -1 & 1 & -2 \\
+		1  & 0  & 2 & -1 \\
+		-1 & -2 & 0 & -3 \\
+		2  & 1  & 3 & 0  \\
+	\end{bmatrix}
+\end{align*}
+
+Calcoliamo le differenze tra le matrici:
+
+\clearpage
+
+\section{Proprietà di influenza}
+\subsection{Decisore totalmente influenzato}
+Quando un decisore $d_j$ ha un valore di influenza nei confronti di sè stesso pari a 0 (Formula \ref{decisore_influenzato}).
+
+\begin{figure}
+	\[
+		\Psi(d_j, d_j, f_k) = 0
+	\]
+	\caption{Decisore completamente influenzato}
+	\label{decisore_influenzato}
+\end{figure}
+
+\subsection{Decisore non influenzato}
+Quando è noto che un decisore $d_j$ non è influenzato vale che (Formula \ref{decisore_non_influenzato}):
+
+\begin{figure}
+	\[
+		\begin{cases}
+			\Psi(d_{ni}, d_{ni}, f_k) = 1             \\
+			\Psi(d_i, d_{ni}, f_k) = 0 \quad i\neq ni \\
+			\Psi(d_{ni}, d_j, f_k) \geq 0
+		\end{cases}
+		\qquad \forall f_k \in F
+	\]
+	\caption{Decisore non influenzato}
+	\label{decisore_non_influenzato}
+\end{figure}
+
+\subsection{Determinabilità dell'influenza}
+La matrice di influenza $\bm{\Psi}$ è calcolabile nel caso in cui valga la disequazione \ref{influenza_determinabile}:
+
+
+\begin{figure}
+	\[
+		\abs{F} \geq \abs{D}
+	\]
+	\caption{Vincolo di determinabilità}
+	\label{influenza_determinabile}
+\end{figure}
+
+
+
+\subsubsection{Approssimazione dell'influenza in casi d'indeterminabilità}
+
+\end{document}
