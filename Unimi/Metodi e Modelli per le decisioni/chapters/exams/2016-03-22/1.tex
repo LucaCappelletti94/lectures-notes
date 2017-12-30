@@ -1,0 +1,25 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 1}
+Si introduca formalmente un problema di decisione complesso $(X, \Omega, F, f, D, \Pi)$, descrivendo brevemente il significato dei suoi elementi.
+
+Si descriva brevemente la distinzione tra modelli prescrittivi e modelli descrittivi e si indichino i ruoli che essi possono svolgere in un processo decisionale complesso.
+
+\subsection{Soluzione esercizio 1}
+
+Un problema di decisione complesso viene descritto dalla sestupla $(X, \Omega, F, f, D, \Pi)$:
+
+\begin{description}
+  \item [$X$] L'insieme delle \textbf{soluzioni possibili}.
+  \item [$\Omega$] L'insieme degli \textbf{scenari o esiti possibili}.
+  \item [$F$] L'insieme degli \textbf{impatti possibili}.
+  \item [$f(x, \omega): X \times \Omega  \rightarrow F$] La \textbf{funzione impatto}.
+  \item [$D$] L'insieme dei \textbf{decisori}.
+  \item [$\Pi(d): D \rightarrow 2^{F\times F}$] La \textbf{relazione di preferenza}.
+\end{description}
+
+In un \textbf{modello prescrittivo} vengono usati come dati gli impatti e le preferenze e danno come risultato un'alternativa ottima mentre in un \textbf{modello descrittivo} vengono usati come dati la descrizione del sistema, gli scenari e le alternative e danno come risultati gli impatti. In generale, i modelli vengono utilizzati per prendere decisioni e prevederne i risultati.
+
+\end{document}
