@@ -598,67 +598,6 @@ Un possibile caso di utilizzo della preferenza influenzata è \textbf{l`identifi
 
 Andiamo a costruire per ogni decisore la \textbf{matrice delle preferenze} prima ($\Pi$) e dopo ($\Pi'$) l'ufficializzazione, definendo come nostra funzione valore la posizione della soluzione nella scala (0 il minimo e 3 il massimo, avendo 4 soluzioni) e come funzione di preferenza tra due soluzioni la differenza tra le due funzioni valore.
 
-\begin{align*}
-	\Pi_{d_1}  & = \begin{bmatrix}
-		0  & 1  & 2  & 3 \\
-		-1 & 0  & 1  & 2 \\
-		-2 & -1 & 0  & 1 \\
-		-3 & -2 & -1 & 0 \\
-	\end{bmatrix}
-	\quad
-	\Pi_{d_2}  & = \begin{bmatrix}
-		0  & -1 & 1  & 2 \\
-		1  & 0  & 2  & 3 \\
-		-1 & -2 & 0  & 1 \\
-		-2 & -3 & -1 & 0 \\
-	\end{bmatrix}
-	\quad
-	\Pi_{d_3}  & = \begin{bmatrix}
-		0  & 1  & 3 & 2  \\
-		-1 & 0  & 2 & 1  \\
-		-3 & -2 & 0 & -1 \\
-		-2 & -1 & 1 & 0  \\
-	\end{bmatrix}
-	\quad
-	\Pi_{d_4}  & = \begin{bmatrix}
-		0  & -1 & 1 & -2 \\
-		1  & 0  & 2 & -1 \\
-		-1 & -2 & 0 & -3 \\
-		2  & 1  & 3 & 0  \\
-	\end{bmatrix}
-	\\
-	\\
-	\Pi_{d_1}' & = \begin{bmatrix}
-		0  & -1 & 1  & 2 \\
-		1  & 0  & 2  & 3 \\
-		-1 & -2 & 0  & 1 \\
-		-2 & -3 & -1 & 0 \\
-	\end{bmatrix}
-	\quad
-	\Pi_{d_2}' & = \begin{bmatrix}
-		0  & -1 & 1  & 2 \\
-		1  & 0  & 2  & 3 \\
-		-1 & -2 & 0  & 1 \\
-		-2 & -3 & -1 & 0 \\
-	\end{bmatrix}
-	\quad
-	\Pi_{d_3}' & = \begin{bmatrix}
-		0  & -1 & 2 & 1  \\
-		1  & 0  & 3 & 2  \\
-		-2 & -2 & 0 & -1 \\
-		-1 & -1 & 1 & 0  \\
-	\end{bmatrix}
-	\quad
-	\Pi_{d_4}' & = \begin{bmatrix}
-		0  & -1 & 1 & -2 \\
-		1  & 0  & 2 & -1 \\
-		-1 & -2 & 0 & -3 \\
-		2  & 1  & 3 & 0  \\
-	\end{bmatrix}
-\end{align*}
-
-Calcoliamo le differenze tra le matrici:
-
 \clearpage
 
 \section{Proprietà di influenza}
