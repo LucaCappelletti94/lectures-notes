@@ -35,6 +35,7 @@
     ".xml"
   ],
   "white-list": [
-    ".git"
+    ".git",
+    "main.pdf"
   ]
 }
