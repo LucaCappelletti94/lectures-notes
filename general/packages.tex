@@ -1,8 +1,13 @@
-% !TEX options=--shell-escape
-% !TEX options=--enable-write18
-% !TEX options=-enable-write18
 \documentclass{report} % We use report to allow for chapers etc...
-\usepackage{etoolbox}
+\usepackage{geometry} % More rich support for page layout.
+\geometry{
+	a4paper,
+	total={190mm,260mm},
+	left=10mm,
+	top=20mm,
+}
+
+\input{\main/../../general/silence.tex}
 
 \usepackage{amsmath,amsthm,amsfonts,amssymb}
 \theoremstyle{definition} % Sets the theorem style without italic
@@ -16,9 +21,6 @@
 	\setdefaultlanguage{italian}
 	\usepackage{fontspec}
 	\usepackage{luacode} % Used to script stuff
-	\usepackage{luatex85}
-	\usepackage{luaotfload}
-	\usepackage{shellesc}
 \else
 	\usepackage[utf8]{inputenc} % This allows for utf support.
 	\usepackage[english, italian]{babel}   % Set up supported languages. Last one is default.
@@ -26,52 +28,27 @@
 
 \usepackage[T1]{fontenc}  % Defines true type fonts
 
-\let\oldtextbf\textbf % This is a backup for options may edit \textbf
-\let\oldtextit\textit % This is a backup for options may edit \textit
-\let\oldemph\emph % This is a backup for options may edit \emph
-
-\usepackage{silence}
-%Disable all warnings issued by latex starting with "You have..."
-\WarningFilter{latex}{You have requested package}
-\WarningFilter{latex}{There were undefined references}
-\WarningFilter{latexfont}{Size substitutions with differences}
-\WarningFilter{latexfont}{Font shape}
-\WarningFilter{latex}{Command}
-\WarningFilter{biblatex}{Using fall-back BibTeX(8)}
-\WarningFilter{biblatex}{Please (re)run BibTeX on the file(s)}
-\WarningFilter{auxhook}{Cannot patch}
-\WarningFilter{glossaries}{No \printglossary or \printglossaries found.}
-
-\usepackage{geometry} % More rich support for page layout.
-\geometry{
-	a4paper,
-	total={190mm,260mm},
-	left=10mm,
-	top=20mm,
-}
-
-\usepackage[x11names,table]{xcolor} % To highlight text
-
+\usepackage[x11names,table]{xcolor} % To highlight text or color tables
 
 \usepackage{emptypage} % When a page is empty, Latex won't generate page number or other page elements.
 
 \usepackage{multicol} % For the possibility of using columns with  \begin{multicols}{n}.
 \usepackage[colorlinks=true,urlcolor=blue,pdfpagelabels,hyperindex=false]{hyperref}  % Enable table of contents and links.
 \usepackage{microtype} % for automatic micro fitting of characters
-\usepackage{centernot}
+\usepackage{centernot} % Adds not symbol on any math symbol.
 
 \usepackage{framed}
-\usepackage{mathtools}
 \usepackage{float} % to enable floating graphics
 \usepackage[style=authoryear,sorting=ynt, backend=bibtex]{biblatex} % Package to handle the bibliography
 \nocite{*} % This allows for having entried in the bib file that do not have to be necesseraly used
 \usepackage{subfiles} % To use subfiles without cruxifying saints
+
 \usepackage{chngcntr} % Has functions to reset counters
+\counterwithin*{equation}{section}% Reset equation at \section
+\counterwithin*{equation}{subsection}% Reset equation at \subsection
 
-\usepackage{parskip} % To leave spaces in paragraphs
+\usepackage{parskip} % To leave spaces in paragraphs without using \\
 \usepackage{soul} % To cancel text with a line using the commant \st, to underline text and highlight.
-
-\usepackage{sectsty}
 
 \usepackage{xfrac} % To allow for sideways fractions
 \usepackage[cache=true]{minted} % For highlighting code
@@ -108,20 +85,9 @@
 \pgfplotsset{compat=1.14}
 \usepackage{tikz}
 \usepackage{relsize}
-\usepackage{circuitikz}
 
-\ctikzset{tripoles/mos style/arrows}
-\ctikzset{tripoles/pmos style/emptycircle}
-\ctikzset{tripoles/mos style/arrows}
 \usetikzlibrary{shapes,arrows,calc,positioning,automata,matrix}
 \usepgfplotslibrary{external}
-
-\definecolor {processblue}{cmyk}{0.96,0,0,0}
-\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
-
-\pgfmathdeclarefunction{gauss}{3}{%
-	\pgfmathparse{1/(#3*sqrt(2*pi))*exp(-((#1-#2)^2)/(2*#3^2))}%
-}
 
 \usepackage{paralist} % For compacted enumerations
 \usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
@@ -131,44 +97,23 @@
 \makeindex[program=makeindex,columns=2,intoc=true,options={-s ../../general/pyro.ist}] % Enables the package above
 \indexsetup{firstpagestyle=empty, othercode=\small} % No page number in the first page of analytical index
 
-\usepackage{bookmark} % Enables bookmarks in generated pdf
-
 \usepackage{fourier} % For icons such as \bomb, \noway, \danger and various others. For more info, go here: http://ctan.mirror.garr.it/mirrors/CTAN/fonts/fourier-GUT/doc/latex/fourier/fourier-orns.pdf
 
-\usepackage{mathtools} % To use custom delimiters that Latex did not implement cos duh
-\renewcommand*{\arraystretch}{1.5} % Stretching arrays
+\renewcommand*{\arraystretch}{1.25} % Stretching arrays
 
+\usepackage{sectsty} % Styles sectional headers
 \usepackage{fancyhdr} % This allows for the headings in the chapters
 \pagestyle{fancy} % This activates it
-
 \usepackage[avantgarde]{quotchap} % Custom style for chapters
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ALL THE PACKAGES FOR FIGURES   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\input{\main/../../general/figures/packages_for_figures.tex}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}
-\DeclarePairedDelimiter\norm{\lVert}{\rVert}
 
 \usepackage[shortlabels]{enumitem} % For a todo check list
 \newlist{todolist}{itemize}{2} % For a  todo check list
 % \setlist{nolistsep}
 \setlist[todolist]{label=$\square$}  % For a todo check list
 
-\counterwithin*{equation}{section}% Reset equation at \section
-\counterwithin*{equation}{subsection}% Reset equation at \subsection
-%\counterwithin*{equation}{subsubsection}% Reset equation at \subsubsection // Doesn't work for god knows why.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% IMPORTANT NOTE ON BIBLIOGRAPHY USE %
-%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% To use the bibliography, run BibTex on this file. If everything is correct, it will terminate with no errors.
-% The warning "Using fall-back BibTeX(8) backend: (biblatex) functionality may be reduced/unavailable." is expected.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % LUATEX CODE %
@@ -190,6 +135,10 @@
 	\input{\main/../../general/italian.tex}
 \fi
 
+\let\oldtextbf\textbf % This is a backup for options may edit \textbf
+\let\oldtextit\textit % This is a backup for options may edit \textit
+\let\oldemph\emph % This is a backup for options may edit \emph
+
 %
 % THE FOLLOWING CODE WRAPS THEOREMS IN A GRAY BOX
 %
@@ -198,15 +147,25 @@
 \renewenvironment{theorem}{\begin{shaded}\begin{oldTheorem}}{\end{oldTheorem}\end{shaded}\ignorespacesafterend
 }
 
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+
 \newcommand{\error}[1]{
 	\textcolor{red!90}{#1}
 }
+
+\newcommand{\bash}[1]{
+	\immediate\write18{#1}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % EXTERNAL FILES %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+\input{\main/../../general/figures/packages_for_figures.tex}
 \input{\main/../../general/custom_math_commands.tex}
 \input{\main/../../general/acronyms.tex}
 \addbibresource{references.bib}
 
-\tikzexternalize
+\bash{mkdir tikz}
+\tikzexternalize[prefix=tikz/]
