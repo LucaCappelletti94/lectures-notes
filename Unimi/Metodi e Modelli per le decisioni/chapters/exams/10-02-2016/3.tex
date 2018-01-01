@@ -1,0 +1,57 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 3}
+Riferendosi ai problemi di programmazione a molti obiettivi:
+
+\begin{enumerate}[a)]
+  \item Si definisca il concetto di soluzione paretiana.
+  \item Si elenchino i principali metodi per determinare le soluzioni paretiane.
+  \item Si descriva brevemente il metodo dei pesi, specificandone vantaggi e svantaggi.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 3}
+\subsubsection*{Definizione di soluzione paretiana}
+\begin{definition}[Soluzione paretiana]
+  Si dice soluzione paretiana qualsiasi soluzione ammissibile $x^o \in X$ tale che nessun’altra soluzione $x'$ la domina.
+
+  \[
+    \forall x \in X, l \in \{1,\ldots,p\}: f_l(x') > f_l(x^o) \lor f(x') = f(x^o)
+  \]
+
+  Si differenziano da un generico ottimo globale per \textbf{due motivi}:
+  \begin{enumerate}
+    \item Le soluzioni paretiame non sono necessariamente indifferenti tra loro, mentre gli ottimo globale lo sono.
+    \item Le soluzioni paretiane non sono preferibili a tutte le altre, mentre i punti di ottimo globale lo sono.
+  \end{enumerate}
+\end{definition}
+
+\subsubsection*{Metodi per determinare soluzioni paretiane}
+I metodi sono 5:
+\begin{description}
+  \item[Applicazione della definizione] Vale \textbf{caso finito} è possibile risolvere costruendo il grafo di dominanza fra soluzioni.
+  \item[Condizioni KKT] Vale nel \textbf{caso continuo} le condizioni KKT (aggiungendo le opportune condizioni di normalizzazione per i pesi) producono una sovrastima di $X^o$.
+  \item[Metodo della trasformazione inversa] Utilizzabile se ci sono solo due indicatori ($f \in \mathbb{R}^2 $), dato che si procede graficamente identificando gli impatti ottimi $F^o$ e quindi tramite l'inversa si calcola la regione paretiana $X^o$.
+  \item[Metodo dei pesi] Vale sempre e consiste nel costruire una combinazione convessa degli indicatori di un impatto (fare una sommatoria pesata, con $\sum_i^{\abs{f}} \omega_i = 1$) e di andare a minimizzare le combinazioni (per es. con l'algoritmo di Prim). Produce una sottostima di $X^o$.
+  \item[Metodo dei vincoli] Preso uno o più indicatori $f_l$, li si fa diventare disequazioni vincolate da un coefficiente $\epsilon_l$ (detto standard), che quindi si identifica o mediante KKT o graficamente. Produce una sovrastima di $X^o$
+\end{description}
+
+\subsubsection*{Il metodo dei pesi}
+\paragraph*{Come si procede}
+Si sceglie uno o più impatti e si costruisce la combinazione convessa dei suoi indicatori, quindi minimizzare la sommatoria ottenuta.
+
+\paragraph*{Vantaggi}
+\begin{enumerate}
+  \item Il metodo dei pesi è sempre applicabile.
+  \item Non altera la regione ammissibile ma si limita ad aggiungere un obbiettivo ausiliario.
+\end{enumerate}
+
+\paragraph*{Svantaggi}
+\begin{enumerate}
+  \item Con problemi di grandi dimensioni il numero di pesi può diventare intrattabile.
+  \item Per ogni peso $\omega$ è necessario trovare tutte le soluzioni ottime.
+  \item Produce una sottostima di $X^o$.
+\end{enumerate}
+
+\end{document}
