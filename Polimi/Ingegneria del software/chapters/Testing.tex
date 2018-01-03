@@ -1,0 +1,63 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+
+
+\begin{document}
+\section{Tipi di Testing}
+\begin{itemize}
+\item White Box: si generano casi di test basandosi sulla specifica.
+\item Black Box: si generano casi di test basandosi sul codice.
+\end{itemize}
+\section{BlackBox / Funzionale}
+\begin{itemize}
+\item Genero casi di test per ogni ``categoria'' dei parametri
+\item Genero casi per ogni corner case fra ``categorie''
+\end{itemize}
+\section{Tipid i test Black Box}
+Test combinatori:
+\begin{itemize}
+\item Identifico attributi che possono cambiare durante lesecuzione
+\item Si generano combinazioni dei possibili valori degli attributi
+\item Le combinazioni devono contemplare:
+\begin{itemize}
+\item ``valori standard''
+\item Corner case (= ad esempio se ho valori in un intervallo prendo gli estremi)
+\item valori errati
+\end{itemize}
+\end{itemize}
+
+\section{WhiteBox / Strutturale}
+Genero casi di test per ``percorrere'' tutto il programma
+Quindi percorrere tutti i cammini possibli.
+I cammini sono le strade che il programma puo' prendere, cioe' tutti \textbf{i modi in cui puo' arrivare dall' inizio alla fine}.
+Possono anche vederli come la sequenza di righe di codice che eseguo per arrivare alla fine.
+
+\section{Tipi di test White-Box}
+
+\begin{itemize}
+\item \textbf{Copertura dei cammini}: Genero casi che portano ad eseguire tutte le psosibili combinazioni di istruzioni.
+Devo contare le iterazioni dei cicli ed i metodi in cui posso uscire da essi per avere l numero totale dei cammini.
+\item \textbf{Copertura delle istruzioni}: Genero casi per cui eseguo ogni istruzione \textbf{Almeno} una volta.
+\item \textbf{Copertura delle Diramazioni}: Genero casi che mi permettono di coprire tutte le diramazioni, cioe' immaginidnando il programma come diagramma di flusso, devo poter toccare ogni nodo.
+\item \textbf{Copertura delle condizioni}: genero casi che coproono tutti i possibili \textbf{Risultati} delle condizioni dei cicli e degli if.
+\end{itemize}
+
+\section{Altri tipi di test}
+
+\begin{itemize}
+\item \textbf{Test di unita'}: testo ogni modulo separatamente.
+\item \textbf{Test di integrazione}: testo sottinsieme a mano a mano piu' grandi di moduli vedendo come ingeragiscono i moduli nei sottinsiemi.
+\item \textbf{Test di sistema}: testo il programma completo.
+\item \textbf{Test di regressione}: se il programma viene aggiornato, testo l'aggiornamento.
+\end{itemize}
+
+\section{ScaffHolding}:
+E' composto da:
+\begin{itemize}
+
+\item Driver $\longrightarrow$ Componente che simula la parte di programma che invoca il modulo da testare. Prepara l'ambiente, i parametr, fa chiamate accessorie e verifica che vadano a buon fine.
+\item Stub  $\longrightarrow$  Componente che simula la parte chaimata dal modulo (= cioe` esegue il modulo da testare, verigica l`ambiente creato dal driver e i parametri) restituisce i risultati richiesti dalle specifiche.
+\end{itemize}
+Di base lo scaffholding serve per automatizzare i Test.
+
+\end{document}

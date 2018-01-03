@@ -1,0 +1,169 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+
+
+\begin{document}
+
+\section{Dominio}
+In JML posso usare \textbf{SOLO}:
+\begin{itemize}
+  \item  \bs result
+  \item I parametri formali
+  \item Attributi pubblici
+  \item Metodi Puri
+\end{itemize}
+
+
+
+
+
+
+\section{Pre-Condizioni}
+Introdotte da ``requires''
+
+Sono condizioni dei parametri sotto le quali vale la specifica.
+
+Se non vengono rispettate il metodo puo' avere comportamento indefinito ( spetta al \textbf{chiamante} fare i controlli, non al metodo!).
+
+
+
+
+
+\section{Post-Condizioni}
+Introdotte da ``ensure''
+
+Effetto garantito \textbf{AL TERMINE} del metodo.
+Cioe' devo specificare che vincolirispetta il risultato (= se ho un certo risultato cosa deve risultare vero, cosa deve aver fatto il metodo, ecc...).
+
+
+
+
+
+
+
+\section{Eccezioni}
+Introdotte da ``signals(*TipoEccezzione* e''
+
+Dice che cosa deve essere vero \textbf{SE} il metodo ha sollevato l'eccezione (= se ho chiamato eccezzione \textbf{ALLORA} so che deve valere quello che il signals indica).
+
+
+
+
+
+\section{Sintassi}
+Le specifiche JML vanno messe prima della dichiarazione del metodo.
+
+Sono contenute in un commento ed ogni riga inizia con una @.
+
+Esempi:
+\begin{minted}{java}
+// @ ...
+/*
+  @ ...
+  @ ...
+  @ ...
+*/
+\end{minted}
+
+
+
+\section{\bs result}
+E' il valore ritornato dal metodo.
+
+
+
+
+\section{Omissione}
+Omettere pre o post condizione equivale a scrivere rispettivamente ``require true'' o ``ensure true''
+
+
+\section{Commenti}
+Alcune specifice sono piu' comprensibli in linguaggio naturale.
+Vanno espresse come (*...*) con la specifica in linguaggio naturale tra gli asterischi.
+
+
+
+\section{Operatori JML}
+\begin{itemize}
+  \item \bs old(x): restituisce il valore del parametro x \textbf{AL MOMENTO DELLA CHIAMATA}
+  \item assigable: indica che un \textbf{PARAMETRO} puo' essere modificato, va messo \textbf{prima} della pre-condizione.
+  \item \textbf{Metodi pubblici dele collezioni}: equals,contains,containsAll,get,subList...
+  \item Quantificatori:
+  \begin{itemize}
+    \item \bs forall
+    \item \bs exist
+    \item \bs sum, \bs product, \bs min, \bs max
+    \item \bs num-of: restituisce il nimero di volte per cui un parametro valgono le condizioni.
+  \end{itemize}
+\end{itemize}
+
+
+\section{Astrazioni}
+La specifica definisce loggetto astratto , ad esempio ``insieme di numeri interi'' l'implementazione definisce l'oggetto concreto, ad esempio ``array di int''.
+
+\section{OAT}
+Se ho bisogno di specificare metodi non puri o comunque mi serve conoscere la struttura del implementazione uso l'OAT.
+
+Questo significa che in una riga JML scrivero' *tipo del OAT nel implementazione* oat
+
+Esempio:
+
+\begin{minted}{java}
+  // @ spec_public List<Int> oat;
+\end{minted}
+
+e poi un commento che ridescrive le caratteristiche.
+
+Cosi posso usare metodi che, se non conoscessi l'implementazione non potrei usare, tipo subList per una lista.
+
+\section{Public Invariant}
+Definisco propriet' che devo essere sempre vere per l'oggetto Astratto,
+posso usare \textbf{SOLO} metodi e attributi pubblici.
+
+\section{Verificare gli invariant}
+Uso il metodo di induzione:
+\begin{itemize}
+\item Verifico che valga \textbf{al termine} del costruttore.
+\item \textbf{Suppongo} che valga \textbf{alla chiamata} di ogni modificatore, devo dimostrare che vale anche al termine
+\end{itemize}
+
+\section{Rep}
+E' Struttura dati che rappresenta i valori degli oggetti dell' ADT.
+
+E' insieme di variabili \textbf{private} e delle operazioni che l'oggetto svolfe (\textbf{Implementate})
+
+\section{Funzione di Astrazione(AF)}
+Specifica il legame fra stato concreto ed astratto.
+
+Si usa un \textbf{Private Invariant} per descriverla. In particolare nell'invariant descrivo la relazione fra parti private ed osservatori.
+
+Deve mettere in evidenza il legame fra rappresentatore ed oggetto, descrive ``l'implementazione'' del Rep.
+
+In sostanza \textbf{Associa ad ogni oggetto concreto il suo oggetto Astratto}.
+
+\section{Rep Invariant(RI)}
+Specifica le proprieta' che \textbf{la Rep deve rispettare}.
+Come a AF e' un private invariant.
+
+\textbf{NB} il RI puo' diventare falso durante il metodo, basta che sia \textbf{Vero alla chiamata ed al ritorno}.
+
+Si puo' \textbf{Implementare} ad esempio un repOk un metodo che verifica che RI sia rispettato.  Si definisce il metodo repOk con tutti i controlli per l'RI, poi (o si chiama nei mutatori e costrutti tramite le \textbf{Asserzioni}(= asserzioni sono condizioni che se non sono verificate a RUNTIME danno \textbf{AssertionError} e bloccano l`esecuzione.))
+
+\textbf{NB}: Non posso fornire `accesso esterno a parti mutabili del rep, altrimenti \textbf{ESPLODE TUTTO}.
+Quindi devo evitare:
+\begin{itemize}
+\item di restituire come ritorno il riferimento ad una componente mutabile del rep.
+\item di mettere nel rep una componente mutabile che ha un riferimento esterno all'oggetto.
+\item dichiarare attributi pubblici.
+\end{itemize}
+
+\section{Specifiche totali}
+le specifiche totali hanno:
+\begin{itemize}
+\item requires true
+\item precondizioni nell' ensure
+\item violazione delle pre-condizioni nel signal
+\end{itemize}
+
+
+\end{document}

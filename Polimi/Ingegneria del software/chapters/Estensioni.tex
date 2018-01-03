@@ -1,0 +1,34 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+
+
+\begin{document}
+
+\section{Estensione}
+E' un altro modo per dire ereditarieta'.
+Un' esntensione e' \textbf{pura} se non modifica la specifica dei metodi.
+
+\section{Rappresentazione per estensioni}
+Di solito la sottoclasse mantiene la AF della superclasse.
+Non modifica \textbf{MAi} l'RI della superclassse ed aggiunge il proprio RI.
+
+\section{Verificare validita' delle estensioni}
+\begin{itemize}
+\item \textbf{Principio di sostituzione di Liskov}: ``ogni modulo che usa un oggetto della superclasse deve poter usare un oggetto della sottoclasse senza accorgersi della differenza''
+\item \textbf{Regola della segnatura}: ``La sottoclasse deve avere tutti i metodi della superclasse con la stessa intestazione ma puo' avere \textbf{meno} eccezioni'
+\item \textbf{Regola dei metodi}: ``La sottoclasse deve avere la stessa specifica della superclasse.'' pero' posso:
+\begin{itemize}
+\item \textbf{Indebolire la pre-condizione} = aggiungere altre pre-condizioni in \textbf{OR} a quelle della superclasse.
+\item \textbf{Rafforzare la post-condizione} = aggiugnere altre post-condizioni in \textbf{AND} a quelle della superclasse.
+  \end{itemize}
+  \item \textbf{Regola delle proprieta'} la sottoclasse deve conservare tutti i public invariant dela superclasse, e anche le sue proprieta' evolutive.
+\end{itemize}
+
+\section{Sintassi JML}
+Introduco nuove condizioni con un
+\begin{minted}{java}
+// @ also ...
+\end{minted}
+
+
+\end{document}

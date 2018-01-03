@@ -1,0 +1,36 @@
+\providecommand{\main}{.}
+\input{\main/../../general/packages.tex}
+
+\newcommand{\bs}{\textbackslash}
+
+\begin{document}
+
+
+\input{\main/../../general/title.tex}
+
+{\hypersetup{hidelinks}
+  \tableofcontents  % Generates the table of contents
+  %\listoffigures  % Generates the list of images and figures
+  %\listoftables % Generates the list of tables
+}
+
+\chapter{JML}
+\subfile{\main/chapters/JML}
+
+\chapter{Estensioni}
+\subfile{\main/chapters/Estensioni}
+
+\chapter{Testing}
+\subfile{\main/chapters/Testing}
+
+\chapter{Pattern}
+\subfile{\main/chapters/Pattern}
+
+
+\appendix
+%\chapter{Appendix}
+%\subfile{\main/chapters/appendix}
+
+\input{\main/../../general/footer.tex}
+
+\end{document}

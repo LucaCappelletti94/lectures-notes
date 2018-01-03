@@ -1,0 +1,15 @@
+{
+  "title": "Ingegneria Del Software",
+  "cfu": 10,
+  "authors": [{
+    "name": "Tommaso",
+    "surname": "Fontana"
+  }, {
+    "name": "Valentina",
+    "surname": "Deda"
+  }],
+  "professors": [{
+    "name": "TO",
+    "surname": "DO"
+  }]
+}

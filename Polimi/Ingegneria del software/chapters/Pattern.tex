@@ -1,0 +1,47 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+
+
+\begin{document}
+
+\section{Design Pattern}
+Sono dele soluzioni ``riutilizzabli'' di cui esiste gia' uno schema da seguire e che puo' adattare a varie situazioni.
+
+\section{Tipi di Pattern}
+\begin{itemize}
+\item Creazionali
+\item Strutturai
+\item Comportamentali
+\end{itemize}
+
+\section{Alcuni pattern}
+
+\begin{itemize}
+\item \textbf{Factory Method}: e' un metodo \textbf{NON COSTRUTTORE} che restituisce oggetti della sua classe, si implementa come metodo statico.Per usarlo devo dichiarare il costruttore come protected o private.
+\item \textbf{Singleton}: e0 un tipo di classe per cui puo' esistere \textbf{UNA SOLA} istanza. Devo dichiarare il costruttore protected o private. Devo implementare un metodo che permetta di avere una sola istanza:
+\begin{itemize}
+\item Dichiaro un attributo statico istanza.
+\item Dichiaro un metodo che verifica che ``istanza'' sia null, se e' un nul ritorna una nuova istanza altrimenti ritorna l'istanza gia' esistente senza crearne di nuove.
+\end{itemize}
+\item \textbf{Adapter}:
+E' un interfaccia che si frappone fra due diverse interfacce,L'adapter richiama i metodi dell'oggetot da adattare e li ``passa'' all'interfaccia che deve uitlizzare sotto forma di utilizzabile.
+\item \textbf{Proxy}: Se ho oggetti ``pesanti'' posso sostiutirli con un piu' leggero proxy che ne fa le veci. Il proxy ``passa' le richieste che gi vengono fatte all'oggetto pesante oppure se ne e' in grado risponde direttamente ad esse (per esempio attraverso caching).
+\item \textbf{Observer}: e' un oggetto che segnala quando un altro oggetto cambia stato.
+\item \textbf{Strategy}: Se ho diversi algoritmi possibili ( e intercambiabili) per raggiungere  un risultato, Strategy permette di selezionare a \textbf{RUNTIME} il migliore.
+\item \textbf{Comparator}: Esiste gia' l'interfaccia comparator in java.util, la impemento affinche' possa confrontare oggetti del tipo che mi interessa confrontare.
+\item \textbf{Decorator}:Permette di aggiungere nuove funzionalita' agli oggetti a runtime. e' un alternativa all'ereditarieta'. Si implementa passando come parametro l'oggetto da arricchire al costtruttore del decorator.
+\item \textbf{State}: Gli oggetti cambiano dinamicamente caratteristiche a seconda dello stato in cui si trovano, Si usa una classe astratta STATE e poi clsassi concrete che la impementano per ogni diverso stato.
+\item\textbf{Model-View-Controller}: COmposto da 3 elementi:
+\begin{itemize}
+\item Model : fornisce metodi per accesso ai dati
+\item View  : visualizza i dati forniti da model e si occupa di gestire i dati a seconda dei comandi dell'utente.
+\item Controler: riceve comandi dal utente esterno e modifcia lo stato di model e view di conseguenza.
+\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+\end{document}
