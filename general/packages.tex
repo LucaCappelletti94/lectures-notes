@@ -89,10 +89,10 @@
 
 \ctikzset{tripoles/mos style/arrows}
 \ctikzset{tripoles/pmos style/emptycircle}
-\ctikzset{tripoles/mos style/arrows}
-
 \usetikzlibrary{shapes,arrows,calc,positioning,automata,matrix}
 \usepgfplotslibrary{external}
+
+\pgfplotsset{samples=75,shader=faceted interp,grid=major}
 
 \usepackage{paralist} % For compacted enumerations
 \usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
@@ -126,7 +126,6 @@
 
 \ifLuaTeX
 	\input{\main/../../general/lua/deapnessGuesser.tex}
-	\providecommand{\samples}{150} % Drawing hd graphs when compiling for the final time (production)
 	\directlua{dofile(deapness.."/general/lua/metadataLoader.lua")}
 	\directlua{dofile(deapness.."/general/lua/languageSwitch.lua")}
 	\directlua{dofile(deapness.."/general/lua/highlight.lua")}
@@ -136,7 +135,6 @@
 	% \command
 \else
 	% Lua not enabled
-	\providecommand{\samples}{50} % Drawing ld graphs when compiling for development
 	\input{\main/../../general/italian.tex}
 \fi
 
