@@ -7,7 +7,7 @@
 Algoritmi di ottimizzazione che approssimano localmente $f$ con modelli quadratici:
 
 \[
-	\text{min} f(x) = \dfrac{1}{2}x^T Qx - b^Tx, \text{t.c.} c \in \mathbb{R}^n
+  \text{min} f(x) = \dfrac{1}{2}x^T Qx - b^Tx, \text{t.c.} c \in \mathbb{R}^n
 \]
 
 dove $Q$ è una matrice quadrata di ordine $n$.
@@ -17,41 +17,41 @@ dove $Q$ è una matrice quadrata di ordine $n$.
 - $Q$ non è semi-definita positiva: $f$ non ha un minimo.
 - $Q$ è definita positiva: $x^* = Q^{-1}b$ è l'unico minimo locale. Il punto $x^*$ è il \textbf{punto di ottimo globale}.
 - $Q$ è definita semi-positiva:
-	- $Q$ non è singolare: $x^* = Q^{-1} b$ è l'unico minimo globale. 
-	- $Q$ è singolare:
-		- non ho soluzioni.
-		- ho infinite soluzioni.
+- $Q$ non è singolare: $x^* = Q^{-1} b$ è l'unico minimo globale.
+- $Q$ è singolare:
+- non ho soluzioni.
+- ho infinite soluzioni.
 
 
 \subsection{Esempio}
 
 \[
-	f(x,y) = \dfrac{1}{2} (ax^2 + by^2) - x
+  f(x,y) = \dfrac{1}{2} (ax^2 + by^2) - x
 \]
 
 Riscrivo nei termini della formula per l'algoritmo:
 
 \[
-	f(x) = \dfrac{1}{2}
-	\begin{bmatrix}
-    	x & y 
-	\end{bmatrix}
-	\begin{bmatrix}
-    	a & 0 \\
-    	0 & b 
-	\end{bmatrix}
-	\begin{bmatrix}
-    	x\\
-    	y 
-	\end{bmatrix}
-	- 
-	\begin{bmatrix}
-    	x & y 
-	\end{bmatrix}
-	\begin{bmatrix}
-    	1\\
-    	0 
-	\end{bmatrix}
+  f(x) = \dfrac{1}{2}
+  \begin{bmatrix}
+    x & y
+  \end{bmatrix}
+  \begin{bmatrix}
+    a & 0 \\
+    0 & b
+  \end{bmatrix}
+  \begin{bmatrix}
+    x \\
+    y
+  \end{bmatrix}
+  -
+  \begin{bmatrix}
+    x & y
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 \\
+    0
+  \end{bmatrix}
 \]
 
 
@@ -68,7 +68,7 @@ Metodi di ottimizzazione continua:
 Un algoritmo è \textbf{decente} se \textbf{converge}.
 
 \begin{definition}[Convergente globalmente]
-	Un algoritmo è chiamato convergente globalmente se converge a un punto $x^*$
+  Un algoritmo è chiamato convergente globalmente se converge a un punto $x^*$
 \end{definition}
 
 // PERSE COSE DA SLIDE QUI
@@ -100,16 +100,16 @@ Per essere efficiente, la \textbf{linesearch inesatta} richiede alcune condizion
 \subsubsection{Decremento sufficiente}
 Sono accettabili solo i valori di $\phi (\alpha)$ che siano inferiori a quelli della funzione.
 \[
-	f(\bm{x} + \alpha \bm{d}) \leq f(\bm{x}) + c_1\alpha \nabla f(\bm{x})^T \bm{d}, c \in (0,1) 
+  f(\bm{x} + \alpha \bm{d}) \leq f(\bm{x}) + c_1\alpha \nabla f(\bm{x})^T \bm{d}, c \in (0,1)
 \]
 \[
-	\phi(\alpha) \leq \phi(0) + \alpha c_1 \phi' (0)
+  \phi(\alpha) \leq \phi(0) + \alpha c_1 \phi' (0)
 \]
 
 \subsection{Condizione di curvatura}
 
 \[
-	\nabla f(\bm{x} + \alpha \bm{d})^T \bm{d} \geq c_2 \nabla f(x)^T
+  \nabla f(\bm{x} + \alpha \bm{d})^T \bm{d} \geq c_2 \nabla f(x)^T
 \]
 
 
@@ -117,19 +117,19 @@ Sono accettabili solo i valori di $\phi (\alpha)$ che siano inferiori a quelli d
 STUDIARE BENE TEOREMA DI ZOUTENDIJK CON DIMOSTRAZIONE
 
 \begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-	grid=major,
-	samples=\samples,
-	xlabel=$x$,
-    ylabel=$y$,
-    zlabel=$z$
-]
+  \begin{tikzpicture}
+    \begin{axis}[
 
-\addplot3[surf, unbounded coords=jump]
-{100(y-x^2)^2 + (1-x)^2};
-\end{axis}
-\end{tikzpicture}
+
+        xlabel=$x$,
+        ylabel=$y$,
+        zlabel=$z$
+      ]
+
+      \addplot3[surf, unbounded coords=jump]
+      {100(y-x^2)^2 + (1-x)^2};
+    \end{axis}
+  \end{tikzpicture}
 \end{center}
 
 

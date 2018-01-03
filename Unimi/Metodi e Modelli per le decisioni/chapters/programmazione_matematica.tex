@@ -24,8 +24,8 @@ La funzione di minimo che vado a definire risulta:
 
 \[
 	\text{min} f(x) = \begin{cases}
-		(x_1-1)^2 + x_2^2   \\
-		x_1^2 + x_2^2 = 4   \\
+		(x_1-1)^2 + x_2^2 \\
+		x_1^2 + x_2^2 = 4 \\
 		x_1  < \dfrac{3}{2}
 	\end{cases}
 \]
@@ -33,8 +33,8 @@ La funzione di minimo che vado a definire risulta:
 \begin{center}
 	\begin{tikzpicture}
 		\begin{axis}[
-				grid=major,
-				samples=\samples,
+
+
 				xlabel=$x_1$,
 				ylabel=$x_2$,
 				zlabel=$fitness$
@@ -83,7 +83,7 @@ La formula sovra riportata può essere espressa più semplicemente tramite:
 	Sono dei punti per cui non vale
 	\[
 		[\nabla g_j (\widetilde)]^T P_\xi (\widetilde{x}) \geq 0 \text{ per $g_j$ attivo } \Leftarrow 	\begin{cases}
-			\xi \text{ arco ammissibile}        \\
+			\xi \text{ arco ammissibile} \\
 			\widetilde{x} \text{ ottimo locale}
 		\end{cases}
 		\Rightarrow
@@ -94,8 +94,8 @@ La formula sovra riportata può essere espressa più semplicemente tramite:
 \begin{center}
 	\begin{tikzpicture}
 		\begin{axis}[
-				grid=major,
-				samples=\samples,
+
+
 				xlabel=$x_1$,
 				ylabel=$x_2$,
 				zlabel=$fitness$
