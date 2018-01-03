@@ -1,0 +1,126 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Le query SQL}
+
+\section{Sintassi delle query SQL}
+Ogni query SQL si compone di tre clausole:
+\begin{itemize}
+  \item select
+  \item from
+  \item where
+\end{itemize}
+
+Ogni query ha sintassi:
+
+select *attributo*
+
+from *tabella*
+
+  [ where *condizione* ]
+
+
+Dunque \textit{select} indica l'attributo che ci interessa estrarre, \textit{from} la tabella da cui estrarre l'attributo, \textit{where} la condizione che l'attributo deve rispettare affinché sia rilevante per la nostra query.
+
+La condizione indicata dal \textit{where} può essere espressa tramite un'espressione i cui operatori sono:
+\begin{itemize}
+  \item \textbf{predicati semplici dell'algebra}: uguaglianza, operatori booleani ...
+  \item \textbf{between}: indica gli estremi di un intervallo.
+  \item \textbf{distinct}: impedisce che vi siano duplicati fra i risultati della query
+\end{itemize}
+
+\textbf{like}: indica parte del nome dell'attributo cercato, ad esempio
+\begin{minted}{sql}
+nome like 'Mar\%o'
+\end{minted}
+cerca i nomi che iniziano con ``Mar'' e finiscono con ``o''. Con like si usano i simboli \_ e \%, che indicano rispettivamente un carattere e una sottostringa (di lunghezza arbitraria) di cui non conosciamo (o non ci interessa) il valore; dunque qualunque valore essi abbiano nell'attributo, tale attributo sarà ritenuto valido e restituito dalla query.
+
+\section{Attributi con valore null}
+Esiste un valore speciale \textbf{null}, che viene utilizzato se non si conosce un valore, se un valore non si può applicare a un determinato attributo, se non si sa se tale valore possa essere applicato a un determinato attributo.
+/textit{Null} può essere usato nelle query attraverso gli operatori
+\begin{minted}{sql}
+attributo is null
+\end{minted}
+e
+\begin{minted}{sql}
+attributo is null
+\end{minted}
+che restituiscono rispettivamente le righe con valore nullo per un determinato attributo e quelle con valore non nullo per un determinato attributo.
+
+\section{Tabelle e join}
+Le tabelle indicate dopo la clausola \textit{where} indicano il dominio della query.
+Possono essere indicate più tabelle, separate da una virgola: la query ne farà automaticamente il prodotto cartesiano e cercherà l'attributo richiesto in tale prodotto cartesiano.
+Si può anche effettuare la join in modo esplicito, con l'espressione
+
+\begin{minted}{sql}
+select attributo from tabella1 join tabella on condizione_su_cui_viene_effettuata_la_join
+\end{minted}
+La condizione della join è espressa come in algebra.
+
+La \textit{join} può essere di due tipi differenti:
+\begin{itemize}
+  \item interna
+  \item esterna
+\end{itemize}
+Per indicare la \textit{join} interna si scrive semplicemente ``join'', per indicare una \textit{join} esterna si scrive ``left/right/full join''.
+Una \textit{join} esterna restituisce anche le righe per cui la condizione espressa dall''on'' della join restituisca valori nulli.
+Dunque con una \textit{left join} prenderò tutte le righe della tabella dichiarata a sinistra della join, anche se in quella di destra alcune di esse avranno attributi con valori nulli.
+La \textit{right join} fa lo stesso ma con le righe della tabella a destra dell'operatore join.
+La \textit{full join} prende tutte le righe di entrambe le tabelle.
+
+\section{Ridenominazione}
+È possibile ``dare un nome'' al risultato della query usando l'operatore ``as'', ad esempio:
+\begin{minted}{sql}
+select * as informatico from STUDENTE where ...
+\end{minted}
+\textit{As} si usa anche nell'espressione della \textit{from} nel caso si debbano estrarre più variabili dalla stessa tabella.
+Ad esempio
+\begin{minted}{sql}
+select * from STUDENTE as stud1, STUDENTE as stud2, ...
+\end{minted}
+
+
+\section{Modificare il database in SQL}
+È possibile:
+
+- Effettuare inserimenti:
+\begin{minted}{sql}
+  insert into nome tabella values lista valori
+\end{minted}
+vengono messi a null o al valore di default.
+
+Se mancano dei valori nella lista
+Al posto di usare ``values + lista valori'' si può inserire il risultato di una query, scrivendo la query, come una normale query, alla fine del comando:
+\begin{minted}{sql}
+  insert into nome tabella query
+      \end{minted}
+
+
+- Effettuare cancellazioni:
+\begin{minted}{sql}
+   delete from nome tabella where condizione che identifica gli elementi da cancellare
+\end{minted}
+
+- Modificare i valori degli attributi:
+\begin{minted}{sql}
+  update nome_tabella set attributo = valore where condizione
+\end{minted}
+
+Cancellare intere tabelle: \textbf{drop table *nome tabella*}
+
+\begin{minted}{sql}
+update nome_tabella set attributo = valore where condizione
+\end{minted}
+
+\section{Query complesse}
+\subsection{Ordinamento}
+È possibile riordinare i risultati di una query attraverso il comando \textbf{order by}.
+Si usa la sintassi:
+\begin{minted}{sql}
+order by AttributoOrdinamento [ crescente | descrescente ]
+\end{minted}
+
+
+
+\end{document}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{k}{delete} \PYG{k}{from} \PYG{n}{nome} \PYG{n}{tabella} \PYG{k}{where} \PYG{n}{condizione} \PYG{n}{che} \PYG{n}{identifica} \PYG{n}{gli} \PYG{n}{elementi} \PYG{n}{da} \PYG{n}{cancellare}
+\end{Verbatim}

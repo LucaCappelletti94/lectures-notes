@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{k}{update} \PYG{n}{nome\PYGZus{}tabella} \PYG{k}{set} \PYG{n}{attributo} \PYG{o}{=} \PYG{n}{valore} \PYG{k}{where} \PYG{n}{condizione}
+\end{Verbatim}

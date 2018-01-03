@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{k}{insert} \PYG{k}{into} \PYG{n}{nome} \PYG{n}{tabella} \PYG{k}{values} \PYG{n}{lista} \PYG{n}{valori}
+\end{Verbatim}
