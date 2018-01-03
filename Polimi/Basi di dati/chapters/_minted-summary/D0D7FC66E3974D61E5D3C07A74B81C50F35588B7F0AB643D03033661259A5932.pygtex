@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{sum}\PYG{o}{|}\PYG{k}{max}\PYG{o}{|}\PYG{k}{min}\PYG{o}{|}\PYG{k}{avg} \PYG{p}{([}\PYG{k}{distinct}\PYG{o}{|}\PYG{k}{all}\PYG{p}{]} \PYG{n}{Attributo} \PYG{p}{)}
+\end{Verbatim}

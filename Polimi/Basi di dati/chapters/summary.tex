@@ -121,6 +121,37 @@ Si usa la sintassi:
 order by AttributoOrdinamento [ crescente | descrescente ]
 \end{minted}
 
+\subsection{Funzioni aggregate}
+Le funzioni aggregate sono funzioni, utilizzate all'interno delle espressioni della clausola \textit{where}, che utilizzano operatori complessi, che operano su più elementi del database.
+Esistono cinque operatori SQL per realizzate funzioni aggregate:
+- \textbf{count:} restituisce il numero di righe per un certo attributo. Se si aggiunge l'operatore \textit{distinct}, restituisce il numero di righe per l'attributo omettendo le righe duplicate.
+\begin{minted}{sql}
+count( * | [ distinct | all ] ListaAttributi )
+\end{minted}
+- \textbf{sum:} restituisce la somma dei valori dell'attributo passato come parametro.
+- \textbf{max:} restituisce il massimo fra i valori dell'attributo passato come parametro.
+- \textbf{min:} restituisce il minimo fra i valori dell'attributo passato come parametro.
+- \textbf{avg:} restituisce la media fra i valori dell'attributo passato come parametro.
+\begin{minted}{sql}
+sum|max|min|avg ([distinct|all] Attributo )
+\end{minted}
+
+\subsection{Raggruppamento}
+È possibile che ci sia il bisogno di applicare gli operatori appena visti a un sottoinsieme di righe di una tabella, non all'intera tabella.
+Allora si usa l'operatore \textit{group by}, che seleziona le righe che ci interessano.
+\begin{minted}{sql}
+group by attributo1 having operatore_aggregato(attributo2)
+\end{minted}
+
+\subsection{Query binarie}
+Sono realizzate concatenando due query attraverso gli operatori insiemistici di unione, intersezione e differenza.
+\begin{minted}{sql}
+Query1  union | intersect | except  [ all ] Query2
+\end{minted}
+Se si usa l'operatore ``all'' vengono inclusi anche eventuali duplicati, se si omette essi sono esclusi automaticamente.
+
+\subsection{Query nidificate}
+
 
 
 \end{document}

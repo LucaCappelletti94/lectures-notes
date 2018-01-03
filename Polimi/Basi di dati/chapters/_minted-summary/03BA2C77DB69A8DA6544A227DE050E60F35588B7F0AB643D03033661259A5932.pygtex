@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{count}\PYG{p}{(} \PYG{o}{*} \PYG{o}{|} \PYG{p}{[} \PYG{k}{distinct} \PYG{o}{|} \PYG{k}{all} \PYG{p}{]} \PYG{n}{ListaAttributi} \PYG{p}{)}
+\end{Verbatim}
