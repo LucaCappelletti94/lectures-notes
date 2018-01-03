@@ -1,0 +1,15 @@
+{
+  "title": "Basi di dati",
+  "cfu": 5,
+  "authors": [{
+    "name": "Tommaso",
+    "surname": "Fontana"
+  }, {
+    "name": "Valentina",
+    "surname": "Deda"
+  }],
+  "professors": [{
+    "name": "Stefano",
+    "surname": "Ceri"
+  }]
+}
