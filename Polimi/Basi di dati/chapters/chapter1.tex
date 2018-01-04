@@ -209,8 +209,8 @@ La revoke invece ha sintassi:
 revoke nome_privilegi on nome_risorsa from nome_utente [ restrict | cascade ]
 \end{minted}
 
-\secton{Transazioni}
-Le transazioni sono sequenze di comandi SQL che devono essere racchiuse fra l'espressione \textbf{begin transaction} e\textbf{end transaction}. Attraverso queste transazioni è possibile effettuare delle modifiche al database.
+\section{Transazioni}
+Le transazioni sono sequenze di comandi SQL che devono essere racchiuse fra l'espressione \textbf{begin transaction} e \textbf{end transaction}. Attraverso queste transazioni è possibile effettuare delle modifiche al database.
 La differenza fra l'utilizzare una transazione e non utilizzarla sta nel fatto che, utilizzando la transazione, è possibile decidere se rendere permanenti le modifiche oppure eliminarle e tornare allo stato iniziale.
 Infatti, prima di ogni \textit{end transaction} è necessario decidere mantenere o no le modifiche attraverso, rispettivamente, i comandi \textbf{commit work} e \textbf{rollback work}. Il primo rende definitive le modifiche, il secondo le cancella e mantiene il database allo stato precedente la transazione.
 
