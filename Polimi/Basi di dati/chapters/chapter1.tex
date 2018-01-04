@@ -36,7 +36,7 @@ nome like 'Mar\%o'
 \end{minted}
 cerca i nomi che iniziano con ``Mar'' e finiscono con ``o''. Con like si usano i simboli \_ e \%, che indicano rispettivamente un carattere e una sottostringa (di lunghezza arbitraria) di cui non conosciamo (o non ci interessa) il valore; dunque qualunque valore essi abbiano nell'attributo, tale attributo sarà ritenuto valido e restituito dalla query.
 
-\section{Attributi con valore null}
+\subsection{Attributi con valore null}
 Esiste un valore speciale \textbf{null}, che viene utilizzato se non si conosce un valore, se un valore non si può applicare a un determinato attributo, se non si sa se tale valore possa essere applicato a un determinato attributo.
 /textit{Null} può essere usato nelle query attraverso gli operatori
 \begin{minted}{sql}
@@ -48,7 +48,7 @@ attributo is null
 \end{minted}
 che restituiscono rispettivamente le righe con valore nullo per un determinato attributo e quelle con valore non nullo per un determinato attributo.
 
-\section{Tabelle e join}
+\subsection{Tabelle e join}
 Le tabelle indicate dopo la clausola \textit{where} indicano il dominio della query.
 Possono essere indicate più tabelle, separate da una virgola: la query ne farà automaticamente il prodotto cartesiano e cercherà l'attributo richiesto in tale prodotto cartesiano.
 Si può anche effettuare la join in modo esplicito, con l'espressione
@@ -69,7 +69,7 @@ Dunque con una \textit{left join} prenderò tutte le righe della tabella dichiar
 La \textit{right join} fa lo stesso ma con le righe della tabella a destra dell'operatore join.
 La \textit{full join} prende tutte le righe di entrambe le tabelle.
 
-\section{Ridenominazione}
+\subsection{Ridenominazione}
 È possibile ``dare un nome'' al risultato della query usando l'operatore ``as'', ad esempio:
 \begin{minted}{sql}
 select * as informatico from STUDENTE where ...
@@ -151,7 +151,68 @@ Query1  union | intersect | except  [ all ] Query2
 Se si usa l'operatore ``all'' vengono inclusi anche eventuali duplicati, se si omette essi sono esclusi automaticamente.
 
 \subsection{Query nidificate}
+Le query nidificate sono query che contengono ulteriori query al proprio interno.
+In particolare, si tratta di query che hanno nella propria clausola \textit{where} un predicato che effettua il confronto con il risultato di un'altra query.
+Questi predicati sono formati da due elementi:
+\begin{description}
+  \item[- L`operatore:] è un operatore logico, quindi =,<>,<,<=,>,...
+  \item[- any|all:] indicano la quantità di righe con cui fare il confronto.
+\end{description}
+\textit{All} indica che il confronto effettuato dall'operatore deve valere per ciascuna riga della query espressa dopo l'\textit{all}, \textit{any} invece indica che il confronto deve valere per almeno una riga della query espressa dopo l'\textit{any}.
+Ad esempio:
+\begin{minted}{sql}
+select Nome
+from STUDENTE
+where Nome = any
+  select Nome
+  from STUDENTE
+\end{minted}
+estrae gli studenti con almeno un omonimo.
 
+Esistono anche altre predicati per effettuare le query nidificate.
+Questi predicati sono:
+-\textbf{in}: è vero se l'espressione è presente almeno in una riga restituita da Query2:
+\begin{minted}{sql}
+Espressione in Query2
+\end{minted}
+Esiste anche il \textit{not in}, che è il negato di in e ha la stessa sintassi.
+Il predicato \textit{in} è equivalente a \textit{= any}.
+-\textbf{exists}: è vero se Query2 ha almeno una tupla.
+\begin{minted}{sql}
+exists Query2
+\end{minted}
+Il suo negato è \textit{not exists}.
+
+\subsubsection{Visibilità delle variabili nelle query nidificate}
+Le variabili sono visibili \textbf{solo} nelle query in cui sono dichiarate o nelle query nidificate ad esse.
+Dunque due query nidificate alla stessa query principale ma non fra loro \textbf{non} vedono le variabili l'una dell'altra, ma entrambe vedono le variabili della query principale.
+
+\subsubsection{Query nidificate nelle modifiche}
+Le query nidificate possono essere utilizzate anche con il comando \textbf{update}.
+È sufficiente scrivere:
+\begin{minted}{sql}
+update nome_riga
+    set attributo = Query2
+\end{minted}
+
+\section{Permessi d'accesso}
+È possibile controllare l'accesso di ciascun utente al database. In particolare si può consentire/limitare le operazioni che ogni utente può effettuare su di esso.
+Per concedere un permesso, si utilizza il comando \textbf{grant}. Per revocare un permesso, si utilizza il comando \textbf{revoke}.
+La sintassi è la seguente per la grant:
+\begin{minted}{sql}
+grant < nome_privilegi | all privileges > on nome_risorsa nome_utente [withgrantoption]
+  \end{minted}
+L'espressione \textit{withgrantoption}, che è opzionale, indica che l'utente a sua volta è autorizzato a fornire il privilegio ad altri utenti.
+
+La revoke invece ha sintassi:
+\begin{minted}{sql}
+revoke nome_privilegi on nome_risorsa from nome_utente [ restrict | cascade ]
+\end{minted}
+
+\secton{Transazioni}
+Le transazioni sono sequenze di comandi SQL che devono essere racchiuse fra l'espressione \textbf{begin transaction} e\textbf{end transaction}. Attraverso queste transazioni è possibile effettuare delle modifiche al database.
+La differenza fra l'utilizzare una transazione e non utilizzarla sta nel fatto che, utilizzando la transazione, è possibile decidere se rendere permanenti le modifiche oppure eliminarle e tornare allo stato iniziale.
+Infatti, prima di ogni \textit{end transaction} è necessario decidere mantenere o no le modifiche attraverso, rispettivamente, i comandi \textbf{commit work} e \textbf{rollback work}. Il primo rende definitive le modifiche, il secondo le cancella e mantiene il database allo stato precedente la transazione.
 
 
 \end{document}

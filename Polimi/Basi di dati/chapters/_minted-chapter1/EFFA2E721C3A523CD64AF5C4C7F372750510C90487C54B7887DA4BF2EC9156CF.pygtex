@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{select} \PYG{n}{Nome}
+\PYG{k}{from} \PYG{n}{STUDENTE}
+\PYG{k}{where} \PYG{n}{Nome} \PYG{o}{=} \PYG{k}{any}
+  \PYG{k}{select} \PYG{n}{Nome}
+  \PYG{k}{from} \PYG{n}{STUDENTE}
+\end{Verbatim}

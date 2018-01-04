@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{update} \PYG{n}{nome\PYGZus{}riga}
+    \PYG{k}{set} \PYG{n}{attributo} \PYG{o}{=} \PYG{n}{Query2}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{grant} \PYG{o}{\PYGZlt{}} \PYG{n}{nome\PYGZus{}privilegi} \PYG{o}{|} \PYG{k}{all} \PYG{k}{privileges} \PYG{o}{\PYGZgt{}} \PYG{k}{on} \PYG{n}{nome\PYGZus{}risorsa} \PYG{n}{nome\PYGZus{}utente} \PYG{p}{[}\PYG{n}{withgrantoption}\PYG{p}{]}
+\end{Verbatim}

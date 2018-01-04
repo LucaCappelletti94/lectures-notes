@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{revoke} \PYG{n}{nome\PYGZus{}privilegi} \PYG{k}{on} \PYG{n}{nome\PYGZus{}risorsa} \PYG{k}{from} \PYG{n}{nome\PYGZus{}utente} \PYG{p}{[} \PYG{k}{restrict} \PYG{o}{|} \PYG{k}{cascade} \PYG{p}{]}
+\end{Verbatim}

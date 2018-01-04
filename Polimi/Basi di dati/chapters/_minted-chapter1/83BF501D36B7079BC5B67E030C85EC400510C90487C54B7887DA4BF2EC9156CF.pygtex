@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{select} \PYG{o}{*} \PYG{k}{from} \PYG{n}{STUDENTE} \PYG{k}{as} \PYG{n}{stud1}\PYG{p}{,} \PYG{n}{STUDENTE} \PYG{k}{as} \PYG{n}{stud2}\PYG{p}{,} \PYG{p}{...}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{Query1}  \PYG{k}{union} \PYG{o}{|} \PYG{k}{intersect} \PYG{o}{|} \PYG{k}{except}  \PYG{p}{[} \PYG{k}{all} \PYG{p}{]} \PYG{n}{Query2}
+\end{Verbatim}
