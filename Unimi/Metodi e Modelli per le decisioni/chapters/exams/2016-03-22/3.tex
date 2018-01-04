@@ -53,7 +53,9 @@ Riformulo il problema:
       \begin{axis}[
           xlabel=$x_1$,
           ylabel=$x_2$,
-          zlabel=$f(x)$
+          zlabel=$f(x)$,
+          domain=0:2,
+          y domain=0:2
         ]
         \addplot3[surf, unbounded coords=jump]
         {x > 0 && y>0 && x+y<2 ? y^2 + x^2 +x : NaN};

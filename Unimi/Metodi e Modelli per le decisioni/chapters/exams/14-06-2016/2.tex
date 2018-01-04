@@ -35,7 +35,9 @@ Dato il problema di programmazione matematica
       \begin{axis}[
           xlabel=$x_1$,
           ylabel=$x_2$,
-          zlabel=$f(x)$
+          zlabel=$f(x)$,
+          domain=-1:0,
+          y domain=1:2
         ]
         \addplot3[surf, unbounded coords=jump]
         {x^2 + y^2 -2*y <  0 && x - y < -2 ? y : NaN};
