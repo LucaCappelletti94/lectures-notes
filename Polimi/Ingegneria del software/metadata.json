@@ -1,6 +1,6 @@
 {
   "title": "Ingegneria Del Software",
-  "cfu": 10,
+  "cfu": 7,
   "authors": [{
     "name": "Tommaso",
     "surname": "Fontana"
@@ -9,7 +9,7 @@
     "surname": "Deda"
   }],
   "professors": [{
-    "name": "TO",
-    "surname": "DO"
+    "name": "Luca",
+    "surname": "Mottola"
   }]
 }
