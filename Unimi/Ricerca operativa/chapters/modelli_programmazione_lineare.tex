@@ -73,7 +73,7 @@ Il vincolo afferma che la differenza tra  la quantità di flusso entrante e la q
 \end{figure}
 
 \subsection{Problema del cammino orientato di costo minimo}
-Basandosi sul caso base visto nel \textbf{problema di flusso a costo minimo \ref{min_cost_flux_sect}} aggiungiamo i nodi $s$ (origine) e $t$ (destinazione), considerando quindi $i\neq s \neq t$ e $b_i = 0$, $b_s = 1$ e $b_t = -1$:
+Basandosi sul caso base visto nel \textbf{problema di flusso a costo minimo \ref{min_cost_flux_sect}} aggiungiamo i nodi $s$ (origine) e $t$ (destinazione), considerando quindi $i\neq s \neq t$ e le forniture $b_i = 0$, $b_s = 1$ e $b_t = -1$:
 
 \begin{figure}
 	\begin{align*}
@@ -82,7 +82,134 @@ Basandosi sul caso base visto nel \textbf{problema di flusso a costo minimo \ref
 		\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
 		\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -1                                \\
 	\end{align*}
-	\caption{Problema di flusso a costo minimo}
+	\caption{Problema del cammino orientato di costo minimo}
+\end{figure}
+
+\subsection{Problema del massimo flusso}
+Basandosi sempre sul caso base del \textbf{problema di flusso a costo minimo \ref{min_cost_flux_sect}}, poniamo i costi $c_{ij}$, capacità minime $l_{ij}$ e le forniture $b_i$ a $0$. L'obbiettivo posto è di inviare la massima quantità di flusso possibile da un nodo di ingresso $s$ (detto sorgente) ed uno di uscita $t$ (detto pozzo). Viene indicata con $v$ la fornitura del nodo $s$ (che non è un parametro ma una variabile dipendente dalle $x_{ij}$, rappresentante il flusso netto uscente da $s$)
+
+\begin{figure}
+	\begin{align*}
+		\min z(x) = v                                                                                                         \\
+		\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s =v                                  \\
+		\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
+		\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -v                                \\
+		x_{ij}                                                                    & \leq u_{ij} \quad (i,j) \in \mathcal{A}
+	\end{align*}
+	\caption{Problema del massimo flusso}
+\end{figure}
+
+\subsection{Problema di trasporto}
+Dati $n$ nodi di origine (stabilimenti di produzione) con una produzione di $a_i, i \in \{1, \ldots, n\}$ e $m$ nodi di destinazione (punti vendita), ciascuno caratterizzato da una domanda $b_j, j \in \{1, \ldots, m\}$ ed un costo unitario di trasporto $c_{ij}$. L'obbiettivo del problema è di determinare il quantitativo di prodotto da inviare da ciascuna origine verso ciascuna destinazione in modo tale da minimizzare il costo complessivo di trasporto rispettando i vincoli sulla quantità di prodotto disponibile in ciascuna origine e garantendo il soddisfacimento delle domande di ogni destinazione.
+
+\begin{figure}
+	\begin{align*}
+		\min z(x) = \sum_{i=1}^n\sum_{j=1}^m c_{ij}x_{ij} \\
+		\sum_{j=1}^m x_{ij} & \leq a_i \quad \forall i    \\
+		\sum_{i=1}^n x_{ij} & = b_j  \quad \forall j      \\
+	\end{align*}
+	\caption{Problema di trasporto}
+\end{figure}
+
+Per ricondursi al caso in cui vale il vincolo $\sum_{j=1}^m x_{ij} = a_i$ è sempre possibile aggiungere una destinazione fittizia $m+1$ che funge da discarica.
+
+Una variante del problema di trasporto considera la possibilità di includere $p$ nodi intermedi di transito, che possono scambiare il materiale anche tra loro. Questo porta il numero delle origini e destinazioni a divenire $n+p$ e $m+p$ (ogni origine può inviare a $p$ nuovi nodi ed ogni destinazione può ricevere da $p$ nuovi nodi). Diviene necessario aggiungere due vincoli ulteriori per modellare i nodi $p$ come intermedi, cioè che ogni punto di transito abbia un flusso entrante coincidente con il flusso uscente e che non ponga ulteriori limitazioni:
+
+
+\begin{figure}
+	\begin{align*}
+		\min z(x) = \sum_{i=1}^{n+p}\sum_{j=1}^{m+p} c_{ij}x_{ij}       \\
+		\sum_{j=1}^{m+p} x_{ij} & \leq a_i \quad \forall i              \\
+		\sum_{i=1}^{n+p} x_{ij} & = b_j    \quad \forall j              \\
+		\sum_{j=1}^{m+p} x_{ij} & = \sum_{j=1}^m b_j    \quad \forall i \\
+		\sum_{i=1}^{n+p} x_{ij} & = \sum_{j=1}^m b_j    \quad \forall j \\
+	\end{align*}
+	\caption{Problema di trasporto con $p$ nodi intermedi}
+\end{figure}
+
+\subsection{Problema dell'assegnamento}
+Supponiamo di avere $n$ oggetti (per esempio lavoratori) ed altrettanti posti (per esempio postazioni di lavoro) associate da un costo di assegnamento $c_{ij}$. Il problema consiste nel determinare il modo più conveniente di assegnare ogni oggetto $i$ ad uno e un solo posto $j$. Il problema è a variabili di tipo binario ($x_{ij} \in \{0,1\}$).
+
+\begin{figure}
+	\begin{align*}
+		\min z(x) = \sum_{i=1}^n\sum_{j=1}^n c_{ij}x_{ij} \\
+		\sum_{j=1}^n x_{ij} & = 1 \quad \forall i         \\
+		\sum_{i=1}^n x_{ij} & = 1  \quad \forall j        \\
+	\end{align*}
+	\caption{Problema dell'assegnamento}
+\end{figure}
+
+Varianti tipiche possono essere sull'assegnare un numero oggetti diverso dal numero di posti, che vanno a modificare i vincoli di uguaglianza a $\sum_{j=1}^n x_{ij} \leq 1$.
+
+\section{Riassunto}
+
+\begin{figure}
+	\begin{subfigure}{0.31\textwidth}
+		\begin{align*}
+			\max z(x) = \sum_{j=1}^n p_jx_j                                      \\
+			\sum_{j=1}^n a_{ij}x_j & \leq b_i \quad \forall i \in \{1,\ldots,m\} \\
+		\end{align*}
+		\caption{Modello di pianificazione della produzione}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\begin{align*}
+			\max z(x) = \sum_{j=1}^n c_jx_j                                      \\
+			\sum_{j=1}^n a_{ij}x_j & \geq b_i \quad \forall i \in \{1,\ldots,m\} \\
+		\end{align*}
+		\caption{Modello di miscelazione}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\begin{align*}
+			\min z(x) = \sum_{(i,j) \in \mathcal{A}} c_{ij}x_{ij}                                                             \\
+			\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i \quad \forall i \in \mathcal{N} \\
+		\end{align*}
+		\caption{Problema di flusso a costo minimo}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\begin{align*}
+			\min z(x) = \sum_{(i,j) \in \mathcal{A}} c_{ij}x_{ij}                                                                 \\
+			\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s = 1                                 \\
+			\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
+			\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -1                                \\
+		\end{align*}
+		\caption{Problema del cammino orientato di costo minimo}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\begin{align*}
+			\min z(x) = v                                                                                                         \\
+			\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s =v                                  \\
+			\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
+			\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -v                                \\
+			x_{ij}                                                                    & \leq u_{ij} \quad (i,j) \in \mathcal{A}
+		\end{align*}
+		\caption{Problema del massimo flusso}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\begin{align*}
+			\min z(x) = \sum_{i=1}^n\sum_{j=1}^m c_{ij}x_{ij} \\
+			\sum_{j=1}^m x_{ij} & \leq a_i \quad \forall i    \\
+			\sum_{i=1}^n x_{ij} & = b_j  \quad \forall j      \\
+		\end{align*}
+		\caption{Problema di trasporto}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\begin{align*}
+			\min z(x) = \sum_{i=1}^{n+p}\sum_{j=1}^{m+p} c_{ij}x_{ij}       \\
+			\sum_{j=1}^{m+p} x_{ij} & \leq a_i \quad \forall i              \\
+			\sum_{i=1}^{n+p} x_{ij} & = b_j    \quad \forall j              \\
+			\sum_{j=1}^{m+p} x_{ij} & = \sum_{j=1}^m b_j    \quad \forall i \\
+			\sum_{i=1}^{n+p} x_{ij} & = \sum_{j=1}^m b_j    \quad \forall j \\
+		\end{align*}
+		\caption{Problema di trasporto con $p$ nodi intermedi}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\begin{align*}
+			\min z(x) = \sum_{i=1}^n\sum_{j=1}^n c_{ij}x_{ij} \\
+			\sum_{j=1}^n x_{ij} & = 1 \quad \forall i         \\
+			\sum_{i=1}^n x_{ij} & = 1  \quad \forall j        \\
+		\end{align*}
+		\caption{Problema dell'assegnamento}
+	\end{subfigure}
 \end{figure}
 
 
