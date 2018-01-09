@@ -1,0 +1,89 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Modelli di programmazione lineare}
+
+\section{Formulazione di un modello PL}
+Un modello di programmazione lineare si ottiene assumendo che \textbf{funzione obbiettivo} e \textbf{vincoli} e viene espresso come:
+
+\begin{align*}
+	\min x(x) = c_1x_1 + \ldots + c_nx_n       \\
+	a_{11}x_1 +  \ldots + a_{1n}x_n & \geq b_1 \\
+	                                & \vdots   \\
+	a_{m1}x_1 +  \ldots + a_{mn}x_n & \geq b_m
+\end{align*}
+
+Esso include anche i vincoli di non negatività delle variabili di decisione:
+
+\[
+	x_j \geq 0 \quad \forall j \in \{1,\ldots,n\}
+\]
+
+In forma matriciale (compatta) il modello di PL può essere formulato nel modo seguente:
+
+\begin{align*}
+	\min z(x) = c^Tx \\
+	Ax & \geq b      \\
+	x  & \geq 0
+\end{align*}
+
+Dove $c \in \mathbb{R}^n$ è il vettore dei coefficienti della funzione obbiettivo mentre $b \in \mathbb{R}^m$ è il vettore dei termini noti dei vincoli ed $A$ è la matrice dei coefficienti delle variabili di decisioni nei vincoli.
+
+\section{Modelli di pianificazione della produzione}
+Dato un numero di risorse $m$ disponibile per la produzione di $n$ prodotti, $a_{ij}$ con $i \in \{1,\ldots,m\}$ e $j \in \{1,\ldots,n\}$ la quantità di risorsa $i$ necessaria per produrre una unità di prodotto $j$, $b_i$ la quantità della risorsa disponibile $i$ e $p_j$ il profitto lordo unitario ricavabile dalla vendita di un prodotto $j$, il modello PL è costituito come segue:
+
+\begin{figure}
+	\begin{align*}
+		\max z(x) = \sum_{j=1}^n p_jx_j                                      \\
+		\sum_{j=1}^n a_{ij}x_j & \leq b_i \quad \forall i \in \{1,\ldots,m\} \\
+	\end{align*}
+	\caption{Modello di pianificazione della produzione}
+\end{figure}
+
+\section{Modelli di miscelazione}
+Si supponga di avere a disposizione $n$ ingredienti, ognuno dei quali contenente una certa quantità degli $m$ componenti, $a_{ij}$ la quantità di componente $i$ presente nell'ingrediente $j$ mentre $b_i$ rappresenta la quantità minima di componente $i$ richiesto nella miscela. Il costo unitario dell'ingrediente $j$ è indicato con $c_j$.
+
+\begin{figure}
+	\begin{align*}
+		\max z(x) = \sum_{j=1}^n c_jx_j                                      \\
+		\sum_{j=1}^n a_{ij}x_j & \geq b_i \quad \forall i \in \{1,\ldots,m\} \\
+	\end{align*}
+	\caption{Modello di miscelazione}
+\end{figure}
+
+Ulteriori vincoli tipici potrebbero essere la presenza di un componente $i$ minore di un valore $d_i$:
+
+\[
+	\sum_{j=1}^n a_{ij} x_j \leq d_i
+\]
+
+\section{Modelli di flusso su rete}
+
+\subsection{Problema di flusso a costo minimo}  \label{min_cost_flux_sect}
+Dato un grafo orientato $\mathcal{D} = (\mathcal{N}, \mathcal{A})$ dove $\mathcal{N}$ è l'insieme dei nodi, mentre $\mathcal{A}$ è l'insieme degli archi, si indica con $b_i$ con $i \in \mathcal{N}$ la fornitura (se positivo) o domanda (se negativo) del nodo $i$ e con $c_{ij}$, $l_{ij}$ e $u_{ij}$ rispettivamente il costo, la capacità minima e massima dell'arco $(i,j), \forall (i,j) \in \mathcal{A}$. La sestupla $R = (\mathcal{N}, \mathcal{A}, b, c, l, u)$ si definisce \textbf{rete}.
+
+Il vincolo afferma che la differenza tra  la quantità di flusso entrante e la quantità uscente dal nodo deve essere uguale alla fornitura / domanda.
+
+\begin{figure}
+	\begin{align*}
+		\min z(x) = \sum_{(i,j) \in \mathcal{A}} c_{ij}x_{ij}                                                             \\
+		\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i \quad \forall i \in \mathcal{N} \\
+	\end{align*}
+	\caption{Problema di flusso a costo minimo}
+\end{figure}
+
+\subsection{Problema del cammino orientato di costo minimo}
+Basandosi sul caso base visto nel \textbf{problema di flusso a costo minimo \ref{min_cost_flux_sect}} aggiungiamo i nodi $s$ (origine) e $t$ (destinazione), considerando quindi $i\neq s \neq t$ e $b_i = 0$, $b_s = 1$ e $b_t = -1$:
+
+\begin{figure}
+	\begin{align*}
+		\min z(x) = \sum_{(i,j) \in \mathcal{A}} c_{ij}x_{ij}                                                                 \\
+		\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s = 1                                 \\
+		\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
+		\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -1                                \\
+	\end{align*}
+	\caption{Problema di flusso a costo minimo}
+\end{figure}
+
+
+\end{document}
