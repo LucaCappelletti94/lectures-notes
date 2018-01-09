@@ -23,7 +23,9 @@
 * Apprendimento supervisionato
 * Biologia
 * Clustering
+  - Marco Tiraboschi
 * Fuzzy Systems
+  - Luca Cappelletti
 * Macchine ed Intelligenza
 * Reinforcement Learning
 * Statistica
