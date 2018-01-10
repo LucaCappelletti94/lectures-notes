@@ -10,7 +10,7 @@ from os.path import isfile
 import json
 
 
-with open("cleaner_settings.json", "r") as f:
+with open("settings_cleaner.json", "r") as f:
     settings = json.load(f)
 
 black_list = settings["black-list"]
