@@ -1,0 +1,53 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 3}
+Riferendosi ai problemi di programmazione a molti obiettivi:
+
+\begin{enumerate}[a)]
+  \item Si definisca il concetto di soluzione paretiana.
+  \item Si elenchino i principali metodi per determinare le soluzioni paretiane.
+  \item Si descriva brevemente il metodo dei pesi, specificandone vantaggi e svantaggi.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 3}
+\subsubsection*{Definizione di soluzione paretiana}
+\begin{definition}[Soluzione paretiana]
+  Si dice soluzione paretiana qualsiasi soluzione ammissibile $x^o \in X$ tale che nessun'altra soluzione $x'$ la domina.
+
+  \[
+    \forall x \in X, l \in \{1,\ldots,p\}: f_l(x') > f_l(x^o) \lor f(x') = f(x^o)
+  \]
+
+  Le soluzioni paretiane non coincidono con gli ottimo globali poiché non sono necessariamente indifferenti tra loro e non sono preferibili a tutte le altre, proprietà che invece valgono per i punti di ottimo globale.
+\end{definition}
+
+\subsubsection*{Metodi per determinare soluzioni paretiane}
+I metodi sono 5:
+\begin{description}
+  \item[Applicazione della definizione] Vale \textbf{caso finito} è possibile risolvere costruendo il grafo di dominanza fra soluzioni.
+  \item[Condizioni KKT] Vale nel \textbf{caso continuo}. Le condizioni KKT (aggiungendo le opportune condizioni di normalizzazione per i pesi) producono una sovrastima di $X^o$.
+  \item[Metodo della trasformazione inversa] Utilizzabile se ci sono solo due indicatori ($f \in \mathbb{R}^2 $), dato che si procede graficamente identificando gli impatti ottimi $F^o$ e quindi tramite l'inversa della funzione $f$, $\phi: F \rightarrow X$ si calcola la regione paretiana $X^o$.
+  \item[Metodo dei pesi] Vale sempre e consiste nel costruire una combinazione convessa degli indicatori di un impatto e di andare a minimizzare le combinazioni. Produce una sottostima di $X^o$.
+  \item[Metodo dei vincoli] Preso uno o più indicatori $f_l$, li si rende disequazioni vincolate da un coefficiente $\epsilon_l$ (detto standard), che quindi si identifica via KKT o metodo grafo. Produce una sovrastima di $X^o$
+\end{description}
+
+\subsubsection*{Il metodo dei pesi}
+\paragraph*{Come si procede}
+Si sceglie uno o più impatti e si costruisce la combinazione convessa dei suoi indicatori, quindi minimizzare la sommatoria ottenuta.
+
+\paragraph*{Vantaggi}
+\begin{enumerate}
+  \item Il metodo dei pesi è sempre applicabile.
+  \item Non altera la regione ammissibile ma si limita ad aggiungere un obbiettivo ausiliario.
+\end{enumerate}
+
+\paragraph*{Svantaggi}
+\begin{enumerate}
+  \item Con problemi di grandi dimensioni il numero di pesi può diventare intrattabile.
+  \item Per ogni peso $\omega$ è necessario trovare tutte le soluzioni ottime.
+  \item Produce una sottostima di $X^o$.
+\end{enumerate}
+
+\end{document}

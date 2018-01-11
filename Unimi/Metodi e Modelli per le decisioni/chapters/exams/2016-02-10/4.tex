@@ -1,0 +1,69 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 4}
+Si descrivano brevemente i seguenti aspetti dei metodi Electre:
+
+\begin{enumerate}[a)]
+  \item Le critiche di fondo alla teoria classica che motivano la loro proposta.
+  \item Come si definisce una relazione di surclassamento e in che cosa differisce da una relazione di preferenza.
+  \item Come si determina il nucleo del problema (facendo un piccolo esempio).
+\end{enumerate}
+
+\subsection{Soluzione esercizio 4}
+\subsubsection*{Le critiche alla teoria clasica}
+La critica nasce dall'ipotesi che il decisore non sia in grado di confrontare tutte le coppie di impatti e che esistano soluzioni (quali quelle trattate nel paradosso del caffè) in cui gli impatto sono, a coppie, indistinguibili se non per un $\epsilon$ infinitesimo che il decisore non è in grado di cogliere.
+
+\subsubsection*{La relazione di surclassamento}
+Un impatto $f^{(1)}$ surclassa un secondo impatto $f^{(2)}$ non unicamente quando è migliore su tutti gli attributi come nel caso della \textbf{relazione di preferenza} ma anche quando esso è peggiore per alcuni attributi purchè meno di una certa soglia $\epsilon$.
+
+\subsubsection*{Determinazione del nucleo del problema}
+\begin{enumerate}
+  \item Il nucleo è inizialmente vuoto.
+  \item Si aggiunge al nucleo il sottoinsieme delle soluzioni non surclassate nel grafo corrente. \label{2_step}
+  \item Si elimina dal grafo ogni soluzione surclassafata da una soluzione nel nucleo.
+  \item Se il grafo coincide con il nucleo si termina, altrimenti si ritorna al punto \ref{2_step}.
+\end{enumerate}
+
+\begin{figure}
+  \begin{subfigure}{0.45\textwidth}
+    \begin{tikzpicture}[>=latex,line join=bevel,scale=0.75]
+      %%
+      \node (G) at (115.27bp,238.36bp) [draw,ellipse] {$G$};
+      \node (A) at (27.0bp,113.36bp) [draw,ellipse] {$A$};
+      \node (B) at (126.0bp,113.36bp) [draw,ellipse] {$B$};
+      \node (C) at (195.28bp,18.0bp) [draw,ellipse] {$C$};
+      \node (E) at (307.39bp,172.3bp) [draw,ellipse] {$E$};
+      \node (D) at (195.28bp,208.72bp) [draw,ellipse] {$D$};
+      \node (F) at (307.39bp,54.424bp) [draw,ellipse] {$F$};
+      \draw [->] (A) ..controls (63.953bp,120.14bp) and (77.676bp,120.31bp)  .. (B);
+      \draw [->] (B) ..controls (89.047bp,106.58bp) and (75.324bp,106.41bp)  .. (A);
+      \draw [->] (B) ..controls (148.9bp,81.845bp) and (164.94bp,59.766bp)  .. (C);
+      \draw [->] (B) ..controls (182.19bp,131.62bp) and (237.71bp,149.66bp)  .. (E);
+      \draw [->] (B) ..controls (148.9bp,144.88bp) and (164.94bp,166.95bp)  .. (D);
+      \draw [->] (C) ..controls (226.7bp,61.237bp) and (266.21bp,115.62bp)  .. (E);
+      \draw [->] (C) ..controls (235.33bp,31.011bp) and (256.01bp,37.731bp)  .. (F);
+      \draw [->] (D) ..controls (195.28bp,157.04bp) and (195.28bp,85.986bp)  .. (C);
+      \draw [->] (F) ..controls (307.39bp,91.563bp) and (307.39bp,121.61bp)  .. (E);
+      %
+    \end{tikzpicture}
+    \caption{Gli impatti $G$, $A$ e $B$ vanno a fare parte del nucleo.}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \begin{tikzpicture}[>=latex,line join=bevel,scale=0.75]
+      %%
+      \node (G) at (155.0bp,74.0bp) [draw,ellipse] {$G$};
+      \node (A) at (27.0bp,18.0bp) [draw,ellipse] {$A$};
+      \node (B) at (153.0bp,18.0bp) [draw,ellipse] {$B$};
+      \node (F) at (83.0bp,82.0bp) [draw,ellipse] {$F$};
+      \draw [->] (A) ..controls (71.318bp,24.91bp) and (96.512bp,25.109bp)  .. (B);
+      \draw [->] (B) ..controls (108.68bp,11.09bp) and (83.488bp,10.891bp)  .. (A);
+      %
+    \end{tikzpicture}
+
+    \caption{Viene eliminato $D$, $C$ ed $E$. Rimane $F$, che viene aggiunto al nucleo.}
+  \end{subfigure}
+\end{figure}
+
+\end{document}
