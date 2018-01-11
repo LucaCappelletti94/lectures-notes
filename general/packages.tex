@@ -10,6 +10,9 @@
 \input{\main/../../general/silence.tex}
 
 \usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{array}   % for \newcolumntype macro
+\newcolumntype{L}{>{$}l<{$}} % automaticall apply mathmode to column
+
 \theoremstyle{definition} % Sets the theorem style without italic
 \usepackage{bm} % To have bold vectors
 
