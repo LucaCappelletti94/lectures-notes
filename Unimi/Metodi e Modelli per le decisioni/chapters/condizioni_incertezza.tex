@@ -5,5 +5,37 @@
 \chapter{Programmazione in condizioni di incertezza}
 Viene applicata in problemi in cui uno scenario $\omega$ viene svelato dopo che il decisore ha scelto l'alternativa $x$. Un problema di questo tipo può appartenere a una di due categorie:\textbf{decisione in condizioni di ignoranza} o \textbf{decisioni in condizioni di rischio}.
 
+\section{Dominanza forte}
+
+\begin{definition}[Dominanza forte]
+  Si dice che un'alternativa $x$ domina fortemente un'alternativa $x'$ quando il suo impatto è almeno altrettanto buono in tutti gli scenari $\omega \in \Omega$ e migliore in almeno uno:
+  \[
+    x \preceq x' \Leftrightarrow \begin{cases}
+      f(x,\omega) \leq f(x',\omega) \quad \forall \omega \in \Omega \\
+      \exists \omega' \in \Omega: f(x,\omega') < f(x',\omega')
+    \end{cases}
+  \]
+\end{definition}
+
+\section{Criteri}
+\subsection{Criterio del caso pessimo}
+Si assume che qualsiasi scelta si faccia condurrà al proprio caso pessimo, per cui si sceglie l'opzione che ha valore migliore nel proprio caso pessimo.
+
+\subsection{Criterio del caso ottimo}
+Si assume che qualsiasi scelta si faccia consurrà al proprio caso migliore, per cui si sceglie l'opzione che ha valore migliore nel proprio caso ottimo.
+
+\subsection{Criterio del caso Hurwicz}
+Esegue la combinazione convessa del criterio del caso pessimo ed ottimo usando un coefficiente $\alpha$ detto \textbf{coefficiente di pessimismo}. Quindi prima si assume che qualsiasi scelta condurrà al caso indicato dalla combinazione convessa e poi si sceglie la migliore tra queste.
+
+Il coefficiente $\alpha$ può essere determinato ponendo due scelte certamente indifferenti tra loro come uguali nell'equazione della combinazione convessa, andando anche a costruire questa scelta se necessario.
+
+\subsection{Criterio di equiprobabilità o di Laplace}
+Combina gli scenari sommandoli con un dato peso (uguale per tutti), per esempio la media degli scenari (caso di equiprobabilità, da cui il nome). Quindi va a scegliere l'opzione che porta al valore ottimo.
+
+\subsection{Criterio del rammarico}
+Questo criterio va a minimizzare il rammarico, cioè la differenza tra l'alternativa ottima di uno scenario e quella che andrebbe ad accadere con una determinata scelta. Per ogni scelta si cerca il rammarico massimo, e quindi si sceglie l'opzione che lo minimizza.
+
+\subsection{Criterio delle eccedenze}
+Si tratta del complementare al criterio del rammarico: si va a calcolare la differenza tra l'aternativa pessima di uno scenario e quella che andrebbe ad accadere con una determinata scelta. Per ogni scelta si cerca l'eccedenza minima e quindi si sceglie l'opzione che la massimizza.
 
 \end{document}
