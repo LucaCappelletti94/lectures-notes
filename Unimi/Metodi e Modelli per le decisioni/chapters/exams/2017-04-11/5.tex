@@ -25,14 +25,12 @@ Viene dato il seguente problema di programmazione in condizioni di incertezza, i
 
 \subsection{Soluzione esercizio 5}
 \subsubsection*{Alternative dominate}
-Un'alternativa domina un'altra quando, senza applicare particolari criteri, questa è migliore per almeno uno degli scenari ed uguale in tutti gli altri.
-
-Cerchiamo la soluzione che dia scenari a valore massimo poichè i valori rappresentano utilità.
+Un'alternativa domina un'altra quando, senza applicare particolari criteri, questa è migliore per almeno uno degli scenari ed uguale in tutti gli altri. Cerchiamo la soluzione che dia scenari a valore massimo poichè i valori rappresentano utilità.
 
 In questo caso, l'alternativa solamente $a_3 \prec a_1$, mentre non è possibile affermare nulla delle altre che sono preferibili l'una alle altre per almeno uno scenario.
 
 \subsubsection*{Criterio del caso pessimo}
-Nel criterio del caso pessimo, si assume che qualsiasi scelta venga effettuata accadrà il suo corrispondente caso pessimo.
+Nel criterio del caso pessimo, si assume che qualsiasi scelta venga effettuata accadrà il suo corrispondente caso pessimo. La scelta con scenario pessimo migliore è $a_2$.
 
 \begin{table}
   \begin{tabular}{|L|L|L|L|L|}
@@ -47,17 +45,15 @@ Nel criterio del caso pessimo, si assume che qualsiasi scelta venga effettuata a
   \caption{Casi pessimi in rosso}
 \end{table}
 
-La scelta con scenario pessimo migliore è $a_2$.
-
 \subsubsection*{Caso medio}
-Il caso medio (suppongo sia, dato che non appare nelle dispense) il caso di equiprobabilità con coefficiente pari $\pi(\omega_1)$ per il primo scenario e $1-\pi(\omega_1)$ per il secondo.
+Il caso medio (suppongo sia, dato che non appare nelle dispense) il caso di Hurwicz con coefficiente della combinazione convessa pari $\pi(\omega_1)$ per il primo scenario (che coincide sempre con il caso ottimo) e $1-\pi(\omega_1)$ per il secondo (che coincide sempre con il caso pessimo).
 
 \begin{table}
   \begin{tabular}{|L|L|L|L|L|}
     \hline
         & a_1                                   & a_2                                   & a_3                                   & a_4             \\
     \hline
-    u_L & 50\pi(\omega_1) + 10(1-\pi(\omega_1)) & 40\pi(\omega_1) + 30(1-\pi(\omega_1)) & 60\pi(\omega_1) + 20(1-\pi(\omega_1)) & 90\pi(\omega_1) \\
+    u_H & 50\pi(\omega_1) + 10(1-\pi(\omega_1)) & 40\pi(\omega_1) + 30(1-\pi(\omega_1)) & 60\pi(\omega_1) + 20(1-\pi(\omega_1)) & 90\pi(\omega_1) \\
     \hline
   \end{tabular}
 \end{table}
@@ -69,7 +65,7 @@ Il caso medio (suppongo sia, dato che non appare nelle dispense) il caso di equi
         \hline
             & a_1 & a_2 & a_3 & a_4 \\
         \hline
-        u_L & 50  & 40  & 60  & 90  \\
+        u_H & 50  & 40  & 60  & 90  \\
         \hline
       \end{tabular}
       \caption{Caso $\pi(\omega_1)=1$: viene scelta $a_4$}
@@ -81,7 +77,7 @@ Il caso medio (suppongo sia, dato che non appare nelle dispense) il caso di equi
         \hline
             & a_1 & a_2 & a_3 & a_4 \\
         \hline
-        u_L & 10  & 30  & 20  & 0   \\
+        u_H & 10  & 30  & 20  & 0   \\
         \hline
       \end{tabular}
       \caption{Caso $\pi(\omega_1)=0$: scelta $a_2$}
@@ -92,7 +88,7 @@ Il caso medio (suppongo sia, dato che non appare nelle dispense) il caso di equi
       \begin{axis}[
           width= \textwidth,
           xlabel=$f$,
-          ylabel=$u_L$,
+          ylabel=$u_H$,
           domain=0:1,
           ytick = {0,10,...,90},
           legend style={at={(0,1)},anchor=north west}
@@ -104,7 +100,7 @@ Il caso medio (suppongo sia, dato che non appare nelle dispense) il caso di equi
         \legend{$a_1$,$a_2$,$a_3$,$a_4$}
       \end{axis}
     \end{tikzpicture}
-    \caption{L'utilità $u_L$ al variare della probabilità}
+    \caption{L'utilità $u_H$ al variare della probabilità}
   \end{subfigure}
 \end{figure}
 
