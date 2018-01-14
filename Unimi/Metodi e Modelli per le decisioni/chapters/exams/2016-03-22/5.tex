@@ -1,0 +1,21 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 5}
+Si descriva brevemente il criterio del rammarico per la risoluzione di problemi di decisione in condizioni di ignoranza, spiegandone la logica intrinseca.
+
+Si indichi se tale criterio fornisce un ordinamento debole delle alternative del problema, spiegando che cosa si intende con tale proprietà e motivando la risposta.
+
+Si dica se tale criterio garantisce l'indipendenza dalle alternative irrilevanti, spiegando che cosa si intende con tale proprietà e motivando la risposta.
+
+\subsection{Soluzione esercizio 5}
+\subsubsection*{Criterio del rammarico}
+Il criterio del rammarico identifica il caso ottimo per ogni scenario, quindi calcola per ogni combinazione di scelta e scenario la distanza dal valore ottimo dello scenario, detta rammarico. Si va a determinare quindi, per ogni scelta, il rammarico massimo e si sceglie la scelta con rammarico minimo.
+
+\subsubsection*{Ordinamento}
+Fornisce sempre un ordine debole poiché rende lineare il confronto tra i vari scenari. Il rammarico al più risulterà uguale tra più scelte, ma sono certamente ordinate debolmente.
+
+\subsubsection*{Indipendenza tra alternative irrilevanti}
+Nessuno dei criteri di scelta rispetta la proprietà di indipendenza, che garantirebbe l'assenza del \textbf{rank reversal}.
+\end{document}
