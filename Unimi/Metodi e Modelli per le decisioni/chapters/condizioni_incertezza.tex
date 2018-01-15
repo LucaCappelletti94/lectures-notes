@@ -38,4 +38,15 @@ Questo criterio va a minimizzare il rammarico, cioè la differenza tra l'alterna
 \subsection{Criterio delle eccedenze}
 Si tratta del complementare al criterio del rammarico: si va a calcolare la differenza tra l'aternativa pessima di uno scenario e quella che andrebbe ad accadere con una determinata scelta. Per ogni scelta si cerca l'eccedenza minima e quindi si sceglie l'opzione che la massimizza.
 
+\section{Programmazione Robusta}
+In programmazione robusta il \textit{criterio del caso pessimo} è chiamato \textbf{robustezza assoluta} ed il \textit{criterio del rammarico} è chiamato \textbf{decisione robusta}. Un criterio della programmazione robusta che non ha controparte si chiama \textbf{robustezza relativa}.
+
+\subsection{Robustezza relativa}
+\begin{figure}
+  \[
+    u_{\text{robustezza relativa}}(x) = \max_{\omega \in \Omega} \left[\frac{f(x, \omega) - f(x^o, \omega)}{f(x^o, \omega)}\right]
+  \]
+  \caption{Robustezza relativa}
+\end{figure}
+
 \end{document}

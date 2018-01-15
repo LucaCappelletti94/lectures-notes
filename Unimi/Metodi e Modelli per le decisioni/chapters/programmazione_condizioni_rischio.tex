@@ -1,0 +1,94 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Programmazione in condizioni di rischio}
+Rispetto alle condizioni di ignoranza, il modello include anche una definizione di probabilità.
+
+\section{Criterio del valore atteso (o medio)}
+Va a definire l'utilità di un impatto per il suo valore atteso:
+
+\begin{figure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      u(x) = E\abs{f(x,\omega)}
+    \]
+    \caption{Caso generale}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      u(x) = \sum_{\omega \in \Omega} \pi(\omega) f(x, \omega)
+    \]
+    \caption{Caso discreto}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      u(x) = \int_{\Omega} \pi(\omega) f(x, \omega) d\omega
+    \]
+    \caption{Caso continuo}
+  \end{subfigure}
+  \caption{Criterio del valore atteso}
+\end{figure}
+
+\section{Teoria dell'utilità stocastica}
+Si basa sull'idea che un decisore può definire una relazione di preferenza anche tra impatti definiti come variabili aleatorie.
+
+\begin{definition}[Lotteria]
+  Definiamo \textbf{lotteria finita} una coppia di funzioni definite come:
+  \begin{align*}
+     & l_{f, \pi} = (f(\omega), \pi(\omega))                                                     \\
+     & f(\omega): \Omega \rightarrow F \text{ variabile aleatoria su spazio campionario finito.} \\
+     & \pi(\omega): \Omega \rightarrow [0,1] \text{ probabilità di ogni scenario in $\Omega$.}
+  \end{align*}
+  Indichiamo con $L_F$ l'insieme di tutte le lotterie definibili su $F$.
+\end{definition}
+
+\begin{definition}{Lotteria degenere}
+  Definiamo \textbf{lotteria degenere} una lotteria $l_{f,1}$ con un solo impatto $f$ ed un solo scenario di probabilità unitaria (certo di accadere).
+\end{definition}
+
+\begin{definition}{Lotteria composta}
+  Definiamo \textbf{lotteria composta} una lotteria i cui impatti sono altri impatti.
+\end{definition}
+
+\begin{definition}{Preferenza tra lotterie}
+  Data una relazione di preferenza fra lotterie $\Pi \subset 2^{L \times L}$ si dice che essa ammette una \textbf{funzione conforme di utilità stocastica} $u: L \rightarrow \mathbb{R}$ quando, per ogni coppia di lotterie $l$ e $l'$, l'utilità della preferita supera l'utilità dell'altra.
+  \[
+    l \preceq l' \Leftrightarrow u(l) \geq u(l')
+  \]
+\end{definition}
+
+\subsection{Assiomi fondativi dell'utilità stocastica} \label{assiomi_fondativi}
+Sono assiomi che una relazione di preferenza fra lotterie deve rispettare per essere considerata razionale.
+
+\begin{description}
+  \item[Ordinamento debole] La relazione è \textbf{riflessiva}, \textbf{transitiva} e \textbf{completa}.
+  \item[Monotonia] Lotterie che assegnano probabilità più alte sono preferite.
+  \item[Continuità] Date due lotterie, per qualsiasi impatto intermedio è possibile costruire una lotteria indipendente all'impatto con un adeguato valore di probabilità.
+  \item[Indipendenza (o sostituzione)] La preferenza tra due lotterie non cambia se si aggiunge o si toglie una stessa lotteria.
+  \item[Riduzione] Qualsiasi lotteria composta è indifferente alla lotteria semplice ottenuta elencando tutti gli impatti distinti finali della lotteria composta ed assegnando ad ognuno una probabilità data dalle regole di composizione.
+\end{description}
+
+\subsection{Teorema dell'utilità stocastica}
+\begin{theorem}[Teorema dell'utilità stocastica]
+  Dato un insieme di impatti $F$ e una relazione relazione di preferenza $\Pi$ fra lotterie su $F$ che rispetti gli assiomi fondativi \ref{assiomi_fondativi}, esiste una e una sola funzione di utilità $u(l)$ conforme a $\Pi$ normalizzata in modo da assumere valore nullo nell'impatto pessimo e unitario in quello ottimo.
+\end{theorem}
+
+\subsection{Avversione e propensione al rischio}
+\begin{definition}[Profilo di rischio]
+  Il \textbf{profilo di rischio} è l'andamento dell'utilità stocastica delle lotterie degeneri $u(f,1)$ al variare dell'impatto $f \in F$.
+
+  In particolare si possono fare affermazioni in base alla natura della funzione di utilità:
+  \begin{description}
+    \item[Concava] Il decisore preferisce l'impatto certo ed è quindi \textbf{avverso al rischio}.
+    \item[Lineare] Il decisore è indifferente ed è quindi \textbf{neutrale al rischio}.
+    \item[Convessa] Il decisore preferisce la lotteria ed è quindi \textbf{propenso al rischio}.
+  \end{description}
+\end{definition}
+
+\subsection{Equivalente certo e premio di rischio}
+\begin{definition}[Equivalente certo e premio di rischio]
+  Data una lotteria $l$, si dice \textbf{equivalente certo} l'impatto $f_l$ che le equivale e \textbf{premio di rischio} la differenza fra il valore atteso della lotteria ed il suo equivalente certo.
+\end{definition}
+
+\end{document}
