@@ -1,0 +1,133 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Modelli di programmazione intera}
+In questi modelli tutte o alcune variabili di decisione sono vincolate ad assumere valori interi o binari. Talvolta è possibile svincolare dall'interezza tramite il rilassamento continuo, arrotondando poi i valori frazionari ottenuti, con un risultato trascurabile sul soddisfacimento dei vincoli.
+
+\section{Modelli di taglio ottimo}
+\paragraph*{Obbiettivo:} Minimizzare lo scarto di prodotto derivato dal taglio di moduli di materiale.
+
+Nel caso base \textbf{monodimensionale} si assume di dover tagliare moduli di dimensione $D$ in moduli di dimensioni $d_i, i \in \{1,\ldots,m\}$, in numero $r_i, i \in \{1,\ldots,m\}$ (per ogni dimensione $d_i$). Ogni modulo standard può essere tagliato in modo differente, considerando $n$ possibili schemi di taglio: $a_{ij}$ sarà il numero di moduli di dimensione $d_i$ ottenuti da un modulo standard tagliato secondo lo schema $j$.
+Per minimizzare lo sfrido (scarto) sarà quindi sufficiente minimizzare il numero di moduli tagliati.
+
+Chiamo $x_j$ il numero di moduli tagliati secondo lo schema $j$.
+
+\begin{figure}
+  \begin{align*}
+    \min z(x) = \sum_{j=1}^n x_j                                   \\
+    \sum_{j=1}^n a_{ij}x_j & \geq r_i, \forall i                   \\
+    x_j                    & \geq 0, x_j \in \mathbb{N}, \forall j
+  \end{align*}
+  \caption{Modello di taglio ottimo}
+\end{figure}
+
+Qualora i moduli avessero più dimensioni il problema diviene molto più difficile da risolvere.
+
+\section{Modelli dello zaino}
+\paragraph*{Obbiettivo:} Massimizzare il valore degli oggetti nello zaino.
+
+Si ha un insieme di $n$ oggetti, ciascuno con un valore $c_j$ ed un peso $p_j$ e uno zaino con un limite di capacità $b.$
+
+Chiamo $x_j$ la variabile binaria che indica se aggiungo o meno l'oggetto $j-esimo$ nello zaino.
+
+\begin{figure}
+  \begin{align*}
+    \min z(x) = \sum_{j=1}^n c_jx_j           \\
+    \sum_{j=1}^n p_{j}x_j & \leq b, \forall i \\
+    x_j \in \{0,\ldots,1\}, \forall j
+  \end{align*}
+  \caption{Modello dello zaino}
+\end{figure}
+
+\section{Modelli di ottimizzazione con costi fissi di avviamento}
+\paragraph*{Obbiettivo:} Minimizzare i costi di avvio e di produzione.
+
+Avviando una nuova produzione si hanno costi fissi $f_j$ e costi per unità prodotta $c_j$. Rappresentiamo con $x_j\geq0$ il numero di prodotti che si decide di produrre, e introduciamo una variabile $y_j \in \{1,0\}$ che rappresenta se decidiamo o meno di produrre un prodotto $j$ per eliminare la discontinuità all'origine causata dal costo fisso $f_j$. Per ogni prodotto, consideriamo una domanda $b_j$ ed un vincolo di produzione massima $M_j$.
+
+\begin{figure}
+  \begin{align*}
+    \min z(x,y) & = \sum_{j=1}^n c_jx_j + \sum_{j=1}^n f_jy_j \\
+    \min z(x,y) & = \sum_{j=1}^n b_j - x_j                    \\
+    x_j         & \leq M_j \forall j
+  \end{align*}
+  \caption{Modelli di ottimizzazione con costi fissi di avviamento}
+\end{figure}
+
+\section{Modelli di localizzazione}
+\paragraph*{Obbiettivo:} Posizionare centri di servizio in modo da soddisfare la domanda e minimizzare una funzione di costo.
+
+\subsection{Capacitated Plant Location (CPL)}
+Posizionamento di impianti di produzione o immagazzinamento di prodotti da cui deve essere trasportato il prodotto a dei punti vendita. Viene modellato tramite un grado $\mathcal{G} = (\mathcal{N}_1 \cup \mathcal{N}_2, \mathcal{A})$, con $\mathcal{N}_1$ nodi rappresentanti i siti potenziali e $\mathcal{N}_2$ i nodi successori.
+Chiamiamo $d_j, j \in \mathcal{N}_2$ la domanda del nodo successore $j-esimo$, $q_i, i \in \mathcal{N}_1$ il massimo livello di attività del nodo sito candidato $i-esimo$, $k_{ij}$ il costo unitario di trasporto da nodo candidato $i$ a nodo successore $j$, $f_i$ il costo fisso di avviamento del nodo candidato $i$.
+
+Chiamo $y_i \in \{0,1\}$ la variabile binaria rappresentante l'approvazione o meno del nodo candidato $i-esimo$ e $s_{ij}$ il flusso di prodotto dal nodo $i$ a $j$.
+
+\begin{figure}
+  \begin{align*}
+    \min z(s,y) = \sum_{i \in \mathcal{N}_1} \sum_{j \in \mathcal{N}_2} k_{ij}s_{ij} + \sum_{i \in \mathcal{N}_1} f_i y_i \\
+    \sum_{i \in \mathcal{N}_1} s_{ij} = d_j, \forall j                                                                    \\
+    \sum_{j \in \mathcal{N}_2} s_{ij} \leq q_iy_i, \forall i
+  \end{align*}
+  \caption{Capacitated Plant Location (CPL)}
+\end{figure}
+
+Modelli più completi considerano una soglia di attivazione minima per considerare l'approvazione di un nodo candidato.
+
+\section{Modello di caricamento di contenitori}
+Si tratta di una generalizzazione del problema dello zaino, in cui sono considerati $n$ zaini o contenitori sempre di dimensione uguale $q$.
+
+\paragraph*{Obbiettivo:} Utilizzare meno contenitori il possibile inserendo tutti gli oggetti.
+
+Ogni oggetto ha un peso $p_i$, la variabile $x_{ij} \in \{0,1\}$ è vera quando l'oggetto $i$ è inserito del contenitore $j$ e $y_j \in \{0,1\}$ è vera quando il contenitore $j$ è utilizzato.
+
+\begin{figure}
+  \begin{align*}
+    \min z(x,y) \sum_{j=1}^n y_j                    \\
+    \sum_{j=1}^n x_{ij}     & = 1, \forall i        \\
+    \sum_{i=1}^m p_i x_{ij} & \leq q y_j, \forall j
+  \end{align*}
+  \caption{Modello di caricamento di contenitori}
+\end{figure}
+
+Un'alternativa di modello è considerare le capacità dei contenitori diverse $q_j$ ed assegnare ad ogni contenitore un costo $c_j$.
+
+\section{Modelli di copertura, di riempimento e di partizionamento d'insieme}
+Definito un insieme $I$ di $m$ elementi ed una collezione $C = \{C_1, \ldots, C_n\}$ di sottoinsiemi di $I$, ognuno dei quali con un valore $c_j$, e una sotto-collezione $SC$ di $C$. Viene usata una matrice $A$ di dimensione $m\times n$ detta \textit{di copertura} il cui elemento $a_{ij} \in \{0,1\}$ assume valore $1$ se $i \in C_j$.
+
+Le variabili di decisione sono $x_j \in \{0,1\}$ e sono vere se $C_j \in SC$.
+
+\subsection{Modelli di copertura o set-covering}
+\paragraph*{Obbiettivo:} Determinare una sotto-collezione $SC$ di valore minimo, detta \textbf{copertura}, tale che ogni elemento di $I$ appartenga ad almeno un sottoinsieme di $SC$.
+
+\begin{figure}
+  \begin{align*}
+    \min z(x) = \sum_{j=1}^n c_j x_j          \\
+    \sum_{j=1}^n a_{ij} x_j \geq 1, \forall i \\
+  \end{align*}
+  \caption{Modelli di copertura o set-covering}
+\end{figure}
+
+\subsection{Modelli di riempimento d'insieme o set-packing}
+\paragraph*{Obbiettivo:} Determinare una sotto-collezione $SC$ di valore massimo, detto \textbf{riempimento}, tale che ogni elemento di $I$ appartenga ad al più una sotto-collezione di $SC$.
+
+
+\begin{figure}
+  \begin{align*}
+    \min z(x) = \sum_{j=1}^n c_j x_j          \\
+    \sum_{j=1}^n a_{ij} x_j \leq 1, \forall i \\
+  \end{align*}
+  \caption{Modelli di riempimento d'insieme o set-packing}
+\end{figure}
+
+\subsection{Modelli di posizionamento d'insieme o set-partitioning}
+\paragraph*{Obbiettivo:} Determinare una sotto-collezione $SC$ di valore minimo, detta \textbf{partizione}, tale che ogni elemento di $I$ appartenga esattamente ad una sotto-collezione di $SC$. Essa costituisce sia una \textbf{copertura} sia un \textbf{riempimento} di $I$.
+
+\begin{figure}
+  \begin{align*}
+    \min z(x) = \sum_{j=1}^n c_j x_j       \\
+    \sum_{j=1}^n a_{ij} x_j = 1, \forall i \\
+  \end{align*}
+  \caption{Modelli di posizionamento d'insieme o set-partitioning}
+\end{figure}
+
+\end{document}
