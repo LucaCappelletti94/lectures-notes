@@ -1,0 +1,79 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Giochi a somma zero}
+Categoria di giochi in cui la vincita di un giocatore equivale alla perdita dell'altro. La matrice delle utilità del giocatore di colonna è opposta a quella del giocatore di riga sicchè $u^{(r)} = -u^{(c)}$.
+
+\section{Equilibri di Nash nei giochi a somma zero}
+Nei giochi a somma zero una cella è equilibrio di Nash se e solo se è anche un \textbf{punto di sella}, cioè è un punto di massimo per la colonna e punto di minimo per la riga.
+
+\section{Strategie miste (probabilità)}
+\begin{definition}[Strategia mista]
+  Definiamo \textbf{strategia mista} per un giocatore un vettore di probabilità $\xi$ di $n$ elementi, dove $n$ indica il numero delle strategie pure disponibili per il giocatore.
+  \[
+    \bm{\xi} = [\xi_1, \ldots, \xi_n]' \in \Xi = \left\{ \xi \in \mathbb{R}: \sum_{i=1}^n \xi_i = 1 \land \xi_i \geq 0 \quad \forall i \in \{0,\ldots,n\} \right\}
+  \]
+\end{definition}
+
+\begin{definition}[Valore atteso del gioco]
+  Defimiamo \textbf{valore atteso del gioco} $F$ il valore atteso del guadagno per il giocatore di riga e della perdita per il giocatore di colonna.
+
+  \[
+    v(F) = E\left[ f(\xi^{(r)},\xi^{(c)}) \right] = \sum_{i=1}^{n^{(r)}}\sum_{j=1}^{n^{(c)}} \xi^{(r)}\xi^{(c)}f_{ij}
+  \]
+
+  \begin{figure}
+    \begin{subfigure}{0.49\textwidth}
+      \[
+        v^{(r)}(F) = \max_{\xi^{(r)} \in \Xi^{(r)}} \min_{\xi^{(c)} \in \Xi^{(c)}} E\left[ f(\xi^{(r)},\xi^{(c)}) \right]
+      \]
+      \caption{Valore atteso per il giocatore di riga}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+      \[
+        v^{(c)}(F) = \min_{\xi^{(c)} \in \Xi^{(c)}} \max_{\xi^{(r)} \in \Xi^{(r)}} E\left[ f(\xi^{(r)},\xi^{(c)}) \right]
+      \]
+      \caption{Valore atteso per il giocatore di colonna}
+    \end{subfigure}
+    \caption{Valore atteso}
+  \end{figure}
+\end{definition}
+
+\begin{theorem}[Il caso pessimo è sempre una strategia pura]
+  Qualunque strategia mista un giocatore adotti, il caso pessimo per lui sarà rappresentato da una strategia pura dell'aversario. Di conseguenza, il valore atteso del gioco per i giocatori può essere espresso come:
+  \begin{figure}
+    \begin{subfigure}{0.49\textwidth}
+      \[
+        v^{(r)}(F) = \sum_{i=1}^{n^{(r)}} \xi^{(r)} f_{ij}
+      \]
+      \caption{Valore atteso per il giocatore di riga}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+      \[
+        v^{(r)}(F) = \sum_{i=1}^{n^{(r)}} \xi^{(r)} f_{ij}
+      \]
+      \caption{Valore atteso per il giocatore di colonna}
+    \end{subfigure}
+    \caption{Valore atteso, considerando che il caso pessimo è sempre una strategoa pura.}
+  \end{figure}
+\end{theorem}
+
+\section{Teorema del minimax}
+\begin{theorem}[Teorema del minimax]
+  Per ogni gioco finito a somma zero a due persone, i valori attesi dei giocatori coincidono. Inoltre, esistono due strategie miste ottimali $\xi^{*(r)}$ e $\xi^{*(c)}$ tali per cui:
+
+  \[
+    u^{(r)} = u^{(c)} = E\left[ f(\xi^{*(r)}, \xi^{*(c)}) \right]
+  \]
+\end{theorem}
+
+\subsection{Determinazione della strategia mista di equilibrio}
+\subsubsection{Gioco semplice}
+Se il gioco è particolarmente semplice ed i giocatori hanno un numero $n$ basso di strategie è sufficiente risolvere dei problemi di ottimizzazione.
+
+Nel caso $n=2$, è sufficiente risolvere con due variabili di decisione rappresentanti le probabilità di procedere per una strategia o l'altra che essendo appunto probabilità (e quindi hanno somma unitaria) possono essere risolti monodimensionalmente.
+
+\subsubsection{Gioco complesso, metodo dei pivot}
+Si risolve tramite un problema di programmazione matematica non lineare.
+\end{document}

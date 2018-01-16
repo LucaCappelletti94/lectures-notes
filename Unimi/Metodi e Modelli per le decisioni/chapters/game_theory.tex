@@ -1,0 +1,72 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Teoria dei Giochi}
+Studia le situazioni in cui ogni decisore (qui chiamato giocatore) $d \in D$ ha proprie variabili $x \in X$ di decisione che fissa in modo indipendente dagli altri decisori, cercando di massimizzare le funzioni impatto $f^{(d)}$ (qui chiamati payoff).
+
+\begin{figure}
+	\begin{align*}
+		\max f^{(d)} & = f^{(d)}(x^{(1)}, \ldots, x^{(\abs{D})}) \\
+		x^{(d)}      & \in X^{(d)}
+	\end{align*}
+	\caption{Problema di teoria dei giochi}
+\end{figure}
+
+I giochi possono essere rappresentati a \textbf{forma estesa} nella quale il gioco è rappresentato ad albero delle possibili scelte sino al termine del gioco o in \textbf{forma strategica} nella quale il gioco è rappresentato con una tabella dei payoff per ogni combinazione di scelte del giocatore e degli avversari.
+
+\begin{definition}[Strategia]
+	Un strategia per il giocare $d \in D$ corrisponde a un sottoinsieme di archi dell'albero di gioco che sia:
+	\begin{enumerate}
+		\item Costituito da archi associati al giocatore $d$.
+		\item Coerente, cioè che non contenga più archi uscenti dallo stesso nodo.
+		\item Massimale, cioè che contenga un arco per ogni nodo dotato di archi uscenti.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Dominanza fra strategie]
+	Date due strategie $x^{(d)}$ e $x'^{(d)}$ per il giocatore $d$, si dice che $x^{(d)}$ domina $x'^{(d)}$ quando, per qualsiasi comportamento di un altro giocatore, la strategia $x^{(d)}$ da un payoff $f^{(d)}$ maggiore.
+\end{definition}
+
+\begin{definition}[Equilibrio di Nash]
+	Un vettore di strategie è detto \textbf{punto di equilibrio} o \textbf{equilibrio di Nash} quando a nessuno dei giocatori conviene cambiare la propria strategia (allontanarsi da quella nel vettore di strategie dell'equilibrio) perché avrebbe un payoff peggiore se nessuno degli altri giocatori cambia la propria strategia.
+\end{definition}
+
+\clearpage
+
+\section{Calcolare gli equilibri di Nash}
+Nei giochi finiti in forma strategica l'equilibrio di Nash è una (o più) delle caselle della tabella dei payoff. Per individuarlo, se esiste, si procede nel modo seguente:
+
+\begin{enumerate}[a)]
+	\item Si marca ogni colonna con utilità massima per il giocatore di riga.
+	\item Si marca ogni riga con utilità massima per il giocatore di colonna.
+	\item Le celle in cui tutte le utilità sono marcate sono equilibri di Nash.
+\end{enumerate}
+
+\section{Criteri per la scelta di strategie}
+\subsection{Strategia del caso pessimo}
+Il giocatore $d$ considera che l'avversario farà sempre la mossa volta a danneggiarlo maggiormente, e segue la strategia che quindi, nel caso pessimo, gli garantisce il massimo guadagno.
+
+\begin{definition}[Valore di gioco]
+	Si definisce \textbf{valore di gioco} (formula \ref{valore_gioco}) per il giocatore $d$ l'utilità massima ottenibile dal giocatore $d$ nel caso pessimo, cioè la miglior garanzia possinile sulla sua prestazione:
+	\begin{figure}
+		\begin{subfigure}{0.49\textwidth}
+			\[
+				u^{(d)} = \max_{x^{(d)} \in X^{(d)}} \min_{x^{(j)} \in X^{(j)}, j\neq d} f^{(j)} (x^{(1)}, \ldots, x^{(\abs{D})})
+			\]
+			\caption{Valore di gioco a $n$ giocatori}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\[
+				u^{(r)} = \max_{x^{(r)} \in X^{(r)}} \min_{x^{(c)} \in X^{(c)}} f^{(c)} (x^{(r)}, x^{(c)})
+			\]
+			\caption{Valore di gioco a 2 giocatori ($r$ riga, $c$ colonna)}
+		\end{subfigure}
+		\caption{Valore di gioco}
+		\label{valore_gioco}
+	\end{figure}
+
+	Nei \textbf{giochi a somma zero a 2 giocatori} si determina il valore di gioco del giocatore di riga $u^{(r)}$ e si indica quello del giocatore di colonna con $-u^{(r)}$, talvolta lasciato implicito nella notazione.
+\end{definition}
+
+\end{document}
