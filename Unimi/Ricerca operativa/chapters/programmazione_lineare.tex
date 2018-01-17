@@ -1,0 +1,150 @@
+ \providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Modelli di programmazione lineare}
+
+\section{Geometria poliedrale}
+
+\subsection{Combinazione di vettori}
+Dati $k$ vettori $v^{(1)},\ldots,v^{(k)} \in \mathbb{R}^n$ e $k$ scalati $\lambda_1,\ldots,\lambda_k$, il vettore $v = \sum_{j=1}^k \lambda_j v^{(j)} \in \mathbb{R}^n$ si dice:
+
+\begin{description}
+  \item[Combinazione affine] se $\sum_{j=1}^k \lambda_j = 1$.
+  \item[Combinazione conica] se $\lambda_j \geq 0 \forall j$.
+  \item[Combinazione convessa] se è sia \textit{conica} che \textit{affine}.
+\end{description}
+
+\subsection{Poliedro}
+Un poliedro $P$ è intersezione di un numero finito di semispazi.
+
+\[
+  P = \left\{ x \in \mathbb{R}^n: Ax \leq b \right\}
+\]
+
+Se il poliedro definisce un'area limitata viene chiamato \textbf{politopo}.
+
+\section{Problema duale}
+\begin{theorem}[Problema duale]
+  Dato un problema $P$ di PL in forma standard (funzione in forma di minimizzazione):
+  \begin{align*}
+    \min z(x) = c^T x \\
+    Ax & = b          \\
+    x  & \geq 0
+  \end{align*}
+
+  ogni soluzione ammissibile $\tilde{x}$ di $P$ è tale che:
+
+  \[
+    c^T\tilde{x} \geq b^T \tilde{y}
+  \]
+
+  dove $\tilde{y}$ è una soluzione ammissibile del seguente problema $D$ (detto \textbf{duale} di $P$) di PL:
+
+  \begin{align*}
+    \max w(y) = b^T y \\
+    A^Ty & \leq c
+  \end{align*}
+\end{theorem}
+
+
+\subsection{Regole di simmetria generali}
+
+\begin{enumerate}
+  \item A un vincolo di disuguaglianza primale corrisponde una variabile vincolata nel duale.
+  \item A una variabile vincolata in segno nel primale un vincolo di disuguaglianza nel duale.
+  \item A un vincolo di uguaglianza nel primale corrisponde una variabile libera in segno nel duale.
+  \item A una variabile libera in segno nel primale corrisponde un vincolo di uguaglianza nel duale.
+  \item Se la funzione del primale è in forma di minimo, nel duale sarà di massimo e viceversa.
+\end{enumerate}
+
+Il duale del problema duale è il problema primale.
+
+\subsection{Condizioni sufficienti di ottimalità}
+
+\begin{theorem}[Condizioni sufficienti di ottimalità]
+  Date due soluzioni $\tilde{x}$ e $\tilde{y}$ ammissibili rispettivamente nel problema primale e duale. Se vale la relazione \ref{dualita_forte}:
+
+  \begin{figure}
+    \[
+      c^T \tilde{x} = b^T \tilde{y}
+    \]
+    \caption{Condizione sufficiente di ottimalità}
+    \label{dualita_forte}
+  \end{figure}
+
+  allora $\tilde{x}$ e $\tilde{y}$ sono soluzioni ottime per i rispettivi problemi.
+
+  Una soluzione $\tilde{x}$ è ottima se e solo se esiste una soluzione nel problema duale $\tilde{y}$ che rispetti la relazione \ref{dualita_forte}. In tal caso, sia $\tilde{x}$ che $\tilde{y}$ sono ottime.
+\end{theorem}
+
+\subsection{Relazioni tra primale e duale}
+
+\begin{theorem}[Relazioni tra primale e duale]
+  Dato un problema ed il suo duale, è vera esattamente \textbf{una} delle seguenti affermazioni:
+  \begin{enumerate}[a)]
+    \item I due problemi ammettono soluzioni ottime finite, $x^*$ e $y^*$ rispettivamente, tali da rispettare la relazione \ref{dualita_forte}.
+    \item Il problema primale è illimitato inferiormente ed il duale è inammissibile.
+    \item Il problema duale è illimitato superiormente ed il primale è inammissibile.
+    \item I problemi primale e duale sono entrambi inammissibili.
+  \end{enumerate}
+\end{theorem}
+
+\subsection{Condizioni di ortogonalità (Condizioni di ottimalità nel caso vettoriale)}
+\begin{theorem}[Condizioni Ortogonalità]
+  Date due soluzioni $\tilde{x} \in \mathbb{R}^n e \tilde{y} \in \mathbb{R}^m$, soluzioni ammissibili nel problema primale e duale rispettivamente ($a_{ij} \in A$, matrice dei coefficienti dei vincoli nei problemi), esse sono ottime se vale la relazione \ref{dualita_forte_vettoriale} (forma vettoriale di \ref{dualita_forte}):
+  \begin{figure}
+    \[
+      (c_j - \sum_{i=1}^m a_{ij} \tilde{y}_i)\tilde{x}_j = 0 \quad \forall j
+    \]
+    \caption{Condizioni Ortogonalità}
+    \label{dualita_forte_vettoriale}
+  \end{figure}
+\end{theorem}
+
+\section{Analisi di Sensitività}
+Si tratta di un'analisi svolta \textit{dopo} aver identificato la soluzione ottima di un problema di PL volta a determinare la qualità del modello, attraverso la modifica di coefficienti di costo $c_j$, di risorse $b_k$, dei vincoli $a_{ij}$ oppure introducendo ulteriori variabili e/o vincoli e osservando in che modo la soluzione ottima va a variare.
+
+\subsection{Variazione di un costo $c_j$} \label{cost_variation}
+Non modifica il poliedro del problema, la soluzione ottima precedente rimane ammissibile ma potrebbe non essere più ottima.
+
+\subsection{Variazione di una risorsa $b_k$}
+Cambia il poliedro del problema (la regione ammissibile) per cui la soluzione ottima potrebbe non essere più ammissibile
+
+\subsection{Variazione di un vincolo $a_{ij}$} \label{constrain_variation}
+Va ad introdurre una variazione analoga alla variazione del costo, con l'aggiunta che la matrice $A$ potrebbe diventare invertibile e quindi porterebbe la soluzione di base a non rispettare più le condizioni di ammissibilità o di ottimalità.
+
+\subsection{Ulteriore variabile}
+Viene inserita come fosse una variabile precedentemente esistente con costi e coefficienti dei vincoli nulli, che quindi vengono variati con le implicazioni viste nella sezione \ref{cost_variation} e \ref{constrain_variation}.
+
+\subsection{Ulteriore vincolo}
+Si procede analogamente all'aggiunta di variabile.
+
+\section{Interpretazioni economiche della dualità}
+Il problema duale può essere interpretato come il problema della determinazione del minimo prezzo a cui all'impresa produttrice converrebbe vendere in blocco le risorse disponibili piuttosto che utilizzarle ai fini produttivi.
+
+\subsection{Prezzo ombra}
+\begin{definition}[Prezzo ombra]
+  Data una variazione $\delta$ di una risorsa $b_h$ nel problema primale, con una rispettiva variazione dell'ottimo $\Delta z^*$, si definisce \textbf{prezzo ombra} la variabile $y^*_h$ del problema duale tale per cui:
+
+  \begin{figure}
+    \[
+      y^*_h = \frac{\Delta z^*}{\delta}
+    \]
+    \caption{Prezzo ombra}
+  \end{figure}
+\end{definition}
+
+\subsubsection{Massimizzazione}
+In un problema in cui la funzione obbiettivo è da massimizzare , il prezzo ombra della risorsa $h-esima$ sarà:
+\begin{description}
+  \item[Non negativo] nel caso in cui il vincolo $h$ è del tipo $\leq$.
+  \item[Non positivo] nel caso in cui il vincolo $h$ è del tipo $\geq$.
+\end{description}
+
+\subsubsection{Minimizzazione}
+In un problema in cui la funzione obbiettivo è da minimizzare , il prezzo ombra della risorsa $h-esima$ sarà:
+\begin{description}
+  \item[Non negativo] nel caso in cui il vincolo $h$ è del tipo $\geq$.
+  \item[Non positivo] nel caso in cui il vincolo $h$ è del tipo $\leq$.
+\end{description}
+\end{document}
