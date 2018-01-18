@@ -1,0 +1,76 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 8}
+La tabella seguente riporta le preferenze di 27 elettori fra 3 alternative possibili, indicate con le lettere A, B e C. Ogni riga riporta un possibile ordine di preferenza e il numero di elettori che vi si riconosce.
+
+\begin{table}
+  \begin{tabular}{|c|c|}
+    \hline
+    Ordine & Numero di elettori \\
+    \hline
+    A B C  & 11                 \\
+    \hline
+    A C B  & 2                  \\
+    \hline
+    B C A  & 8                  \\
+    \hline
+    C A B  & 2                  \\
+    \hline
+    C B A  & 4                  \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Si applichino i metodi di Condorcet e di Borda per determinare la relazione di preferenza del gruppo.
+
+\subsection{Soluzione esercizio 8}
+
+\subsubsection*{Metodo di Condorcet}
+Nel metodo di Condorcet, una scelta $x_1$ domina una seconda $x_2$ quando il numero di decisori per cui $x_1\preceq x_2$ è maggiore del numero di decisori per cui $x_2\preceq x_1$. Questo, generalmente, consente di creare un ordine debole dal quale trarre la decisione di gruppo.
+
+\begin{align*}
+  \#\{A \preceq_{d} B\} = 15 > \#\{B \preceq_{d} A\} = 12 & \Rightarrow A \preceq_D B \\
+  \#\{B \preceq_{d} C\} = 19 > \#\{C \preceq_{d} B\} = 8  & \Rightarrow B \preceq_D C \\
+  \#\{A \preceq_{d} C\} = 13 < \#\{C \preceq_{d} A\} = 14 & \Rightarrow C \preceq_D A
+\end{align*}
+
+Siamo in un caso di preferenze circolari, per cui il metodo di Condorcet non è in grado di realizzare un ordine debole.
+
+\subsubsection*{Metodo di Borda}
+Assegna un punteggio ad una soluzione in base alla posizione che essa assume sulla lista di preferenze di ogni decisore, somma questi punteggi e va a scegliere quella soluzione che ha il punteggio più alto.
+
+Talvolta è soggetto al \textbf{rank reversal}, cioè eliminando una soluzione (anche mediocre) soluzioni precedentemente non ottime lo diventano.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+    \text{Scelta} & \text{Somma}               & \text{punteggio} \\
+    \hline
+    A             & 3*(11+2) + 2*(2) + 1*(8+4) & 52               \\
+    \hline
+    B             & 3*(8) + 2*(4) + 1*(2+2)    & 36               \\
+    \hline
+    C             & 3*(2+4) + 2*(2+8) + 1*(11) & 39               \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Per il conto di Borsa la soluzione migliore risulta essere la $A$. Se procedessimo ad eliminare la soluzione peggiore, la $B$, il punteggio cambia nel modo seguente:
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+    \text{Scelta} & \text{Somma}         & \text{punteggio} \\
+    \hline
+    A             & 2*(11+2) + 1*(2+4+8) & 40               \\
+    \hline
+    C             & 2*(2+4+8) + 1*(11+2) & 41               \\
+    \hline
+  \end{tabular}
+\end{table}
+
+La soluzione $C$ diviene quella migliore: avviene quindi un rank reversal.
+
+\end{document}

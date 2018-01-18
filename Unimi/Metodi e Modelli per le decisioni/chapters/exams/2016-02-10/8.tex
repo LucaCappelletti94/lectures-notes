@@ -1,0 +1,103 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 8}
+Considerando il metodo di Condorcet per le decisioni di gruppo:
+\begin{enumerate}[a)]
+  \item Si descriva il metodo stesso.
+  \item Se ne indichi il difetto principale, fornendo un esempio.
+  \item Si fornisca un esempio (non banale) nel quale il metodo produce una preferenza di gruppo che sia un ordine debole.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 8}
+
+\subsubsection*{Il metodo di Condorcet}
+Nel metodo di Condorcet, una scelta $x_1$ domina una seconda $x_2$ quando il numero di decisori per cui $x_1\preceq x_2$ è maggiore del numero di decisori per cui $x_2\preceq x_1$. Questo, generalmente, consente di creare un ordine debole dal quale trarre la decisione di gruppo.
+
+\subsubsection*{Il difetto del metodo di Condorcet}
+Nel caso di preferenze circolari il metodo di Condorcet non è in grado di realizzare un ordine debole.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|L|L|}
+    \hline
+    Ordine & d_1 & d_2 & d_3 & d_4 \\
+    \hline
+    1      & a   & b   & c   & d   \\
+    \hline
+    2      & b   & c   & d   & c   \\
+    \hline
+    3      & c   & d   & a   & a   \\
+    \hline
+    4      & d   & a   & b   & b   \\
+    \hline
+  \end{tabular}
+  \caption{Preferenze circolari: caso in cui Condorcet fallisce}
+\end{table}
+
+\subsubsection*{Esempio del metodo di Condorcet}
+
+\begin{figure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|L|}
+        \hline
+        Ordine & d_1 & d_2 & d_3 \\
+        \hline
+        1      & a   & b   & c   \\
+        \hline
+        2      & b   & c   & b   \\
+        \hline
+        3      & c   & d   & a   \\
+        \hline
+        4      & d   & a   & d   \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Tabella delle preferenze per decisore}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|L|L|}
+        \hline
+          & a & b & c & d \\
+        \hline
+        a & 1 & 0 & 0 & 1 \\
+        \hline
+        b & 1 & 1 & 1 & 1 \\
+        \hline
+        c & 1 & 0 & 1 & 1 \\
+        \hline
+        d & 0 & 0 & 0 & 1 \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Tabella delle preferenze di gruppo}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|L|L|}
+        \hline
+        Ordine & Scelta \\
+        \hline
+        1      & b      \\
+        \hline
+        2      & c      \\
+        \hline
+        3      & a      \\
+        \hline
+        4      & d      \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Ordine debole secondo Condorcet}
+  \end{subfigure}
+  \caption{Esempio del metodo di Condorcet}
+\end{figure}
+
+
+
+
+
+
+\end{document}

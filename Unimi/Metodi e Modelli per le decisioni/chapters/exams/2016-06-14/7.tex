@@ -1,0 +1,48 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 7}
+In un piccolo comune ci sono due pizzerie (A e B). I proprietari stanno valutando di introdurre un servizio di consegna a domicilio. Se una sola pizzeria introduce il servizio, guadagna molti clienti e ottiene un profitto aggiuntivo pari a 10, mentre l'altra perde qualche cliente e subisce una perdita pari a 1 rispetto alla situazione iniziale che fa da riferimento. Se entrambe introducono il servizio, perdono entrambe 5, perché i clienti in più non bastano a compensare l'investimento. Se nessuna introduce il servizio, si rimane nella situazione iniziale.
+
+Si descriva il problema di decisione come gioco a due giocatori, supponendo che debbano decidere simultaneamente, specificando le strategie disponibili e la matrice dei payoff.
+
+Si determinino gli equilibri di Nash di questo gioco, spiegandone il significato.
+
+Supponendo che il comune sovvenzioni il servizio di consegna a domicilio, a quanto dovrebbe ammontare la sovvenzione e come dovrebbe essere distribuita per modificare gli equilibri?
+
+\subsection{Soluzione esercizio 7}
+
+\subsubsection*{Problema delle pizzerie}
+Definisco $1$ come il caso in cui una pizzeria decide di realizzare il servizio, $0$ quando decide di no.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+      & 0                       & 1                       \\
+    \hline
+    0 & (0,0)                   & (\tilde{-1},\tilde{10}) \\
+    \hline
+    1 & (\tilde{10},\tilde{-1}) & (-5,-5)                 \\
+    \hline
+  \end{tabular}
+  \caption{L'equilibri di Nash si trovano quando uno dei giocatori determina di fare il servizio e l'altro si.}
+\end{table}
+
+\subsubsection*{Sovvenzione}
+Data una sovvenzione $\alpha = (\alpha_r, \alpha_c)$ la tabella diviene:
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+      & 0                        & 1                                       \\
+    \hline
+    0 & (0,0)                    & (-1,\tilde{10+\alpha_c})                \\
+    \hline
+    1 & (\tilde{\alpha_r+10},-1) & (\tilde{\alpha_r-5},\tilde{\alpha_c-5}) \\
+    \hline
+  \end{tabular}
+  \caption{L'equilibrio di Nash si sposta in $(1,1)$ per $\alpha_r>4 \land \alpha_c>4$}
+\end{table}
+
+\end{document}

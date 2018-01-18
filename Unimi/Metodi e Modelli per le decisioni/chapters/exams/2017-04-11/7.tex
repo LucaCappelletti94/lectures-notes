@@ -1,0 +1,135 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 7}
+Nel seguente gioco a due persone, i numeri corrispondono a payoff, cioè benefici:
+
+\begin{table}
+  \begin{tabular}{|L|L|L|L|}
+    \hline
+      & a      & b       & c       \\
+    \hline
+    a & (7,17) & (21,21) & (14,11) \\
+    \hline
+    b & (10,5) & (14,4)  & (4,3)   \\
+    \hline
+    c & (4,4)  & (7,3)   & (10,25) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{enumerate}
+  \item Si determinino le strategie dominate, se ve ne sono.
+  \item Si determinino i punti di equilibrio, se ve ne sono.
+  \item Si spieghi che cosa si intende con gioco della caccia al cervo.
+  \item Si spieghi che cosa si intende con gioco del matrimonio perfetto.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 7}
+
+\subsubsection*{Strategie dominate}
+Per il giocatore di riga la terza riga è dominata dalla prima (tabella \ref{2017_t1}). Per il giocatore di colonna, la seconda colonna domina sia la prima che la terza (tabella \ref{2017_t2}).
+Eliminate quest'ultime per il giocatore di riga la strategia $a$ risulta essere dominante (\ref{2017_t3}).
+
+\begin{figure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|L|}
+        \hline
+          & a      & b       & c       \\
+        \hline
+        a & (7,17) & (21,21) & (14,11) \\
+        \hline
+        b & (10,5) & (14,4)  & (4,3)   \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Elimino riga $c$}
+    \label{2017_t1}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|}
+        \hline
+          & b       \\
+        \hline
+        a & (21,21) \\
+        \hline
+        b & (14,4)  \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Elimino colonna $a$ e $b$}
+    \label{2017_t2}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|}
+        \hline
+          & b       \\
+        \hline
+        a & (21,21) \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Elimino riga $b$}
+    \label{2017_t3}
+  \end{subfigure}
+  \caption{La strategia dominante risulta essere $(a,b)$}
+\end{figure}
+
+\subsubsection*{Punti di equilibrio}
+
+\begin{table}
+  \begin{tabular}{|L|L|L|L|}
+    \hline
+      & a              & b                       & c               \\
+    \hline
+    a & (7,17)         & (\tilde{21},\tilde{21}) & (\tilde{14},11) \\
+    \hline
+    b & (\tilde{10},5) & (\tilde{14},4)          & (4,3)           \\
+    \hline
+    c & (4,4)          & (7,3)                   & (10,\tilde{25}) \\
+    \hline
+  \end{tabular}
+  \caption{Esiste un equilibrio di Nash in $(a,b)$}
+\end{table}
+
+\subsubsection*{Gioco della caccia al cervo}
+Nel gioco della caccia al cervo sono considerati due cacciatori che devono decidere se cercare di collaborare ed abbattere una preda grossa oppure cacciare indipendentemente e catturare qualcosa di piccolo.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+       & C                      & NC                    \\
+    \hline
+    C  & (\tilde{3}, \tilde{3}) & (0, 2)                \\
+    \hline
+    NC & (2, 0)                 & (\tilde{1},\tilde{1}) \\
+    \hline
+  \end{tabular}
+  \caption{Gioco della caccia al cervo}
+\end{table}
+
+Se entrambi i cacciatori collaborano hanno il payoff massimo, abbattendo la preda grande. Quando uno cerca di collaborare e l'altro va indipendentemente solo il secondo ha un piccolo payoff ed il primo niente, mentre quando entrambi vanno indipendenti possono ottenere un piccolo payoff.
+
+\subsubsection*{Gioco del matrimonio perfetto}
+Nel gioco del matrimonio perfetto si considerano due coniugi che devono decidere se collaborare o meno per questioni di casa.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+       & C                      & NC             \\
+    \hline
+    C  & (\tilde{3}, \tilde{3}) & (\tilde{1}, 2) \\
+    \hline
+    NC & (2, \tilde{1})         & (0,0)          \\
+    \hline
+  \end{tabular}
+  \caption{Gioco del matrimonio perfetto}
+\end{table}
+
+La soluzione migliore si ha quando entrambi collaborano, ma nel caso in cui uno non collabori e l'altro voglia collaborare, per chi collabora è comunque meglio continuare a collaborare rispetto a smettere di collaborare anche lui.
+
+\end{document}

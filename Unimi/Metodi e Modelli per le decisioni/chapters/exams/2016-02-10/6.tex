@@ -1,0 +1,30 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 6}
+Riferendosi ai problemi di programmazione in condizioni di rischio:
+
+\begin{enumerate}[a)]
+  \item Si descriva il procedimento di scelta con il criterio del valore atteso.
+  \item Si definisca il concetto di lotteria secondo la teoria di Von Neumann e Morgenstern.
+  \item Si definisca il concetto di profilo di rischio di un decisore e si spieghi perché esso rivela l'atteggiamento del decisore nei confronti del rischio insito in una decisione.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 6}
+
+\subsubsection*{Criterio del valore atteso}
+Per ogni scelta, si sommano le utilità di ogni scenario per quella scelta moltiplicate con la probabilità dello scenario, quindi si sceglie la scelta che garantisce utilità ottima.
+
+\subsubsection*{Lotteria}
+Una lotteria (finita) è una coppia di funzioni $l_{f,\pi} = (f(\omega), \pi(\omega))$ che associa ad ogni payoff $f(\omega)$ (una variabile aleatoria) una determinata probabilità $\pi(\omega)$.
+
+\subsubsection*{Profilo di rischio}
+Si tratta dell'andamento dell'utilità legata alle lotterie degeneri $u(f,1)$:
+\begin{description}
+  \item[Utilità concava] Il decisore preferisce l'impatto certo: è avverso al rischio.
+  \item[Utilità lineare] Il decisore è indifferente: è neutrale al rischio.
+  \item[Utilità convessa] Il decisore preferisce la lotteria: è propenso al rischio.
+\end{description}
+
+\end{document}

@@ -1,0 +1,56 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 6}
+Un macchinario comincia a mostrare segni di usura. Si stima che, senza interventi di manutenzione, possa funzionare ancora per 3 mesi. L'intervento di manutenzione consentirebbe di usarlo ancora per un anno, ma presenta dei rischi: c'`e una probabilità del 30\% che danneggi definitivamente il macchinario. Si descriva il problema con un albero di decisione, assumendo come funzione di utilità la durata residua del macchinario.
+
+Si risolva il problema con l'albero di decisione applicando il criterio del caso pessimo.
+
+Si ripeta la risoluzione con il criterio del valore atteso, commentando brevemente le differenze rispetto all'altro procedimento (se ve ne sono).
+
+Si supponga che un test consenta di ottenere informazioni sullo stato del macchinario, e quindi di prevedere (con qualche incertezza) l'esito dell'intervento: se il macchinario è destinato a sopravvivere al test, questo ha esito positivo nel 90\% dei casi; se il macchinario è destinato a soccombere, il test ha esito negativo nell'80\% dei casi. Si risolva il problema di decidere se eseguire o no il test e se eseguire o no l'intervento di manutenzione.
+Si può esprimere quantitativamente il valore dell'informazione fornita dal test? Se sì, in che modo?
+
+\subsection{Soluzione esercizio 6}
+\subsubsection*{Albero di decisione}
+\begin{figure}
+  \Tree[.root
+  [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
+  [.\text{non riparo} [$3m$ ]]
+  ]
+\end{figure}
+
+\subsubsection*{Caso pessimo}
+\begin{figure}
+  \Tree[.root
+  [.riparo [$0m$ ]]
+  [.\text{non riparo} [$3m$ ]]
+  ]
+\end{figure}
+Secondo il criterio del caso pessimo scelgo di non riparare il macchinario.
+
+\subsubsection*{Caso valore atteso}
+\begin{figure}
+  \Tree[.root
+  [.riparo [$8.4m$ ]]
+  [.\text{non riparo} [$3m$ ]]
+  ]
+\end{figure}
+
+Secondo il criterio del caso medio, con cui peso ogni utilità per la sua probabilità, scelgo di riparare il macchinario.
+
+\subsubsection*{Caso con test}
+\begin{figure}
+  \Tree[.root
+  [.\text{eseguo test}
+  [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
+  [.\text{non riparo} [$3m$ ]]]
+  [.\text{non eseguo test}
+  [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
+  [.\text{non riparo} [$3m$ ]]]
+  ]
+\end{figure}
+
+
+\end{document}

@@ -1,0 +1,53 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 7}
+Dato il seguente gioco a due persone:
+
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+      & A     & B      \\
+    \hline
+    A & (0,5) & (-1,3) \\
+    \hline
+    B & (0,0) & (-1,3) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{enumerate}
+  \item Determinare se vi siano strategie dominate.
+  \item Determinare gli eventuali punti di equilibrio (o dimostrare che non ve ne sono).
+  \item Applicare il criterio del caso pessimo al gioco in forma estesa, assumendo che i due giocatori non muovano simultaneamente, ma muova prima $G_r$ e poi $G_c$.
+  \item Applicare il criterio del caso pessimo al gioco in forma estesa, assumendo che i due giocatori non muovano simultaneamente, ma muova prima $G_c$ e poi $G_r$.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 7}
+
+\subsubsection*{Strategie dominate}
+Non esistono strategie dominate.
+
+\subsubsection*{Punti di equilibrio}
+L'unico punto di equilibrio è per la strategia $(A,A)$.
+\begin{table}
+  \begin{tabular}{|L|L|L|}
+    \hline
+      & A                     & B              \\
+    \hline
+    A & (\tilde{0},\tilde{5}) & (-1,\tilde{3}) \\
+    \hline
+    B & (\tilde{0},0)         & (-1,\tilde{3}) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsubsection*{Criterio del caso pessimo}
+Nel criterio del caso pessimo un giocatore assume che l'altro cercherà di danneggiarlo il più possibile.
+\paragraph*{Prima $G_r$, poi $G_c$}
+Per $G_r$ scegliere $A$ o $B$ non porta ad payoff differenti.
+
+\paragraph*{Prima $G_c$, poi $G_r$}
+$G_c$ sceglierà $B$, poichè, nel caso pessimo, $G_r$ può scegliere $B$ e imporgli un payoff pari a $0$, mentre scegliendo $B$ il payoff sarà sempre $3$.
+\end{document}
