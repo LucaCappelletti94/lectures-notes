@@ -15,27 +15,33 @@ Si può esprimere quantitativamente il valore dell'informazione fornita dal test
 \subsection{Soluzione esercizio 6}
 \subsubsection*{Albero di decisione}
 \begin{figure}
-  \Tree[.root
-  [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
-  [.\text{non riparo} [$3m$ ]]
-  ]
+  \begin{tikzpicture}
+    \Tree[.root
+    [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
+    [.\text{non riparo} [$3m$ ]]
+    ]
+  \end{tikzpicture}
 \end{figure}
 
 \subsubsection*{Caso pessimo}
 \begin{figure}
-  \Tree[.root
-  [.riparo [$0m$ ]]
-  [.\text{non riparo} [$3m$ ]]
-  ]
+  \begin{tikzpicture}
+    \Tree[.root
+    [.riparo [$0m$ ]]
+    [.\text{non riparo} [$3m$ ]]
+    ]
+  \end{tikzpicture}
 \end{figure}
 Secondo il criterio del caso pessimo, in cui scelgo il peggiore risultato possibile, scelgo di non riparare il macchinario.
 
 \subsubsection*{Caso valore atteso}
 \begin{figure}
-  \Tree[.root
-  [.riparo [$8.4m$ ]]
-  [.\text{non riparo} [$3m$ ]]
-  ]
+  \begin{tikzpicture}
+    \Tree[.root
+    [.riparo [$8.4m$ ]]
+    [.\text{non riparo} [$3m$ ]]
+    ]
+  \end{tikzpicture}
 \end{figure}
 
 Secondo il criterio del caso medio, con cui peso ogni utilità per la sua probabilità, scelgo di riparare il macchinario.
