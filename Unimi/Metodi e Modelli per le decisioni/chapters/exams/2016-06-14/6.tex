@@ -28,7 +28,7 @@ Si può esprimere quantitativamente il valore dell'informazione fornita dal test
   [.\text{non riparo} [$3m$ ]]
   ]
 \end{figure}
-Secondo il criterio del caso pessimo scelgo di non riparare il macchinario.
+Secondo il criterio del caso pessimo, in cui scelgo il peggiore risultato possibile, scelgo di non riparare il macchinario.
 
 \subsubsection*{Caso valore atteso}
 \begin{figure}
@@ -41,16 +41,28 @@ Secondo il criterio del caso pessimo scelgo di non riparare il macchinario.
 Secondo il criterio del caso medio, con cui peso ogni utilità per la sua probabilità, scelgo di riparare il macchinario.
 
 \subsubsection*{Caso con test}
-\begin{figure}
-  \Tree[.root
-  [.\text{eseguo test}
-  [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
-  [.\text{non riparo} [$3m$ ]]]
-  [.\text{non eseguo test}
-  [.riparo [.$0.3$ $0m$ ][.$0.7$ $12m$ ]]
-  [.\text{non riparo} [$3m$ ]]]
-  ]
-\end{figure}
+Effettuare il test mi garantisce un'utilità, ottenuta tramite il criterio del caso medio, di $8.49$ maggiore di quella massima ottenuta senza effettuare il test di $8.4m$.
 
+\begin{table}
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    esito          & percentuale & utilità seguendo test & riparo ignorando test & non riparo ignorando test \\
+    \hline
+    positivo       & 63\%        & $12m$: riparo         & $12m$                 & $3m$                      \\
+    \hline
+    falso negativo & 7\%         & $3m$: non riparo      & $12m$                 & $3m$                      \\
+    \hline
+    negativo       & 24\%        & $3m$: non riparo      & $0m$                  & $3m$                      \\
+    \hline
+    falso positivo & 6\%         & $0m$: rompo           & $0m$                  & $3m$                      \\
+    \hline
+    \hline
+    Totale         &             & $8.49m$               & $8.4m$                & $3m$                      \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsubsection*{Utilità del test}
+L'utilità del test è quantificabile come la differenza tra l'utilità derivata dal caso in cui viene eseguito e nel caso in cui esso non venga eseguito, quindi qui $0.09m$.
 
 \end{document}
