@@ -46,8 +46,98 @@ L'unico punto di equilibrio è per la strategia $(A,A)$.
 \subsubsection*{Criterio del caso pessimo}
 Nel criterio del caso pessimo un giocatore assume che l'altro cercherà di danneggiarlo il più possibile.
 \paragraph*{Prima $G_r$, poi $G_c$}
-Per $G_r$ scegliere $A$ o $B$ non porta ad payoff differenti.
+Per $G_r$ scegliere $A$ o $B$ non porta ad payoff differenti: il controllo sull'esito infatti lo ha $G_c$.
+
+\begin{figure}
+  \begin{subfigure}{0.24\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|}
+        \hline
+          & A                         & B                          \\
+        \hline
+        A & \cellcolor{blue!50} (0,5) & \cellcolor{blue!50} (-1,3) \\
+        \hline
+        B & (0,0)                     & (-1,3)                     \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Turno 1: $G_r$ sceglie A}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|}
+        \hline
+          & A                         & B                            \\
+        \hline
+        A & \cellcolor{blue!50} (0,5) & \cellcolor{purple!70} (-1,3) \\
+        \hline
+        B & (0,0)                     & \cellcolor{red!50} (-1,3)    \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Turno 2: $G_c$ sceglie B per garantire massima perdita}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|}
+        \hline
+          & A                         & B                         \\
+        \hline
+        A & (0,5)                     & (-1,3)                    \\
+        \hline
+        B & \cellcolor{blue!50} (0,0) & \cellcolor{blue!50}(-1,3) \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Turno 1: $G_r$ sceglie B}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|}
+        \hline
+          & A                         & B                            \\
+        \hline
+        A & (0,5)                     & \cellcolor{red!50} (-1,3)    \\
+        \hline
+        B & \cellcolor{blue!50} (0,0) & \cellcolor{purple!70} (-1,3) \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Turno 2: $G_c$ sceglie B per garantire massima perdita}
+  \end{subfigure}
+\end{figure}
+
 
 \paragraph*{Prima $G_c$, poi $G_r$}
 $G_c$ sceglierà $B$, poichè, nel caso pessimo, $G_r$ può scegliere $B$ e imporgli un payoff pari a $0$, mentre scegliendo $B$ il payoff sarà sempre $3$.
+\begin{figure}
+  \begin{subfigure}{0.24\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|}
+        \hline
+          & A     & B                         \\
+        \hline
+        A & (0,5) & \cellcolor{red!50} (-1,3) \\
+        \hline
+        B & (0,0) & \cellcolor{red!50}(-1,3)  \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Turno 1: $G_c$ sceglie B}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \begin{table}
+      \begin{tabular}{|L|L|L|}
+        \hline
+          & A                         & B                            \\
+        \hline
+        A & (0,5)                     & \cellcolor{red!50} (-1,3)    \\
+        \hline
+        B & \cellcolor{blue!50} (0,0) & \cellcolor{purple!70} (-1,3) \\
+        \hline
+      \end{tabular}
+    \end{table}
+    \caption{Turno 2: $G_r$ può scegliere sia $A$ che $B$ (nella figura sceglie $B$), senza alterare la massima perdita che può imporre a $G_c$}
+  \end{subfigure}
+\end{figure}
 \end{document}
