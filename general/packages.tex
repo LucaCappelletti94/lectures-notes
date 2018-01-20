@@ -146,6 +146,10 @@
 \let\oldtextit\textit % This is a backup for options may edit \textit
 \let\oldemph\emph % This is a backup for options may edit \emph
 
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
 %
 % THE FOLLOWING CODE WRAPS THEOREMS IN A GRAY BOX
 %
