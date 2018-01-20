@@ -1,0 +1,104 @@
+ \providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Teoria di programmazione lineare intera}
+
+\begin{definition}[Matrice unimodulare (UM)]
+  Una matrice quadrata $M$ di dimensione $m$ a elementi interi con $\det M = \pm 1$ si dice \textbf{unimodulare (UM)}.
+\end{definition}
+
+\begin{definition}[Matrice totalmente unimodulare (TUM)]
+  Una matrice $A \in \mathbb{R}^{m\times n}$ è \textbf{totalmente unimodulare (TUM)} se tutte le sue sotto-matrici quadrate non singolari sono unimodulari.
+\end{definition}
+
+\begin{theorem}[Condizione necessaria e sufficiente per vertici a componenti intere]
+  Sia $A  \in \mathbb{R}^{m \times n}, m \leq n$ a elementi interi e rango $m$. Condizione necessaria e sufficiente affinché il poliedro in forma standard $P$ abbia tutti i vertici a componenti interi per qualsiasi $b \in \mathbb{R}^m$ a componenti intere è che ogni base sia \textbf{UM}.
+\end{theorem}
+
+\begin{theorem}[Soluzione ottima con basi UM]
+  Una SBA ottima del rilassamento lineare di $P$ è ottima anche per $P$ se ogni base ammissibile di $A$ è \textbf{UM} e $b$ è a componenti intere.
+\end{theorem}
+
+Sfortunatamente, determinare se tutte le basi ammissibili sono UM è un problema esponenziale.
+
+Nel caso in cui $A$ sia una TUM vale il seguente risultato.
+
+\begin{theorem}[Soluzione ottima con A TUM]
+  Condizione sufficiente affinché il poliedro $P$ abbia tutti i vertici a componenti intere, per qualsiasi $n$ intera, è che $A$ sia \textbf{TUM}.
+
+  Ne segue che una soluzione ottima del rilassamento continuo del poliedro $P$, se $A$ è \textbf{TUM} sarà soluzione ottima anche per $P$.
+\end{theorem}
+
+\begin{theorem}[Proprietà di una TUM]
+  Una matrice $A$ è TUM se:
+  \begin{enumerate}
+    \item Ogni colonna ha al più due elementi diversi da 0.
+    \item Risulta possibile partizionare gli indici di riga in due sottoinsiemi $R_1$ ed $R_2$ tali che:
+          \subitem Se una colonna $j$ contiene due elementi non nulli dello stesso segno, allora le corrispondenti righe non appartengono allo stesso sottoinsieme.
+          \subitem Se una colonna $i$ contiene due elementi non nulli di segno opposto, allora le corrispondenti righe appartengono allo stesso sottoinsieme.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+  La matrice di incidenza di un grafo orientato (digrafo) o un grafo bipartito è TUM.
+\end{theorem}
+
+\section{Rilassamenti}
+\subsection{Rilassamento per eliminazione di vincoli}
+Banalmente si elimina uno o più dei vincoli di $P$ estendendo la regione ammissibile.
+
+\subsection{Rilassamento lagrangiano}
+La soluzione ottima del rilassamento lagrangiano fornisce una limitazione inferiore sul valore ottimo della funzione obbiettivo del problema originario.
+
+\begin{figure}
+  \begin{subfigure}{0.49\textwidth}
+    \begin{align*}
+      \min z(x) = c^Tx         \\
+      \bm{A}x & \geq b         \\
+      \bm{C}x & \geq d         \\
+      x       & \geq 0         \\
+      x       & \in \mathbb{Z}
+    \end{align*}
+    \caption{Problema di PI}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \begin{align*}
+      \min_x L(\bm{\lambda}, x) = c^Tx -\bm{\lambda}^T(\bm{A}x-b) \\
+      \bm{C}x      & \geq d                                       \\
+      x            & \geq 0                                       \\
+      x            & \in \mathbb{Z}                               \\
+      \bm{\lambda} & \geq \bm{0}
+    \end{align*}
+    \caption{Rilassamento lagrangiano $RL_{\bm{\lambda}}$ di $P$}
+  \end{subfigure}
+\end{figure}
+
+\begin{theorem}
+  In generale, la soluzione ottima identificata tramite un rilassamento lineare (RL) è sempre peggiore o uguale a quella identificata tramite rilassamento lagrangiano L.
+  \[
+    z^*_{RL} \leq L^*
+  \]
+\end{theorem}
+
+\begin{theorem}[Proprietà di integralità]
+  la soluzione ottima identificata tramite un rilassamento lineare (RL) è sempre uguale a quella identificata tramite rilassamento lagrangiano L (o meglio il rilassamento lagrangiano non può arrivare ad una approssimazione migliore) se vale la \textbf{proprietà di integralità}, cioè l'inviluppo convesso dei vincoli in $P$ è uguale all'area ammissibile nel rilassamento continuo.
+\end{theorem}
+
+\subsection{Problema lagrangiano duale}
+Il duale lagrangiano estende alla PI il concetto di dualità ma non garantisce che gli ottimi siano uguali tra il problema primale e duale.
+
+\begin{theorem}
+  L'ottimo del problema lagrangiano duale coincide con il rilassamento continuo se il poliedro dei vincoli rimasti gode della \textbf{proprietà di integralità.}
+\end{theorem}
+
+Si risolve tramite un algoritmo iterativo, detto del \textbf{sottogradiente}, un'approssimazione dell'algoritmo del gradiente necessaria perchè $L^*(\lambda)$ è generalmente non differenziabile.
+
+\begin{definition}[Sottogradiente]
+  Per sottogradiente si intende il vettore:
+  \[
+    s(\lambda) = -(Ax-b)
+  \]
+\end{definition}
+
+
+\end{document}

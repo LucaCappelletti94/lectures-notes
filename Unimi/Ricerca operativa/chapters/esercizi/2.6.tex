@@ -1,0 +1,52 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Esercizio 2.6}
+
+\begin{figure}
+  \begin{align*}
+    \min z = -x_1 + x_2   \\
+    x_1 + 2x_2  & \geq 10 \\
+    3x_2        & \leq 6  \\
+    3x_1 + 2x_2 & \geq 12 \\
+    x_1, x_2    & \geq 0
+  \end{align*}
+  \caption{Esercizio 2.6}
+\end{figure}
+
+\subsection{Risoluzione esercizio 2.6}
+
+\begin{figure}
+  \begin{subfigure}{0.45\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}[
+          xlabel=$x_1$,
+          ylabel=$x_2$,
+          zlabel=$z$,
+          domain=3:15,
+          y domain= 0:4
+        ]
+        \addplot3[surf, unbounded coords=jump]
+        {
+          x + 2*y > 10 &&
+          3*y < 6 &&
+          3*x + 2*y > 12 &&
+          x > 0 &&
+          y > 0?
+          -x+y:NaN
+        };
+      \end{axis}
+    \end{tikzpicture}
+    \caption{La funzione $z$}
+  \end{subfigure}
+  ~
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[width=0.8\textwidth]{2_6}
+    \caption{I vincoli del problema nello spazio $x_1 - x_2$}
+  \end{subfigure}
+  \caption{Risoluzione esercizio 2.6}
+\end{figure}
+
+Il minimo della funzione risulta essere $(\inf, 0)$ siccome la variabile $x_1$ non è vincolata. La soluzione quindi è illimitata.
+
+\end{document}

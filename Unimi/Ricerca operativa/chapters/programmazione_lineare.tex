@@ -89,8 +89,8 @@ Il duale del problema duale è il problema primale.
   \end{enumerate}
 \end{theorem}
 
-\subsection{Condizioni di ortogonalità (Condizioni di ottimalità nel caso vettoriale)}
-\begin{theorem}[Condizioni Ortogonalità]
+\subsection{Teorema degli scarti complementari}
+\begin{theorem}[Teorema degli scarti complementari o condizioni di ortogonalità]
   Date due soluzioni $\tilde{x} \in \mathbb{R}^n e \tilde{y} \in \mathbb{R}^m$, soluzioni ammissibili nel problema primale e duale rispettivamente ($a_{ij} \in A$, matrice dei coefficienti dei vincoli nei problemi), esse sono ottime se vale la relazione \ref{dualita_forte_vettoriale} (forma vettoriale di \ref{dualita_forte}):
   \begin{figure}
     \[
@@ -104,13 +104,13 @@ Il duale del problema duale è il problema primale.
 \section{Analisi di Sensitività}
 Si tratta di un'analisi svolta \textit{dopo} aver identificato la soluzione ottima di un problema di PL volta a determinare la qualità del modello, attraverso la modifica di coefficienti di costo $c_j$, di risorse $b_k$, dei vincoli $a_{ij}$ oppure introducendo ulteriori variabili e/o vincoli e osservando in che modo la soluzione ottima va a variare.
 
-\subsection{Variazione di un costo $c_j$} \label{cost_variation}
+\subsection{Variazione di un costo} \label{cost_variation}
 Non modifica il poliedro del problema, la soluzione ottima precedente rimane ammissibile ma potrebbe non essere più ottima.
 
-\subsection{Variazione di una risorsa $b_k$}
+\subsection{Variazione di una risorsa}
 Cambia il poliedro del problema (la regione ammissibile) per cui la soluzione ottima potrebbe non essere più ammissibile
 
-\subsection{Variazione di un vincolo $a_{ij}$} \label{constrain_variation}
+\subsection{Variazione di un vincolo} \label{constrain_variation}
 Va ad introdurre una variazione analoga alla variazione del costo, con l'aggiunta che la matrice $A$ potrebbe diventare invertibile e quindi porterebbe la soluzione di base a non rispettare più le condizioni di ammissibilità o di ottimalità.
 
 \subsection{Ulteriore variabile}
@@ -147,4 +147,8 @@ In un problema in cui la funzione obbiettivo è da minimizzare , il prezzo ombra
   \item[Non negativo] nel caso in cui il vincolo $h$ è del tipo $\geq$.
   \item[Non positivo] nel caso in cui il vincolo $h$ è del tipo $\leq$.
 \end{description}
+
+\clearpage
+\subfile{\main/chapters/esercizi_prog_lineare}
+
 \end{document}

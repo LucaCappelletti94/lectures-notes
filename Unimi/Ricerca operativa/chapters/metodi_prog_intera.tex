@@ -1,0 +1,32 @@
+ \providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Metodi di programmazione lineare intera}
+
+\section{Branch \& Bound}
+Si tratta del metodo risolutivo per PI più comune, un po' come il simplesso per PL.
+
+Si procede risolvendo molteplici rilassamenti continui di un problema LI usando il metodo del simplesso.
+
+A ogni iterazione, può accadere che:
+
+\begin{enumerate}
+  \item L'iterazione $i-esima$ è inammissibile.
+  \item Le variabili sono intere e pertanto non è necessario suddividere ulteriormente ma è stata identificata la soluzione ottima intera di questo ramo.
+  \item La soluzione continua identificata è inferiore alla soluzione intera identificata in un altro ramo e quindi non ha senso esplorare questa regione ulteriormente.
+  \item La soluzione intera ottenuta è abbastanza vicina alla soluzione continua ottima e si decide pertanto di interrompere l'algoritmo (per motivi di tempo).
+  \item Le variabili sono continue e quindi suddivideremo ulteriormente la regione in due sotto problemi, per esempio se la variabile intera fosse $x = a$ andremmo a dividere tra $x \leq \floor{a}$ e $x \geq \ceil{a}$, quindi ripeteremo il calcolo della soluzione ottima con l'algoritmo del simplesso avendo aggiunti questi vincoli.
+\end{enumerate}
+
+\section{Algoritmo dei piani di taglio}
+Banalmente si applicano iterativamente tagli di Chvatal-Gomory alla regione del problema (che sebbene inizialmente molto efficaci lo divengono sempre meno) per eliminare soluzioni non accettabili dal problema discreto ma ottime per il rilassamento continuo.
+
+\begin{definition}[Taglio di Gomory]
+  Ogni soluzione ammissibile di $P$ soddisfa la relazione:
+  \[
+    x_h + \sum_{j \in \mathbb{N}} \floor{a_{ij}}x_j \leq \floor{b_i}
+  \]
+\end{definition}
+
+
+\end{document}
