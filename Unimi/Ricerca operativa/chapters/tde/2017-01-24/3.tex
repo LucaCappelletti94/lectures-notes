@@ -87,13 +87,170 @@ Tutti i valori sono positivi, pertanto la base è ottima.
   Si tratta di un metodo per determinare un piano di taglio per qualsiasi problema di PI a partire dalla soluzione ottima del corrispondente rilassamento lineare.
 
   \begin{figure}
-    \[
-      x_h + \sum \floor{a_{ij}}x_j \leq \floor{b_i}
-    \]
-    \caption{Taglio di Gomory}
+    \begin{subfigure}{0.49\textwidth}
+      \[
+        x_h + \sum \floor{a_{ij}}x_j \leq \floor{b_i}
+      \]
+      \caption{Taglio di Gomory con resto in variabile $x_h$}
+      \label{gomory_cut_formula_general}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+      \[
+        \sum (a_{ij} - \floor{a_{ij}})x_j \leq \floor{b_i}
+      \]
+      \caption{Taglio di Gomory per vincolo $i-esimo$}
+      \label{gomory_cut_formula}
+    \end{subfigure}
   \end{figure}
 \end{definition}
 
-TODO
+\begin{definition}[Forma canonica]
+  Dato un problema di $PL$:
+  \begin{figure}
+    \begin{subfigure}{0.49\textwidth}
+      \begin{align*}
+        z = \bm{c}^T \bm{x} \\
+        A\bm{x} & = \bm{b}
+      \end{align*}
+      \caption{Forma a equazioni del problema di PL}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+      \begin{table}
+        \begin{tabular}{|L|L|}
+          \hline
+          \bm{c}^T & 0      \\
+          \hline
+                   &        \\
+          A        & \bm{b} \\
+                   &        \\
+          \hline
+        \end{tabular}
+      \end{table}
+      \caption{Forma a tableau del problema di PL}
+    \end{subfigure}
+  \end{figure}
+  Considerata una base $B$ e partizionando $A$ in due sottomatrici $A = \begin{bmatrix}
+      B & F
+    \end{bmatrix}$ viene chiamata forma canonica del problema di PL la forma \ref{equation_canonica} ottenuta sostituendo $\bm{x}_B$ (cioè le variabili in base) tramite l'equazione $\bm{x}_B = B^{-1} \bm{b} - B^{-1}F\bm{x}_F$, cioè premoltiplicando per l'inversa della matrice di base $B$.
 
+  \begin{figure}
+    \begin{subfigure}{0.31\textwidth}
+      \begin{align*}
+        z = \bm{c}_B^T B^{-1} \bm{b} + (\bm{c}_F^T - \bm{C}_B^T B^{-1} F)\bm{x}_F \\
+        I\bm{x}_B + B^{-1}F\bm{x}_F & = B^{-1} \bm{b}
+      \end{align*}
+      \caption{Forma a equazioni del problema di PL}
+      \label{equation_canonica}
+    \end{subfigure}
+    \begin{subfigure}{0.31\textwidth}
+      \begin{table}
+        \begin{tabular}{|L|L|L|}
+          \hline
+          \bm{0} & \bm{c}_F^T - \bm{C}_B^T B^{-1} F & -\bm{c}_B^T B^{-1} \bm{b} \\
+          \hline
+                 &                                  &                           \\
+          I      & B^{-1}F                          & B^{-1} \bm{b}             \\
+                 &                                  &                           \\
+          \hline
+        \end{tabular}
+      \end{table}
+      \caption{Forma a tableau del problema di PL}
+    \end{subfigure}
+    \begin{subfigure}{0.31\textwidth}
+      \begin{table}
+        \begin{tabular}{|L|L|L|}
+          \hline
+          \bm{0} & \text{CCR fuori base} & \tilde{c}_{\bm{0}} \\
+          \hline
+                 &                       &                    \\
+          I      & \tilde{F}             & \tilde{\bm{b}}     \\
+                 &                       &                    \\
+          \hline
+        \end{tabular}
+      \end{table}
+      \caption{Forma a tableau in termini canonici}
+    \end{subfigure}
+  \end{figure}
+\end{definition}
+
+Costruisco la forma canonica del sistema:
+
+\[
+  \tilde{c}_{\bm{0}} = -\bm{c}_B^T B^{-1} \bm{b} = - \begin{bmatrix}
+    1 & -3
+  \end{bmatrix}
+  \left(
+  \frac{1}{3}
+  \begin{bmatrix}
+    -2 & 3 \\
+    1  & 0
+  \end{bmatrix}
+  \right)
+  \begin{bmatrix}
+    1 \\
+    1
+  \end{bmatrix}
+  = \frac{10}{3}
+\]
+
+\[
+  \tilde{F} = B^{-1}F = \frac{1}{3}\begin{bmatrix}
+    -2 & 3 \\
+    1  & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    -3 & 2  \\
+    1  & -1
+  \end{bmatrix}
+  =
+  \frac{1}{3}
+  \begin{bmatrix}
+    4  & -7 \\
+    -3 & 2
+  \end{bmatrix}
+\]
+
+\[
+  \tilde{b} = B^{-1}\bm{b} =  \frac{1}{3}\begin{bmatrix}
+    -2 & 3 \\
+    1  & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 \\
+    1
+  \end{bmatrix}
+  = \begin{bmatrix}
+    \sfrac{1}{3} \\
+    \sfrac{1}{3}
+  \end{bmatrix}
+\]
+
+\begin{figure}
+  \begin{table}
+    \begin{tabular}{|LLLL|L|}
+      \hline
+      x_2                   & x_3 & x_1          & x_4           & \tilde{b}     \\
+      \hline
+      0                     & 0   & 1            & \sfrac{1}{3}  & \sfrac{10}{3} \\
+      \hline
+      \rowcolor{green!30} 1 & 0   & \sfrac{4}{3} & \sfrac{-7}{3} & \sfrac{1}{3}  \\
+      0                     & 1   & -1           & \sfrac{2}{3}  & \sfrac{1}{3}  \\
+      \hline
+    \end{tabular}
+  \end{table}
+  \caption{Tableau in forma canonica}
+\end{figure}
+
+Applico la formula del taglio di Gomory (formula \ref{gomory_cut_formula}) al primo vincolo, evidenziato in verde:
+
+\begin{align*}
+  (1-1)x_2 + (0)x_3 + (\frac{4}{3}-1)x_1 + (-\frac{7}{3} + 3)x_4 & \leq \frac{1}{3} \\
+  \frac{1}{3}x_1 + \frac{2}{3}x_4                                & \leq \frac{1}{3}
+\end{align*}
+
+Il taglio di Gomory risulta quindi:
+
+\[
+  \frac{1}{3}x_1 + \frac{2}{3}x_4 \leq \frac{1}{3}
+\]
 \end{document}
