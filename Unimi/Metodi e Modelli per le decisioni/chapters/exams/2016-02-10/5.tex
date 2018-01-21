@@ -21,7 +21,7 @@ Dato un problema di decisione con alternative $X = \{a_1, \ldots , a_5\}$, scena
   \item Si elenchino le eventuali alternative dominate, specificando da quali altre alternative sono dominate.
   \item Si indichi l'alternativa scelta con il criterio del caso pessimo, spiegando il procedimento.
   \item Si indichi l'alternativa scelta con il criterio del rammarico, spiegando il procedimento.
-  \item Si mostri come cambia l'alternativa scelta con il criterio di Hurwics al variare del coefficiente di pessimismo $\alpha$.
+  \item Si mostri come cambia l'alternativa scelta con il criterio di Hurwicz al variare del coefficiente di pessimismo $\alpha$.
 \end{enumerate}
 
 \subsection{Soluzione esercizio 5}
@@ -81,66 +81,103 @@ Vado a calcolare per ogni scelta, per ogni scenario, la distanza dal caso ottimo
 
 La scelta che minimizza il rammarico è la $a_4$.
 
-\subsubsection*{Criterio di Harwics}
-Vado a calcolare la combinazione convessa dei due scenari:
+\subsubsection*{Criterio di Hurwicz}
+Il criterio di Hurwicz procede scegliendo per ogni scelta lo scenario con utilità pessima e quello con utilità ottima, quindi per ogni coppia costruire una combinazione convessa al variare del parametro $\alpha$ che viene chiamato \textbf{coefficiente di pessimismo}:
+
+\[
+  u_{H}(a_i) = u^*_{i} (1-\alpha) + u^{\crs}_i\alpha
+\]
 
 \begin{table}
   \begin{tabular}{|L|L|L|L|L|L|}
     \hline
         & a_1                     & a_2                     & a_3                     & a_4                     & a_5                     \\
     \hline
-    u_H & 70\alpha + 20(1-\alpha) & 90\alpha + 10(1-\alpha) & 40\alpha + 30(1-\alpha) & 50\alpha + 40(1-\alpha) & 20\alpha + 80(1-\alpha) \\
+    u_H & 70(1-\alpha) + 20\alpha & 90(1-\alpha) + 10\alpha & 40(1-\alpha) + 30\alpha & 50(1-\alpha) + 40\alpha & 80(1-\alpha) + 20\alpha \\
     \hline
   \end{tabular}
 \end{table}
 
 \begin{figure}
-  \begin{subfigure}{0.31\textwidth}
+  \begin{subfigure}{0.49\textwidth}
     \begin{table}[H]
       \begin{tabular}{|L|L|L|L|L|L|}
         \hline
             & a_1 & a_2 & a_3 & a_4 & a_5 \\
         \hline
-        u_H & 70  & 90  & 40  & 50  & 20  \\
+        u_H & 70  & 90  & 40  & 50  & 80  \\
         \hline
       \end{tabular}
-      \caption{Caso $\pi(\omega_1)=1$: viene scelta $a_2$}
+      \caption{Caso $\alpha=0$: viene scelta $a_2$ e il metodo coincide con il criterio del caso ottimo}
     \end{table}
   \end{subfigure}
-  \begin{subfigure}{0.31\textwidth}
+  \begin{subfigure}{0.49\textwidth}
     \begin{table}[H]
       \begin{tabular}{|L|L|L|L|L|L|}
         \hline
             & a_1 & a_2 & a_3 & a_4 & a_5 \\
         \hline
-        u_H & 20  & 10  & 30  & 40  & 80  \\
+        u_H & 20  & 10  & 30  & 40  & 20  \\
         \hline
       \end{tabular}
-      \caption{Caso $\pi(\omega_1)=0$: scelta $a_5$}
+      \caption{Caso $\alpha=1$: scelta $a_4$ e il metodo coincide con il criterio del caso pessimo}
     \end{table}
   \end{subfigure}
-  \begin{subfigure}{0.31\textwidth}
+\end{figure}
+\begin{figure}
+  \begin{subfigure}{0.49\textwidth}
     \begin{tikzpicture}
       \begin{axis}[
-          width= \textwidth,
-          xlabel=$f$,
+          width=\textwidth,
+          xlabel=$\alpha$,
           ylabel=$u_H$,
           domain=0:1,
           ytick = {0,10,...,90},
-          legend style={at={(1,1)},anchor=north west}
+          legend style={at={(1,1)},anchor=north east}
         ]
-        \addplot[mark=none,color=red]{70*x + 20*(1-x)};
-        \addplot[mark=none,color=blue]{90*x + 10*(1-x)};
-        \addplot[mark=none,color=green]{40*x + 30*(1-x)};
-        \addplot[mark=none,color=purple]{50*x + 40*(1-x)};
-        \addplot[mark=none]{20*x + 80*(1-x)};
+        \addplot[mark=none,color=red]{70*(1-x) + 20*x};
+        \addplot[mark=none,color=blue]{90*(1-x) + 10*x};
+        \addplot[mark=none,color=green]{40*(1-x) + 30*x};
+        \addplot[mark=none,color=purple]{50*(1-x) + 40*x};
+        \addplot[mark=none]{80*(1-x) + 20*x};
         \legend{$a_1$,$a_2$,$a_3$,$a_4$,$a_5$}
       \end{axis}
     \end{tikzpicture}
-    \caption{L'utilità $u_H$ al variare del coef. di pessimismo $\alpha$}
   \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}[
+          width=\textwidth,
+          xlabel=$\alpha$,
+          samples=400,
+          ylabel=$u_H$,
+          domain=0:1,
+          ytick = {0,10,...,90},
+          xtick={0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1},
+          legend style={at={(1,1)},anchor=north east}
+        ]
+        \addplot[mark=none,color=blue]{
+          90*(1-x) + 10*x > 80*(1-x) + 20*x &&
+          90*(1-x) + 10*x > 50*(1-x) + 40*x?
+          90*(1-x) + 10*x: NaN
+        };
+        \addplot[mark=none,color=purple]{
+          50*(1-x) + 40*x > 80*(1-x) + 20*x &&
+          90*(1-x) + 10*x < 50*(1-x) + 40*x?
+          50*(1-x) + 40*x: NaN
+        };
+        \addplot[mark=none]{
+          90*(1-x) + 10*x < 80*(1-x) + 20*x &&
+          80*(1-x) + 20*x > 50*(1-x) + 40*x?
+          80*(1-x) + 20*x: NaN
+        };
+        \legend{$a_2$,$a_4$,$a_5$}
+      \end{axis}
+    \end{tikzpicture}
+  \end{subfigure}
+  L'utilità $u_H$ al variare del coefficiente di pessimismo $\alpha$
 \end{figure}
 
-Per $\alpha<0.5$ prevale sempre $a_5$, per $\alpha>0.5$ prevale sempre $a_2$. Questi scenari risultano estremamente sbilanciati.
+Per $\alpha<0.5$ prevale sempre $a_2$, per $0.5<\alpha<0.6$ prevale $a_5$ e per $\alpha>0.6$ prevale $a_5$.
 
 \end{document}
