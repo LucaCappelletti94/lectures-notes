@@ -90,8 +90,8 @@ La soluzione ottima si trova nel vertice tra il vincolo $2$ e $3$ in $(\frac{9}{
   \begin{figure}
     \[
       A^{-1} = \frac{1}{\det(A)} \begin{bmatrix}
-        a_{22}  & -a_{21} \\
-        -a_{12} & a_{11}  \\
+        a_{22}  & -a_{12} \\
+        -a_{21} & a_{11}  \\
       \end{bmatrix}
     \]
     \caption{Inversa di matrice $2 \times 2$}
@@ -105,23 +105,11 @@ La soluzione ottima si trova nel vertice tra il vincolo $2$ e $3$ in $(\frac{9}{
 \begin{definition}[Base degenere $2 \times 2$] \label{degenere_2_2}
   Dato un vettore di risorse $\bm{b} = [b_1, b_2]$, una base $A_B$ di dimensione  $2 \times 2$ è \textbf{degenere} quando almeno una delle seguenti relazioni è vera:
   \[
-    a_{11}b_2 - a_{12}b_1 = 0 \quad \lor \quad a_{22}b_1 - a_{21}b_2 = 0
+    a_{11}b_2 - a_{21}b_1 = 0 \quad \lor \quad a_{22}b_1 - a_{12}b_2 = 0
   \]
 \end{definition}
 
-\paragraph*{Testo se il vertice tra il vincolo $1$ e $3$ è degenere:}
-
-\begin{align*}
-  v_1: -x_1 -x_2  & \leq -2 \\
-  v_2: -2x_1 +x_2 & \leq -1
-\end{align*}
-
-La base così ottenuta è degenere se vale la relazione \ref{degenere_2_2}:
-
-\[
-  -1(-1) - (-1)(-2) \neq 0 \lor 1(-2) - (-2)(-1) = 0
-\]
-La seconda equazione è vera, pertanto questa base è degenere.
+Non riesco ad identificare vincoli per i quali valga la relazione di base degenere.
 
 \subsubsection*{Analisi di sensitività}
 Modifica il valore di $b_3$ significa traslare il vincolo $3$, che è uno dei due che definisce il punto di ottimo $(\frac{9}{5}, \frac{13}{5})$. Non è pertanto possibile alterare il valore di $b_3$ senza modificare il valore ottimo.

@@ -2,8 +2,98 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \subsection{Esercizio 3}
-Dato il seguente problema di PI
+Dato il seguente problema di PI e una base formata dalle variabili $x_2, x_3$, si ricavi il vettore dei coefficienti a costo ridotto delle variabili fuori base e si verifichi che la soluzione corrispondente alla base data è ottima per il rilassamento lineare del problema.
+
+Si ricavi il taglio di Gomory relativo al primo vincolo.
+
+\begin{figure}
+  \begin{align*}
+    \min z = 7x_1 + x_2 -3x_3 -4x_4 \\
+    -3x_1 + 3x_3 +2x_4    & =1      \\
+    x_1 + x_2 + 2x_3 -x_4 & =1      \\
+    \bm{x}\geq \bm{0}, \bm{x} \in \mathbb{Z}^4
+  \end{align*}
+  \caption{Esercizio 3}
+\end{figure}
 
 \subsection{Soluzione esercizio 3}
+
+\subsubsection*{Calcolo i coefficienti di costo ridotto}
+\[
+  B = \begin{bmatrix}
+    0 & 3 \\
+    1 & 2
+  \end{bmatrix}
+  \qquad
+  F = \begin{bmatrix}
+    -3 & 2  \\
+    1  & -1
+  \end{bmatrix}
+\]
+
+\[
+  B^{-1} = \frac{1}{3} \begin{bmatrix}
+    -2 & 3 \\
+    1  & 0
+  \end{bmatrix}
+\]
+
+\begin{definition}[CCR fuori base]
+  Il \textbf{vettore dei coefficienti di costo ridotto per le variabili fuori base} si calcola tramite il prodotto \ref{vccr}, dove $\bm{c}_F$ è il vettore dei costi fuori base, $\bm{c}_B$ è il vettore dei costi in base, $B$ è la base, $F$ è la matrice dei vincoli restante tolta la base $B$.
+  \begin{figure}
+    \[
+      CCR = \bm{c}_F^T - \bm{c}_B^T B^{-1} F
+    \]
+    \caption{Vettore dei coefficienti di costo ridotto fuori base}
+    \label{vccr}
+  \end{figure}
+\end{definition}
+
+\begin{definition}[Base ottima]
+  Una base $B$ è \textbf{ottima} quando il vettore dei coefficienti di costo ridotto per le variabili fuori base è $\geq \bm{0}$ nel caso di problemi di minimo o $\leq \bm{0}$ nel caso di problemi di massimo.
+\end{definition}
+
+\[
+  CCR = \begin{bmatrix}
+    7 & -4
+  \end{bmatrix}
+  -
+  \begin{bmatrix}
+    1 & -3
+  \end{bmatrix}
+  \left(
+  \frac{1}{3}
+  \begin{bmatrix}
+    -2 & 3 \\
+    1  & 0
+  \end{bmatrix}
+  \right)
+  \begin{bmatrix}
+    -3 & 2  \\
+    1  & -1
+  \end{bmatrix}
+  = \begin{bmatrix}
+    1 & \frac{1}{3}
+  \end{bmatrix}
+\]
+
+Si tratta di un problema di minimo, per cui controllo se il vettore dei coefficienti di costo per le variabili fuori base è maggiore del vettore $\bm{0}$.
+
+Tutti i valori sono positivi, pertanto la base è ottima.
+
+\subsubsection*{Taglio di Gomory}
+
+\begin{definition}[Taglio di Gomory]
+  Si tratta di un metodo per determinare un piano di taglio per qualsiasi problema di PI a partire dalla soluzione ottima del corrispondente rilassamento lineare.
+
+  \begin{figure}
+    \[
+      x_h + \sum \floor{a_{ij}}x_j \leq \floor{b_i}
+    \]
+    \caption{Taglio di Gomory}
+  \end{figure}
+\end{definition}
+
+TODO
 
 \end{document}
