@@ -1,0 +1,158 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Esercizio 4}
+Un caseificio vuole pianificare la produzione settimanale di burro ($B$), ricotta ($R$), mozzarella ($M$), sapendo che la domanda massima è rispettivamente di $230, 150, 140 Kg$ alla settimana e che il prezzo di vendita è rispettivamente di $3, 5, 8 \sfrac{euro}{Kg}$.
+
+In una settimana sono disponibili fino a $45$ ore-macchina per la produzione e fino a $450$ litri di latte, al costo di $0.5 \sfrac{euro}{litro}$. Per produrre $1 Kg$ di burro, ricotta o mozzarella, servono rispettivamente $5, 2, 4 Kg$ di latte, mentre le “quote di produzione” (il numero di Kg che sarebbe prodotto in un'ora se tutte le macchine fossero utilizzate per un solo tipo di prodotto) sono rispettivamente di $15, 6, 11 Kg$.
+Come deve produrre settimanalmente il caseificio per massimizzare i profitti?
+
+Come cambia il modello se il caseificio deve scegliere in alternativa (o l'uno o l'altro) fra due tipi di mozzarella, quella sopra descritta, ($M$), e un tipo ($M_1$) caratterizzata da una domanda pari a $120 Kg$, un prezzo di vendita di $9 \sfrac{euro}{Kg}$, una richiesta di $4,5 Kg$ di latte per ogni $Kg$ di prodotto finito ed una quota di produzione di $12 Kg$?
+
+Si deve formulare (non risolvere) il problema, definendo le variabili, la funzione obiettivo, i vincoli.
+
+\subsection{Soluzione esercizio 4}
+
+\subsubsection*{Identifico i dati}
+
+\begin{figure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      T = 45
+    \]
+    \caption{Totale ore macchina}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      L = 450
+    \]
+    \caption{Totale latte disponibile}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      c_l = 0.5
+    \]
+    \caption{Costo latte per litro}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \[
+      \bm{d} = \begin{bmatrix}
+        230 \\
+        150 \\
+        140
+      \end{bmatrix}
+    \]
+    \caption{Domanda dei prodotti}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \[
+      \bm{p} = \begin{bmatrix}
+        3 \\
+        5 \\
+        8
+      \end{bmatrix}
+    \]
+    \caption{Prezzo di vendita}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \[
+      \bm{l} = \begin{bmatrix}
+        3 \\
+        2 \\
+        4
+      \end{bmatrix}
+    \]
+    \caption{Latte per kg di prodotto}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \[
+      \bm{q} = \begin{bmatrix}
+        15 \\
+        6  \\
+        11
+      \end{bmatrix}
+    \]
+    \caption{Quote produzione per prodotto}
+  \end{subfigure}
+  \caption{Dati del problema}
+\end{figure}
+\subsubsection*{Identifico le variabili}
+Le variabili sono le quantità di prodotto per questa settimana, in $Kg$:
+
+\[
+  \bm{x} = \begin{bmatrix}
+    x_{1 = burro}   \\
+    x_{2 = ricotta} \\
+    x_{3 = mozzarella}
+  \end{bmatrix},
+  \quad
+  \bm{x} \in \mathbb{R}^3_{>0}
+\]
+
+\subsubsection*{Identifico la funzione obbiettivo}
+Se si intende massimizzare i profitti, la funzione obbiettivo sarà il ricavato meno i costi:
+
+\begin{figure}
+  \[
+    \max_{\bm{x}} z = \bm{p}^T\bm{x} - c_l\bm{l}^T\bm{x}
+  \]
+  \caption{Funzione obbiettivo}
+\end{figure}
+
+\subsubsection*{Identifico i vincoli del problema}
+
+\begin{figure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      \sum_{i=1}^{\norm{\bm{x}}} \frac{x_i}{q_i} \leq T
+    \]
+    \caption{Vincolo ore macchina}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      \bm{l}^T\bm{x} \leq L
+    \]
+    \caption{Vincolo su latte totale}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \[
+      \bm{x} \leq \bm{d}
+    \]
+    \caption{Vincolo su domanda}
+  \end{subfigure}
+\end{figure}
+
+\subsubsection*{Modello}
+
+\begin{align*}
+  \max_{\bm{x}} z = \bm{p}^T\bm{x} - c_l\bm{l}^T\bm{x}                       \\
+  \text{s.v} \qquad \sum_{i=1}^{\norm{\bm{x}}} \frac{x_i}{q_i} & \leq T      \\
+  \bm{l}^T\bm{x}                                               & \leq L      \\
+  \bm{x}                                                       & \leq \bm{d} \\
+\end{align*}
+
+\subsubsection*{Modifiche al modello}
+Si aggiunge ad ogni vettore il rispettivo nuovo valore del prodotto $M_1$ e si aggiunge un vincolo di mutua esclusività, aggiungendo un vettore binario definito come:
+
+\[
+  y_i \in \bm{y}, \quad y_i: \begin{cases}
+    1\quad x_i > 0 \\
+    0\quad \text{altr.}
+  \end{cases}
+\]
+
+\[
+  y_3 + y_4 \leq 1
+\]
+
+\subsubsection*{Modello modificato}
+
+\begin{align*}
+  \max_{\bm{x}} z = \bm{p}^T\bm{x} - c_l\bm{l}^T\bm{x}                       \\
+  \text{s.v} \qquad \sum_{i=1}^{\norm{\bm{x}}} \frac{x_i}{q_i} & \leq T      \\
+  \bm{l}^T\bm{x}                                               & \leq L      \\
+  \bm{x}                                                       & \leq \bm{d} \\
+  y_3 + y_4                                                    & \leq 1      \\
+\end{align*}
+
+\end{document}
