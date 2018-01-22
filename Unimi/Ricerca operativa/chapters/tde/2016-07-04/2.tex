@@ -2,5 +2,57 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \subsection{Esercizio 2}
+Si consideri il seguente \textbf{tableau} di \textbf{minimo}:
+
+\begin{table}
+  \begin{tabular}{|LLLL|L|}
+    \hline
+    B & E  & D & 4  & -1 \\
+    \hline
+    0 & -8 & 1 & -1 & 4  \\
+    1 & A  & C & 6  & F  \\
+    \hline
+  \end{tabular}
+  \caption{Tableau esercizio 2}
+\end{table}
+
+\begin{enumerate}[a)]
+  \item Si dica per quali valori dei parametri il tableau è in forma canonica.
+  \item Per quali dei parametri rimanenti il tableau corrisponde a:
+        \subitem Un problema con ottimo finito.
+        \subitem Una soluzione non ottima e degenere.
+        \subitem Un problema illimitato.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 2}
+\subsubsection*{Forma canonica}
+Le uniche colonne che possono essere variabili in base son quelle indicate dai parametri $B$ e $D$, che devono quindi essere zero, e le colonne devono formare una matrice identità. La base scelta, quindi, per essere ammissibile, deve essere tale che $\tilde{b} = B^{-1} b \geq 0$, quindi $F\geq 0$.
+
+\begin{table}
+  \begin{tabular}{|LLLL|L|}
+    \hline
+    0 & E  & 0 & 4  & -1 \\
+    \hline
+    0 & -8 & 1 & -1 & 4  \\
+    1 & A  & 0 & 6  & F  \\
+    \hline
+  \end{tabular}
+  \caption{Forma canonica}
+\end{table}
+
+\subsubsection*{Problema con ottimo finito}
+Un problema è limitato se non esistono variabili fuori base per cui coefficiente di costo e coefficienti sono negativi. Risulta quindi sufficiente dare valore non negativo a $E$ o $A$ od entrambi. In particolare, dando valore non negativo ad $E$ si garantisce per il \textbf{criterio di ottimalità} che la soluzione data è ottima.
+
+\subsubsection*{Soluzione non ottima e degenere}
+Una soluzione è degenere quando una dei termini del vettore $\tilde{b}$ è pari a zero, quindi $F = 0$.
+
+TODO: Non so come definirla ``non ottima''.
+
+\subsubsection*{Problema illimitato}
+Se, per una variabile fuori base $x_k$ si ha $\tilde{A}_k$ e coefficiente di costo ridotto per $k$ negativo, allora il problema è illimitato inferiormente, per cui:
+
+\[
+  E < 0 \quad \land \quad A < 0
+\]
 
 \end{document}
