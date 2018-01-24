@@ -4,9 +4,179 @@
 %\graphicspath{ {\main/chapters/circuiti/}}
 
 \begin{document}
-\subfile{\main/chapters/mos/intro}
-\subfile{\main/chapters/mos/esercizi1}
-\subfile{\main/chapters/mos/esercizi2}
-\subfile{\main/chapters/mos/portelogiche}
-\subfile{\main/chapters/mos/esercizi3}
+
+
+\subsection{Sample \& Hold}
+
+In pratica campiona, quindi copia e mantiene costante il valore di tensione del segnale in modo che l'ADC possa convertirlo correttamente.
+
+\begin{center}
+    \begin{circuitikz}
+        \draw(-1.5,3) node[left] {$V_{in}$} (-1.5,3) to[short, o-](-1,3);
+        \draw(-1,3) to[Tnmos, l=$N_1$](1,3);
+        \draw (0,4) node[above] {$V_s$};
+
+        \draw (2,3) node[right] {$V_{out}$} (2,3) to[short, o-*] (1,3) to[capacitor = $C_H$](1,1.5) node[ground]{} (1,1.5);
+    \end{circuitikz}
+\end{center}
+
+
+
+\subsection{Dimensionamento della tensione di controllo $V_s$}
+Usualmente $V_s$ e' un segnale ad onda quadra e per il corretto caricamento e mantenimento della carica nel condensatore deve valere:
+
+\[V_{s,hold} \le V_{in,min} + V_t\]
+\[V_{s,sample} \ge V_{in,max} + V_t\]
+
+Dove $V_{s,hold}$ e' il valore minimo della onda quadra $V_s$ e $V_{s,sample}$ e' il massimo.
+
+
+
+
+
+
+\subsubsection{Carica del condensatore:}
+Poiche' l'eq caratteristica del condensatore e':
+\[i_c(t) = C \frac{\partial V_c(t)}{\partial t}\]
+\[V(t) = V_i + \rnd{V_f - V_i}e^{-\frac{t}{\tau}}\]
+con $V_i$ la tensione a cui parte il condensatore,
+$V_f$ la tensione a cui si si carichera' il condesnatore,
+$\tau$ la costante di tempo associata al condesnatore, normalmente $\tau = C R_{Þeq}$
+con $R_{eq}$ la resistenza equivalente ti thevenim vista ai capi del condensatore.
+
+\subsubsection{Tempo di propagazione esatto:}
+e' il tempo che ci mette la porta logica a fare meta' della escursione.
+\[ V_i + \frac{\rnd{V_f - V_i}}{2} = V_i + \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\]
+\[  \frac{\rnd{V_f - V_i}}{2} =\rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\]
+\[  \frac{1}{2} = e^{-\frac{t_p}{\tau}}\]
+\[  ln\rnd{\frac{1}{2}} = -\frac{t_p}{\tau}\]
+\[ - \tau ln\rnd{\frac{1}{2}} = t\]
+\[ t_p = \tau ln\rnd{2} \simeq 0.69\tau \]
+
+
+\clearpage
+\section{Convertiotri Analogico - Digitale (ADC)}
+\subsection{Caratteristiche degli ADC}
+
+\subsubsection{Teorema di shennon:}
+Per poter campionare un segnale correttamente (Senza Aliasing) la frequenza di campionamento deve essere almeno doppia della frequenza massima del segnale in ingresso.
+\[f_{cp} \ge 2 f_{max,signal}\]
+
+\subsubsection{Lest Significative Bit:}
+\[LSB = \Delta x = \frac{\Delta V}{2^n} \]
+con:
+$\Delta V$ la dinamica del ADC,
+ $n$ il numero di bit del ADC
+\subsection{Tipi di ADC}
+
+ Esistiono vari tipi di convertitori con diverse caratteristiche:
+
+ \begin{tabular}{| c | c |}
+ \hline
+ Numero di Cicli di clock necessari alla conversione & Tipi di convertitore\\
+ \hline
+ 1 & Flash Converter\\
+ \hline
+ $n+1$ & Convertitore ad Approssimazioni sucessive\\
+ \hline
+ $n+1 \sim 2^n-1$ & Convertitore ad Inseguimento\\
+ \hline
+ $2^n-1$ & Convertitore a Singola / Doppia Rampa\\
+ \hline
+ \end{tabular}
+
+dove $n$  e` numero di bit del convertitore.
+
+\subsubsection{Convertitore Flash}
+Il convertitor Flash e' un convertitore molto veloce poiche' impiega solo 1 ciclo di clok per convertire ma molto costoso.
+In pratica al suo interno vi sono $2^n - 1$ comparatori che confrontano il segnale di ingresso con i vari valori di tensione di riferimento.
+Poiche' il numero di comparatori cresce esponenzialmente col numero di bit e' raro vedere convertitori flash sopra i 12 bit e diventano veramente costosi.
+
+\textbf{TLDR}: Basta 1 ciclo di clock per convertire ma costosi.
+\[T_{clock} \le T_{signal}\]
+\[f_{clock} \ge  f_{signal}\]
+
+\subsubsection{Convertitore ad Approssimazioni Successive}
+In pratica al inizio il convertitore si resetta poi per bisezione approssima il valore di uscita al valore di ingresso.
+
+Lavorando per bisezione ci mette $log_2\rnd{2^n} + 1 = n + 1$.
+
+\textbf{TLDR}: Bastano $n+1$ cicli di clock per convertire correttamente.
+\[\rnd{n + 1} T_{clock} \le T_{signal}\]
+\[f_{clock} \ge \rnd{n + 1} f_{signal}\]
+
+
+\subsubsection{Convertitore ad Inseguimento}
+
+I convertitori ad inseguimento in pratica ad ogni ciclo di clock aumentano o diminuisco di un LSB il valore in uscita a seconda del fatto che questo sia maggiore o minore del segnale in ingresso.
+
+Cio' implica che nel caso pessimo in cui il segnale di ingresso commuti istantaneamente dal minimo valore, leggibile del ADC ,a quello massimo nel qual caso l'ADC deve eseguire tutta la dinamica e quindi avra' bisogno di $2^n - 1$ cicli di clock.
+
+Ma in utilizzi ``normali'' si riesce in meno poiche' il limite di questo ADC e' solo sulla massima derivata del segnale in ingresso.
+\begin{center}
+    \begin{tabular}{ c c }
+        $D_m = \max{\frac{\partial V_i}{\partial t}}$ &
+        $D_{ADC} = \frac{1LSB}{T_{clock}}$
+    \end{tabular}
+\end{center}
+
+Quindi per garantire di non avere distorsioni il segnale deve variare meno di $1 LSB$ nel tempo che ci mette l'ADC a misurare, quindi deve valere:
+
+\[D_m \le D_{ADC}\]
+Quindi:
+\[ \max{\frac{\partial V_i}{\partial t}} \le \frac{1LSB}{T_{clock}}\]
+Per segnali sinusoidali vale:
+
+\[V_i(t) = A sen(\omega t + \phi)\]
+\[\frac{\partial V_i(t)}{\partial t} = A \omega cos(\omega t + \phi)\]
+
+Quindi  la massima frequenza per campionare senza distorsioni e':
+
+\[\max{\frac{\partial V_i(t)}{\partial t}} = A \omega \]
+\[A\omega \le \frac{1LSB}{T_{clock}}\]
+\[\max{\omega} = \frac{1LSB}{A T_{clock}}\]
+o in forma alternativa :
+\[\max{\omega} = \frac{\Delta ADC}{\Delta V_i} \frac{1}{2^n} f_{clock} \]
+dove $\Delta ADC , \Delta V_i$ sono rispettivamente le dinamiche leggibili dal adc e la dinamica del segnale d'ingresso.
+
+\textbf{TLDR}: Impone un vincolo sulla derivata del segnale. Per segnali sinusoidali di ampiezza $A$ e pulsazione $\omega$ la frequenza massima del segnale e'
+\[\max{\omega} = \frac{1LSB}{A T_{clock}}\]
+\[\omega = 2 \pi f\]
+
+\subsubsection{Convertitore a singola rampa}
+In pratica il convertitore misura quanto tempo ci mette la tensione di ingresso a caricare un suo condensatore interno.
+
+\textbf{TLDR}: Convertitore preciso e poco costoso ma lento, ha bisogno di $2^n$ cicli di clock per misurare correttamente.
+\[2^n T_{clock} \le T_{signal}\]
+\[f_{clock} \ge 2^n f_{signal}\]
+
+\subsection{convertitore a doppia rampa}
+Il convertitore carica con l`ingresso il condensatore per un certo tempo fissato poi misura quanto tempo ci mette a scaricarsi.
+Grazie a questo meccanismo la precisione della misura non dipende dai valori delle resistenze e della capacita' interne quindi
+permette di avere prestazioni buone anche con componenti reali con inertezza.
+
+\textbf{TLDR}: Come quello a singola rampa ma piu' resistente ad errori dei componenti.
+\[2^n T_{clock} \le T_{signal}\]
+\[f_{clock} \ge 2^n f_{signal}\]
+
+
+
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
