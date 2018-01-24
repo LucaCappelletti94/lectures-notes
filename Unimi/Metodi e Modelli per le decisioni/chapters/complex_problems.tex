@@ -2,7 +2,7 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Problemi complessi}
+\chapter{Problemi complessi}
 
 \begin{figure}[H]
 	\[
@@ -76,23 +76,25 @@ Un esempio di preferenza è: \[ f' \preccurlyeq_d f' \Leftrightarrow (f', f'')\i
 
 
 \section{Proprietà delle preferenze}
-\subsubsection{Proprietà riflessiva}
+\subsection{Proprietà riflessiva}
+Un impatto è sempre preferibile (debolmente) a sé stesso.
 \[
 	f \preccurlyeq f \qquad \forall f \in F
 \]
 
-\subsubsection{Proprietà di completezza}
+\subsection{Proprietà di completezza}
 Un decisore può sempre concludere una decisione (ipotesi molto forte che talvolta porta a risultati impossibili):
 \[
 	f \nprec f' \Rightarrow f' \preccurlyeq f \qquad \forall f, f' \in F
 \]
 
-\subsubsection{Proprietà di anti-simmetria}
+\subsection{Proprietà di anti-simmetria}
+Se un impatto è preferibile ad un altro e questo al primo, allora i due impatti sono lo stesso.
 \[
 	f \preccurlyeq f' \wedge f' \preccurlyeq f \Rightarrow f' = f \qquad \forall f, f' \in F
 \]
 
-\subsubsection{Proprietà Transitiva}
+\subsection{Proprietà Transitiva}
 Solitamente i decisori non possiedono questa proprietà, anche perché è necessario modellare lo scorrere del tempo, per cui le proprietà valgono potenzialmente solo in un determinato periodo temporale. Viene generalmente considerata verificata.
 \[
 	f \preccurlyeq f' \wedge f' \preccurlyeq f'' \Rightarrow f \preccurlyeq f'' \qquad \forall f, f', f'' \in F
@@ -104,16 +106,16 @@ Un decisore che ha in mente una funzione valore $v$, ha in mente una relazione d
 	\exists v: F\rightarrow \mathbb{R}: f \preccurlyeq f' \Leftrightarrow v_{(f)} \succcurlyeq v_{(f')}
 \]
 
-\subsubsection{Condizioni di preordine}
+\subsection{Condizioni di preordine}
 Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} si ottiene la condizione di \textbf{preordine}.
 
-\subsubsection{Ordini deboli}
+\subsection{Ordini deboli}
 Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} e \textbf{completezza} si ha la condizione di ordine debole, che è molto utilizzata.
 
-\subsubsection{Ordine parziale}
+\subsection{Ordine parziale}
 Avendo le condizioni di \textbf{riflessività}, \textbf{transitività} e \textbf{antisimmetria} si ottiene la condizione di \textbf{ordine parziale}.
 
-\subsubsection{Ordine totale}
+\subsection{Ordine totale}
 Avendo le condizioni di \textbf{riflessività}, \textbf{transitività}, \textbf{completezza} e \textbf{antisimmetria} si ottiene la condizione di \textbf{ordine totale}.
 
 \section{Tabella riassuntiva}
@@ -122,39 +124,40 @@ Avendo le condizioni di \textbf{riflessività}, \textbf{transitività}, \textbf{
 		\hline
 		\textit{Proprietà}     & \textbf{Preordine} & \textbf{Ordine debole} & \textbf{Ordine parziale} & \textbf{Ordine totale} \\
 		\hline
-		\textbf{Riflessività}  & \checkmark         & \checkmark             & \checkmark               & \checkmark             \\
+		\textbf{Riflessività}  & X                  & X                      & X                        & X                      \\
 		\hline
-		\textbf{Transitività}  & \checkmark         & \checkmark             & \checkmark               & \checkmark             \\
+		\textbf{Transitività}  & X                  & X                      & X                        & X                      \\
 		\hline
-		\textbf{Completezza}   &                    & \checkmark             &                          & \checkmark             \\
+		\textbf{Completezza}   &                    & X                      &                          & X                      \\
 		\hline
-		\textbf{Antisimmetria} &                    &                        & \checkmark               & \checkmark             \\
+		\textbf{Antisimmetria} &                    &                        & X                        & X                      \\
 		\hline
 	\end{tabular}
 \end{center}
 
-\section{Conto di Borda}
-La formula in figura \ref{borda} utilizzato per costruire una \textbf{funzione valore}:
+% \section{Conto di Borda}
+% La formula in figura \ref{borda} utilizzato per costruire una \textbf{funzione valore}:
 
-\begin{figure}[H]
-	\[
-		v(f) = \abs{\{f' \in F: f \preccurlyeq f' \}}
-	\]
-	\caption{Conto di Borda}
-	\label{borda}
-\end{figure}
+% \begin{figure}[H]
+% 	\[
+% 		v(f) = \abs{\{f' \in F: f \preccurlyeq f' \}}
+% 	\]
+% 	\caption{Conto di Borda}
+% 	\label{borda}
+% \end{figure}
 
-Il valore di un impatto è pari al numero di impatti cui esso è preferibile, compreso l'impatto stesso.
+% Il valore di un impatto è pari al numero di impatti cui esso è preferibile, compreso l'impatto stesso.
 
-Quando la cardinalità dell'insieme è $\mathbb{N}\times\mathbb{R}$ è possibile ottenere una \textbf{funzione valore}, ma quando ci si trova in condizioni come $\mathbb{R}\times\mathbb{R}$ che non risultano più mappabili sull'insieme $\mathbb{R}$ non risulta più possibile realizzare una \textbf{funzione valore}.
+% Quando la cardinalità dell'insieme è $\mathbb{N}\times\mathbb{R}$ è possibile ottenere una \textbf{funzione valore}, ma quando ci si trova in condizioni come $\mathbb{R}\times\mathbb{R}$ che non risultano più mappabili sull'insieme $\mathbb{R}$ non risulta più possibile realizzare una \textbf{funzione valore}.
 
-\section{Problemi semplici}
-Un problema viene detto \textit{semplice} quando essi possiedono queste caratteristiche:
+% \section{Problemi semplici}
+% Un problema viene detto \textit{semplice} quando essi possiedono queste caratteristiche:
 
-\begin{enumerate}
-	\item $\exists v(f) $ conforme
-	\item $\abs{\Omega} = 1 \Rightarrow f: X \rightarrow \mathbb{R}$, cioè esiste un $f(x)$
-	\item $\abs{D} = 1$
-	\item $X = \{x \in \mathbb{R}^n: g_j (x) \leq 0 \forall j = 1,..., n \} \text{ con } g_j \in C^1(\mathbb{R}^n)$
-\end{enumerate}
+% \begin{enumerate}
+% 	\item $\exists v(f) $ conforme
+% 	\item $\abs{\Omega} = 1 \Rightarrow f: X \rightarrow \mathbb{R}$, cioè esiste un $f(x)$
+% 	\item $\abs{D} = 1$
+% 	\item $X = \{x \in \mathbb{R}^n: g_j (x) \leq 0 \forall j = 1,..., n \} \text{ con } g_j \in C^1(\mathbb{R}^n)$
+% \end{enumerate}
+
 \end{document}
