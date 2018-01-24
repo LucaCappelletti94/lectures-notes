@@ -222,31 +222,31 @@ Ponendo $\mu_2 = 0 \land g_2 \leq 0$ si ottiene che $\mu_1 = -1 \land \mu_1 > 0$
 	\Rightarrow
 	\begin{cases}
 		\mu_1(2x_1 - 6) = -1 \\
-		x^2_1-6x_1 = 5       \\
+		x^2_1-6x_1 = -5      \\
 		x_2 = 2              \\
 		\mu_1 > 0
 	\end{cases}
 	\Rightarrow
 	\begin{cases}
-		\mu_1 = -\frac{1}{2x_1 - 6}                \\
-		x_1 = 3 \pm \sqrt{9 + 5} = 3 \pm \sqrt{14} \\
-		x_2 = 2                                    \\
+		\mu_1 = -\frac{1}{2x_1 - 6}               \\
+		x_1 = 3 \pm \sqrt{9 + 5} = 3 \pm \sqrt{4} \\
+		x_2 = 2                                   \\
 		\mu_1 > 0
 	\end{cases}
 \]
 
-Solamente $x_1 = 3 - \sqrt{14}$ è accettabile poiché $\mu_1 > 0$:
+Solamente $x_1 = 1$ è accettabile poiché $\mu_1 > 0$:
 
 \[
 	\begin{cases}
-		\mu_1 = -\frac{1}{3 - \sqrt{14} - 6} =  \frac{1}{\sqrt{14} + 3} =  \frac{\sqrt{14} - 3}{5} \\
-		x_1 = 3 - \sqrt{14}                                                                        \\
+		\mu_1 = -\frac{1}{2 - 6} =  \frac{1}{4} \\
+		x_1 = 1                                 \\
 		x_2 = 2
 	\end{cases}
 \]
 
-Ne otteniamo quindi il punto candidato $C = (3 - \sqrt{14}, 2)$ con $\bm{\mu} = \begin{bmatrix}
-		\frac{\sqrt{14} - 3}{5} \\
+Ne otteniamo quindi il punto candidato $C = (1, 2)$ con $\bm{\mu} = \begin{bmatrix}
+		\frac{1}{4} \\
 		0
 	\end{bmatrix}$.
 
@@ -287,12 +287,12 @@ Sostituisco i punti candidati nella funzione da minimizzare ed ottengo:
 
 \[
 	\begin{cases}
-		f(A) = f(1,2) =  4 + 1 - 8 = -3          \\
-		f(B) = f(5,2) =  4 + 5 - 8 = 1           \\
-		f(C) = f(3 - \sqrt{14}, 2) \approx -4.74 \\
+		f(A) = f(1,2) =  4 + 1 - 8 = -3 \\
+		f(B) = f(5,2) =  4 + 5 - 8 = 1  \\
+		f(C) = f(1, 2) = 1              \\
 	\end{cases}
 \]
 
-Il punto di ottimo locale risulta essere quello ottenuto con le condizioni di KKT, $C = (3 - \sqrt{14}, 2)$.
+Il punto di ottimo locale (minimo) risulta essere $B = (5, 2)$.
 
 \end{document}
