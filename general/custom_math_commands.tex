@@ -16,6 +16,10 @@
 \newcommand{\rnd}[1]{\left(#1\right)}
 \newcommand{\sqr}[1]{\left[#1\right]}
 \newcommand{\crl}[1]{\left\{#1\right\}}
+
+\let\oldbm\bm
+\renewcommand{\bm}[1]{\oldbm{\underline{#1}}}
+
 \newcommand{\w}{\omega}
 
 \renewcommand\qedsymbol{QED}
