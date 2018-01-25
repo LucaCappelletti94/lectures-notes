@@ -170,6 +170,22 @@
 \let\oldCorollary\corollary
 \renewenvironment{corollary}{\begin{shaded}\begin{oldCorollary}}{\end{oldCorollary}\end{shaded}\ignorespacesafterend
 }
+
+%
+% THE FOLLOWING CODE ADDS BOLD TO THE THEOREM NAME
+%
+
+\makeatletter
+\def\th@plain{%
+	\thm@notefont{}% same as heading font
+	\itshape % body font
+}
+\def\th@definition{%
+	\thm@notefont{}% same as heading font
+	\normalfont % body font
+}
+\makeatother
+
 \definecolor {processblue}{cmyk}{0.96,0,0,0}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 
