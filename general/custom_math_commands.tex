@@ -1,5 +1,5 @@
 \DeclareMathOperator{\var}{Var}
-\DeclareMathOperator{\argmin}{Argmin}
+\DeclareMathOperator*{\argmin}{argmin}
 %\DeclareMathOperator* this one allows to create environment that behave like sum or min
 
 \newcommand{\crs}{\text{\Cross}}
@@ -18,7 +18,12 @@
 \newcommand{\crl}[1]{\left\{#1\right\}}
 
 \let\oldbm\bm
+\renewcommand{\bar}{\overline}
 \renewcommand{\bm}[1]{\oldbm{\underline{#1}}}
+\newcommand{\bbm}[1]{\bar{\bm{#1}}}
+
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
 
 \newcommand{\w}{\omega}
 \renewcommand{\a}{\alpha}
@@ -28,6 +33,25 @@
 \newcommand{\N}{\mathbb{N}}
 
 \newcommand{\bma}{\bm{\a}}
+\newcommand{\bmc}{\bm{c}}
+\newcommand{\bmb}{\bm{b}}
+\newcommand{\bmu}{\bm{u}}
+\newcommand{\bmut}{\bmu^T}
+\newcommand{\bmbt}{\bmb^T}
+\newcommand{\bmct}{\bmc^T}
 \newcommand{\bmx}{\bm{x}}
 \newcommand{\bmy}{\bm{y}}
 \newcommand{\bmz}{\bm{z}}
+
+\newcommand{\bbma}{\bbm{\a}}
+\newcommand{\bbmc}{\bbm{c}}
+\newcommand{\bbmb}{\bbm{b}}
+\newcommand{\bbmu}{\bbm{u}}
+\newcommand{\bbmut}{\bbmu^T}
+\newcommand{\bbmbt}{\bbmb^T}
+\newcommand{\bbmct}{\bbmc^T}
+\newcommand{\bbmx}{\bbm{x}}
+\newcommand{\bbmy}{\bbm{y}}
+\newcommand{\bbmz}{\bbm{z}}
+
+\newcommand{\bs}{\backslash}
