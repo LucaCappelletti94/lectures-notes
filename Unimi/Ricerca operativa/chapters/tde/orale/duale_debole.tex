@@ -1,0 +1,39 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Teorema di dualità debole}
+\begin{theorem}[Dualità debole]
+  \label{dualita_debole}
+  Siano dati un problema $P$ ed il suo duale $D$, entrambi non vuoti:
+
+  \[
+    P = \crl{\bmx \geq \bm{0}: A\bmx \geq \bmb} \qquad D = \crl{\bmu \geq \bm{0}: \bmct \geq \bmut A}, \qquad P, D \neq \emptyset
+  \]
+  Per ogni coppia di punti $\bbmx \in P$, $\bbmu \in D$ si ha che:
+
+  \begin{figure}
+    \[
+      \bbmut \bmb \leq \bmct\bbmx
+    \]
+    \caption{Teorema di dualità debole: ogni soluzione del duale è minore o uguale a ogni soluzione del primale}
+  \end{figure}
+\end{theorem}
+
+\begin{proof}
+  Dati $\bbmx \in P$ e $\bbmu \in D$, si ha che $A\bbmx \geq \bmb, \bbmx \geq \bm{0}$ e $\bmct \geq \bbmut A$, da cui segue:
+  \[
+    \bbmut \bmb \leq \bbmut A \bbmx \leq \bmct \bbmx
+  \]
+\end{proof}
+
+\begin{corollary}
+  Si consideri una coppia di problemi primale e duale. Sono possibili solo 4 casi:
+  \begin{enumerate}
+    \item Entrambi i problemi hanno ottimo finito, che coincide (da teorema di dualità forte \ref{dualita_forte}).
+    \item Il problema primale è illimitato ed il duale è impossibile (da teorema di dualità debole \ref{dualita_debole}).
+    \item Il problema duale è illimitato ed il primale è impossibile (da teorema di dualità debole \ref{dualita_debole}).
+    \item Entrambi i problemi sono impossibili (banalmente non è escluso da nessuna proprietà).
+  \end{enumerate}
+\end{corollary}
+
+\end{document}

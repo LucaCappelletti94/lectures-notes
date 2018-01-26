@@ -1,7 +1,21 @@
  \providecommand{\main}{../../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
-\subsection{Esistenza di ottimo finito}
+\section{Esistenza di vertice ottimo}
+\begin{theorem}
+  Se $P = \crl{\bm{x} \in \R^n: A\bm{x} \leq \bm{b}, \bm{x} \geq \bm{0}}$ è un politopo, allora esiste almeno un vertice di $P$ ottimo per il problema:
+  \[
+    \min \crl{\bm{c}^T\bm{x}: \bm{x} \in P}
+  \]
+\end{theorem}
 
+\begin{proof}
+  Siano $\bm{y}_i, \ldots, \bm{y}_k$ i vertici di $P$ e sia $z^* = \min \crl{\bm{c}^T\bm{y}_i, i=1,\ldots,k}$. Sia $\bm{x} \in P$.
+
+  Per il teorema di Minkowsky-Weil $\exists \bm{\lambda} \geq \bm{0}: \bm{x} = \sum_{i=1}^k \lambda_i \bm{y}_i, \sum_{i=1}^k \lambda_i =1$.
+  \[
+    \bm{c}^T\bm{x} = \bm{c}^T\rnd{\sum_{i=1}^k \lambda_i \bm{y}_i} = \sum_{i=1}^k \lambda_i \bm{c}^T\bm{y}_i \geq \sum_{i=1}^k \lambda_i z^* = z^*
+  \]
+\end{proof}
 
 \end{document}

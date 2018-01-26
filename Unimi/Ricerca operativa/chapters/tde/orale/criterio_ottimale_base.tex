@@ -1,0 +1,30 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Criterio di ottimalità della base}
+\begin{theorem}[Criterio di ottimalità della base]
+  Sia $B$ una base ammissibile. Se $\bbmct = \bmct - \bmct_B B^{-1}A\geq \bm{0}^T$ allora la soluzione di base associata a $B$ è ottima, cioè i coefficienti di costo ridotto dei termini fuori base sono non negativi.
+
+  Inoltre, se $B$ è ottima e non degenere, i coefficienti di costo ridotto sono non negativi: $\bbmct\geq\bm{0}^T$.
+
+  \textbf{N.B.}: nel caso di basi degeneri non è possibile fare affermazioni sull'ottimalità.
+\end{theorem}
+
+\begin{proof}
+  Riscrivendo la funzione obbiettivo come $\bmct\bmx = \bmct_B B^{-1}\bmb + \bbmct \bmx$, nell'ipotesi che $\bbmct \geq \bm{0}^T$ si ha che:
+  \[
+    \bmct\bmx \geq \bmct_BB^{-1}\bmb \quad \forall \bmx \geq \bm{0}
+  \]
+  e quindi vale che, $\forall \bmx \in P$, la funzione obbiettivo in corrispondenza della soluzione di base ammissibile associata a $B$ assome il valore $
+    \bmct_BB^{-1}\bmb = \begin{bmatrix}
+      \bmct_B & \bmct_F
+    \end{bmatrix}
+    \begin{bmatrix}
+      B^{-1}\bmb \\
+      0
+    \end{bmatrix}
+  $.
+
+\end{proof}
+
+\end{document}

@@ -1,0 +1,20 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Teorema di dualità forte}
+\begin{theorem}[Dualità forte]
+  \label{dualita_forte}
+  Sia $P = \crl{\bmx \geq \bm{0}: A\bmx \geq \bmb} \neq \emptyset$ con soluzione ottima \textbf{finita}. Allora la soluzione ottima del primale coincide con la soluzione ottima del duale.
+
+  \begin{figure}
+    \[
+      \min\crl{\bmct\bmx: A\bmx \geq \bmb, \bmx \geq \bm{0}} = \max\crl{\bmut\bmb: \bmct \geq \bmut A, \bmu \geq \bm{0}}
+    \]
+    \caption{Teorema di dualità forte: la soluzione ottima primale coincide con la soluzione ottima duale}
+  \end{figure}
+\end{theorem}
+
+\begin{proof}
+  Segue direttamente dal lemma di Farkas (\ref{lemma_farkas}).
+\end{proof}
+\end{document}
