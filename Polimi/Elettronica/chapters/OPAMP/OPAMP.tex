@@ -1,0 +1,34 @@
+\providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+
+\begin{document}
+
+\section{Introduzione agli Amplificatori Operazionali}
+Un amplificatore operazionale (detto anche OPAMP), è un componente circuitale che consente di realizzare un guadagno in tensione elevato; un amplificatore operazionale, dunque, \textit{amplifica} una tensione in ingresso.
+L'amplificatore operazionale è rappresentato con il seguente simbolo circuitale:
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}
+    \draw
+    (0, 0) node[op amp] {}
+    ;
+  \end{circuitikz}
+\end{figure}
+
+L'OPAMP presenta due morsetti in ingresso: il morsetto positivo è detto morsetto non invertente, mentre il morsetto negativo è detto morsetto invertente.
+Quando si analizzano gli amplificatori operazionali, si possono studiare due modelli: il modello ideale e il modello reale.
+Il modello ideale rappresenta un OPAMP non realizzabile nella realtà, che presenta le caratteristiche ideali che un amplificatore operazionale dovrebbe avere per svolgere perfettamente il suo compito, senza errori.
+Il modello reale, invece, tiene conto delle limitazioni dovute all'utilizzo di componenti reali, che si discostano da quelli ideali (ad esempio, nella realtà non è possibile realizzare un amplifatore operazionale con guadagno infinito).
+
+\section{L'amplificatore Operazionale Ideale}
+Un amplificatore operazionale ideale è caratterizzato dalle seguenti proprierà:
+\begin{description}
+  \item[Corrente in ingresso nulla:] L'OPAMP ideale non assorbe corrente. Questo significa che la corrente misurata ai morsetti d'ingresso (morsetto positivo e morsetto negativo) di un amplificatore operazionale ideale sarà sempre \textbf{nulla}.
+        Un altro modo per esprimere questa caratteristica è dire che l'OPAMP ideale ha impedenza infinita in ingresso.
+  \item[Guadagno infinito:] un amplificatore operazionale ideale ha un guadagno molto elevato, che può essere definito ``infinito''.
+  \item[Differenza di potenziale nulla ai morsetti:] in un OPAMP ideale, la differenza di potenziale fra il morsetto negativo e quello positivo è sempre nulla. Ciò significa che la tensione ai due morsetti è sempre uguale. Scriveremo dunque: \[V_{+} - V_{-} = 0\].
+
+\end{description}
+
+\end{document}
