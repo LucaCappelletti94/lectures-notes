@@ -2,140 +2,217 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\chapter{I linguaggi formali}
-\section{Algebra}
-L'algebra è un linguaggio formale caratterizzato da cinque operazioni fondamentali e tre operazione derivate.
-Le operazioni fondamentali sono:
-\begin{enumerate}
-  \item Selezione $\sigma$
-  \item Proiezione $\pi$
-  \item Unione $\cup$
-  \item Differenza -
-  \item Prodotto cartesiano X
-\end{enumerate}
-Le operazioni derivate sono:
-\begin{enumerate}
-  \item Intersezione $\cap$
-  \item Semijoin $\ltimes$
-  \item join $\bowtie$
-\end{enumerate}
+\chapter{Le query SQL}
 
-Data una tabella di studenti chiamata ``STUDENTE'', contenente matricola, nome, città, definiamo le operazioni tramite i seguenti esempi.
-
-
-\subsubsection{Selezione}
-
-Esempio: $\sigma_{Nome='Paola'}$ STUDENTE
-
-La selezione è un operatore che produce come risultato una tabella che abbia lo stesso schema (cioè le stesse colonne) di studente e come istanze le sole righe che soddisfano il predicate $Nome=Paola$.
-
-\subsubsection{Proiezione}
-
-Esempio: $\pi_{Nome}$ STUDENTE
-
-La proiezione è un operatore che produce come risultato una tabella che abbia come schema soltanto la colonna \textit{nome} e come istanze tutte le righe della tabella STUDENTE.
-
-Da questo punto in poi per comodità considereremo due generiche tabelle, TABELLA1 e TABELLA2 per gli esempi successivi.
-
-\subsubsection{Unione}
-
-Esempio: TABELLA1 $\cup$ TABELLA2.
-
-L'unione è un operatore che produce come risultato una tabella che abbia come schema le colonne di TABELLA1 e come righe le righe delle due tabelle concatenate.
-È possibile realizzare questa operazione \textbf{solo} se le tabelle sono compatibili.
-
-\subsubsection{Differenza}
-
-Esempio: TABELLA1 - TABELLA2.
-
-La differenza è un operatore che produce come risultato una tabella che abbia come schema lo schema di TABELLA1 e come righe la differenza delle tuple delle due tabelle (cioè elimina le righe che compaiono in entrambe le tabelle).
-È possibile realizzare questa operazione \textbf{solo} se le tabelle sono compatibili.
-
-
-\subsubsection{Prodotto cartesiano}
-
-Esempio: TABELLA1 X TABELLA2
-
-Il prodotto cartesiano è un operatore che produce come risultato una tabella che abbia come schema le colonne delle due tabelle e come tutte le possibli coppie degli elementi di TABELLA1 e TABELLA2.
-
-\subsubsection{Unione}
-
-Esempio: TABELLA1 $\cap$ TABELLA2.
-
-L'intersezione è un operatore che produce come risultato una tabella che abbia come schema le colonne di TABELLA1 e come righe le righe che compaiono in entrambe le tabelle.
-È un'operazione derivata perché è equivalente a TABELLA1 - (TABELLA1 - TABELLA2).
-È possibile realizzare questa operazione \textbf{solo} se le tabelle sono compatibili.
-
-
-\subsubsection{Join}
-
-Esempio: TABELLA1 $\bowtie_{TABELLA1.attributo1=TABELLA.attributo1}$ TABELLA2.
-
-La join è un operatore che produce come risultato una tabella che abbia come schema la concatenazione degli schemi delle due tabelle e come righe la concatenazione delle righe che soddisfano i predicato della join.
-È un'operazione derivata perché è equivalente a $\sigma_{TABELLA1.attributo1=TABELLA2.attributo1}$ TABELLA1XTABELLA2.
-
-La join che utilizza come operatore del predicato l'operatore di uguaglianza (=) è detta \textit{equi-join.}
-Un'equi-join che voglia selezionare solo gli attributi omonimi è detta \textit{natural join} e viene espressa omettendo il predicato che confronta gli attributi (quindi TABELLA1 $\bowtie$ TABELLA2).
-
-
-\subsubsection{Semi-join}
-
-Esempio: TABELLA1 $\ltimes_{TABELLA1.attributo1=TABELLA.attributo1}$ TABELLA2.
-
-La semi-join è un operatore che produce come risultato una tabella che abbia come schema lo schema di TABELLA1 e come istanze le tuple ottenute proiettando su TABELLA1 la join di TABELLA1 e TABELLA2.
-
-Esiste anche la semi-join naturale, che proietta su TABELLA1 la join naturale delle due tabelle.
-
-
-\section{Calcolo relazionale}
-Il calcolo relazionale è un linguaggio dichiarativo: esprime cosa si vuole ottenere ma non la ``strada'' per giungere al risultato.
-La forma standard di una qualunque query nel calcolo relazionale è ${ t | p(t) }$, dove t è una variabile e p(t) un predicato in funzione di t, detto \textit{formula}.
-Ogni formula è costituita da \textit{atomi}, dove ogni atomo può essere:
+\section{Sintassi delle query SQL}
+Ogni query SQL si compone di tre clausole:
 \begin{itemize}
-  \item t \in R, dove R è un dominio;
-  \item espressione - comparatore - espressione, dove un comparatore è un operatore come =, <>, >, >=, ... e un'espressione è un'insieme di costanti e di restrizioni. Una restrizione è espressa come t[A] e seleziona l'attributo A della variabile t.
+  \item select
+  \item from
+  \item where
 \end{itemize}
-\subsection{Proprietà del calcolo relazionale}
-Per il calcolo relazionale valgono le seguenti proprietà:
+
+Ogni query ha sintassi:
+
+select *attributo*
+
+from *tabella*
+
+  [ where *condizione* ]
+
+
+Dunque \textit{select} indica l'attributo che ci interessa estrarre, \textit{from} la tabella da cui estrarre l'attributo, \textit{where} la condizione che l'attributo deve rispettare affinché sia rilevante per la nostra query.
+
+La condizione indicata dal \textit{where} può essere espressa tramite un'espressione i cui operatori sono:
+\begin{itemize}
+  \item \textbf{predicati semplici dell'algebra}: uguaglianza, operatori booleani ...
+  \item \textbf{between}: indica gli estremi di un intervallo.
+  \item \textbf{distinct}: impedisce che vi siano duplicati fra i risultati della query
+\end{itemize}
+
+\textbf{like}: indica parte del nome dell'attributo cercato, ad esempio
+\begin{minted}{sql}
+nome like 'Mar\%o'
+\end{minted}
+cerca i nomi che iniziano con ``Mar'' e finiscono con ``o''. Con like si usano i simboli \_ e \%, che indicano rispettivamente un carattere e una sottostringa (di lunghezza arbitraria) di cui non conosciamo (o non ci interessa) il valore; dunque qualunque valore essi abbiano nell'attributo, tale attributo sarà ritenuto valido e restituito dalla query.
+
+\subsection{Attributi con valore null}
+Esiste un valore speciale \textbf{null}, che viene utilizzato se non si conosce un valore, se un valore non si può applicare a un determinato attributo, se non si sa se tale valore possa essere applicato a un determinato attributo.
+/textit{Null} può essere usato nelle query attraverso gli operatori
+\begin{minted}{sql}
+attributo is null
+\end{minted}
+e
+\begin{minted}{sql}
+attributo is null
+\end{minted}
+che restituiscono rispettivamente le righe con valore nullo per un determinato attributo e quelle con valore non nullo per un determinato attributo.
+
+\subsection{Tabelle e join}
+Le tabelle indicate dopo la clausola \textit{where} indicano il dominio della query.
+Possono essere indicate più tabelle, separate da una virgola: la query ne farà automaticamente il prodotto cartesiano e cercherà l'attributo richiesto in tale prodotto cartesiano.
+Si può anche effettuare la join in modo esplicito, con l'espressione
+
+\begin{minted}{sql}
+select attributo from tabella1 join tabella on condizione_su_cui_viene_effettuata_la_join
+\end{minted}
+La condizione della join è espressa come in algebra.
+
+La \textit{join} può essere di due tipi differenti:
+\begin{itemize}
+  \item interna
+  \item esterna
+\end{itemize}
+Per indicare la \textit{join} interna si scrive semplicemente ``join'', per indicare una \textit{join} esterna si scrive ``left/right/full join''.
+Una \textit{join} esterna restituisce anche le righe per cui la condizione espressa dall''on'' della join restituisca valori nulli.
+Dunque con una \textit{left join} prenderò tutte le righe della tabella dichiarata a sinistra della join, anche se in quella di destra alcune di esse avranno attributi con valori nulli.
+La \textit{right join} fa lo stesso ma con le righe della tabella a destra dell'operatore join.
+La \textit{full join} prende tutte le righe di entrambe le tabelle.
+
+\subsection{Ridenominazione}
+È possibile ``dare un nome'' al risultato della query usando l'operatore ``as'', ad esempio:
+\begin{minted}{sql}
+select * as informatico from STUDENTE where ...
+\end{minted}
+\textit{As} si usa anche nell'espressione della \textit{from} nel caso si debbano estrarre più variabili dalla stessa tabella.
+Ad esempio
+\begin{minted}{sql}
+select * from STUDENTE as stud1, STUDENTE as stud2, ...
+\end{minted}
+
+
+\section{Modificare il database in SQL}
+È possibile:
+
+- Effettuare inserimenti:
+\begin{minted}{sql}
+  insert into nome tabella values lista valori
+\end{minted}
+vengono messi a null o al valore di default.
+
+Se mancano dei valori nella lista
+Al posto di usare ``values + lista valori'' si può inserire il risultato di una query, scrivendo la query, come una normale query, alla fine del comando:
+\begin{minted}{sql}
+  insert into nome tabella query
+      \end{minted}
+
+
+- Effettuare cancellazioni:
+\begin{minted}{sql}
+   delete from nome tabella where condizione che identifica gli elementi da cancellare
+\end{minted}
+
+- Modificare i valori degli attributi:
+\begin{minted}{sql}
+  update nome_tabella set attributo = valore where condizione
+\end{minted}
+
+Cancellare intere tabelle: \textbf{drop table *nome tabella*}
+
+\begin{minted}{sql}
+update nome_tabella set attributo = valore where condizione
+\end{minted}
+
+\section{Query complesse}
+\subsection{Ordinamento}
+È possibile riordinare i risultati di una query attraverso il comando \textbf{order by}.
+Si usa la sintassi:
+\begin{minted}{sql}
+order by AttributoOrdinamento [ crescente | descrescente ]
+\end{minted}
+
+\subsection{Funzioni aggregate}
+Le funzioni aggregate sono funzioni, utilizzate all'interno delle espressioni della clausola \textit{where}, che utilizzano operatori complessi, che operano su più elementi del database.
+Esistono cinque operatori SQL per realizzate funzioni aggregate:
+- \textbf{count:} restituisce il numero di righe per un certo attributo. Se si aggiunge l'operatore \textit{distinct}, restituisce il numero di righe per l'attributo omettendo le righe duplicate.
+\begin{minted}{sql}
+count( * | [ distinct | all ] ListaAttributi )
+\end{minted}
+- \textbf{sum:} restituisce la somma dei valori dell'attributo passato come parametro.
+- \textbf{max:} restituisce il massimo fra i valori dell'attributo passato come parametro.
+- \textbf{min:} restituisce il minimo fra i valori dell'attributo passato come parametro.
+- \textbf{avg:} restituisce la media fra i valori dell'attributo passato come parametro.
+\begin{minted}{sql}
+sum|max|min|avg ([distinct|all] Attributo )
+\end{minted}
+
+\subsection{Raggruppamento}
+È possibile che ci sia il bisogno di applicare gli operatori appena visti a un sottoinsieme di righe di una tabella, non all'intera tabella.
+Allora si usa l'operatore \textit{group by}, che seleziona le righe che ci interessano.
+\begin{minted}{sql}
+group by attributo1 having operatore_aggregato(attributo2)
+\end{minted}
+
+\subsection{Query binarie}
+Sono realizzate concatenando due query attraverso gli operatori insiemistici di unione, intersezione e differenza.
+\begin{minted}{sql}
+Query1  union | intersect | except  [ all ] Query2
+\end{minted}
+Se si usa l'operatore ``all'' vengono inclusi anche eventuali duplicati, se si omette essi sono esclusi automaticamente.
+
+\subsection{Query nidificate}
+Le query nidificate sono query che contengono ulteriori query al proprio interno.
+In particolare, si tratta di query che hanno nella propria clausola \textit{where} un predicato che effettua il confronto con il risultato di un'altra query.
+Questi predicati sono formati da due elementi:
 \begin{description}
-  \item[La legge di de Morgan:] $ p1 \wedge  p2 \equiv \neg (\neg p1 \vee \neg p2 ) $
-  \item [La Corrispondenze tra quantificatori:]  $\forall t \in R (p(t)) \equiv \neg \exists t \in R (\neg p(t))$
-  \item[Definizione di implicazione:] $p1  \Rightarrow  p2 \equiv \neg p1 \vee p2$
+  \item[- L`operatore:] è un operatore logico, quindi =,<>,<,<=,>,...
+  \item[- any|all:] indicano la quantità di righe con cui fare il confronto.
 \end{description}
+\textit{All} indica che il confronto effettuato dall'operatore deve valere per ciascuna riga della query espressa dopo l'\textit{all}, \textit{any} invece indica che il confronto deve valere per almeno una riga della query espressa dopo l'\textit{any}.
+Ad esempio:
+\begin{minted}{sql}
+select Nome
+from STUDENTE
+where Nome = any
+  select Nome
+  from STUDENTE
+\end{minted}
+estrae gli studenti con almeno un omonimo.
 
-\subsection{Formule corrette}
-Una formula è considerata corretta \textbf{solo} se non dipende dal dominio. Cioè è indipendente dal dominio degli attributo, ma dipende soltanto dall'istanza del database che stiamo analizzando.
+Esistono anche altre predicati per effettuare le query nidificate.
+Questi predicati sono:
+-\textbf{in}: è vero se l'espressione è presente almeno in una riga restituita da Query2:
+\begin{minted}{sql}
+Espressione in Query2
+\end{minted}
+Esiste anche il \textit{not in}, che è il negato di in e ha la stessa sintassi.
+Il predicato \textit{in} è equivalente a \textit{= any}.
+-\textbf{exists}: è vero se Query2 ha almeno una tupla.
+\begin{minted}{sql}
+exists Query2
+\end{minted}
+Il suo negato è \textit{not exists}.
 
-\subsection{Relazione con l'algebra}
-È possibile esprimere attraverso il calcolo relazionale tutti gli operatori dell'algebra, e viceversa è possibile esprimere qualunque query del calcolo attraverso l'algebra.
+\subsubsection{Visibilità delle variabili nelle query nidificate}
+Le variabili sono visibili \textbf{solo} nelle query in cui sono dichiarate o nelle query nidificate ad esse.
+Dunque due query nidificate alla stessa query principale ma non fra loro \textbf{non} vedono le variabili l'una dell'altra, ma entrambe vedono le variabili della query principale.
 
-\section{Datalog}
-Datalog è un linguaggio formale basato sulle \textit{regole}.
-Ogni regola è una ``riga'' datalog, formata da una head e da un body, separati dall'operatore :- e formati da predicati.
-Ad esempio, per la regola seguente il predicato P è la head, P1 e P2 sono il body:
-P :- P1, P2
-Ogni predicato è formato da un nome e uno o più argomenti.
-Gli argomenti possono essere variabili, costanti oppure ``don't care''. Il ``don't care'' è rappresentato dal simbolo \_ ed significa che qualunque attributo va bene. Non può essere usato nella head.
+\subsubsection{Query nidificate nelle modifiche}
+Le query nidificate possono essere utilizzate anche con il comando \textbf{update}.
+È sufficiente scrivere:
+\begin{minted}{sql}
+update nome_riga
+    set attributo = Query2
+\end{minted}
 
-L'interpretazione delle regole è che la testa è vera se il corpo è vero.
+\section{Permessi d'accesso}
+È possibile controllare l'accesso di ciascun utente al database. In particolare si può consentire/limitare le operazioni che ogni utente può effettuare su di esso.
+Per concedere un permesso, si utilizza il comando \textbf{grant}. Per revocare un permesso, si utilizza il comando \textbf{revoke}.
+La sintassi è la seguente per la grant:
+\begin{minted}{sql}
+grant < nome_privilegi | all privileges > on nome_risorsa nome_utente [withgrantoption]
+  \end{minted}
+L'espressione \textit{withgrantoption}, che è opzionale, indica che l'utente a sua volta è autorizzato a fornire il privilegio ad altri utenti.
 
-Le query sono realizzate mettendo ``?'' nella testa:
-?-Predicato(``Costante'', Variabile)
-Questa query cerca una regola che abbia Predicato come testa e cerca valori della Variabile per cui valga ``Costante''.
+La revoke invece ha sintassi:
+\begin{minted}{sql}
+revoke nome_privilegi on nome_risorsa from nome_utente [ restrict | cascade ]
+\end{minted}
 
-Una query senza variabile, come ?-Predicato(``costante'') restituisce true o false.
-
-\subsection{Negazione e query ricorsive}
-È possibile negare predicati in datalog premettendo ``not'' al predicato.
-Introducendo la negazione, è possibile esprimere in datalog tutte le query dell'algebra relazionale e, in aggiunta, anche le query ricorsive (che nell`algebra non abbiamo).
-Una query ricorsiva è una query che presenta nel body il predicato della testa.
-
-Perché la regola sia valida, la negazione deve essere \textit{safe}.
-Una negazione è safe se:
-\begin{itemize}
-  \item tutte le variabili di un letterale negato compaiono in un letterale positivo del body della regola.
-  \item Il predicato positivo e il suo negato non dipendono l'uno dall'altro. Quindi P(X) :- R(X), \neg P(X) non è una negazione safe.
-\end{itemize}
+\section{Transazioni}
+Le transazioni sono sequenze di comandi SQL che devono essere racchiuse fra l'espressione \textbf{begin transaction} e \textbf{end transaction}. Attraverso queste transazioni è possibile effettuare delle modifiche al database.
+La differenza fra l'utilizzare una transazione e non utilizzarla sta nel fatto che, utilizzando la transazione, è possibile decidere se rendere permanenti le modifiche oppure eliminarle e tornare allo stato iniziale.
+Infatti, prima di ogni \textit{end transaction} è necessario decidere mantenere o no le modifiche attraverso, rispettivamente, i comandi \textbf{commit work} e \textbf{rollback work}. Il primo rende definitive le modifiche, il secondo le cancella e mantiene il database allo stato precedente la transazione.
 
 
 \end{document}
