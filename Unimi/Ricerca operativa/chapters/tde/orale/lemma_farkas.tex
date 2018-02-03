@@ -2,35 +2,45 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Lemma di Farkas}
-\begin{theorem}[Lemma di Farkas]
-  \label{lemma_farkas}
-  La disuguaglianza
-  \begin{figure}
-    \[
-      \bm{c}^T\bmx  \geq c_0
-    \]
-    \caption{Disuguaglianza di Farkas}
-  \end{figure}
-  è valida per il poliedro non vuoto $P = \crl{\bmx \geq 0: A\bmx = \bm{b}}$ se e solo se esiste un $\bm{u} \in \R^m$ tale per cui:
 
-  \begin{figure}
-    \begin{subfigure}{0.49\textwidth}
-      \[
-        \bm{c}^T \geq \bm{u}^TA
-      \]
-      \caption{Prima disequazione}
-      \label{farkas_prima}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
-      \[
-        \bm{u}^T\bm{b}\geq c_0
-      \]
-      \caption{Seconda disequazione}
-      \label{farkas_seconda}
-    \end{subfigure}
-    \caption{Condizioni del lemma di Farkas}
-  \end{figure}
-\end{theorem}
+\begin{minipage}{\textwidth}
+  \begin{minipage}{.83\textwidth}
+    \flushleft
+    \begin{theorem}[Lemma di Farkas]
+      \label{lemma_farkas}
+      La disuguaglianza
+      \begin{figure}
+        \[
+          \bm{c}^T\bmx  \geq c_0
+        \]
+        \caption{Disuguaglianza di Farkas}
+      \end{figure}
+      è valida per il poliedro non vuoto $P = \crl{\bmx \geq 0: A\bmx = \bm{b}}$ se e solo se esiste un $\bm{u} = \bmct_B B^{-1} \in \R^m$ tale per cui:
+
+      \begin{figure}
+        \begin{subfigure}{0.49\textwidth}
+          \[
+            \bm{c}^T \geq \bm{u}^TA
+          \]
+          \caption{Prima disequazione}
+          \label{farkas_prima}
+        \end{subfigure}
+        \begin{subfigure}{0.49\textwidth}
+          \[
+            \bm{u}^T\bm{b}\geq c_0
+          \]
+          \caption{Seconda disequazione}
+          \label{farkas_seconda}
+        \end{subfigure}
+        \caption{Condizioni del lemma di Farkas}
+      \end{figure}
+    \end{theorem}
+  \end{minipage}\hfill
+  \begin{minipage}{0.15\textwidth}\center
+    \includegraphics[width=\textwidth]{random/ball}
+  \end{minipage}
+\end{minipage}
+
 
 \begin{proof}
   Il fatto che la condizione sia sufficiente è vero dato che per ogni $\bmx \geq 0: A\bmx=\bm{b}$ vale che:
@@ -57,12 +67,15 @@
     \caption{Dalla regola dei costi ridotti si ottiene la prima disequazione \ref{farkas_prima}}
   \end{figure}
 
-  Infine per ipotesi vale che $\bm{c}^T \bmx \geq 0 \forall \bmx \in P$, da cui:
+  Infine per ipotesi vale che $\bm{c}^T \bmx \geq c_0 \forall \bmx \in P$, da cui:
 
   \begin{figure}
-    \[
-      c_0 \leq z^* = \bm{c}^T\bmx^* = \bm{c}_B^T \bmx^*_B + \bm{c}_F^T \bmx^*_F = \bm{c}^TB^{-1}\bm{b} = \bm{u}^T\bm{b}
-    \]
+    \begin{align*}
+      z^* & = \bm{c}^T\bmx^* \geq 0                     &  & \text{La $z^*$ è data da $x^*$}                                \\
+          & = \bm{c}_B^T \bmx^*_B + \bm{c}_F^T \bmx^*_F &  & \text{Spezzo il vettore dei costi in base e fuori base}        \\
+          & = \bm{c}_B^TB^{-1}\bm{b}                    &  & \text{La parte fuori base, $\bmx^*_B$ è un vettore di zeri.}   \\
+          & = \bm{u}^T\bm{b}                            &  & \text{Sostituisco la definizione di $\bm{u} = \bmct_B B^{-1}$}
+    \end{align*}
     \caption{Dall'ipotesi iniziale si ottiene la seconda disequazione \ref{farkas_seconda}}
   \end{figure}
 

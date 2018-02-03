@@ -2,29 +2,55 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Teorema fondamentale della programmazione lineare}
-\begin{theorem}[Teorema fondamentale della programmazione lineare]
-  Un punto $\bmx$ è un vertice del poliedro non vuoto $P = \crl{\bmx \in \mathbb{R}^n: A\bmx = \bm{b}, \bmx \geq 0}$ se e solo se $\bmx$ è soluzione di base ammissibile.
-\end{theorem}
+
+\begin{minipage}{\textwidth}
+  \begin{minipage}{.83\textwidth}
+    \flushleft
+    \begin{theorem}[Teorema fondamentale della programmazione lineare]
+      Un punto $\bmx$ è un vertice del poliedro non vuoto $P = \crl{\bmx \in \mathbb{R}^n: A\bmx = \bm{b}, \bmx \geq 0}$ se e solo se $\bmx$ è soluzione di base ammissibile.
+    \end{theorem}
+  \end{minipage}\hfill
+  \begin{minipage}{0.15\textwidth}\center
+    \includegraphics[width=\textwidth]{random/ring}
+  \end{minipage}
+\end{minipage}
+
+
 
 \begin{proof}
   Consideriamo una soluzione ammissibile $\bmx^T = \sqr{x_1, \ldots, x_k, 0, \ldots, 0}$ e per assurdo $\bmx$ non sia un vertice. Allora:
 
   \begin{align*}
-    \exists \bmy, \bmz \in P, \bmy \neq \bmz: \bmx = \lambda \bmy + (1-\lambda)\bmx \\
-    \text{ con } & \lambda \in \sqr{0,1},                                           \\
-                 & \bmy^T = \sqr{y_1, \ldots, y_k, 0, \ldots, 0} \geq \bm{0}^T,     \\
-                 & \bmz^T = \sqr{z_1, \ldots, z_k, 0, \ldots, 0} \geq \bm{0}^T
+    \exists \bmy, \bmz \in P, \bmy \neq \bmz: \bmx = \lambda \bmy + (1-\lambda)\bmz &                                                              & \text{definisco $\bmx$ come combinazione convessa da T. MW} \\
+    \text{ con }                                                                    & \lambda \in \sqr{0,1},                                                                                                     \\
+                                                                                    & \bmy^T = \sqr{y_1, \ldots, y_k, 0, \ldots, 0} \geq \bm{0}^T,                                                               \\
+                                                                                    & \bmz^T = \sqr{z_1, \ldots, z_k, 0, \ldots, 0} \geq \bm{0}^T
   \end{align*}
+
+  Con $\bmy$ e $\bmz$ soluzioni ammissibili in quanto vertici.
 
   Inoltre sono $A\bmy = \bm{b}, A{z} = \bm{b} \Rightarrow A(\bmy-\bmz)=\bm{0}$.
 
   Considero $\bm{\a} = \bmy - \bmz \neq \bm{0}$ e $\bm{\a}^T = \sqr{y_1-z_1, \ldots, y_k - z_k, 0, \ldots, 0}$, ma dal punto precedente sappiamo che $A\bm{\a}=\bm{0}$.
 
-  Osserviamo che basta dimostrare che $\bmx$ vertice di $P$ è soluzione di base, essendo infatti on $P$ sarà sicuramente ammissibile. Per assurdo sia $\bmx$ vertice di $P$, soluzione non di base. Lo ordiniamo in modo che $\bmx^T = \sqr{x_1, \ldots, x_k, 0, \ldots, 0}$. Avremo che $A_1, \ldots A_k$ sono linearmente dipendenti, altrimenti $\bmx$ sarebbe soluzione di base.
+  Osserviamo che basta dimostrare che $\bmx$ vertice di $P$ è soluzione di base, essendo infatti on $P$ sarà sicuramente ammissibile.
+
+  Per assurdo sia $\bmx$ vertice di $P$, soluzione non di base. Lo ordiniamo in modo che $\bmx^T = \sqr{x_1, \ldots, x_k, 0, \ldots, 0}$. Avremo che $A_1, \ldots A_k$ sono linearmente dipendenti, altrimenti $\bmx$ sarebbe soluzione di base.
 
   Allora $\exists \tilde{\bm{\a}}: A_1\tilde{\a}_1+\ldots+A_k\tilde{\a}_k = \bm{0}, \tilde{\bm{\a}} \neq \bm{0}$. Considero $\bm{\a}^T = \sqr{\tilde{\bm{\a}},0,\ldots,0} \in \R^n$.
 
-  Sappiamo inoltre che $A\bmx = \bm{b}, A\bm{\a} = \bm{0} \Rightarrow A\rnd{\bmx \pm \e \bm{\a}} = \bm{b} \Rightarrow A_1\rnd{x_1 \pm \e \a_1} + \ldots + A_k\rnd{x_k \pm \e\a_k} = \bm{b}$.
+  Sappiamo inoltre che:
+
+  \[
+    A\bmx = \bm{b}, A\bm{\a} =\bm{0} \Rightarrow \begin{cases}
+      A\rnd{\bmx + \e \bm{\a}}= \bm{b} \\
+      A\rnd{\bmx - \e \bm{\a}}= \bm{b}
+    \end{cases}
+    \Rightarrow \begin{cases}
+      \bm{b} \Rightarrow A_1\rnd{x_1 + \e \a_1} + \ldots + A_k\rnd{x_k + \e\a_k} = \bm{b} \\
+      \bm{b} \Rightarrow A_1\rnd{x_1 - \e \a_1} + \ldots + A_k\rnd{x_k - \e\a_k} = \bm{b}
+    \end{cases}
+  \]
 
   Scegliamo $\e$ in modo che $x_j + \e\a_j\geq 0, x_j - \e\a_j \geq 0 j = 1,\ldots,k$.
 
@@ -39,7 +65,7 @@
     \bmy, \bmz \in P \land \bmx = \frac{1}{2}\bmy + \frac{1}{2}\bmz
   \]
 
-  Ma $\bmx$ è vertice, quindi non può essere combinazione convessa di due punti del poliedro.
+  Ma $\bmx$ è vertice (ipotesi iniziale della dimostrazione per assurdo), quindi non può essere combinazione convessa di altri vertici del poliedro con coefficienti diversi da $0$: $\bmx = \bmy = \bmz$
 \end{proof}
 
 \begin{corollary}[Esistenza di soluzione ottima]

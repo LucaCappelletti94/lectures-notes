@@ -1,0 +1,33 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Esercizio 3}
+Risolvere il problema di programmazione intera con il rilassamento lagrangiano con moltiplicatori lagrangiani $\bm{\lambda} = \begin{bmatrix}
+		2 & 3 & 4
+	\end{bmatrix}$
+
+\begin{figure}
+	\begin{align*}
+		\max z = 15x_1 + 6x_2 + 16x_3 \\
+		3x_1 + 2x_2 + 2x_3 & \leq 6   \\
+		-x_1 + 3x_2 + 2x_3 & \leq 6   \\
+		-x_1 + x_2 - 2x_3  & \geq 1   \\
+		x_1, x_2, x_3 \in \crl{0,1}
+	\end{align*}
+	\caption{Esercizio 3}
+\end{figure}
+
+\subsection{Soluzione esercizio 3}
+Risolvo sommando alla funzione obbiettivo i vincoli moltiplicati per il rispettivo $\lambda_i$ ed ottengo.
+
+Devo massimizzare la funzione, per cui desidero aumentare le variabili a coefficienti positivi (in questo caso tutte)
+
+\begin{align*}
+	\max z_L & = 15x_1 + 6x_2 + 16x_3 +2(3x_1 + 2x_2 + 2x_3 - 6) + 3(-x_1 + 3x_2 + 2x_3 - 6) + 4(+x_1 - x_2 + 2x_3 + 1) \\
+	         & = 22 x_1 + 15 x_2 + 25 x_3 - 26
+\end{align*}
+Il problema è di massimo e le variabili sono vincolate su $x,y,z \in \sqr[0,1]$, per cui la soluzione ottima risulta: $\bmx = \begin{bmatrix}
+		1 & 1 & 1
+	\end{bmatrix}$, con $z_L = 36$
+
+\end{document}

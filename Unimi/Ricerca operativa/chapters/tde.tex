@@ -2,112 +2,31 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\chapter{Struttura del tema d'esame}
+\chapter{Come è fatto il tema d'esame}
 
 Un tema d'esame di Ricerca Operativa risulta composto da 4/5 esercizi pratici e talvolta alcune domande di teoria.
 
-Gli argomenti più frequenti negli esercizi sono, in ordine, i seguenti:
-
 \begin{enumerate}
-  \item Risolvere graficamento un problema di programmazione lineare. Si evidenzi il vertice ottimo e si riporti il valore di z per tutte le variabili del modello, compreso scarto e surplus. [12]
-  \item Risolvere mediante scarti complementari la soluzione duale del problema. [11]
-  \item Formulare un modello di Programmazione Lineare [11]
-  \item Applicare Algoritmo di Ford-Fulkerson [10]
-  \item Risolvere per via grafica valori per cui la composizione della base ottima non cambia. [9]
-  \item Trovare un taglio di capacità minima [8]
-  \item Branch \& Bound, Problema dello zaino [7]
-  \item Taglio di Gomory relativo al primo vincolo del PL. [6]
-  \item Si costruisca un reinstradamento che vada a ridurre il costo (o se ci si trova in condizione di minimo, di aumentarlo) modificandolo solo una volta e fornire la variazione di costo così ottenuta. [6]
-  \item Forma canonica del Tableau [4]
-  \item Determinare e disegnare il flusso massimo di un grafo [4]
-\end{enumerate}
-
-Seguono le tipologie di esercizi.
-
-\section{Primo esercizio (8 punti)}
-
-\subsection{Problema di Programmazione Lineare}
-\begin{enumerate}
-  \item Disegnare la regione ammissibile dai vincoli forniti. Si evidenzi il vertice ottimo e si riporti il valore di z per tutte le variabili del modello, compreso scarto e surplus. [12]
-        \subitem Per risoluzione grafica si intende disegnare i vincoli ed identificare così il vertice ottimo tramite intersezione dei vincoli.
-        \subitem Scarto e surplus è la differenza tra il valore del vincolo e il valore dell'equazione sostituito il punto di ottimo.
-  \item Vi sono vertici ammissibili ai quali corrispondono basi degeneri?
-        \subitem Una base è degenere quando nel vettore $A_B^{-1}b$ ci sono degli zeri.
-        \subitem Per calcolare l'inversa di una matrice $2\times 2$ si usa la formula: $A_B^{-1} = \frac{1}{\det A_B} \begin{bmatrix}
-            a{22}   & -a{12} \\
-            -a_{21} & a{11}  \\
-          \end{bmatrix}$
-        \subitem Nelle matrici di base $2 \times 2$ è possibile verificare se almeno una delle due seguenti equazioni sono pari a zero per poter affermare che essa è degenere: $a_{11}b_2 - a_{21}b_1 = 0 \quad \lor \quad a_{22}b_1 - a_{12}b_2 = 0$.
-  \item Risolvere per via grafica valori per cui la composizione della base ottima non cambia. [9]
-  \item Da quali variabili è composta la base associata al vertice di una data intersezione?[2]
-  \item Quanto può variare il termine noto senza che la composizione della base ottima cambi?
-  \item Risolvere mediante scarti complementari la soluzione duale del problema. [11]
-\end{enumerate}
-
-\subsection{Problema di Programmazione Lineare Grafico}
-\begin{enumerate}
-  \item Verso dei vincoli rappresentati graficamente.
-  \item Risolvere per via grafica valori per cui la composizione della base ottima non cambia.
-\end{enumerate}
-
-
-\section{Secondo esercizio}
-
-\subsection{Problema di Minimo con Tableau [3]}
-
-\begin{enumerate}
-  \item Forma canonica del Tableau [4]
-  \item Per quale dei valori rimanenti il Tableau corrisponde a:
-        \begin{enumerate}
-          \item Valori per ottimo finito [3]
-          \item Soluzione non ottima e degenere [3]
-          \item Problema illimitato [3]
-        \end{enumerate}
-  \item Disegnare la regione ammissibile al rilassamento continuo del problema. [2]
-  \item Individuare l'elemento di pivot individuato dal simplesso duale.[2]
-\end{enumerate}
-
-\section{Terzo Esercizio}
-
-\subsection{Problema di Programmazione Lineare Intero}
-Dato un problema di PL, si consideri una data base e si ricavi:
-
-\begin{enumerate}
-  \item Vettore dei coefficienti di costo ridotto.
-  \item Verificare che la soluzione è ottima per il rilassamento lineare del problema.
-  \item Nel modello duale ottenuto mediante gli scarti complementari una data X, questa è ottima?
-  \item Porre il problema in forma canonica.
-  \item Calcolare il vettore della soluzione duale corrispondente.
-  \item Taglio di Gomory relativo al primo vincolo. [6]
-\end{enumerate}
-
-\subsection{Modello di Programmazione Lineare con Grafi [3]}
-Costruire un Modello per determinare in un grafo due cicli hamiltoniani disgiunti.
-
-\subsection{Modello di Programmazione Lineare Intero [4]}
-Fornire un modello di PLI partendo da alcuni dati forniti.
-
-\subsection{Branch \& Bound, Problema dello zaino [7]}
-Risolvere un problema dello zaino con l'algoritmo Branch \& Bound con strategia Depth First con alcuni parametri dati.
-
-\section{Quarto esercizio: Formulare un modello di Programmazione Lineare [7]}
-
-Date alcune informazioni si chiede di formulare un problema di Programmazione Lineare e quindi di aggioralo dopo aver ricevuto ulteriori informazioni.
-
-\section{Quinto Esercizio: Grafi}
-Dati due grafi si chiede di calcolare:
-
-\begin{enumerate}
-  \item Flusso iniziale lungo un dato arco.
-  \item Applicare Algoritmo di Ford-Fulkerson [10]
-        \begin{enumerate}
-          \item Si riportino tutti i cammini aumentati, come sequenze di nodi, il corispondente incremento di flusso e valore di flusso massimo. [4]
-          \item Determinare e disegnare il flusso massimo di un grafo [4]
-        \end{enumerate}
-  \item Trovare un taglio di capacità minima [8]
-  \item Determinare se il flusso massimo è inviato a costo minimo. [2]
-  \item Si costruisca un reinstradamento che vada a ridurre il costo (o se ci si trova in condizione di minimo, di aumentarlo) modificandolo solo una volta e fornire la variazione di costo così ottenuta. [6]
-  \item Si riporti il modello di programmazione matematica del generico problema di ottimizzazione appena risolto.
+  \item Risolvere graficamento un problema di programmazione lineare a due variabili.
+        \subitem Riportare i valori ottenuti (ottimo, variabili, slack).
+        \subitem Caratteristiche della soluzione (degenere, multipla).
+        \subitem Valore della risorsa $b_i$ per cui la base ottima non cambia.
+        \subitem Valore del costo $c_i$ per cui la base ottima non cambia.
+        \subitem Risolvere mediante scarti complementari il problema duale.
+  \item Data una richiesta, formulare un modello di Programmazione Lineare.
+        \subitem Dato il modello realizzato, applicare una data estensione.
+  \item Applicare a un grafo l'algoritmo di Ford-Fulkerson.
+        \subitem Riportare tutti i cammini aumentati.
+        \subitem Calcolare il flusso massimo (quanto flusso arriva alla fine).
+        \subitem Determinare il taglio minimo (taglio minimo = insieme di archi che determina strozzatura in massimo flusso).
+        \subitem Determinare se il flusso è stato inviato a costo minimo (se esistono circuiti di costo negativo).
+        \subitem Si costruisca un reinstradamento che vada a ridurre il costo del flusso.
+  \item Applicare Branch \& Bound al problema dello zaino
+  \item Problema di programmazione intera:
+        \subitem Verificare se una soluzione è ottima per il rilassamento lineare del problema.
+        \subitem Risolvere il rilassamento lagrangiano del problema.
+        \subitem Taglio di Gomory.
+        \subitem Risolvere il duale tramite scarti complementari.
 \end{enumerate}
 
 \section{Domande di teoria}
@@ -126,7 +45,6 @@ Dati due grafi si chiede di calcolare:
 \end{figure}
 \subsection{Domande su rilassamento del problema lineare continuo}
 \begin{figure}
-  \includegraphics[width=\textwidth]{rilassamentoPLC1}
   \includegraphics[width=\textwidth]{rilassamentoPLC2}
   \includegraphics[width=\textwidth]{rilassamentoPLC3}
   \includegraphics[width=\textwidth]{max3}

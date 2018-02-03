@@ -2,12 +2,27 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Il duale del duale è il primale}
-\begin{theorem}
-  Il duale del problema duale è il problema primale.
-\end{theorem}
+\begin{minipage}{\textwidth}
+  \begin{minipage}{.83\textwidth}
+    \flushleft
+    \begin{theorem}
+      Il duale del problema duale è il problema primale.
+    \end{theorem}
+  \end{minipage}\hfill
+  \begin{minipage}{0.15\textwidth}\center
+    \includegraphics[width=0.5\textwidth]{random/yin}
+  \end{minipage}
+\end{minipage}
 
 \begin{proof}
-  Considerando un problema primale in forma canonica ed applicando le note regole di equivalenza e trasformazione si ottiene che:
+  Considero un problema $P$ in forma canonica e procedo con le seguenti operazioni:
+
+  \begin{enumerate}
+    \item Trasformo $P$ nel duale $D$.
+    \item Riscrivo $D$ in modo da ``assomigliare'' a $P$.
+    \item Trasformo il $D$ riscritto in $P'$.
+    \item Riscrivo $P'$ ed esso coincide con $P$.
+  \end{enumerate}
 
   \[
     \begin{cases}

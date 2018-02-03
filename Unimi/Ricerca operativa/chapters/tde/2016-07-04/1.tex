@@ -55,12 +55,13 @@ Si risolva il duale del problema tramite il metodo degli scarti complementari.
 Dalla funzione di ottimo data, bisogna identificare il punto con ascissa massima e ordinata minima. Il punto $9$, intersezione tra i vincoli $\rom{1}$ e $\rom{3}$, pari a $(12,4)$ è evidentemente il punto ottimo: $z = 4$.
 
 \begin{align*}
-  x_1 & = 12  \\
-  x_2 & = 4   \\
-  s_1 & = 0   \\
-  s_2 & = -32 \\
-  s_3 & = 0   \\
-  s_4 & = 6   \\
+  z   & = 4   ,\quad
+  x_1 & = 12  ,\quad
+  x_2 & = 4   ,\quad
+  s_1 & = 0   ,\quad
+  s_2 & = -32 ,\quad
+  s_3 & = 0   ,\quad
+  s_4 & = 6
 \end{align*}
 
 \subsubsection*{Verifico soluzione ottima}
@@ -101,6 +102,7 @@ Fino a che $b_2$ non tale per cui il vincolo $\rom{2}$ supera il punto di ottimo
     \min 16y_1 + 31y_2 + 64y_3 + 2y_4 \\
     y_1 -y_2 + 5y_3 + y_4 & \geq 1    \\
     y_1 +3y_2 + y_3 - y_4 & \geq -2   \\
+    y_1, y_2, y_3, y_4    & \in \R
   \end{align*}
   \caption{Problema duale}
 \end{figure}
@@ -135,12 +137,11 @@ Costruisco il sistema degli scarti complementari:
 La soluzione ottima del problema duale risulta essere:
 
 \begin{align*}
-  y_1 & = -\frac{11}{4}                                                \\
-  y_2 & = 0                                                            \\
-  y_3 & = \frac{3}{4}                                                  \\
-  y_4 & = 0                                                            \\
-  s_1 & = -\frac{11}{4} + 5\frac{3}{4} -1 \Rightarrow s_1 = 0          \\
-  s_2 & = \frac{11}{4} + \frac{3}{4} +2 \Rightarrow s_2 = \frac{11}{2} \\
+  z = z_D & = 4             \\
+  y_1     & = -\frac{11}{4} \\
+  y_2     & = 0             \\
+  y_3     & = \frac{3}{4}   \\
+  y_4     & = 0             \\
 \end{align*}
 
 \end{document}
