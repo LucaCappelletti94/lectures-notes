@@ -197,6 +197,63 @@
 	\immediate\write18{#1}
 }
 
+\newcommand{\dddgraph}[9]{
+	%#1-> X-axis label
+	%#2-> Y-axis label
+	%#3-> Min x value
+	%#4-> Max x value
+	%#5-> Min y value
+	%#6-> Max y value
+	%#7-> Max z value
+	%#8-> Area of definition, defined as boolean expression
+	%#9-> function
+	\begin{tikzpicture}
+		\begin{axis}[
+				xlabel=$#1$,
+				width=\textwidth,
+				ylabel=$#2$,
+				zlabel=$z$,
+				domain=#3:#4,
+				y domain=#5:#6,
+				xmin=#3,
+				xmax=#4,
+				ymin=#5,
+				ymax=#6
+			]
+			\addplot3[opacity=0.7,color=gray]{#8?#7:NaN};
+			\addplot3[surf, unbounded coords=jump]{#8?#9:NaN};
+		\end{axis}
+	\end{tikzpicture}
+}
+
+\newcommand{\xygraph}[7]{
+	%#1-> Min x value
+	%#2-> Max x value
+	%#3-> Min y value
+	%#4-> Max y value
+	%#5-> Max z value
+	%#6-> Area of definition, defined as boolean expression
+	%#7-> function
+	\dddgraph{x_1}{x_2}{#1}{#2}{#3}{#4}{#5}{#6}{#7}
+}
+
+\newcommand{\posxygraph}[5]{
+	%#1-> Max x value
+	%#2-> Max y value
+	%#3-> Max z value
+	%#4-> Area of definition, defined as boolean expression
+	%#5-> function
+	\xygraph{0}{#1}{0}{#2}{#3}{#4}{#5}
+}
+
+\newcommand{\posxyzgraph}[4]{
+	%#1-> Max x value
+	%#2-> Max y value
+	%#3-> Area of definition, defined as boolean expression
+	%#4-> function
+	\posxygraph{#1}{#2}{0}{#3}{#4}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % EXTERNAL FILES %
 %%%%%%%%%%%%%%%%%%%%%%%%%
