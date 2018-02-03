@@ -1,0 +1,104 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 6}
+La tabella seguente rappresenta le prestazioni di cinque alternative rispetto a quattro criteri decisionali (tutti da massimizzare), in una scala di valori tra $0$ e $100$.
+
+\begin{table}
+  \begin{tabular}{L|LLLLL}
+        & a_1 & a_2 & a_3 & a_4 & a_5 \\
+    \hline
+    f_1 & 100 & 70  & 60  & 40  & 20  \\
+    f_2 & 60  & 45  & 40  & 100 & 80  \\
+    f_3 & 60  & 25  & 20  & 80  & 100 \\
+    f_4 & 20  & 100 & 90  & 50  & 40
+  \end{tabular}
+\end{table}
+
+Quale alternativa risulta migliore se le curve di indifferenza sono del tipo:
+
+\[
+  u(f) = \w_1f_1 + \w_2f_2 + \w_3f_3 + \w_4f_4 \quad \w_i = 0.25 \quad \forall i
+\]
+Di quanto bisogna aumentare il valore di $\w_1$ (mantenendo gli altri costanti) affinchè $a_1$ risulti l'alternativa migliore? E $\w_4$?
+
+\subsection{Soluzione esercizio 6}
+
+\subsubsection*{Tabella ponendo $\w_i=0.25$}
+
+\begin{table}
+  \begin{tabular}{L|LLLLL}
+      & a_1 & a_2 & a_3  & a_4  & a_5 \\
+    \hline
+    u & 60  & 60  & 52.5 & 67.5 & 60  \\
+  \end{tabular}
+\end{table}
+
+La soluzione migliore risulta essere $a_4$.
+
+\subsubsection*{Identifico valore di $\w_1$ che identifica $a_1$ come soluzione ottima}
+
+\[
+  \begin{cases}
+    100\w_1 + 35 \geq 70\w_1 + 42.5 \\
+    100\w_1 + 35 \geq 60\w_1 + 37.5 \\
+    100\w_1 + 35 \geq 40\w_1 + 57.5 \\
+    100\w_1 + 35 \geq 20\w_1 + 55   \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    30\w_1 \geq 7.5  \\
+    40\w_1 \geq 2.5  \\
+    60\w_1 \geq 22.5 \\
+    80\w_1 \geq 20   \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    \w_1 \geq 0.25   \\
+    \w_1 \geq 0.0625 \\
+    \w_1 \geq 0.375  \\
+    \w_1 \geq 0.25   \\
+  \end{cases}
+  \Rightarrow
+  \w_1 \geq 0.375
+\]
+Per cui il valore minimo di $\w_1$ da cui $a_1$ diviene la soluzione ottima è $0.375$.
+
+\subsubsection*{Identifico valore di $\w_4$ che identifica $a_1$ come soluzione ottima}
+Sicchè $a_1$ ha in $f_4$ il valore più basso di tutte le opzioni non potrà essere la scelta ottima. Verifico algebricamente:
+
+\[
+  \begin{cases}
+    20\w_4 + 55 \geq 100\w_4 + 35 \\
+    20\w_4 + 55 \geq 90\w_4 + 30  \\
+    20\w_4 + 55 \geq 50\w_4 + 55  \\
+    20\w_4 + 55 \geq 40\w_4 + 50  \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    20\w_4 \geq 100\w_4 - 20 \\
+    20\w_4 \geq 90\w_4 - 25  \\
+    20\w_4 \geq 50\w_4       \\
+    20\w_4 \geq 40\w_4 - 5   \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    -80\w_4 \geq - 20 \\
+    -70\w_4 \geq - 25 \\
+    -30\w_4 \geq 0    \\
+    -20\w_4 \geq - 5  \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    \w_4 \leq 0.25 \\
+    \w_4 \leq 0.35 \\
+    \w_4 \leq 0    \\
+    \w_4 \leq 0.25 \\
+  \end{cases}
+  \Rightarrow
+  \w_4 \leq 0
+\]
+Bisognerebbe abbassare $\w_4$ a $0$ per garantire di avere $a_1$ come soluzione ottima, non è possibile quindi trovare un valore di $w_4$ maggiore di $0.25$ che risolva la richiesta.
+
+\end{document}
