@@ -50,12 +50,13 @@ Assegnando $\w_1 = 1 - \w_2 - \w_3$ e $\w_2 + \w_3 \leq 1$ si può rappresentare
         y domain=0:1
       ]
 
-      \addplot3[surf, unbounded coords=jump]{x+y<=1?max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y):NaN};
-      \addplot3[mark=none,color=red]{90*(1-x-y) + 12*x + 30*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
-      \addplot3[mark=none,color=green]{90*(1-x-y) + 13*x + 1*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
-      \addplot3[mark=none,color=blue]{90*(1-x-y) + 10*x + 5*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
-      \addplot3[mark=none,color=brown]{1*(1-x-y) + 100*x + 100*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
-      \addplot3[mark=none,color=black]{100*(1-x-y) + 37*x + 10*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
+      \addplot3[mark=none,color=red]{x+y<=1 && 90*(1-x-y) + 12*x + 30*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
+      \addplot3[mark=none,color=green]{x+y<=1 && 90*(1-x-y) + 13*x + 1*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
+      \addplot3[mark=none,color=blue]{x+y<=1 && 90*(1-x-y) + 10*x + 5*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
+      \addplot3[mark=none,color=brown]{x+y<=1 && 1*(1-x-y) + 100*x + 100*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
+      \addplot3[mark=none,color=black]{x+y<=1 && 100*(1-x-y) + 37*x + 10*y>=max(90*(1-x-y) + 12*x + 30*y, 90*(1-x-y) + 13*x + 1*y, 90*(1-x-y) + 10*x + 5*y, 1*(1-x-y) + 100*x + 100*y, 100*(1-x-y) + 37*x + 10*y)?0:NaN};
+
+      \legend{A, B, C, D, 0}
 
     \end{axis}
   \end{tikzpicture}
