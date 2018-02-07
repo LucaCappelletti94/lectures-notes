@@ -96,9 +96,9 @@ Tutti i valori sono positivi, pertanto la base è ottima.
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
       \[
-        \sum (a_{ij} - \floor{a_{ij}})x_j \leq b_i-\floor{b_i}
+        \sum (a_{ij} - \floor{a_{ij}})x_j \geq b_i-\floor{b_i}
       \]
-      \caption{Taglio di Gomory per vincolo $i-esimo$}
+      \caption{Taglio di Gomory in forma di differenza (nota $\geq  $) per vincolo $i-esimo$}
       \label{gomory_cut_formula}
     \end{subfigure}
   \end{figure}
@@ -244,13 +244,13 @@ Costruisco la forma canonica del sistema:
 Applico la formula del taglio di Gomory (formula \ref{gomory_cut_formula}) al primo vincolo, evidenziato in verde:
 
 \begin{align*}
-  (1-1)x_2 + (0)x_3 + (\frac{4}{3}-1)x_1 + (-\frac{7}{3} + 3)x_4 & \leq \frac{1}{3} - \floor{\frac{1}{3}} \\
-  \frac{1}{3}x_1 + \frac{2}{3}x_4                                & \leq \frac{1}{3}
+  (1-1)x_2 + (0)x_3 + (\frac{4}{3}-1)x_1 + (-\frac{7}{3} + 3)x_4 & \geq \frac{1}{3} - \floor{\frac{1}{3}} \\
+  \frac{1}{3}x_1 + \frac{2}{3}x_4                                & \geq \frac{1}{3}
 \end{align*}
 
 Il taglio di Gomory risulta quindi:
 
 \[
-  \frac{1}{3}x_1 + \frac{2}{3}x_4 \leq \frac{1}{3}
+  \frac{1}{3}x_1 + \frac{2}{3}x_4 \geq \frac{1}{3}
 \]
 \end{document}

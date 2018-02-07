@@ -86,10 +86,10 @@ La soluzione ottima comprende valori di $x$ non interi, per cui procedo con il t
 Costruisco il taglio di Gomory sulla riga evidenziata in verde:
 
 \begin{align*}
-  \sum  (a_{ij} - \floor{a_{ij}})x_j \leq b_i-\floor{b_i}                                                                \\
-  \rnd{1-\floor{1}}x_3 + 0x_4 + \rnd{\frac{7}{2} - \floor{\frac{7}{2}}}x_1 + 0x_2 \leq \frac{9}{2} - \floor{\frac{9}{2}} \\
-  \frac{1}{2}x_1 \leq \frac{1}{2}                                                                                        \\
-  x_1 \leq 1
+  \sum  (a_{ij} - \floor{a_{ij}})x_j \geq b_i-\floor{b_i}                                                                \\
+  \rnd{1-\floor{1}}x_3 + 0x_4 + \rnd{\frac{7}{2} - \floor{\frac{7}{2}}}x_1 + 0x_2 \geq \frac{9}{2} - \floor{\frac{9}{2}} \\
+  \frac{1}{2}x_1 \geq \frac{1}{2}                                                                                        \\
+  x_1 \geq 1
 \end{align*}
 Aggiungo il nuovo vincolo al tableau:
 
@@ -113,6 +113,10 @@ Aggiungo il nuovo vincolo al tableau:
 A parità di coefficiente di costo ridotto, scelgo la colonna di $x_1$ essendo quella con i coefficienti maggiori. Per l'operazione di pivot posso scegliere sia il termine appena inserito, $1$, sia $3$ poichè il rapporto tra questi ed il rispettivo termine noto risulta uguale.
 
 \subsubsection*{Disegnare il vincolo}
-Non so come disegnare un vincolo quando si hanno 4 variabili. Immagino debba fare una proiezione, ma non so su che variabili in particolare abbia senso farla.
+Rappresento il vincolo sul piano $x_1 - x_2$:
+
+\begin{figure}
+  \includegraphics[width=0.4\textwidth]{gomory_2014_09_16}
+\end{figure}
 
 \end{document}
