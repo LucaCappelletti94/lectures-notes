@@ -8,9 +8,7 @@
 \end{theorem}
 
 \begin{proof}
-  Per assurdo supponiamo che, applicando la regola di Bland, l'algoritmo compia dei cicli.
-
-  Consideriamo il più piccolo tableau che genera una sequenza ciclica pur applicando la regola di Bland, cioè tutte le variabili, a turno, entrano ed escono di base: $B_1 \rightarrow B_2 \rightarrow \ldots \rightarrow B_k \rightarrow B_1$.
+  Per assurdo supponiamo che, applicando la regola di Bland, l'algoritmo compia dei cicli. Consideriamo il più piccolo tableau che genera una sequenza ciclica pur applicando la regola di Bland, cioè tutte le variabili, a turno, entrano ed escono di base: $B_1 \rightarrow B_2 \rightarrow \ldots \rightarrow B_k \rightarrow B_1$.
 
   Consideriamo un tableau $T$ e supponiamo che $x_h$ entri in base e $x_n$ esca. Perché questo avvenga deve essere valido che:
 
@@ -35,15 +33,12 @@
 
                        &  & 0          &  & \bar{a}_{1h} &  & 0     & 0 \\
 
-          \vdots       &  &            &  &              &  &       &   \\
 
           $x_{B[i]}$   &  & 1          &  & \bar{a}_{ih} &  & 0     & 0 \\
 
-          \vdots       &  &            &  &              &  &       &   \\
 
           $x_{B[t]=n}$ &  & 0          &  & \bar{a}_{th} &  & 1     & 0 \\
 
-          \vdots       &  &            &  &              &  &       &   \\
 
                        &  & 0          &  & \bar{a}_{mh} &  & 0     & 0 \\
         \end{tabular}
