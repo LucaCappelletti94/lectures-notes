@@ -2,47 +2,22 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Criterio di ottimalità della base}
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Criterio di ottimalità della base]
-      Sia $B$ una base ammissibile e sia $\bmct = \begin{bmatrix}
-          \bmct_B, \bmct_F
-        \end{bmatrix}$. Se $\bbmct = \bmct - \bmct_B B^{-1}A\geq \bm{0}^T$ allora la soluzione di base associata a $B$ è ottima, cioè i coefficienti di costo ridotto dei termini fuori base $\bbmct$ sono non negativi.
+\begin{theorem}[Criterio di ottimalità della base]
+  Se i \textbf{coefficienti di costo ridotto} (CCR) $\bbmct = \bmct - \bmct_B B^{-1} A$ sono \textit{non negativi} allora la soluzione di base associata a $B$ è \textit{ottima}.
 
-      Inoltre, se $B$ è ottima e non degenere, i coefficienti di costo ridotto sono non negativi: $\bbmct\geq\bm{0}^T$.
-
-      \textbf{N.B.}: nel caso di basi degeneri non è possibile fare affermazioni sulla ottimalità.
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=\textwidth]{random/mickey}
-  \end{minipage}
-\end{minipage}
+  \[
+    \bbmct \geq 0 \Rightarrow \bmct \bmx \geq \bmct_B B^{-1}\bmb \quad \forall \bmx
+  \]
+\end{theorem}
 
 
 \begin{proof}
-  Riscriviamo la funzione obbiettivo:
   \begin{align*}
-    z & = \bmct \bmx                          &  & \text{Iniziamo dalla funzione obbiettivo}                                           \\
-    z & = \rnd{\bbmct + \bmct_B B^{-1}A} \bmx &  & \text{Sostituisco a $\bmct$ la sua definizione: $\bmct = \bbmct + \bmct_B B^{-1}A$} \\
-    z & = \bbmct\bmx + \bmct_B B^{-1}A\bmx    &  & \text{Risolvo algebricamente}                                                       \\
-    z & = \bbmct\bmx + \bmct_B B^{-1}b        &  & \text{Sostituisco $\bmb = A\bmx$}                                                   \\
+    z          & =\bmct \bmx                         &  & \text{Inizio dalla funzione obbiettivo}               \\
+    \bmct \bmx & = \bbmct\bmx + \bmct_B B^{-1} A\bmx &  & \text{Sostituisco la definizione di CCR}              \\
+    \bmct \bmx & = \bbmct\bmx + \bmct_B B^{-1} \bmb  &  & \text{Sostituisco $A\bmx = \bmb$}                     \\
+    \bmct \bmx & \geq \bmct_B B^{-1} \bmb            &  & \text{Elimino $\bbmct$, termine positivo per ipotesi}
   \end{align*}
-
-  La funzione obbiettivo iniziale è pari a $\bbmct\bmx + \bmct_B B^{-1}b$ e sottraendo $\bbmct$, termine non negativo per ipotesi, si ottiene la disequazione $\bmct\bmx \geq \bmct_B B^{-1}b$ e quindi vale che, $\forall \bmx \in P$, la funzione obbiettivo in corrispondenza della soluzione di base ammissibile associata a $B$ assume il valore $
-    \bmct_BB^{-1}\bmb = \begin{bmatrix}
-      \bmct_B & \bmct_F
-    \end{bmatrix}
-    \begin{bmatrix}
-      B^{-1}\bmb \\
-      0
-    \end{bmatrix}
-  $, dove $\begin{bmatrix}
-      B^{-1}\bmb \\
-      0
-    \end{bmatrix}$ è il vettore dei valori assunti da $\bmx$ quando la soluzione è ottima.
-
 \end{proof}
 
 \end{document}

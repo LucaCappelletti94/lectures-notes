@@ -3,31 +3,20 @@
 \begin{document}
 \section{Esistenza di vertice ottimo}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}
-      Se $P = \crl{\bm{x} \in \R^n: A\bm{x} \leq \bm{b}, \bm{x} \geq \bm{0}}$ è un politopo, allora esiste almeno un vertice di $P$ ottimo per il problema:
-      \[
-        \min \crl{\bm{c}^T\bm{x}: \bm{x} \in P}
-      \]
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=\textwidth]{random/vertigo}
-  \end{minipage}
-\end{minipage}
+\begin{theorem}[Esistenza di un vertice ottimo]
+  In ogni \textbf{politopo} non vuoto esiste almeno un vertice ottimo.
+\end{theorem}
 
 \begin{proof}
-  Siano $\bm{y}_i, \ldots, \bm{y}_k$ i vertici di $P$ e sia $z^* = \min \crl{\bm{c}^T\bm{y}_i, i=1,\ldots,k}$. Sia $\bm{x} \in P$, cioè $z^*$ è soluzione ottima dei vertici.
+  Siano $\bm{y}_i, \ldots, \bm{y}_k$ i vertici del politopo e sia $z^* = \min \crl{\bm{c}^T\bm{y}_i, i=1,\ldots,k}$, cioè il valore ottimo della funzione obbiettivo tra i vertici del politopo.
 
-  Per il teorema di Minkowsky-Weil posso descrivere $\bmx$ come una combinazione convessa dei vertici, cioè: $\exists \bm{\lambda} \geq \bm{0}: \bm{x} = \sum_{i=1}^k \lambda_i \bm{y}_i, \sum_{i=1}^k \lambda_i =1$.
+  Per il \textbf{teorema di Minkowsky-Weil} (teorema \ref{minkowsky}) posso descrivere $\bmx$ come una combinazione convessa dei vertici $\bm{x} = \sum_{i=1}^k \lambda_i \bm{y}_i$
 
   \begin{align*}
     z                                       & = \bmct \bmx                                    &  & \text{Iniziamo dalla funzione obbiettivo}                             \\
     z                                       & = \bm{c}^T\rnd{\sum_{i=1}^k \lambda_i \bm{y}_i} &  & \text{Sostituisco a $\bmx$ la comb. convessa equivalente}             \\
     z                                       & = \sum_{i=1}^k \lambda_i \bm{c}^T\bm{y}_i       &  & \text{Sposto il coefficiente dei costi nella serie}                   \\
-    \sum_{i=1}^k \lambda_i \bm{c}^T\bm{y}_i & \geq \sum_{i=1}^k  \lambda_i z^* = z^*          &  & \text{$\bmct \bmy$ è sempre $\geq$ della soluzione ottima di minimo.} \\
+    \sum_{i=1}^k \lambda_i \bm{c}^T\bm{y}_i & \geq \sum_{i=1}^k  \lambda_i z^* = z^*          &  & \text{$\bmct \bmy$ è sempre maggiore o uguale alla soluzione ottima.} \\
   \end{align*}
 \end{proof}
 

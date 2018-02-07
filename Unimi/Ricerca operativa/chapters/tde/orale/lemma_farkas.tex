@@ -3,80 +3,46 @@
 \begin{document}
 \section{Lemma di Farkas}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Lemma di Farkas]
-      \label{lemma_farkas}
-      La disuguaglianza
-      \begin{figure}
-        \[
-          \bm{c}^T\bmx  \geq c_0
-        \]
-        \caption{Disuguaglianza di Farkas}
-      \end{figure}
-      è valida per il poliedro non vuoto $P = \crl{\bmx \geq 0: A\bmx = \bm{b}}$ se e solo se esiste un $\bm{u} = \bmct_B B^{-1} \in \R^m$ tale per cui:
-
-      \begin{figure}
-        \begin{subfigure}{0.49\textwidth}
-          \[
-            \bm{c}^T \geq \bm{u}^TA
-          \]
-          \caption{Prima disequazione}
-          \label{farkas_prima}
-        \end{subfigure}
-        \begin{subfigure}{0.49\textwidth}
-          \[
-            \bm{u}^T\bm{b}\geq c_0
-          \]
-          \caption{Seconda disequazione}
-          \label{farkas_seconda}
-        \end{subfigure}
-        \caption{Condizioni del lemma di Farkas}
-      \end{figure}
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=\textwidth]{random/ball}
-  \end{minipage}
-\end{minipage}
-
-
-\begin{proof}
-  Il fatto che la condizione sia sufficiente è vero dato che per ogni $\bmx \geq 0: A\bmx=\bm{b}$ vale che:
-  \[
-    \bm{c}^T\bmx \geq \bm{u}^TA\bmx = \bm{u}^T\bm{b} \geq c_0
-  \]
-
-  Procediamo ora a dimostrare che la condizione sia anche necessaria.
-
-  Dalle ipotesi di validità si ha che:
+\begin{theorem}[Lemma di Farkas]
+  \label{lemma_farkas}
+  Se un problema primale definito su un poliedro non vuoto ha soluzione limitata, allora il suo problema duale deve ammettere una soluzione limitata.
 
   \[
-    \bm{c}^T\bmx \geq c_0 \forall \bmx \in P \Rightarrow P' = \min_{\bmx}\crl{\bm{c}^T\bmx: \bmx \in P} \text{ non è illimitato inferiormente e } P \neq \emptyset
+    \bmct \bmx \geq c_0 \Leftrightarrow \exists \bmu = \bmct_B B^{-1} \in \R^m:\, \bmct \geq \bmut A \land \bmut \bmb \geq c_0
   \]
+\end{theorem}
 
-  Allora esiste una soluzione ottima finita e per il teorema di convergenza del simplesso esiste una soluzione ottima di base.
 
-  Chiamiamo $B$ la base ottima di $P'$ e sia $\bm{u}^T = \bm{c}^T_B B^{-1}$. I costi ridotti, calcolati in corrispondenza della base ottima devono essere:
+\begin{proof}[C.s.: Se il duale è limitato $\Rightarrow$ il primale è limitato]
+  \begin{align*}
+    \bmct     & \geq \bmut A             &  & \text{Iniziamo dalla regione ammissibile del duale}         \\
+    \bmct\bmx & \geq \bmut A\bmx         &  & \text{Moltiplichiamo ambo i termini per $\bmx \geq \bm{0}$} \\
+    \bmct\bmx & \geq \bmut \bmb \geq c_0 &  & \text{Sostituisco $A\bmx = \bmb$}
+  \end{align*}
+\end{proof}
+\begin{proof}[C.n.: Se il primale è limitato $\Rightarrow$ il duale è limitato]
+
+  Dalle ipotesi il poliedro ha soluzione limitata, allora per il \textbf{teorema di convergenza del simplesso} esiste una SBA ottenibile in tempo finito con l'\textbf{algoritmo del simplesso}.
+
+  Chiamiamo $B$ la base ottima e sia $\bm{u}^T = \bm{c}^T_B B^{-1}$. I costi ridotti, calcolati in corrispondenza della base ottima devono essere:
 
   \begin{figure}
     \[
       \bbm{c}^T = \bm{c}^T - \bm{c}_B^TB^{-1}A \geq \bm{0}^T \Rightarrow \bm{c}^T \geq \bm{u}^TA
     \]
-    \caption{Dalla regola dei costi ridotti si ottiene la prima disequazione \ref{farkas_prima}}
+    \caption{Dalla regola dei costi ridotti si ottiene la regione di ammissibilità del duale}
   \end{figure}
 
   Infine per ipotesi vale che $\bm{c}^T \bmx \geq c_0 \forall \bmx \in P$, da cui:
 
   \begin{figure}
     \begin{align*}
-      z^* & = \bm{c}^T\bmx^* \geq 0                     &  & \text{La $z^*$ è data da $x^*$}                                \\
+      z^* & = \bm{c}^T\bmx^* \geq c_0                   &  & \text{La $z^*$ è data da $x^*$}                                \\
           & = \bm{c}_B^T \bmx^*_B + \bm{c}_F^T \bmx^*_F &  & \text{Spezzo il vettore dei costi in base e fuori base}        \\
           & = \bm{c}_B^TB^{-1}\bm{b}                    &  & \text{La parte fuori base, $\bmx^*_B$ è un vettore di zeri.}   \\
-          & = \bm{u}^T\bm{b}                            &  & \text{Sostituisco la definizione di $\bm{u} = \bmct_B B^{-1}$}
+          & = \bm{u}^T\bm{b}  \geq c_0                  &  & \text{Sostituisco la definizione di $\bm{u} = \bmct_B B^{-1}$}
     \end{align*}
-    \caption{Dall'ipotesi iniziale si ottiene la seconda disequazione \ref{farkas_seconda}}
+    \caption{Dalla funzione obbiettivo del primale si ottiene la funzione obbiettivo del duale, entrambe limitate}
   \end{figure}
 
 \end{proof}

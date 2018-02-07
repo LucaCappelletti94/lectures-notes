@@ -2,38 +2,24 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Teorema di dualità debole}
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Dualità debole]
-      \label{dualita_debole}
-      Siano dati un problema $P$ ed il suo duale $D$, entrambi non vuoti:
-
-      \[
-        P = \crl{\bmx \geq \bm{0}: A\bmx \geq \bmb} \qquad D = \crl{\bmu \geq \bm{0}: \bmct \geq \bmut A}, \qquad P, D \neq \emptyset
-      \]
-      Per ogni coppia di punti $\bbmx \in P$, $\bbmu \in D$ si ha che:
-
-      \begin{figure}
-        \[
-          \bbmut \bmb \leq \bmct\bbmx
-        \]
-        \caption{Teorema di dualità debole: ogni soluzione del duale è minore o uguale a ogni soluzione del primale}
-      \end{figure}
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=\textwidth]{random/pepper}
-  \end{minipage}
-\end{minipage}
+\begin{theorem}[Dualità debole]
+  \label{dualita_debole}
+  Una soluzione ammissibile del problema duale è sempre minore o uguale di una soluzione ammissibile del problema primale in forma canonica.
+  \[
+    \bbmut \bmb \leq \bmct\bbmx
+  \]
+\end{theorem}
 
 
 
 \begin{proof}
-  Dati $\bbmx \in P$ e $\bbmu \in D$, si ha che $A\bbmx \geq \bmb, \bbmx \geq \bm{0}$ e $\bmct \geq \bbmut A$, da cui segue:
-  \[
-    \bbmut \bmb \leq \bbmut A \bbmx \leq \bmct \bbmx
-  \]
+  Dati due punti $\bmx$ e $\bmy$ ammissibili rispettivamente nel primale e duale vale che:
+
+  \begin{align*}
+    \bmut A     & \leq \bmct     &  & \text{Inizio dalla regione di ammissibilità del duale}      \\
+    \bmut A\bmx & \leq \bmct\bmx &  & \text{Moltiplico entrambi i termini per $\bmx \geq \bm{0}$} \\
+    \bmut \bmb  & \leq \bmct\bmx &  & \text{Sostituisco $A\bmx = \bmb$}
+  \end{align*}
 \end{proof}
 
 \begin{corollary}

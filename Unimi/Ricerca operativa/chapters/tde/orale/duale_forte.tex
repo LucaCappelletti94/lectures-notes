@@ -3,25 +3,14 @@
 \begin{document}
 \section{Teorema di dualità forte}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Dualità forte]
-      \label{dualita_forte}
-      Sia $P = \crl{\bmx \geq \bm{0}: A\bmx \geq \bmb} \neq \emptyset$ con soluzione ottima \textbf{finita}. Allora la soluzione ottima del primale coincide con la soluzione ottima del duale.
+\begin{theorem}[Dualità forte]
+  \label{dualita_forte}
+  Se la soluzione ottima del problema primale esiste ed è limitata allora coincide con la soluzione ottima del problema duale.
 
-      \begin{figure}
-        \[
-          \min\crl{\bmct\bmx: A\bmx \geq \bmb, \bmx \geq \bm{0}} = \max\crl{\bmut\bmb: \bmct \geq \bmut A, \bmu \geq \bm{0}}
-        \]
-        \caption{Teorema di dualità forte: la soluzione ottima primale coincide con la soluzione ottima duale}
-      \end{figure}
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=\textwidth]{random/salt}
-  \end{minipage}
-\end{minipage}
+  \[
+    \min\crl{\bmct\bmx: A\bmx \geq \bmb, \bmx \geq \bm{0}} = \max\crl{\bmut\bmb: \bmct \geq \bmut A, \bmu \geq \bm{0}}
+  \]
+\end{theorem}
 
 \begin{proof}
   Segue direttamente dal lemma di Farkas (\ref{lemma_farkas}).

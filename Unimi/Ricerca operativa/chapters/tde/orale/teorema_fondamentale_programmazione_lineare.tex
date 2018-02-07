@@ -3,73 +3,87 @@
 \begin{document}
 \section{Teorema fondamentale della programmazione lineare}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Teorema fondamentale della programmazione lineare]
-      Un punto $\bmx$ è un vertice del poliedro non vuoto $P = \crl{\bmx \in \mathbb{R}^n: A\bmx = \bm{b}, \bmx \geq 0}$ se e solo se $\bmx$ è soluzione di base ammissibile.
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=\textwidth]{random/ring}
-  \end{minipage}
-\end{minipage}
+\begin{theorem}[Teorema fondamentale della programmazione lineare]
+  Un punto è vertice di un \textbf{poliedro} non vuoto \textbf{se e solo se} è anche una soluzione di base ammissibile.
+  \[
+    \bmx \text{ vertice} \Leftrightarrow B^{-1}\bmb\geq 0
+  \]
+\end{theorem}
 
-
-
-\begin{proof}
-  Consideriamo una soluzione ammissibile $\bmx^T = \sqr{x_1, \ldots, x_k, 0, \ldots, 0}$ e per assurdo $\bmx$ non sia un vertice. Allora:
-
-  \begin{align*}
-    \exists \bmy, \bmz \in P, \bmy \neq \bmz: \bmx = \lambda \bmy + (1-\lambda)\bmz &                                                              & \text{definisco $\bmx$ come combinazione convessa da T. MW} \\
-    \text{ con }                                                                    & \lambda \in \sqr{0,1},                                                                                                     \\
-                                                                                    & \bmy^T = \sqr{y_1, \ldots, y_k, 0, \ldots, 0} \geq \bm{0}^T,                                                               \\
-                                                                                    & \bmz^T = \sqr{z_1, \ldots, z_k, 0, \ldots, 0} \geq \bm{0}^T
-  \end{align*}
-
-  Con $\bmy$ e $\bmz$ soluzioni ammissibili in quanto vertici.
-
-  Inoltre sono $A\bmy = \bm{b}, A{z} = \bm{b} \Rightarrow A(\bmy-\bmz)=\bm{0}$.
-
-  Considero $\bm{\a} = \bmy - \bmz \neq \bm{0}$ e $\bm{\a}^T = \sqr{y_1-z_1, \ldots, y_k - z_k, 0, \ldots, 0}$, ma dal punto precedente sappiamo che $A\bm{\a}=\bm{0}$.
-
-  Osserviamo che basta dimostrare che $\bmx$ vertice di $P$ è soluzione di base, essendo infatti on $P$ sarà sicuramente ammissibile.
-
-  Per assurdo sia $\bmx$ vertice di $P$, soluzione non di base. Lo ordiniamo in modo che $\bmx^T = \sqr{x_1, \ldots, x_k, 0, \ldots, 0}$. Avremo che $A_1, \ldots A_k$ sono linearmente dipendenti, altrimenti $\bmx$ sarebbe soluzione di base.
-
-  Allora $\exists \tilde{\bm{\a}}: A_1\tilde{\a}_1+\ldots+A_k\tilde{\a}_k = \bm{0}, \tilde{\bm{\a}} \neq \bm{0}$. Considero $\bm{\a}^T = \sqr{\tilde{\bm{\a}},0,\ldots,0} \in \R^n$.
-
-  Sappiamo inoltre che:
+\begin{proof}[C.s.: Se un punto è SBA $\Rightarrow$ è vertice]
+  Consideriamo una SBA $\bmx$ con i primi $k \geq 0$ elementi positivi ed i successivi nulli. Queste prime $k$ colonne di $A$, più eventuali altre nel caso di soluzione degenere, devono fare parte di $B$ per l'ipotesi di SBA.
 
   \[
-    A\bmx = \bm{b}, A\bm{\a} =\bm{0} \Rightarrow \begin{cases}
-      A\rnd{\bmx + \e \bm{\a}}= \bm{b} \\
-      A\rnd{\bmx - \e \bm{\a}}= \bm{b}
-    \end{cases}
-    \Rightarrow \begin{cases}
-      \bm{b} \Rightarrow A_1\rnd{x_1 + \e \a_1} + \ldots + A_k\rnd{x_k + \e\a_k} = \bm{b} \\
-      \bm{b} \Rightarrow A_1\rnd{x_1 - \e \a_1} + \ldots + A_k\rnd{x_k - \e\a_k} = \bm{b}
-    \end{cases}
+    \bmx = \begin{bmatrix}
+      x_1, \ldots, x_k, 0, \ldots, 0
+    \end{bmatrix}^T
   \]
 
-  Scegliamo $\e$ in modo che $x_j + \e\a_j\geq 0, x_j - \e\a_j \geq 0 j = 1,\ldots,k$.
+  Supponiamo \textbf{per assurdo} che $\bmx$ non sia un vertice. Allora è possibile costruire una combinazione convessa tra due punti distinti $\bmy' \in P$ e $\bmy'' \in P$, anch'essi con i primi $k$ elementi positivi ed i successivi nulli:
 
-  Poniamo $\bmy = \bmx + \e\bm{\a}, \bmz = \bmx - \e\bma$:
+  \[
+    \exists \bmy' = \begin{bmatrix}
+      y'_1, \ldots, y'_k, 0, \ldots, 0
+    \end{bmatrix}^T,
+    \bmy'' = \begin{bmatrix}
+      y''_1, \ldots, y''_k, 0, \ldots, 0
+    \end{bmatrix}^T:
+    \bmx = \lambda \bmy' + (1-\lambda)\bmy''
+  \]
+  È possibile scrivere le equazioni:
 
   \[
     \begin{cases}
-      A\bmy = \bm{b}, \bmy \geq 0 \\
-      A\bmz = \bm{b}, \bmz \geq 0
+      A\bmy' = \bmb  \\
+      A\bmy'' = \bmb \\
     \end{cases}
     \Rightarrow
-    \bmy, \bmz \in P \land \bmx = \frac{1}{2}\bmy + \frac{1}{2}\bmz
+    \begin{cases}
+      A_1y'_1 + \ldots + A_ky'_k = \bmb   \\
+      A_1y''_1 + \ldots + A_ky''_k = \bmb \\
+    \end{cases}
+    \Rightarrow
+    (y'_1 - y''_1)A_1 + \ldots + (y'_k -y''_k)A_k = 0
   \]
+  Non tutte le coppie $(y'_i, y''_i)$ possono essere uguali, per cui, perché l'equazione sia pari a $0$, le colonne $A_1, \ldots, A_k$ devono essere linearmente dipendenti e non possono fare parte della base $B$, da cui l'assurdo.
+\end{proof}
 
-  Ma $\bmx$ è vertice (ipotesi iniziale della dimostrazione per assurdo), quindi non può essere combinazione convessa di altri vertici del poliedro con coefficienti diversi da $0$: $\bmx = \bmy = \bmz$
+\begin{proof}[C.n.: Se un punto è vertice $\Rightarrow$ è SBA]
+  Consideriamo un punto $\bmx \in P$ vertice:
+
+  \[
+    \bmx = \begin{bmatrix}
+      x_1, \ldots, x_k, 0, \ldots, 0
+    \end{bmatrix}^T
+  \]
+  Supponiamo \textbf{per assurdo} che $\bmx$ sia un vertice ma non una SBA. Allora le prime $k$ colonne di $A$ devono essere linearmente dipendenti. Ne segue che deve esistere una combinazione lineare tale che:
+
+  \[
+    \sum_{i=1}^k \a_j A_j = 0
+  \]
+  Allora è possibile scegliere uno scalare $\epsilon$ che consenta di costruire due punti distinti $\bmy' \neq \bmy''$ e ammissibili:
+
+  \[
+    \exists \epsilon: \begin{cases}
+      \bmy' = \begin{bmatrix}
+        x'_1 + \epsilon\a_1, \ldots, x'_k + \epsilon\a_k, 0, \ldots, 0
+      \end{bmatrix}^T \\
+      \bmy'' = \begin{bmatrix}
+        x'_1 - \epsilon\a_1, \ldots, x'_k - \epsilon\a_k, 0, \ldots, 0
+      \end{bmatrix}^T
+    \end{cases}
+    \bmy', \bmy'' \in P
+  \]
+  Ma questo significa che è possibile costruire il punto $\bmx$ come combinazione convessa di altri due punti appartenenti al poliedro:
+
+  \[
+    \bmx = \frac{1}{2}\bmy' + \frac{1}{2}\bmy''
+  \]
+  Ma $\bmx$, per ipotesi, è vertice, per cui non può essere ottenuto come combinazione di altri due punti del poliedro.
 \end{proof}
 
 \begin{corollary}[Esistenza di soluzione ottima]
-  Ogni problema del tipo $\min \crl{\bm{c}^T\bmx: \bmx \in P}$ definito su un politopo $P = \crl{\bmx \in \R^n: A\bmx = \bm{b}, \bmx \geq \bm{0}} \neq \emptyset$ ha almeno una soluzione ottima che è soluzione di base ammissibile.
+  Ogni problema di PL definito su un \textbf{politopo} non vuoto ha almeno una soluzione ottima che è soluzione di base ammissibile.
 \end{corollary}
 
 

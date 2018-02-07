@@ -3,61 +3,39 @@
 \begin{document}
 \section{Matrici totalmente unimodulari}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{definition}[Matrice totalmente unimodulare]
-      Una matrice $A \in \R^{m \times n}$ si dice \textbf{totalmente unimodulare} (TUM) se per ogni sua sotto-matrice quadrata $Q$ vale che $\det(Q) \in \crl{-1, 0, 1}$.
-    \end{definition}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=0.6\textwidth]{random/radio}
-  \end{minipage}
-\end{minipage}
+
+\begin{definition}[Matrice totalmente unimodulare]
+  Una matrice $A \in \R^{m \times n}$ si dice \textbf{totalmente unimodulare} (TUM) se per ogni sua sotto-matrice quadrata $Q$ vale che $\det(Q) \in \crl{-1, 0, 1}$.
+\end{definition}
 
 \begin{theorem}
   Se $A$ è TUM e $\bmb$ è intero, allora $P$ ha solo vertici interi, cioè $\text{conv}\rnd{\bmx} = P$.
 \end{theorem}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Condizioni necessarie per TUM]
-      Se $A$ è TUM, allora deve valere che:
-      \begin{enumerate}
-        \item Ogni termine della matrice $A$ $a_{ij} \in \crl{-1,0,1}$.
-        \item $A^T$ è TUM.
-        \item $\begin{bmatrix}
-                  A & I
-                \end{bmatrix}$ è TUM.
-        \item Moltiplicando una riga o colonna per $-1$ $A$ rimane TUM.
-        \item Scambiando righe o colonne $A$ rimane TUM.
-        \item L'operazione di pivot lascia $A$ TUM.
-      \end{enumerate}
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=0.8\textwidth]{random/iphone}
-  \end{minipage}
-\end{minipage}
+\begin{theorem}[Condizioni necessarie per TUM]
+  Se $A$ è TUM, allora deve valere che:
+  \begin{enumerate}
+    \item Ogni termine della matrice $A$ $a_{ij} \in \crl{-1,0,1}$.
+    \item $A^T$ è TUM.
+    \item $\begin{bmatrix}
+              A & I
+            \end{bmatrix}$ è TUM.
+    \item Moltiplicando una riga o colonna per $-1$ $A$ rimane TUM.
+    \item Scambiando righe o colonne $A$ rimane TUM.
+    \item L'operazione di pivot lascia $A$ TUM.
+  \end{enumerate}
+\end{theorem}
 
-\begin{minipage}{\textwidth}
-  \begin{minipage}{.83\textwidth}
-    \flushleft
-    \begin{theorem}[Condizioni sufficienti per TUM]
-      Sia $A$ una matrice con $a_{ij} \in \crl{-1,0,1}$. Condizione sufficiente perché $A$ sia TUM è che valgano:
-      \begin{enumerate}
-        \item In ogni colonna vi siano al più due elementi non nulli.
-        \item Esiste una partizione $\begin{bmatrix}
-                  I_1 & I_2
-                \end{bmatrix}$ delle righe di $A$ tale che ogni colonna con due elementi non nulli ha questi elementi su righe appartenenti ad insiemi $I_1$ e $I_2$ diversi se e solo se i due elementi sono concordi in segno.
-      \end{enumerate}
-    \end{theorem}
-  \end{minipage}\hfill
-  \begin{minipage}{0.15\textwidth}\center
-    \includegraphics[width=0.8\textwidth]{random/android}
-  \end{minipage}
-\end{minipage}
+\begin{theorem}[Condizioni sufficienti per TUM]
+  Sia $A$ una matrice con $a_{ij} \in \crl{-1,0,1}$. Condizione sufficiente perché $A$ sia TUM è che valgano:
+  \begin{enumerate}
+    \item In ogni colonna vi siano al più due elementi non nulli.
+    \item Esiste una partizione $\begin{bmatrix}
+              I_1 & I_2
+            \end{bmatrix}$ delle righe di $A$ tale che ogni colonna con due elementi non nulli ha questi elementi su righe appartenenti ad insiemi $I_1$ e $I_2$ diversi se e solo se i due elementi sono concordi in segno.
+  \end{enumerate}
+\end{theorem}
+
 
 
 \begin{proof}
