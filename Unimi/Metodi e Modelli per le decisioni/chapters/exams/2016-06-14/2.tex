@@ -31,18 +31,7 @@ Dato il problema di programmazione matematica
 
 \begin{figure}
   \begin{subfigure}{0.45\textwidth}
-    \begin{tikzpicture}
-      \begin{axis}[
-          xlabel=$x_1$,
-          ylabel=$x_2$,
-          zlabel=$f(x)$,
-          domain=-1:0,
-          y domain=1:2
-        ]
-        \addplot3[surf, unbounded coords=jump]
-        {x^2 + y^2 -2*y <  0 && x - y < -2 ? y : NaN};
-      \end{axis}
-    \end{tikzpicture}
+    \xygraph{-1}{0}{1}{2}{1}{x^2 + y^2 -2*y <  0 && x - y < -2}{y}
     \caption{La funzione $f(x)$}
     \label{func_1}
   \end{subfigure}
@@ -206,7 +195,7 @@ Il sistema risulta impossibile.
   \end{cases}
 \]
 
-Le condizioni KKT eliminano il punto $B$ e confermano $A$ come punto candidato.
+Le condizioni KKT eliminano il punto $B$ e inseriscono $A$ nella lista dei candidati.
 
 \subparagraph*{Sostituisco il valore numerico dei punti}
 Il punto $A$ è l'ultimo candidato rimasto ed è quindi certamente l'ottimo locale. Questo è verificabile anche guardando il grafico della funzione in figura \ref{func_1}.

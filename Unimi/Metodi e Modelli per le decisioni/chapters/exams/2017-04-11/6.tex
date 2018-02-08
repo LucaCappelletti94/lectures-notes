@@ -38,94 +38,180 @@ Le seguenti tabelle riportano la funzione $f(x, \omega)$ che rappresenta dei ben
   \end{subfigure}
 \end{figure}
 
-% \subsection{Soluzione esercizio 6}
-% \begin{figure}
-%   \begin{tikzpicture}
-%     \Tree[.root
-%     [.$y_1$
-%     [.$\omega_1=0.1$
-%         [.$x_1$ [.$40$ ]]
-%           [.$x_2$ [.$100$ ]]
-%           [.$x_3$ [.$10$ ]]
-%       ]
-%       [.$\omega_2=0.4$
-%         [.$x_1$ [.$40$ ]]
-%           [.$x_2$ [.$0$ ]]
-%           [.$x_3$ [.$80$ ]]
-%       ]
-%     ]
-%     [.$y_2$
-%     [.$\omega_1=0.3$
-%         [.$x_1$ [.$40$ ]]
-%           [.$x_2$ [.$100$ ]]
-%           [.$x_3$ [.$10$ ]]
-%       ]
-%       [.$\omega_2=0.2$
-%         [.$x_1$ [.$40$ ]]
-%           [.$x_2$ [.$0$ ]]
-%           [.$x_3$ [.$80$ ]]
-%       ]
-%     ]
-%     [.\text{no esperimento}
-%     [.$\omega_1=0.4$
-%       [.$x_1$ [.$40$ ]]
-%         [.$x_2$ [.$100$ ]]
-%         [.$x_3$ [.$10$ ]]
-%     ]
-%     [.$\omega_2=0.6$
-%       [.$x_1$ [.$40$ ]]
-%         [.$x_2$ [.$0$ ]]
-%         [.$x_3$ [.$80$ ]]
-%     ]
-%     ]
-%     ]
-%   \end{tikzpicture}
-% \end{figure}
+\subsection{Soluzione esercizio 6}
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{faccio esperimento}
+    [.$0.5$
+      [.$y_1$
+          [.$x_1$
+              [.$0.2$
+                  [.$\w_1$
+                      [.$40$ ]
+                    ]
+                ]
+                [.$0.8$
+                  [.$\w_2$
+                      [.$40$ ]
+                    ]
+                ]
+            ]
+            [.$x_2$
+              [.$0.2$
+                  [.$\w_1$
+                      [.$100$ ]
+                    ]
+                ]
+                [.$0.8$
+                  [.$\w_2$
+                      [.$0$ ]
+                    ]
+                ]
+            ]
+            [.$x_3$
+              [.$0.2$
+                  [.$\w_1$
+                      [.$10$ ]
+                    ]
+                ]
+                [.$0.8$
+                  [.$\w_2$
+                      [.$80$ ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+    [.$0.5$
+      [.$y_2$
+          [.$x_1$
+              [.$0.6$
+                  [.$\w_1$
+                      [.$40$ ]
+                    ]
+                ]
+                [.$0.4$
+                  [.$\w_2$
+                      [.$40$ ]
+                    ]
+                ]
+            ]
+            [.$x_2$
+              [.$0.6$
+                  [.$\w_1$
+                      [.$100$ ]
+                    ]
+                ]
+                [.$0.4$
+                  [.$\w_2$
+                      [.$0$ ]
+                    ]
+                ]
+            ]
+            [.$x_3$
+              [.$0.6$
+                  [.$\w_1$
+                      [.$10$ ]
+                    ]
+                ]
+                [.$0.4$
+                  [.$\w_2$
+                      [.$80$ ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+    ]
+    [.\text{non faccio esperimento}
+    [.$x_1$
+      [.$0.4$
+          [.$\w_1$
+              [.$40$ ]
+            ]
+        ]
+        [.$0.6$
+          [.$\w_2$
+              [.$40$ ]
+            ]
+        ]
+    ]
+    [.$x_2$
+      [.$0.4$
+          [.$\w_1$
+              [.$100$ ]
+            ]
+        ]
+        [.$0.6$
+          [.$\w_2$
+              [.$0$ ]
+            ]
+        ]
+    ]
+    [.$x_3$
+      [.$0.4$
+          [.$\w_1$
+              [.$10$ ]
+            ]
+        ]
+        [.$0.6$
+          [.$\w_2$
+              [.$80$ ]
+            ]
+        ]
+    ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
 
-% \begin{figure}
-%   \begin{tikzpicture}
-%     \Tree[.root
-%     [.$y_1$
-%     [.$\omega_1=0.1$
-%         [.$x_2=100$ ]
-%       ]
-%       [.$\omega_2=0.4$
-%         [.$x_3=80$ ]
-%       ]
-%     ]
-%     [.$y_2$
-%     [.$\omega_1=0.3$
-%         [.$x_2=100$ ]
-%       ]
-%       [.$\omega_2=0.2$
-%         [.$x_3=80$ ]
-%       ]
-%     ]
-%     [.\text{no esperimento}
-%     [.$\omega_1=0.4$
-%       [.$x_2=100$ ]
-%     ]
-%     [.$\omega_2=0.6$
-%       [.$x_3=80$ ]
-%     ]
-%     ]
-%     ]
-%   \end{tikzpicture}
-% \end{figure}
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{faccio esperimento}
+    [.$0.5$
+      [.$y_1$
+          [.$x_1$
+              [.$40$ ]
+            ]
+            [.$x_2$
+              [.$20$ ]
+            ]
+            [.$x_3$
+              [.$66$ ]
+            ]
+        ]
+    ]
+    [.$0.5$
+      [.$y_2$
+          [.$x_1$
+              [.$40$ ]
+            ]
+            [.$x_2$
+              [.$60$ ]
+            ]
+            [.$x_3$
+              [.$38$ ]
+            ]
+        ]
+    ]
+    ]
+    [.\text{non faccio esperimento}
+    [.$x_1$
+      [.$40$ ]
+    ]
+    [.$x_2$
+      [.$40$ ]
+    ]
+    [.$x_3$
+      [.$52$ ]
+    ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
 
-% \begin{figure}
-%   \begin{tikzpicture}
-%     \Tree[.root
-%     [.$y_1$
-%     [.$x_3$ ]]
-%     [.$y_2$
-%     [.$x_2$ ]]
-%     [.\text{no esperimento}
-%     [.$x_3$ ]]
-%     ]
-%   \end{tikzpicture}
-% \end{figure}
-
-% Se non eseguo l'esperimento la scelta migliore è $x_3$ mentre eseguendolo ad esito $y_1$ la scelta migliore risulta essere $x_3$ e a esito $y_2$ la scelta $x_2$.
+Eseguendo l'esperimento la scelta migliore risulta essere $x_3$, scelta che mantiene l'ottimalità anche quando si sceglie di non eseguire l'esperimento.
 
 \end{document}

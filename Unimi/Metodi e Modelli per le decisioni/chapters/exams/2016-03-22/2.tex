@@ -9,7 +9,7 @@ Dato il problema di programmazione matematica
   \min f(x) & = (x_1+1)^2 + (x_2 + \frac{1}{2})^2 \\
   g_1(x)    & = x_1 - x_2 \leq 0                  \\
   g_2(x)    & = x_1 + x_2 \geq 0                  \\
-  g_3(x)    & = x_3 \geq 0                        \\
+  g_3(x)    & = x_2 \geq 0                        \\
 \end{align*}
 
 \begin{enumerate}[a)]
@@ -32,18 +32,7 @@ Dato il problema di programmazione matematica
 
 \begin{figure}
   \begin{subfigure}{0.45\textwidth}
-    \begin{tikzpicture}
-      \begin{axis}[
-          xlabel=$x_1$,
-          ylabel=$x_2$,
-          zlabel=$f(x)$,
-          domain=-1:1,
-          y domain=0:1
-        ]
-        \addplot3[surf, unbounded coords=jump]
-        {x - y < 0 && -x -y <0 && y > 0 ? (x+1)^2 + (y + 0.5)^2 : NaN};
-      \end{axis}
-    \end{tikzpicture}
+    \xygraph{-10}{10}{0}{10}{1.25}{x - y < 0 && -x -y <0 && y > 0}{(x+1)^2 + (y + 0.5)^2}
     \caption{La funzione $f(x)$}
     \label{func_2}
   \end{subfigure}
@@ -78,7 +67,7 @@ Dato il problema di programmazione matematica
 Nessuno dei gradienti si può annullare.
 
 \subparagraph*{Calcolo dei punti di intersezione dei vincoli}
-L'unico punto di intersezione esistente è l'origine $O=(0,0)$. Questo punto è regolare poichè non rende singolare la matrice dei gradienti (che non può mai annullarsi).
+L'unico punto di intersezione esistente è l'origine $O=(0,0)$. Questo punto è \textbf{non regolare} poichè si pone sull'intersezione dei tre vincoli, quindi $O$ è candidato.
 
 \paragraph*{Condizioni di KKT}
 

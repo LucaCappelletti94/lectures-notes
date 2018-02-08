@@ -23,25 +23,15 @@ a) La funzione nel suo dominio di definizione è la seguente:
 
 \begin{figure}
 	\begin{subfigure}{0.45\textwidth}
-		\begin{tikzpicture}
-			\begin{axis}[
-					xlabel=$x_2$,
-					ylabel=$x_1$,
-					zlabel=$f(x)$,
-					domain=0:2,
-					y domain=1:5
-				]
-				\addplot3[surf, unbounded coords=jump]
-				{y^2 + x^2 -6*y - 4*x + 9 <  0 && x < 2 ? x^2 + y - 4*x : NaN};
-			\end{axis}
-		\end{tikzpicture}
+		\dddgraph{x_2}{x_1}{0}{2}{1}{5}{-3}{y^2 + x^2 -6*y - 4*x + 9 <  0 && x < 2}{x^2 + y - 4*x}
 		\caption{La funzione $f(x)$}
 	\end{subfigure}
 	~
 	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=0.8\textwidth]{10022017domain}
+		\includegraphics[width=0.8\textwidth]{10022016domain}
 		\caption{Dominio della funzione $f(x)$}
 	\end{subfigure}
+	\caption{La funzione nel suo dominio di definizione}
 \end{figure}
 
 b) Le condizioni di Karush-Kuhn-Tucker sono le seguenti:
@@ -106,7 +96,7 @@ Identifichiamo ora i punti di intersezione dei vincoli:
 	\end{cases}
 \]
 
-I punti candidati quindi sono $A = (1, 2)$ e $B = (5, 2)$.
+I punti identificati quindi sono $A = (1, 2)$ e $B = (5, 2)$.
 
 Verifichiamo che i gradienti siano linearmente indipendenti tramite il metodo della matrice: se per uno di essi fossero dipendenti (cioè la matrice ha determinante 0) allora $A$ non sarebbe regolare e le condizioni KKT perderebbero di validità.
 
@@ -127,7 +117,7 @@ Verifichiamo che i gradienti siano linearmente indipendenti tramite il metodo de
 \]
 
 
-I gradienti sono linearmente indipendenti sia in $A$ che in $B$.
+I gradienti sono linearmente indipendenti sia in $A$ che in $B$, che essendo regolari non sono punti candidati.
 
 \paragraph*{Calcolo della lagrangiana generalizzata}
 La formula della lagrangiana generalizzata (figura \ref{lagrangiana_generalizzata}) assomiglia molto alle condizioni KKT ma si applica sulle primitive (non i gradienti).
@@ -245,7 +235,7 @@ Solamente $x_1 = 1$ è accettabile poiché $\mu_1 > 0$:
 	\end{cases}
 \]
 
-Ne otteniamo quindi il punto candidato $C = (1, 2)$ con $\bm{\mu} = \begin{bmatrix}
+Ne otteniamo quindi il punto candidato coincidente con $A = (1, 2)$, con $\bm{\mu} = \begin{bmatrix}
 		\frac{1}{4} \\
 		0
 	\end{bmatrix}$.
@@ -288,11 +278,9 @@ Sostituisco i punti candidati nella funzione da minimizzare ed ottengo:
 \[
 	\begin{cases}
 		f(A) = f(1,2) =  4 + 1 - 8 = -3 \\
-		f(B) = f(5,2) =  4 + 5 - 8 = 1  \\
-		f(C) = f(1, 2) = 1              \\
 	\end{cases}
 \]
 
-Il punto di ottimo locale (minimo) risulta essere $B = (5, 2)$.
+Il punto di ottimo locale (minimo) risulta essere $A = (1, 2)$.
 
 \end{document}

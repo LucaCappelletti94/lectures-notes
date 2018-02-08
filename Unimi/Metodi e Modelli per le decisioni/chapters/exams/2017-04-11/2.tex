@@ -24,18 +24,7 @@ Dato il problema di programmazione matematica
 
 \begin{figure}
   \begin{subfigure}{0.45\textwidth}
-    \begin{tikzpicture}
-      \begin{axis}[
-          xlabel=$x_1$,
-          ylabel=$x_2$,
-          zlabel=$f(x)$,
-          domain=0:3,
-          y domain=0:3
-        ]
-        \addplot3[surf, unbounded coords=jump]
-        {1-x*y < 0 && x + y < 4 && -x - y < 2 ? y^2 + x^2 : NaN};
-      \end{axis}
-    \end{tikzpicture}
+    \xygraph{0}{4}{0}{4}{0}{1-x*y < 0 && x + y < 4 && -x - y < 2}{y^2+x^2}
     \caption{La funzione $f(x)$}
   \end{subfigure}
   ~
@@ -43,6 +32,7 @@ Dato il problema di programmazione matematica
     \includegraphics[width=0.8\textwidth]{11042016domain}
     \caption{Dominio della funzione $f(x)$}
   \end{subfigure}
+  \caption{La funzione nella regione ammissibile}
 \end{figure}
 
 \paragraph*{Calcolo dei punti non regolari:}
@@ -98,12 +88,17 @@ Da cui deriviamo i punti $A = (2 + \sqrt{3}, 2 - \sqrt{3})$ e $B = (2 - \sqrt{3}
   \end{cases}
   \Rightarrow
   \begin{cases}
-    1+x^2_2 +2x_2 = 0 \Rightarrow x_2 = 1 \\
-    x_1  = -3
+    1+(x_2 + 2)x_2 = 0 \\
+    x_1  = -x_2 - 2
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    1+x^2_2 +2x_2 = 0 \Rightarrow x_2 = -1 \\
+    x_1  = -1
   \end{cases}
 \]
 
-Ne deriviamo il punto $C = (-3, 1)$ che nuovamente non annulla il determinante della matrice dei gradienti ed è quindi regolare.
+Ne deriviamo il punto $C = (-1, -1)$ che viene identificato come punto non regolare ed è quindi aggiunto alla lista dei punti candidati.
 
 \subparagraph*{Vincoli $g_2$ e $g_3$:}
 I due vincoli non hanno intersezioni.
@@ -164,7 +159,7 @@ I tre vincoli non hanno intersezioni comuni.
   \end{cases}
 \]
 
-Viene identificato il punto candidato $D = (-1, -1)$.
+Viene identificato nuovamente il punto candidato $C = (-1, -1)$.
 
 \subparagraph*{Caso $\mu_2 > 0 \land g_2 = 0$}
 
@@ -187,13 +182,10 @@ I valori ottenuti non rispettano il vincolo $\mu_2 \geq 0$.
 
 \[
   \begin{cases}
-    f(A) = f(2+\sqrt3, 2 - \sqrt{3}) = 14  \\
-    f(B) =  f(2-\sqrt3, 2 + \sqrt{3}) = 14 \\
-    f(C) = f(-3, -1) = 10                  \\
-    f(D) = f(-1, -1) = 2                   \\
+    f(C) = f(-1, -1) = 2 \\
   \end{cases}
 \]
 
-Il punto di ottimo locale risulta essere $D$.
+Il punto di ottimo locale risulta essere $C$.
 
 \end{document}
