@@ -104,12 +104,12 @@ Mi limito a plottare il risultato calcolato dal computer.
         y domain=0:1
       ]
 
-      % \addplot3[mark=none,color=pink]{-6*y + 3\geq=max(-6*y + 3,-x-4*y + 4,-5*x*-8*y + 10,-9*x-6*y + 11,-11*x-2*y + 9,-9*x+ 6)-0.1?1:NaN};
-      % \addplot3[mark=none,color=blue]{-x-4*y + 4>=max(-6*y + 3,-x-4*y + 4,-5*x*-8*y + 10,-9*x-6*y + 11,-11*x-2*y + 9,-9*x+ 6)-0.1?1:NaN};
-      \addplot3[mark=none,color=green]{x+y<=1 && -5*x*-8*y + 10>=max(-6*y + 3,-x-4*y + 4,-5*x*-8*y + 10,-9*x-6*y + 11,-11*x-2*y + 9,-9*x+ 6)?1:NaN};
-      \addplot3[mark=none,color=black]{x+y<=1 && -9*x-6*y + 11>=max(-6*y + 3,-x-4*y + 4,-5*x*-8*y + 10,-9*x-6*y + 11,-11*x-2*y + 9,-9*x+ 6)?1:NaN};
-      \addplot3[mark=none,color=red]{x+y<=1 && -11*x-2*y + 9>=max(-6*y + 3,-x-4*y + 4,-5*x*-8*y + 10,-9*x-6*y + 11,-11*x-2*y + 9,-9*x+ 6)?1:NaN};
-      \addplot3[mark=none,color=blue]{x+y<=1 && -9*x+ 6>=max(-6*y + 3,-x-4*y + 4,-5*x*-8*y + 10,-9*x-6*y + 11,-11*x-2*y + 9,-9*x+ 6)?1:NaN};
+      % \addplot3[mark=none,color=pink]{-6*y + 3\geq=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))-0.1?1:NaN};
+      % \addplot3[mark=none,color=blue]{-x-4*y + 4>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))-0.1?1:NaN};
+      \addplot3[mark=none,color=green]{x+y<=1 && -5*x*-8*y + 10>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      \addplot3[mark=none,color=black]{x+y<=1 && -9*x-6*y + 11>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      \addplot3[mark=none,color=red]{x+y<=1 && -11*x-2*y + 9>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      \addplot3[mark=none,color=blue]{x+y<=1 && -9*x+ 6>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
 
       % \legend{$v_1$,$v_2$,$v_3$,$v_4$,$v_5$,$v_6$}
       \legend{$v_3$,$v_4$,$v_5$,$v_6$}
