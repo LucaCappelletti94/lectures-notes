@@ -55,4 +55,32 @@ Con il termine \textit{quadtree} si indica una classe di strutture dati basate s
 
 Il più comune approccio di tipo \textit{quad-tree decomposition} si basa sulla successiva divisione di un immagine in quattro quadranti di uguali dimensioni (come nell'esempio in figura~\ref{fig:qtdecomp}): un quadrante viene suddiviso solo se i pixel al suo interno sono disomogenei. Il nodo radice è l'intera immagine e il caso degenere della ricorsione è costituito dal singolo pixel (indivisibile). Occorre definire cosa si intende per disomogenei: per immagini binarie si può dire che ogni quadrante è omogeneo solo se tutti i pixel hanno lo stesso valore, per immagini RGB si può imporre una soglia di varianza.
 
+\subsection{Agglomerative Clustering}
+Il clustering agglomerativo si basa sulla seguente procedura \begin{enumerate}
+	\item Ogni oggetto del dataset costituisce un singoletto (un cluster di un solo elemento). Si calcola la matrice di prossimità (la matrice che calcola per ogni coppia di cluster la distanza)
+	\item Vengono combinati i cluster a distanza minima
+	\item La matrice di prossimità viene aggiornata con le distanze tra il nuovo cluster e gli altri
+	\item Se i cluster sono più di uno, ritornare al passo 2
+\end{enumerate}
+Gli algoritmi di clustering agglomerativo differiscono soprattutto per la politica di calcolo della distanza (oltre che per la funzione di distanza scelta) fra cluster, detta \textit{linkage}. Le più comuni sono\begin{itemize}
+	\item \textit{Single linkage}: distanza minima tra oggetti dei due cluster
+	\item \textit{Complete linkage}: distanza massima tra oggetti dei due cluster
+	\item \textit{Group average linkage}: distanza media tra oggetti dei due cluster
+	\item \textit{Median linkage}: distanza mediana tra oggetti dei due cluster
+	\item \textit{Centroid linkage}: distanza tra i centroidi dei due cluster
+	\item \textit{Metodo di Ward}: aumento di varianza \textit{whitin-groups}
+\end{itemize}
+Per ognuna di queste definizioni di \textit{linkage}, esistono dei pesi $\graffe{ \alpha_i , \alpha_j , \beta , \gamma }$, tali per cui il valore della distanza del nuovo cluster da uno degli altri cluster $C_l$ può essere ottenuto dai valori di distanza fra $C_l$ e i due cluster $C_i$ e $C_j$ che stiamo unendo, tramite la formula di ricorrenza di Lance e Williams:\\ \ \\
+$ D(C_l,(C_i,C_j)) = $ 
+\begin{flushright}
+	$\alpha_i D(C_l,C_i)+ \alpha_j D(C_l,C_j) + \beta D(C_i,C_j) + \gamma \left| D(C_l,C_i)-D(C_l,C_j) \right| $
+\end{flushright}
+\begin{figure} \centering
+	\caption{Esempio di dendrogramma risultante dal clustering agglomerativo degli stati membri degli USA per numero di arresti}
+	\label{fig:hcdendrogram}
+	\ \newline 
+	\includegraphics[width=0.75\textwidth,trim={1.5in 0.25in 0 1.25in},clip]{../images/hcdendrogram.png}
+\end{figure}
+I risultati del clustering agglomerativo vengono solitamente visualizzati con un dendrogramma (figura~\ref{fig:hcdendrogram}).
+
 \end{document}
