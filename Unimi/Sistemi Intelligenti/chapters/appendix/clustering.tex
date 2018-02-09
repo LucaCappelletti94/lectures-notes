@@ -3,7 +3,14 @@
 \begin{document}
 
 \subsection{Cosa si intende per clustering? In quali famiglie vengono divisi? [3]}
-Per clustering si intende raggruppamento degli input per similitudini. Ci sono vari famiglie di clustering: algoritmi gerarchici, algoritmi statistici, algoritmi partizionali hard-clustering e soft-clustering.
+La classificazione non-supervisionata, più spesso chiamata \textit{clustering}, consiste nel separare un insieme di dati non etichettati in insiemi, i \textit{cluster}, internamente omogenei.
+Per effettuare clustering esistono molti tipi di algoritmi, che si dividono principalmente in due classi: algoritmi gerarchici e algoritmi partizionali.
+
+Gli algoritmi gerarchici organizzano il dataset in una struttura ad albero dividendo cluster troppo disomogenei (algoritmi divisivi) o unendo cluster simili tra loro (algoritmi agglomerativi).
+
+Gli algoritmi partizionali impongono una suddivisione dello spazio delle \textit{feature} in più sottoinsiemi, che sono i cluster: se ogni \textit{pattern} può appartenere ad un solo cluster si parla di \textit{hard clustering}, altrimenti, se ogni pattern può appartenere a più cluster con un grado di \textit{membership} si parla di \textit{soft clustering} o \textit{fuzzy clustering}.
+
+Alcuni algoritmi possono essere basati su teorie probabilistiche: si parla di algoritmi statistici.
 
 \subsection{Che relazione c'è tra clustering e classificazione}
 Mentre il clustering cerca di raggruppare in cluster a partire dalle feature di un gruppo di oggetti, la classificazione si occupa, date le classi, di assegnare ogni elemento di un gruppo di oggetti ad una classe.
