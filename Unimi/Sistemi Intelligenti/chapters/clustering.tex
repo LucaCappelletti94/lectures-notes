@@ -83,4 +83,28 @@ $ D(C_l,(C_i,C_j)) = $
 \end{figure}
 I risultati del clustering agglomerativo vengono solitamente visualizzati con un dendrogramma (figura~\ref{fig:hcdendrogram}).
 
+\subsection{K-means}
+\begin{figure} \centering
+	\caption{Esempio di applicazione di K-means: inizializzazione e risultato}
+	\label{fig:kmeans}
+	\ \newline 
+	\includegraphics[width=0.49\textwidth,trim={2.5in 1.25in 1.5in 1.2in},clip]{../images/kmeans_0.pdf}
+	\includegraphics[width=0.49\textwidth,trim={2.5in 1.25in 1.5in 1.2in},clip]{../images/kmeans_f.pdf}
+\end{figure}
+Uno dei più famosi algoritmi di clustering è \textit{K-means}: è un algoritmo partitivo \textit{squared error-based}.\begin{enumerate}
+	\item Viene inizializzata una partizione in K parti del dataset casualmente o in base a informazioni a priori, imponendo un prototipo per il clustering che è un vettore di medie
+	\item Ogni oggetto viene assegnato al cluster più vicino
+	\item Il vettore di medie viene aggiornato con le medie dei nuovi cluster
+	\item Se il vettore è cambiato, tornare al punto 2
+\end{enumerate}
+Il cluster di appartenenza viene determinato come la media più vicina
+$$ x_j \in C_w \Leftrightarrow ||x_j-m_w||<||x_j-m_i|| \ \forall i \neq w $$
+K-means è molto semplice e si può implementare per risolvere problemi che coinvolgono grandi moli di dati (la sua complessità è lineare nel numero di pattern di input), inoltre, è estremamente parallelizzabile e lavora molto bene su cluster ipersferici.
+
+Presenta vari svantaggi: non esiste un metodo universale ed efficiente per determinare le partizioni iniziali e il numero di cluster. Una strategia generale è di utilizzarlo più volte con inizializzazioni casuali, un'altra consigliata è il metodo di Kaufman. L'algoritmo iterativo non garantisce la convergenza in un ottimo globale: per ottenere ciò in modo efficiente, sono state sviluppate modifiche basate su tecniche stocasticamente ottime e algoritmi genetici.
+
+Inoltre K-means è molto sensibile a rumore e agli outliers: algoritmi di tipo \textit{K-medoids} sono stati proposti, in cui i prototipi dei cluster sono scelti come i medoid dei cluster, ovvero i punti di ogni cluster che minimizzano la somma delle distanze dei punti del cluster dal medoid.
+
+K-means ha anche il problema di basarsi sulla definizione di \textit{media}: non può essere applicato per tipi di dato sul quale non è possibile calcolare la media (o non avrebbe senso): in questi casi si può comunque usare K-medoids.
+
 \end{document}
