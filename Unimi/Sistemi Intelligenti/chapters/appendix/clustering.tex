@@ -12,10 +12,18 @@ Gli algoritmi partizionali impongono una suddivisione dello spazio delle \textit
 
 Alcuni algoritmi possono essere basati su teorie probabilistiche: si parla di algoritmi statistici.
 
-\subsection{Che relazione c'è tra clustering e classificazione}
-Mentre il clustering cerca di raggruppare in cluster a partire dalle feature di un gruppo di oggetti, la classificazione si occupa, date le classi, di assegnare ogni elemento di un gruppo di oggetti ad una classe.
+\subsection{Che relazione c'è tra clustering e classificazione e quali sono le criticità? [3]}
+Il clustering consiste nel separare un insieme di dati non etichettati in sottoinsiemi, mentre la classificazione separa un dataset in insiemi di dati etichettati. Per la loro somiglianza, il clustering viene anche chiamato \textit{classificazione non supervisionata}.
 
-\subsection{Quali sono le criticità? [3]}
-Il clustering non è un problema ben posto, perché ci sono diversi gradi di libertà da fissare su come effettuare un clustering, per esempio variando algoritmo, calcolo di feature, misura di similarità il risultato può essere molto diverso. 
+Il clustering è un problema di apprendimento non supervisionato, in cui il sistema non riceve alcun riscontro sulla correttezza della propria soluzione, al contrario, la classificazione è un problema di apprendimento supervisionato, in cui il sistema viene allenato con un \textit{training set}: oltre al pattern di ingresso, viene fornita al sistema quale è la soluzione desiderata (la classe di appartenenza).
+
+Per validare le performance di un classificatore è possibile utilizzare il sistema già addestrato su un insieme di dati nuovi, un \textit{test set}: questo procedimento testa la capacità del sistema di generalizzare e può rilevare il verificarsi di \textit{overfitting}.
+
+Per validare un sistema di clustering, invece, bisogna validare l'algoritmo stesso: inoltre, la scelta dell'algoritmo può variare notevolmente la soluzione. Infatti, il clustering viene considerato un problema mal posto.
+
+Altri fattori che possono influenzare sulla performance di un sistema di clustering sono: lo spazio di rappresentazione dei pattern (\textit{feature space}), la metrica di distanza implementata (distanza euclidea, \textit{Manhattan}, \textit{Mahalanobis}, distanze di \textit{Minkowski}, \dots ).
+
+Per gli algoritmi gerarchici agglomerativi, i risultati sono influenzati dalla strategia di \textit{linkage} utilizzata, mentre per gli algoritmi divisivi bisogna quantificare l'omogeneità dei cluster.
+Algoritmi come K-means sono molto soggetti all'inizializzazione: gli algoritmi gerarchici no, ma sono comunque sensibili agli \textit{outlier}; inoltre, gli algoritmi gerarchici non riconsiderano in nessun passo le decisioni effettuate nei passi precedenti per cercare di correggere eventuali misclassificazioni.
 
 \end{document}
