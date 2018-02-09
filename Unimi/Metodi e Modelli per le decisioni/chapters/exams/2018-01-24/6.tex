@@ -1,0 +1,159 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Exercise 6}
+Model and resolve the following decision problem in uncertainty conditions.
+
+We want to order a pizza from a distant restaurant that sells it at \$10. It is possible to get it personally or to request the home delivery, which costs \$2, with a probability of the 2\% that the delivery delays and the pizza gets cold. In this scenario the pizza is free, and we can either choose to eat it as such with a discomfort measurable as a expenditure of \$5 or to heat it up again in the home oven, with a probability of the 10\% to burn it and having to go to the restaurant downstairs, where a pizza costs \$15.
+
+If one choses to retrieve the pizza by himself, there's a probability of the 10\% that the pizza gets cold. In this scenario, one can either eat it cold with a discomfort of \$5 or ask to the restaurant for having it re-heated, with a cost of \$1 and a discomfort measurable as an expenditure of \$1.
+
+\subsection{Exercise 6 resolution}
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{Home delivery}
+    [.\text{2\%: The pizza gets cold}
+    [.\text{Eat it cold}
+    [.\$5 ]
+    ]
+    [.\text{Try to re-heat it}
+    [.{10\%: The pizza gets burned}
+    [.\text{You have to buy it downstairs}
+    [.\$15 ]
+    ]
+    ]
+    [.{90\%: The pizza is heated}
+    [.\$0 ]
+    ]
+    ]
+    ]
+    [.\text{98\%: The pizza is fine}
+    [.\$10 ]
+    ]
+    ]
+    [.\text{Personal retrieval}
+    [.\text{10\% You are late}
+      [.\text{Eat it cold}
+        [.\$15 ]
+      ]
+      [.\text{Re-heat it}
+        [.\$12 ]
+      ]
+    ]
+    [.\text{90\% You are on time}
+      [.\$10 ]
+    ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+
+Resolving the tree with optimizing for minimum cost.
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{Home delivery}
+    [.\text{2\%: The pizza gets cold}
+    [.\text{Eat it cold}
+    [.\$5 ]
+    ]
+    [.\text{Try to re-heat it}
+    [.{10\%: The pizza gets burned}
+    [.\text{You have to buy it downstairs}
+    [.\$15 ]
+    ]
+    ]
+    [.{90\%: The pizza is heated}
+    [.\$0 ]
+    ]
+    ]
+    ]
+    [.\text{98\%: The pizza is fine}
+    [.\$10 ]
+    ]
+    ]
+    [.\text{Personal retrieval}
+    [.\text{10\% You are late}
+      [.\text{Re-heat it}
+        [.\$12 ]
+      ]
+    ]
+    [.\text{90\% You are on time}
+      [.\$10 ]
+    ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{Home delivery}
+    [.\text{2\%: The pizza gets cold}
+      [.\text{Eat it cold}
+        [.\$5 ]
+      ]
+      [.\text{Try to re-heat it}
+        [.\$1.5 ]
+      ]
+    ]
+    [.\text{98\%: The pizza is fine}
+      [.\$10 ]
+    ]
+    ]
+    [.\text{Personal retrieval}
+    [.\$10.2 ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{Home delivery}
+    [.\text{2\%: The pizza gets cold}
+      [.\text{Try to re-heat it}
+        [.\$1.5 ]
+      ]
+    ]
+    [.\text{98\%: The pizza is fine}
+      [.\$10 ]
+    ]
+    ]
+    [.\text{Personal retrieval}
+    [.\$10.2 ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{Home delivery}
+    [.\$9.83 ]
+    ]
+    [.\text{Personal retrieval}
+    [.\$10.2 ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.root
+    [.\text{Home delivery}
+    [.\$9.83 ]
+    ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+
+\end{document}

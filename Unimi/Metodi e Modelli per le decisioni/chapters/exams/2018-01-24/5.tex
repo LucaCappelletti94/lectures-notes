@@ -1,0 +1,51 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Exercise 5}
+
+\begin{table}
+  \begin{tabular}{L|LLLLL}
+        & a_1 & a_2 & a_3 & a_4 & a_5 \\
+    \hline
+    f_1 & 40  & 50  & 20  & 30  & 60  \\
+    f_2 & 60  & 40  & 90  & 30  & 20
+  \end{tabular}
+\end{table}
+
+\begin{enumerate}[a)]
+  \item Describe the Wald maximin worst case criterion.
+  \item Describe the Savage minimax regret criterion.
+  \item Apply both criterion to the giving table, containing utilities.
+\end{enumerate}
+
+\subsection{Exercise 5 resolution}
+\subsubsection*{Wald maximin worst case criterion}
+This criterion suggests to suppose the worst case for each option as certain, and therefore to pick the lesser evil: the choice whose worst case has the best utility.
+
+\begin{table}
+  \begin{tabular}{L|LLLLL}
+                    & a_1 & a_2 & a_3 & a_4 & a_5 \\
+    \hline
+    u_{\text{Wald}} & 40  & 40  & 20  & 30  & 20  \\
+  \end{tabular}
+  \caption{Worst cases}
+\end{table}
+
+The worst case criterion suggests either the $a_3$ or the $a_5$ solution.
+
+\subsubsection*{Savage maximin regret criterion}
+This criterion suggests to minimize the distance from the optimal scenario and then select following the worst case criterion, meaning the choice with the maximum minimum distance from the optimal scenario.
+
+\begin{table}
+  \begin{tabular}{L|LLLLL}
+                      & a_1 & a_2 & a_3 & a_4 & a_5 \\
+    \hline
+    u_{\text{Savage}} & 20  & 10  & 0   & 30  & 0   \\
+  \end{tabular}
+  \caption{Distance from optimal case}
+\end{table}
+
+The worst case criterion suggests the $a_4$ solution.
+
+\end{document}
