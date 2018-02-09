@@ -44,4 +44,15 @@ I vantaggi del clustering gerarchico sono l'indipendenza dall'inizializzazione e
 \subsubsection{Validazione}
 Qualsiasi sia la strategia utilizzata, devono essere applicate delle procedure consolidate di validazione del clustering, per confermare la fondatezza del risultato ottenuto.
 
+\subsection{Quad-Tree Decomposition}
+\begin{figure} \centering
+	\caption{Esempio di utilizzo di \textit{quad-tree decomposition} per la compressione di un'immagine raster binaria}
+	\label{fig:qtdecomp}
+	\ \newline 
+	\includegraphics[width=\textwidth,trim={1.25in 2.5in 1.25in 2.5in},clip]{../images/qtdecomp.pdf}
+\end{figure}
+Con il termine \textit{quadtree} si indica una classe di strutture dati basate sulla decomposizione ricorsiva dello spazio: essi possono variare per il tipo di dati rappresentati, per il criterio che guida la decomposizione e la risoluzione (che può essere variabile o fissa). È un algoritmo gerarchico divisivo.
+
+Il più comune approccio di tipo \textit{quad-tree decomposition} si basa sulla successiva divisione di un immagine in quattro quadranti di uguali dimensioni (come nell'esempio in figura~\ref{fig:qtdecomp}): un quadrante viene suddiviso solo se i pixel al suo interno sono disomogenei. Il nodo radice è l'intera immagine e il caso degenere della ricorsione è costituito dal singolo pixel (indivisibile). Occorre definire cosa si intende per disomogenei: per immagini binarie si può dire che ogni quadrante è omogeneo solo se tutti i pixel hanno lo stesso valore, per immagini RGB si può imporre una soglia di varianza.
+
 \end{document}
