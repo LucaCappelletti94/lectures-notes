@@ -1,0 +1,378 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+
+\newcommand{\defaultWrapperPrepper}[9]{
+  \def\GraphArgI{#1}%
+  \def\GraphArgII{#2}%
+  \def\GraphArgIII{#3}%
+  \def\GraphArgIV{#4}%
+  \def\GraphArgV{#5}%
+  \def\GraphArgVI{#6}%
+  \def\GraphArgVII{#7}%
+  \def\GraphArgVIII{#8}%
+  \def\GraphArgIX{#9}%
+  \defaultWrapperPrepperRelay
+}
+
+\newcommand{\defaultWrapperPrepperRelay}[9]{
+  \def\GraphArgX{#1}%
+  \def\GraphArgXI{#2}%
+  \def\GraphArgXII{#3}%
+  \def\GraphArgXIII{#4}%
+  \def\GraphArgXIV{#5}%
+  \def\GraphArgXV{#6}%
+  \def\GraphArgXVI{#7}%
+  \def\GraphArgXVII{#8}%
+  \def\GraphArgXVIII{#9}%
+  \defaultWrapperPrepperSecondRelay
+}
+
+\newcommand{\defaultWrapperPrepperSecondRelay}[9]{
+  \def\GraphArgXIX{#1}%
+  \def\GraphArgXX{#2}%
+  \def\colorI{#3}%
+  \def\colorII{#4}%
+  \def\colorIII{#5}%
+  \def\colorIV{#6}%
+  \def\colorV{#7}%
+  \def\colorVI{#8}%
+  \def\colorVII{#9}%
+  \defaultGraph
+}
+
+\def\red{red}
+\def\blue{blue}
+\def\black{black}
+
+\NewDocumentCommand{\defaultGraph}{m m m m}{
+  \def\colorVIII{#1}%
+  \def\colorIX{#2}%
+  \def\colorX{#3}%
+  \def\defaultCuts{#4}%
+
+  \FPsub{\substrI}{\GraphArgI}{\GraphArgXI}
+  \FPsub{\substrII}{\GraphArgII}{\GraphArgXII}
+  \FPsub{\substrIII}{\GraphArgIII}{\GraphArgXIII}
+  \FPsub{\substrIV}{\GraphArgIV}{\GraphArgXIV}
+  \FPsub{\substrV}{\GraphArgV}{\GraphArgXV}
+  \FPsub{\substrVI}{\GraphArgVI}{\GraphArgXVI}
+  \FPsub{\substrVII}{\GraphArgVII}{\GraphArgXVII}
+  \FPsub{\substrVIII}{\GraphArgVIII}{\GraphArgXVIII}
+  \FPsub{\substrIX}{\GraphArgIX}{\GraphArgXIX}
+  \FPsub{\substrX}{\GraphArgX}{\GraphArgXX}
+
+
+  \FPclip{\substrI}{\substrI}
+  \FPclip{\substrII}{\substrII}
+  \FPclip{\substrIII}{\substrIII}
+  \FPclip{\substrIV}{\substrIV}
+  \FPclip{\substrV}{\substrV}
+  \FPclip{\substrVI}{\substrVI}
+  \FPclip{\substrVII}{\substrVII}
+  \FPclip{\substrVIII}{\substrVIII}
+  \FPclip{\substrIX}{\substrIX}
+  \FPclip{\substrX}{\substrX}
+
+  \tikzexternaldisable
+  \begin{tikzpicture}
+    \tikzset{
+      vertex/.style={circle,draw,minimum size=2em},
+      edge/.style={->,> = latex}
+    }
+
+    % vertices
+    \node[vertex] (s) at (0,2) {$s$};
+    \node[vertex] (t) at (8,2) {$t$};
+    \node[vertex] (1) at (2,4) {$1$};
+    \node[vertex] (2) at (6,4) {$2$};
+    \node[vertex] (3) at (2,0) {$3$};
+    \node[vertex] (4) at (6,0) {$4$};
+
+    %edges
+    \FPifeq\GraphArgXI\zero
+    \draw[edge,\colorI] (s) to node[midway, left] {\substrI}(1);
+    \else
+    \FPifgt\substrI\zero
+    \draw[edge,\colorI] (s) to [bend right=20] node[midway, left] {\substrI}(1);
+    \fi
+
+    \FPifeq\substrI\zero
+    \draw[edge,\colorI] (1) to node[midway, right] {\GraphArgXI}(s);
+    \else
+    \FPifgt\GraphArgXI\zero
+    \draw[edge,\colorI] (1) to [bend right=20] node[midway, right] {\GraphArgXI}(s);
+    \fi
+
+    \FPifeq\substrII\zero
+    \draw[edge,\colorII] (3) to node[midway, left] {\GraphArgXII}(s);
+    \else
+    \FPifgt\GraphArgXII\zero
+    \draw[edge,\colorII] (3) to [bend right=20] node[midway, left] {\GraphArgXII}(s);
+    \fi
+
+    \FPifeq\GraphArgXII\zero
+    \draw[edge,\colorII] (s) to node[midway, right] {\substrII}(3);
+    \else
+    \FPifgt\substrII\zero
+    \draw[edge,\colorII] (s) to [bend right=20] node[midway, right] {\substrII}(3);
+    \fi
+
+    \FPifeq\GraphArgXIII\zero
+    \draw[edge,\colorIII] (3) to node[midway, left] {\substrIII}(1);
+    \else
+    \FPifgt\substrIII\zero
+    \draw[edge,\colorIII] (3) to [bend right=20] node[midway, left] {\substrIII}(1);
+    \fi
+
+    \FPifeq\substrIII\zero
+    \draw[edge,\colorIII] (1) to node[midway, right] {\GraphArgXIII}(3);
+    \else
+    \FPifgt\GraphArgXIII\zero
+    \draw[edge,\colorIII] (1) to [bend right=20] node[midway, right] {\GraphArgXIII}(3);
+    \fi
+
+    \FPifeq\GraphArgXIV\zero
+    \draw[edge,\colorIV] (3) to node[midway, above] {\substrIV}(4);
+    \else
+    \FPifgt\substrIV\zero
+    \draw[edge,\colorIV] (3) to [bend right=20] node[midway, above] {\substrIV}(4);
+    \fi
+
+    \FPifeq\substrIV\zero
+    \draw[edge,\colorIV] (4) to node[midway, below] {\GraphArgXIV}(3);
+    \else
+    \FPifgt\GraphArgXIV\zero
+    \draw[edge,\colorIV] (4) to [bend right=20] node[midway, below] {\GraphArgXIV}(3);
+    \fi
+
+    \FPifeq\GraphArgXV\zero
+    \draw[edge,\colorV] (4) to node[pos=.3, left] {\substrV}(1);
+    \else
+    \FPifgt\substrV\zero
+    \draw[edge,\colorV] (4) to [bend right=20] node[pos=.3, left] {\substrV}(1);
+    \fi
+
+    \FPifeq\substrV\zero
+    \draw[edge,\colorV] (1) to node[pos=.3, right] {\GraphArgXV}(4);
+    \else
+    \FPifgt\GraphArgXV\zero
+    \draw[edge,\colorV] (1) to [bend right=20] node[pos=.3, right] {\GraphArgXV}(4);
+    \fi
+
+    \FPifeq\GraphArgXVI\zero
+    \draw[edge,\colorVI] (4) to node[midway, left] {\substrVI}(2);
+    \else
+    \FPifgt\substrVI\zero
+    \draw[edge,\colorVI] (4) to [bend right=20] node[midway, left] {\substrVI}(2);
+    \fi
+
+    \FPifeq\substrVI\zero
+    \draw[edge,\colorVI] (2) to node[midway, right] {\GraphArgXVI}(4);
+    \else
+    \FPifgt\GraphArgXVI\zero
+    \draw[edge,\colorVI] (2) to [bend right=20] node[midway, right] {\GraphArgXVI}(4);
+    \fi
+
+    \FPifeq\GraphArgXVII\zero
+    \draw[edge,\colorVII] (4) to node[midway, left] {\substrVII}(t);
+    \else
+    \FPifgt\substrVII\zero
+    \draw[edge,\colorVII] (4) to [bend right=20] node[midway, left] {\substrVII}(t);
+    \fi
+
+    \FPifeq\substrVII\zero
+    \draw[edge,\colorVII] (t) to node[midway, right] {\GraphArgXVII}(4);
+    \else
+    \FPifgt\GraphArgXVII\zero
+    \draw[edge,\colorVII] (t) to [bend right=20] node[midway, right] {\GraphArgXVII}(4);
+    \fi
+
+    \FPifeq\GraphArgXVIII\zero
+    \draw[edge,\colorVIII] (1) to node[midway, above] {\substrVIII}(2);
+    \else
+    \FPifgt\substrVIII\zero
+    \draw[edge,\colorVIII] (1) to [bend right=20] node[midway, above] {\substrVIII}(2);
+    \fi
+
+    \FPifeq\substrVIII\zero
+    \draw[edge,\colorVIII] (2) to node[midway, below] {\GraphArgXVIII}(1);
+    \else
+    \FPifgt\GraphArgXVIII\zero
+    \draw[edge,\colorVIII] (2) to [bend right=20] node[midway, below] {\GraphArgXVIII}(1);
+    \fi
+
+    \FPifeq\GraphArgXIX\zero
+    \draw[edge,\colorIX] (2) to node[midway, right] {\substrIX}(t);
+    \else
+    \FPifgt\substrIX\zero
+    \draw[edge,\colorIX] (2) to [bend right=20] node[midway, right] {\substrIX}(t);
+    \fi
+
+    \FPifeq\substrIX\zero
+    \draw[edge,\colorIX] (t) to node[midway, left] {\GraphArgXIX}(2);
+    \else
+    \FPifgt\GraphArgXIX\zero
+    \draw[edge,\colorIX] (t) to [bend right=20] node[midway, left] {\GraphArgXIX}(2);
+    \fi
+
+    \FPifeq\GraphArgXX\zero
+    \draw[edge,\colorX] (2) to node[pos=.3, right] {\substrX}(3);
+    \else
+    \FPifgt\substrX\zero
+    \draw[edge,\colorX] (2) to [bend right=20] node[pos=.3, right] {\substrX}(3);
+    \fi
+
+    \FPifeq\substrX\zero
+    \draw[edge,\colorX] (3) to node[pos=.3, left] {\GraphArgXX}(2);
+    \else
+    \FPifgt\GraphArgXX\zero
+    \draw[edge,\colorX] (3) to [bend right=20] node[pos=.3, left] {\GraphArgXX}(2);
+    \fi
+    \defaultCuts
+  \end{tikzpicture}
+  \tikzexternalenable
+}
+
+\newcommand{\currentGraphPreloader}[9]{
+  \def\currentGraphArgI{#1}%
+  \def\currentGraphArgII{#2}%
+  \def\currentGraphArgIII{#3}%
+  \def\currentGraphArgIV{#4}%
+  \def\currentGraphArgV{#5}%
+  \def\currentGraphArgVI{#6}%
+  \def\currentGraphArgVII{#7}%
+  \def\currentGraphArgVIII{#8}%
+  \def\currentGraphArgIX{#9}%
+  \secondCurrentGraphPreloader
+}
+\newcommand{\secondCurrentGraphPreloader}[9]{
+  \def\currentGraphArgX{#1}%
+  \def\currentColorI{#2}%
+  \def\currentColorII{#3}%
+  \def\currentColorIII{#4}%
+  \def\currentColorIV{#5}%
+  \def\currentColorV{#6}%
+  \def\currentColorVI{#7}%
+  \def\currentColorVII{#8}%
+  \def\currentColorVIII{#9}%
+  \currentGraph
+}
+
+\NewDocumentCommand{\currentGraph}{m m O{}}{
+  \def\currentColorIX{#1}%
+  \def\currentColorX{#2}%
+  \defaultWrapperPrepper{25}{25}{10}{25}{5}{10}{30}{35}{20}{15}{\currentGraphArgI}{\currentGraphArgII}{\currentGraphArgIII}{\currentGraphArgIV}{\currentGraphArgV}{\currentGraphArgVI}{\currentGraphArgVII}{\currentGraphArgVIII}{\currentGraphArgIX}{\currentGraphArgX}{\currentColorI}{\currentColorII}{\currentColorIII}{\currentColorIV}{\currentColorV}{\currentColorVI}{\currentColorVII}{\currentColorVIII}{\currentColorIX}{\currentColorX}{#3}
+}
+
+
+
+\begin{document}
+\subsection{Esercizio 4}
+Si consideri la rete sottostante in cui i valori sugli archi rappresentano le loro capacità:
+
+\begin{figure}
+  \currentGraphPreloader
+  {0}{0}{0}{0}{0}
+  {0}{0}{0}{0}{0}
+  {\black}{\black}{\black}{\black}{\black}
+  {\black}{\black}{\black}{\black}{\black}
+\end{figure}
+
+\begin{enumerate}[a)]
+  \item Determinare il flusso massimo da \textbf{s} e \textbf{t} inviando nelle prime due iterazioni 5 unità lungo i percorsi $s,3,4,2,t$ e $s,3,4,1,2,t$.
+  \item Riportare i cammini aumentanti ed il corrispondente aumento di flusso.
+  \item SI riporti sulla figura il valore del flusso massimo.
+  \item Determinare il taglio minimo.
+  \item Scegliere un insieme di archi e gli si associ un costo unitario di flusso in modo che la soluzione trovata non sia a costo minimo.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 4}
+\subsubsection*{Step preliminare}
+Invio 5 unità lungo i due percorsi indicati.
+
+\begin{figure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {0}{5}{0}{5}{0}
+    {5}{0}{0}{5}{0}
+    {\black}{\red}{\black}{\red}{\black}
+    {\red}{\black}{\black}{\red}{\black}
+    \caption{Invio 5 unità lungo $s,3,4,2,t$}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {0}{10}{0}{10}{5}
+    {5}{0}{5}{10}{0}
+    {\black}{\red}{\black}{\red}{\red}
+    {\black}{\black}{\red}{\red}{\black}
+    \caption{Invio 5 unità lungo $s,3,4,1,2,t$}
+  \end{subfigure}
+  \caption{Preparazione preliminare richiesta}
+\end{figure}
+
+\subsubsection*{Procedo con algoritmo}
+
+Dallo stato corrente, procedo come segue:
+
+\begin{figure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {0}{25}{0}{25}{5}
+    {5}{15}{5}{10}{0}
+    {\black}{\red}{\black}{\red}{\black}
+    {\black}{\red}{\black}{\black}{\black}
+    \caption{Invio 15 unità lungo $s,3,4,t$}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {5}{25}{0}{25}{0}
+    {5}{20}{5}{10}{0}
+    {\red}{\black}{\black}{\black}{\red}
+    {\black}{\red}{\black}{\black}{\black}
+    \caption{Invio 5 unità lungo $s,1,4,t$}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {15}{25}{0}{25}{0}
+    {5}{20}{15}{20}{0}
+    {\red}{\black}{\black}{\black}{\black}
+    {\black}{\black}{\red}{\red}{\black}
+    \caption{Invio 10 unità lungo $s,1,2,t$}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {20}{25}{0}{25}{0}
+    {10}{25}{20}{20}{0}
+    {\red}{\black}{\black}{\black}{\black}
+    {\red}{\red}{\red}{\black}{\black}
+    \caption{Invio 5 unità lungo $s,1,2,4,t$}
+  \end{subfigure}
+  \caption{Procedo con algoritmo}
+\end{figure}
+
+\subsubsection*{Flusso massimo}
+Il flusso massimo è di 45 unità.
+
+\subsubsection*{Taglio minimo}
+Il taglio minimo è di 45 unità. I due gruppi che divide sono $(A,t)$ e $(s,1,2,3)$
+
+\begin{figure}
+  \currentGraphPreloader
+  {20}{25}{0}{25}{0}
+  {10}{25}{20}{20}{0}
+  {\black}{\black}{\black}{\black}{\black}
+  {\black}{\black}{\black}{\black}{\black}[
+  \draw[dashed,\red]
+  ([yshift=10pt]$ (3)!0.7!(4) $ ) --
+  ([yshift=-10pt]$ (3)!0.7!(4) $ );
+  \draw[dashed,\red,rotate=-45]
+  ([yshift=10pt]$ (2)!0.7!(t) $ ) --
+  ([yshift=-10pt]$ (2)!0.7!(t) $ );
+  ]
+  \caption{Taglio minimo}
+\end{figure}
+
+\subsubsection*{Soluzione non a costo minimo}
+È sufficiente scegliere costi in modo tale da creare un ciclo a costo negativo, per esempio assegnando come costi $s\rightarrow3: 1000$, $s\rightarrow1: 1$, $3\rightarrow1: 1$.
+
+\end{document}

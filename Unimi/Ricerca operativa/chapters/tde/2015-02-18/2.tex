@@ -108,12 +108,36 @@ Ottengo il seguente rilassamento continuo in forma canonica:
   \bmx                                  & \in \R^4_{\geq 0}
 \end{align*}
 
-Costruisco il taglio di gomory sul secondo vincolo:
+Costruisco il taglio di gomory sul primo od il secondo vincolo, non cambia:
 
 \[
   v_{\text{Gomory}} = (1-\floor{1})x_2 + (\frac{1}{2} - \floor{\frac{2}{2}})x_3 + (\frac{1}{2} - \floor{\frac{1}{2}})x_4 \geq \frac{5}{2} - \floor{\frac{5}{2}} \Rightarrow \frac{1}{2}x_3 + \frac{1}{2}x_4 \geq \frac{1}{2} \Rightarrow x_3 + x_4 \geq 1
 \]
-Disegno la regione ammissibile sul piano $x_3-x_4$:
+Sostituisco nel taglio ottenuto i valori dei vincoli:
+
+\[
+  \begin{cases}
+    x_1 + x_2  + x_3 & = 5 \\
+    -x_1 + x_2 +x_4  & = 0 \\
+    x_3 + x_4 \geq 1
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_3 & = 5 - x_1 - x_2 \\
+    x_4 & = x_1 - x_2     \\
+    x_3 + x_4 \geq 1
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_3 & = 5 - x_1 - x_2 \\
+    x_4 & = x_1 - x_2     \\
+    5 - x_1 - x_2 +  x_1 - x_2 \geq 1
+  \end{cases}
+  \Rightarrow
+  - 2x_2  \geq -4
+  \Rightarrow
+  x_2 \leq 2
+\]
 
 \begin{figure}
   \includegraphics[width=0.4\textwidth]{area_2015_03_gomory}
