@@ -17,6 +17,13 @@
 \newcommand{\sqr}[1]{\left[#1\right]}
 \newcommand{\crl}[1]{\left\{#1\right\}}
 
+\NewDocumentCommand{\gmr}{m}{%
+  %
+  % #1 -> Value to build gomory cut upon
+  %
+  \rnd{#1-\floor{#1}}
+}
+
 \let\oldbm\bm
 \renewcommand{\bar}{\overline}
 \renewcommand{\bm}[1]{\oldbm{\underline{#1}}}
