@@ -16,6 +16,9 @@
 \theoremstyle{definition} % Sets the theorem style without italic
 \usepackage{bm} % To have bold vectors
 
+\usepackage{fp}
+\usepackage{xparse}
+
 \usepackage{iftex} % Used for if
 \ifLuaTeX
 	\usepackage{shellesc}
@@ -93,7 +96,7 @@
 
 \ctikzset{tripoles/mos style/arrows}
 \ctikzset{tripoles/pmos style/emptycircle}
-\usetikzlibrary{shapes,arrows,calc,positioning,automata,matrix}
+\usetikzlibrary{shapes,arrows,calc,positioning,matrix}
 \usepgfplotslibrary{external}
 
 \pgfplotsset{samples=75,shader=faceted interp,grid=both}
