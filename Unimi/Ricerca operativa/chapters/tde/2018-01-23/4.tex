@@ -1,0 +1,98 @@
+ \providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\usetikzlibrary{graphdrawing}
+\usetikzlibrary{graphs}
+\usegdlibrary{trees}
+\begin{document}
+\subsection{Esercizio 4}
+Si risolva mediante Branch \& Bound il seguente problema dello zaino a capacità massima 9, seguendo le istruzioni seguenti:
+
+\begin{table}
+  \begin{tabular}{c|LLLLL}
+    Profitti & 21 & 10 & 20 & 4 & 3 \\
+    \hline
+    Pesi     & 3  & 2  & 5  & 2 & 3
+  \end{tabular}
+\end{table}
+
+\begin{enumerate}
+  \item Si utilizzi come rilassamento quello lineare, risolto mediante un opportuno algoritmo.
+  \item Si adotti una strategia ``Depth First''.
+  \item Si esplori per primo ad ogni livello il ramo dell'albero di branching associato al vincolo $x_i=0$, dove la variabile di branching $x_i$ è quella che assume un valore frazionario nel rilassamento lineare.
+  \item È possibile fissare a zero una variabile qualora la capacità residua dello zaino sia strettamente minore del suo peso.
+  \item Come \textbf{lower bound} si usi la miglior soluzione intera data dalla somma dei profitti degli oggetti che è stato possibile inserire nello zaino durante il calcolo dell'\textbf{upper bound}.
+  \item Per ogni nodo si riportino:
+        \subitem Numero progressivo $i$.
+        \subitem Valore di upper bound.
+        \subitem Valore del vettore delle variabili.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 4}
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.\text{$0:\begin{cases}
+            \bmx=\sqr{0,0,0,0,0} \\
+            U=47
+          \end{cases}$}
+      [.$x_1=0$
+        [.\text{$1:\begin{cases}
+                  1:\bmx=\sqr{0,0,0,0,0} \\
+                  U=34
+                \end{cases}$}
+            [.$x_2=0$
+              [.\text{$2:\begin{cases}
+                        \bmx=\sqr{0,0,0,0,0} \\
+                        U=26
+                      \end{cases}$}
+                  [.$x_3=0$
+                    [.\text{$3:\begin{cases}
+                              \bmx=\sqr{0,0,0,1,1} \\
+                              z=7
+                            \end{cases}$} ]
+                  ]
+                  [.$x_3=1$
+                    [.\text{$4:\begin{cases}
+                              \bmx=\sqr{0,0,1,0,0} \\
+                              U=26
+                            \end{cases}$}
+                        [.$x_4=0$
+                          [.\text{$5:\begin{cases}
+                                    \bmx=\sqr{0,0,1,0,1} \\
+                                    z=23
+                                  \end{cases}$} ]
+                        ]
+                        [.$x_4=1$
+                          [.\text{$6:\begin{cases}
+                                    \bmx=\sqr{0,0,1,1,0} \\
+                                    z=24
+                                  \end{cases}$} ]
+                        ]
+                      ]
+                  ]
+                ]
+            ]
+            [.$x_2=1$
+              [.\text{$4:\begin{cases}
+                        \bmx=\sqr{0,1,1,0,0} \\
+                        U=26
+                      \end{cases}$}
+                  [.$x_4=0$
+                    [.\text{$5:\begin{cases}
+                              \bmx=\sqr{0,1,1,0,1} \\
+                              z=23
+                            \end{cases}$} ]
+                  ]
+                  [.$x_4=1$
+                    [.\text{$6:\begin{cases}
+                              \bmx=\sqr{0,0,1,1,0} \\
+                              z=24
+                            \end{cases}$} ]
+                  ]
+                ]
+            ]
+          ]
+      ]
+    ]
+  \end{tikzpicture}
+\end{figure}
+\end{document}

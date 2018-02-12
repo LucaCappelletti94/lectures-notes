@@ -57,7 +57,7 @@ Avviando una nuova produzione si hanno costi fissi $f_j$ e costi per unità prod
 \paragraph*{Obbiettivo:} Posizionare centri di servizio in modo da soddisfare la domanda e minimizzare una funzione di costo.
 
 \subsection{Capacitated Plant Location (CPL)}
-Posizionamento di impianti di produzione o immagazzinamento di prodotti da cui deve essere trasportato il prodotto a dei punti vendita. Viene modellato tramite un grado $\mathcal{G} = (\mathcal{N}_1 \cup \mathcal{N}_2, \mathcal{A})$, con $\mathcal{N}_1$ nodi rappresentanti i siti potenziali e $\mathcal{N}_2$ i nodi successori.
+Posizionamento di impianti di produzione o immagazzinamento di prodotti da cui deve essere trasportato il prodotto a dei punti vendita. Viene modellato tramite un grafo $\mathcal{G} = (\mathcal{N}_1 \cup \mathcal{N}_2, \mathcal{A})$, con $\mathcal{N}_1$ nodi rappresentanti i siti potenziali e $\mathcal{N}_2$ i nodi successori.
 Chiamiamo $d_j, j \in \mathcal{N}_2$ la domanda del nodo successore $j-esimo$, $q_i, i \in \mathcal{N}_1$ il massimo livello di attività del nodo sito candidato $i-esimo$, $k_{ij}$ il costo unitario di trasporto da nodo candidato $i$ a nodo successore $j$, $f_i$ il costo fisso di avviamento del nodo candidato $i$.
 
 Chiamo $y_i \in \{0,1\}$ la variabile binaria rappresentante l'approvazione o meno del nodo candidato $i-esimo$ e $s_{ij}$ il flusso di prodotto dal nodo $i$ a $j$.
@@ -65,8 +65,8 @@ Chiamo $y_i \in \{0,1\}$ la variabile binaria rappresentante l'approvazione o me
 \begin{figure}
   \begin{align*}
     \min z(s,y) = \sum_{i \in \mathcal{N}_1} \sum_{j \in \mathcal{N}_2} k_{ij}s_{ij} + \sum_{i \in \mathcal{N}_1} f_i y_i \\
-    \sum_{i \in \mathcal{N}_1} s_{ij} = d_j, \forall j                                                                    \\
-    \sum_{j \in \mathcal{N}_2} s_{ij} \leq q_iy_i, \forall i
+    \sum_{i \in \mathcal{N}_1} s_{ij} & = d_j, \forall j                                                                  \\
+    \sum_{j \in \mathcal{N}_2} s_{ij} & \leq q_iy_i, \forall i
   \end{align*}
   \caption{Capacitated Plant Location (CPL)}
 \end{figure}
@@ -101,8 +101,8 @@ Le variabili di decisione sono $x_j \in \{0,1\}$ e sono vere se $C_j \in SC$.
 
 \begin{figure}
   \begin{align*}
-    \min z(x) = \sum_{j=1}^n c_j x_j          \\
-    \sum_{j=1}^n a_{ij} x_j \geq 1, \forall i \\
+    \min z(x) = \sum_{j=1}^n c_j x_j            \\
+    \sum_{j=1}^n a_{ij} x_j & \geq 1, \forall i \\
   \end{align*}
   \caption{Modelli di copertura o set-covering}
 \end{figure}
@@ -113,8 +113,8 @@ Le variabili di decisione sono $x_j \in \{0,1\}$ e sono vere se $C_j \in SC$.
 
 \begin{figure}
   \begin{align*}
-    \min z(x) = \sum_{j=1}^n c_j x_j          \\
-    \sum_{j=1}^n a_{ij} x_j \leq 1, \forall i \\
+    \min z(x) = \sum_{j=1}^n c_j x_j            \\
+    \sum_{j=1}^n a_{ij} x_j & \leq 1, \forall i \\
   \end{align*}
   \caption{Modelli di riempimento d'insieme o set-packing}
 \end{figure}
@@ -124,8 +124,8 @@ Le variabili di decisione sono $x_j \in \{0,1\}$ e sono vere se $C_j \in SC$.
 
 \begin{figure}
   \begin{align*}
-    \min z(x) = \sum_{j=1}^n c_j x_j       \\
-    \sum_{j=1}^n a_{ij} x_j = 1, \forall i \\
+    \min z(x) = \sum_{j=1}^n c_j x_j         \\
+    \sum_{j=1}^n a_{ij} x_j & = 1, \forall i \\
   \end{align*}
   \caption{Modelli di posizionamento d'insieme o set-partitioning}
 \end{figure}

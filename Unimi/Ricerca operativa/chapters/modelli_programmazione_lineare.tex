@@ -45,7 +45,7 @@ Si supponga di avere a disposizione $n$ ingredienti, ognuno dei quali contenente
 
 \begin{figure}
 	\begin{align*}
-		\max z(x) = \sum_{j=1}^n c_jx_j                                      \\
+		\min z(x) = \sum_{j=1}^n c_jx_j                                      \\
 		\sum_{j=1}^n a_{ij}x_j & \geq b_i \quad \forall i \in \{1,\ldots,m\} \\
 	\end{align*}
 	\caption{Modello di miscelazione}
@@ -143,77 +143,5 @@ Varianti tipiche possono essere sull'assegnare un numero oggetti diverso dal num
 
 \section{Modelli multi periodo}
 Modelli in cui viene utilizzata un intervallo di tempo, con $t \in \{1, \ldots, T\}$ la generica frazione di tempo, genericamente utilizzata per la minimizzazione dei costi su un intervallo o massimizzazione di un'utilità.
-
-\section{Riassunto}
-
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\begin{align*}
-			\max z(x) = \sum_{j=1}^n p_jx_j                                      \\
-			\sum_{j=1}^n a_{ij}x_j & \leq b_i \quad \forall i \in \{1,\ldots,m\} \\
-		\end{align*}
-		\caption{Modello di pianificazione della produzione}
-	\end{subfigure}
-	\begin{subfigure}{0.31\textwidth}
-		\begin{align*}
-			\max z(x) = \sum_{j=1}^n c_jx_j                                      \\
-			\sum_{j=1}^n a_{ij}x_j & \geq b_i \quad \forall i \in \{1,\ldots,m\} \\
-		\end{align*}
-		\caption{Modello di miscelazione}
-	\end{subfigure}
-	\begin{subfigure}{0.31\textwidth}
-		\begin{align*}
-			\min z(x) = \sum_{(i,j) \in \mathcal{A}} c_{ij}x_{ij}                                                             \\
-			\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i \quad \forall i \in \mathcal{N} \\
-		\end{align*}
-		\caption{Problema di flusso a costo minimo}
-	\end{subfigure}
-	\begin{subfigure}{0.31\textwidth}
-		\begin{align*}
-			\min z(x) = \sum_{(i,j) \in \mathcal{A}} c_{ij}x_{ij}                                                                 \\
-			\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s = 1                                 \\
-			\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
-			\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -1                                \\
-		\end{align*}
-		\caption{Problema del cammino orientato di costo minimo}
-	\end{subfigure}
-	\begin{subfigure}{0.31\textwidth}
-		\begin{align*}
-			\min z(x) = v                                                                                                         \\
-			\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s =v                                  \\
-			\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
-			\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -v                                \\
-			x_{ij}                                                                    & \leq u_{ij} \quad (i,j) \in \mathcal{A}
-		\end{align*}
-		\caption{Problema del massimo flusso}
-	\end{subfigure}
-	\begin{subfigure}{0.31\textwidth}
-		\begin{align*}
-			\min z(x) = \sum_{i=1}^n\sum_{j=1}^m c_{ij}x_{ij} \\
-			\sum_{j=1}^m x_{ij} & \leq a_i \quad \forall i    \\
-			\sum_{i=1}^n x_{ij} & = b_j  \quad \forall j      \\
-		\end{align*}
-		\caption{Problema di trasporto}
-	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
-		\begin{align*}
-			\min z(x) = \sum_{i=1}^{n+p}\sum_{j=1}^{m+p} c_{ij}x_{ij}       \\
-			\sum_{j=1}^{m+p} x_{ij} & \leq a_i \quad \forall i              \\
-			\sum_{i=1}^{n+p} x_{ij} & = b_j    \quad \forall j              \\
-			\sum_{j=1}^{m+p} x_{ij} & = \sum_{j=1}^m b_j    \quad \forall i \\
-			\sum_{i=1}^{n+p} x_{ij} & = \sum_{j=1}^m b_j    \quad \forall j \\
-		\end{align*}
-		\caption{Problema di trasporto con $p$ nodi intermedi}
-	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
-		\begin{align*}
-			\min z(x) = \sum_{i=1}^n\sum_{j=1}^n c_{ij}x_{ij} \\
-			\sum_{j=1}^n x_{ij} & = 1 \quad \forall i         \\
-			\sum_{i=1}^n x_{ij} & = 1  \quad \forall j        \\
-		\end{align*}
-		\caption{Problema dell'assegnamento}
-	\end{subfigure}
-\end{figure}
-
 
 \end{document}
