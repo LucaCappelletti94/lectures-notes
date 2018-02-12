@@ -155,7 +155,7 @@
 \NewDocumentCommand{\currentGraph}{m m O{}}{
   \def\currentColorIX{#1}%
   \def\currentColorX{#2}%
-  \defaultWrapperPrepper{25}{25}{10}{25}{5}{10}{30}{35}{20}{15}{\currentGraphArgI}{\currentGraphArgII}{\currentGraphArgIII}{\currentGraphArgIV}{\currentGraphArgV}{\currentGraphArgVI}{\currentGraphArgVII}{\currentGraphArgVIII}{\currentGraphArgIX}{\currentGraphArgX}{\currentColorI}{\currentColorII}{\currentColorIII}{\currentColorIV}{\currentColorV}{\currentColorVI}{\currentColorVII}{\currentColorVIII}{\currentColorIX}{\currentColorX}{#3}
+  \defaultWrapperPrepper{25}{25}{5}{20}{5}{5}{30}{35}{20}{15}{\currentGraphArgI}{\currentGraphArgII}{\currentGraphArgIII}{\currentGraphArgIV}{\currentGraphArgV}{\currentGraphArgVI}{\currentGraphArgVII}{\currentGraphArgVIII}{\currentGraphArgIX}{\currentGraphArgX}{\currentColorI}{\currentColorII}{\currentColorIII}{\currentColorIV}{\currentColorV}{\currentColorVI}{\currentColorVII}{\currentColorVIII}{\currentColorIX}{\currentColorX}{#3}
 }
 
 
@@ -211,49 +211,49 @@ Dallo stato corrente, procedo come segue:
 \begin{figure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {0}{25}{0}{25}{5}
-    {5}{15}{5}{10}{0}
+    {0}{20}{0}{20}{5}
+    {5}{10}{5}{10}{0}
     {\blackFlag}{\redFlag}{\blackFlag}{\redFlag}{\blackFlag}
     {\blackFlag}{\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}
-    \caption{Invio 15 unità lungo $s,3,4,t$}
+    \caption{Invio 10 unità lungo $s,3,4,t$}
   \end{subfigure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {5}{25}{0}{25}{0}
-    {5}{20}{5}{10}{0}
+    {5}{20}{0}{20}{0}
+    {5}{15}{5}{10}{0}
     {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\redFlag}
     {\blackFlag}{\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}
     \caption{Invio 5 unità lungo $s,1,4,t$}
   \end{subfigure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {15}{25}{0}{25}{0}
-    {5}{20}{15}{20}{0}
-    {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
-    {\blackFlag}{\blackFlag}{\redFlag}{\redFlag}{\blackFlag}
-    \caption{Invio 10 unità lungo $s,1,2,t$}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \currentGraphPreloader
-    {20}{25}{0}{25}{0}
-    {10}{25}{20}{20}{0}
+    {10}{20}{0}{20}{0}
+    {0}{20}{10}{10}{0}
     {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
     {\redFlag}{\redFlag}{\redFlag}{\blackFlag}{\blackFlag}
     \caption{Invio 5 unità lungo $s,1,2,4,t$}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \currentGraphPreloader
+    {20}{20}{0}{20}{0}
+    {0}{20}{20}{20}{0}
+    {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
+    {\blackFlag}{\blackFlag}{\redFlag}{\redFlag}{\blackFlag}
+    \caption{Invio 10 unità lungo $s,1,2,t$}
   \end{subfigure}
   \caption{Procedo con algoritmo}
 \end{figure}
 
 \subsubsection*{Flusso massimo}
-Il flusso massimo è di 45 unità.
+Il flusso massimo è di 40 unità.
 
 \subsubsection*{Taglio minimo}
-Il taglio minimo è di 45 unità. I due gruppi che divide sono $(4,t)$ e $(s,1,2,3)$
+Il taglio minimo è di 40 unità. I due gruppi che divide sono $(4,t)$ e $(s,1,2,3)$
 
 \begin{figure}
   \currentGraphPreloader
-  {20}{25}{0}{25}{0}
-  {10}{25}{20}{20}{0}
+  {20}{20}{0}{20}{0}
+  {0}{20}{20}{20}{0}
   {\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
   {\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}[
   \draw[dashed,\red]

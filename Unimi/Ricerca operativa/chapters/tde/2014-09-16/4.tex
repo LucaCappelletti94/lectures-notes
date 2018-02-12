@@ -113,9 +113,9 @@
     %edges
     \doubleArc{1}{s}{1}
     \doubleArc{2}{s}{3}[midway, right][midway, left]
-    \doubleArc{3}{3}{1}
+    \doubleArc{3}{1}{3}
     \doubleArc{4}{3}{4}[midway, above][midway, below]
-    \doubleArc{5}{4}{1}[pos=.3, left][pos=.3, right]
+    \doubleArc{5}{1}{4}[pos=.3, left][pos=.3, right]
     \doubleArc{6}{4}{2}
     \doubleArc{7}{4}{t}
     \doubleArc{8}{1}{2}[midway, above][midway, below]
@@ -155,7 +155,7 @@
 \NewDocumentCommand{\currentGraph}{m m O{}}{
   \def\currentColorIX{#1}%
   \def\currentColorX{#2}%
-  \defaultWrapperPrepper{25}{25}{10}{25}{5}{10}{30}{35}{20}{15}{\currentGraphArgI}{\currentGraphArgII}{\currentGraphArgIII}{\currentGraphArgIV}{\currentGraphArgV}{\currentGraphArgVI}{\currentGraphArgVII}{\currentGraphArgVIII}{\currentGraphArgIX}{\currentGraphArgX}{\currentColorI}{\currentColorII}{\currentColorIII}{\currentColorIV}{\currentColorV}{\currentColorVI}{\currentColorVII}{\currentColorVIII}{\currentColorIX}{\currentColorX}{#3}
+  \defaultWrapperPrepper{25}{35}{10}{25}{5}{10}{30}{35}{25}{15}{\currentGraphArgI}{\currentGraphArgII}{\currentGraphArgIII}{\currentGraphArgIV}{\currentGraphArgV}{\currentGraphArgVI}{\currentGraphArgVII}{\currentGraphArgVIII}{\currentGraphArgIX}{\currentGraphArgX}{\currentColorI}{\currentColorII}{\currentColorIII}{\currentColorIV}{\currentColorV}{\currentColorVI}{\currentColorVII}{\currentColorVIII}{\currentColorIX}{\currentColorX}{#3}
 }
 
 
@@ -173,7 +173,7 @@ Si consideri la rete sottostante in cui i valori sugli archi rappresentano le lo
 \end{figure}
 
 \begin{enumerate}[a)]
-  \item Determinare il flusso massimo da \textbf{s} e \textbf{t} inviando nelle prime due iterazioni 5 unità lungo i percorsi $s,3,4,2,t$ e $s,3,4,1,2,t$.
+  \item Determinare il flusso massimo da \textbf{s} e \textbf{t} inviando nelle prime due iterazioni 10 unità lungo il cammino $s,1,3,4,2,t$ e 15 unità lungo $s,1,2,3,4,t$.
   \item Riportare i cammini aumentanti ed il corrispondente aumento di flusso.
   \item SI riporti sulla figura il valore del flusso massimo.
   \item Determinare il taglio minimo.
@@ -187,86 +187,69 @@ Invio 5 unità lungo i due percorsi indicati.
 \begin{figure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {0}{5}{0}{5}{0}
-    {5}{0}{0}{5}{0}
-    {\blackFlag}{\redFlag}{\blackFlag}{\redFlag}{\blackFlag}
+    {10}{0}{10}{10}{0}
+    {10}{0}{0}{10}{0}
+    {\redFlag}{\blackFlag}{\redFlag}{\redFlag}{\blackFlag}
     {\redFlag}{\blackFlag}{\blackFlag}{\redFlag}{\blackFlag}
-    \caption{Invio 5 unità lungo $s,3,4,2,t$}
+    \caption{Invio 10 unità lungo $s,1,3,4,2,t$}
   \end{subfigure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {0}{10}{0}{10}{5}
-    {5}{0}{5}{10}{0}
-    {\blackFlag}{\redFlag}{\blackFlag}{\redFlag}{\redFlag}
-    {\blackFlag}{\blackFlag}{\redFlag}{\redFlag}{\blackFlag}
-    \caption{Invio 5 unità lungo $s,3,4,1,2,t$}
+    {25}{0}{10}{25}{0}
+    {10}{15}{15}{10}{15}
+    {\redFlag}{\blackFlag}{\blackFlag}{\redFlag}{\blackFlag}
+    {\blackFlag}{\redFlag}{\redFlag}{\blackFlag}{\redFlag}
+    \caption{Invio 15 unità lungo $s,1,2,3,4,t$}
   \end{subfigure}
   \caption{Preparazione preliminare richiesta}
 \end{figure}
 
 \subsubsection*{Procedo con algoritmo}
-
 Dallo stato corrente, procedo come segue:
 
 \begin{figure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {0}{25}{0}{25}{5}
-    {5}{15}{5}{10}{0}
-    {\blackFlag}{\redFlag}{\blackFlag}{\redFlag}{\blackFlag}
+    {25}{15}{10}{25}{0}
+    {10}{15}{15}{25}{0}
     {\blackFlag}{\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}
-    \caption{Invio 15 unità lungo $s,3,4,t$}
+    {\blackFlag}{\blackFlag}{\blackFlag}{\redFlag}{\redFlag}
+    \caption{Invio 15 unità lungo $s,3,2,t$}
   \end{subfigure}
   \begin{subfigure}{0.49\textwidth}
     \currentGraphPreloader
-    {5}{25}{0}{25}{0}
-    {5}{20}{5}{10}{0}
-    {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\redFlag}
-    {\blackFlag}{\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}
-    \caption{Invio 5 unità lungo $s,1,4,t$}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \currentGraphPreloader
-    {15}{25}{0}{25}{0}
-    {5}{20}{15}{20}{0}
-    {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
-    {\blackFlag}{\blackFlag}{\redFlag}{\redFlag}{\blackFlag}
-    \caption{Invio 10 unità lungo $s,1,2,t$}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \currentGraphPreloader
-    {20}{25}{0}{25}{0}
-    {10}{25}{20}{20}{0}
-    {\redFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
+    {25}{25}{0}{25}{0}
+    {0}{25}{25}{25}{0}
+    {\blackFlag}{\redFlag}{\redFlag}{\blackFlag}{\blackFlag}
     {\redFlag}{\redFlag}{\redFlag}{\blackFlag}{\blackFlag}
-    \caption{Invio 5 unità lungo $s,1,2,4,t$}
+    \caption{Invio 10 unità lungo $s,3,1,2,4,t$}
   \end{subfigure}
   \caption{Procedo con algoritmo}
 \end{figure}
 
 \subsubsection*{Flusso massimo}
-Il flusso massimo è di 45 unità.
+Il flusso massimo è di 50 unità.
 
 \subsubsection*{Taglio minimo}
-Il taglio minimo è di 45 unità. I due gruppi che divide sono $(4,t)$ e $(s,1,2,3)$
+Il taglio minimo è di 50 unità. I due gruppi che divide sono $(s,3)$ e $(4,1,2,t)$
 
 \begin{figure}
   \currentGraphPreloader
-  {20}{25}{0}{25}{0}
-  {10}{25}{20}{20}{0}
+  {25}{25}{0}{25}{0}
+  {0}{25}{25}{25}{0}
   {\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}
   {\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}{\blackFlag}[
   \draw[dashed,\red]
   ([yshift=10pt]$ (3)!0.7!(4) $ ) --
   ([yshift=-10pt]$ (3)!0.7!(4) $ );
-  \draw[dashed,\red,rotate=-45]
-  ([yshift=10pt]$ (2)!0.7!(t) $ ) --
-  ([yshift=-10pt]$ (2)!0.7!(t) $ );
+  \draw[dashed,\red,rotate=45]
+  ([yshift=10pt]$ (s)!0.7!(1) $ ) --
+  ([yshift=-10pt]$ (s)!0.7!(1) $ );
   ]
   \caption{Taglio minimo}
 \end{figure}
 
 \subsubsection*{Soluzione non a costo minimo}
-È sufficiente scegliere costi in modo tale da creare un ciclo a costo negativo, per esempio assegnando come costi $s\rightarrow3: 1000$, $s\rightarrow1: 1$, $3\rightarrow1: 1$.
+È sufficiente scegliere costi in modo tale da creare un ciclo a costo negativo, per esempio assegnando come costi $s\rightarrow1: 1000$, $s\rightarrow3: 1$, $1\rightarrow3: 1$.
 
 \end{document}
