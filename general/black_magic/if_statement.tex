@@ -1,0 +1,26 @@
+\NewDocumentCommand{\smartif}{m m O{} O{}}{
+  %
+  % #1 -> The first part of the equation
+  % #2 -> The second part of the equation
+  % #3 (optional) -> Stuff to do if it is true
+  % #4 (optional) -> Stuff to do if it is false
+  %
+  % USAGE EXAMPLE:
+  % I want to write concatenated ifs without blaspheming the name of the great one, Cthulhu.
+  %
+  %
+  % \def{\cthulhuislord}{0}
+  % \def{\true}{1}
+  %
+  % \smartif{\cthulhuislord}{\true}[
+  %  Yes, cthulhu is lord
+  %  ][
+  %  No, I think it is a bit unstable
+  %  ]
+  %
+  \FPifeq{#1}{#2}
+  #3
+  \else
+  #4
+  \fi
+}
