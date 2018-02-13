@@ -107,85 +107,436 @@ I due vincoli non hanno intersezioni.
 I tre vincoli non hanno intersezioni comuni.
 
 \paragraph*{Condizioni KKT}
-\subparagraph*{Calcolo della lagrangiana generalizzata}
-
-\[
-  l(x) = x^2_1+x^2_2 + \mu_1 (1-x_1x_2) + \mu_2 (x_1 + x_2 -4) + \mu_3 (-x_1 - x_2 - 2)
-\]
-
 \subparagraph*{Realizzo il sistema delle condizioni KKT}
 
 \[
   \begin{cases}
-    \nabla l(x) = \begin{bmatrix}
-      2x_1 + \mu_1x_2 + \mu_2 + \mu_3 \\
-      2x_2 + \mu_1x_1 + \mu_2 + \mu_3
+    \begin{bmatrix}
+      2x_1 \\
+      2x_2
+    \end{bmatrix} -
+    \mu_1 \begin{bmatrix}
+      x_2 \\
+      x_1
+    \end{bmatrix} +
+    \mu_2 \begin{bmatrix}
+      1 \\
+      1
+    \end{bmatrix} -
+    \mu_3 \begin{bmatrix}
+      1 \\
+      1
     \end{bmatrix} = \bm{0} \\
-    \mu_1 (1-x_1x_2) = 0                              \\
-    \mu_2 (x_1 + x_2 -4) = 0                          \\
-    \mu_3 (-x_1 - x_2 - 2) = 0                        \\
-    1-x_1x_2 \leq 0                                   \\
-    x_1 + x_2 -4 \leq 0                               \\
-    -x_1 - x_2 - 2 \leq 0                             \\
-    \mu_1 \geq 0                                      \\
-    \mu_2 \geq 0                                      \\
-    \mu_3 \geq 0                                      \\
+    \mu_1 (1-x_1x_2) = 0                      \\
+    \mu_2 (x_1 + x_2 -4) = 0                  \\
+    \mu_3 (-x_1 - x_2 - 2) = 0                \\
+    1-x_1x_2 \leq 0                           \\
+    x_1 + x_2 -4 \leq 0                       \\
+    -x_1 - x_2 - 2 \leq 0                     \\
+    \mu_1 \geq 0                              \\
+    \mu_2 \geq 0                              \\
+    \mu_3 \geq 0                              \\
   \end{cases}
   \Rightarrow
   \begin{cases}
-    2x_1 + 2x_2 + \mu_2 + \mu_3 = 0 \\
-    \mu_2 (x_1 + x_2 -4) = 0        \\
-    \mu_3 (-x_1 - x_2 - 2) = 0      \\
-    1-x_1x_2 = 0                    \\
-    x_1 + x_2 -4 \leq 0             \\
-    -x_1 - x_2 - 2 \leq 0           \\
-    \mu_1 = 2                       \\
-    \mu_2 \geq 0                    \\
-    \mu_3 \geq 0                    \\
+    2x_1-\mu_1x_2 + \mu_2 - \mu_3 = 0 \\
+    2x_2-\mu_1x_1 + \mu_2 - \mu_3 = 0 \\
+    \mu_1 (1-x_1x_2) = 0              \\
+    \mu_2 (x_1 + x_2 -4) = 0          \\
+    \mu_3 (-x_1 - x_2 - 2) = 0        \\
+    1-x_1x_2 \leq 0                   \\
+    x_1 + x_2 -4 \leq 0               \\
+    -x_1 - x_2 - 2 \leq 0             \\
+    \mu_1 \geq 0                      \\
+    \mu_2 \geq 0                      \\
+    \mu_3 \geq 0                      \\
   \end{cases}
 \]
+Iniziamo l'albero di ricerca da $\mu_1$:
 
-\subparagraph*{Caso $\mu_2 = 0 \land g_2 \leq 0$}
-\[
-  \begin{cases}
-    \mu_3 = -\frac{2}{x_2} - 2x_2  \Rightarrow \mu_3 = 3 \\
-    (1 + x^2_2) (x_2+1)^2 = 0  \Rightarrow x_2 = -1      \\
-    x_1 = \frac{1}{x_2}   \Rightarrow x_1 = -1           \\
-    x_1 + x_2 -4 \leq 0       \Rightarrow -6 \leq 0      \\
-    -x_1 - x_2 - 2 \leq 0 \Rightarrow  0 = 0             \\
-    \mu_1 = 2                                            \\
-    \mu_2 = 0                                            \\
-    \mu_3 = 3                                            \\
-  \end{cases}
-\]
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$ ]
+        [.$\mu_1>0$ ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, primo step}
+\end{figure}
 
-Viene identificato nuovamente il punto candidato $C = (-1, -1)$.
-
-\subparagraph*{Caso $\mu_2 > 0 \land g_2 = 0$}
+Inizio dal caso $\mu_1=0$:
 
 \[
   \begin{cases}
-    \mu_2 = -\frac{2}{2 \pm \sqrt{3}} - 2(2 \pm \sqrt{3})                        \\
-    \mu_3 (1 + (2 \pm \sqrt{3})^2 + 2(2 \pm \sqrt{3})) = 0 \Rightarrow \mu_3 = 0 \\
-    x_1 = \frac{1}{x_2}  \Rightarrow x_1 = \frac{1}{2 \pm \sqrt{3}}              \\
-    1 + x^2_2 -4x_2 = 0  \Rightarrow x_2 = 2 \pm \sqrt{3}                        \\
-    -x_1 - x_2 - 2 \leq 0                                                        \\
-    \mu_1 = 2                                                                    \\
-    \mu_2 > 0                                                                    \\
-    \mu_3 = 0                                                                    \\
+    2x_1 + \mu_2 - \mu_3 = 0   \\
+    2x_2 + \mu_2 - \mu_3 = 0   \\
+    \mu_2 (x_1 + x_2 -4) = 0   \\
+    \mu_3 (-x_1 - x_2 - 2) = 0 \\
+    1-x_1x_2 \leq 0            \\
+    x_1 + x_2 -4 \leq 0        \\
+    -x_1 - x_2 - 2 \leq 0      \\
+    \mu_1 = 0                  \\
+    \mu_2 \geq 0               \\
+    \mu_3 \geq 0               \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = x_2                   \\
+    \mu_2 (2x_1 -4) = 0         \\
+    \mu_3 (-2x_1 - 2) = 0       \\
+    x_1 \geq 1 \lor x_1 \leq -1 \\
+    x_1 \leq 2                  \\
+    x_1 \geq -1                 \\
+    \mu_1 = 0                   \\
+    \mu_2 \geq 0                \\
+    \mu_3 \geq 0                \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = x_2            \\
+    \mu_2 (2x_1 -4) = 0  \\
+    \mu_3 (2x_1 + 2) = 0 \\
+    1 \leq x_1 \leq 2    \\
+    \mu_1 = 0            \\
+    \mu_2 \geq 0         \\
+    \mu_3 \geq 0         \\
   \end{cases}
 \]
-
-I valori ottenuti non rispettano il vincolo $\mu_2 \geq 0$.
-
-\paragraph*{Calcolo del valore dei punti candidati}
+Noto che, se $x_1$ e $x_2$ sono vincolati tra $1$ e $2$, allora la relazione $\mu_3 (2x_1 + 2) = 0$ implica che $\mu_3=0$:
 
 \[
   \begin{cases}
-    f(C) = f(-1, -1) = 2 \\
+    x_1 = x_2           \\
+    \mu_2 (2x_1 -4) = 0 \\
+    1 \leq x_1 \leq 2   \\
+    \mu_1 = 0           \\
+    \mu_2 \geq 0        \\
+    \mu_3 = 0           \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = x_2           \\
+    \mu_2 = -2x_1       \\
+    -2x_1 (2x_1 -4) = 0 \\
+    1 \leq x_1 \leq 2   \\
+    \mu_1 = 0           \\
+    \mu_2 \geq 0        \\
+    \mu_3 = 0           \\
+  \end{cases}
+  \Rightarrow
+  \error{\mu_2 = -4 < 0}
+\]
+Ora, $x_1 \neq 0$, per cui $x_1 = 2$. Ma questo implica che $\mu_2 = -4 < 0$, per cui questa opzione risulta impossibile.
+
+Esploriamo, nel ramo $\mu_1 > 0$ l'opzione $\mu_2$.
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$
+          [.\error{$\mu_2 = -4 < 0$} ]
+        ]
+        [.$\mu_1>0$
+          [.$\mu_2=0$ ]
+            [.$\mu_2>0$ ]
+        ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, secondo step}
+\end{figure}
+
+Inizio dall'opzione $\mu_2=0$:
+
+\[
+  \begin{cases}
+    2x_1-\mu_1x_2  - \mu_3 = 0 \\
+    2x_2-\mu_1x_1  - \mu_3 = 0 \\
+    x_1x_2 = 1                 \\
+    \mu_3 (-x_1 - x_2 - 2) = 0 \\
+    x_1 + x_2 -4 \leq 0        \\
+    -x_1 - x_2 - 2 \leq 0      \\
+    \mu_1 > 0                  \\
+    \mu_2 = 0                  \\
+    \mu_3 \geq 0               \\
   \end{cases}
 \]
+Esploro ulteriormente le opzioni $\mu_3$ come sottorami:
 
-Il punto di ottimo locale risulta essere $C$.
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$
+          [.\error{$\mu_2 = -4 < 0$} ]
+        ]
+        [.$\mu_1>0$
+          [.$\mu_2=0$
+              [.$\mu_3=0$ ]
+                [.$\mu_3>0$ ]
+            ]
+            [.$\mu_2>0$ ]
+        ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, terzo step}
+\end{figure}
+
+Inizio dall'opzione $\mu_2=0 \land \mu_3=0$:
+
+\[
+  \begin{cases}
+    2x_1-\mu_1x_2 = 0     \\
+    2x_2-\mu_1x_1 = 0     \\
+    x_1x_2 = 1            \\
+    x_1 + x_2 -4 \leq 0   \\
+    -x_1 - x_2 - 2 \leq 0 \\
+    \mu_1 > 0             \\
+    \mu_2 = 0             \\
+    \mu_3 = 0             \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = x_2                               \\
+    x^2_1 = 1 \Rightarrow x_1 = x_2 = \pm 1 \\
+    2x_1 -4 \leq 0                          \\
+    -2x_1 - 2 \leq 0                        \\
+    \mu_1 = 2                               \\
+    \mu_2 = 0                               \\
+    \mu_3 = 0                               \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = x_2 = 1 \\
+    \mu_1 = 2     \\
+    \mu_2 = 0     \\
+    \mu_3 = 0     \\
+  \end{cases}
+  \quad \lor
+  \begin{cases}
+    x_1 = x_2 = -1 \\
+    \mu_1 = 2      \\
+    \mu_2 = 0      \\
+    \mu_3 = 0      \\
+  \end{cases}
+\]
+Identifico due punti, $D =(1,1)$ e $C = (-1,-1)$. Il punto C era stato identificato anche precedentemente tramite l'analisi dei vincoli.
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$
+          [.\error{$\mu_2 = -4 < 0$} ]
+        ]
+        [.$\mu_1>0$
+          [.$\mu_2=0$
+              [.$\mu_3=0$
+                  [.\text{$C=(-1,-1), D=(1,1)$} ]
+                ]
+                [.$\mu_3>0$ ]
+            ]
+            [.$\mu_2>0$ ]
+        ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, quarto step}
+\end{figure}
+
+Investigo ora l'opzione $\mu_1>0 \land \mu_2=0 \land \mu_3 > 0$
+
+\[
+  \begin{cases}
+    2x_1-\mu_1x_2  - \mu_3 = 0 \\
+    2x_2-\mu_1x_1  - \mu_3 = 0 \\
+    x_2(-x_2 - 2) = 1          \\
+    x_1 = -x_2 - 2             \\
+    x_1 + x_2 -4 \leq 0        \\
+    -x_1 - x_2 - 2 \leq 0      \\
+    \mu_1 > 0                  \\
+    \mu_2 = 0                  \\
+    \mu_3 > 0                  \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    2x_1-\mu_1x_2  - \mu_3 = 0              \\
+    2x_2-\mu_1x_1  - \mu_3 = 0              \\
+    x^2_2 + 2x_2 +1= 0 \Rightarrow x_2 = -1 \\
+    x_1 = - 1                               \\
+    x_1 + x_2 -4 \leq 0                     \\
+    -x_1 - x_2 - 2 \leq 0                   \\
+    \mu_1 > 0                               \\
+    \mu_2 = 0                               \\
+    \mu_3 > 0                               \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    -2+\mu_1  - \mu_3 = 0 \\
+    x_2 = -1              \\
+    x_1 = - 1             \\
+    \mu_1 > 0             \\
+    \mu_2 = 0             \\
+    \mu_3 > 0             \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    \mu_1 = \mu_3+2 \\
+    x_2 = -1        \\
+    x_1 = - 1       \\
+    \mu_1 > 0       \\
+    \mu_2 = 0       \\
+    \mu_3 > 0       \\
+  \end{cases}
+\]
+Identifico nuovamente il punto $C$.
+
+Espando il ramo $\mu_2>0$:
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$
+          [.\error{$\mu_2 = -4 < 0$} ]
+        ]
+        [.$\mu_1>0$
+          [.$\mu_2=0$
+              [.$\mu_3=0$
+                  [.\text{$C=(-1,-1), D=(1,1)$} ]
+                ]
+                [.$\mu_3>0$
+                  [.\text{$C=(-1,-1)$} ]
+                ]
+            ]
+            [.$\mu_2>0$
+              [.$\mu_3=0$ ]
+                [.$\mu_3>0$ ]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, quinto step}
+\end{figure}
+
+Inizio dal ramo $\mu_1 > 0 \land \mu_2>0 \land \mu_3=0$:
+
+\[
+  \begin{cases}
+    2x_1-\mu_1x_2 + \mu_2 = 0 \\
+    2x_2-\mu_1x_1 + \mu_2 = 0 \\
+    x_2(4-x_2)-1 = 0          \\
+    x_1 = 4-x_2               \\
+    1-x_1x_2 \leq 0           \\
+    x_1 + x_2 -4 \leq 0       \\
+    -x_1 - x_2 - 2 \leq 0     \\
+    \mu_1 > 0                 \\
+    \mu_2 > 0                 \\
+    \mu_3 = 0                 \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    2x_1-\mu_1x_2 + \mu_2 = 0                                           \\
+    2x_2-\mu_1x_1 + \mu_2 = 0                                           \\
+    4x_2-x^2_2-1 = 0 \Rightarrow x_2 = 2-\sqrt{3} \lor x_2 = 2+\sqrt{3} \\
+    x_1 = 4-x_2                                                         \\
+    1-x_1x_2 \leq 0                                                     \\
+    x_1 + x_2 -4 \leq 0                                                 \\
+    -x_1 - x_2 - 2 \leq 0                                               \\
+    \mu_1 > 0                                                           \\
+    \mu_2 > 0                                                           \\
+    \mu_3 = 0                                                           \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_2 = 2-\sqrt{3}                        \\
+    x_1 = 2+\sqrt{3}                        \\
+    \mu_2 = (2-\sqrt{3})\mu_1-2(2+\sqrt{3}) \\
+    \mu_2 = (2+\sqrt{3})\mu_1-2(2-\sqrt{3}) \\
+    \mu_1 > 0                               \\
+    \mu_2 > 0                               \\
+    \mu_3 = 0                               \\
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_2 = 2-\sqrt{3} \\
+    x_1 = 2+\sqrt{3} \\
+    \mu_2 = -8       \\
+    \mu_1 = -2       \\
+    \mu_1 > 0        \\
+    \mu_2 > 0        \\
+    \mu_3 = 0        \\
+  \end{cases}
+  \Rightarrow
+  \error{\mu_1 = -2 \land \mu_1>0}
+\]
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$
+          [.\error{$\mu_2 = -4 < 0$} ]
+        ]
+        [.$\mu_1>0$
+          [.$\mu_2=0$
+              [.$\mu_3=0$
+                  [.\text{$C=(-1,-1), D=(1,1)$} ]
+                ]
+                [.$\mu_3>0$
+                  [.\text{$C=(-1,-1)$} ]
+                ]
+            ]
+            [.$\mu_2>0$
+              [.$\mu_3=0$
+                  [.$\error{\mu_1 = -2 \land \mu_1>0}$ ]
+                ]
+                [.$\mu_3>0$ ]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, sesto step}
+\end{figure}
+
+Investigo l'opzione $\bm{\mu}>\bm{0}$:
+\[
+  \begin{cases}
+    2x_1-\mu_1x_2 + \mu_2 - \mu_3 = 0 \\
+    2x_2-\mu_1x_1 + \mu_2 - \mu_3 = 0 \\
+    1-x_1x_2 = 0                      \\
+    x_1 + x_2 -4 = 0                  \\
+    -x_1 - x_2 - 2 = 0                \\
+    \mu_1 > 0                         \\
+    \mu_2 > 0                         \\
+    \mu_3 > 0                         \\
+  \end{cases}
+\]
+Non esiste un'intersezione tra i tre vincoli attivi.
+
+\begin{figure}
+  \begin{tikzpicture}
+    \Tree[.$root$
+      [.$\mu_1=0$
+          [.\error{$\mu_2 = -4 < 0$} ]
+        ]
+        [.$\mu_1>0$
+          [.$\mu_2=0$
+              [.$\mu_3=0$
+                  [.\text{$C=(-1,-1), D=(1,1)$} ]
+                ]
+                [.$\mu_3>0$
+                  [.\text{$C=(-1,-1)$} ]
+                ]
+            ]
+            [.$\mu_2>0$
+              [.$\mu_3=0$
+                  [.$\error{\mu_1 = -2 \land \mu_1>0}$ ]
+                ]
+                [.$\mu_3>0$
+                  [.$\error{g_1 \land g_2 \land g_3}$ ]
+                ]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+  \caption{Albero di ricerca, terminato}
+\end{figure}
+
+Sono stati identificati due punti di ottimo locali: $C=(-1,-1), f(x)=2$ e $D=(1,1), f(x)=2$.
 
 \end{document}
