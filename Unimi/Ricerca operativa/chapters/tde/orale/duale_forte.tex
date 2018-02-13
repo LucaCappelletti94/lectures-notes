@@ -5,14 +5,15 @@
 
 \begin{theorem}[Dualità forte]
   \label{dualita_forte}
-  Se la soluzione ottima del problema primale esiste ed è limitata allora coincide con la soluzione ottima del problema duale.
+  Sia $P=\crl{\bmx\geq0: A\bmx\geq\bmb} \neq \emptyset$ con $\min\crl{\bmct\bmx: \bmx \in P}$ finito. Vale allora:
 
   \[
     \min\crl{\bmct\bmx: A\bmx \geq \bmb, \bmx \geq \bm{0}} = \max\crl{\bmut\bmb: \bmct \geq \bmut A, \bmu \geq \bm{0}}
   \]
+  \paragraph*{Significato:} Se la soluzione ottima del problema primale esiste ed è limitata allora coincide con la soluzione ottima del problema duale.
 \end{theorem}
 
 \begin{proof}
-  Segue direttamente dal lemma di Farkas (\ref{lemma_farkas}).
+  Segue direttamente dal lemma di Farkas (teorema \ref{lemma_farkas}).
 \end{proof}
 \end{document}
