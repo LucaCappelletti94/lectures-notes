@@ -40,7 +40,7 @@
 \end{theorem}
 
 \begin{proof}
-  Isa $\phi_0$ il valore del flusso $\bmx$. Se $t$ è raggiungibile da $s$ in $\bar{\mathcal{G}}$, allora esiste un cammino aumentante $P$ da $s$ a $t$ in $\bar{\mathcal{G}}$. Posto $\delta = \min\crl{\bar{k}_{uv}:(u,v) \in P}>0$, per ogni coppia $(u,v) \in P$ è possibile aggiornare $x_{uv}=x_{uv}+\delta$ se $(u,v)$ è un arco diretto, $x_{uv}=x_{uv}-\delta$ se $(u,v)$ è un arco inverso. È facile verificare che il nuovo vettore $\bmx$ costituisce un flusso ammissibile di valore $\phi_0 + \delta$ nella rete originale, il che dimostra che la soluzione $\bmx$ di partenza non era ottima per il problema di massimo flusso.
+  Sia $\phi_0$ il valore del flusso $\bmx$. Se $t$ è raggiungibile da $s$ in $\bar{\mathcal{G}}$, allora esiste un cammino aumentante $P$ da $s$ a $t$ in $\bar{\mathcal{G}}$. Posto $\delta = \min\crl{\bar{k}_{uv}:(u,v) \in P}>0$, per ogni coppia $(u,v) \in P$ è possibile aggiornare $x_{uv}=x_{uv}+\delta$ se $(u,v)$ è un arco diretto, $x_{uv}=x_{uv}-\delta$ se $(u,v)$ è un arco inverso. È facile verificare che il nuovo vettore $\bmx$ costituisce un flusso ammissibile di valore $\phi_0 + \delta$ nella rete originale, il che dimostra che la soluzione $\bmx$ di partenza non era ottima per il problema di massimo flusso.
 
   Supponiamo ora che $t$ non sia raggiungibile da $s$ in $\bar{\mathcal{G}}$. Esiste quindi una sezione $(S^*,V\ S^*)$ nella rete incrementale $\bar{\mathcal{G}}$ tale che $\delta_{\bar{\mathcal{G}}}^{+}(S^*) = \emptyset$. Per definizione di rete incrementale si ha allora che, nella rete originale $\mathcal{G}$:
   \begin{enumerate}
