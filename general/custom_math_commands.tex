@@ -17,12 +17,24 @@
 \newcommand{\sqr}[1]{\left[#1\right]}
 \newcommand{\crl}[1]{\left\{#1\right\}}
 
+\let\oldbm\bm
+\renewcommand{\bar}{\overline}
+\renewcommand{\bm}[1]{\oldbm{\underline{#1}}}
+\newcommand{\bbm}[1]{\bar{\bm{#1}}}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+
 \def\zero{0}
 \def\one{1}
 \def\negative{-}
 \def\positive{+}
 \def\false{\zero}
 \def\true{\one}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\bs}{\backslash}
+
 \NewDocumentCommand{\gmr}{m}{%
   %
   % #1 -> Value to build gomory cut upon
@@ -30,41 +42,27 @@
   \rnd{#1-\floor{#1}}
 }
 
-\let\oldbm\bm
-\renewcommand{\bar}{\overline}
-\renewcommand{\bm}[1]{\oldbm{\underline{#1}}}
-\newcommand{\bbm}[1]{\bar{\bm{#1}}}
 
-\renewcommand{\geq}{\geqslant}
-\renewcommand{\leq}{\leqslant}
+\NewDocumentCommand{\buildVectorAliases}{m O{#1}}{
+  %
+  % #1 -> Letter to use for aliases
+  % #2 -> Symbol to use as output
+  %
+  \expandafter\newcommand\csname bm#1\endcsname{\bm{#2}}%
+  \expandafter\newcommand\csname bbm#1\endcsname{\bbm{#2}}%
+  \expandafter\newcommand\csname bm#1t\endcsname{\bm{#2}^T}%
+  \expandafter\newcommand\csname bbm#1t\endcsname{\bbm{#2}^T}%
+}
 
-\newcommand{\w}{\omega}
 \renewcommand{\a}{\alpha}
+\newcommand{\w}{\omega}
 \newcommand{\e}{\epsilon}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
 
-\newcommand{\bma}{\bm{\a}}
-\newcommand{\bmc}{\bm{c}}
-\newcommand{\bmb}{\bm{b}}
-\newcommand{\bmu}{\bm{u}}
-\newcommand{\bmut}{\bmu^T}
-\newcommand{\bmbt}{\bmb^T}
-\newcommand{\bmct}{\bmc^T}
-\newcommand{\bmx}{\bm{x}}
-\newcommand{\bmy}{\bm{y}}
-\newcommand{\bmz}{\bm{z}}
-
-\newcommand{\bbma}{\bbm{\a}}
-\newcommand{\bbmc}{\bbm{c}}
-\newcommand{\bbmb}{\bbm{b}}
-\newcommand{\bbmu}{\bbm{u}}
-\newcommand{\bbmut}{\bbmu^T}
-\newcommand{\bbmbt}{\bbmb^T}
-\newcommand{\bbmct}{\bbmc^T}
-\newcommand{\bbmx}{\bbm{x}}
-\newcommand{\bbmy}{\bbm{y}}
-\newcommand{\bbmz}{\bbm{z}}
-
-\newcommand{\bs}{\backslash}
+\buildVectorAliases{a}[\a]
+\buildVectorAliases{w}[\w]
+\buildVectorAliases{c}
+\buildVectorAliases{b}
+\buildVectorAliases{u}
+\buildVectorAliases{x}
+\buildVectorAliases{y}
+\buildVectorAliases{z}
