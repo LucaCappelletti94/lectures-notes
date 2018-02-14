@@ -50,28 +50,25 @@ Banalmente si elimina uno o più dei vincoli di $P$ estendendo la regione ammiss
 \subsection{Rilassamento lagrangiano}
 La soluzione ottima del rilassamento lagrangiano fornisce una limitazione inferiore sul valore ottimo della funzione obbiettivo del problema originario.
 
-\begin{figure}
-  \begin{subfigure}{0.49\textwidth}
-    \begin{align*}
-      \min z(x) = c^Tx         \\
-      \bm{A}x & \geq b         \\
-      \bm{C}x & \geq d         \\
-      x       & \geq 0         \\
-      x       & \in \mathbb{Z}
-    \end{align*}
-    \caption{Problema di PI}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \begin{align*}
-      \min_x L(\bm{\lambda}, x) = c^Tx -\bm{\lambda}^T(\bm{A}x-b) \\
-      \bm{C}x      & \geq d                                       \\
-      x            & \geq 0                                       \\
-      x            & \in \mathbb{Z}                               \\
-      \bm{\lambda} & \geq \bm{0}
-    \end{align*}
-    \caption{Rilassamento lagrangiano $RL_{\bm{\lambda}}$ di $P$}
-  \end{subfigure}
-\end{figure}
+\fig{
+  \begin{align*}
+    \min z(x) = c^Tx         \\
+    \bm{A}x & \geq b         \\
+    \bm{C}x & \geq d         \\
+    x       & \geq 0         \\
+    x       & \in \mathbb{Z}
+  \end{align*}
+  \caption{Problema di PI}
+}{
+  \begin{align*}
+    \min_x L(\bm{\lambda}, x) = c^Tx -\bm{\lambda}^T(\bm{A}x-b) \\
+    \bm{C}x      & \geq d                                       \\
+    x            & \geq 0                                       \\
+    x            & \in \mathbb{Z}                               \\
+    \bm{\lambda} & \geq \bm{0}
+  \end{align*}
+  \caption{Rilassamento lagrangiano $RL_{\bm{\lambda}}$ di $P$}
+}
 
 \begin{theorem}
   In generale, la soluzione ottima identificata tramite un rilassamento lineare (RL) è sempre peggiore o uguale a quella identificata tramite rilassamento lagrangiano L.
