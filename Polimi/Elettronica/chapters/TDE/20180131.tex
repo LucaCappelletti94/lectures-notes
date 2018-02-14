@@ -1,0 +1,54 @@
+\providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+
+%\graphicspath{ {\main/chapters/circuiti/}}
+
+\begin{document}
+\chapter{Tema d'esame 31 gennaio 2018}
+\subsection{Esercizio 1}
+Siano $IN_1,IN_2$ dei segnali digitali compresi tra $0$ e $3.3V$ e $A$ un segnale digitale compreso tra $0$ e $5V$.
+
+
+
+\begin{center}
+    \begin{circuitikz}
+        \draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
+        \draw(-1,3) to[Tnmos, l=$N_1$](0,3);
+        \draw (-0.5,4) node[above] {$B$};
+        \draw (0,3) -- (1,3) -- (1,1);
+
+        \draw(-1,1) to[Tnmos, l=$N_2$] (0,1);
+        \draw (-0.5,2) node[above] {$\neg B$};
+        \draw (0,1) -- (1,1);
+        \draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
+
+        \draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
+    \end{circuitikz}
+\end{center}
+
+\[K_n = 200 \frac{\mu A}{V^2}\]
+\[V_{t,n} = |V_{t,p}| = 1V\]
+\[V_{DD} = 3.3V\]
+\[C = 0.2pF\]
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
