@@ -1,7 +1,13 @@
 \providecommand{\main}{.}
 \input{\main/../../general/packages.tex}
 
-\addbibresource{references.bib}
+\newcommand{\graffe}[1]{\left\lbrace #1 \right\rbrace}
+
+%Toc
+\setcounter{tocdepth}{2}
+
+%Bib
+%\usepackage[numbers]{natbib}
 
 \begin{document}
 
@@ -18,6 +24,9 @@
 
 \chapter{Statistica}
 \subfile{\main/chapters/statistica}
+
+\chapter{Clustering}
+\subfile{\main/chapters/clustering}
 
 \chapter{Apprendimento}
 \subfile{\main/chapters/exploration_exploitation}

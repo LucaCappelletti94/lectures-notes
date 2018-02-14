@@ -1,25 +1,5 @@
-\documentclass[12pt]{report}
-
-%Links
-\usepackage[hidelinks]{hyperref}
-\usepackage{xcolor}
-
-%Lang
-\usepackage[italian]{babel}
-\usepackage[utf8]{inputenc}{\tiny }
-
-%Math
-\usepackage{amsfonts}
-\newcommand{\graffe}[1]{\left\lbrace #1 \right\rbrace}
-
-%Toc
-\setcounter{tocdepth}{2}
-
-%Bib
-\usepackage[numbers]{natbib}
-
-%Graphics
-\usepackage{graphicx}
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
 
 \begin{document}
 \section{Clustering}
@@ -48,7 +28,7 @@ Qualsiasi sia la strategia utilizzata, devono essere applicate delle procedure c
 \begin{figure} \centering
 	\caption{Esempio di utilizzo di \textit{quad-tree decomposition} per la compressione di un'immagine raster binaria}
 	\label{fig:qtdecomp}
-	\ \newline 
+
 	\includegraphics[width=\textwidth,trim={1.25in 2.5in 1.25in 2.5in},clip]{../images/qtdecomp.pdf}
 \end{figure}
 Con il termine \textit{quadtree} si indica una classe di strutture dati basate sulla decomposizione ricorsiva dello spazio: essi possono variare per il tipo di dati rappresentati, per il criterio che guida la decomposizione e la risoluzione (che può essere variabile o fissa). È un algoritmo gerarchico divisivo.
@@ -70,15 +50,16 @@ Gli algoritmi di clustering agglomerativo differiscono soprattutto per la politi
 	\item \textit{Centroid linkage}: distanza tra i centroidi dei due cluster
 	\item \textit{Metodo di Ward}: aumento di varianza \textit{whitin-groups}
 \end{itemize}
-Per ognuna di queste definizioni di \textit{linkage}, esistono dei pesi $\graffe{ \alpha_i , \alpha_j , \beta , \gamma }$, tali per cui il valore della distanza del nuovo cluster da uno degli altri cluster $C_l$ può essere ottenuto dai valori di distanza fra $C_l$ e i due cluster $C_i$ e $C_j$ che stiamo unendo, tramite la formula di ricorrenza di Lance e Williams:\\ \ \\
-$ D(C_l,(C_i,C_j)) = $ 
+Per ognuna di queste definizioni di \textit{linkage}, esistono dei pesi $\graffe{ \alpha_i , \alpha_j , \beta , \gamma }$, tali per cui il valore della distanza del nuovo cluster da uno degli altri cluster $C_l$ può essere ottenuto dai valori di distanza fra $C_l$ e i due cluster $C_i$ e $C_j$ che stiamo unendo, tramite la formula di ricorrenza di Lance e Williams:
+
+$ D(C_l,(C_i,C_j)) = $
 \begin{flushright}
 	$\alpha_i D(C_l,C_i)+ \alpha_j D(C_l,C_j) + \beta D(C_i,C_j) + \gamma \left| D(C_l,C_i)-D(C_l,C_j) \right| $
 \end{flushright}
 \begin{figure} \centering
 	\caption{Esempio di dendrogramma risultante dal clustering agglomerativo degli stati membri degli USA per numero di arresti}
 	\label{fig:hcdendrogram}
-	\ \newline 
+	\ \newline
 	\includegraphics[width=0.75\textwidth,trim={1.5in 0.25in 0 1.25in},clip]{../images/hcdendrogram.png}
 \end{figure}
 I risultati del clustering agglomerativo vengono solitamente visualizzati con un dendrogramma (figura~\ref{fig:hcdendrogram}).
@@ -87,7 +68,7 @@ I risultati del clustering agglomerativo vengono solitamente visualizzati con un
 \begin{figure} \centering
 	\caption{Esempio di applicazione di K-means: inizializzazione e risultato}
 	\label{fig:kmeans}
-	\ \newline 
+	\ \newline
 	\includegraphics[width=0.49\textwidth,trim={2.5in 1.25in 1.5in 1.2in},clip]{../images/kmeans_0.pdf}
 	\includegraphics[width=0.49\textwidth,trim={2.5in 1.25in 1.5in 1.2in},clip]{../images/kmeans_f.pdf}
 \end{figure}
