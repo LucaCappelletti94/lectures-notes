@@ -1,0 +1,16 @@
+\NewDocumentCommand{\prob}{m o g}{%
+  %
+  % #1 -> first term of probability
+  % #2 (optional) -> operator beetween probabilities, defaults to conditioned probabilities.
+  % #3 (optional) -> second term of probability, when conditioned
+  %
+  \IfValueTF{#3}{
+    \IfValueTF{#2}{
+      P\rnd{#1 #2 #3}
+    }{
+      P\rnd{\left. #1 \;\right\rvert\; #3}
+    }
+  }{
+    P\rnd{#1}
+  }
+}
