@@ -1,13 +1,14 @@
 
-# coding: utf-8
-
-# In[19]:
-
 
 import os
 from os import listdir
 from os.path import isfile
 import json
+import sys
+
+
+arguments = sys.argv[1:]
+count = len(arguments)
 
 
 with open("settings_cleaner.json", "r") as f:
@@ -42,6 +43,12 @@ for file in get_file_in_folder():
         if white in file:
             skip = True
             continue
+    if "images" in file.lower().split("/"):
+        skip = True
+
+    if count >0:
+        if arguments[0] not in file.lower():
+            skip = False
 
     if skip == True:
         continue
