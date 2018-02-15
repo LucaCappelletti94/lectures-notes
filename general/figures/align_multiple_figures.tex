@@ -1,0 +1,86 @@
+\NewDocumentCommand{\fig}{m g g g g g g O{1} g}{%
+  %
+  % PARAMETERS MEANING
+  %
+  % #1 (Mandatory)                     -> First figure
+  % #2 (Optional, with curly braces)   -> Second figure
+  % #3 (Optional, with curly braces)   -> Third figure
+  % #4 (Optional, with curly braces)   -> Forth figure
+  % #5 (Optional, with curly braces)   -> Fifth figure
+  % #6 (Optional, with curly braces)   -> Sixth figure
+  % #7 (Optional, with curly braces)   -> Seventh figure
+  % #8 (Optional, with squared braces) -> Maximum width, based on percentage of \textwidth.
+  % #9 (Optional, with curly braces) -> Elements to add at the bottom, such as labels of caption for the group
+  %
+  %--------------------------------------
+  %
+  % USAGE EXAMPLES
+  %
+  % \fig{<content of figure 1 here>}{<content of figure 2 here>}{...}[Width I want]{<elements for bottom, such as caption>}
+  %
+  % IMPORTANT: For having the group caption evaluated correctly, one must insert also the width.
+  %
+  % Example with 1 figure:
+  %
+  % I want to show a kebab, with a width of 0.5 of the textwidth and as caption and label ``kebab''.
+  %
+  % \fig{\includegraphics{kebab.jpg}}[0.5]{
+  %   \caption{kebab}
+  %   \label{kebab}
+  % }
+  %
+  % Example with 2 figures:
+  %
+  % I want to show two diagrams, one 3d and the projection, width each one occuping 0.5 of textwidth and with common label and caption ``graphs''.
+  %
+  % \fig{\includegraphics{graph3d.jpg}}{\includegraphics{graph2d.jpg}}{
+  %   \caption{graphs}
+  %   \label{graphs}
+  % }
+  %
+  %--------------------------------------
+  %
+  \FPset{\figuresNumber}{1}
+  \IfValueT{#2}{
+    \FPadd{\figuresNumber}{\figuresNumber}{1}
+    \IfValueT{#3}{
+      \FPadd{\figuresNumber}{\figuresNumber}{1}
+      \IfValueT{#4}{
+        \FPadd{\figuresNumber}{\figuresNumber}{1}
+        \IfValueT{#5}{
+          \FPadd{\figuresNumber}{\figuresNumber}{1}
+          \IfValueT{#6}{
+            \FPadd{\figuresNumber}{\figuresNumber}{1}
+            \IfValueT{#7}{
+              \FPadd{\figuresNumber}{\figuresNumber}{1}
+            }
+          }
+        }
+      }
+    }
+  }
+  \FPdiv{\figureWidth}{#8}{\figuresNumber}
+  \FPclip{\figureWidth}{\figureWidth}
+  \smartif{\figuresNumber}{\one}[
+    \begin{figure}
+      \scalebox{\figureWidth\textwidth}{#1}
+      \IfValueT{#9}{
+        #9
+      }
+    \end{figure}
+  ][
+    \begin{figure}
+      \begin{subfigure}{\figureWidth\textwidth}#1\end{subfigure}%
+      \IfValueT{#2}{\begin{subfigure}{\figureWidth\textwidth}#2\end{subfigure}}%
+      \IfValueT{#3}{\begin{subfigure}{\figureWidth\textwidth}#3\end{subfigure}}%
+      \IfValueT{#4}{\begin{subfigure}{\figureWidth\textwidth}#4\end{subfigure}}%
+      \IfValueT{#5}{\begin{subfigure}{\figureWidth\textwidth}#5\end{subfigure}}%
+      \IfValueT{#6}{\begin{subfigure}{\figureWidth\textwidth}#6\end{subfigure}}%
+      \IfValueT{#7}{\begin{subfigure}{\figureWidth\textwidth}#7\end{subfigure}}%
+      \IfValueT{#9}{
+        #9
+      }
+    \end{figure}
+  ]
+
+}%

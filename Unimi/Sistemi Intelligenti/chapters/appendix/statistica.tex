@@ -1,9 +1,8 @@
 \providecommand{\main}{../../}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
-
-\subsection{Esercizio sui Taxi}
-In una città lavorano due compagnie di taxi: blue e verde, la maggior parte dei taxisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: $85\%$ di taxi verdi e $15\%$ di taxi blu. Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua affidabilità è stata valutata del $70\%$. Qual è la probabilità che il taxi fosse effettivamente blu? Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%?
+\section{Domande su Statistica}
+\subfile{\main/chapters/appendix/esercizi_statistica/taxi}
 
 \subsection{Esercizio sul Tumore al seno}
 Lo strumento principe per lo screaning per il tumore al seno è la radiografia (mammografia). Definiamo X la situazione della donna: X={sana, malata}, che non conosciamo. Definiamo Y l'esito della mammografia: Y={positiva, negativa}, che viene misurato. Sappiamo che la sensitività della mammografia è intorno al 90\% ( P(Y=positiva | X=malata) ) e che la specificità sia anch'essa del 90\% ( P(Y=negativa | X=sana) ). Qual è la probabilità che l'esame dia risultato positivo ( P(Y = positivo) ), sapendo che le donne malate sono lo 0,01\% ( P(X=malata) = 0,01\%)? Qual è la percentuale di donne che hanno uno screening positivo, di essere effettivamente malate?
@@ -34,14 +33,14 @@ Scriviamo il logaritmo negativo della verosimiglianza:
 	\exp \left[
 		-\dfrac{1}{2}	\left(\dfrac{ y_i - mx_i - b}{\sigma} \right)^2
 		\right]
-	\right\}\\
+	\right\}                                             \\
 	                                                 & =
 	- \sum_{i=1}^n \ln
 	\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
 	- \sum_{i=1}^n
 	\left[
 		-\dfrac{1}{2}	\left(\dfrac{ y_i - mx_i - b}{\sigma} \right)^2
-		\right]\\
+		\right]                                              \\
 	                                                 & =
 	- \sum_{i=1}^n \ln
 	\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
@@ -56,7 +55,7 @@ Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a
 		\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
 		+ \dfrac{1}{2\sigma^2} \sum_{i=1}^n
 		\left(y_i - mx_i - b \right)^2
-		\right ]\\
+		\right ]                                                                                                                                                        \\
 	                                                                              & = 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-x_i) \\
 	                                                                              & = -\dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2  x_i
 \end{align}
@@ -83,7 +82,7 @@ Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a
 		\left ( \dfrac{1}{\sqrt{2\pi}\sigma} \right )
 		+ \dfrac{1}{2\sigma^2} \sum_{i=1}^n
 		\left(y_i - mx_i - b \right)^2
-		\right ]\\
+		\right ]                                                                                                                                                      \\
 	                                                                              & = 0 + \dfrac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2 2 (-1) \\
 	                                                                              & = \dfrac{1}{\sigma^2} \sum_{i=1}^n \left(y_i - mx_i - b \right)^2
 \end{align}

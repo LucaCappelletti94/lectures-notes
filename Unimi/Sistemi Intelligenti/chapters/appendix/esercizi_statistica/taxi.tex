@@ -1,0 +1,54 @@
+\providecommand{\main}{../../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Domande su Statistica}
+\subsection{Esercizio sui Taxi}
+In una città lavorano due compagnie di taxi: blue e verde.
+La maggior parte dei tassisti lavorano per la compagnia verde per cui si ha la seguente distribuzione di taxi in città: $85\%$ di taxi verdi e $15\%$ di taxi blu.
+
+Succede un incidente in cui è coinvolto un taxi. Un testimone dichiara che il taxi era blu. Era sera e buio, c'era anche un po' di nebbia ma il testimone ha una vista acuta, la sua \textbf{affidabilità} è stata valutata del $70\%$.
+
+\begin{enumerate}
+  \item Qual è la probabilità che il taxi fosse effettivamente blu?
+  \item Quale deve essere l'affidabilità del testimone perché la probabilità che il taxi fosse effettivamente blu sia del 99\%?
+\end{enumerate}
+
+\subsection{Soluzione esercizio sui Taxi}
+Definiamo una variabile aleatoria $X$ che descrive la probabilità che un taxi appartenga ad una determinata compagnia:
+
+\[
+  X: \begin{cases}
+    \text{blu}: 0.15 \\
+    \text{verde}: 0.85
+  \end{cases}
+\]
+
+Il valore dell'affidabilità del testimone può essere modellata tramite la seguente probabilità condizionata, rappresentante quanto sono sicuro che il testimone sia in grado di dire che il taxi è blu quando è effettivamente blu:
+
+\[
+  \text{Affidabilità del testimone} = \prob{\text{Testimone vede blu}}{\text{Il taxi è blu}} = 0.7
+\]
+A noi interessa ottenere la probabilità $\prob{\text{Il taxi è blu}}{\text{Testimone vede blu}}$, per cui procederemo con il \textbf{teorema di Bayes}:
+
+\bayesTh
+
+Per determinare la probabilità $\prob{\text{Testimone vede blu}}$ utilizziamo la \textbf{formula delle probabilità totali}:
+
+\formulaProbTot
+
+Per cui abbiamo che:
+
+\begin{align*}
+  \prob{\text{Testimone vede blu}} & = \prob{\text{Testimone vede blu}}{\text{Il taxi è blu}}\prob{{\text{Il taxi è blu}}} +  \prob{\text{Testimone vede blu}}{\text{Il taxi è verde}}\prob{{\text{Il taxi è verde}}} \\
+                                   & = 0.7\cdot0.15+0.3\cdot0.85                                                                                                                                                      \\
+                                   & = 0.36
+\end{align*}
+\begin{align*}
+  \prob{\text{Il taxi è blu}}{\text{Testimone vede blu}} = \frac{\prob{\text{Testimone vede blu}}{\text{Il taxi è blu}}\prob{{\text{Il taxi è blu}}}}{\prob{\text{Testimone vede blu}}} = \frac{0.7\cdot 0.15}{0.36} = 0.291\bar{6}
+\end{align*}
+L'affidabilità del testimone per garantire una probabilità del $99\%$ deve essere tale che:
+\begin{align*}
+  \frac{\prob{\text{Testimone vede blu}}{\text{Il taxi è blu}}\prob{{\text{Il taxi è blu}}}}{\prob{\text{Testimone vede blu}}} = 0.99 \\
+  \prob{\text{Testimone vede blu}}{\text{Il taxi è blu}} = \frac{0.99\cdot\prob{\text{Testimone vede blu}}}{\prob{{\text{Il taxi è blu}}}} = \frac{0.99\cdot 0.36}{0.7} = 0.509
+\end{align*}
+\end{document}
