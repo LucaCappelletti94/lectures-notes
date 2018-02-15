@@ -39,16 +39,18 @@ def get_file_in_folder(path=None):
 for file in get_file_in_folder():
     # don't touch the white folder
     skip = False
+
+    if count > 0:
+        if arguments[0] not in file.lower():
+            skip = True
+
     for white in white_list:
         if white in file:
             skip = True
             continue
+
     if "images" in file.lower().split("/"):
         skip = True
-
-    if count >0:
-        if arguments[0] not in file.lower():
-            skip = False
 
     if skip == True:
         continue
