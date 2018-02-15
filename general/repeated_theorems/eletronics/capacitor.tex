@@ -1,0 +1,28 @@
+
+\def\taudef{
+	\begin{definition}[Costante di tempo del condensatore]
+	La Costante di tempo associata ad un condensatore e' definita come:
+
+	\[\tau = R_{eq} C\]
+
+	Dove $C$ e' la capacita' del condensatore e $R_{eq}$ e' la resistenza equivalente di Thevenim vista ai capi del condensatore.
+	Cioe' si ottiene sostituendo al condensatore un circuito aperto e calcolando la resistenza equivalente tra questi due morsetti spegnendo i generatori di tensione non controllati. (Cortocircuitando quelli di Tensione ed sostituendo un aperto a quelli di Corrente).
+	\end{definition}
+
+}
+
+\def\carattersistcacondensatore{
+	\begin{definition}[Eq Caratteristia del condensatore]
+	Sperimentalemnte si e' ricavato che la relazione tensione corrente di un condensatore e':
+	\[V_c(t) = C \frac{\partial i_c(t)}{\partial t}\]
+	\end{definition}
+}
+\def\caratteristacondensatorethr{
+	\begin{theorem}[Risoluzione della eq caratteristica del condensatore]
+	L'eq caratteristia del condnensatore e' un equazione differenziale lineare alle derivate parziali
+	\[V_c(t) = C \frac{\partial i_c(t)}{\partial t}\]
+	che ha come soluzione:
+	\[V_c(t)= V_f - \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\]
+	\end{theorem}
+	
+}

@@ -47,7 +47,7 @@ for file in get_file_in_folder():
         skip = True
 
     if count >0:
-        if arguments[0] not in file.lower():
+        if arguments[0] in file.lower():
             skip = False
 
     if skip == True:

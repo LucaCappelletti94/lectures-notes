@@ -1,0 +1,83 @@
+
+\def\approxresistancemos{
+	\begin{theorem}[Approssimazione della resistenza del canale di un Mosfet]
+	La resistenza del canale di un Mos 
+
+	che lavora in zona \textbf{Ohmmica} si puo' stimare:
+	\[R_{eq} \approx \frac{1}{k\rnd{V_{GS} - V_T}}\]
+	mentre se lavora in zona \textbf{Satura} si puo' stimare:
+	\[R_{eq} \approx \frac{1}{2k\rnd{V_{GS} - V_T}}\]
+	\end{theorem}
+}
+
+\def\potenzadinamica{
+	\begin{definition}[Potenza dinamica dissipata]
+	E' la potenza dissipata dalla alimentazione in un ciclo completo dei segnali.
+	\[P_{din} = \int_{t_0}^{t_1} V_{alim} I_{alim}(t)dt\]
+	e per semplificare i conti usiamo direttamente la corrente media.
+	\[P_{din} = V_{alim} <I_{alim}>\]
+	ed ed applicando la definizione di corrente $I = \frac{\Delta Q}{T}$
+	\[I = \frac{\Delta Q}{T_{mcm}}\]
+	dove $T_{mcm}$ e' il minimo comune multiplo tra i periodi dei segnali presenti, cosi da compiere un intero ciclo.
+	Poiche' di solito la potenza dinamica viene usata per caricare il condensatore d'uscita delle porte logiche abbiamo che (E ricordando che $Q = C \Delta V$):
+	\[I = C\frac{\Delta V}{T_{mcm}}\]
+	Quindi in ultima analisi ottengo che:
+	\[P_{din} = V_{alim} C\frac{\Delta V}{T_{mcm}}\]
+	\end{definition}
+}
+
+\def\statinmos{
+	\begin{theorem}[Stato di funzionamento di un NMOS]
+		Un mos puo' essere in 3 stati di funzionamento: Spento, Zona Ohmmica e Saturazione.
+		\begin{center}
+		    \begin{circuitikz}
+		        \draw(0,0) node[nmos] (mos) {}
+		        (mos.gate) node[anchor=east] {G}
+		        (mos.drain) node[anchor=south] {D}
+		        (mos.source) node[anchor=north] {S};
+		        \draw (mos.drain) to[open, v^<=$V_{DS}$] (mos.source);
+		        \draw (mos.gate)  to[open, v_<=$V_{GS}$] (mos.source);
+		        \draw (mos.gate)  to[open, v^<=$V_{GD}$] (mos.drain);
+		    \end{circuitikz}
+		\end{center}
+	\begin{tabular}{c c | c c}
+	$V_{GS} > V_T$ & $V_{GD} > V_T$ & Zona di Funzionamento & Corrente\\
+	\hline
+	No & No & Spento & 0A\\
+	Si & No & Saturazione  & $I_{DS} = K_n \left( V_{GS} - V_t \right)^2$\\
+	No & Si & Saturazione  & $I_{DS} = - K_n \left( V_{GS} - V_t \right)^2$\\
+	Si & Si & Ohmmica & $I_{DS} = K_n \left[ 2 \left(V_{GS} - V_t \right)V_{DS} - V_{DS}^2 \right]$\\
+
+
+	\end{tabular}
+
+	\end{theorem}
+}
+\def\statipmos{
+	\begin{theorem}[Stato di funzionamento di un PMOS]
+		Un mos puo' essere in 3 stati di funzionamento: Spento, Zona Ohmmica e Saturazione.
+		\begin{center}
+		    \begin{circuitikz} \draw
+		        (0,0) node[pmos] (mos) {}
+		        (mos.gate) node[anchor=east] {G}
+		        (mos.drain) node[anchor=north] {D}
+		        (mos.source) node[anchor=south] {S};
+		        \draw (mos.drain) to[open, v_>=$V_{SD}$] (mos.source);
+		        \draw (mos.gate)  to[open, v^>=$V_{SG}$] (mos.source);
+		        \draw (mos.gate)  to[open, v_>=$V_{DG}$] (mos.drain);
+		    \end{circuitikz}
+		\end{center}
+
+	\begin{tabular}{c c | c c}
+	$V_{SG} > V_T$ & $V_{DG} > V_T$ & Zona di Funzionamento & Corrente\\
+	\hline
+	No & No & Spento & 0A\\
+	Si & No & Saturazione  & $ I_{SD} = K_p \left( V_{SG} - V_t \right)^2$\\
+	No & Si & Saturazione  & $ I_{SD} = K_p \left( V_{SG} - V_t \right)^2$\\
+	Si & Si & Ohmmica & $I_{SD} = K_p \left[ 2 \left(V_{SG} - V_t \right)V_{SD} - V_{SD}^2 \right]$\\
+
+
+	\end{tabular}
+
+	\end{theorem}
+}

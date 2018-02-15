@@ -36,6 +36,7 @@ Dove $V_{s,hold}$ e' il valore minimo della onda quadra $V_s$ e $V_{s,sample}$ e
 
 
 \subsubsection{Carica del condensatore:}
+\
 Poiche' l'eq caratteristica del condensatore e':
 \[i_c(t) = C \frac{\partial V_c(t)}{\partial t}\]
 \[V(t) = V_i + \rnd{V_f - V_i}e^{-\frac{t}{\tau}}\]
@@ -45,13 +46,7 @@ $\tau$ la costante di tempo associata al condesnatore, normalmente $\tau = C R_{
 con $R_{eq}$ la resistenza equivalente ti thevenim vista ai capi del condensatore.
 
 \subsubsection{Tempo di propagazione esatto:}
-e' il tempo che ci mette la porta logica a fare meta' della escursione.
-\[ V_i + \frac{\rnd{V_f - V_i}}{2} = V_i + \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\]
-\[  \frac{\rnd{V_f - V_i}}{2} =\rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\]
-\[  \frac{1}{2} = e^{-\frac{t_p}{\tau}}\]
-\[  ln\rnd{\frac{1}{2}} = -\frac{t_p}{\tau}\]
-\[ - \tau ln\rnd{\frac{1}{2}} = t\]
-\[ t_p = \tau ln\rnd{2} \simeq 0.69\tau \]
+\propgtimerc
 
 
 \clearpage

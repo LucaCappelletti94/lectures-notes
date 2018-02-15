@@ -1,0 +1,36 @@
+\def\propgtime{
+	\begin{definition}[Tempo di Propagazione]
+	Il tempo di propagazione e' il tempo che ci mette la porta ad eseguire meta' della sua escursione.
+	Quindi una porta logica che deve transitare da una certa tensione iniziale $V_i$ ad una tensione finale $V_f$ ed ha capacita' equivalente $C$
+	Il tempo di propagazione $t_p$ e' il tempo tale che renda vera questa equazione
+	\[ V_c(t_p) = V_i + \frac{\rnd{V_f - V_i}}{2}\]
+	Osservando che :
+	\[ V_i + \frac{\rnd{V_f - V_i}}{2} =  V_f - \frac{\rnd{V_f - V_i}}{2} \]
+	\end{definition}
+}
+
+\def\propgtimerc{
+	\begin{theorem}[Tempo di Propagazione sapendo la  resistenza vista dal condensatore]
+	\[t_p = \tau ln\rnd{2} \simeq 0.69\tau \]
+	Dove $t_p$ e' il tempo di propagaizone e $\tau$ e' la costante di tempo del condensatore.
+
+
+	\textbf{Dim:}
+	Dalla definizione di tempo di propagazione e dalla risoluzione della equazione caratteristica del condensatore impongo che:
+	\[ V_c(t_p) =  V_f - \frac{\rnd{V_f - V_i}}{2}\]
+	\[V_c(t)= V_f - \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\]
+	Dove $V_f$ e' la tensione a cui si carica/scarica il condensatore, $V_i$ e' la tensione da cui parte il condensatore, $t_p$ e' il tempo di propagaizone e $\tau$ e' la costante di tempo del condensatore.
+
+	Dalle quali si deriva:
+
+	\begin{align*}
+	 V_f - \frac{\rnd{V_f - V_i}}{2} &= V_f - \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\\
+	  - \frac{\rnd{V_f - V_i}}{2}  &= - \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\\
+	  \frac{\rnd{V_f - V_i}}{2}  &= \rnd{V_f - V_i}e^{-\frac{t_p}{\tau}}\\
+	  \frac{1}{2} &= e^{-\frac{t_p}{\tau}}\\
+	  ln\rnd{\frac{1}{2}} &= -\frac{t_p}{\tau}\\
+	 - \tau ln\rnd{\frac{1}{2}} &= t\\
+	t_p &= -\tau ln\rnd{2} \simeq 0.69\tau \\
+	\end{align*}
+	\end{theorem}
+}
