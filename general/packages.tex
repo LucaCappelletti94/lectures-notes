@@ -1,3 +1,6 @@
+\directlua{pdf.setcompresslevel(9)}
+\directlua{pdf.setobjcompresslevel(2)}
+\directlua{pdf.setminorversion(5)}
 \documentclass{report} % We use report to allow for chapers etc...
 \usepackage{geometry} % More rich support for page layout.
 \geometry{
@@ -99,7 +102,7 @@
 \usetikzlibrary{shapes,arrows,calc,positioning,matrix}
 \usepgfplotslibrary{external}
 
-\pgfplotsset{samples=75,shader=faceted interp,grid=both}
+\pgfplotsset{samples=60,shader=interp,grid=both}
 
 \usepackage{paralist} % For compacted enumerations
 \usepackage[automake,style=long,nonumberlist,toc,acronym,nomain]{glossaries} % for glossaries and acronyms
