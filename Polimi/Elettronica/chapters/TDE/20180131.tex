@@ -3,278 +3,35 @@
 
 %\graphicspath{ {\main/chapters/circuiti/}}
 
-
 \begin{document}
-\section{Tema d'esame 31 gennaio 2018}
-\subsection{Testo del esame}
-\subsubsection{Esercizio 1}
+\chapter{Tema d'esame 31 gennaio 2018}
+\subsection{Esercizio 1}
 Siano $IN_1,IN_2$ dei segnali digitali compresi tra $0$ e $3.3V$ e $A$ un segnale digitale compreso tra $0$ e $5V$.
 
 
 
 \begin{center}
     \begin{circuitikz}
-        \draw(-2,3) node[left] {$IN_1$} (-2,3) to[short, o-](-1,3);
+        \draw(-2,3) node[left] {$A$} (-2,3) to[short, o-](-1,3);
         \draw(-1,3) to[Tnmos, l=$N_1$](0,3);
-        \draw (-0.5,4) node[above] {$A$};
+        \draw (-0.5,4) node[above] {$B$};
         \draw (0,3) -- (1,3) -- (1,1);
 
         \draw(-1,1) to[Tnmos, l=$N_2$] (0,1);
-        \draw (-0.5,2) node[above] {$\neg A$};
+        \draw (-0.5,2) node[above] {$\neg B$};
         \draw (0,1) -- (1,1);
-        \draw(-1,1) -- (-2,1) node[left] {$IN_2$};
+        \draw(-1,1) -- (-2,1) -- (-2,0) node[ground] {} (-2,0);
 
         \draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
     \end{circuitikz}
 \end{center}
 
-\[K_n = 0.5 \frac{m A}{V^2}\]
-\[V_{t,n} = 0.7V\]
-\[C = 0.5pF\]
-
-\begin{enumerate}
-\item Determinare i valori (Logici e di Tensione) assunti dall'uscita $V_{out}$ quando $A = "1"$ e quando $A = "0"$ in funzione dei valori degli ingressi.
-\item Agli Ingressi $A$ e $IN_1$ e' applicata un' onda quadra a frequenza $1MHz$ e all' ingresso $IN_2$ un' onda quadra a frequenza $500KHz$. Si consideri il fronte di salita dei due segnali allineato. Disegnare l'andamento temporale di $V_{out}(t)$ e calcolare la potenza dinamica dissipata dal circuito.
-\item Calcolare il tempo di commutazione della porta logica quando gli ingressi passano $IN_1=0,IN_2=1,A=0 \longrightarrow IN_1=0,IN_2=0,A=1$ (si noti il funzionamento in zona ohmmica).
-\end{enumerate}
-
-\clearpage
-\subsubsection{Esercizio 2}
-Si consideri il circuito in figura. I diodi hanno una tensione di accensione $V_\gamma = 0.7V$
-
-\begin{center}
-    \begin{circuitikz}
-        \draw (-4,6) to[american voltage source, v^<= $V_{IN}$] (-4,0) node[ground] {};
-        \draw(2,6) to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
-        \draw(0,4) to[diode,l_=$D_1$] (0,6);
-        \draw(2,6) to[diode,l=$D_2$] (2,4);
-        \draw(0,4) to[R,l=$R_1$] (0,2);
-        \draw(0,2) to[short, *-*] (2,2);
-        \draw(2,4) to[R,l=$R_2$] (2,2);
-        \draw(0,2) to[C,l=$C_1$] (0,0)  node[ground]{} (0,0);
-        \draw(2,2) to[C,l=$C_2$] (2,0)  node[ground]{} (2,0);
-    \end{circuitikz}
-\end{center}
-
-\[R_1 = 250 \Omega\]
-\[R_2 = 100 \Omega\]
-\[R_3 = 50 \Omega\]
-\[C_1 = C_2 = 10 \mu F\]
-
-Attraverso il generatore ideale di tensione $V_{in}$ viene applicata al circuito un'onda quadra di livelli $-10V,+10V$ con frequenza $10Hz$ come in figura.
-
-\begin{enumerate}
-\item Tracciare su di un grafico quotato l'andamento della tensione al nodo $V_x$ dal tempo $t=0s$ al tempo $t=200ms$ e calcolare il valore della costante di tempo $\tau$ per sia il fronte di salita e sia quello di discesa
-\item A causa di un malfunzionamento la capacita' $C_1$ esplode diventando un corto circuito. Se il generatore $V_{in}$ rimane acceso, quale dei due diodi deve dissipare piu' potenza? Calcolarne il valore.
-\item La Capacita' $C_1$ viene in seguito sostituita con una resistenza $R = 150 \Omega$ mentre la capacita' $C_2$ e' ancora presente. In queste condizioni, Tracciare nuovamente l'andamento della tensione al nodo $V_x$ dal tempo $t = 0s$ a $t = 200ms$ su di un grafico quotato e calcolare i nuovi valori delle costanti di tempo.
-\end{enumerate}
-
-\clearpage
-\subsubsection{Esercizio 3}
-Si consideri il circuito di amplificazione mostrato in figura (in cui $C_1$ modellizza un effetto parassita).
-
-\begin{center}
-    \begin{circuitikz}
-    \draw(0,2) node[tground]{} (0,2) node[above] {$V_{dd}$};
-    \draw(0,2) to[R,l=$R_3$, -*] (0,0);
-    \draw(0,0) to[R,l=$R_4$] (0,-2) node[ground]{};
-    \draw(0,0) to[C,l=$C_{in}$, *-o] (-2,0) node[left] {$V_{in}$};
-    \draw(6,0.49) node[op amp]{};
-    \draw(4.81,0) -- (0,0);
-    \draw(4.81,0.98) to[R,l=$R_1$](2,0.98);
-    \draw(4.81,1.98) to[C,l_=$C_1$](2,1.98);
-    \draw(4.81,0.98) to[short,*-*](4.81,1.98);
-    \draw(2,1.98) to[short,-*] (2,0.98) -- (2,0.75) node[ground]{};
-    \draw(4.81,1.98) to[R,l^=$R_2$](7.5,1.98);
-    \draw(7.5,1.98) to[short,-*](7.5,0.49);
-    \draw(7.19,0.49) to[short,-o](8,0.49) node[right]{$V_{out}$};
-    \draw(6.3,0.8) -- (6.3,1.30) node[tground]{} (6.3,1.3)node[above] {$v_{dd}$};
-    \draw(6.3,0.2) -- (6.3,-0.3) node[ground]{};
-    \end{circuitikz}
-\end{center}
-
-\[R_1 = 10k\Omega\]
-\[R_2 = 90k\Omega\]
-\[V_{dd} = 5V\]
-\[C_{in} = 10nF\]
-\[C_1 = 1pF\]
-\[A(s) = \frac{A_0}{1+s\tau_0}\]
-\[A_0 = 120\db\]
-\[f_0 = \frac{1}{2\pi \tau_0} = 10\hz\]
-\begin{enumerate}
-\item Dimensionare il valore di $R_3$ ed $R_4$ in modo che in continua il valore di $V_{out}$ sia pari a $2.5V$ e l'effetto delle correnti di bias (assunte identiche per entrambi i morsetti) sia nullo.
-\item Ricavare il trasferimento ideale $G_{id}(s) = \frac{V_{out}}{V_{in}(s)}$ e tracciarne il diagramma di Bode (modulo e fase).
-\item Disegnare su di un grafico quotato (modulo) il trasferiemnto reale del circuito.
-\item Calcolare il guadagno reale con cui sono amplificate due sinusoidi di pari ampiezza ($200mV$) e frequenza rispettivamente pari a $1K\hz$ e $100K\hz$. Disegnare il segnale di uscita $V_{out}(t)$ per $V_{in} = 0.2V \sin{2\pi 100K\hz t}$ in un periodo.
-\item Considerando i due segnali sinusoidali di ingresso del punto precedente, determinare il minimo valore dello slew-rate del amplificatore operazionale tale da non indtrodurre distorsioni nella forma d'onda di uscita.
-\item Calcolare il margine di fase del circuito retroazionato.
-\end{enumerate}
-
-\clearpage
-\subsubsection{Esercizio 4}
-
-\begin{center}
-    \begin{circuitikz}
-    % ROOT
-    \draw(0,0) node[above] {ROOT};
-
-    % Tensioin partitor -------------------------------------------
-    \draw(2,-2) node[tground]{} (2,-2) node[above] {$V_{dd}$};
-    \draw(2,-2) to[R,l=$R_3$, -*] (2,-4);
-    \draw(2,-4) to[R,l=$R_4$] (2,-6) node[ground]{};
-
-    % A2 ---------------------------------------------------------
-
-    \draw(6,0.49) node[op amp](atwo){};
-    \draw(4.81,0) -- (4.81,0) -- (4.81,-4) -- (2,-4);
-    \draw(4.81,0.98) to[R,l=$R_1$](2,0.98);
-    \draw(4.81,0.98) to[short,*-](4.81,1.98);
-    \draw(4.81,1.98) to[R,l^=$R_2$](7.5,1.98);
-    \draw(7.5,1.98) to[short,-*](7.5,0.49);
-    \draw(7.19,0.49) to[short,-](8,0.49);
-    \draw(atwo.out) node[above]{$V_{a}$};
-
-    % A1 ----------------------------------------------------------
-    \draw($(atwo.-)+(-5,0)$) node[op amp](aone){};
-    \draw(2,0.98) -- (aone.out);
-    \draw(aone.out) to[short,*-]  ($(aone.out) + (0,2)$);
-    \draw(aone.-) -- ($(aone.-) + (0,1.5)$) -- ($(aone.out) + (0,2)$);
-    \draw(aone.out) node[below] {$V_b$};
-
-    % S&H --------------------------------------------------------
-
-    \draw(8,0.49) to[Tnmos] (10,0.49);
-    \draw(9,1.2) to[short,-o] (9,1.5) node[above]{$V_s$};
-    \draw(10,0.49) to[C,l=$C_H$] (10,-1.51) node[ground]{};
-    \draw(10,0.49) node[above]{$V_{ADC}$};
-
-    % ADC --------------------------------------------------------
-
-    \draw(10,0.49) -- (12,0.49);
-    \draw(12,0.49) -- (12.5,1.49) -- (13,1.49);
-    \draw(12,0.48) -- (12.5,-0.51)-- (13,-0.51);
-    \draw(13,1.49) -- (13,-0.51);
-    \draw(12.55,0.48) node[]{$ADC$};
-    \draw(12.75,1.49) -- (12.75,2) node[tground]{} (12.75,2) node[above]{$V_{dd}$};
-    \draw(12.75,-0.51) -- (12.75,-1.51) node[ground]{} (12.75,-1.51);
+\[K_n = 200 \frac{\mu A}{V^2}\]
+\[V_{t,n} = |V_{t,p}| = 1V\]
+\[V_{DD} = 3.3V\]
+\[C = 0.2pF\]
 
 
-
-    % Sensor -----------------------------------------------------
-    \draw(-4,0.48) to[short,*-] (aone.+);
-    \draw(-4,3) node[tground]{} (-4,3) node[above]{$V_{dd}$};
-    \draw(-4,3) to[american current source,l=$1mA$] (-4,0);
-    \draw(-4,0.48) node[left] {$V_j$};
-    \draw(-4,0) to[diode,l=$D_1$] (-4,-2) to[diode,l=$D_2$] (-4,-4) node[ground]{};
-
-
-    \end{circuitikz}
-\end{center}
-
-
-\[V_{dd} = 5V\]
-\[R_1 = 2k\Omega\]
-\[R_2 = 25k\Omega\]
-\[R_3 = 20k\Omega\]
-\[R_4 = 7k\Omega\]
-\[k = 1 \frac{mA}{V^2}\]
-\[V_t = 1V\]
-\[C_H = 1nF\]
-Si voglia realizzare un termometro digitale, con un sensore di temperatura costituito da due giunzionia  semiconduttore, $D_1$ e $D_2$ , identiche in serie. Ognuna di esse con una tensione di polarizzazione diretta data dalla relazione:
-\[V_{\gamma} = 700mV - 2m\frac{V}{^\circ C}T\]
-con $T$ e' la temperatura espressa in gradi centigradi.
-
-\begin{enumerate}
-\item Calcolare la minima e la massima temperatura misurabile dall'ADC.
-\item Calcolare il numero minimo di bit per ottenere una risoluzione della misura pari o superiore al decimo di grado.
-\item Calcolare l'errore di misura (in $LSB$ e in gradi centigradi) dovuto alle correnti di polarizzazione $I_{bias2} = 1\mu A$ (uscenti) dell'amplificatore $A_2$.
-\item Considerando $V_s(t)$ un segnale ad onda quadra tra $0V$ e $10V$, calcolare il minimo tempo di sample per avere un errore di misura minore di $0.5LSB$ dopo una variazione di temperatura da $0^\circ \longrightarrow 10^\circ$.
-\item Considerando una corrente di polarizzazione (entrante) dell' ADC di $100nA$, valutare il tempo massimo necessario per efetturare una conversione con la risoluzione richiesta.
-\end{enumerate}
-
-
-\clearpage
-\subsection{Risoluzione}
-
-\subsubsection{Esercizio 2}
-\begin{center}
-    \begin{circuitikz}
-        \draw (-4,6) to[american voltage source, v^<= $V_{IN}$] (-4,0) node[ground] {};
-        \draw(2,6) to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
-        \draw(0,4) to[diode,i=$i_{D1}$,l_=$D_1$] (0,6);
-        \draw(2,6) to[diode,i=$i_{D2}$,l=$D_2$] (2,4);
-        \draw(-0.5,6) to[open,v=$V_{D1}$] (-0.5,4);
-        \draw(3,4)  to[open,v=$V_{D2}$] (3,6);
-        \draw(0,4) to[R,l=$R_1$] (0,2);
-        \draw(0,2) to[short, *-*] (2,2);
-        \draw(2,4) to[R,l=$R_2$] (2,2);
-        \draw(0,2) to[C,l=$C_1$] (0,0)  node[ground]{} (0,0);
-        \draw(2,2) to[C,l=$C_2$] (2,0)  node[ground]{} (2,0);
-    \end{circuitikz}
-\end{center}
-
-\begin{center}
-    \begin{circuitikz}
-        \draw (-4,6) to[american voltage source, v^<= $V_{IN}$] (-4,0) node[ground] {};
-        \draw(2,6) to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
-        \draw(0,4) to[diode,i=$i_{D1}$,l_=$D_1$] (0,6);
-        \draw(2,6) to[diode,i=$i_{D2}$,l=$D_2$] (2,4);
-        \draw(-0.5,6) to[open,v=$V_{D1}$] (-0.5,4);
-        \draw(3,4)  to[open,v=$V_{D2}$] (3,6);
-        \draw(0,4) to[R,l=$R_1$] (0,2);
-        \draw(2,4) to[R,l=$R_2$] (2,2);
-        \draw(0,2) to[short, -] (2,2);
-        \draw(1,2) to[C,l=$C_{eq}$, *-] (1,0)  node[ground]{} (1,0);
-    \end{circuitikz}
-\end{center}
-
-
-\begin{center}
-    \begin{circuitikz}
-        \draw (-4,6)  to[american voltage source, v^<= $V_{IN}$] (-4,0) node[ground] {};
-        \draw(2,6)    to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
-        \draw(0,4)    to[diode,i=$i_{D1}$,l_=$D_1$] (0,6);
-        \draw(2,6)    to[diode,i=$i_{D2}$,l=$D_2$] (2,4);
-        \draw(-0.5,6) to[open,v=$V_{D1}$] (-0.5,4);
-        \draw(3,4)    to[open,v=$V_{D2}$] (3,6);
-        \draw(0,4)    to[R,l=$R_1$] (0,2);
-        \draw(0,2)    to[short, *-*] (2,2);
-        \draw(2,4)    to[R,l=$R_2$] (2,2);
-        \draw(0,2)    to[short] (0,0)  node[ground]{} (0,0);
-        \draw(2,2)    to[C,l=$C_2$] (2,0)  node[ground]{} (2,0);
-    \end{circuitikz}
-\end{center}
-
-\begin{center}
-    \begin{circuitikz}
-        \draw (-4,6)  to[american voltage source, v^<= $V_{IN}$] (-4,1) node[ground] {};
-        \draw(2,6)    to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
-        \draw(0,4)    to[diode,i=$i_{D1}$,l_=$D_1$] (0,6);
-        \draw(2,6)    to[diode,i=$i_{D2}$,l=$D_2$] (2,4);
-        \draw(-0.5,6) to[open,v=$V_{D1}$] (-0.5,4);
-        \draw(3,4)    to[open,v=$V_{D2}$] (3,6);
-        \draw(0,4)    to[R,l=$R_1$] (0,2);
-        \draw(2,4)    to[R,l=$R_2$] (2,2);
-        \draw(0,2)    to[short, -] (2,2);
-        \draw(1,2)    to[short, *-] (1,1) node[ground]{} (1,1);
-    \end{circuitikz}
-\end{center}
-
-\begin{center}
-    \begin{circuitikz}
-        \draw (-4,6)  to[american voltage source, v^<= $V_{IN}$] (-4,0) node[ground] {};
-        \draw(2,6)    to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
-        \draw(0,4)    to[diode,i=$i_{D1}$,l_=$D_1$] (0,6);
-        \draw(2,6)    to[diode,i=$i_{D2}$,l=$D_2$] (2,4);
-        \draw(-0.5,6) to[open,v=$V_{D1}$] (-0.5,4);
-        \draw(3,4)    to[open,v=$V_{D2}$] (3,6);
-        \draw(0,4)    to[R,l=$R_1$] (0,2);
-        \draw(0,2)    to[short, *-*] (2,2);
-        \draw(2,4)    to[R,l=$R_2$] (2,2);
-        \draw(0,2)    to[R,l=$R$] (0,0)  node[ground]{} (0,0);
-        \draw(2,2)    to[C,l=$C_2$] (2,0)  node[ground]{} (2,0);
-    \end{circuitikz}
-\end{center}
 
 \end{document}
 
