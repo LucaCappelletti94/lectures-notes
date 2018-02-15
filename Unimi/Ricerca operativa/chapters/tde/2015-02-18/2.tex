@@ -35,12 +35,12 @@ Calcolo le matrici in base e fuori base pre moltiplicate
     -1 & 1
   \end{bmatrix}
   \qquad
-  B^{-1} = \frac{1}{2}\begin{bmatrix}
+  \matr{B}^{-1} = \frac{1}{2}\begin{bmatrix}
     1 & -1 \\
     1 & 1
   \end{bmatrix}
   \qquad
-  \bbmb = B^{-1}\bmb = \frac{1}{2}\begin{bmatrix}
+  \bbmb = \matr{B}^{-1}\bmb = \frac{1}{2}\begin{bmatrix}
     1 & -1 \\
     1 & 1
   \end{bmatrix}
@@ -53,11 +53,11 @@ Calcolo le matrici in base e fuori base pre moltiplicate
     1
   \end{bmatrix}
   \qquad
-  \bar{F} = B^{-1}F = B^{-1}I = B^{-1}
+  \bar{F} = \matr{B}^{-1}F = \matr{B}^{-1}I = \matr{B}^{-1}
 \]
 Calcolo i coefficienti di costo ridotti:
 \[
-  c_0 = -\bmct_B B^{-1} \bmb = - \begin{bmatrix}
+  c_0 = -\bmct_B \matr{B}^{-1} \bmb = - \begin{bmatrix}
     0 & 1
   \end{bmatrix}
   \rnd{
@@ -73,7 +73,7 @@ Calcolo i coefficienti di costo ridotti:
   = - \frac{5}{2}
 \]
 \[
-  \bbmct = \bmct - \bmct_BB^{-1} A =
+  \bbmct = \bmct - \bmct_B\matr{B}^{-1} A =
   \begin{bmatrix}
     0 & 1 & 0 & 0
   \end{bmatrix}

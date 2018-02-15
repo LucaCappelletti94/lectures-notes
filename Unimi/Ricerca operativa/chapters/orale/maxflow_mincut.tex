@@ -1,9 +1,26 @@
- \providecommand{\main}{../../..}
+ \providecommand{\main}{../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
-\section{MAX-FLOW = MIN-CUT}
+\section{Massimo flusso e taglio minimo}
 
-\begin{theorem}
+\begin{definition}[Arco saturo]
+  Sia $\bmx$ un flusso ammissibile. Un arco $(i,j)$ si dice saturo se $x_{ij}=k_{ij}$.
+\end{definition}
+
+\begin{definition}[Arco scarico]
+  Sia $\bmx$ un flusso ammissibile. Un arco $(i,j)$ si dice scarico se $x_{ij}=0$.
+\end{definition}
+
+\begin{definition}[Rete incrementale]
+  Sia $\bmx$ un flusso ammissibile. La \textbf{rete incrementale} $\bar{\mathcal{G}} = (\mathcal{V}, \bar{\mathcal{A}})$ associata $\bmx$ è ottenuta dalla rete originale $\mathcal{G} = (\mathcal{V}, \mathcal{A})$ sostituendo ogni arco $(i,j) \in \mathcal{A}$ con due archi:
+  \begin{enumerate}
+    \item Un \textbf{arco diretto} $(i,j)$ di capacità residua $\bar{k}_{ij} = k_{ij} - x_{ij} \geq 0$.
+    \item Un \textbf{arco inverso} $(j,i)$ di capacità residua $\bar{k}_{ij} \geq 0$
+  \end{enumerate}
+  ed eliminando alla fine gli archi con capacità residua nulla.
+\end{definition}
+
+\begin{theorem}[Dualità debole per massimo flusso e taglio minimo]
   \label{serve_qui}
   Per ogni flusso ammissibile $\bmx$ e per ogni sezione $(S, V\ S)$ si ha:
   \[
@@ -17,23 +34,10 @@
   \]
 \end{proof}
 
-\begin{theorem}[Il problema di massimo flusso coincide con il taglio minimo]
+\begin{theorem}[Dualità forte per massimo flusso e taglio minimo]
   Un flusso ammissibile $\bmx$ è ottimo per il problema MAX-FLOW se e solo se esiste una sezione $(S^*, \mathcal{V}\S^*)$ con $\phi(S^*)=k(S^*)$. In questo caso $(S^*, \mathcal{V}\S^*)$ è una sezione di capacità minima nella rete considerata.
-  \paragraph*{Significato:} Un flusso ammissibile è ottimo per il problema di flusso massimo se esiste un taglio minimo con capacità pari al flusso. I due problemi sono duali e questa è una relazione di dualità forte.
+  \paragraph*{Significato:} Un flusso ammissibile è ottimo per il problema di flusso massimo se esiste un taglio minimo con capacità pari al flusso.
 \end{theorem}
-
-\begin{definition}[Arco carico o saturo]
-  Sia $\bmx$ un flusso ammissibile. Un arco $(i,j)$ si dice saturo se $x_{ij}=k_{ij}$, scarico se $x_{ij}=0$.
-\end{definition}
-
-\begin{definition}[Rete incrementale]
-  Sia $\bmx$ un flusso ammissibile. La \textbf{rete incrementale} $\bar{\mathcal{G}} = (\mathcal{V}, \bar{\mathcal{A}})$ associata $\bmx$ è ottenuta dalla rete originale $\mathcal{G} = (\mathcal{V}, \mathcal{A})$ sostituendo ogni arco $(i,j) \in \mathcal{A}$ con due archi:
-  \begin{enumerate}
-    \item Un \textbf{arco diretto} $(i,j)$ di capacità residua $\bar{k}_{ij} = k_{ij} - x_{ij} \geq 0$.
-    \item Un \textbf{arco inverso} $(j,i)$ di capacità residua $\bar{k}_{ij} \geq 0$
-  \end{enumerate}
-  ed eliminando alla fine gli archi con capacità residua nulla.
-\end{definition}
 
 \begin{theorem}[Soluzione ottima per massimo flusso]
   Un flusso ammissibile $\bmx$ è ottimo per il problema di massimo flusso se e solo se il vertice $t$ pozzo non è raggiungibile dal vertice $s$ sorgente nella rete incrementale $\mathcal{G} = (\mathcal{V}, \mathcal{A})$ associata ad $\bmx$.

@@ -1,14 +1,14 @@
- \providecommand{\main}{../../..}
+ \providecommand{\main}{../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Teorema di dualità forte}
 
 \begin{theorem}[Dualità forte]
   \label{dualita_forte}
-  Sia $P=\crl{\bmx\geq\bm{0}: A\bmx\geq\bmb} \neq \emptyset$ con $\min\crl{\bmct\bmx: \bmx \in P}$ finito. Vale allora:
+  Sia $P=\crl{\bmx\geq\bm{0}: \matr{A}\bmx\geq\bmb} \neq \emptyset$ con $\min\crl{\bmct\bmx: \bmx \in P}$ finito. Vale allora:
 
   \[
-    \min\crl{\bmct\bmx: A\bmx \geq \bmb, \bmx \geq \bm{0}} = \max\crl{\bmut\bmb: \bmct \geq \bmut A, \bmu \geq \bm{0}}
+    \min\crl{\bmct\bmx: \matr{A}\bmx \geq \bmb, \bmx \geq \bm{0}} = \max\crl{\bmut\bmb: \bmct \geq \bmut \matr{A}, \bmu \geq \bm{0}}
   \]
   \paragraph*{Significato:} Se la soluzione ottima del problema primale esiste ed è limitata allora coincide con la soluzione ottima del problema duale.
 \end{theorem}

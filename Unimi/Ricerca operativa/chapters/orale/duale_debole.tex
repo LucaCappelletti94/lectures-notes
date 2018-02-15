@@ -1,10 +1,10 @@
- \providecommand{\main}{../../..}
+ \providecommand{\main}{../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Teorema di dualità debole}
 \begin{theorem}[Dualità debole]
   \label{dualita_debole}
-  Siano $P=\crl{\bmx \geq \bm{0}: A\bmx \geq \bmb} \neq \emptyset$ e $D=\crl{\bmu \geq \bm{0}: \bmct \geq \bmut A} \neq \emptyset$. Per ogni coppia di punti $\bbmx \in P$ e $\bbmu \in D$ si ha che:
+  Siano $P=\crl{\bmx \geq \bm{0}: \matr{A}\bmx \geq \bmb} \neq \emptyset$ e $D=\crl{\bmu \geq \bm{0}: \bmct \geq \bmut \matr{A}} \neq \emptyset$. Per ogni coppia di punti $\bbmx \in P$ e $\bbmu \in D$ si ha che:
   \[
     \bbmut \bmb \leq \bmct\bbmx
   \]
@@ -15,9 +15,9 @@
   Dati due punti $\bmx$ e $\bmy$ ammissibili rispettivamente nel primale e duale vale che:
 
   \begin{align*}
-    \bmut A     & \leq \bmct     &  & \text{Inizio dalla regione di ammissibilità del duale}      \\
-    \bmut A\bmx & \leq \bmct\bmx &  & \text{Moltiplico entrambi i termini per $\bmx \geq \bm{0}$} \\
-    \bmut \bmb  & \leq \bmct\bmx &  & \text{Sostituisco $A\bmx = \bmb$}
+    \bmut \matr{A}     & \leq \bmct     &  & \text{Inizio dalla regione di ammissibilità del duale}      \\
+    \bmut \matr{A}\bmx & \leq \bmct\bmx &  & \text{Moltiplico entrambi i termini per $\bmx \geq \bm{0}$} \\
+    \bmut \bmb         & \leq \bmct\bmx &  & \text{Sostituisco $\matr{A}\bmx = \bmb$}
   \end{align*}
 \end{proof}
 

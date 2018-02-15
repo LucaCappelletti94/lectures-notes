@@ -1,4 +1,4 @@
- \providecommand{\main}{../../..}
+ \providecommand{\main}{../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Il duale del duale è il primale}
@@ -19,32 +19,32 @@
 
   \[
     \begin{cases}
-      \min \bmct \bmx \\
-      A\bmx \geq \bmb \\
+      \min \bmct \bmx        \\
+      \matr{A}\bmx \geq \bmb \\
       \bmx \geq \bm{0}
     \end{cases}
     \Rightarrow
     \begin{cases}
-      \max \bmut\bmb     \\
-      \bmct \geq \bmut A \\
+      \max \bmut\bmb            \\
+      \bmct \geq \bmut \matr{A} \\
       \bmu \geq \bm{0}
     \end{cases}
     \equiv
     \begin{cases}
-      - \min (-\bmbt)\bmu   \\
-      (-A^T)\bmu \geq -\bmc \\
+      - \min (-\bmbt)\bmu          \\
+      (-\matr{A}^T)\bmu \geq -\bmc \\
       \bmu \geq \bm{0}
     \end{cases}
     \Rightarrow
     \begin{cases}
-      - \max \bmy^T(-\bmc)     \\
-      -\bmbt \geq \bmy^T(-A^T) \\
+      - \max \bmy^T(-\bmc)            \\
+      -\bmbt \geq \bmy^T(-\matr{A}^T) \\
       \bmy \geq \bm{0}
     \end{cases}
     \equiv
     \begin{cases}
-      \min \bmct \bmy \\
-      A\bmy\geq \bmb  \\
+      \min \bmct \bmy       \\
+      \matr{A}\bmy\geq \bmb \\
       \bmy \geq \bm{0}
     \end{cases}
   \]

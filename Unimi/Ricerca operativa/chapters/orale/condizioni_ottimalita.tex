@@ -1,14 +1,14 @@
- \providecommand{\main}{../../..}
+ \providecommand{\main}{../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Condizioni di ottimalità}
 \begin{theorem}[Condizioni di ottimalità]
   I due vettori $\bbmx \in \R^n$,  $\bbmy \in \R^m$ sono ottimi per i problemi primale $P$ e duale $D$ rispettivamente se valgono le seguenti proprietà:
-  \begin{enumerate}
-    \item $\bbmx \in P: A\bbmx \geq \bmb, \bbmx \geq \bm{0}$ (ammissibilità primale)
-    \item $\bbmy \in D: \bmct \geq \bbmyt A, \bbmy \geq \bm{0}$ (ammissibilità duale)
-    \item $\bmct \bbmx = \bbmyt \bmb$ (condizioni di ortogonalità)
-  \end{enumerate}
+  \begin{align*}
+    \matr{A}\bbmx & \geq \bmb,\quad \bbmx \geq \bm{0}            &  & \text{condizioni di ammissibilità primale} \\
+    \bmct         & \geq \bbmyt \matr{A},\quad \bbmy \geq \bm{0} &  & \text{condizioni di ammissibilità duale}   \\
+    \bmct \bbmx   & = \bbmyt \bmb                                &  & \text{condizioni di ortogonalità}
+  \end{align*}
 \end{theorem}
 
 \begin{proof}

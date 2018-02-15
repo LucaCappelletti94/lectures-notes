@@ -1,17 +1,17 @@
- \providecommand{\main}{../../..}
+ \providecommand{\main}{../..}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Teorema fondamentale della programmazione lineare}
 
 \begin{theorem}[Teorema fondamentale della programmazione lineare]
-  Un punto $\bmx$ è vertice di un \textbf{poliedro} non vuoto $P=\crl{\bmx \geq \bm{0} : A\bmx = \bmb}$ \textbf{se e solo se} è anche una soluzione di base ammissibile del sistema $A\bmx = \bmb$.
+  Un punto $\bmx$ è vertice di un \textbf{poliedro} non vuoto $P=\crl{\bmx \geq \bm{0} : \matr{A}\bmx = \bmb}$ se e solo se è anche una soluzione di base ammissibile del sistema $\matr{A}\bmx = \bmb$.
   \[
-    \bmx \text{ vertice} \Leftrightarrow B^{-1}\bmb\geq 0
+    \bmx \text{ vertice} \Leftrightarrow \matr{B}^{-1}\bmb\geq 0
   \]
 \end{theorem}
 
 \begin{proof}[C.s.: Se un punto è SBA $\Rightarrow$ è vertice]
-  Consideriamo una SBA $\bmx$ con i primi $k \geq 0$ elementi positivi ed i successivi nulli. Queste prime $k$ colonne di $A$, più eventuali altre nel caso di soluzione degenere, devono fare parte di $B$ per l'ipotesi di SBA.
+  Consideriamo una SBA $\bmx$ con i primi $k \geq 0$ elementi positivi ed i successivi nulli. Queste prime $k$ colonne di $\matr{A}$, più eventuali altre nel caso di soluzione degenere, devono fare parte di $\matr{B}$ per l'ipotesi di SBA.
 
   \[
     \bmx = \begin{bmatrix}
@@ -34,18 +34,18 @@
 
   \[
     \begin{cases}
-      A\bmy' = \bmb  \\
-      A\bmy'' = \bmb \\
+      \matr{A}\bmy' = \bmb  \\
+      \matr{A}\bmy'' = \bmb \\
     \end{cases}
     \Rightarrow
     \begin{cases}
-      A_1y'_1 + \ldots + A_ky'_k = \bmb   \\
-      A_1y''_1 + \ldots + A_ky''_k = \bmb \\
+      \bm{A}_1y'_1 + \ldots + \bm{A}_ky'_k = \bmb   \\
+      \bm{A}_1y''_1 + \ldots + \bm{A}_ky''_k = \bmb \\
     \end{cases}
     \Rightarrow
-    (y'_1 - y''_1)A_1 + \ldots + (y'_k -y''_k)A_k = 0
+    (y'_1 - y''_1)\bm{A}_1 + \ldots + (y'_k -y''_k)\bm{A}_k = 0
   \]
-  Non tutte le coppie $(y'_i, y''_i)$ possono essere uguali, per cui, perché l'equazione sia pari a $0$, le colonne $A_1, \ldots, A_k$ devono essere linearmente dipendenti e non possono fare parte della base $B$, da cui l'assurdo.
+  Non tutte le coppie $(y'_i, y''_i)$ possono essere uguali, per cui, perché l'equazione sia pari a $0$, le colonne $\bm{A}_1, \ldots, \bm{A}_k$ devono essere linearmente dipendenti e non possono fare parte della base $\matr{B}$, da cui l'assurdo.
 \end{proof}
 
 \begin{proof}[C.n.: Se un punto è vertice $\Rightarrow$ è SBA]
@@ -56,10 +56,10 @@
       x_1, \ldots, x_k, 0, \ldots, 0
     \end{bmatrix}^T
   \]
-  Supponiamo \textbf{per assurdo} che $\bmx$ sia un vertice ma non una SBA. Allora le prime $k$ colonne di $A$ devono essere linearmente dipendenti. Ne segue che deve esistere una combinazione lineare tale che:
+  Supponiamo \textbf{per assurdo} che $\bmx$ sia un vertice ma non una SBA. Allora le prime $k$ colonne di $\matr{A}$ devono essere linearmente dipendenti. Ne segue che deve esistere una combinazione lineare tale che:
 
   \[
-    \sum_{i=1}^k \a_j A_j = 0
+    \sum_{i=1}^k \a_j \bm{A}_j = 0
   \]
   Allora è possibile scegliere uno scalare $\epsilon$ che consenta di costruire due punti distinti $\bmy' \neq \bmy''$ e ammissibili:
 
