@@ -1,0 +1,24 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Esistenza di un vertice ottimo}
+
+\begin{theorem}[Esistenza di un vertice ottimo]
+  Se l'insieme $P$ delle soluzioni ammissibili del problema di programmazione lineare $\min\crl{\bmct\bmx:\bmx\in P}$ è limitato, allora esiste almeno un vertice di $P$ ottimo.
+  \paragraph*{Sinossi:} In ogni \textbf{politopo} con soluzione limitata esiste almeno un vertice ottimo.
+\end{theorem}
+
+\begin{proof}
+  Siano $\bmy_i, \ldots, \bmy_k$ i vertici del politopo e sia $z^* = \min \crl{\bm{c}^T\bmy_i, i=1,\ldots,k}$, cioè il valore ottimo della funzione obbiettivo tra i vertici del politopo.
+
+  Per il \textbf{teorema di Minkowsky-Weil} (teorema \ref{minkowsky}) posso descrivere $\bmx$ come una combinazione convessa dei vertici $\bm{x} = \sum_{i=1}^k \lambda_i \bmy_i$
+
+  \begin{align*}
+    z                                     & = \bmct \bmx                                  &  & \text{Iniziamo dalla funzione obbiettivo}                             \\
+    z                                     & = \bm{c}^T\rnd{\sum_{i=1}^k \lambda_i \bmy_i} &  & \text{Sostituisco a $\bmx$ la comb. convessa equivalente}             \\
+    z                                     & = \sum_{i=1}^k \lambda_i \bm{c}^T\bmy_i       &  & \text{Sposto il coefficiente dei costi nella serie}                   \\
+    \sum_{i=1}^k \lambda_i \bm{c}^T\bmy_i & \geq \sum_{i=1}^k  \lambda_i z^* = z^*        &  & \text{$\bmct \bmy$ è sempre maggiore o uguale alla soluzione ottima.} \\
+  \end{align*}
+\end{proof}
+
+\end{document}

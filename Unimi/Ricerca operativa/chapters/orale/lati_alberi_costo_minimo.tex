@@ -1,0 +1,29 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Caratterizzazione dei lati che appartengono ad alberi ricoprenti di costo minimo}
+
+\begin{theorem}[Caratterizzazione dei lati che appartengono ad alberi ricoprenti di costo minimo]
+  Un lato appartenente ad un albero a costo minimo è uno dei lati a costo minimo in un taglio tra due insiemi di nodi del grafo.
+  \[
+    l \in T^* \Leftrightarrow \exists S \subset \mathcal{V}: l = \argmin \crl{c_f: f \in \delta(S)}
+  \]
+\end{theorem}
+
+\begin{proof}[C.s: Se un arco è a costo minimo tra due insiemi di nodi $\Rightarrow$ appartiene all'albero ricoprente minimo]
+  \textbf{Per assurdo} sia $l \not\in T^*$. Allora $T^* \cup \crl{l}$ contiene un ciclo $C(T^*, l)$.
+
+  Sia $f \in C(T^*, l) \cap \delta(S) \Rightarrow T^* \cup \crl{l} \bs \crl{f}$ è albero ricoprende.
+
+  Essendo $T^*$ minimo e $l = \argmin{c_f}$, allora $c_l \leq c_f$, da cui l'assurdo.
+\end{proof}
+
+\begin{proof}[C.n: Se un arco appartiene all'albero ricoprende a costo minimo $\Rightarrow$ è l'arco a costo minimo tra due insiemi di nodi]
+  Dato $l \in T^*$, sia $S$ uno degli insiemi di nodi di una delle componenti connesse in $G' = \rnd{\mathcal{N}, T \bs \crl{l}}$.
+
+  \textbf{Per assurdo} $\exists f \in \delta\rnd{S}\bs \crl{l}$ con $c_f < c_l$.
+
+  Allora $T^*\cup \crl{f} \bs \crl{l}$ costa meno di $T^*$, da cui l'assurdo.
+\end{proof}
+
+\end{document}

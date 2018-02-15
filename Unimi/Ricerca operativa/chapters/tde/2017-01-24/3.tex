@@ -32,7 +32,7 @@ Si ricavi il taglio di Gomory relativo al primo vincolo.
 \]
 
 \[
-  B^{-1} = \frac{1}{3} \begin{bmatrix}
+  \matr{B}^{-1} = \frac{1}{3} \begin{bmatrix}
     -2 & 3 \\
     1  & 0
   \end{bmatrix}
@@ -42,7 +42,7 @@ Si ricavi il taglio di Gomory relativo al primo vincolo.
   Il \textbf{vettore dei coefficienti di costo ridotto per le variabili fuori base} si calcola tramite il prodotto \ref{vccr}, dove $\bm{c}_F$ è il vettore dei costi fuori base, $\bm{c}_B$ è il vettore dei costi in base, $B$ è la base, $F$ è la matrice dei vincoli restante tolta la base $B$.
   \begin{figure}
     \[
-      CCR = \bm{c}_F^T - \bm{c}_B^T B^{-1} F
+      CCR = \bm{c}_F^T - \bm{c}_B^T \matr{B}^{-1} F
     \]
     \caption{Vettore dei coefficienti di costo ridotto fuori base}
     \label{vccr}
@@ -131,13 +131,13 @@ Tutti i valori sono positivi, pertanto la base è ottima.
   \end{figure}
   Considerata una base $B$ e partizionando $A$ in due sottomatrici $A = \begin{bmatrix}
       B & F
-    \end{bmatrix}$ viene chiamata forma canonica del problema di PL la forma \ref{equation_canonica} ottenuta sostituendo $\bm{x}_B$ (cioè le variabili in base) tramite l'equazione $\bm{x}_B = B^{-1} \bm{b} - B^{-1}F\bm{x}_F$, cioè premoltiplicando per l'inversa della matrice di base $B$.
+    \end{bmatrix}$ viene chiamata forma canonica del problema di PL la forma \ref{equation_canonica} ottenuta sostituendo $\bm{x}_B$ (cioè le variabili in base) tramite l'equazione $\bm{x}_B = \matr{B}^{-1} \bm{b} - \matr{B}^{-1}F\bm{x}_F$, cioè premoltiplicando per l'inversa della matrice di base $B$.
 
   \begin{figure}
     \begin{subfigure}{0.31\textwidth}
       \begin{align*}
-        z = \bm{c}_B^T B^{-1} \bm{b} + (\bm{c}_F^T - \bm{C}_B^T B^{-1} F)\bm{x}_F \\
-        I\bm{x}_B + B^{-1}F\bm{x}_F & = B^{-1} \bm{b}
+        z = \bm{c}_B^T \matr{B}^{-1} \bm{b} + (\bm{c}_F^T - \bm{C}_B^T \matr{B}^{-1} F)\bm{x}_F \\
+        I\bm{x}_B + \matr{B}^{-1}F\bm{x}_F & = \matr{B}^{-1} \bm{b}
       \end{align*}
       \caption{Forma a equazioni del problema di PL}
       \label{equation_canonica}
@@ -146,11 +146,11 @@ Tutti i valori sono positivi, pertanto la base è ottima.
       \begin{table}
         \begin{tabular}{|L|L|L|}
           \hline
-          \bm{0} & \bm{c}_F^T - \bm{C}_B^T B^{-1} F & -\bm{c}_B^T B^{-1} \bm{b} \\
+          \bm{0} & \bm{c}_F^T - \bm{C}_B^T \matr{B}^{-1} F & -\bm{c}_B^T \matr{B}^{-1} \bm{b} \\
           \hline
-                 &                                  &                           \\
-          I      & B^{-1}F                          & B^{-1} \bm{b}             \\
-                 &                                  &                           \\
+                 &                                         &                                  \\
+          I      & \matr{B}^{-1}F                          & \matr{B}^{-1} \bm{b}             \\
+                 &                                         &                                  \\
           \hline
         \end{tabular}
       \end{table}
@@ -176,7 +176,7 @@ Tutti i valori sono positivi, pertanto la base è ottima.
 Costruisco la forma canonica del sistema:
 
 \[
-  \tilde{c}_{\bm{0}} = -\bm{c}_B^T B^{-1} \bm{b} = - \begin{bmatrix}
+  \tilde{c}_{\bm{0}} = -\bm{c}_B^T \matr{B}^{-1} \bm{b} = - \begin{bmatrix}
     1 & -3
   \end{bmatrix}
   \left(
@@ -194,7 +194,7 @@ Costruisco la forma canonica del sistema:
 \]
 
 \[
-  \tilde{F} = B^{-1}F = \frac{1}{3}\begin{bmatrix}
+  \tilde{F} = \matr{B}^{-1}F = \frac{1}{3}\begin{bmatrix}
     -2 & 3 \\
     1  & 0
   \end{bmatrix}
@@ -211,7 +211,7 @@ Costruisco la forma canonica del sistema:
 \]
 
 \[
-  \tilde{b} = B^{-1}\bm{b} =  \frac{1}{3}\begin{bmatrix}
+  \tilde{b} = \matr{B}^{-1}\bm{b} =  \frac{1}{3}\begin{bmatrix}
     -2 & 3 \\
     1  & 0
   \end{bmatrix}

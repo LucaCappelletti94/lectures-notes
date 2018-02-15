@@ -1,0 +1,34 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Teorema di dualità debole}
+\begin{theorem}[Dualità debole]
+  \label{dualita_debole}
+  Siano $P=\crl{\bmx \geq \bm{0}: \matr{A}\bmx \geq \bmb} \neq \emptyset$ e $D=\crl{\bmu \geq \bm{0}: \bmct \geq \bmut \matr{A}} \neq \emptyset$. Per ogni coppia di punti $\bbmx \in P$ e $\bbmu \in D$ si ha che:
+  \[
+    \bbmut \bmb \leq \bmct\bbmx
+  \]
+  \paragraph*{Significato:} Una soluzione ammissibile del problema duale è sempre minore o uguale di una soluzione ammissibile del problema primale in forma canonica.
+\end{theorem}
+
+\begin{proof}
+  Dati due punti $\bmx$ e $\bmy$ ammissibili rispettivamente nel primale e duale vale che:
+
+  \begin{align*}
+    \bmut \matr{A}     & \leq \bmct     &  & \text{Inizio dalla regione di ammissibilità del duale}      \\
+    \bmut \matr{A}\bmx & \leq \bmct\bmx &  & \text{Moltiplico entrambi i termini per $\bmx \geq \bm{0}$} \\
+    \bmut \bmb         & \leq \bmct\bmx &  & \text{Sostituisco $\matr{A}\bmx = \bmb$}
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Si consideri una coppia di problemi primale e duale. Sono possibili solo 4 casi:
+  \begin{enumerate}
+    \item Entrambi i problemi hanno ottimo finito, che coincide (da teorema di dualità forte \ref{dualita_forte}).
+    \item Il problema primale è illimitato ed il duale è impossibile (da teorema di dualità debole \ref{dualita_debole}).
+    \item Il problema duale è illimitato ed il primale è impossibile (da teorema di dualità debole \ref{dualita_debole}).
+    \item Entrambi i problemi sono impossibili (banalmente non è escluso da nessuna proprietà).
+  \end{enumerate}
+\end{corollary}
+
+\end{document}

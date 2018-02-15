@@ -1,0 +1,24 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Criterio di ottimalità della base}
+\begin{theorem}[Criterio di ottimalità della base]
+  Sia $\matr{B}$ una base ammissibile. Se i \textbf{coefficienti di costo ridotto} (CCR) $\bbmct = \bmct - \bmct_B \matr{B}^{-1} \matr{A}$ sono \textit{non negativi} allora la soluzione di base associata alla $\matr{B}$ è \textit{ottima}.
+
+  \[
+    \bbmct \geq \bm{0} \Rightarrow \bmct \bmx \geq \bmct_B \matr{B}^{-1}\bmb \quad \forall \bmx
+  \]
+  N.B. in presenza di degenerazione non è possibile fare affermazioni sull'ottimalità usando questo criterio.
+\end{theorem}
+
+
+\begin{proof}
+  \begin{align*}
+    z          & =\bmct \bmx                                       &  & \text{Inizio dalla funzione obbiettivo}               \\
+    \bmct \bmx & = \bbmct\bmx + \bmct_B \matr{B}^{-1} \matr{A}\bmx &  & \text{Sostituisco la definizione di CCR}              \\
+    \bmct \bmx & = \bbmct\bmx + \bmct_B \matr{B}^{-1} \bmb         &  & \text{Sostituisco $\matr{A}\bmx = \bmb$}              \\
+    \bmct \bmx & \geq \bmct_B \matr{B}^{-1} \bmb                   &  & \text{Elimino $\bbmct$, termine positivo per ipotesi}
+  \end{align*}
+\end{proof}
+
+\end{document}

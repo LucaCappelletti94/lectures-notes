@@ -1,0 +1,52 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Matrici totalmente unimodulari}
+
+
+\begin{definition}[Matrice totalmente unimodulare]
+  Una matrice $\matr{A} \in \R^{m \times n}$ si dice \textbf{totalmente unimodulare} (TUM) se per ogni sua sotto-matrice quadrata $\matr{Q}$ vale che $\det(\matr{Q}) \in \crl{-1, 0, 1}$.
+\end{definition}
+
+\begin{theorem}
+  Se $\matr{A}$ è TUM e $\bmb$ è intero, allora $P$ ha solo vertici interi, cioè $\text{conv}\rnd{\bmx} = P$.
+\end{theorem}
+
+\begin{theorem}[Condizioni necessarie per TUM]
+  Se $\matr{A}$ è TUM, allora deve valere che:
+  \begin{enumerate}
+    \item Ogni termine $a_{ij} \in \crl{-1,0,1}$.
+    \item La trasposta di $\matr{A}$ è TUM.
+    \item $\begin{bmatrix}
+              \matr{A} & I
+            \end{bmatrix}$ è TUM.
+    \item Moltiplicando una riga o colonna per $-1$ $\matr{A}$ rimane TUM.
+    \item Scambiando righe o colonne $\matr{A}$ rimane TUM.
+    \item L'operazione di pivot lascia $\matr{A}$ TUM.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Condizioni sufficienti per TUM]
+  Sia $\matr{A}$ una matrice con termini $a_{ij} \in \crl{-1,0,1}$. Condizione sufficiente perché $\matr{A}$ sia TUM è che valgano:
+  \begin{enumerate}
+    \item In ogni colonna vi siano al più due elementi non nulli.
+    \item Esiste una partizione $\begin{bmatrix}
+              I_1 & I_2
+            \end{bmatrix}$ delle righe di $\matr{A}$ tale che ogni colonna con due elementi non nulli ha questi elementi su righe appartenenti ad insiemi $I_1$ e $I_2$ diversi se e solo se i due elementi sono concordi in segno.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Per dimostrare che $\matr{A}$ sia TUM è necessario dimostrare che il determinante di ogni sotto-matrice $\matr{Q}$ è $\det(\matr{Q}) \in \crl{-1, 0, 1}$, con ordine $k$. Procediamo per induzione su $k$.
+
+  Se $k=1$ allora $\matr{Q} = a_{ij} \in \crl{-1,0,1}$.
+
+  Supponiamo ora che $\det(\matr{Q}') \in \crl{-1,0,1}$ per ogni sotto-matrice $\matr{Q}'$ di ordine $k'\geq1$, ove $k'$ è un valore fissato. Consideriamo quindi una qualsiasi sotto-matrice $\matr{Q}$ di ordine $k = k'+1$. Possono avvenire solo tre casi:
+  \begin{enumerate}
+    \item $\matr{Q}$ ha una colonna di zeri: in questo caso $\det(\matr{Q})=0$.
+    \item $\matr{Q}$ ha una colonna con un solo elemento diverso da zero: in questo caso, $\det(\matr{Q}) = \pm \det(\matr{Q}') \in \crl{-1,0,1}$.
+    \item Ogni colonna di $\matr{Q}$ ha esattamente due elementi diversi da zero: in questo caso, le righe di $\matr{Q}$ risultano linearmente dipendenti e $\det(\matr{Q})=0$.
+  \end{enumerate}
+\end{proof}
+
+\end{document}

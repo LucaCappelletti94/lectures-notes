@@ -1,0 +1,50 @@
+ \providecommand{\main}{../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Lemma di Farkas}
+
+\begin{theorem}[Lemma di Farkas]
+  \label{lemma_farkas}
+  La disuguaglianza $\bmct\bmx \geq c_0$ è valida per il \textbf{poliedro} non vuoto $P=\crl{\bmx\geq\bm{0}:\matr{A}\bmx=\bmb}$ se e solo se esiste $\bmu \in \R^m$ tale che:
+  \[
+    \bmct \bmx \geq c_0 \Leftrightarrow \exists \bmu = \bmct_B \matr{B}^{-1} \in \R^m:\, \bmct \geq \bmut \matr{A} \land \bmut \bmb \geq c_0
+  \]
+  \paragraph*{Applicazione:} Se un problema primale definito su un \textbf{poliedro} non vuoto ha soluzione limitata, allora il suo problema duale deve ammettere una soluzione limitata.
+\end{theorem}
+
+
+\begin{proof}[C.s.: Se il duale è limitato $\Rightarrow$ il primale è limitato]
+  \begin{align*}
+    \bmct     & \geq \bmut \matr{A}      &  & \text{Iniziamo dalla regione ammissibile del duale}         \\
+    \bmct\bmx & \geq \bmut \matr{A}\bmx  &  & \text{Moltiplichiamo ambo i termini per $\bmx \geq \bm{0}$} \\
+    \bmct\bmx & \geq \bmut \bmb \geq c_0 &  & \text{Sostituisco $\matr{A}\bmx = \bmb$}
+  \end{align*}
+\end{proof}
+\begin{proof}[C.n.: Se il primale è limitato $\Rightarrow$ il duale è limitato]
+
+  Dalle ipotesi il poliedro ha soluzione limitata, allora per il \textbf{teorema di convergenza del simplesso} esiste una SBA ottenibile in tempo finito con l'\textbf{algoritmo del simplesso}.
+
+  Chiamiamo $B$ la base ottima e sia $\bm{u}^T = \bm{c}^T_B \matr{B}^{-1}$. I costi ridotti, calcolati in corrispondenza della base ottima devono essere:
+
+  \begin{figure}
+    \[
+      \bbm{c}^T = \bm{c}^T - \bm{c}_B^T\matr{B}^{-1}\matr{A} \geq \bm{0}^T \Rightarrow \bm{c}^T \geq \bm{u}^T\matr{A}
+    \]
+    \caption{Dalla regola dei costi ridotti si ottiene la regione di ammissibilità del duale}
+  \end{figure}
+
+  Infine per ipotesi vale che $\bm{c}^T \bmx \geq c_0 \forall \bmx \in P$, da cui:
+
+  \begin{figure}
+    \begin{align*}
+      z^* & = \bm{c}^T\bmx^* \geq c_0                   &  & \text{La $z^*$ è data da $x^*$}                                       \\
+          & = \bm{c}_B^T \bmx^*_B + \bm{c}_F^T \bmx^*_F &  & \text{Spezzo il vettore dei costi in base e fuori base}               \\
+          & = \bm{c}_B^T\matr{B}^{-1}\bm{b}             &  & \text{La parte fuori base, $\bmx^*_F$ è un vettore di zeri.}          \\
+          & = \bm{u}^T\bm{b}  \geq c_0                  &  & \text{Sostituisco la definizione di $\bm{u} = \bmct_B \matr{B}^{-1}$}
+    \end{align*}
+    \caption{Dalla funzione obbiettivo del primale si ottiene la funzione obbiettivo del duale, entrambe limitate}
+  \end{figure}
+
+\end{proof}
+
+\end{document}
