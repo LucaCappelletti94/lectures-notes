@@ -1,0 +1,43 @@
+\providecommand{\main}{../../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Esercizio delle macchine}
+Tre macchine, $A$, $B$ e $C$, producono rispettivamente il 50\%, il 40\%, e il 10\% del numero totale dei pezzi prodotti da una fabbrica.
+
+Le percentuali di produzione difettosa di queste macchine sono rispettivamente del 2\%, 1\% e 4\%.
+
+\begin{enumerate}
+  \item Determinare la probabilità di estrarre un pezzo difettoso.
+  \item Viene estratto a caso un pezzo che risulta difettoso. Determinare la probabilità che quel pezzo sia stato prodotto da $C$.
+\end{enumerate}
+
+\subsection{Soluzione esercizio delle macchine}
+I valori sono modellati come segue:
+\begin{align*}
+  \tprob{A} = 0.5             \\
+  \tprob{B} = 0.4             \\
+  \tprob{C} = 0.1             \\
+  \tprob{Difettoso}{A} = 0.02 \\
+  \tprob{Difettoso}{B} = 0.01 \\
+  \tprob{Difettoso}{C} = 0.04 \\
+\end{align*}
+Viene chiesto di ottenere la probabilità $\tprob{Difettoso}$. Procediamo con la \textbf{formula delle probabilità totali}:
+
+\formulaProbTot
+
+\begin{align*}
+  \ttotProb{Difettoso}{A}{B}{C}                \\
+   & = 0.2\cdot0.5 + 0.1\cdot0.4 + 0.4\cdot0.1 \\
+   & =0.018
+\end{align*}
+Viene chiesto di ottenere la probabilità $\tprob{C}{Difettoso}$, che otteniamo tramite il \textbf{teorema di Bayes}:
+
+\bayesTh
+
+\begin{align*}
+  \tbayes{C}{Difettoso}            \\
+   & = \frac{0.04\cdot 0.1}{0.018}
+  = 0.22\bar{2}
+\end{align*}
+
+\end{document}

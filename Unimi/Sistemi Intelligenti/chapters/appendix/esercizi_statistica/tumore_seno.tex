@@ -1,0 +1,58 @@
+\providecommand{\main}{../../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Esercizio sul tumore al seno}
+Lo strumento principe per lo screaning per il tumore al seno è la radiografia (mammografia).
+
+Sappiamo che la \textbf{sensitività} della mammografia è intorno al 90\% e che la \textbf{specificità} sia anch'essa del 90\%.
+
+\begin{enumerate}
+  \item Qual è la probabilità che l'esame dia risultato positivo, sapendo che le donne malate sono lo 0,01\%?
+  \item Qual è la percentuale di donne che hanno uno screening positivo, di essere effettivamente malate?
+\end{enumerate}
+
+\subsection{Soluzione esercizio sul tumore al seno}
+Sensitività e specificità sono associate rispettivamente ad errore del primo e secondo tipo:
+
+\begin{description}
+  \item[Errore di primo tipo] È quando si rifiuta come falsa l'ipotesi vera.
+  \item[Errore di secondo tipo] È quando si accetta come vera l'ipotesi falsa.
+\end{description}
+
+\begin{description}
+  \item[Sensitività] Probabilità che lo strumento non compia un errore di primo tipo.
+  \item[Specificità] Probabilità che lo strumento non compia un errore di secondo tipo.
+\end{description}
+
+
+La \textbf{sensitività} di uno strumento è la probabilità che esso dia esito positivo in un caso positivo:
+
+\[
+  \prob{\text{Esito positivo}}{\text{Donna malata}} = 0.9
+\]
+La \textbf{specificità} di uno strumento è la probabilità che esso dia esito negativo in un caso negativo:
+
+\[
+  \prob{\text{Esito negativo}}{\text{Donna sana}} = 0.9
+\]
+Viene chiesta la probabilità $\prob{\text{Esito positivo}}$ sapendo che $\prob{\text{Donna malata}}=0.01$, che possiamo ottenere tramite la formula delle probabilità totali:
+
+\formulaProbTot
+
+\begin{align*}
+  \totProb{\text{Esito positivo}}{\text{Donna malata}}{\text{Donna sana}} \\
+   & = 0.9\cdot0.01 + (1-0.9)\cdot(1-0.01)                                \\
+   & = 0.9\cdot0.01 + 0.1\cdot0.99                                        \\
+   & = 0.108
+\end{align*}
+Viene chiesta la probabilità $\prob{\text{Donna malata}}{\text{Esito positivo}}$, ottenibile tramite il teorema di Bayes:
+
+\bayesTh
+
+\begin{align*}
+  \bayes{\text{Donna malata}}{\text{Esito positivo}} \\
+   & = \frac{0.9\cdot0.01}{0.108}                    \\
+   & = 0.083
+\end{align*}
+Una donna è malata quando l'esito è positivo nell'8.3\% dei casi. Da questi valori di evince che una sensitivtà del 90\% risulta essere un valore troppo basso quando la probabilità dell'evento positivo (essere malata) è basso.
+\end{document}
