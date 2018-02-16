@@ -9,31 +9,32 @@
 \subsection{Testo del esame}
 \subsubsection{Esercizio 1}
 Siano $IN_1,IN_2$ dei segnali digitali compresi tra $0$ e $3.3V$ e $A$ un segnale digitale compreso tra $0$ e $5V$.
-
-
-
-\begin{center}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
     \begin{circuitikz}
         \draw(-2,3) node[left] {$IN_1$} (-2,3) to[short, o-](-1,3);
         \draw(-1,3) to[Tnmos, l=$N_1$](0,3);
-        \draw (-0.5,4) node[above] {$A$};
-        \draw (0,3) -- (1,3) -- (1,1);
+        \draw(-0.5,4) node[above] {$A$};
+        \draw(0,3) -- (1,3) -- (1,1);
 
         \draw(-1,1) to[Tnmos, l=$N_2$] (0,1);
-        \draw (-0.5,2) node[above] {$\neg A$};
-        \draw (0,1) -- (1,1);
+        \draw(-0.5,2) node[above] {$\neg A$};
+        \draw(0,1) -- (1,1);
         \draw(-1,1) -- (-2,1) node[left] {$IN_2$};
 
         \draw (1,2) to[short, *-] (2,2) node[above] {$V_{out}$} (2,2) to[capacitor = C](2,0) node[ground]{} (2,0);
     \end{circuitikz}
-\end{center}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \begin{align*}
+       K_n &= 0.5 \frac{m A}{V^2}\\
+       V_{t,n} &= 0.7V\\
+       C &= 0.5pF
+        \end{align*}
 
+    \end{subfigure}
 
-
-\[K_n = 0.5 \frac{m A}{V^2}\]
-\[V_{t,n} = 0.7V\]
-\[C = 0.5pF\]
-
+\end{figure}
 \begin{enumerate}
 \item Determinare i valori (Logici e di Tensione) assunti dall'uscita $V_{out}$ quando $A = "1"$ e quando $A = "0"$ in funzione dei valori degli ingressi.
 \item Agli Ingressi $A$ e $IN_1$ e' applicata un' onda quadra a frequenza $1MHz$ e all' ingresso $IN_2$ un' onda quadra a frequenza $500KHz$. Si consideri il fronte di salita dei due segnali allineato. Disegnare l'andamento temporale di $V_{out}(t)$ e calcolare la potenza dinamica dissipata dal circuito.
@@ -44,7 +45,8 @@ Siano $IN_1,IN_2$ dei segnali digitali compresi tra $0$ e $3.3V$ e $A$ un segnal
 \subsubsection{Esercizio 2}
 Si consideri il circuito in figura. I diodi hanno una tensione di accensione $V_\gamma = 0.7V$
 
-\begin{center}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
     \begin{circuitikz}
         \draw (-4,6) to[american voltage source, v^<= $V_{IN}$] (-4,0) node[ground] {};
         \draw(2,6) to[short, -*] (0,6) to[short] (0,6) to[R,l_=$R_3$] (-4,6);
@@ -56,15 +58,16 @@ Si consideri il circuito in figura. I diodi hanno una tensione di accensione $V_
         \draw(0,2) to[C,l=$C_1$] (0,0)  node[ground]{} (0,0);
         \draw(2,2) to[C,l=$C_2$] (2,0)  node[ground]{} (2,0);
     \end{circuitikz}
-\end{center}
 
-\[R_1 = 250 \Omega\]
-\[R_2 = 100 \Omega\]
-\[R_3 = 50 \Omega\]
-\[C_1 = C_2 = 10 \mu F\]
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \begin{align*}
+        R_1 &= 250 \Omega\\
+        R_2 &= 100 \Omega\\
+        R_3 &= 50 \Omega\\
+        C_1 &= C_2 = 10 \mu F
+        \end{align*}
 
-\begin{figure}[H]
-    \center
     \begin{tikzpicture}
       \draw[->] (-0.5,0) -- (8,0) node[right] {$t$};
       \draw[->] (0,-3) -- (0,3) node[above] {$V_{in}$};
@@ -75,8 +78,9 @@ Si consideri il circuito in figura. I diodi hanno una tensione di accensione $V_
 
 
     \end{tikzpicture}
-\end{figure}
+    \end{subfigure}
 
+\end{figure}
 
 Attraverso il generatore ideale di tensione $V_{in}$ viene applicata al circuito un'onda quadra di livelli $-10V,+10V$ con frequenza $10Hz$ come in figura.
 
@@ -90,7 +94,8 @@ Attraverso il generatore ideale di tensione $V_{in}$ viene applicata al circuito
 \subsubsection{Esercizio 3}
 Si consideri il circuito di amplificazione mostrato in figura (in cui $C_1$ modellizza un effetto parassita).
 
-\begin{center}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
     \begin{circuitikz}
     \draw(0,2) node[tground]{} (0,2) node[above] {$V_{dd}$};
     \draw(0,2) to[R,l=$R_3$, -*] (0,0);
@@ -108,16 +113,21 @@ Si consideri il circuito di amplificazione mostrato in figura (in cui $C_1$ mode
     \draw(6.3,0.8) -- (6.3,1.30) node[tground]{} (6.3,1.3)node[above] {$v_{dd}$};
     \draw(6.3,0.2) -- (6.3,-0.3) node[ground]{};
     \end{circuitikz}
-\end{center}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+    \begin{align*}
+        R_1 &= 10k\Omega\\
+        R_2 &= 90k\Omega\\
+        V_{dd} &= 5V\\
+        C_{in} &= 10nF\\
+        C_1 &= 1pF\\
+        A(s) &= \frac{A_0}{1+s\tau_0}\\
+        A_0 &= 120\db\\
+        f_0 &= \frac{1}{2\pi \tau_0} = 10\hz
+    \end{align*}
+    \end{subfigure}
+\end{figure}
 
-\[R_1 = 10k\Omega\]
-\[R_2 = 90k\Omega\]
-\[V_{dd} = 5V\]
-\[C_{in} = 10nF\]
-\[C_1 = 1pF\]
-\[A(s) = \frac{A_0}{1+s\tau_0}\]
-\[A_0 = 120\db\]
-\[f_0 = \frac{1}{2\pi \tau_0} = 10\hz\]
 \begin{enumerate}
 \item Dimensionare il valore di $R_3$ ed $R_4$ in modo che in continua il valore di $V_{out}$ sia pari a $2.5V$ e l'effetto delle correnti di bias (assunte identiche per entrambi i morsetti) sia nullo.
 \item Ricavare il trasferimento ideale $G_{id}(s) = \frac{V_{out}}{V_{in}(s)}$ e tracciarne il diagramma di Bode (modulo e fase).
@@ -130,7 +140,6 @@ Si consideri il circuito di amplificazione mostrato in figura (in cui $C_1$ mode
 \clearpage
 \subsubsection{Esercizio 4}
 
-\begin{center}
     \begin{circuitikz}
 
     % Tensioin partitor -------------------------------------------
@@ -184,17 +193,17 @@ Si consideri il circuito di amplificazione mostrato in figura (in cui $C_1$ mode
 
 
     \end{circuitikz}
-\end{center}
+\begin{align*}
+    V_{dd} &= 5V\\
+    R_1 &= 2k\Omega\\
+    R_2 &= 25k\Omega\\
+    R_3 &= 20k\Omega\\
+    R_4 &= 7k\Omega\\
+    k &= 1 \frac{mA}{V^2}\\
+    V_t &= 1V\\
+    C_H &= 1nF
+\end{align*}
 
-
-\[V_{dd} = 5V\]
-\[R_1 = 2k\Omega\]
-\[R_2 = 25k\Omega\]
-\[R_3 = 20k\Omega\]
-\[R_4 = 7k\Omega\]
-\[k = 1 \frac{mA}{V^2}\]
-\[V_t = 1V\]
-\[C_H = 1nF\]
 Si voglia realizzare un termometro digitale, con un sensore di temperatura costituito da due giunzionia  semiconduttore, $D_1$ e $D_2$ , identiche in serie. Ognuna di esse con una tensione di polarizzazione diretta data dalla relazione:
 \[V_{\gamma} = 700mV - 2m\frac{V}{^\circ C}T\]
 con $T$ e' la temperatura espressa in gradi centigradi.
@@ -239,19 +248,19 @@ con $T$ e' la temperatura espressa in gradi centigradi.
 \[A \in [0V,5V]\]
 \[IN_1,IN_2 \in [0V,3.3V]\]
 Dal circuito si ricava
-
-\[V_{gs11} = A - IN_1\]
-\[V_{gs12} = A - V_{out}\]
-\[V_{gs21} = \neg A - IN_2\]
-\[V_{gs22} = \neg A - V_{out}\]
-
+\begin{align*}
+V_{gs11} &= A - IN_1\\
+V_{gs12} &= A - V_{out}\\
+V_{gs21} &= \neg A - IN_2\\
+V_{gs22} &= \neg A - V_{out}
+\end{align*}
 e dal circuito posso dedurre che:
 \[V_{out} \subseteq  [0V,3.3V]\]
-poiche' se una qualunque combinazione di mos e' accesa $C$ si carichera' attraverso $IN_1$ e/o $IN_2$ quindi ora se i mos lavorano in zona ohmmica lavora in funzionamento a piena dinamica (full-swing) quindi 
+poiche' se una qualunque combinazione di mos e' accesa $C$ si carichera' attraverso $IN_1$ e/o $IN_2$ quindi ora se i mos lavorano in zona ohmmica lavora in funzionamento a piena dinamica (full-swing) quindi
 \[V_{out} \in [0V,3.3V]\]
 se altrimenti lavora in zona satura avra' dinamica parziale poiche' una volta che la $V_S$ raggiunge $V_G - V_t$ il Mos si spegne quindi $V_{out}$ al massimo raggiungera' $V_G - V_t$, quindi:
 \[V_{out} \in [0V,3.3V-V_t]\]
-Quindi procedo coi calcoli col caso pessimo (cioe' quello che richiede tensione piu' alta purche' vi sia canale) 
+Quindi procedo coi calcoli col caso pessimo (cioe' quello che richiede tensione piu' alta purche' vi sia canale)
 \[V_{out} \in [0V,3.3V]\]
 
 \textbf{Nel caso con $A = 0$ ottengo:}
@@ -464,14 +473,14 @@ Quindi posso riassumere la polarizzazzione dei diodi al variare di $V_{IN}$ con 
 \taudef
 \textbf{Quindi con $D_1$ Spento e $D_2$ Acceso}
 \[\tau_c = C (R2 + R3) = 3ms\]
-e poiche' 
+e poiche'
 \[T_a \approx 5 \tau_c = 15ms \le \frac{1}{f_{in}} = 100ms\]
 allora il condensatore arriva a caricarsi completamente a :
 \[V_x = V_{IN} - V_\gamma = + 9.3V \]
 
 \textbf{Quindi con $D_1$ Acceso e $D_2$ Spento}
 \[\tau_s = C (R1 + R3) = 6ms\]
-e poiche' 
+e poiche'
 \[T_a \approx 5 \tau_s = 30ms \le \frac{1}{f_{in}} = 100ms\]
 allora il condensatore arriva a caricarsi completamente a :
 \[V_x = V_{IN} - V_\gamma = - 9.3V \]
@@ -588,14 +597,14 @@ la tabella di polarizzazione dei diodi e' uguale a prima:
 
 \textbf{Quindi con $D_1$ Spento e $D_2$ Acceso}
 \[\tau_c = C (R // (R2 + R3)) = 750\mu s\]
-e poiche' 
+e poiche'
 \[T_a \approx 5 \tau_c = 3.75ms \le \frac{1}{f_{in}} = 100ms\]
 allora il condensatore arriva a caricarsi completamente a :
 \[V_x = (V_{IN} - V_\gamma ) \frac{R}{R + R_2 + R_3} = 4.65V \]
 
 \textbf{Quindi con $D_1$ Acceso e $D_2$ Spento}
 \[\tau_s = C (R // (R1 + R3)) = 1ms\]
-e poiche' 
+e poiche'
 \[T_a \approx 5 \tau_s = 5ms \le \frac{1}{f_{in}} = 100ms\]
 allora il condensatore arriva a caricarsi completamente a :
 \[V_x =(V_{IN} - V_\gamma ) \frac{R}{R + R_1 + R_3}= -3.1V \]
@@ -626,7 +635,110 @@ Quindi $V_x$ sara' una onda quadra coi fronti di salita e discesa smussati con d
     \end{tikzpicture}
 \end{figure}
 
+\clearpage
 
+\subsubsection{Esercizio 2}
+\textbf{1) Dimensionamento di $R_3,R_4$}
+Dal testo $V_{in}$ e' costante
+\[V_{in}(t) = b \Rightarrow \frac{\partial V_{in}(t)}{\partial t} = 0\]
+\[V_c(t) = V_{in}(t) - V^+(t)\]
+\[\frac{\partial V_c(t)}{\partial t} = 0 - \frac{\partial V^+(t)}{\partial t}\]
+poiche' tutti i generatori presenti nel cirucito sono costanti, una volta esauriti i transitori tutte le tensioni saranno costanti quindi
+\[\frac{\partial V^+(t)}{\partial t} = 0 \Rightarrow \frac{\partial V_c(t)}{\partial t} = 0\]
+\carattersistcacondensatore
+quindi $i_c = 0$ e quindi posso ignorare il condensatore dal circuito.
+
+
+\begin{circuitikz}
+\draw(0,2) node[tground]{} (0,2) node[above] {$V_{dd}$};
+\draw(0,2) to[R,l=$R_3$, -*] (0,0);
+\draw(0,0) to[R,l=$R_4$] (0,-2) node[ground]{};
+\draw(10,0.49) node[op amp](oam){};
+\draw(oam.+) -- (0,0);
+\draw(oam.-) -- (4.81,0.98);
+\draw(4.81,0.98) to[R,l=$R_1$](2,0.98);
+\draw(4.81,1.98) to[C,l_=$C_1$](2,1.98);
+\draw(4.81,0.98) to[short,*-*](4.81,1.98);
+\draw(2,1.98) to[short,-*] (2,0.98) -- (2,0.75) node[ground]{};
+\draw(4.81,4) to[R,l^=$R_2$](11.5,4);
+\draw(11.5,4) to[short,-*](11.5,0.49);
+\draw(11.19,0.49) to[short,-o](12,0.49) node[right]{$V_{out}$};
+\draw(10.3,0.8) -- (10.3,1.30) node[tground]{} (10.3,1.3)node[above] {$v_{dd}$};
+\draw(10.3,0.2) -- (10.3,-0.3) node[ground]{};
+\draw(4.81,1.98) -- (4.81,4);
+\draw(7,0) to[short,*-] (7,0) to[american current source,l=$i_b$,invert] (7,-2) node[ground]{};
+\draw(7,0.98) to[short,*-] (7,0.98) to[american current source,l=$i_b$,invert] (7,2.98) node[ground,rotate=180]{};
+\end{circuitikz}
+
+Avendo solo componenti lineari posso proceder per sovrappsozione degli effetti prima spegnedo le $i_b$ e poi la $V_{dd}$ su $R_3,R_4$.
+
+\textbf{Spengo $i_b$}
+
+\begin{circuitikz}
+    \draw(0,2) node[tground]{} (0,2) node[above] {$V_{dd}$};
+    \draw(0,2) to[R,l=$R_3$, -*] (0,0);
+    \draw(0,0) to[R,l=$R_4$] (0,-2) node[ground]{};
+    \draw(6,0.49) node[op amp]{};
+    \draw(4.81,0) -- (0,0);
+    \draw(4.81,0.98) to[R,l=$R_1$](2,0.98);
+    \draw(4.81,1.98) to[C,l_=$C_1$](2,1.98);
+    \draw(4.81,0.98) to[short,*-*](4.81,1.98);
+    \draw(2,1.98) to[short,-*] (2,0.98) -- (2,0.75) node[ground]{};
+    \draw(4.81,1.98) to[R,l^=$R_2$](7.5,1.98);
+    \draw(7.5,1.98) to[short,-*](7.5,0.49);
+    \draw(7.19,0.49) to[short,-o](8,0.49) node[right]{$V_{out}$};
+    \draw(6.3,0.8) -- (6.3,1.30) node[tground]{} (6.3,1.3)node[above] {$v_{dd}$};
+    \draw(6.3,0.2) -- (6.3,-0.3) node[ground]{};
+\end{circuitikz}
+
+$R_3,R_4$ formano un partitore quindi
+\[V^+ = V_{dd} \frac{R_4}{R_3+R_4}\]
+\noninvertente
+
+Quindi
+\[V_{out} = V^+ \rnd{1+\frac{R_2}{R_1 // C_1}} =  V_{dd} \frac{R_4}{R_3+R_4} \rnd{1+\frac{R_2}{R_1 // C_1}}  \]
+Quindi dal testo si impone $V_{out} = 2.5V$ e sostituendo i valori si ricava una equazione in $R_3,R_4$.
+\[\frac{R_4}{R_3+R_4} = \frac{1}{20}\]
+\textbf{Spegnendo $V_{dd}$ sul partitore}
+
+\begin{circuitikz}
+\draw(0,2) node[ground,rotate=180] {};
+\draw(0,2) to[R,l=$R_3$, -*] (0,0);
+\draw(0,0) to[R,l=$R_4$] (0,-2) node[ground]{};
+\draw(10,0.49) node[op amp](oam){};
+\draw(oam.+) -- (0,0);
+\draw(oam.-) -- (4.81,0.98);
+\draw(4.81,0.98) to[R,i=$i_{R1}$,l=$R_1$](2,0.98);
+\draw(4.81,1.98) to[C,i=$i_{C1}$,l_=$C_1$](2,1.98);
+\draw(4.81,0.98) to[short,*-*](4.81,1.98);
+\draw(2,1.98) to[short,-*] (2,0.98) -- (2,0.75) node[ground]{};
+\draw(4.81,4) to[R,i<=$i_{R2}$,l^=$R_2$](11.5,4);
+\draw(11.5,4) to[short,-*](11.5,0.49);
+\draw(11.19,0.49) to[short,-o](12,0.49) node[right]{$V_{out}$};
+\draw(10.3,0.8) -- (10.3,1.30) node[tground]{} (10.3,1.3)node[above] {$v_{dd}$};
+\draw(10.3,0.2) -- (10.3,-0.3) node[ground]{};
+\draw(4.81,1.98) -- (4.81,4);
+\draw(7,0) to[short,*-] (7,0) to[american current source,l=$i_b$,invert] (7,-2) node[ground]{};
+\draw(7,0.98) to[short,*-] (7,0.98) to[american current source,l=$i_b$,invert] (7,2.98) node[ground,rotate=180]{};
+\end{circuitikz}
+
+\[V^+ = i_b \rnd{R_3 // R_4}\]
+
+Non possiamo usare la formula del non invertente perche' vi e' l'altro $i_b$ al pin meno.
+
+Quindi si puo' fare una KCL al nodo sul pin meno.
+\[i_{R2} + i_b = i_{R1} + i_{C1}\]
+
+\[i_{R1} + i_{C1}  = \frac{V^+}{R1//C_1}\]
+Ma poiche' le tensioni sono costanti il condensatore si comporta come circuito aperto.
+\[i_{R1} + i_{C1}  = \frac{V^+}{R1}\]
+\[i_{R2} =  \frac{V^+}{R1} - i_b\]
+\[V_2 = R_2 i_{R2}\]
+\[V_{out} = V_2 + V^+ =  i_b R_2\frac{\rnd{R_3 // R_4}}{R1} - i_b + i_b \rnd{R_3 // R_4} \]
+\begin{align*}
+V_{out} &= V_2 + V^+ =  i_b R_2\frac{\rnd{R_3 // R_4}}{R1} - i_b + i_b \rnd{R_3 // R_4}\\
+V_{out} &=  i_b \rnd{R_2\frac{\rnd{R_3 // R_4}}{R1} - 1+  \rnd{R_3 // R_4}}
+\end{align*}
 
 \end{document}
 
