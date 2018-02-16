@@ -33,7 +33,7 @@
   %
   % I want to show two diagrams, one 3d and the projection, width each one occuping 0.5 of textwidth and with common label and caption ``graphs''.
   %
-  % \fig{\includegraphics{graph3d.jpg}}{\includegraphics{graph2d.jpg}}{
+  % \fig{\includegraphics{graph3d.jpg}}{\includegraphics{graph2d.jpg}}[1]{
   %   \caption{graphs}
   %   \label{graphs}
   % }
@@ -70,8 +70,12 @@
     \end{figure}
   ][
     \begin{figure}
-      \begin{subfigure}{\figureWidth\textwidth}#1\end{subfigure}%
-      \IfValueT{#2}{\begin{subfigure}{\figureWidth\textwidth}#2\end{subfigure}}%
+      \begin{subfigure}{\figureWidth\textwidth}
+      #1
+      \end{subfigure}%
+      \IfValueT{#2}{\begin{subfigure}{\figureWidth\textwidth}
+      #2
+      \end{subfigure}}%
       \IfValueT{#3}{\begin{subfigure}{\figureWidth\textwidth}#3\end{subfigure}}%
       \IfValueT{#4}{\begin{subfigure}{\figureWidth\textwidth}#4\end{subfigure}}%
       \IfValueT{#5}{\begin{subfigure}{\figureWidth\textwidth}#5\end{subfigure}}%

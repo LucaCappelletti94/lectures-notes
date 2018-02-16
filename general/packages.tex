@@ -1,6 +1,4 @@
-\directlua{pdf.setcompresslevel(9)}
-\directlua{pdf.setobjcompresslevel(2)}
-\directlua{pdf.setminorversion(5)}
+
 \documentclass{report} % We use report to allow for chapers etc...
 \usepackage{geometry} % More rich support for page layout.
 \geometry{
@@ -24,6 +22,9 @@
 
 \usepackage{iftex} % Used for if
 \ifLuaTeX
+	\directlua{pdf.setcompresslevel(9)}
+	\directlua{pdf.setobjcompresslevel(2)}
+	\directlua{pdf.setminorversion(5)}
 	\usepackage{shellesc}
 	\usepackage{polyglossia}
 	\setotherlanguage{english}
