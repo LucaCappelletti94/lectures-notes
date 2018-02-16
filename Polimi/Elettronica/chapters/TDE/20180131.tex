@@ -132,7 +132,7 @@ Si consideri il circuito di amplificazione mostrato in figura (in cui $C_1$ mode
 \item Dimensionare il valore di $R_3$ ed $R_4$ in modo che in continua il valore di $V_{out}$ sia pari a $2.5V$ e l'effetto delle correnti di bias (assunte identiche per entrambi i morsetti) sia nullo.
 \item Ricavare il trasferimento ideale $G_{id}(s) = \frac{V_{out}}{V_{in}(s)}$ e tracciarne il diagramma di Bode (modulo e fase).
 \item Disegnare su di un grafico quotato (modulo) il trasferiemnto reale del circuito.
-\item Calcolare il guadagno reale con cui sono amplificate due sinusoidi di pari ampiezza ($200mV$) e frequenza rispettivamente pari a $1K\hz$ e $100K\hz$. Disegnare il segnale di uscita $V_{out}(t)$ per $V_{in} = 0.2V \sin{2\pi 100K\hz t}$ in un periodo.
+\item Calcolare il guadagno reale con cui sono amplificate due sinusoidi di pari ampiezza ($200mV$) e frequenza rispettivamente pari a $1K\hz$ e $100K\hz$. Disegnare il segnale di uscita $V_{out}(t)$ per $V_{in} = 0.2V \sin{\rnd{2\pi 100K\hz t}}$ in un periodo.
 \item Considerando i due segnali sinusoidali di ingresso del punto precedente, determinare il minimo valore dello slew-rate del amplificatore operazionale tale da non indtrodurre distorsioni nella forma d'onda di uscita.
 \item Calcolare il margine di fase del circuito retroazionato.
 \end{enumerate}
@@ -697,6 +697,9 @@ $R_3,R_4$ formano un partitore quindi
 
 Quindi
 \[V_{out} = V^+ \rnd{1+\frac{R_2}{R_1 // C_1}} =  V_{dd} \frac{R_4}{R_3+R_4} \rnd{1+\frac{R_2}{R_1 // C_1}}  \]
+Ma poiche' le tensioni sono costanti il condensatore si comporta come circuito aperto.
+
+\[V_{out} = V^+ \rnd{1+\frac{R_2}{R_1}} =  V_{dd} \frac{R_4}{R_3+R_4} \rnd{1+\frac{R_2}{R_1}}\]
 Quindi dal testo si impone $V_{out} = 2.5V$ e sostituendo i valori si ricava una equazione in $R_3,R_4$.
 \[\frac{R_4}{R_3+R_4} = \frac{1}{20}\]
 \textbf{Spegnendo $V_{dd}$ sul partitore}
@@ -734,11 +737,99 @@ Ma poiche' le tensioni sono costanti il condensatore si comporta come circuito a
 \[i_{R1} + i_{C1}  = \frac{V^+}{R1}\]
 \[i_{R2} =  \frac{V^+}{R1} - i_b\]
 \[V_2 = R_2 i_{R2}\]
-\[V_{out} = V_2 + V^+ =  i_b R_2\frac{\rnd{R_3 // R_4}}{R1} - i_b + i_b \rnd{R_3 // R_4} \]
+\[V_{out} = V_2 + V^+ =  i_b R_2\frac{\rnd{R_3 // R_4}}{R1} - R_2 i_b + i_b \rnd{R_3 // R_4} \]
+
 \begin{align*}
-V_{out} &= V_2 + V^+ =  i_b R_2\frac{\rnd{R_3 // R_4}}{R1} - i_b + i_b \rnd{R_3 // R_4}\\
-V_{out} &=  i_b \rnd{R_2\frac{\rnd{R_3 // R_4}}{R1} - 1+  \rnd{R_3 // R_4}}
+V_{out} &= V_2 + V^+ =  i_b R_2\frac{\rnd{R_3 // R_4}}{R1} -  R_2i_b + i_b \rnd{R_3 // R_4} = 0\\
+V_{out} &=  i_b \rnd{R_2\frac{\rnd{R_3 // R_4}}{R1} -  R_2 +  \rnd{R_3 // R_4}} = 0\\
+V_{out} &=  i_b \rnd{\rnd{1 + \frac{R_2}{R1}}\frac{R_3 R_4}{R_3 + R_4} - R_2} = 0
 \end{align*}
+Quindi poiche' possiamo intervenire solo su $R_3,R_4$
+\begin{align*}
+\rnd{1 + \frac{R_2}{R1}}\frac{R_3 R_4}{R_3 + R_4} -  R_2 &= 0\\
+\rnd{1 + \frac{R_2}{R1}}\frac{R_3 R_4}{R_3 + R_4}  &=  R_2\\
+\frac{R_3 R_4}{R_3 + R_4}  &= \rnd{ R_2 + \frac{R_2}{R1}}^{-1}\\
+\frac{R_3 R_4}{R_3 + R_4}  &= \frac{R_1 R_2}{R_1 + R_2} = 9k\Omega
+\end{align*}
+\textbf{Riassumendo}
+
+\[\frac{R_3 R_4}{R_3 + R_4} = 9k\Omega\]
+\[\frac{R_4}{R_3+R_4} = \frac{1}{20}\]
+mettendo queste due equazioni a sistema si puo' risolvere e si ottiene:
+\[R_3 = 180k\Omega\]
+\[R_3 = 9.47k\Omega\]
+
+
+\clearpage
+\textbf{2) Diagrammi di Bode di $G_{ID}(s)$}
+
+\begin{circuitikz}
+    \draw(0,2) node[ground,rotate=180]{} ;
+    \draw(0,2) to[R,l=$R_3$, -*] (0,0);
+    \draw(0,0) to[R,l=$R_4$] (0,-2) node[ground]{};
+    \draw(0,0) to[C,l=$\frac{1}{sC_{in}}$, *-o] (-2,0) node[left] {$V_{in}$};
+    \draw(6,0.49) node[op amp]{};
+    \draw(4.81,0) -- (0,0);
+    \draw(4.81,0.98) to[R,l=$R_1$](2,0.98);
+    \draw(4.81,1.98) to[C,l_=$\frac{1}{sC_1}$](2,1.98);
+    \draw(4.81,0.98) to[short,*-*](4.81,1.98);
+    \draw(2,1.98) to[short,-*] (2,0.98) -- (2,0.75) node[ground]{};
+    \draw(4.81,1.98) to[R,l^=$R_2$](7.5,1.98);
+    \draw(7.5,1.98) to[short,-*](7.5,0.49);
+    \draw(7.19,0.49) to[short,-o](8,0.49) node[right]{$V_{out}$};
+    \draw(6.3,0.8) -- (6.3,1.30) node[tground]{} (6.3,1.3)node[above] {$v_{dd}$};
+    \draw(6.3,0.2) -- (6.3,-0.3) node[ground]{};
+\end{circuitikz}
+
+il condensatore ed il parallelo di $R_3,R_4$ formano un partitore di tensione
+\[V^+ = V_{IN} \frac{R_3 // R_4}{\frac{1}{sC_{in}} + R_3 // R_4}\]
+Poiche' come prima e' un non invertente
+\[V_{out} = \rnd{1 + \frac{R_2}{R_1 // \frac{1}{sC_1}}}V^+\]
+
+\[V_{out} = \rnd{1 + \frac{R_2}{R_1 // \frac{1}{sC_1}}}V_{IN} \frac{R_3 // R_4}{\frac{1}{sC_{in}} + R_3 // R_4}\]
+Quindi
+\[G_{ID}(s) =  \rnd{1 + \frac{R_2}{R_1 // \frac{1}{sC_1}}} \frac{R_3 // R_4}{\frac{1}{sC_{in}} + R_3 // R_4}\]
+E trasformato in Forma canonica
+\[G_{ID}(s) = s^1 \frac{C_{IN}\rnd{R_1 + R_2}\rnd{R_3 // R_4}}{R_2} \frac{\rnd{1 + s C_1 \rnd{R_1 // R_2}}}{\rnd{1 + s C_{IN}\rnd{R_3 // R_4}}}\]
+Quindi la funzione di trasfrimento ha tipo $g = 1$ , guadagno statico $G_{ID}(0) = \frac{C_{IN}\rnd{R_1 + R_2}\rnd{R_3 // R_4}}{R_2}$ , uno zero in $z_0 = \frac{1}{ C_1 \rnd{R_1 // R_2}} = 17.7M\hz$ e un polo in $p_0 = \frac{1}{ C_{IN}\rnd{R_3 // R_4}} = 1.76k\hz$
+
+\begin{center}
+\begin{tikzpicture}[xscale=7/4]
+\tikzset{
+semilog lines/.style={thin, black},
+semilog lines 2/.style={semilog lines,
+black },
+semilog half lines/.style={semilog lines 2,
+dotted,black },
+semilog label x/.style={semilog lines,
+below,black},
+semilog label y/.style={semilog lines,
+right,black}
+}
+\begin{scope}[yscale=3/40]
+
+\semilog{2}{9}{-20}{60}
+\BodeGraph[asymp lines,samples=1000]{2:9}
+{
+    \POAmpAsymp{6}{0.3}
+    }
+\BodeGraph{2:9}{
+    \POAmp{6}{0.3}
+}
+\end{scope}
+\begin{scope}[yshift=-5.2cm,yscale=3/90]
+\semilog{2}{9}{0}{90}
+\BodeGraph[asymp lines,samples=1000, const plot]{2:9}
+{
+    \POArgAsymp{6}{0.3}
+}
+\BodeGraph{2:9}{
+    \POArg{6}{0.3}
+}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
 
 \end{document}
 
