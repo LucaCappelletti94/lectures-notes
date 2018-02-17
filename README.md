@@ -1,11 +1,11 @@
 # Various Notes
 ## Crafted with ~~Latex~~ Love
 All are available to the public, but please take them with a grain of salt :)
-These are notes from courses that we might be currently following, so they might not be complete.
+These are notes from courses that we might be currently following, so they might not be complete. Notes marked with the ★ symbol are considered completed.
 
 ## Polytechnic University of Milan
 
-- [Meccanica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Meccanica/main.pdf)
+- [★ Meccanica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Meccanica/main.pdf)
 - [Elettronica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Elettronica/main.pdf)
 - [Sistemi Informativi 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Sistemi%20Informativi/main.pdf)
 
@@ -13,13 +13,13 @@ These are notes from courses that we might be currently following, so they might
 - [Analisi di dati su larga scala 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Analisi%20di%20dati%20su%20larga%20scala/main.pdf)
 - [Complementi di ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/main.pdf)
 - [Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
-- [Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
+- [★ Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
 - [Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sistemi%20Intelligenti/main.pdf)
 
 ## Various
 Notes are currently available about:
-- [Feynman Diagrams Introduction 🇬🇧](https://github.com/LucaCappelletti94/qed-notes/blob/master/Various/Feynman%20Diagrams/main.pdf)
-- [I Giovani ed il Lavoro 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Various/I%20Giovani%20ed%20il%20Lavoro/main.pdf)
+- [★ Feynman Diagrams Introduction 🇬🇧](https://github.com/LucaCappelletti94/qed-notes/blob/master/Various/Feynman%20Diagrams/main.pdf)
+- [★ I Giovani ed il Lavoro 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Various/I%20Giovani%20ed%20il%20Lavoro/main.pdf)
 
 Feel absolutely **FREE** to correct my errors.
 
