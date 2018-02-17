@@ -33,6 +33,7 @@ Luca wrote a set of small tutorials just for you:
 - [MacOs quick setup 🚀](https://gist.github.com/LucaCappelletti94/c9ead039ecaf08dfaf8b975862d9d15e): getting started with macOS in a quick bashy way.
 - [Sublime Text on Steroids 💪](https://gist.github.com/LucaCappelletti94/d12c4c003e126f864402a887339fa912): a quick guide to get a super sublime text.
 - [Firing up LaTex on macOS 🔥](https://gist.github.com/LucaCappelletti94/920186303d71c85e66e76ff989ea6b62): a setup for making latex just work.
+- [Firing up LaTex on Windoes 🔥](https://gist.github.com/zommiommy/65d9f327d4ccfd5a5166b9e221bbd336): a setup for making latex just work.
 
 ### Basic Structure
 The project is structured as follows:
