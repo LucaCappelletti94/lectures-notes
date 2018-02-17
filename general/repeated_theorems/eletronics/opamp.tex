@@ -1,0 +1,69 @@
+\def\opampcaratteristiche{
+\begin{theorem}[Eq Caratteristiche degli OpAmp Ideali]
+    Gli amplificatori operazionali \textbf{Ideali} hanno le seguenti equazioni caratteristiche a seconda del tipo di retroazione:
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+    \begin{tabular}{c | c}
+     Tipo di Retroazione & Eq. Caratteristiche\\
+     \hline
+     Retroazione Negativa & $i^+ = i^- = 0$ \\
+     & $V^+ = V^-$\\
+     Positiva / Nessuna Retroazione & $i^+ = i^- = 0$\\
+     & $V_{out} = \frac{A_0 \rnd{V^+ - V^-}}{1+s\tau_0}$
+
+    \end{tabular}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+    \begin{circuitikz}
+        \draw(0,0) node[op amp](oamp){};
+        \draw(oamp.+) node[left]{$V^+$};
+        \draw(oamp.-) node[left]{$V^-$};
+        \draw(oamp.out) node[right]{$V_{out}$};
+    \end{circuitikz}
+    \end{subfigure}
+\end{figure}
+Osservando che con segnali lenti o continui
+\[V_{out} = \frac{A_0 \rnd{V^+ - V^-}}{1+s\tau_0} \approx A_0 \rnd{V^+ - V^-}\]
+\end{theorem}
+}
+\def\realopampcaratteristiche{
+\begin{theorem}[Op Amp Reale]
+
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+    \begin{circuitikz}
+        \draw(0,0) node[op amp](oamp){};
+        \draw(oamp.+) node[left]{$V^+$};
+        \draw(oamp.-) node[left]{$V^-$};
+        \draw(oamp.out) node[right]{$V_{out}$};
+    \end{circuitikz}
+    \end{subfigure}
+\end{figure}
+\end{theorem}
+}
+
+\def\noninvertente{
+    \begin{theorem}[OpAmp in Configurazione Non Invertente]
+    Un amplificatore operazionale si trova in configurazione non invertente quando e' retrazionato negativaemnte attraverso una impedenza generica $Z_2$, vi e' una impedenza $Z_1$ tra il pin meno e massa ed al pin + vi e' un segnale.
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+    \[V_{out} = \rnd{1 + \frac{Z_2}{Z_1}}V^+ \]
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+    \begin{circuitikz}
+        \draw(0,0) node[op amp](oamp){};
+        \draw(oamp.+) node[left]{$V^+$};
+        \draw(oamp.-) node[below]{$V^-$};
+        \draw(oamp.out) node[right]{$V_{out}$};
+        \draw(oamp.-) to[generic,l=$Z_1$]($(oamp.-)-(2,0)$) node[ground,rotate=270]{};
+        \draw($(oamp.-)+(0,1)$) to[generic,l=$Z_2$]($(oamp.out)+(0,1.5)$);
+        \draw(oamp.-) to[short,*-] ($(oamp.-)+(0,1)$);
+        \draw(oamp.out) to[short,*-] ($(oamp.out)+(0,1.5)$);
+
+    \end{circuitikz}
+    \end{subfigure}
+\end{figure}
+\end{theorem}
+}
