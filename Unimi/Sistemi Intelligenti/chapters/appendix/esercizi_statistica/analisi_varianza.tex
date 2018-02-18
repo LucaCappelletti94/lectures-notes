@@ -1,0 +1,42 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Discutere l'analisi di varianza per un sistema lineare}
+Nei casi reali, tutte le misurazioni hanno errori, indicati con $v$, i quali sono supposti provenienti da una distribuzione gaussiana a media nulla $N(0, \sigma^2)$. Essendo la media nulla, l'unico parametro rimasto per valutare la bontà di una stima è la varianza $\sigma^2$.
+
+Nei sistemi lineari $\matr{A}\bmx = \bmb + \bmv$ la varianza stimata è pari alla somma degli errori di misura al quadrato:
+
+\[
+  \sigma^2_0 = \sum v^2_i
+\]
+Risolvendo il sistema per il vettore $\bmx$ ed aggiungendo un certo errore nella stima $\bmu \approx N\rnd{0, \sigma^2}$, andiamo a calcolare l'errore sui parametri che siamo andati a stimare:
+
+\[
+  \bmx + \bmu = \rnd{\matr{A}^T\matr{A}}^{-1}\matr{A}^T(\bmb+\bmv)
+\]
+Chiamo $\matr{C} = \rnd{\matr{A}^T\matr{A}}^-1$.
+
+Considerando $\bmx$ i valori reali e $\bmu$ gli errori ricavo:
+
+\[
+  \bmx = \matr{C}\matr{A}^T\bmb \qquad
+  \bmu = \matr{C}\matr{A}^T\bmv
+\]
+Costruiamo la matrice di covarianza
+\[
+  \bmu\bmut = \rnd{\matr{C}\matr{A}^T\bmv}\rnd{\bmvt\matr{A}{\matr{C}}^T}
+  = \sigma^2_0 \rnd{\matr{C}\matr{A}^T\matr{A}\matr{C}^T} = \sigma^2_0\matr{C}^T
+\]
+La matrice di covarianza descrive la varianza dell'errore sui vari parametri:
+
+\[
+  \sigma^2\rnd{u_{ij}} = c_{ij}\sigma^2_0
+\]
+Questa ci fornisce un'idea sulla mutua influenza dei vari parametri tra loro. Se due parametri hanno un'alta covarianza significa che è difficile distinguerli:
+
+\[
+  -1 \leq \frac{c_{ij}}{\sqrt{c_ic_j}} \leq 1
+\]
+Tanto più si avvicina agli estremi i parametri covariano, e in quel caso significa che c'è qualche parametro di troppo nella stima. Empiricamente si scartano parametri quando l'indice di correlazione è superiore del 95\%.
+
+\end{document}

@@ -1,182 +1,96 @@
 \providecommand{\main}{../../../}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
-\subsection{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come? [3]}
-Scriviamo il logaritmo negativo della verosimiglianza:
-
-\begin{align*}
-  \prob{y_1,...,y_n; n, b; x_1, ..., x_n } & =
-  - \sum_{i=1}^n
-  \ln \crl{
-    \frac{1}{\sqrt{2\pi}\sigma}
-    \exp \sqr{
-      -\frac{1}{2} \rnd{\frac{ y_i - mx_i - b}{\sigma} }^2
-    }
-  }                                            \\
-                                           & =
-  - \sum_{i=1}^n \ln
-  \rnd{ \frac{1}{\sqrt{2\pi}\sigma} }
-  - \sum_{i=1}^n
-  \sqr{
-    -\frac{1}{2} \rnd{\frac{ y_i - mx_i - b}{\sigma} }^2
-  }                                            \\
-                                           & =
-  - \sum_{i=1}^n \ln
-  \rnd{ \frac{1}{\sqrt{2\pi}\sigma} }
-  + \frac{1}{2\sigma^2} \sum_{i=1}^n
-  \rnd{y_i - mx_i - b }^2
-\end{align*}
-
-Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a $m$:
-
-\begin{align*}
-  \frac{\partial \prob{y_1,...,y_n; n, b; x_1, ..., x_n }}{\partial m} & = \frac{\partial}{\partial m} \sqr{ - \sum_{i=1}^n \ln
-    \rnd{ \frac{1}{\sqrt{2\pi}\sigma} }
-    + \frac{1}{2\sigma^2} \sum_{i=1}^n
-    \rnd{y_i - mx_i - b }^2
-  }                                                                                                                                              \\
-                                                                       & = 0 + \frac{1}{2\sigma^2} \sum_{i=1}^n \rnd{y_i - mx_i - b }^2 2 (-x_i) \\
-                                                                       & = -\frac{1}{\sigma^2} \sum_{i=1}^n \rnd{y_i - mx_i - b }^2  x_i
-\end{align*}
+\subsection{Che cosa è la stima della massima verosimiglianza?}
+Si tratta di un metodo che realizza una stima dei parametri di una distribuzione partendo da un vettore di misurazioni $\bmy$ che corrisponde a delle realizzazioni di una variabile che si suppone appartenga alla distribuzione data. Per esempio nel caso di una distribuzione gaussiana si procede come segue:
 
 \[
-  -\frac{1}{\sigma^2} \sum_{i=1}^n \rnd{y_i - mx_i - b }^2  x_i = 0
+  L\rnd{\left. \bmy\,\right\rvert\, \mu, \sigma} = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma} \exp\crl{-\frac{1}{2}\rnd{\frac{y_i-\mu}{\sigma}}^2}
 \]
+A questo punto di procede calcolando il logaritmo negativo di $L$, $-ln{L}$ e si calcolano le derivate parziali in funzione dei parametri. Queste vengono quindi poste pari a 0 per massimizzarle e si risolve in funzione del parametro di interesse.
+
+\subsection{Dimostrare che la stima ai minimi quadrati è equivalente alla stima a massima verosimiglianza nel caso di errore Gaussiano sui dati. Cosa fornisce? Come?}
+Considerando il caso in cui vogliamo stimare una retta $y = mx+q$, stimando il coefficiente angolare $m$ ed il parametro $q$, con $n$ misurazioni $\bmx$ e $\bmy$ e considerando l'errore di misura gaussiano, procediamo con la s\textbf{tima a massima verosimiglianza}.
+
+Costruisco la funzione di verosimiglianza:
 
 \[
-  \sum_{i=1}^n \rnd{y_i - mx_i - b }^2  x_i = 0
+  L\rnd{\left. \bmy, \bmx \, \right\rvert\, m, q} = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma} \exp\crl{-\frac{1}{2}\rnd{\frac{y_i-mx_i - q}{\sigma}}^2}
 \]
+Calcolo le derivate parziali del logaritmo negativo della verosimiglianza:
 
-\begin{figure}[H]
-  \[
-    m\sqr{ \sum_{i=1}^n \rnd{x_i^2 } } + q \sqr{ \sum_{i=1}^n \rnd{x_i } } = \sqr{ \sum_{i=1}^n \rnd{y_i x_i } }
-  \]
-  \caption{Prima equazione}
-\end{figure}
-
-Massimizziamo la \textbf{likelyhood} ponendo a zero le derivate prime rispetto a $q$:
-
-\begin{align*}
-  \frac{\partial \prob{y_1,...,y_n; n, b; x_1, ..., x_n }}{\partial q} & = \frac{\partial}{\partial q} \sqr{ - \sum_{i=1}^n \ln
-    \rnd{ \frac{1}{\sqrt{2\pi}\sigma} }
-    + \frac{1}{2\sigma^2} \sum_{i=1}^n
-    \rnd{y_i - mx_i - b }^2
-  }                                                                                                                                            \\
-                                                                       & = 0 + \frac{1}{2\sigma^2} \sum_{i=1}^n \rnd{y_i - mx_i - b }^2 2 (-1) \\
-                                                                       & = \frac{1}{\sigma^2} \sum_{i=1}^n \rnd{y_i - mx_i - b }^2
-\end{align*}
+Per il coefficiente angolare $m$:
 
 \[
-  \frac{1}{\sigma^2} \sum_{i=1}^n \rnd{y_i - mx_i - b }^2  = 0
+  \frac{\partial (-\ln{L})}{\partial m} = 0 \Rightarrow \frac{1}{2\sigma^2} \sum^n_{i=1} \rnd{y_i - mx_i - q}\rnd{-2x_i} = 0 \Rightarrow  m\sum^n_{i=1} x^2_i + q\sum^n_{i=1}x_i = \sum^n_{i=1}x_iy_i
 \]
+Per il parametro $q$:
 
 \[
-  \sum_{i=1}^n \rnd{y_i - mx_i - b }^2 = 0
+  \frac{\partial (-\ln{L})}{\partial q} = 0 \Rightarrow \sum^n_{i=1}\rnd{y_i - mx_i -q}x_i = 0 \Rightarrow  m\sum^n_{i=1}x_i + q\cdot n = \sum^n_{i=1}y_i
 \]
+In forma matriciale le equazioni ottenute sono le seguenti:
 
-\begin{figure}[H]
-  \[
-    m\sqr{ \sum_{i=1}^n \rnd{x_i } } + q \sqr{ \sum_{i=1}^n \rnd{1 } } = \sqr{ \sum_{i=1}^n \rnd{y_i } }
-  \]
-  \caption{Seconda equazione}
-\end{figure}
-
-Ponendo a sistema le equazioni così ottenute ottengo:
 \[
   \begin{bmatrix}
-    \sum_{i=1}^n \rnd{x_i^2 } & \sum_{i=1}^n \rnd{x_i } \\
-    \sum_{i=1}^n \rnd{x_i }   & n
+    \sum^n_{i=1}x^2_i & \sum^n_{i=1}x_i \\
+    \sum^n_{i=1}x_i   & n
   \end{bmatrix}
   \begin{bmatrix}
-    m \\
-    b
+    m \\ b
   \end{bmatrix}
   =
   \begin{bmatrix}
-    \sum_{i=1}^n \rnd{y_i x_i } \\
-    \sum_{i=1}^n \rnd{y_i }
+    \sum^n_{i=1}x_iy_i \\ \sum^n_{i=1}y_i
   \end{bmatrix}
 \]
 
-Lo stesso problema visto dal punto di vista dei \textbf{minimi quadrati} è impostato nel seguente modo.
+Procediamo ora con la \textbf{stima ai minimi quadrati}. Lo stesso problema nei minimi quadrati è impostato come segue:
+
+\[
+  m\bmx + b\bm{1} = \bmy
+\]
+SI tratta quindi di risolvere l'equazione:
 
 \[
   \begin{bmatrix}
-    x_1    & 1      \\
-    \vdots & \vdots \\
-    x_n    & n
+    \bmx^T \\ \bm{1}^T
+  \end{bmatrix} \begin{bmatrix}
+    \bmx & \bm{1}
+  \end{bmatrix} \begin{bmatrix}
+    m \\ b
+  \end{bmatrix} = \begin{bmatrix}
+    \bmx^T \\ \bm{1}^T
+  \end{bmatrix} \bmy
+  \Rightarrow
+  \begin{bmatrix}
+    \bmx\bmxt    & \bmxt\bm{1}    \\
+    \bm{1}^T\bmx & \bm{1}^T\bm{1}
   \end{bmatrix}
   \begin{bmatrix}
-    m \\
-    b
+    m \\ b
   \end{bmatrix}
   =
   \begin{bmatrix}
-    y_1    \\
-    \vdots \\
-    y_n
+    \bmx^T\bmy \\ \bm{1}^T\bmy
   \end{bmatrix}
-\]
-
-L'obbiettivo è trovare una $x$ tale che $(Ax-b)^T(Ax-b)$ è minima (minimizzazione di residui).
-La soluzione si ottiene calcolando $A^TAx = A^Tb$.
-
-\[
-  A^TA = \begin{bmatrix}
-    x_1 & \dots & x_n \\
-    1   & \dots & n
+  \Rightarrow
+  \begin{bmatrix}
+    \sum^n_{i=1}x^2_i & \sum^n_{i=1}x_i \\
+    \sum^n_{i=1}x_i   & n
   \end{bmatrix}
   \begin{bmatrix}
-    x_1    & 1      \\
-    \vdots & \vdots \\
-    x_n    & n
+    m \\ b
   \end{bmatrix}
   =
   \begin{bmatrix}
-    \sum_{i=1}^n \rnd{x_i^2 } & \sum_{i=1}^n \rnd{x_i } \\
-    \sum_{i=1}^n \rnd{x_i }   & n
+    \sum^n_{i=1}x_iy_i \\ \sum^n_{i=1}y_i
   \end{bmatrix}
 \]
+I risultati ottenuti dai due metodi coincidono.
 
-\[
-  A^Tb = \begin{bmatrix}
-    x_1 & \dots & x_n \\
-    1   & \dots & n
-  \end{bmatrix}
-  \begin{bmatrix}
-    y_1    \\
-    \vdots \\
-    y_n
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    \sum_{i=1}^n \rnd{y_i x_i } \\
-    \sum_{i=1}^n \rnd{y_i }
-  \end{bmatrix}
-\]
+Entrambi i metodi offrono una stima dei parametri, ma coincidono solo quando il rumore segue una distribuzione normale a media nulla.
 
-Ovvero:
-
-\[
-  \begin{bmatrix}
-    \sum_{i=1}^n \rnd{x_i^2 } & \sum_{i=1}^n \rnd{x_i } \\
-    \sum_{i=1}^n \rnd{x_i }   & n
-  \end{bmatrix}
-  \begin{bmatrix}
-    m \\
-    b
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    \sum_{i=1}^n \rnd{y_i x_i } \\
-    \sum_{i=1}^n \rnd{y_i }
-  \end{bmatrix}
-\]
-
-Che è la stessa soluzione ottenuta per la stima a massima verosimiglianza.
-
-Queste metodologie offrono una stima dei parametri di una funzione tramite la minimizzazione dei residui.
-
-La soluzione è quella che minimizza lo scarto quadratico medio dei residui, ovvero è a minima varianza.
+La stima alla massima verosimiglianza massimizza la probabilità condizionata che i singoli punti assumano tali valori per i parametri, quella ai minimi quadrati minimizza i quadrati dei residui: $\min_x (\matr{A}\bmx-\bmb)^2$.
 
 \end{document}

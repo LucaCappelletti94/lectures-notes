@@ -1,0 +1,14 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Quali sono gli attori?}
+In un problema di \textit{Reinforcement Learning} si ha alla base un agente che, interagendo con l'ambiente, va a costruire una policy per massimizzare una \textbf{reward a lungo termine} ottenuta eseguendo delle azioni.
+\begin{description}
+  \item [Policy] Descrive lo schema di comportamento dell'agente, mappando stati ad azioni.
+  \item [Ambiente] descrive tutto quello su cui agisce la policy. È tutto quanto quello che non è modificabile direttamente dall'agente. Si può rappresentare come una funzione che preso uno stato e una azione come input restituisce un altro stato come output, ma è una funzione non conosciuta a priori. L'agente deve costruirsi una rappresentazione implicita dell'ambiente attraverso la value function e deve selezionare i comportamenti che ripetutamente risultano favorevoli a lungo termine.
+  \item [Reward function] è la ricompensa immediata. Associata all'azione intrapresa in un certo stato. Può essere data al raggiungimento di un goal. È uno scalare (può essere associato allo stato e/o input e/o stato prossimo).
+  \item [Value function] ricompensa a lungo termine. Somma dei reward: costi associati alle azioni scelte istante per istante più costo associato allo stato finale. Orizzonte temporale ampio. Rinforzo secondario. Ricompensa attesa. Viene stimata all'interno dell'agente.
+\end{description}
+
+\end{document}
