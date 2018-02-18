@@ -2,130 +2,33 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Domande sui Sistemi Fuzzy}
-
-\subsection{Cos’è un insieme fuzzy?}
-\subsection{Esiste una corrispondenza biunivoca tra insiemi fuzzy e valori numerici?}
-\subsection{Cos’è una membership function? Con quali altri nomi viene anche indicata?}
-\subsection{La frase seguente: “con la mia preparazione potrei prendere 24 all’esame”, sottintende un processo fuzzy o probabilistico?}
-\subsection{Cosa si intende per FAM? [3]}
-\subsection{Una FAM memorizza numeri o preposizione logiche? Come? [3]}
-\subsection{Descrizione del funzionamento di una FAM.}
-
-
 \subsection{Definire i passi per costruire un sistema fuzzy}
 \begin{enumerate}
-	\item Identificazione delle variabili di I/O del sistema e del loro range (A,B).
-	\item Identificazione delle classi fuzzy in cui le variabili sono da suddividere e dei loro boundaries.
-	\item Definizione della trasformazione I/O come insieme di regole fuzzy: per ogni combinazione di classi fuzzy (con OR e/o AND) di input è possibile definire una classe di output (FAM).
-	\item Modalità di de-fuzzyfication.
+	\item Identifico le variabili di input e output del sistema specificando per ognuna il proprio \textbf{range}.
+	\item Identifico le \textbf{classi fuzzy} in cui le variabili sono da suddividere e stabilisco le \textbf{funzioni di membership}.
+	\item Definisco le regole logiche della FAM: per ogni combinazione di classi in input deve essere possibile definire una classe di output.
+	\item Definisco la \textbf{modalità di defuzzyficazione}, che riconverte le regole attivate in un valore continuo tramite media pesata, massimo o media pesata su aree.
 \end{enumerate}
 
-\subsection{Definire un problema a piacere che involva almeno due variabili in ingresso e due in uscita. Definire tutti i componenti e calcolare l'uscita passo a passo per un valore di input a piacere}
+\subsection{Cos'è un insieme fuzzy? Cos'è una membership function? Con quali altri nomi viene anche indicata?}
+Un insieme fuzzy è un insieme caratterizzato da una \textbf{funzione di membership} M che, dato un elemento, restituisce il valore di verosimiglianza che esso appartenga al set, compreso tra 0 e 1.
 
-Ipotizziamo di dover gestire la coda di un callcenter di supporto clienti.
-\subsubsection*{Variabili in ingresso}
-\begin{enumerate}
-	\item Numero di persone che telefonano all'ora.
-	      \subitem Può variare tra 0 e 100.
-	      \subitem Viene classificato in:
-	      \subsubitem Alto numero
-	      \subsubitem Medio numero
-	      \subsubitem Basso numero
-	\item Carico di lavoro, che dipende dal genere di supporto che i clienti richiedono.
-	      \subitem Viene trattato come una percentuale.
-	      \subitem Viene classificato in:
-	      \subsubitem Carico leggero
-	      \subsubitem Carico pesante
-\end{enumerate}
+\subsection{Esiste una corrispondenza biunivoca tra insiemi fuzzy e valori numerici?}
+Gli insiemi fuzzy \textbf{non} godono di relazioni di univocità e biunivocità tra gli elementi di insiemi diversi. Pertanto gli insiemi fuzzy sono un'estensione ma non una generalizzazione degli insiemi della teoria classica.
 
-\begin{figure}
-	\begin{subfigure}{0.49\textwidth}
-		\includegraphics[width=0.9\textwidth]{fuzzy_1}
-		\caption{Rappresentazioni delle classi fuzzy del numero di persone (Basso, medio e alto)}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\includegraphics[width=0.9\textwidth]{fuzzy_2}
-		\caption{Rappresentazioni delle classi fuzzy del carico di lavoro (leggero e pesante)}
-	\end{subfigure}
-\end{figure}
+\subsection{Distinzione tra fuzzyness e probabilità}
+La \textbf{probabilità} riguarda un evento non ancora avvenuto e descrive l'incertezza che l'evento avvenga (Pioverà?). Una volta accaduto l'evento diviene certo, per cui non si parla più di probabilità, ma al più della vaghezza che contraddistingue l'evento (quanto l'evento è ``pioggia'' e quanto è ``sereno'').
 
-\subsubsection*{Variabili in uscita}
-\begin{enumerate}
-	\item Numero di centralinisti da attivare
-	      \subitem L'idea è di attivare più centralinisti quando il carico è elevato.
-	      \subitem Può variare da 0 a 50.
-	      \subitem Classificato in:
-	      \subsubitem Poco personale: 10 persone
-	      \subsubitem Personale medio: 30 persone
-	      \subsubitem Personale completo: 50 persone
-	\item Tempo dedicabile ad ogni chiamata
-	      \subitem L'idea è di dedicare meni tempo se il carico di lavoro ed il numero di clienti è elevato.
-	      \subitem Può variare dai 5 ai 30 minuti
-	      \subitem Classificato in:
-	      \subsubitem Poco tempo: 5 minuti
-	      \subsubitem Medio tempo: 15 minuti
-	      \subsubitem Molto tempo: 30 minuti
-\end{enumerate}
+La \textbf{fuzzyness} delinea un'incertezza, che è \textbf{deterministica}.
 
-\subsubsection*{Costruiamo le regole della FAM per il personale}
-\begin{enumerate}
-	\item ALTO  $\land$ LEGGERO $=$ PERSONALE MEDIO
-	\item ALTO  $\land$ PESANTE $=$ PERSONALE COMPLETO
-	\item MEDIO $\land$ LEGGERO $=$ POCO PERSONALE
-	\item MEDIO $\land$ PESANTE $=$ PERSONALE MEDIO
-	\item BASSO $\land$ LEGGERO $=$ POCO PERSONALE
-	\item BASSO $\land$ PESANTE $=$ PESONALE MEDIO
-\end{enumerate}
+\subsection{La frase seguente: “con la mia preparazione potrei prendere 24 all'esame”, sottintende un processo fuzzy o probabilistico?}
+Si tratta di un evento non ancora avvenuto e la frase sottolinea un'incertezza: si tratta quindi di un processo probabilistico.
 
-\subsubsection*{Costruiamo le regole della FAM per il tempo}
-\begin{enumerate}
-	\item ALTO  $\land$ LEGGERO $=$ POCO TEMPO
-	\item ALTO  $\land$ PESANTE $=$ POCO TEMPO
-	\item MEDIO $\land$ LEGGERO $=$ MEDIO TEMPO
-	\item MEDIO $\land$ PESANTE $=$ MEDIO TEMPO
-	\item BASSO $\land$ LEGGERO $=$ MOLTO TEMPO
-	\item BASSO $\land$ PESANTE $=$ MOLTO TEMPO
-\end{enumerate}
+\subsection{Cosa si intende per FAM? Una FAM memorizza numeri o preposizione logiche? Come?}
+Una \textbf{Fuzzy Associative Memory} è il ``motore logico'' di un sistema fuzzy: essa associa allo spazio delle classi discrete in input le classi discrete in output seguendo regole di logica booleana applicate alle classi fuzzy in ingresso. Essa memorizza queste regole e la conoscenza del sistema e le applica in cascata con struttura if-else.
 
-\subsubsection*{Definiamo una regola di defuzzyficazione}
-Utilizzo la media pesata come regola di defuzzyficazione.
+\subsection{Cosa è l'entropia fuzzy?}
+Si tratta di una misura di quanto un determinato evento è fuzzy, date due classi. Si calcola come il rapporto tra la distanza dalla classe più vicina e la distanza dalla classe più lontana.
 
-\subsubsection*{Esempio: 25 persone chiamano ed il carico è al $40\%$}
-25 persone in chiamata significa attivare al $50\%$ la classe BASSO, al $50\%$ la classe MEDIO e non attivare la classe ALTO.
-
-Il carico di lavoro al $40\%$ significa attivare al $75\%$ la classe LEGGERO ed al $25\%$ la classe PESANTE.
-
-FAM per il personale:
-
-\begin{enumerate}
-	\item ALTO=0 $\land$ LEGGERO=0.75 $=$ PERSONALE MEDIO=0
-	\item ALTO=0  $\land$ PESANTE=0.25 $=$ PERSONALE COMPLETO=0
-	\item MEDIO=0.5 $\land$ LEGGERO=0.75 $=$ POCO PERSONALE=0.5
-	\item MEDIO=0.5 $\land$ PESANTE=0.25 $=$ PERSONALE MEDIO=0.25
-	\item BASSO=0.5 $\land$ LEGGERO=0.75 $=$ POCO PERSONALE=0.5
-	\item BASSO=0.5 $\land$ PESANTE=0.25 $=$ PESONALE MEDIO=0.25
-\end{enumerate}
-
-FAM per il tempo:
-
-\begin{enumerate}
-	\item ALTO=0 $\land$ LEGGERO=0.75 $=$ POCO TEMPO=0
-	\item ALTO=0  $\land$ PESANTE=0.25 $=$ POCO TEMPO=0
-	\item MEDIO=0.5 $\land$ LEGGERO=0.75 $=$ MEDIO TEMPO=0.5
-	\item MEDIO=0.5 $\land$ PESANTE=0.25 $=$ MEDIO TEMPO=0.25
-	\item BASSO=0.5 $\land$ LEGGERO=0.75 $=$ MOLTO TEMPO=0.5
-	\item BASSO=0.5 $\land$ PESANTE=0.25 $=$ MOLTO TEMPO=0.25
-\end{enumerate}
-
-Eseguo la media pesante per defuzzyficare i risultati:
-
-\[
-	n_\text{centralinisti} = \frac{(0.5+0.5)*\text{POCO} + (0.25+0.25)*\text{MEDIO}}{0.5+0.5+0.25+0.25} = \frac{(0.5+0.5)*10 + (0.25+0.25)*30}{0.5+0.5+0.25+0.25} = \frac{10+15}{1.5} \approx 17
-\]
-
-\[
-	n_\text{minuti} = \frac{(0.5+0.25)*\text{MEDIO} + (0.5+0.25)*\text{MOLTO}}{0.5+0.5+0.25+0.25} = \frac{(0.5+0.25)*15 + (0.5+0.25)*30}{0.5+0.5+0.25+0.25} = \frac{11.25+22.5}{1.5} \approx 23
-\]
-
-Le FAM così costruite suggeriscono quindi 17 centralinisti che dedicano 23 minuti per cliente.
+\subfile{\main/chapters/appendix/fuzzy/esempio_fuzzy}
 \end{document}
