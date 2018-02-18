@@ -1,0 +1,49 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+
+\newcommand{\paretotwo}[2]{
+  \fig{
+    \dddgraph{x_2}{x_1}{0}{3}{0}{2}{-3}{x+y<=3&&y<=2&&x>=#1}{y-x}
+  }{
+    \includegraphics[width=0.9\textwidth]{pareto/2/#2}
+  }[1]{\caption{Standard $\epsilon_2=#1$}}
+}
+
+\begin{document}
+
+\subsection{Exercise 2}
+\begin{align*}
+  \max f_1 = x_1 - x_2 \\
+  \max f_2 = x_2       \\
+  x_1 + x_2 & \leq 3   \\
+  x_1       & \leq 2   \\
+  \bmx      & \geq 0
+\end{align*}
+
+\reqPareStd{constraints methods}
+
+\subsection{Exercise 2 resolution}
+We express the problem in terms of $f_1-f_2$:
+\begin{align*}
+  \max x_1 = f_1 + f_2 \\
+  \max x_2 = f_2       \\
+  f_1 + 2f_2 & \leq 3  \\
+  f_1 + f_2  & \leq 2  \\
+  f_1 + f_2  & \geq 0  \\
+  f_2        & \geq 0
+\end{align*}
+
+\fesReg{2}
+
+\subsubsection*{Constraints method}
+Let's use the second function as the constraint, with standard $\epsilon_2$:
+
+\[
+  x_2 \geq \epsilon_2
+\]
+\paretotwo{3}{fig1}
+\paretotwo{1}{fig2}
+\paretotwo{0}{fig3}
+
+
+\end{document}

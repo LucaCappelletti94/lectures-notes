@@ -2,16 +2,33 @@
 
 \input{\main/../../general/packages.tex}
 
-\addbibresource{references.bib}
+\def\reqFeaReg{Draw the feasible region in the $x_1-x_2$ axis and $f_1-f_2$.}
+\newcommand{\reqParetReg}[1]{Determine the paretian region with the \textit{#1}.}
+\newcommand{\reqPareStd}[1]{
+	Consider the given problem of mathematical programming:
+	\begin{enumerate}[a)]
+		\item \reqFeaReg
+		\item \reqParetReg{#1}
+	\end{enumerate}
+}
 
+\newcommand{\fesReg}[1]{
+	\fig{
+		\includegraphics[width=0.9\textwidth]{pareto/#1/regx}
+		\caption{Feasible region in $x_1-x_2$}
+	}{
+		\includegraphics[width=0.9\textwidth]{pareto/#1/regf}
+		\caption{Feasible region in $f_1-f_2$}
+	}[1]{\caption{Feasible regions}}
+}
 \begin{document}
 
 \input{\main/../../general/title.tex}
 
 {\hypersetup{hidelinks}
-  \tableofcontents  % Generates the table of contents
-  %\listoffigures  % Generates the list of images and figures
-  %\listoftables % Generates the list of tables
+	\tableofcontents  % Generates the table of contents
+	%\listoffigures  % Generates the list of images and figures
+	%\listoftables % Generates the list of tables
 }
 
 \chapter{Introduzione}
