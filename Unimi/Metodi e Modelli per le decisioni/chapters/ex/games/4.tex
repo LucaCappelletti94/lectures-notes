@@ -1,0 +1,60 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Exercise 4}
+Given a finite game represented in the following matrix:
+
+\begin{table}
+  \begin{tabular}{L|LLL}
+    f & C     & D      & E     \\
+    \hline
+    A & (3,2) & (5,4)  & (7,8) \\
+    B & (5,9) & (1,11) & (4,3)
+  \end{tabular}
+\end{table}
+
+\begin{enumerate}[a)]
+  \item Determine dominated strategies.
+  \item Determine the Nash equilibriums, if any.
+\end{enumerate}
+
+\subsection{Resolution exercise 4}
+\subsubsection*{Identification of dominated strategies}
+
+The strategy $C$ is dominated by the strategy $D$ and therefore is eliminated:
+
+\begin{table}
+  \begin{tabular}{L|LL}
+    f & D      & E     \\
+    \hline
+    A & (5,4)  & (7,8) \\
+    B & (1,11) & (4,3)
+  \end{tabular}
+\end{table}
+
+The strategy $D$ is dominated by the strategy $E$ and therefore is also eliminated:
+
+\begin{table}
+  \begin{tabular}{L|L}
+    f & E     \\
+    \hline
+    A & (7,8) \\
+    B & (4,3)
+  \end{tabular}
+\end{table}
+
+Finally, the strategy $B$ is dominated by the strategy $A$ and is therefore eliminated:
+
+\begin{table}
+  \begin{tabular}{L|L}
+    f & E     \\
+    \hline
+    A & (7,8) \\
+  \end{tabular}
+\end{table}
+
+
+\subsubsection*{Nash equilibriums}
+The only remaining strategy, $(A,E)$, is also a Nash equilibrium.
+
+\end{document}

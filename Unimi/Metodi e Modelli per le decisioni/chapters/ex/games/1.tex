@@ -1,0 +1,57 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\subsection{Resolution exercise 1}
+\subsubsection*{Identification of dominated strategies}
+The strategy $a_3$ is dominated by the strategy $a_2$, therefore it will never be chosen.
+\subsubsection*{Optimal strategies}
+\fig{
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=\textwidth,
+        xlabel=$\alpha$,
+        samples=100,
+        domain=0:1
+      ]
+      \addplot[mark=none,color=green]{50*x-10*(1-x)};
+      \addplot[mark=none,color=black]{-20*x+20*(1-x)};
+      \addplot[mark=none,color=red]{50*x-10*(1-x)<-20*x+20*(1-x)?50*x-10*(1-x):NaN};
+      \addplot[mark=none,color=red]{50*x-10*(1-x)>-20*x+20*(1-x)?-20*x+20*(1-x):NaN};
+      \node[red] at (0.3,8) {\textbullet};
+      \legend{$b_1$,$b_2$}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The optimal strategy for the row player is $(0.3,8)$}
+}{
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=\textwidth,
+        xlabel=$\alpha$,
+        samples=100,
+        domain=0:1
+      ]
+      \addplot[mark=none,color=green]{50*x-20*(1-x)};
+      \addplot[mark=none,color=black]{-10*x+20*(1-x)};
+      \addplot[mark=none,color=blue]{50*x-20*(1-x)>-10*x+20*(1-x)?50*x-20*(1-x):NaN};
+      \addplot[mark=none,color=blue]{50*x-20*(1-x)<-10*x+20*(1-x)?-10*x+20*(1-x):NaN};
+      \node[blue] at (0.4,8) {\textbullet};
+      \legend{$a_1$,$a_2$}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The optimal strategy for the column player is $(0.3,8)$}
+}[1]{\caption{Optimal strategies}}
+
+\subsubsection*{Minimal assured payoff}
+Since the probabilities are known, we can build a new table as follows:
+
+\begin{table}
+  \begin{tabular}{L|L}
+    f   & \bar{b} \\
+    \hline
+    a_1 & 32.5    \\
+    a_2 & -2.5
+  \end{tabular}
+\end{table}
+
+The option $a_1$ is optimal applying the criterion of the expected value.
+\end{document}
