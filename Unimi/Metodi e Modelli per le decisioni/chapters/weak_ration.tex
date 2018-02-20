@@ -1,0 +1,131 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Metodi a razionalità debole}
+\section{Teoria classica}
+\subsection{Tasso di sostituzione}
+Si tratta di un valore che indica il rapporto del valore di un indicatore $f_1$ rispetto ad un secondo $f_2$: quanto deve valere un indicatore per essere sostituito ad un secondo.
+
+\subsection{Matrice dei confronti a coppie}
+È la matrice che contiene le stime dei tassi di sostituzione fra le utilità normalizzate.
+
+\subsection{Matrice dei confronti a coppie coerente}
+Si tratta di una matrice dei confronti a coppie che gode di 3 proprietà:
+
+\begin{description}
+  \item[Positività] I tassi sono sempre positivi: $\lambda_{ij}>0$.
+  \item[Reciprocità] Ogni tasso di sostituzione di un'utilità rispetto ad una seconda è il reciproco del tasso relativo alla seconda rispetto alla prima: $\lambda_{ij} = \frac{1}{\lambda_{ji}}$.
+  \item[Coerenza] Due tassi di sostituzione con indici in sequenza determinano il terzo: $\lambda_{ij}=\lambda_{im}\lambda_{mj}$.
+\end{description}
+
+\subsection{Vettore dei pesi}
+Se la matrice è coerente si ottiene normalizzando una qualsiasi colonna su sé stessa.
+
+\subsection{Ricostruzione di matrici coerenti}
+Se una matrice risulta incoerente è possibile realizzare una matrice coerente risolvendo un problema di PL minimizzando la distanza tra la matrice iniziale e la matrice più vicina ad essa che sia coerente, secondo una distanza $L1$ o $L2$ per esempio.
+
+\section{Analisi gerarchica}
+Viene proposta da Thomas Saaty nel 1980 per ovviare a 3 criticità che ha individuato nella teoria classica legate agli errori di approssimazione.
+
+\subsection{Critiche fatte all'analisi gerarchica}
+Le critiche di Saaty sono 3:
+\begin{description}
+  \item[Critica sulle utilità] La costruzione delle singole unità è soggetta a forti errori di approssimazione.
+  \item[Critica sui pesi] La stima dei pesi è soggetta a forti errori di approssimazione quando il numero degli attributi è elevato.
+  \item[Critica sulla composizione] Gli errori di approssimazione si compongono a cascata.
+\end{description}
+
+\subsection{Caratteristiche principali}
+È possibile individuare 5 caratteristiche fondamentali nell'analisi gerarchica:
+
+\begin{enumerate}
+  \item Usa confronti a coppie per valutare le utilità al posto di misure dirette.
+  \item Usa scale qualitative anziché quantitative.
+  \item Usa confronti a coppie per valutare i pesi degli attributi al posto di misure dirette.
+  \item Realizza una strutturazione degli attributi in una gerarchia.
+  \item Ai vari livelli della gerarchia avviene una ricombinazione dei pesi.
+\end{enumerate}
+
+\subsection{Utilità ottenute tramite confronti a coppie}
+Nell'analisi gerarchica data un coppia di soluzioni, si determina per ogni indicatore quanto la prima sia preferibile alla seconda, assegnando quindi il valore in modo relativo e non assoluto. Questo viene fatto perché risulta difficile per un decisore assegnare valori assoluti.
+
+Siccome richiede l'enumerazione esplicita di tutte le coppie di soluzioni, l'analisi gerarchica si può applicare solo a problemi finiti e con un numero piccolo di soluzioni.
+
+\subsection{Scale qualitative}
+Nell'analisi gerarchica la valutazione delle preferenze viene fatta \textbf{qualitativamente} e non \textbf{quantitativamente}, assegnando un valore numerico arbitrario a termini quali ``poco preferibile (2)'', ``indifferente (1)'', ``molto preferibile (7)'' etc...
+
+\subsection{Pesi ottenuti tramite confronti a coppie}
+Nell'analisi gerarchica anche i pesi vengono ottenuti tramite confronti a coppie e vengono sempre utilizzati per combinare in modo additivo le valutazioni.
+
+\subsection{Strutturazione gerarchica degli attributi}
+Nell'analisi gerarchica viene realizzata una gerarchia degli attributi per confrontare tra loro attributi omogenei, confronto che può essere assegnato ad un decisore esperto in quel campo. Inoltre, così facendo, il numero totale dei confronti diminuisce sensibilmente.
+
+\subsection{Ricomposizione gerarchica}
+Nell'analisi gerarchica la struttura ad albero degli attributi consente di costruire il vettore dei pesi degli attributi in modo progressivo, risalendo di livello in livello delle foglie sino alla radice dell'albero.
+
+Ad ogni livello si ricostruisce una matrice di confronti a coppie fra tutti i nodi figli dello stesso padre e se ne deriva un vettore di pesi.
+
+\subsection{Punti critici dell'analisi gerarchica}
+I punti critici individuabili sono due:
+\begin{enumerate}
+  \item L'analisi gerarchica risulta applicabile unicamente a \textbf{problemi finiti} che hanno un \textbf{numero piccolo di soluzioni}.
+  \item Essa soffre del fenomeno del \textbf{rank reversal}, che Saaty propone di ovviare tramite l'introduzione di scale assolute, cioè il \textbf{confronto tra classi di alternativa} al posto delle alternative singole: anche questa soluzione ha però un problema, infatti alterando di poco il confine di una classe alcune alternative possono cambiare classe e la loro valutazione può variare di molto.
+\end{enumerate}
+
+\subsection{Rank reversal}
+L'ordinamento fra le alternative dipende sostanzialmente da quali alternative sono presenti e quindi la rimozione di soluzione pessime può portare ad una modifica dell'ordine delle soluzioni ottime.
+
+Nella teoria dell'utilità classica il rank reversal è impossibile se si costruiscono correttamente le funzioni di utilità normalizzata.
+
+\subsection{Scale assolute}
+Nell'analisi gerarchica per ovviare al problema del \textbf{rank reversal} si propone di procedere confrontando non le singole alternative ma classi predefinite di alternative.
+
+Questa opzione soffre però di un problema: spostando di poco il confine di una classe alcune alternative cambiano classe e la loro valutazione può cambiare di molto.
+
+\section{ELECTRE}
+I metodi ELECTRE (\textbf{EL}imination \textbf{E}t \textbf{C}hoix \textbf{T}raduisant la \textbf{RE}alité) sono stati proposti da Bernard Roy nel 1965 per ovviare ad un problema che individua nella teoria classica: il fatto che la proprietà transitiva non sia realmente applicabile quando è coinvolto un decisore (problema esplicitato nel paradosso del caffè).
+
+\subsection{Relazione di surclassamento}
+Nei metodi ELECTRE, un impatto $f$ surclassa un secondo impatto $f'$ non unicamente quando è migliore su tutti gli attributi come nel caso della \textbf{relazione di preferenza} ma anche quando esso è peggiore per alcuni attributi purché meno di una certa \textbf{soglia} $\epsilon$. Essa si ottiene intersecando le relazioni definite da una o più delle seguenti condizioni
+
+\subsection{Relazione di surclassamento raffinata}
+Siccome con parametri $\epsilon$ molto piccoli la relazione di surclassamento coincide con la \textbf{regione paretiana}, vengono aggiunti alcuni rilassamenti alla definizione della dominanza paretiana, attribuendo dei pesi agli indicatori e specificando la differenza relativa tra gli indicatori. Un impatto sarà considerato tanto più preferibile ad un altro quanto maggiore è il peso degli indicatori rispetto ai quali esso risulta migliore.
+
+\begin{description}
+  \item[Superamento delle soglie di comparabilità] L'impatto $f$ non è troppo peggio (in base al parametro $\epsilon$) dell'impatto $f'$ per tutti gli attributi.
+  \item[Concordanza] Un insieme di attributi di peso sufficiente suggerisce che f non sia peggiore di $f'$.
+  \item[Discordanza] Nessun attributo si oppone con entità eccessiva al fatto che $f$ sia meglio di $f'$.
+\end{description}
+
+\subsection{Nucleo}
+Si definisce \textbf{nucleo} il sottoinsieme di soluzioni ottenuto con seguente procedimento:
+\begin{enumerate}
+  \item Si parte con il nucleo vuoto.
+  \item Si aggiunge al nucleo il sottoinsieme delle soluzioni non surclassate nel grafo corrente.
+  \item Si elimina dal grafo ogni soluzione surclassata da una soluzione del nucleo.
+  \item Se il grafo non contiene solo il nucleo si ripete il procedimento dal punto 2.
+\end{enumerate}
+Nei grafi \textbf{ciclici} la procedura potrebbe non terminare correttamente, per eliminarli risulta essere sufficiente solitamente ridurre le soglie di comparabilità.
+
+\subsection{Ordinamento topologico}
+Una volta ottenuto il \textbf{nucleo} si realizza un ordinamento topologico dando un punteggio alle soluzioni in base al numero di archi entranti nel \textbf{caso di ordinamento crescente} o al numero di archi uscenti \textbf{caso di ordinamento decrescente}.
+
+I due metodi danno origine ad ordinamenti distinti.
+
+\subsection{Ordinamento tramite indici aggregati}
+Si cerca di ordinare gli impatti per indice di concordanza crescente o indice di discordanza decrescente:
+\begin{description}
+  \item[Indice di concordanza] Cerca di descrivere la soddisfazione legata alla scelta di un impatto.
+  \item[Indice di discordanza] Cala quando il rammarico per la vittoria di un dato impatto è piccolo rispetto a molti altri impatti, mentre il rammarico opposto è alto.
+\end{description}
+
+\subsection{Indice di concordanza}
+\[
+  C_f = \sum_{g\in F} \rnd{c_{fg} - c_{gf}} \quad \forall f \in F
+\]
+\subsection{Indice di discordanza}
+\[
+  D_f = \sum_{g\in F} \rnd{d_{fg} - d_{gf}} \quad \forall f \in F
+\]
+\end{document}
