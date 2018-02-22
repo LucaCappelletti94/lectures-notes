@@ -1,0 +1,26 @@
+\providecommand{\main}{../../}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Domande sul Planning}
+
+\subsection{Come è definito il problema dell'esplorazione autonoma di ambienti con robot mobili?}
+Il problema dell'esplorazione autonoma di ambienti con robot mobili consiste nel mettere un robot dotato di capacità di movimento in un ambiente inizialmente ignoto.
+
+Il robot, muovendosi all'interno dell'ambiente deve costruire una rappresentazione interna della mappa dell'ambiente in modo da facilitare la navigazione per dei task futuri.
+
+Un robot che ha esplorato efficacemente un ambiente, ad esempio, sarà in grado di muoversi da un punto A a un punto B dell'ambiente nel più breve tempo possibile.
+
+Esistono 3 problemi tipici nell'esplorazione:
+\begin{description}
+  \item[Problema della ricarica] È importante anche che il robot si muova ottimizzando gli spostamenti, in quanto è dotato di un tempo di carica limitato. Il robot deve essere in grado di pianificare delle soste regolari presso le stazioni di ricarica.
+  \item[Problema della posizione] Dato che un robot non può mai conoscere la sua posizione assoluta nell'ambiente, deve essere in grado di ricavare la sua posizione relativa, operazione molto complessa e facilmente soggetta a errori di stima.
+  \item[Problema dell'incertezza dell'esito delle azioni] I robot si muovono in un ambiente totalmente stocastico: l'esito di ogni azione non è certo, sia per la presenza di ostacoli non previsti nell'ambiente, sia perché i robot sono molto fragili e tendono a rompersi/cadere/bloccarsi. Un robot mobile deve essere munito di una policy efficace che lo renda in grado di reagire agli ostacoli imprevisti.
+\end{description}
+
+\subsection{Cosa è un sistema multi-agente? Se ne dia un esempio in applicazioni robotiche}
+Un sistema multi-agente (MAS) è definito come una collezione di agenti che interagiscono tra loro e con l'ambiente per raggiungere un obiettivo comune.
+
+Un esempio di applicazione è la \textbf{sorveglianza multi-agente} che coinvolge un gruppo di agenti incaricato di effettuare un'operazione di "clear" di un dato ambiente, vale a dire una visita "strategica" dell'ambiente che assicura l'identificazione e la cattura delle entità ostili che lo contaminano.
+
+I robot devono affrontare il problema della pianificazione di una strategia da seguire e il problema della comunicazione tra di essi, che spesso prendono vie molto diverse e si "perdono di vista".
+\end{document}

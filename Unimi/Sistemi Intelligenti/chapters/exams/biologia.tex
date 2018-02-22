@@ -2,16 +2,88 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Domande su Biologia}
-\subsection{Definire il neurone biologico evidenziandone le parti più significative per la trasmissione dell'informazione ed il loro comportamento. [2]}
+\subsection{Definire il neurone biologico evidenziandone le parti più significative per la trasmissione dell'informazione ed il loro comportamento.}
+Il neurone è l'unità base del sistema nervoso e si occupa di elaborare e trasmettere segnali.
+
+Risulta composto da 4 regioni:
+\begin{description}
+  \item[Dendriti:] Sono la componente di input del neurone, dove giungono i segnali degli altri neuroni.
+  \item[Nucleo:] Contiene l'informazione genetica della cellula.
+  \item[Soma:] Si tratta del corpo della cellula.
+  \item[Assone:] Rappresenta la componente di output del neurone e si dirama dal soma da un punto particolare detto \textit{colle dell'assone}. Possiede ramificazioni su diversi punti di esso, compresa la fine e su di esso scorre il \textbf{potenziale d'azione}.
+\end{description}
+
 \subsection{Descrivere il funzionamento complessivo del neurone biologico.}
+Il neurone a riposo ha un comportamento stereotipato legato al gradiente di concentrazione, che tende a fare uscire ioni di potassio $K^+$ e a portarsi alla differenza di potenziale ($-70mV$) che tende a farli entrare. Il sistema è così mantenuto in equilibrio, grazie alla scarsa permeabilità della membrana cellulare agli ioni di sodio $Na^+$ e cloro $Cl^-$.
+
+Questo stato, detto \textbf{sotto-soglia}, si interrompe all'arrivo di uno stimolo, in cui i dendriti inviano un segnale elettrico al soma, aumentando la differenza di potenziale. Superati i $-50mV$ viene generato un potenziale detto di \textbf{spike} grazie all'apertura dei canali $voltage-gated$ che fanno entrare ioni di sodio $Na^+$. Raggiunta la carica di $30mV$ i canali iniziano a chiudersi e si aprono quelli del potassio, che facendo uscire gli ioni $K^+$ portano la carica allo stato di equilibrio. Grazie al funzionamento della pompa sodio-potassio inoltre, la cellula torna allo stato originale.
+
 \subsection{Dove avviene principalmente l'"apprendimento" nei neuroni biologici?}
-\subsection{Descrivere la modalità di trasmissione dell'informazione nel sistema nervoso e identificare le caratteristiche peculiari.}
-\subsection{Che differenza c'è tra neuroni motori, neuroni sensoriali ed inter-neuroni? [2]}
+L'apprendimento nei neuroni avviene ad un livello più alto, in quanto i neuroni non sono entità di per sé intelligenti. Esso è dovuto piuttosto alla plasticità del cervello, in grado di effettuare di $rewiring$ di neuroni per formare il percorso migliore per l'informazione. Inoltre ricerche recenti hanno individuato categorie particolari di neuroni, detti \textbf{neuroni specchio}, i quali potrebbero essere alla base dell'apprendimento.
+
+\subsection{Che differenza c'è tra neuroni sensoriali, neuroni motori ed inter-neuroni?}
+\begin{description}
+  \item[Neuroni sensoriali] Sono neuroni di input che ricevono l'informazione dagli organi sensoriali e la inviano al sistema nervoso.
+  \item[Neuroni motori] Sono neuroni di output che ricevono l'informazione dal sistema nervoso e la ritrasmettono all'apparato muscolare.
+  \item[Inter-neuroni] Sono neuroni che compiono l'elaborazione intermedia.
+\end{description}
+
 \subsection{Come viene trasmessa ed elaborata l'informazione da un neurone?}
-\subsection{ Cos'è uno spike? [2]}
-\subsection{ Quali sono le aree corticali principali? [2]}
-\subsection{Cos'è il codice di popolazione? [2]}
-\subsection{Data un'area cerebrale è univoca la funzione implementata in quell'area? [2]}
-\subsection{Cosa sono i mirror neurons? Quali implicazioni hanno per i sistemi intelligenti e l’apprendimento? [2]}
+I dendriti ricevono il segnale dai neurotrasmettitori attraverso le sinapsi, la corrente così generata passa al soma, il quale genera una spike che viaggia per l'assone fino alla sinapsi di uscita, che passa l'informazione al neurone post-sinaptico.
+
+\subsection{Cos'è uno spike?}
+Si tratta di un \textbf{impulso elettrico} generato dal potenziale d'azione il quale viaggia nell'assone per trasmettere l'informazione da un neurone ad un successivo.
+
+\subsection{Quali sono le aree corticali principali?}
+La corteccia può essere divisa in aree con criterio spaziale e funzionale.
+
+Secondo il criterio spaziale viene divisa in 4 lobi:
+\begin{description}
+  \item[Limbico:] il più interno, legato all'apprendimento, alla memoria e le emozioni.
+  \item[Frontale:] legato al pensiero.
+  \item[Paretiale:] legato al movimento e la percezione.
+  \item[Occipitale:] legato alla visione.
+  \item[Temporale:] legato all'udito, al riconoscimento e alla memoria.
+\end{description}
+
+Secondo il criterio funzionale viene divisa in 3 aree:
+\begin{description}
+  \item[Aree primaria] recettive ed attuative.
+  \item[Aree secondaria] elaborazione.
+  \item[Aree terziarie] integrazione sensoriale.
+\end{description}
+
+\subsection{Cos'è il codice di popolazione?}
+Il codice di popolazione è il metodo che il cervello usa per discernere tra stimoli simili: ogni neurone ha una sua direzione preferenziale. L'attività di un neurone è massima quando la direzione dello stimolo coincide con quella preferenziale: in questo modo la rappresentazione interna dello stimolo è la somma pesata dell'attività di tutti i neuroni che rispondono. Così facendo il codice di popolazione trasmette lo stimolo attraverso i neuroni attivati e la frequenza di scarico di ciascuno.
+
+\subsection{Data un'area cerebrale, è univoca la funzione implementata in quell'area?}
+No, vi sono aree che condividono funzioni. Ad esempio la memoria è elaborata sia dal lobo limbico che da quello temporale.
+
+\subsection{Cosa sono i neuroni a specchio? Quali implicazioni hanno per i sistemi intelligenti e l'apprendimento?}
+I neuroni a specchio sono una particolare classe di neuroni che si attivano sia quando si compie un'azione sia quando la stessa azione viene osservata. Questo ha implicazioni notevoli, in quanto si suppone che questi neuroni siano alla base di meccanismi come l'empatia e l'apprendimento per imitazione, entrambi aspetti estremamente complessi da modellare nei sistemi intelligenti classici.
+
+\subsection{Cosa si intende per algoritmi genetici ed ottimizzazione evolutiva?}
+Sulla base dell'evoluzione naturale, la computazione evolutiva, termine generico per una gamma di sistemi, cerca di sfruttare questi principi per giungere alla soluzione ottima di un problema.
+
+Gli algoritmi genetici (dei quali l'ottimizzazione evolutiva è una tipologia) codificano le soluzioni come cromosomi composti da geni e cercano di portare una popolazione (gruppo di cromosomi) all'evoluzione con processi di selezione, ricombinazione e mutazione.
+
+\subsection{Quali sono le differenze ed i punti forti degli algoritmi genetici ed ottimizzazione evolutiva?}
+\subsubsection*{Differenze nella codifica}
+Negli algoritmi genetici la codifica è implicita mentre nell'ottimizzazione evolutiva è esplicita.
+
+\subsubsection*{Differenze nell'ordine delle operazioni}
+Negli algoritmi genetici avviene prima la selezione, nell'ottimizzazione evolutiva si procede prima con la mutazione.
+
+\subsubsection*{Ulteriori differenze}
+Nell'ottimizzazione evolutiva la ricombinazione è generica e la selezione è tra padri e figli.
+
+\subsubsection*{Punti forti}
+L'ottimizzazione evolutiva tende a convergere più rapidamente ma gli algoritmi genetici sono più leggeri e semplici da implementare.
+
+\subsection{Cosa si intende per elitismo?}
+L'elitismo è l'identificazione dei geni migliori attraverso una funzione di fitness che è tanto più alta quanto la soluzione risulta buona. L'introduzione di blocchi o resistenze alla modifica dei geni migliori aiuta così a preservare le buone caratteristiche per tramandarle a generazioni future.
+
+\subsection{Che cosa è una matrice di covarianza in generale e come viene applicata nell'ottimizzazione evolutiva?}
+La matrice di covarianza rappresenta come vari una variabile aleatoria in confronto alle altre, compresa sé stessa. Nell'ottimizzazione evolutiva si utilizza per regolare la mutazione in modo che sia calibrata alle diverse soluzioni.
 
 \end{document}
