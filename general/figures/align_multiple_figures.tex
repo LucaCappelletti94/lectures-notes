@@ -1,16 +1,31 @@
-\NewDocumentCommand{\fig}{m g g g g g g O{1} g}{%
+\NewDocumentCommand{\smartFigureWidth}{m m m m m}{
+  %
+  % #1 -> Current remaining figures
+  % #2 -> Last row figures number
+  % #3 -> Normal Width
+  % #4 -> Last row width
+  % #5 -> Variable to assign
+  %
+  \FPifeq{#1}{#2}%
+  \FPset{#5}{#4}
+  \else%
+  \FPsub{#1}{#1}{1}
+  \FPset{#5}{#3}
+  \fi%
+}
+\NewDocumentCommand{\fig}{m m g g g g O{1} g O{1}}{%
   %
   % PARAMETERS MEANING
   %
   % #1 (Mandatory)                     -> First figure
-  % #2 (Optional, with curly braces)   -> Second figure
+  % #2 (Mandatory)                     -> Second figure
   % #3 (Optional, with curly braces)   -> Third figure
   % #4 (Optional, with curly braces)   -> Forth figure
   % #5 (Optional, with curly braces)   -> Fifth figure
   % #6 (Optional, with curly braces)   -> Sixth figure
-  % #7 (Optional, with curly braces)   -> Seventh figure
-  % #8 (Optional, with squared braces) -> Maximum width, based on percentage of \textwidth.
-  % #9 (Optional, with curly braces) -> Elements to add at the bottom, such as labels of caption for the group
+  % #7 (Optional, with squared braces) -> Maximum width, based on percentage of \textwidth.
+  % #8 (Optional, with curly braces) -> Elements to add at the bottom, such as labels of caption for the group
+  % #9 (Optional, with squared braces) -> Maximum number of figures per row
   %
   %--------------------------------------
   %
@@ -40,49 +55,69 @@
   %
   %--------------------------------------
   %
-  \FPset{\figuresNumber}{1}
-  \IfValueT{#2}{
+  \FPset{\figuresNumber}{2}
+  \IfValueT{#3}{
     \FPadd{\figuresNumber}{\figuresNumber}{1}
-    \IfValueT{#3}{
+    \IfValueT{#4}{
       \FPadd{\figuresNumber}{\figuresNumber}{1}
-      \IfValueT{#4}{
+      \IfValueT{#5}{
         \FPadd{\figuresNumber}{\figuresNumber}{1}
-        \IfValueT{#5}{
+        \IfValueT{#6}{
           \FPadd{\figuresNumber}{\figuresNumber}{1}
-          \IfValueT{#6}{
-            \FPadd{\figuresNumber}{\figuresNumber}{1}
-            \IfValueT{#7}{
-              \FPadd{\figuresNumber}{\figuresNumber}{1}
-            }
-          }
         }
       }
     }
   }
-  \FPdiv{\figureWidth}{#8}{\figuresNumber}
-  \FPclip{\figureWidth}{\figureWidth}
+  \FPset{\rowsNumber}{#9}
+  \FPset{\remainingFigures}{\figuresNumber}
+  \FPdiv{\figuresPerRow}{\figuresNumber}{\rowsNumber}
+  \FPceil{\figuresPerRow}{\figuresPerRow}
+  \FPsub{\fullRowsNumber}{\rowsNumber}{1}
+  \FPmul{\flooredFiguresNumber}{\fullRowsNumber}{\figuresPerRow}
+  \FPsub{\lastRowFiguresNumber}{\figuresNumber}{\flooredFiguresNumber}
+  % end of ceil
+  \FPdiv{\figureWidth}{#7}{\figuresPerRow}
+  \FPdiv{\lastRowWidth}{#7}{\lastRowFiguresNumber}
+  %Applying margin coefficient
+  \FPset{\marginCoefficient}{0.9}
+  \FPmul{\figureWidth}{\figureWidth}{\marginCoefficient}
+  \FPmul{\lastRowWidth}{\lastRowWidth}{\marginCoefficient}
+  %
   \smartif{\figuresNumber}{\one}[
     \begin{figure}
       \scalebox{\figureWidth\textwidth}{#1}
-      \IfValueT{#9}{
-        #9
+      \IfValueT{#8}{
+        #8
       }
     \end{figure}
   ][
     \begin{figure}
-      \begin{subfigure}{\figureWidth\textwidth}
-      #1
-      \end{subfigure}%
-      \IfValueT{#2}{\begin{subfigure}{\figureWidth\textwidth}
-      #2
-      \end{subfigure}}%
-      \IfValueT{#3}{\begin{subfigure}{\figureWidth\textwidth}#3\end{subfigure}}%
-      \IfValueT{#4}{\begin{subfigure}{\figureWidth\textwidth}#4\end{subfigure}}%
-      \IfValueT{#5}{\begin{subfigure}{\figureWidth\textwidth}#5\end{subfigure}}%
-      \IfValueT{#6}{\begin{subfigure}{\figureWidth\textwidth}#6\end{subfigure}}%
-      \IfValueT{#7}{\begin{subfigure}{\figureWidth\textwidth}#7\end{subfigure}}%
-      \IfValueT{#9}{
-        #9
+      \smartFigureWidth{\remainingFigures}{\lastRowFiguresNumber}{\figureWidth}{\lastRowWidth}{\smartWidth}
+      \begin{subfigure}{\smartWidth\textwidth}
+        #1
+      \end{subfigure}
+      \smartFigureWidth{\remainingFigures}{\lastRowFiguresNumber}{\figureWidth}{\lastRowWidth}{\smartWidth}
+      \begin{subfigure}{\smartWidth\textwidth}
+        #2
+      \end{subfigure}
+      \IfValueT{#3}{
+        \smartFigureWidth{\remainingFigures}{\lastRowFiguresNumber}{\figureWidth}{\lastRowWidth}{\smartWidth}
+        \begin{subfigure}{\smartWidth\textwidth}#3\end{subfigure}
+      }
+      \IfValueT{#4}{
+        \smartFigureWidth{\remainingFigures}{\lastRowFiguresNumber}{\figureWidth}{\lastRowWidth}{\smartWidth}
+        \begin{subfigure}{\smartWidth\textwidth}#4\end{subfigure}
+      }
+      \IfValueT{#5}{
+        \smartFigureWidth{\remainingFigures}{\lastRowFiguresNumber}{\figureWidth}{\lastRowWidth}{\smartWidth}
+        \begin{subfigure}{\smartWidth\textwidth}#5\end{subfigure}
+      }
+      \IfValueT{#6}{
+        \smartFigureWidth{\remainingFigures}{\lastRowFiguresNumber}{\figureWidth}{\lastRowWidth}{\smartWidth}
+        \begin{subfigure}{\smartWidth\textwidth}#6\end{subfigure}
+      }
+      \IfValueT{#8}{
+        #8
       }
     \end{figure}
   ]
