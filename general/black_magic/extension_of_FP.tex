@@ -1,0 +1,15 @@
+\NewDocumentCommand{\FPceil}{m m}{
+  %
+  % #1 -> number to assign
+  % #2 -> number to ceil
+  %
+  \FPadd{\numberplusone}{#2}{1}
+  \FPfloor{#1}{\numberplusone}
+}
+\NewDocumentCommand{\FPfloor}{m m}{
+  %
+  % #1 -> number to assign
+  % #2 -> number to floor
+  %
+  \FPtrunc{#1}{#2}{0}
+}
