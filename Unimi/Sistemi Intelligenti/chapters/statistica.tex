@@ -35,15 +35,9 @@ Sia dato un mazzo di 40 carte con 12 figure, di cui 4 re.
 \paragraph{P. di estrarre un re, sapendo di avere estratto una figura} $P(E) = \dfrac{\text{Numero di re}}{\text{Numero di carte che sono figure}} = \dfrac{4}{12} = \dfrac{1}{3}$
 
 \subsection{Teorema di Bayes}
-Si tratta di un teorema estremamente utilizzato in statistica e nel machine learning come strumento per l'apprendimento statistico, la cui principale caratteristica è il fatto che permette di trarre deduzioni dalle conclusioni alle cause (inverte le Y con le X), viene chiamato anche \textbf{stima a posteriori}. SI deriva dalla formula della probabilità condizionata. In generale, la statistica bayesiana si basa su una modellizzazione tramite la quale è possibile trarre deduzioni sulla realtà, utilizzando il teorema di Bayes (figura \ref{teorBayes}).
+Si tratta di un teorema estremamente utilizzato in statistica e nel machine learning come strumento per l'apprendimento statistico, la cui principale caratteristica è il fatto che permette di trarre deduzioni dalle conclusioni alle cause (inverte le Y con le X), viene chiamato anche \textbf{stima a posteriori}. SI deriva dalla formula della probabilità condizionata. In generale, la statistica bayesiana si basa su una modellizzazione tramite la quale è possibile trarre deduzioni sulla realtà, utilizzando il teorema di Bayes:
 
-\begin{figure}[H]
-  \[
-    P(X|Y) = \dfrac{P(Y|X)P(X)}{P(Y)}
-  \]
-  \caption{Teorema di Bayes}
-  \label{teorBayes}
-\end{figure}
+\bayesTh
 
 \subsubsection{Esempio su teorema di bayes: i taxi}
 In una città abbiamo due società di taxi, ed uno di questi investe un anziano che non è particolarmente credibile. Bisogna, con i seguenti dati, andare a capire a quale società questo taxi appartenesse a una delle società.

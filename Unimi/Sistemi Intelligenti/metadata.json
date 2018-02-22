@@ -1,11 +1,20 @@
 {
-	"title":"Sistemi Intelligenti",
-	"professors":[{
-		"name":"Nunzio Alberto",
-		"surname":"Borghesi"
+  "title": "Sistemi Intelligenti",
+  "professors": [{
+      "name": "Nunzio Alberto",
+      "surname": "Borghesi"
 	},
-  {
-    "name":"Nicola",
-    "surname":"Basilico"
-  }]
+    {
+      "name": "Nicola",
+      "surname": "Basilico"
+  }],
+  "authors": [
+    {
+      "name": "Luca",
+      "surname": "Cappelletti"
+    }, {
+      "name": "Marco",
+      "surname": "Tiraboschi"
+    }
+  ]
 }

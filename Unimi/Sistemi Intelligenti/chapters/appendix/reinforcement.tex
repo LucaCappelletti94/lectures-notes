@@ -3,64 +3,156 @@
 \begin{document}
 
 \subsection{Cosa si intende per Apprendimento con Rinforzo?}
-L'apprendimento per rinforzo è una tecnica di apprendimento automatico che viene utilizzata per ideare sistemi capaci di apprendere ed adattarsi all'ambiente che li circonda grazie ad una "ricompensa", detta rinforzo, che consiste nella valutazione delle loro prestazioni. L'apprendimento avviene mediante l'interazione con l'ambiente ed è funzione del raggiungimento di uno o più obiettivi.
+L'apprendimento per rinforzo è una tecnica di apprendimento automatico che viene utilizzata per realizzare sistemi capaci di apprendere ed adattarsi all'ambiente che li circonda, inizialmente totalmente o parzialmente ignoto, grazie ad una reward, detta rinforzo, che consiste nella valutazione qualitativa delle loro prestazioni. L'apprendimento avviene mediante l'interazione con l'ambiente ed è funzione del raggiungimento di uno o più obiettivi.
 
 \subfile{\main/chapters/appendix/risposte_reinforcement/attori}
 
 \subsection{Cosa rappresenta la critica?}
-L'ambiente o l'interazione con esso può essere complessa e/o variabile, inoltre il rinforzo può avvenire solo dopo una più o meno lunga sequenza di azioni (delayed reward).
-Questo genera difficoltà nell'analisi e nella valutazione di ambiente e azioni, questi problemi prendono il nome di: temporal credit assignment e structural credit assignment.
-L'apprendimento non è più determinato da esempi, ma dall'osservazione del proprio comportamento nell'ambiente.
-È fondamentale definire come vengono assegnati i reward, che possono essere molto direzionati nel tempo (temporal CA problem) o distribuiti dall'interno di una struttura complessa (structural CA problem).
-Il problema consiste nell'identificare quali siano le azioni che hanno inferito maggiormente nel raggiungimento di uno stato di goal ad alto reward.
-La critica è la value function stimata, ovvero una componente che definisce per ogni stato un'altra value function, che si unisce a quella dell'agente e in questo modo si rinforza. È una value function alternativa.
+La \textbf{critica} nell'apprendimento è rappresentata da tutti quei processi che valutano a posteriori le azioni prese dall'agente. Essa fornisce un rinforzo secondario, interno ed a lungo termine interpretato come \textit{cost-to-go} da ogni stato fino al goal che consiste nella \textbf{value function} e permette di valutare se la \textit{policy} stia dando buoni risultati.
 
 \subsection{Che tipo di architettura si può ipotizzare nell'apprendimento con rinforzo?}
-L'architettura dei sistemi di RL si basa sulla retroazione. L'agente si muove nell'ambiente utilizzando una Policy, l'ambiente fornisce un reward e fa cambiare lo stato dell'agente il quale utilizza i risultati ottenuti per aggiornare la propria Policy così da raggiungere il goal.
-Tramite dei sensori l'agente monitora continuamente l'ambiente (input), tramite degli attuatori compie azioni che modificano lo stato dell'ambiente.
+La tipica architettura di un agente è costituita da 4 elementi:
+\begin{description}
+  \item[Memoria interna] Tiene traccia dello stato dell'ambiente.
+  \item[Processore] Un componente che, dato uno stato, compie una serie di elaborazioni che hanno lo scopo di trovare la migliore azione in quello stato.
+  \item[Sensori] Servono per consentire all'agente di percepire le caratteristiche del mondo esterno.
+  \item[Attuatori] Servono all'agente per agire nell'ambiente e provocare quindi dei cambiamenti.
+\end{description}
 
 \subsection{Condizionamento classico e condizionamento operante}
-Nel condizionamento classico il rinforzo viene eseguito istante per istante o azione per azione e permette di ottenere un riscontro ad ogni azione eseguita o ad ogni variazione dell'ambiente o dello stato.
-Nel condizionamento operante invece il rinforzo avviene "una-tantum", viene quindi valutata una catena di azioni, un comportamento nel suo insieme e non nella singola azione.
+\begin{description}
+  \item[Condizionamento classico] Il rinforzo viene eseguito istante per istante o azione per azione e permette di ottenere un riscontro \textbf{ad ogni azione eseguita} o ad ogni variazione dell'ambiente o dello stato.
+  \item[Condizionamento operante] Il rinforzo avviene "una-tantum", viene quindi valutata \textbf{una catena di azioni}, un comportamento nel suo insieme e non nella singola azione.
+\end{description}
 
-\subsection{Quale relazione c'è con l'intelligenza?}
-Se consideriamo l’intelligenza come una funzione attiva, che permetta di prendere decisioni e compiere azioni nell’interazione con l’ambiente, il Reinforcement Learning consente di far comportare un agente in modo intelligente.
+\subsubsection{Quale relazione c'è con l'intelligenza?}
+L'apprendimento con rinforzo imita, con il processo di esecuzione delle azioni e valutazione successiva, il meccanismo di apprendimento dell'intelligenza umana che, tramite un processo di trial and error, migliora il proprio comportamento.
 
 \subsection{Come potreste illustrare: Exploration vs Exploitation?}
-L'esplorazione (exploration) consiste nel provare varie azioni per scoprire nuove possibili azioni(promettenti). Esplorazione dello spazio delle azioni per scoprire quelle migliori.
-Un agente che esplora solamente raramente troverà una buona soluzione.
-Exploitation consiste nello scegliere sempre la soluzione che garantisca il miglior reward tra quelle conosciute (le informazioni vengono raccolte tramite exploration).
-Se un agente non esplora nuove soluzioni potrebbe essere surclassato da nuovi agenti più dinamici. Inoltre l'ambiente potrebbe essere mutevole e una soluzione potrebbe non restare valida. Occorre quindi non interrompere del tutto l'esplorazione e usare un approccio statistico per valutare le bontà delle azioni bilanciando Exploration ed exploitation.
+Sono due strategie che consistono nel:
+\begin{description}
+  \item[Exploration] Provare varie azioni per scoprire nuove possibili azioni ed esplora lo spazio delle azioni per scoprire quelle migliori.
+  \item[Exploitation] Scegliere sempre la soluzione che garantisca il miglior reward tra quelle conosciute (politica greedy).
+\end{description}
+La soluzione ottima viene identificata bilanciando opportunamente queste due strategie.
 
+Il parametro utilizzato tipicamente per indicare la probabilità di scegliere una strategia piuttosto che l'altra è $\epsilon$.
 
-\subsection{Cos'è il problema del credit assignement? È un problema che riguarda la dimensione temporale o spaziale del task?}
-I sistemi time-extended single-agent hanno il problema di valutare il contributo di un'azione rispetto alle altre (temporal credit assignment).
-Questo problema viene accentuato se le azioni rilevanti sono temporalmente molto distanti tra di loro perché è come se fossero spalmate su azioni non rilevanti e questo può portare a cattive valutazioni. Un algoritmo dovrebbe riuscire a valutare l'influenza di azioni precedenti rispetto all'azione finale.
-Sistemi multi-agente hanno inoltre il problema di determinare il contributo di un particolare agente ad un compito comune (structural credit assignment).
+\subsection{Cos'è il problema del credit assignment? È un problema che riguarda la dimensione temporale o spaziale del task?}
+I sistemi a singolo agente estesi nel tempo hanno il problema di valutare il contributo di un'azione rispetto alle altre (\textbf{temporal credit assignment}), che viene accentuato se le azioni rilevanti sono temporalmente distanti tra di loro con un intermezzo di azioni poco rilevanti: questo può portare a cattive valutazioni.
+
+I sistemi multi-agente hanno inoltre il problema di determinare il contributo di ogni agente ad un compito comune (\textbf{structural credit assignment}).
 
 \subsection{Cos'è l'eligibility trace (traccia) e quale è il suo ruolo?}
-L'eligibility trace è un buffer di memoria contenente tracce di eventi passati.
-Quando viene calcolato un errore usando metodi basati su TD (Temporal Difference), l'eligibility trace suggerisce quali variabili aggiornare.
-Amplia l’orizzonte temporale sul quale fare l’aggiornamento a più di 1 passo definendo così se uno stato è eleggibile e "quanto", cioè che percentuale di aggiornamento meriti.
-L'eligibility trace è la base per risolvere i problemi di credit assignment.
-Gli eventi passati che vengono chiamati tracce e rappresentano stati visitati, azioni compiute, ecc. evaporano nel tempo, cioè diventano sempre meno rilevanti fino a scomparire.
+L'eligibility trace è un buffer di memoria contenente tracce di eventi passati ed è utilizzata per gestire i reward ritardati nel tempo.
 
-\subsection{Definire l’algoritmo di Q-learning, descrivendo le equazioni opportune. [2]}
-L'algoritmo Q-Learning è un algoritmo di apprendimento per rinforzo il cui obiettivo è permettere al sistema di adattarsi all'ambiente circostante migliorando la scelta delle azioni da eseguire allo scopo di massimizzare la ricompensa totale.
-\subsection{Scrivere le equazioni dell'algoritmo Q-learning in cui si consideri anche la traccia. [2]}
-\subsection{Cosa si intende per politica epsilon-greedy? Come entra nell’algoritmo di Q-learning? }
-\subsection{Che differenza c'è tra Q-learning e SARSA? [2]}
-Le differenze risiedono nel modo in cui viene aggiornato il valore di Q ad ogni azione verificatasi, SARSA è on-policy mentre Q-Learning è off-policy. Ovvero Q­Learning aggiorna il valore in funzione della migliore possibile scelta futura, mentre SARSA aggiorna il valore in funzione della scelta che verrà applicata dalla policy. Nella pratica Q­learning converge più lentamente di SARSA, ma è in grado di imparare più rapidamente nel caso l’ambiente si modifichi in quanto SARSA continuerebbe a seguire la propria policy.
+Gli eventi passati gradualmente perdono di importanza seguendo una legge esponenziale.
 
-\subsection{Dato un problema a piacere si descriva uno degli algoritmi e mostrare due passaggi di addestramento}
-\subsection{Quale criterio si sceglie per definire i Reward? A quali elementi sono associati? Allo stato? All'azione? Allo stato prossimo? Perché? [2]}
-L'ambiente fornisce un'informazione qualitativa, ad esempio success or fail.
-L'informazione disponibile si chiama segnale di rinforzo e non dà alcuna informazione su come aggiornare il comportamento dell'agente (e.g. i pesi).
-É per questo che il reward deve essere definito dall'agente in base alla politica adottata, e quindi si necessita di sistemi intelligenti che riescano a valutare al meglio le azioni da intraprendere.
-In base alla politica adottata il reward sarà legato allo stato, all'azione, allo stato prossimo o a un mix di essi.
+Quando si deve valutare il peso di uno stato su un aggiornamento di più step, la traccia dice se esso sia eleggibile.
 
-\subsection{Impostare un problema su griglia (apprendimento del percorso di un agente, con partenza ed arrivo prescelti + ostacoli). La griglia fornisce un reward, diverso da zero, in ogni transizione. [2]}
-\subsubsection{Definire chiaramente il problema, farne un modello definendo le variabili e le funzioni che le legano. [2]}
-\subsubsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente. [2]}
+Essa viene modellata come segue:
+
+\[
+  e_t(s,a) = \begin{cases}
+    \gamma \lambda e_{t-1} (s,a) + 1 & \text{se } s=s_t \text{ e } a = a_i \\
+    \gamma \lambda e_{t-1} (s,a)     & \text{altrimenti}
+  \end{cases}
+\]
+
+\subsection{Definire l'algoritmo di Q-learning, descrivendo le equazioni opportune.}
+L'algoritmo di Q-learning appartiene alla famiglia degli algoritmi di apprendimento da differenze temporali: esso basa l'aggiornamento della \textbf{value function} sulle informazioni relative allo step di esecuzione precedente, utile quando la conoscenza dell'ambiente è parziale.
+
+Lo scopo dell'algoritmo è l'ottimizzazione della funzione valore $Q$ per ogni azione $a$ e stato $s$:
+
+\[
+  Q(s_t,a) = (1-\alpha)Q(s_t,a) + \alpha\rnd{r+\gamma\max_{a'}Q(s_{t+1},a')}
+\]
+I parametri coinvolti sono:
+\begin{description}
+  \item[$s$] Lo stato attuale.
+  \item[$a$] L'azione scelta.
+  \item[$s_{t+1}$] Lo stato raggiunto eseguendo l'azione $a$ nello stato attuale $s_t$.
+  \item[$\alpha$] Lo step-size, il peso dell'aggiornamento, compreso in $[0,1]$, il parametro che indica quanto il vecchio ed il nuovo passaggio contribuiscono a Q.
+  \item[$r$] Reward osservato dopo aver eseguito l'azione $a$ nello stato attuale $s_t$.
+  \item[$\gamma$] Il fattore di sconto, compreso in $[0,1]$, che modella l'importanza di reward futuri.
+  \item[$\max_{a'}Q$] è la migliore value function dello stato successivo.
+\end{description}
+
+\subsection{Scrivere le equazioni dell'algoritmo Q-learning in cui si consideri anche la traccia.}
+Considerare anche la traccia va modificare lo step-size, cioè il modo in cui passaggi vecchi e nuovi contribuiscono al nuovo valore, che diviene:
+
+\[
+  Q(s_t,a) = (1-\alpha e(s_t,a))Q(s_t,a) + \alpha e(s_t,a)\rnd{r+\gamma\max_{a'}Q(s_{t+1},a')}
+\]
+
+\subsection{Cosa si intende per politica epsilon-greedy? Come entra nell'algoritmo di Q-learning? }
+Si tratta di un particolare tipo di policy che si basa su di un ulteriore parametro $\epsilon \in [0,1]$. Ad ogni step, un agente che applica una politica $\epsilon$-greedy sceglie l'azione greedy (quella a massimo reward) con probabilità $1-\epsilon$, altrimenti sceglie un'altra azione in modo casuale. Si tratta quindi del parametro che indica la probabilità di scegliere una strategia esplorativa piuttosto che una exploitative.
+
+\subsection{Che differenza c'è tra Q-learning e SARSA?}
+La differenza è nel modo in cui viene aggiornato il valore di $Q$: SARSA è on-policy mentre Q-Learning è off-policy, ovvero:
+\begin{description}
+  \item[Off-policy] Q-Learning aggiorna il valore di $Q$ in funzione della migliore scelta futura possibile.
+  \item[On-policy] SARSA aggiorna il valore di $Q$ in funzione della scelta che verrà applicata dalla policy.
+\end{description}
+Nella pratica Q-­learning converge più lentamente di SARSA, ma è in grado di imparare più rapidamente nel caso l'ambiente si modifichi in quanto SARSA continuerebbe a seguire la propria policy.
+
+\subsection{Quale criterio si sceglie per definire i Reward? A quali elementi sono associati? Allo stato? All'azione? Allo stato prossimo? Perché?}
+I comportamenti vengono scelti tenendo a mente quale comportamento si desidera ottenere dall'agente che deve essere ricompensato se non fallisce nel compimento di un'azione e se tale azione lo porta un stato più vicino al goal, penalizzato altrimenti.
+
+Il reward è associato a stato corrente, azione e stato prossimo: nella maggior parte dei problemi di apprendimento reali le transizioni sono non deterministiche e bisogna quindi considerare anche l'eventualità che l'azione scelta non produca l'effetto sperato.
+
+\subsection{Impostare un problema su griglia (apprendimento del percorso di un agente, con partenza ed arrivo prescelti + ostacoli). La griglia fornisce un reward, diverso da zero, in ogni transizione.}
+
+\fig{
+  \begin{table}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      \includegraphics[width=0.1\textwidth]{robot} & \cellcolor{black} 2 & 3                   & 4  \\
+      \hline
+      5                                            & 6                   & \cellcolor{black} 7 & 8  \\
+      \hline
+      \cellcolor{black}9                           & 10                  & 11                  & 12 \\
+      \hline
+      \cellcolor{black}13                          & 14                  & 15                  & 16 \\
+      \hline
+    \end{tabular}
+  \end{table}
+  \caption{Griglia degli stati, in nero gli ostacoli, agente nello stato $s=1$}
+}{
+  \[
+    R_{s_t\rightarrow s_{t+1}} \begin{cases}
+      100 & \text{se è goal: } s_{t+1}=16                 \\
+      -5  & \text{se l'agente è bloccato: } s_{t}=s_{t+1} \\
+      1   & \text{se non è goal}
+    \end{cases}
+  \]
+  \caption{Reward function}
+}{
+  \[
+    Q(s,a)=0 \quad \forall s,a
+  \]
+  \caption{Value function iniziale}
+}{
+  \[
+    Q(s_t,a) = (1-\alpha)Q(s_t,a) + \alpha\rnd{r+\gamma \max_{a'} Q(s_{t+1},a')}
+  \]
+  \caption{Algoritmo di aggiornamento: Q-learning}
+}{
+  \[
+    \epsilon=0.1 \quad \alpha=0.7 \quad \gamma = 0.4
+  \]
+  \caption{Policy: $\epsilon$-greedy}
+}[1]{\caption{Problema su griglia}}[2]
+
+\subsubsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente.}
+\paragraph*{Step 1} Dato che tutti i valori di $Q$ sono a $0$ la policy $\epsilon$-greedy a questo step coincide con una policy casuale. Supponiamo l'azione scelta sia $a=right$: l'agente incontra un ostacolo e rimane quindi nello stato $s_t=s_{t+1}=1$:
+
+\[
+  R_{s_t=s_{t+1}} = -5 \Rightarrow Q(s,right) = (1-0.7)\cdot 0 + 0.7\cdot(-5+0.4\cdot0) = -3.5
+\]
+\paragraph*{Step 2} Supponiamo che la policy $\epsilon$-greedy scelga di svolgere un'azione greedy (exploitative strategy) e quindi vada a compiere l'azione $a=dowm$:
+\[
+  R_{s_t\neq s_{t+1}} = 1 \Rightarrow Q(s,down) = (1-0.7)\cdot 0 + 0.7\cdot(1+0.4\cdot0) = 0.7
+\]
 
 \end{document}

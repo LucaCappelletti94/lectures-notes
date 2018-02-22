@@ -1,0 +1,78 @@
+\providecommand{\main}{../../../}
+\documentclass[\main/main.tex]{subfiles}
+
+\newcommand{\gauss}[3]{\frac{1}{\sqrt{2\pi #3}}\,\exp\crl{-\frac{\rnd{#1-#2}^2}{2 #3}}}
+
+\begin{document}
+\subsection{Cosa si intende per problema di regolarizzazione? Che tipo di funzione costo utilizza? Quali sono i suoi componenti?}
+La \textbf{regolarizzazione} è un processo di introduzione di informazioni aggiuntive per risolvere problemi di ottimizzazione mal posti o prevenire over-fitting sui dati o ancora per estendere la generalità del modello.
+
+\subsubsection{A priori di Gibbs}
+
+Un tipo di distribuzione molto usato è la probabilità a priori di Gibbs:
+\[
+	p(x)=\frac{1}{Z}\ \exp\crl{-\frac{1}{\beta}\ U(x)}, \qquad Z=\int_{-\infty}^{+\infty}\exp\crl{-\frac{1}{\beta}\ U(x)}dx
+\]
+\[
+	J_R(x) = \ln\left[\frac{1}{Z}\ \exp\crl{-\frac{1}{\beta}\ U(x)}\right] = \ln\left[\frac{1}{Z}\right]-\frac{1}{\beta}\ U(x)
+\]
+I cui \textbf{componenti} sono:
+\begin{description}
+	\item[$U(x)$:] potenziale.
+	\item[$J_R(x) = \ln\sqr{p(x)}$:] funzione lineare (con coefficiente negativo) del potenziale.
+	\item[$\beta$:] parametro di regolarizzazione.
+\end{description}
+
+
+\subsubsection{Ridge Regression o regolarizzazione di Tikhonov}
+Nel caso $U(x)=x^2$, la stima per massima probabilità a posteriori viene detta \textit{ridge regression} (o regolarizzazione Tikhonov).
+\[
+	J_R(x) = \ln\rnd{\frac{1}{Z}}-\frac{1}{\beta} x^2
+\]
+
+\subsubsection{Regolarizzazione di Tikhonov del gradiente locale}
+Quando in un'immagine vengono identificate discontinuità forti potrebbe essere presente un rumore di tipo additivo.
+
+In questi casi è possibile usare una regolarizzazione di Tikhonov che ha come potenziale la norma del gradiente dell'immagine:
+
+\[
+	U(x)=\norm{\nabla x}^2, \Rightarrow J_R(x) = \ln\rnd{\frac{1}{Z}}-\frac{1}{\beta}\norm{\nabla x}^2
+\]
+
+\subsection{Mostrare la stima a massima verosimiglianza è equivalente a un problema di regolarizzazione.}
+
+Consideriamo il caso di un'immagine $\bmy$ (vettore di $n$ pixel), corrotta da un errore gaussiano a media nulla $\bm{\epsilon} \textasciitilde N(0,\sigma^2)$.
+
+Cerchiamo di ripristinare l'immagine originaria $\bmx$.
+\[
+	\bmy=\bmx+\bm{\epsilon}
+\]
+Cerchiamo di stimare l'immagine originaria $\bmx$ per massima verosimiglianza.
+\begin{align*}
+	\bmx^* & = \argmax_{\bmx} L\rnd{\left.\bmy\,\right\rvert\bmx,\mu=0,\sigma^2} \\
+	       & = \argmax_{\bmx} \sqr{ \prod_{i=1}^{n} \gauss{y_i}{x_i}{\sigma^2} } \\
+	       & = \argmin_{\bmx} \sqr{ \sum_{i=1}^{n}\rnd{y_i-x_i}^2 }              \\
+	       & = \bmy
+\end{align*}
+Ne otteniamo che l'immagine più verosimile è l'immagine di partenza: non è un risultato utile.
+
+Allora, utilizziamo come stima la massima probabilità a posteriori, o MAP (\textit{Maximum A Posteriori}):
+\begin{align*}
+	\bmx^* & = \argmax_{\bmx} p\rnd{\bmx\,\left\rvert\bmy\right.}                                                                                                                                                                              \\
+	       & = \argmax_{\bmx} \frac{p\rnd{\left.\bmy\,\right\rvert\bmx}p\rnd{\bmx}}{p\rnd{\bmy}}            & \text{Applico il teorema di Bayes.}                                                                                              \\
+	       & = \argmax_{\bmx} \frac{L\rnd{\left.\bmy\,\right\rvert\bmx}p\rnd{\bmx}}{p\rnd{\bmy}}            & \text{Sostituisco la densità $p\rnd{\left.\bmy\,\right\rvert\bmx}$ con la verosimiglianza $L\rnd{\left.\bmy\,\right\rvert\bmx}$} \\
+	       & = \argmin_{\bmx} -\ln\sqr{ \frac{L\rnd{\left.\bmy\,\right\rvert\bmx}p\rnd{\bmx}}{p\rnd{\bmy}}} & \text{Applico il logaritmo negativo}                                                                                             \\
+	       & =\argmin_{\bmx} -\ln\sqr{L\rnd{\left.\bmy\,\right\rvert\bmx}p\rnd{\bmx}}                       & \text{Elimino il termine $p\rnd{\bmy}$ che è indipendente da $\bmx$}
+\end{align*}
+
+La massima probabilità a posteriori integra la massimizzazione della verosimiglianza con delle conoscenze a priori.
+
+Nel caso gaussiano a media nulla, il calcolo diventa:
+\begin{align*}
+	\bmx^* & = \argmin_{\bmx} -\crl{\ln\left[L(\bmy|\bmx)\right]+\ln\left[p(\bmx)\right]} \\
+	       & = \argmin_{\bmx} -\crl{
+		\frac{1}{2\sigma^2}\sum_{i=1}^{n} (y_i-x_i)^2+\ln\left[p(\bmx)\right]}                \\
+	       & = \argmin_{\bmx} -\crl{\frac{||\bmy-\bmx||^2}{2\sigma^2}+J_R(\bmx)}
+\end{align*}
+
+\end{document}
