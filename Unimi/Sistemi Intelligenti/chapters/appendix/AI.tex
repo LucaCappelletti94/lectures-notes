@@ -1,81 +1,49 @@
 \providecommand{\main}{../../}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
+\section{Domande su Intelligenza Artificiale}
 
-\subsection{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo? [2]}
-L'idea è quella di esplorare il grafo partendo dal nodo iniziale, provando a trovare la strada per arrivare ad uno stato di goal. Ad ogni step della ricerca un nodo può essere etichettato in 3 modi:
+\subsection{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo?}
+La \textbf{FOrward Search} è un template per algoritmi legate all'esplorazione di un grafo, partendo da uno stato iniziale e cercando di arrivare ad uno stato di goal.
 
-\begin{enumerate}
-  \item \textbf{Unvisited}: deve essere ancora visitato dall'algoritmo.
-  \item \textbf{Alive}: visitato, ma l'algoritmo deve ancora visitare i nodi direttamente raggoiungibili da esso. I nodi alive sono raccolti di una coda di priorità $a$.
-  \item \textbf{Dead}: visitato, ed anche ogni nodo vicino è stato visitato.
-\end{enumerate}
+Alla prima iterazione si marca il nodo di start come visitato e lo si inserisce nella coda, quindi si procede iterativamente: a ogni ciclo si estrae (pop) il primo elemento della coda e se è un nodo di \textbf{goal} l'algoritmo termina con successo, altrimenti marca i nodi vicini non visitati come \textbf{alive} e li inserisce in coda. Se un nodo è stato visitato e sono stati visitati tutti i nodi raggiungibili da esso, viene marcato come \textbf{dead}. Se la coda risulta vuota senza avere identificato un nodo di goal, l'algoritmo fallisce.
 
-È considera un template e non un algoritmo perché non è specificato il criterio con cui ordinare $a$.
+Si tratta di un \textbf{template} e non un algoritmo perché non è specificato il criterio con cui ordinare la coda di priorità $Q$.
 
-%\begin{algorithm}
-%\DontPrintSemicolon
-%\KwData{Un grafo $G$ e un nodo $v \in G$.}
-%\KwResult{Tutti i nodi raggiungibili da $v$ son segnati come visitati.}
-%\Begin{
-%$V \longleftarrow U$\;
-%$S \longleftarrow \emptyset$\;
-%\For{$x\in X$}{
-%$NbSuccInS(x) \longleftarrow 0$\;
-%$NbPredInMin(x) \longleftarrow 0$\;
-%$NbPredNotInMin(x) \longleftarrow |ImPred(x)|$\;
-%}
-%\For{$x \in X$}{
-%\If{$NbPredInMin(x) = 0$ {\bf and} $NbPredNotInMin(x) = 0$}{
-%$AppendToMin(x)$}
-%}
-%\nl\While{$S \neq \emptyset$}{
-%\lnl{InRes2}\While{$|S \cap ImSucc(x)| \neq |S|$}{
-%\For{$ y \in S-ImSucc(x)$}{
-%\{ remove from $V$ all the arcs $zy$ : \}\;
-%\For{$z \in ImPred(y) \cap Min$}{
-%remove the arc $zy$ from $V$\;
-%$NbSuccInS(z) \longleftarrow NbSuccInS(z) - 1$\;
-%move $z$ in $T$ to the list preceding its present list\;
-%\{i.e. If $z \in T[k]$, move $z$ from $T[k]$ to1
-%$T[k-1]$\}\;
-%}
-%$NbPredInMin(y) \longleftarrow 0$\;
-%$NbPredNotInMin(y) \longleftarrow 0$\;
-%$S \longleftarrow S - \{y\}$\;
-%$AppendToMin(y)$\;
-%}
-%}
-%$RemoveFromMin(x)$\;
-%}
-%
-%procedure DFS(G,v):
-%    label v as discovered
-%    for all edges from v to w in G.adjacentEdges(v) do
-%        if vertex w is not labeled as discovered then
-%            recursively call DFS(G,w)
-%
-%     \For{$x \in X$}{
-%   \If{$NbPredInMin(x) = 0$ {\bf and} $NbPredNotInMin(x) = 0$}{
-%     $AppendToMin(x)$
-%   }
-% }
-%
-%}
-%\caption{Depth-first search}
-%\end{algorithm}
+\begin{algorithm}
+	\KwData{Un grafo $G$, un nodo iniziale $s \in G$ ed i nodi di goal $X_t \subset G$.}
+	\KwResult{Determina se un nodo $t \in X_t$ è raggiungibile dal nodo $s$.}
+	\Begin{
+		$Q \longleftarrow \crl{s}$\;
+		Marca $s$ come visitato\;
+		\nl\While{$Q \neq \emptyset$}{
+			$x\longleftarrow Q.pop()$\;
+			\If{$x\in X_t$}{
+				\Return successo\;
+			}
+			\For{$x' \in \text{Intorno}(x)$}{
+				\If{$x'$ non è stato visitato}{
+					Marca $x'$ come visitato\;
+					$Q \longleftarrow Q \cup \crl{x'}$
+				}
+			}
+		}
+		\Return fallimento\;
+	}
+	\caption{Algoritmo Forward Search}
+\end{algorithm}
 
-\subsection{Si elenchino due possibili implementazioni di Forward Search elencandone proprietà, vantaggi e svantaggi. [2]}
+\subsection{Si elenchino due possibili implementazioni di Forward Search elencandone proprietà, vantaggi e svantaggi.}
 
-\subsubsection{Breadth first search}
-La coda $a$ è gestita in modo FIFO (First-in First-out). I percorsi con $k+1$ azioni vengono valutati dopo che ogni percorso con $k$ azioni è stato esplorato. Se viene trovato il percorso, è garantino che questo avrà il minor numeri di azioni (percorso più breve).
-Funziona in un tempo $O(\abs{v}+ \abs{\epsilon})$.
-Per costruire l'albero di ricerca individua in tutti i figli con la stessa profondità e garantisce il percorso più breve. Inoltre è simmetrico.
+\subsubsection{Breadth First Search}
+L'algoritmo Breadth First Search, o \textit{visita in ampiezza} implementa la coda di priorità $Q$ come una coda FIFO.
 
-\subsubsection{Deapth first search}
-La coda $a$ è uno stack gestito con una politica LIFO (Last-in First-out). È un algoritmo più "aggressivo" e cerca prima soluzioni nei percorsi più lunghi.
-Funziona con un tempo $O(\abs{v}+ \abs{\epsilon})$.
-Ha il vantaggio di ignorare cammini sbagliati nel caso in cui si trovi immediatamente una soluzione.
-Non è sistematico su spazi infiniti.
+Tutti i nodi alla stessa profondità sono visitati prima di procedere al livello successivo. Se viene trovato il percorso, è garantito che questo avrà la lunghezza minima.
 
+La ricerca risulta di tipo sistematico.
+
+\subsubsection{Deapth First Search}
+L'algoritmo Deapth First Search, o \textit{visita in profondità}, implementa la coda $Q$ come una pila LIFO, visitando quindi sempre l'ultimo nodo non visitato identificato, dando quindi priorità ai nodi più lunghi.
+
+Nel caso di grafi infiniti la ricerca risulta non sistematica.
 \end{document}
