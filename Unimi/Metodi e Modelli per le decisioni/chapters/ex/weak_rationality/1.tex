@@ -5,34 +5,113 @@
 Consider the following decision problem with 5 alternatives and 3 criteria, characterized by the following utilities:
 
 \begin{table}
-  \begin{tabular}{L|LLLLL}
-    \text{Attributes} & a_1 & a_2 & a_3 & a_4 & a_5 \\
-    \hline
-    f_1               & 30  & 0   & 60  & 90  & 120 \\
-    f_2               & 5   & 6   & 4   & 2   & 7   \\
-    f_3               & 18  & 26  & 17  & 20  & 16
-  \end{tabular}
-  \begin{tabular}{L|L}
-         & \text{Weights} \\
-    \hline
-    \w_1 & 0.1            \\
-    \w_2 & 0.6            \\
-    \w_3 & 0.3
-  \end{tabular}
+	\begin{tabular}{L|LLLLL}
+		\text{Attributes} & a_1 & a_2 & a_3 & a_4 & a_5 \\
+		\hline
+		f_1               & 30  & 0   & 60  & 90  & 120 \\
+		f_2               & 5   & 6   & 4   & 2   & 7   \\
+		f_3               & 18  & 26  & 17  & 20  & 16
+	\end{tabular}
+	\begin{tabular}{L|L}
+		     & \text{Weights} \\
+		\hline
+		\w_1 & 0.1            \\
+		\w_2 & 0.6            \\
+		\w_3 & 0.3
+	\end{tabular}
 \end{table}
 
 \begin{enumerate}[a)]
-  \item Normalize the matrix for each criterion between maximum value and minimum value and determine the agreement and weighted disagreement matrices.
-  \item Determine the nucleus of the graph of surclassements with comparability threshold $\epsilon=+\infty$ and the following conditions:
-        \begin{enumerate}[1)]
-          \item Relative prevalence with $\alpha_{\w}=0$, ($\w^+_{ff'}\geq \w^-_{ff'}$).
-          \item Agreement with $\alpha_c=0.75$ ($\w^+_{ff'}+\w^-_{ff'}\geq 0.75$).
-          \item Weighted disagreement with $\alpha_d=0.25$.
-        \end{enumerate}
-  \item Order the alternatives following the index of agreement and the index of disagreement.
+	\item Normalize the matrix for each criterion between maximum value and minimum value and determine the agreement and weighted disagreement matrices.
+	\item Determine the nucleus of the graph of surclassements with comparability threshold $\epsilon=+\infty$ and the following conditions:
+	      \begin{enumerate}[1)]
+		      \item Relative prevalence with $\alpha_{\w}=0$, ($\w^+_{ff'}\geq \w^-_{ff'}$).
+		      \item Agreement with $\alpha_c=0.75$ ($\w^+_{ff'}+\w^-_{ff'}\geq 0.75$).
+		      \item Weighted disagreement with $\alpha_d=0.25$.
+	      \end{enumerate}
+	\item Order the alternatives following the index of agreement and the index of disagreement.
 \end{enumerate}
 
 \subsection{Exercise 1 resolution}
+\subsubsection*{Matrix normalization}
+We just have to follow this formula:
+\[
+	a'_{ij} = \frac{a_{ij} - \min\crl{a_{i1},\ldots,a_{im}}}{\max\crl{a_{i1},\ldots,a_{im}}-\min\crl{a_{i1},\ldots,a_{im}}}
+\]
+The normalized matrix therefore is the following:
+\begin{table}
+	\begin{tabular}{L|LLLLL}
+		\text{Attributes} & a_1  & a_2 & a_3 & a_4  & a_5 \\
+		\hline
+		f_1               & 0.25 & 0   & 0.5 & 0.75 & 1   \\
+		f_2               & 0.6  & 0.8 & 0.4 & 0    & 1   \\
+		f_3               & 0.2  & 1   & 0.1 & 0.4  & 0
+	\end{tabular}
+	\begin{tabular}{L|L}
+		     & \text{Weights} \\
+		\hline
+		\w_1 & 0.1            \\
+		\w_2 & 0.6            \\
+		\w_3 & 0.3
+	\end{tabular}
+	\caption{Normalized matrix}
+\end{table}
+
+\subsubsection*{Agreement matrix}
+The agreement matrix is determined by the following formula:
+
+\[
+	c_{ij} = \sum_{f=1}^{\abs{F}} g(a'_{fi}, a'_{fj})\w_f \qquad g(a', a'') = \begin{cases}
+		1 & a' > a''         \\
+		0 & \text{otherwise}
+	\end{cases}
+\]
+The agreement matrix:
+\[
+	C = \begin{bmatrix}
+		1   & 0.1 & 0.3 & 0.6 & 0.3 \\
+		0.9 & 1   & 0.9 & 0.9 & 0.3 \\
+		0.7 & 0.1 & 1   & 0.6 & 0.3 \\
+		0.4 & 0.1 & 0.4 & 1   & 0.3 \\
+		0.7 & 0.7 & 0.7 & 0.7 & 1
+	\end{bmatrix}
+\]
+\subsubsection*{Disagreement matrix}
+The disagreement matrix is given by the following formula:
+\[
+	d_{ij} = \begin{cases}
+		\frac{\max_{f_{lj}>f_{li}}\rnd{f_{lj}-f_{li}}}{\max\abs{f_{li}-f_{lj}}}
+		0 & a_i=a_j
+	\end{cases}
+\]
+The disagreement matrix:
+
+\[
+	D = \begin{bmatrix}
+		0    & 1 & 0.21 & 0.17 & 1   \\
+		0.1  & 0 & 0.19 & 0.16 & 0.4 \\
+		0.1  & 1 & 0    & 0.38 & 0.1 \\
+		1    & 1 & 1    & 0    & 1   \\
+		0.25 & 1 & 0.08 & 0.2  & 0
+	\end{bmatrix}
+\]
+\subsubsection*{Surclassments graph}
+
+\NewAdigraph{surclassmentGraph}{
+	1,0,0,a_1;
+	2,2,2,a_2;
+	3,2,-2,a_3;
+	4,4,1.25,a_4;
+	5,4,-1.25,a_5;
+}{
+	1,3,1;
+	2,1,1;
+	2,3,1;
+}
+
+\begin{figure}
+	\surclassmentGraph{}
+\end{figure}
 
 
 \end{document}
