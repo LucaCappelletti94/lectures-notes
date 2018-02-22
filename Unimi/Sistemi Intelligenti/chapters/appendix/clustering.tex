@@ -2,28 +2,32 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\subsection{Cosa si intende per clustering? In quali famiglie vengono divisi? [3]}
-La classificazione non-supervisionata, più spesso chiamata \textit{clustering}, consiste nel separare un insieme di dati non etichettati in insiemi, i \textit{cluster}, internamente omogenei.
-Per effettuare clustering esistono molti tipi di algoritmi, che si dividono principalmente in due classi: algoritmi gerarchici e algoritmi partizionali.
+\section{Domande su Clustering}
 
-Gli algoritmi gerarchici organizzano il dataset in una struttura ad albero dividendo cluster troppo disomogenei (algoritmi divisivi) o unendo cluster simili tra loro (algoritmi agglomerativi).
+\subsection{Cosa si intende per clustering? In quali famiglie vengono divisi? Esplicitare la differenza tra soft e hard clustering}
+Il \textit{clustering} è una tecnica di apprendimento non supervisionato che consiste nel separare un insieme di dati non etichettati in insiemi, i \textit{cluster}, internamente omogenei.
 
-Gli algoritmi partizionali impongono una suddivisione dello spazio delle \textit{feature} in più sottoinsiemi, che sono i cluster: se ogni \textit{pattern} può appartenere ad un solo cluster si parla di \textit{hard clustering}, altrimenti, se ogni pattern può appartenere a più cluster con un grado di \textit{membership} si parla di \textit{soft clustering} o \textit{fuzzy clustering}.
+\subsubsection*{In quali famiglie sono divisi?}
+Gli algoritmi di clustering si dividono principalmente in due categorie: algoritmi gerarchici e algoritmi partizionali.
 
-Alcuni algoritmi possono essere basati su teorie probabilistiche: si parla di algoritmi statistici.
+Gli algoritmi gerarchici organizzano il dataset in una struttura ad albero dividendo cluster troppo disomogenei (\textbf{algoritmi divisivi}) o unendo cluster simili tra loro (\textbf{algoritmi agglomerativi}).
 
-\subsection{Che relazione c'è tra clustering e classificazione e quali sono le criticità? [3]}
-Il clustering consiste nel separare un insieme di dati non etichettati in sottoinsiemi, mentre la classificazione separa un dataset in insiemi di dati etichettati. Per la loro somiglianza, il clustering viene anche chiamato \textit{classificazione non supervisionata}.
+Gli algoritmi partizionali impongono una suddivisione dello spazio delle \textit{feature} in più sottoinsiemi, che sono i cluster e si dividono tra $hard$ e $soft$.
 
-Il clustering è un problema di apprendimento non supervisionato, in cui il sistema non riceve alcun riscontro sulla correttezza della propria soluzione, al contrario, la classificazione è un problema di apprendimento supervisionato, in cui il sistema viene allenato con un \textit{training set}: oltre al pattern di ingresso, viene fornita al sistema quale è la soluzione desiderata (la classe di appartenenza).
+Infine alcuni algoritmi possono essere basati su teorie probabilistiche: si parla di \textbf{algoritmi statistici}.
 
-Per validare le performance di un classificatore è possibile utilizzare il sistema già addestrato su un insieme di dati nuovi, un \textit{test set}: questo procedimento testa la capacità del sistema di generalizzare e può rilevare il verificarsi di \textit{overfitting}.
+\subsubsection{Differenza tra soft e hard clustering}
+Negli algoritmi partizionali, se ogni \textit{pattern} può appartenere ad un solo cluster si parla di \textit{hard clustering}, altrimenti, se ogni pattern può appartenere a più cluster con un grado di \textit{membership} si parla di \textit{soft clustering} o \textit{fuzzy clustering}.
 
-Per validare un sistema di clustering, invece, bisogna validare l'algoritmo stesso: inoltre, la scelta dell'algoritmo può variare notevolmente la soluzione. Infatti, il clustering viene considerato un problema mal posto.
+\subsection{Che relazione c'è tra clustering e classificazione e quali sono le criticità?}
+Clustering e classificazione si pongono di risolvere lo stesso problema, il raggruppamento dei dati in classi, ma agiscono in modo profondamente diverso:
 
-Altri fattori che possono influenzare sulla performance di un sistema di clustering sono: lo spazio di rappresentazione dei pattern (\textit{feature space}), la metrica di distanza implementata (distanza euclidea, \textit{Manhattan}, \textit{Mahalanobis}, distanze di \textit{Minkowski}, \dots ).
+Il clustering procede in modo non supervisionato, agendo unicamente sui dati, mentre la classificazione procede in modo supervisionato, usando informazioni estratte dal training set.
 
-Per gli algoritmi gerarchici agglomerativi, i risultati sono influenzati dalla strategia di \textit{linkage} utilizzata, mentre per gli algoritmi divisivi bisogna quantificare l'omogeneità dei cluster.
-Algoritmi come K-means sono molto soggetti all'inizializzazione: gli algoritmi gerarchici no, ma sono comunque sensibili agli \textit{outlier}; inoltre, gli algoritmi gerarchici non riconsiderano in nessun passo le decisioni effettuate nei passi precedenti per cercare di correggere eventuali misclassificazioni.
+\subsubsection*{Quali sono le criticità?}
+Il clustering \textbf{non} è un problema ben posto: i risultati vanno validati ed interpretati. Esistono vari gradi di libertà nella modellazione di un algoritmo di clustering, rappresentazione dei pattern, calcolo delle feature, numero dei cluster attesi, scelta del tipo di distanza da usare tra cluster etc...
+
+\subsubsection*{È possibile usare una mappa di Kohonen per rappresentare una sfera? Perché?}
+Si, poiché le SOM distribuiscono una griglia su una superficie man mano che i dati vengono analizzati. Il dato sposta i punti della griglia con i loro vicini in modo da ottenere la migliore distribuzione possibile, nel caso di una sfera in cui i dati rappresentano la superficie la mappa, assunto che vi siano abbastanza dati, ne assumerà la forma.
 
 \end{document}
