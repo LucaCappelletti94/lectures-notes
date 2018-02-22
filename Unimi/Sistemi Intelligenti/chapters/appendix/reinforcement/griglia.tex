@@ -1,0 +1,58 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Impostare un problema su griglia (apprendimento del percorso di un agente, con partenza ed arrivo prescelti + ostacoli). La griglia fornisce un reward, diverso da zero, in ogni transizione.}
+
+\fig{
+  \begin{table}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      \includegraphics[width=0.1\textwidth]{robot} & \cellcolor{black} 2 & 3                   & 4  \\
+      \hline
+      5                                            & 6                   & \cellcolor{black} 7 & 8  \\
+      \hline
+      \cellcolor{black}9                           & 10                  & 11                  & 12 \\
+      \hline
+      \cellcolor{black}13                          & 14                  & 15                  & 16 \\
+      \hline
+    \end{tabular}
+  \end{table}
+  \caption{Griglia degli stati, in nero gli ostacoli, agente nello stato $s=1$}
+}{
+  \[
+    R_{s_t\rightarrow s_{t+1}} \begin{cases}
+      100 & \text{se è goal: } s_{t+1}=16                 \\
+      -5  & \text{se l'agente è bloccato: } s_{t}=s_{t+1} \\
+      1   & \text{se non è goal}
+    \end{cases}
+  \]
+  \caption{Reward function}
+}{
+  \[
+    Q(s,a)=0 \quad \forall s,a
+  \]
+  \caption{Value function iniziale}
+}{
+  \[
+    Q(s_t,a) = (1-\alpha)Q(s_t,a) + \alpha\rnd{r+\gamma \max_{a'} Q(s_{t+1},a')}
+  \]
+  \caption{Algoritmo di aggiornamento: Q-learning}
+}{
+  \[
+    \epsilon=0.1 \quad \alpha=0.7 \quad \gamma = 0.4
+  \]
+  \caption{Policy: $\epsilon$-greedy}
+}[1]{\caption{Problema su griglia}}[2]
+
+\subsubsection{Scrivere un risultato possibile dei primi 2 passi di apprendimento del problema definito al punto precedente.}
+\paragraph*{Step 1} Dato che tutti i valori di $Q$ sono a $0$ la policy $\epsilon$-greedy a questo step coincide con una policy casuale. Supponiamo l'azione scelta sia $a=right$: l'agente incontra un ostacolo e rimane quindi nello stato $s_t=s_{t+1}=1$:
+
+\[
+  R_{s_t=s_{t+1}} = -5 \Rightarrow Q(s,right) = (1-0.7)\cdot 0 + 0.7\cdot(-5+0.4\cdot0) = -3.5
+\]
+\paragraph*{Step 2} Supponiamo che la policy $\epsilon$-greedy scelga di svolgere un'azione greedy (exploitative strategy) e quindi vada a compiere l'azione $a=dowm$:
+\[
+  R_{s_t\neq s_{t+1}} = 1 \Rightarrow Q(s,down) = (1-0.7)\cdot 0 + 0.7\cdot(1+0.4\cdot0) = 0.7
+\]
+\end{document}

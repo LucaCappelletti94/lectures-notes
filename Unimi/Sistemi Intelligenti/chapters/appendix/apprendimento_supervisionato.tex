@@ -1,16 +1,87 @@
 \providecommand{\main}{../../}
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
+\section{Domande su Apprendimento Supervisionato}
+\subsection{Cosa si intende per modello?}
+Un modello è una struttura costruita utilizzando il linguaggio e gli strumenti matematici con lo scopo di rappresentare al meglio oggetti o fenomeni.
 
-\subsection{Definire l'algoritmo di apprendimento di una rete neurale con unità arbitrarie. Definire la funzione obbiettivo utilizzata. [3]}
-\subsection{Come si utilizza la funzione obbiettivo nell'algoritmo di apprendimento. [3]}
-\subsection{Cosa si intende per apprendimento per epoche e per trial? Qual è il vantaggio di ciascuna delle modalità di apprendimento? [3]}
-\subsection{Cosa si intende per training e test set? Perché mai vengono utilizzati? Quali problemi si vogliono evitare? [3]}
-\subsection{Una rete neurale con unità sigmoidali e un modello parametrico? È lineare? Perché? [3]}
-\subsection{Se i dati sono acquisiti senza errori, è una buona scelta aumentare di molto i parametri del modello in modo da garantirsi che l'errore sul training set vada a zero? Perché? [3]}
-\subsection{Cosa si intende per un problema di regressione ed illustrare una possibile soluzione. [3]}
-\subsection{Come funziona l'approssimazione incrementale multi-scala, cosa garantisce e quali vantaggi può avere? [3]}
-\subsection{Determinare la forma analitica dell'aggiornamento dei parametri nel caso di unità lineari e di reti a singolo strato. [2]}
-\subsection{Definire l'algoritmo di apprendimento di una rete neurale con unità lineari e con unità non-lineari. Definire la funzione obbiettivo utilizzata.}
+\subsection{Definire l'algoritmo di apprendimento di una rete neurale con unità arbitrarie. Definire la funzione obbiettivo utilizzata.}
+Apprendere in una rete neurale significa modificare i pesi dei singoli nodi in modo da approssimare sempre meglio una funzione che mappa dei valori di ingresso a dei valori di uscita dati, mediante l'ottimizzazione dell'errore quadratico medio.
+
+I passi usualmente sono:
+\begin{enumerate}
+  \item Inizializzazione dei pesi.
+  \item Calcolo dell'output stimato dal vettore pattern di input.
+  \item Calcolo dell'errore tra il valore ottenuto e quello reale.
+  \item Retro-propago il gradiente dell'errore dal layer di uscita a quello di ingresso.
+  \item Ripeto dallo step 2, fino all'ottenimento di una buona stima o convergenza della rete.
+\end{enumerate}
+
+Nell'algoritmo di apprendimento si minimizza l'errore quadratico medio, per cui la funzione obbiettivo risulta essere:
+
+\[
+  \min \text{MSE} = \min \frac{1}{n}\sum_{k=1}^n \rnd{y_{\text{stimato}_k} - y_{\text{atteso}_k}}^2
+\]
+
+\subsection{Come si utilizza la funzione obbiettivo nell'algoritmo di apprendimento.}
+Essa si utilizza con la tecnica del gradiente estesa a più variabili, calcolando l'incremento da dare a ciascun peso come:
+\[
+  \Delta \w_{ij} = \eta \frac{\partial \text{MSE}}{\partial{\w_{ij}}}
+\]
+Nel caso lineare essa viene detta \textbf{$\delta$ rule}:
+
+\[
+  \Delta \w_{ij} = \eta \frac{1}{n}\sum_{j}^n \rnd{y_{\text{stimato}_k} - y_{\text{atteso}_k}}u_i
+\]
+
+\subsection{Cosa si intende per apprendimento per epoche e per trial? Qual è il vantaggio di ciascuna delle modalità di apprendimento?}
+\begin{description}
+  \item[Apprendimento per trial] I pesi vengono aggiornati per ogni pattern di input.
+  \item[Apprendimento per epoca] I pesi vengono aggiornati ad ogni insieme di pattern.
+\end{description}
+
+L'aggiornamento per trial risulta essere più veloce ma è meno preciso, viceversa per quello per epoche.
+
+\subsection{Cosa si intende per training e test set? Perché mai vengono utilizzati? Quali problemi si vogliono evitare?}
+\begin{description}
+  \item[Training set] Si tratta dell'insieme dei dati utilizzati dalla rete per calibrare i pesi delle singole unità.
+  \item[Test set] Viene utilizzato una volta che il training set è stato completato per testare la bontà dei parametri.
+\end{description}
+
+Vengono utilizzati per effettuare una \textit{cross-validation}, ovvero verificare che l'errore sul training set sia simile a quello sul test set. È importante che i set siano omogenei perché siano utili (per esempio, se volessimo realizzare un classificatore e avessimo solo una classe per set non riusciremmo mai ad avere una generalizzazione).
+
+Si vuole evitare l'under-fitting (parametri errati dovuti al poco addestramento) e l'over-fitting, ovvero quando i parametri approssimano specificatamente il training set.
+
+\subsection{Una rete neurale con unità a sigmoide è un modello parametrico? È lineare? Perché?}
+Si tratta di un modello parametrico in quanto a prescindere dalla unità utilizzate gli input sono pesati con dei parametri. Il sigmoide non è una funzione lineare:
+
+\begin{figure}
+  \[
+    f(x) = \frac{1}{1-e^x}
+  \]
+  \caption{Esempio di funzione sigmoide}
+\end{figure}
+
+\subsection{Se i dati sono acquisiti senza errori, è una buona scelta aumentare di molto i parametri del modello in modo da garantirsi che l'errore sul training set vada a zero? Perché?}
+Purché tecnicamente non errato, l'aggiunta di troppi parametri sarebbe semplicemente superflua e porterebbe ad un inutile aumento dei costi di computazione. Se i dati non hanno errore ci sarà un numero finito di parametri che descrivono completamente la legge.
+
+\subsection{Cosa si intende per un problema di regressione ed illustrare una possibile soluzione.}
+Il problema della regressione, o \textit{predictive learning}, consiste nel trovare un modello a partire da un insieme di dati, in modo da poterlo utilizzare per fare previsioni future o dare risposte corrette all'input di nuovi dati.
+\subsubsection*{Una possibile soluzione}
+Un approccio molto usato è la combinazione lineare di funzioni di base, stile \textit{black-box}.
+
+\[
+  y(x) = \sum_{i=1}^n \w_i G(x-x_i, \sigma)
+\]
+dove i pesi $\w_i$ sono i parametri da stimare mentre G possono essere gaussiane equi-spaziate.
+
+\subsection{Come funziona l'approssimazione incrementale multi-scala, cosa garantisce e quali vantaggi può avere?}
+L'approssimazione incrementale multi scala è un metodo molto utilizzato per la ricostruzione digitale di superfici a partire da campionamenti. Il problema consiste nel ricostruire una superficie sottoposta a scansione, riproducendo nel modo più fedele possibile forme e profondità.
+
+L'approccio tipico consiste nell'applicazione incrementale di layer di filtraggio, utilizzando una scala che decresce per ogni strato (da qui multi-scala).
+
+L'approssimazione incrementale multi-scala consente una ricostruzione abbastanza veloce dei dati con precisione regolabile modificando la soglia.
+
+Oltre alla velocità del metodo, la tecnica consente in modo simile al clustering Quadtree decomposition (QTD) di avere più risoluzione dove necessario.
 
 \end{document}
