@@ -18,51 +18,154 @@ Dato un problema decisionale con insieme di impatti $F = \{a, b, c, d, e, f \}$ 
 
 \subsection{Soluzione esercizio 1}
 
+Rappresentando la relazione come un grafo si ottiene:
+
+\NewAdigraph{PreferenceRelationship}{%
+  a:2;
+  b:2;
+  c:2;
+  d:2;
+  e:2;
+  f:2;
+}{%
+  a,a;
+  a,b;
+  a,c;
+  b,b;
+  b,c;
+  b,d;
+  c,b;
+  c,c;
+  c,d;
+  d,d;
+  e,b;
+  e,c;
+  e,d;
+  e,e;
+  f,b;
+  f,c;
+  f,d;
+  f,f;
+}
+
+\begin{figure}
+  \PreferenceRelationship{}
+\end{figure}
+
+\NewAdigraph{ReflexivePreferenceRelationship}{%
+  a:2;
+  b:2;
+  c:2;
+  d:2;
+  e:2;
+  f:2;
+}{%
+  a,a,green;
+  a,b;
+  a,c;
+  b,b,green;
+  b,c;
+  b,d;
+  c,b;
+  c,c,green;
+  c,d;
+  d,d,green;
+  e,b;
+  e,c;
+  e,d;
+  e,e,green;
+  f,b;
+  f,c;
+  f,d;
+  f,f,green;
+}
+
+\NewAdigraph{IndifferencePreferenceRelationship}{%
+  a:2;
+  b:2;
+  c:2;
+  d:2;
+  e:2;
+  f:2;
+}{%
+  a,a,red;
+  a,b;
+  a,c;
+  b,b,red;
+  b,c,red;
+  b,d;
+  c,b,red;
+  c,c,red;
+  c,d;
+  d,d,red;
+  e,b;
+  e,c;
+  e,d;
+  e,e,red;
+  f,b;
+  f,c;
+  f,d;
+  f,f,red;
+}
 1. La relazione $\Pi$ è binaria, cioè specifica coppie di impatti $(f_1, f_2): f_1 \preceq f_2$.
 
-\begin{table}
-  \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-      & a                      & b                      & c                      & d                      & e                      & f                      \\
-    \hline
-    a & \cellcolor{green!25} 1 & 1                      & 1                      & 1                      & 0                      & 0                      \\
-    \hline
-    b & 0                      & \cellcolor{green!25} 1 & 1                      & 1                      & 0                      & 0                      \\
-    \hline
-    c & 0                      & 1                      & \cellcolor{green!25} 1 & 1                      & 0                      & 0                      \\
-    \hline
-    d & 0                      & 0                      & 0                      & \cellcolor{green!25} 1 & 0                      & 0                      \\
-    \hline
-    e & 0                      & 1                      & 1                      & 1                      & \cellcolor{green!25} 1 & 0                      \\
-    \hline
-    f & 0                      & 0                      & 1                      & 1                      & 0                      & \cellcolor{green!25} 1 \\
-    \hline
-  \end{tabular}
-  \caption{Rappresentazione a tabella di $\Pi$}
-\end{table}
+\begin{figure}
+  \begin{subfigure}{0.49\textwidth}
+    \begin{table}
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+          & a                      & b                      & c                      & d                      & e                      & f                      \\
+        \hline
+        a & \cellcolor{green!25} 1 & 1                      & 1                      & 1                      & 0                      & 0                      \\
+        \hline
+        b & 0                      & \cellcolor{green!25} 1 & 1                      & 1                      & 0                      & 0                      \\
+        \hline
+        c & 0                      & 1                      & \cellcolor{green!25} 1 & 1                      & 0                      & 0                      \\
+        \hline
+        d & 0                      & 0                      & 0                      & \cellcolor{green!25} 1 & 0                      & 0                      \\
+        \hline
+        e & 0                      & 1                      & 1                      & 1                      & \cellcolor{green!25} 1 & 0                      \\
+        \hline
+        f & 0                      & 0                      & 1                      & 1                      & 0                      & \cellcolor{green!25} 1 \\
+        \hline
+      \end{tabular}
+      \caption{Rappresentazione a tabella di $\Pi$}
+    \end{table}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \ReflexivePreferenceRelationship{}
+  \end{subfigure}
+\end{figure}
 
 2. La relazione $\Pi$ gode della proprietà \textbf{riflessiva} (la diagonale principale della matrice è composta da soli $1$, evidenziati in verde).
 
-\begin{table}
-  \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-      & a                    & b                    & c                    & d                    & e                    & f                    \\
-    \hline
-    a & \cellcolor{red!25} 1 & 1                    & 1                    & 1                    & 0                    & 0                    \\
-    \hline
-    b & 0                    & \cellcolor{red!25} 1 & \cellcolor{red!25} 1 & 1                    & 0                    & 0                    \\
-    \hline
-    c & 0                    & \cellcolor{red!25} 1 & \cellcolor{red!25} 1 & 1                    & 0                    & 0                    \\
-    \hline
-    d & 0                    & 0                    & 0                    & \cellcolor{red!25} 1 & 0                    & 0                    \\
-    \hline
-    e & 0                    & 1                    & 1                    & 1                    & \cellcolor{red!25} 1 & 0                    \\
-    \hline
-    f & 0                    & 0                    & 1                    & 1                    & 0                    & \cellcolor{red!25} 1 \\
-    \hline
-  \end{tabular}
-  \caption{Rappresentazione a tabella di $\Pi$, con $\text{Ind}_\Pi$ evidenziata.}
-\end{table}
+\begin{figure}
+  \begin{subfigure}{0.49\textwidth}
+    \begin{table}
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+          & a                    & b                    & c                    & d                    & e                    & f                    \\
+        \hline
+        a & \cellcolor{red!25} 1 & 1                    & 1                    & 1                    & 0                    & 0                    \\
+        \hline
+        b & 0                    & \cellcolor{red!25} 1 & \cellcolor{red!25} 1 & 1                    & 0                    & 0                    \\
+        \hline
+        c & 0                    & \cellcolor{red!25} 1 & \cellcolor{red!25} 1 & 1                    & 0                    & 0                    \\
+        \hline
+        d & 0                    & 0                    & 0                    & \cellcolor{red!25} 1 & 0                    & 0                    \\
+        \hline
+        e & 0                    & 1                    & 1                    & 1                    & \cellcolor{red!25} 1 & 0                    \\
+        \hline
+        f & 0                    & 0                    & 1                    & 1                    & 0                    & \cellcolor{red!25} 1 \\
+        \hline
+      \end{tabular}
+      \caption{Rappresentazione a tabella di $\Pi$, con $\text{Ind}_\Pi$ evidenziata.}
+    \end{table}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \IndifferencePreferenceRelationship{}
+  \end{subfigure}
+\end{figure}
 
 3. La \textbf{relazione di indifferenza} $\text{Ind}_\Pi$ è composta dalle coppie indifferenti, cioè che il decisore accetta di scambiare in entrambe le direzioni (nella tabella evidenziate in rosso).
 
@@ -70,12 +173,7 @@ Dato un problema decisionale con insieme di impatti $F = \{a, b, c, d, e, f \}$ 
   \Pi = \{(a, a), (b, b), (b,c), (c, c), (c, b), (d,d),(e,e),(f,f)\}
 \]
 
-4. Tutte le tipologie di ordine richiedono la proprietà \textbf{transitiva}, che nella relazione $\Pi$ non è rispettata:
+4. La proprietà transitiva è rispettata.
 
-\[
-  a \preceq b, b \preceq e \centernot\implies a \preceq e
-\]
-
-Di conseguenza non è possibile definire una funzione valore, perchè questa richiede almeno un ordine debole come condizione necessaria.
-
+Si tratta di una relazione di \textbf{pre-ordine}.
 \end{document}

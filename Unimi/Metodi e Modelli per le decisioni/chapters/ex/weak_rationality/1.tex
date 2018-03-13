@@ -97,21 +97,51 @@ The disagreement matrix:
 \]
 \subsubsection*{Surclassments graph}
 
-\NewAdigraph{surclassmentGraph}{
-	1,0,0,a_1;
-	2,2,2,a_2;
-	3,2,-2,a_3;
-	4,4,1.25,a_4;
-	5,4,-1.25,a_5;
-}{
-	1,3,1;
-	2,1,1;
-	2,3,1;
-}
+First we draw the surclassments graph:
 
 \begin{figure}
+	\NewAdigraph{surclassmentGraph}{
+		1:2:\(a_1\);
+		2:2:\(a_2\);
+		3:2:\(a_3\);
+		4:2:\(a_4\);
+		5:2:\(a_5\);
+	}{
+		1,3;
+		2,1;
+		2,3;
+	}
 	\surclassmentGraph{}
+	\caption{Surclassments graph}
 \end{figure}
 
+Then we add unsurclassed nodes to the nucleus, highlighted in red:
 
+\begin{figure}
+	\NewAdigraph{surclassmentGraphNucleus}{
+		1:2:\(a_1\);
+		2,red:2:\(a_2\);
+		3:2:\(a_3\);
+		4,red:2:\(a_4\);
+		5,red:2:\(a_5\);
+	}{
+		1,3;
+		2,1;
+		2,3;
+	}
+	\surclassmentGraphNucleus{}
+	\caption{Highlighted nucleus}
+\end{figure}
+
+We remove the surclassed nodes and we obtain the following graph:
+
+\begin{figure}
+	\NewAdigraph{surclassmentGraphSecondStep}{
+		2:2:\(a_2\);
+		4:2:\(a_4\);
+		5:2:\(a_5\);
+	}
+	\surclassmentGraphSecondStep{}
+	\caption{Remaining nucleus}
+\end{figure}
 \end{document}

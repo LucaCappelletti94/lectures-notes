@@ -33,19 +33,19 @@ Si determina l'inversa della funzione $f$, $\phi: F \rightarrow X$, si sostituis
 	\Rightarrow
 	\begin{cases}
 		x_1  = \frac{f_1 + f_2}{2} \\
-		x_2  = \frac{f_1 - 2f_2}{2}
+		x_2  = \frac{f_1 - f_2}{2}
 	\end{cases}
 \]
 
 \subsubsection*{Sostituisco l'inversa nei vincoli}
 \[
 	\begin{cases}
-		\left( \frac{f_1 + f_2}{2} \right)^2 + \left(\frac{f_1 - 2f_2}{2}\right)^2 \leq 1 \\
+		\left( \frac{f_1 + f_2}{2} \right)^2 + \left(\frac{f_1 - f_2}{2}\right)^2 \leq 1 \\
 		\frac{f_1 + f_2}{2} \leq 0
 	\end{cases}
 	\Rightarrow
 	\begin{cases}
-		\left( f_1 + f_2 \right)^2 + \left(f_1 - 2f_2\right)^2 \leq 4 \\
+		\left( f_1 + f_2 \right)^2 + \left(f_1 - f_2\right)^2 \leq 4 \\
 		f_1 + f_2 \leq 0
 	\end{cases}
 \]
@@ -60,38 +60,14 @@ L'immagine della regione paretiana $F^o$ è l'insieme di punti che non ammettono
 
 La trasformazione inversa in questo caso è \textbf{lineare}, quindi anche la regione $X^o$ risulterà un segmento di retta.
 
-Determino i punti di intersezione:
-
-\[
-	\begin{cases}
-		\left( f_1 + f_2 \right)^2 + \left(f_1 - 2f_2\right)^2 = 4 \\
-		f_1 + f_2 = 0
-	\end{cases}
-	\Rightarrow
-	\begin{cases}
-		\left( -f_2 + f_2 \right)^2 + \left(-f_2 - 2f_2\right)^2 = 4 \\
-		f_1 = -f_2
-	\end{cases}
-	\Rightarrow
-	\begin{cases}
-		\left(-3f_2\right)^2 = 4 \\
-		f_1 = -f_2
-	\end{cases}
-	\Rightarrow
-	\begin{cases}
-		9f_2^2 = 4 \Rightarrow \pm \frac{2}{3} \\
-		f_1 = -f_2
-	\end{cases}
-\]
-
-I due punti risultano essere quindi: $A = (\frac{2}{3}, -\frac{2}{3})$ e $B = (-\frac{2}{3}, \frac{2}{3})$.
+I due punti risultano essere: $A = (-1, 1)$ e $B = (1,-1)$.
 
 Calcolo quindi i punti che determina il segmento della regione paretiana.
 
 \[
 	\begin{cases}
 		x_1  = 0 \\
-		x_2  = \frac{-3f_2}{2} = \pm 1
+		x_2  = \pm1
 	\end{cases}
 \]
 
@@ -102,67 +78,5 @@ Da cui i due punti che determinano il segmento della regione paretiana $X^o$ son
 	\caption{In rosso la regione paretiana.}
 	\label{area_paretiana_4}
 \end{figure}
-
-
-\subsubsection*{Verifico i risultati ottenuti}
-\begin{figure}
-	\begin{subfigure}{0.30\textwidth}
-		\begin{tikzpicture}
-			\begin{axis}[
-					width=\textwidth,
-					xlabel=$x_1$,
-					ylabel=$x_2$,
-					zlabel=$f_1(x)$,
-					domain=-1:0,
-					y domain=-1:1
-				]
-				\addplot3[surf, unbounded coords=jump]
-				{x^2 + y^2 <  1 ? x + y : NaN};
-			\end{axis}
-		\end{tikzpicture}
-		\caption{L'indicatore $f_1(x)$}
-	\end{subfigure}
-	~
-	\begin{subfigure}{0.30\textwidth}
-		\begin{tikzpicture}
-			\begin{axis}[
-					width=\textwidth,
-					xlabel=$x_2$,
-					ylabel=$x_1$,
-					zlabel=$f_2(x)$,
-					domain=-1:1,
-					y domain=-1:0
-				]
-				\addplot3[surf, unbounded coords=jump]
-				{x^2 + y^2 <  1 ? y-x : NaN};
-			\end{axis}
-		\end{tikzpicture}
-		\caption{L'indicatore $f_2(x)$}
-	\end{subfigure}
-	~
-	\begin{subfigure}{0.30\textwidth}
-		\begin{tikzpicture}
-			\begin{axis}[
-					width=\textwidth,
-					xlabel=$x_1$,
-					ylabel=$x_2$,
-					zlabel=$f_1(x)+f_2(x)$,
-					domain=-1:0,
-					y domain=-1:1
-				]
-				\addplot3[surf, unbounded coords=jump]
-				{x^2 + y^2 <  1 ? y+x + x-y : NaN};
-				\addplot3[
-					surf,
-					point meta rel=per plot,
-					point meta={x^2 + y^2 <  1 ? y+x + x-y : NaN}
-				] {2};
-			\end{axis}
-		\end{tikzpicture}
-		\caption{La somma degli indicatori}
-	\end{subfigure}
-\end{figure}
-
-I due indicatori assumono valori nella stessa magnitudo nel dominio di definizione per cui, in questo caso, è possibile stimare il massimo dei due indicatori come il massimo della funzione ottenuta sommandoli. Il risultato ottenuto è coerente con la regione paretiana evidenziata.
 
 \end{document}
