@@ -8,11 +8,11 @@ Si consideri il seguente problema con due indicatori che rappresentano costi:
 \begin{align*}
   \min f_1(x) & =\frac{1}{4}\rnd{x_1-4}^2 + \frac{1}{4}x_2^2 \\
   \min f_2(x) & = 2 -x_2                                     \\
-  2x_1 + x_2  & \leq 5                                       \\
+  2x_1 + x_2  & \leq 4                                       \\
   x_1, x_2    & \geq 0
 \end{align*}
 
-Si determini la soluzione che si avrebbe ipotizzando una funzione di utilit`a con
+Si determini la soluzione che si avrebbe ipotizzando una funzione di utilità con
 tasso marginale di sostituzione uniforme fra $f_1$ e $f_2$ e pesi $\w_1 = \frac{1}{3}$ e $\w_2 = \frac{2}{3}$.
 
 \subsection{Soluzione esercizio 1}
@@ -33,16 +33,16 @@ Si tratta di una funzione distanza, con centro in $C = (4,4)$
 
 \begin{align*}
   \min f^*(x) & = \frac{1}{12}\rnd{\rnd{x_1-4}^2 + \rnd{x_2-4}^2} \\
-  2x_1 + x_2  & \leq 5                                            \\
+  2x_1 + x_2  & \leq 4                                            \\
   x_1, x_2    & \geq 0
 \end{align*}
 
-Il punto di ottimo è quello che giace sulla retta $2x_1+x_2=5$ più vicino al centro del cerchio $C = (4,4)$.
+Il punto di ottimo è quello che giace sulla retta $2x_1+x_2=4$ più vicino al centro del cerchio $C = (4,4)$.
 
 Ottengo la retta perpendicolare al vincolo passante per $C$:
 
 \[
-  g: x_2 = -2x_1 +5 \rightarrow m = -2, m' = \frac{1}{2} \Rightarrow  g': x_2 = \frac{1}{2}x_1 + q'
+  g: x_2 = -2x_1 +4 \rightarrow m = -2, m' = \frac{1}{2} \Rightarrow  g': x_2 = \frac{1}{2}x_1 + q'
 \]
 
 Ottengo il termine costante della retta:
@@ -62,16 +62,26 @@ Identifico quindi il punto più vicino a $C$ tramite l'intersezione delle due re
 \[
   \begin{cases}
     -\frac{1}{2}x_1 + x_2 = 2 \\
-    2x_1 + x_2  = 5
+    2x_1 + x_2  = 4
   \end{cases}
   \Rightarrow
   \begin{cases}
-    x_2 = 2+\frac{3}{5} = \frac{13}{5} \\
-    x_1 = \frac{6}{5}
+    -\frac{1}{2}x_1 + 4 - 2x_1 = 2 \\
+    x_2  = 4 - 2x_1
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = \frac{4}{5} \\
+    x_2  = 4 - 2x_1
+  \end{cases}
+  \Rightarrow
+  \begin{cases}
+    x_1 = \frac{4}{5} \\
+    x_2  = \frac{12}{5}
   \end{cases}
 \]
 
-Il punto di ottimo risulta essere quindi $O = (\frac{6}{5}, \frac{13}{5})$
+Il punto di ottimo risulta essere quindi $O = (\frac{4}{5}, \frac{12}{5})$
 
 \subsubsection*{Verifico la soluzione}
 

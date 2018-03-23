@@ -7,7 +7,7 @@ Si consideri il problema:
 
 \begin{align*}
   \max f_1 = x_1 + 3x_2  \\
-  \max f_2 = -3x_1 +2x_2 \\
+  \max f_2 = -3x_1 -2x_2 \\
   2x_1 + x_2 & \leq 32   \\
   x_1 + x_2  & \leq 20   \\
   x_1 + 5x_2 & \leq 72   \\
@@ -21,13 +21,13 @@ Usando curve di indifferenza del tipo $u (f_1, f_2) = 2f_1 + f_2$, si determini 
 \subsubsection*{Costruisco funzione di ottimo}
 
 \[
-  u (f_1, f_2) = 2\rnd{x_1 + 3x_2} + -3x_1 +2x_2 = -x_1 + 8x_2
+  u (f_1, f_2) = 2\rnd{x_1 + 3x_2} + -3x_1 - 2x_2 = -x_1 + 4x_2
 \]
 
 \subsubsection*{Costruisco problema PL}
 
 \begin{align*}
-  \max u = -x_1 + 8x_2 \\
+  \max u = -x_1 + 4x_2 \\
   2x_1 + x_2 & \leq 32 \\
   x_1 + x_2  & \leq 20 \\
   x_1 + 5x_2 & \leq 72 \\
@@ -49,7 +49,7 @@ La soluzione ottima si trova in $O = (0, \frac{72}{5})$
           y domain=0:15
         ]
         \addplot3[surf, unbounded coords=jump]
-        {2*x+y<=32 && x+y <= 20 && x+5*y<=72 ? 8*y-x : NaN};
+        {2*x+y<=32 && x+y <= 20 && x+5*y<=72 ? 4*y-x : NaN};
       \end{axis}
     \end{tikzpicture}
     \caption{La funzione $f^*(x)$}
