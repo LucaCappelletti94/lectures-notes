@@ -4,89 +4,227 @@
 \chapter{Alcune definizioni base}
 \section{La convessità}
 \begin{definition}[Insieme convesso]
-	Un insieme \(X \subset \R^n\) è convesso se comunque presi due punti \(\bmx,\bmy \in X\), allora \(\lambda\bmx + (1-\lambda)\bmy \in X\), per ogni \(\lambda \in \sqr{0,1}\).
+    Un insieme \(X \subset \R^n\) è convesso se comunque presi due punti \(\bmx,\bmy \in X\), allora \(\lambda\bmx + (1-\lambda)\bmy \in X\), per ogni \(\lambda \in \sqr{0,1}\).
 
-	La proprietà di convessità è invariante rispetto alle operazioni di moltiplicazione con uno scalare, unione e intersezione con un altro insieme convesso.
+    La proprietà di convessità è invariante rispetto alle operazioni di moltiplicazione con uno scalare, unione e intersezione con un altro insieme convesso.
 \end{definition}
 \begin{definition}[Funzione convessa]
-	Una funzione \(f: \R^n \rightarrow \R \) è convessa se il suo dominio è un insieme convesso \(X \subseteq \R^n\) e comunque presi due punti \(\bmx, \bmy \in X\) vale la relazione:
-	\[
-		f(\lambda\bmx + (1-\lambda)\bmy) \leq \lambda f(\bmx) + (1-\lambda)f(\bmy) \qquad \forall \lambda \in \sqr{0,1}
-	\]
+    Una funzione \(f: \R^n \rightarrow \R \) è convessa se il suo dominio è un insieme convesso \(X \subseteq \R^n\) e comunque presi due punti \(\bmx, \bmy \in X\) vale la relazione:
+    \[
+        f(\lambda\bmx + (1-\lambda)\bmy) \leq \lambda f(\bmx) + (1-\lambda)f(\bmy) \qquad \forall \lambda \in \sqr{0,1}
+    \]
 
-	La proprietà di convessità è invariante rispetto a moltiplicazione con uno scalare e somma tra funzioni convesse.
+    La proprietà di convessità è invariante rispetto a moltiplicazione con uno scalare e somma tra funzioni convesse.
 
-	Vale inoltre che la funzione \(\max \) di una o più funzioni convesse e che il luogo dei punti \(\bmx \) per i quali vale che \(f(\bmx) \leq \alpha \) è convesso.
+    Vale inoltre che la funzione \(\max \) di una o più funzioni convesse e che il luogo dei punti \(\bmx \) per i quali vale che \(f(\bmx) \leq \alpha \) è convesso.
 \end{definition}
 \begin{definition}[Problema convesso]
-	Un problema di ottimizzazione con funzione obiettivo e regione ammissibile entrambe convesse viene detto problema convesso.
+    Un problema di ottimizzazione con funzione obiettivo e regione ammissibile entrambe convesse viene detto problema convesso.
 \end{definition}
 \section{Massimi e minimi locali}
 \begin{definition}[Minimo globale]
-	Un punto \(\bmx^* \in X\) è un punto di minimo globale di \(f(\bmx)\) se:
-	\[
-		f(\bmx^*) \leq f(\bmx) \quad \forall \bmx \in X
-	\]
+    Un punto \(\bmx^* \in X\) è un punto di minimo globale di \(f(\bmx)\) se:
+    \[
+        f(\bmx^*) \leq f(\bmx) \quad \forall \bmx \in X
+    \]
 \end{definition}
 \begin{definition}[Minimo locale]
-	Un punto \(\bmx^* \in X\) è un punto di minimo locale di \(f(\bmx)\) se esiste un intorno aperto \(I(\bmx^*, \epsilon)\) di \(\bmx^*\) avente raggio \(\epsilon >0\) tale che:
-	\[
-		f(\bmx^*) \leq f(\bmx) \quad \forall \bmx \in X \cap I(\bmx^*, \epsilon)
-	\]
+    Un punto \(\bmx^* \in X\) è un punto di minimo locale di \(f(\bmx)\) se esiste un intorno aperto \(I(\bmx^*, \epsilon)\) di \(\bmx^*\) avente raggio \(\epsilon >0\) tale che:
+    \[
+        f(\bmx^*) \leq f(\bmx) \quad \forall \bmx \in X \cap I(\bmx^*, \epsilon)
+    \]
 \end{definition}
 
 \chapter{Ottimizzazione non vincolata}
 \begin{definition}[Direzione di discesa]
-	Data una funzione \(f:\R^n \rightarrow \R \), un vettore \(\bmd \in \R^n\) si dice direzione di discesa per \(f\) in \(\bmx \) se:
-	\[
-		\exists \lambda > 0: f(\bmx + \lambda\bmd) < f(\bmx)
-	\]
+    Data una funzione \(f:\R^n \rightarrow \R \), un vettore \(\bmd \in \R^n\) si dice direzione di discesa per \(f\) in \(\bmx \) se:
+    \[
+        \exists \lambda > 0: f(\bmx + \lambda\bmd) < f(\bmx)
+    \]
 \end{definition}
 \begin{definition}[Derivata direzionale]
-	Sia data una funzione \(f: \R^n \rightarrow \R \), un vettore \(\bmd \in \R^n\) e un punto dove \(f\) è definita. Se esiste il limite:
-	\[
-		\lim_{0^+} \frac{f(\bmx + \lambda\bmd) - f(\bmx)}{\lambda}
-	\]
-	allora tale limite prende il nome di derivata direzionale della funzione \(f\) nel punto \(\bmx \) lungo la direzione \(\bmd \)
+    Sia data una funzione \(f: \R^n \rightarrow \R \), un vettore \(\bmd \in \R^n\) e un punto dove \(f\) è definita. Se esiste il limite:
+    \[
+        \lim_{0^+} \frac{f(\bmx + \lambda\bmd) - f(\bmx)}{\lambda}
+    \]
+    allora tale limite prende il nome di derivata direzionale della funzione \(f\) nel punto \(\bmx \) lungo la direzione \(\bmd \)
 \end{definition}
 
 \section{Condizioni necessarie di ottimalità del 1° ordine}
 \begin{theorem}[Condizioni necessarie di ottimalità del 1° ordine]
-	Data una funzione \(f: \R^n \rightarrow \R \), derivabile in \(\bmx^* \in \R^n\), condizione necessaria affinchè il punto \(\bmx^* \) sia un minimo locale per \(f\) è che il gradiente della funzione calcolato in \(\bmx^*\) sia nullo.
+    Data una funzione \(f: \R^n \rightarrow \R \), derivabile in \(\bmx^* \in \R^n\), condizione necessaria affinchè il punto \(\bmx^* \) sia un minimo locale per \(f\) è che il gradiente della funzione calcolato in \(\bmx^*\) sia nullo.
 \end{theorem}
 \section{Condizioni necessarie di ottimalità del 2° ordine}
 \begin{theorem}[Condizioni necessarie di ottimalità del 2° ordine]
-	Data una funzione \(f: \R^n \rightarrow \R \) di classe \(\bm{C}^2(\bmx^*)\), condizione necessarie affinchè il punto \(\bmx^* \) sia un minimo locale per \(f\) è che il gradiente della funzione calcolato in \(\bmx^*\) sia nullo e che valga la relazione seguente:
-	\[
-		\bmd^T H (\bmx^*)\bmd \geq 0 \forall \bmd \in \R^n
-	\]
-	Cioè l'hessiana è definita come \textbf{semipositiva}.
+    Data una funzione \(f: \R^n \rightarrow \R \) di classe \(\bm{C}^2(\bmx^*)\), condizione necessarie affinchè il punto \(\bmx^* \) sia un minimo locale per \(f\) è che il gradiente della funzione calcolato in \(\bmx^*\) sia nullo e che valga la relazione seguente:
+    \[
+        \bmd^T H (\bmx^*)\bmd \geq 0 \forall \bmd \in \R^n
+    \]
+    Cioè l'hessiana è definita come \textbf{semipositiva}.
 \end{theorem}
 \section{Condizioni necessarie di ottimalità in senso stretto del 2° ordine}
 \begin{theorem}[Condizioni necessarie di ottimalità del 2° ordine]
-	Data una funzione \(f: \R^n \rightarrow \R \) di classe \(\bm{C}^2(\bmx^*)\), condizione necessarie affinchè il punto \(\bmx^* \) sia un minimo locale in \textbf{senso stretto} per \(f\) è che il gradiente della funzione calcolato in \(\bmx^*\) sia nullo e che valga la relazione seguente:
-	\[
-		\bmd^T H (\bmx^*)\bmd > 0 \forall \bmd \in \R^n
-	\]
-	Cioè l'hessiana è definita come \textbf{positiva}.
+    Data una funzione \(f: \R^n \rightarrow \R \) di classe \(\bm{C}^2(\bmx^*)\), condizione necessarie affinchè il punto \(\bmx^* \) sia un minimo locale in \textbf{senso stretto} per \(f\) è che il gradiente della funzione calcolato in \(\bmx^*\) sia nullo e che valga la relazione seguente:
+    \[
+        \bmd^T H (\bmx^*)\bmd > 0 \forall \bmd \in \R^n
+    \]
+    Cioè l'hessiana è definita come \textbf{positiva}.
 \end{theorem}
 
 \chapter{Programmazione quadratica}
 Nella programmazione quadratica si approssima \(f\) con il seguente modello quadratico:
 
 \[
-	\min f(\bmx) = \frac{1}{2}\bmxt Q\bmx  \bmbt \bmx
+    \min f(\bmx) = \frac{1}{2}\bmxt Q\bmx  \bmbt \bmx
 \]
 Esistono pochi casi possibili:
 
 \begin{description}
-	\item[\(Q\) non è semidefinita positiva] \(f\) non ha un punto di minimo.
-	\item[\(Q\) è definita positiva] \(\bmx^* = Q^{-1}\bmb \) è l'unico minimo globale.
-	\item[\(Q\) è definita semi-positiva]
-	      \begin{description}
-		      \item[\(Q\) non è singolare]  \(\bmx^* = Q^{-1}\bmb \) è l'unico minimo globale.
-		      \item[\(Q\) è singolare] non esiste una soluzione o esistono infinite soluzioni.
-	      \end{description}
+    \item[\(Q\) non è semidefinita positiva] \(f\) non ha un punto di minimo.
+    \item[\(Q\) è definita positiva] \(\bmx^* = Q^{-1}\bmb \) è l'unico minimo globale.
+    \item[\(Q\) è definita semi-positiva]
+          \begin{description}
+              \item[\(Q\) non è singolare]  \(\bmx^* = Q^{-1}\bmb \) è l'unico minimo globale.
+              \item[\(Q\) è singolare] non esiste una soluzione o esistono infinite soluzioni.
+          \end{description}
 \end{description}
+
+\chapter{Convergenza}
+Ovviamente un algoritmo è buono se converge rapidamente.
+
+\section{Algoritmo convergente localmente e globalmente}
+\subsection{Convergente localmente}
+Un algoritmo è convergente localmente quando converge solo se il punto da cui parte è in un intorno del punto ottimo.
+\subsection{Convergente globalmente}
+Un algoritmo è convergente globalmente quando converge partendo da qualsiasi punto del dominio.
+
+\section{Velocità di convergenza}
+\subsection{Q-lineare}
+Quando il rapporto tra lo step \(k\) e lo step \(k+1\) mantiene un valore costante.
+
+\subsection{Q-superlineare}
+Quando il rapporto tra lo step \(k\) e lo step \(k+1\) all'infinito è nullo.
+
+\subsection{Q-quadratica}
+Quando il rapporto tra lo step \(k\) quadro e lo step \(k+1\) mantiene un valore costante.
+
+\chapter{Metodi di ottimizzazione continua}
+Si tratta del problema di determinare a partire dallo steo \(k\) lo step \(k+1\) in modo tale da avvicinarsi all'ottimo della funzione.
+
+Esistono due strategie:
+
+\begin{description}
+    \item[Line search] Si determina una direzione e quindi si stabilisce una distanza con cui muoversi in questa direzione.
+    \item[Trust region] Si determina un raggio (una distanza) di confidenza e quindi si stabilisce una direzione nel limite di questa circonferenza verso cui muoversi.
+\end{description}
+
+Esiste chiaramente un tradeoff tra velocità e precisione nello stabilire la distanza con cui muoversi.
+
+\section{Condizioni di Wolfe}
+Per essere efficace, la line-search approssimata richiede che siano rispettate le condizioni di Wolfe. Esse sono due, una di \textbf{decremento sufficiente} ed una di \textbf{curvatura}, dove i coefficienti \(\bmc \) sono tali che \(0<c_1<c_2<1\)
+
+\begin{figure}
+    \begin{subfigure}{0.49\textwidth}
+        \begin{align*}
+            f(\bmx+\a \bmd) & \leq f(\bmx) + c_1 \a \nabla {f(\bmx )}^T \bmd \\
+            \phi(\a)        & \leq \phi(0) + \a c_1 \phi' (0)
+        \end{align*}
+        \caption{Condizione di decremento sufficiente}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \begin{align*}
+            {f(\bmx+\a \bmd)}^T \bmd & \geq c_2 \a \nabla {f(\bmx )}^T \bmd \\
+            \phi'(\a)                & \geq c_2 \phi' (0)
+        \end{align*}
+        \caption{Condizione di curvatura}
+    \end{subfigure}
+    \caption{Condizioni di Wolfe}
+\end{figure}
+
+Le condizioni di Wolfe forti introducono un vincolo di segno sulla curvatura (valore assoluto).
+
+\section{Metodo di Armijo per stabilire la stepsize}
+Si itera riducendo gradualmente la distanza di un fattore \(\sigma \), usualmente pari circa a \(0.9\) sino a che il valore dello step successivo è più vicino all'ottimo dello step corrente. Nei metodi Newton e quasi Newton il coefficiente della distanza è inizializzato usualmente a 1.
+
+\section{Convergenza dei metodi di ricerca lineare approssimata}
+Se definiamo \(\theta_k \) come l'angolo tra \(\bmd_k \) e \(-\nabla f_k \), allora possiamo determinare il coseno dell'angolo come:
+
+\[
+    \cos \theta_k = \frac{
+        -\nabla {f(\bmx )}_k^T \bmd_k
+    }{
+        \norm{\nabla {f(\bmx )}_k} \cdot \norm{\bmd_k}
+    }
+\]
+
+\begin{theorem}
+    Sia \(\bmd_k\) una direzione di discesa e sia \(\alpha_k\) una distanza che rispetti le condizioni di Wolfe. Sia inoltre \(f\) una funzione limitata inferiormente su \(\R^n\), \textbf{differenziabile continuamente} sull'insieme \(M\) che contiene \(L_f = \crl{\bmx: f(\bmx) \leq f(\bmx_0)}\), dove \(\bmx_0\) è il punto di inizio. Assumiamo inoltre che \(\nabla f\) sia \textbf{lipschitziana} sull'insieme \(M\). Allora:
+    \[
+        \sum_{j=0}^{\infty} \cos^2 \theta_j \norm{\nabla f (\bmx_j)}^2 \leq \infty
+    \]
+\end{theorem}
+
+\begin{proof}
+    Essendo valida la \textbf{condizione di curvatura}, allora vale la disequazione:
+    \[
+        \nabla f^T_{k+1} \bmd_k \geq c_2 \nabla f_k^T \bmd_k
+    \]
+    Sottraggo ad ambo i lati \(\nabla f_k\bmd_k\) ed ottengo:
+    \[
+        (\nabla f^T_{k+1}-\nabla f_k) \bmd_k \geq (c_2-1) \nabla f_k^T \bmd_k
+    \]
+    Siccome il gradiente della funzione è \textbf{lipschitziano} vale la disequazione:
+    \[
+        (\nabla f^T_{k+1}-\nabla f_k) \bmd_k \leq \norm{\nabla f^T_{k+1}-\nabla f_k} \norm{\bmd_k} \leq L\norm{\bmx_{k+1} - \bmx_k}\norm{\bmd_k} = \a_k L \norm{\bmd_k}^2
+    \]
+    Da questa disequazione ricaviamo il valore di \(\a_k\):
+    \[
+        \a_k \geq \frac{c_2 -1}{L} \frac{\nabla f_k^T \bmd_k}{\norm{\bmd_k}^2}
+    \]
+    Essendo quindi valida la \textbf{condizione di decremento sufficiente} vale la disequazione:
+    \[
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c_1 \frac{1-c_2}{L} \frac{(\nabla f_k^T \bmd_k)^2}{\norm{\bmd_k}^2}
+    \]
+    Pongo \(c = c_1 \frac{1-c_2}{L}\) ed ottengo:
+    \[
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c \frac{(\nabla f_k^T \bmd_k)^2}{\norm{\bmd_k}^2}
+    \]
+    Sostituisco \(
+    \cos \theta_k = \frac{
+        -\nabla {f(\bmx )}_k^T \bmd_k
+    }{
+        \norm{\nabla {f(\bmx )}_k} \cdot \norm{\bmd_k}
+    }
+    \) ed ottengo:
+
+    \[
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c\cos^2 \theta_k \norm{\nabla f_k}^2
+    \]
+
+    Per ricorsione ottengo la sommatoria:
+
+    \[
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_0 - c\sum_{j=0}^k\cos^2 \theta_j \norm{\nabla f_j}^2
+    \]
+
+    Siccome la funzione \(f\) è limitata inferiormente si ottiene la \textbf{condizione di Zoutendijk}:
+
+    \[
+        c\sum_{j=0}^k\cos^2 \theta_j \norm{\nabla f_j}^2 \leq f_0 - f_{k+1} < \infty
+    \]
+
+    Questo implica che:
+
+    \[
+        \cos^2 \theta_j \norm{\nabla f_j}^2 \rightarrow 0
+    \]
+
+    Quindi se l'algoritmo soddisfa anche la \textbf{condizione angolare} (cioè sceglie una direzione di discesa che la rispetta) \(\cos \theta_k \geq \epsilon > 0\) allora \textbf{converge}:
+
+    \[
+        \lim_{k\rightarrow\infty} \norm{\nabla f(\bmx_k)} = 0
+    \]
+
+\end{proof}
 
 \end{document}
