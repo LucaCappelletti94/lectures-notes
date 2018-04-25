@@ -143,4 +143,53 @@ Esistono vari metodi del gradiente coniugato che variano in base a come viene ca
 
 In particolare è utile perchè utilizza poco spazio, non è computazionalmente pesante e converge rapidamente. Viene però preferita l'eliminazione gaussiana quando il problema è di piccola dimensione, essendo meno sensibile agli errori di arrotondamento.
 
+\section{Metodi Trust Region}
+Questi metodi realizzano un modello della funzione con lo sviluppo di Taylor fermato al secondo ordine, ma può usare sia l'Hessiano che una sua approssimazione. Tramite questo si determina un raggio della trust region e quindi si procede ad ottenere una direzione tale che miminimizzi la funzione, e nel caso la discesa non sia sufficiente si riduce il raggio e si ripete l'operazione. Per un raggio sufficientemente grande, quando viene utilizzata l'Hessiana e questa è definita positiva la direzione che si ottiene coincide con quella che si otterrebbe dai metodi Newton.
+
+Il metodo della trust region richiede di calcolare una sequenza di sottoproblemi la cui funzione obbiettivo e vincoli sono entrambi quadratici.
+
+\begin{theorem}
+    Il vettore \(\bmp^*\) è una soluzione globale per il problema di trust-region di raggio \(\Delta\):
+    \[
+        \min_{\bmp \in \R^n} m(\bmp) = f(\bmx) + \nabla f^T \bmp + \frac{1}{2}\bmp^T B\bmp \qquad \norm{\bmp} \leq \Delta
+    \]
+    se e solo se \(\bmp^*\) appartiene alla trust-region ed esiste uno scalare \(\lambda\geq 0\) tale per cui:
+    \[
+        \begin{cases}
+            (B+\lambda I)\bmp^*             & = -\nabla f                     \\
+            \lambda(\Delta - \norm{\bmp^*}) & = 0                             \\
+            (B + \lambda I)                 & \text{ è definita semipositiva}
+        \end{cases}
+    \]
+\end{theorem}
+
+I metodi trust-region garantiscono convergenza globale grazie ad una riduzione sufficiente del modello che può essere quantificata in termini del \textbf{punto di Cauchy}, definito come il punto minimo del modello quadratico lungo la direzione \(-\nabla f\). Questo punto può essere calcolato nell'ordine di \(O(n^2)\) e viene utilizzato per determinare se la soluzione di un sotto problema è accettabile.
+
+Un metodo trust-region sarà globalmente convergente se un suo step \(\bmp_k\) da un riduzione nel modello \(m_k\) che è almeno un multiplo positivo della decrescita ottenuta tramite lo step di Cauchy. Se scegliessimo sempre il punto di Cauchy per la discesa implementeremmo banalmente il metodo di discesa rapida con una scelta fissata della step lenght e questo sarebbe poco efficiente.
+
+Dobbiamo utilizzare le informazioni che possiamo trarre dalla matrice \(B_k\), la nostra approssimazione (o coincidente) dell'Hessiana.
+
+\subsection{Metodo zampa di cane}
+Questo metodo risulta applicabile quando la matrice \(B\) è definita positiva. Si inizia computando il punto \(\bmp^{(B)} = -B^{-1}\nabla f\) e quindi se questo punto cade nel raggio della regione ammissibile esso coincide con il punto ottimo \(\bmp^*\). Altrimenti si determina una traiettoria ottimale tra un punto \(\bmp^{(U)} = -\frac{\nabla f^T \nabla f}{\nabla f^T B \nabla f} \nabla f\) ed il punto \(\bmp^{(B)}\) seguendo la curva seguente:
+
+\[
+    \bmp(\tau) = \begin{cases}
+        \tau \bmp^{(U)}                                 & \tau \in [0,1] \\
+        \bmp^{(U)} + (\tau -1)(\bmp^{(B)} - \bmp^{(U)}) & \tau \in [1,2]
+    \end{cases}
+\]
+
+\subsection{Proprietà della matrice B}
+Se la matrice \(B\) risulta definita semi positiva, allora:
+
+\begin{enumerate}
+    \item \(\norm{\bmp(\tau)}\) è una funzione crescente di \(\tau \)
+    \item \(m(\bmp(\tau))\) è una funzione decrescente di \(\tau \)
+    \item \(\tau \) può essere calcolata risolvendo l'equazione scalare quadratica: \[
+              \norm{\bmp^{(U)} + (\tau -1)(\bmp^{(B)}-\bmp^{(U)})}^2 = \Delta^2
+          \]
+    \item Esistono metodi iterativi per risolvere il modello quadratico.
+    \item La convergenza può arrivare ad essere \textbf{super-lineare}.
+\end{enumerate}
+
 \end{document}
