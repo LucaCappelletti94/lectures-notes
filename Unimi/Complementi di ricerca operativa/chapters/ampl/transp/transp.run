@@ -1,3 +1,0 @@
-model transp.mod;
-data transp.dat;
-solve;
