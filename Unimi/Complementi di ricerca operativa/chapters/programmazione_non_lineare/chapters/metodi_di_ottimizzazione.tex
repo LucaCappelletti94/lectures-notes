@@ -1,0 +1,39 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Metodi di ottimizzazione}
+\section{Metodi a discesa rapida}
+Son metodi che usano come funzione di aggiornamento \(\bmx_{k+1} = \bmx_k - \a_k\nabla f_k\), in cui le direzioni sono ortogonali al contorno della funzione. Non dovendo calcolare l'hessiana lo sforzo computazionale non è eccessivo e converge globalmente, ma estremamente piano quando una funzione è patologica.
+
+\begin{theorem}[Velocità di convergenza locale dei metodi a discesa rapida]
+    Data una matrice \(Q\) definita positiva, la seguente relazione vale \(\forall \bmx \in \R^n \):
+    \[
+        \frac{
+            (\bmxt \bmx)^2
+        }{
+            (\bmxt Q \bmx)(\bmxt Q^-1 \bmx)
+        }
+        \geq
+        \frac{4\lambda_{\min}\lambda_{\max}}{(\lambda_{\min} + \lambda_{\max})^2}
+    \]
+    Dove \(\lambda_{\min}\) e \(\lambda_{\max}\) son gli autovalori mimimo e massimo di \(Q\).
+
+    Ne segue che la velocità di covergenza dei metodi a discesa rapida è \textbf{lineare} per i modelli quadratici.
+
+    \[
+        \frac{
+            \norm{\bmx_{k+1}-\bmx^*}_Q
+        }{
+            \norm{\bmx_{k}-\bmx^*}_Q
+        }
+        \leq
+        \frac{
+            (\lambda_{\max} - \lambda_{\min})
+        }{
+            (\lambda_{\max} + \lambda_{\min})
+        }
+    \]
+
+\end{theorem}
+
+\end{document}
