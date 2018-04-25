@@ -36,4 +36,71 @@ Son metodi che usano come funzione di aggiornamento \(\bmx_{k+1} = \bmx_k - \a_k
 
 \end{theorem}
 
+\section{Metodi Newton}
+Prendendo in considerazione l'approssimazione di Taylor fermata al secondo ordine, quindi con l'hessiana, otteniamo come direzione di discesa quella che minimizza \(\nabla f^T \bmd + \frac{1}{2}\bmdt H\bmd \), cioè \(\bmd = {-(H)}^{-1} \nabla f\). Quando \(H\) è \textbf{definita positiva} vale che:
+
+\[
+    \nabla f^T \bmd = -\bmd H \bmd \leq -\sigma \norm{\bmd}^2
+\]
+
+Cioè quando \(H\) è \textbf{definita positiva} la direzione di Newton è la \textbf{direzione di discesa}.
+
+Nei \textbf{modelli quadratici} con \(Q\) \textbf{definita positiva} il metodo di Newton converge in un'iterazione, altrimenti non converge. Su funzioni generiche, la qualità della direzione dipende da quanto è definita positiva la matrice hessiana.
+
+\begin{theorem}[Convergenza dei metodi di Newton]
+    Sia \(f \in C^2\) e sia \(H(x)\) continuamente lipschitziana in un intorno del punto ottimo \(\bmx^*\). Si assuma che valga \(\bmx_{k+1} = \bmx_k + \bmd_k\). Allora:
+    \begin{enumerate}
+        \item Se \(\bmx_0\) è sufficientemente vicino a \(\bmx^*\), allora \(\crl{\bmx_k} \rightarrow \bmx^*\)
+        \item \(\crl{\bmx_k}\) converge \textbf{quadraticamente}
+        \item \(\crl{\norm{\nabla f(\bmx_k)}}\) converge quadraticamente a zero.
+    \end{enumerate}
+    I metodi Newton sono \textbf{convergenti localmente}.
+\end{theorem}
+
+La complessità computazionale è di \(O(n^3)\)
+
+\subsection{Metodi Newton modificati}
+Sono metodi che modificano l'Hessiano, o rendendo la matrice positiva o scegliendo una direzione di discesa tramite metodi di discesa rapida quando necessario.
+
+
+\section{Metodi Quasi-Newton}
+Sono metodi in cui viene utilizzata un'approssimazione dell'Hessiano, che è computazionalmente costoso da calcolare. Viene utilizzata al suo posto una matrice chiamata \(G_k\) al posto di \(H_k^{-1}\), e quindi calcolano la direzione di discesa come \(\bmd_k = -G_k \nabla f(\bmx_k)\).
+
+\begin{definition}[Relazione secante]
+    Definendo \(\bmp_k = \nabla f(\bmx_{k+1}) - \nabla f(\bmx_k)\) possiamo definire la relazione secante:
+
+    \[
+        H(\bmx_k)\bmh_k \approx \bmp_k \qquad \text{or} \qquad {H(\bmx_k)}^-1\bmp_k \approx \bmh_k
+    \]
+\end{definition}
+
+Inizializzando \(G_0 = I\), possiamo imporre che ad ogni iterazione la matrice \(G_{k+1}\) debba soddisfare la relazione secante con la seguente uguaglianza:
+
+\[
+    G_{k+1}\bmp_k = \bmh_k
+\]
+
+La realizzazione specifica di come si ottiene \(G_{k+1}\) partendo da \(G_k\) varia dai differenti metodi Quasi-Newton. Questi metodi impongono che \(G_k = G_k^T\) e che \(G_{k+1} - G_k\) abbia un rango basso.
+
+Ne esistono di due categorie:
+
+\begin{enumerate}
+    \item Matrice a rango unitario simmetrico o SR1.
+    \item A rango due:
+          \begin{enumerate}
+              \item DFP
+              \item BFGS
+          \end{enumerate}
+\end{enumerate}
+
+I \textbf{metodi a rango due} hanno alcune proprietà interessanti:
+
+\begin{enumerate}
+    \item La matrice \(G_k\) converge a \(H(\bmx_k)^-1\) sui modelli quadratici.
+    \item Se \(G_0\) è definita positiva allora tutte le \(G_k\) sono definite positive.
+    \item Il costo computazionale è di \(O(n^2)\) in ogni iterazione.
+    \item La velocità di convergenza è \textbf{superlineare}.
+    \item In particolare il metodo BFGS garantisce convergenza globale se lo step-size rispetta le condizioni di Wolfe.
+\end{enumerate}
+
 \end{document}
