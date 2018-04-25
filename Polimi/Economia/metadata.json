@@ -1,0 +1,12 @@
+{
+	"title":"economia",
+	"cfu":10,
+	"authors":[{
+		"name":"Valentina",
+		"surname":"Deda"
+	}],
+	"professors":[{
+		"name":"Evila",
+		"surname":"Piva"
+	}]
+}

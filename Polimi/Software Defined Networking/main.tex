@@ -1,0 +1,24 @@
+\providecommand{\main}{.}
+\input{\main/../../general/packages.tex}
+
+\begin{document}
+
+\input{\main/../../general/title.tex}
+
+{\hypersetup{hidelinks}
+  \tableofcontents  % Generates the table of contents
+  %\listoffigures  % Generates the list of images and figures
+  %\listoftables % Generates the list of tables
+}
+
+\clearpage
+\chapter{Introduzione}
+\subfile{\main/chapters/introduction}
+
+\appendix
+\chapter{Appendix}
+\subfile{\main/chapters/appendix}
+
+\input{\main/../../general/footer.tex}
+
+\end{document}
