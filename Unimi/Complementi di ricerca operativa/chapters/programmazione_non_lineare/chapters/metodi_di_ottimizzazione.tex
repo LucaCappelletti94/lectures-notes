@@ -103,4 +103,44 @@ I \textbf{metodi a rango due} hanno alcune proprietà interessanti:
     \item In particolare il metodo BFGS garantisce convergenza globale se lo step-size rispetta le condizioni di Wolfe.
 \end{enumerate}
 
+\section{Metodi del gradiente coniugato}
+Si tratta di una delle tecniche più utili per risolvere sistemi lineari di grandi dimensioni e può essere adattata per risolvere problemi di ottimizzazione non lineare. Si tratta di un metodo iterativo che risolve sistemi della forma \(A\bmx = \bmb \) dove \(A\) è una matrice definita positiva che è \(A=A^T\).
+
+\begin{definition}[Vettori coniugati]
+    Un insieme di vettori \(\bmp_0, \bmp_1, \ldots, \bmp_h\) è detto \textbf{coniugato} rispetto ad una matrice \(A\) se vale la relazione:
+
+    \[
+        \bmp_i^T A \bmp_j = 0 \quad \forall i \neq j
+    \]
+\end{definition}
+
+Dato un punto di inizio \(\bmx_0\) e le \textbf{direzioni coniugate} \(\bmp_0, \ldots, \bmp_{n-1}\) generiamo la sequenza \(\bmx_{k+1} = \bmx_k + \a_k\bmp_k\) dove \(\a_k\) è un minimizzatore monodimensionale ed è dato da:
+
+\[
+    \a_k = - \frac{r_k^T\bmp_k}{\bmp_k^T A \bmp_k}
+\]
+
+\begin{theorem}{Convergenza di sequenza con vettori coniugati}
+    Dato un qualsiasi \(\bmx_0\), la sequenza generata da \(\bmx_{k+1} = \bmx_k + \a_k\bmp_k\) converge a \(\bmx^*\) in al più \(n\) iterazioni.
+\end{theorem}
+
+Il metodo del gradiente coniugato è un metodo a direzione coniugata con una proprietà importante: \(\bmp_k\) può essere ottenuta sapendo solo \(\bmp_{k-1}\) e \(\bmp_k\) risulta coniugato a tutte le direzioni precedenti.
+
+Il vettore \(\bmp_k\) è definito come una combinazione lineare del gradiente e del vettore precedente:
+
+\[
+    \bmp_k = -\nabla f_k + \beta_k\bmp_{k-1}
+\]
+Dove \(\beta \) è definito sfruttando la definizione di vettore coniugato:
+
+\[
+    \beta_k = \frac{\nabla f_k^T A \bmp_{k-1}}{\bmp^T_{k+1} A \bmp_{k-1}}
+\]
+
+Inizialmente il valore del vettore è \(\bmp_0 = -\nabla f_0\).
+
+Esistono vari metodi del gradiente coniugato che variano in base a come viene calcolato il valore di \(\beta_{k+1}\) a partire dall'iterazione precedente.
+
+In particolare è utile perchè utilizza poco spazio, non è computazionalmente pesante e converge rapidamente. Viene però preferita l'eliminazione gaussiana quando il problema è di piccola dimensione, essendo meno sensibile agli errori di arrotondamento.
+
 \end{document}
