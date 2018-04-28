@@ -1,0 +1,59 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Ottimizzazione vincolata}
+Un problema è detto di ottimizzazione vincolata quando il dominio e limitato da una o più funzioni. In presenza di vincoli, problemi complessi possono divenire semplici: funzioni non convesse su \(\R \) per esempio potrebbero esserlo sul dominio di definizione.
+
+Le condizioni di ottimalità possono essere ottenute tramite la funzione lagrangiana.
+
+\begin{theorem}
+    Data una funzione \(f(\bmx)\) e \(\bmh \) vincoli bilateri, con \(f,\bmh \in C^1\). Se i gradienti dei vincoli nel punto ottimo \(\bmx^*\) sono \textbf{linearemente indipendenti}, se \(\bmx^*\) sono di minimo locale di \(f(\bmx)\) ed esso soddisfa i vincoli \(\bmh \), allora esiste un vettore \(\bm{\lambda}^*\) tale che \((\bmx^*, \bm{\lambda}^*)\) è un punto stazionario della funzione Lagrangiana \(L\):
+
+    \[
+        \begin{cases}
+            \frac{\partial L}{\partial x_i} = \frac{\partial f(\bmx^*)}{\partial x_i} + \sum^h_{j=1} \lambda_j^* \frac{\partial h_j(\bmx^*)}{\partial x_i} = 0\\
+            \frac{\partial L}{\partial \lambda_i} = h_j(\bmx^*) = 0
+        \end{cases}
+    \]
+\end{theorem}
+
+\begin{definition}[Condizioni di regolarità]
+    Un punto \(\bmx^*\) soddisfa le condizioni di regolarità se non esiste un vettore \(\bmh \) tale per cui tutti i gradienti dei vincoli attivi sono linearmente indipendenti in quel punto. Un punto che soddisfa queste condizioni è detto \textbf{regolare}.
+\end{definition}
+
+\begin{theorem}[Condizioni sufficienti del prim'ordine per problemi convessi]
+	Data una funzione \(f(\bmx)\) ed un vettore \(\bmh \) di vincoli bilateri, con \(f, \bmh \in C^1\). Se la matrice jacobiana \(J(\bmx^*)\) ha rango massimo \(\norm{\bmh}\), se esiste un vettore \(\bm{\lambda}^*\) tale che \(\bmx^*, \bm{\lambda}^*\) è un punto stazionario della funzione lagrangiana \(L\), allora \(\bmx^*\) è un minimo locale di \(f(\bmx)\).
+\end{theorem}
+
+Mettendo assieme tutti questi risultati matematici otteniamo le \textbf{condizioni di Karush-Kuhn-Tucker}, o condizioni KKT\@
+
+\begin{theorem}[Condizioni di Karush-Kuhn-Tucker]
+	Sia \(f \) una funzione, \(h_i \text{ con } i \in \{1, \ldots, s\}\) dei vincoli bilateri e \(g_j \text{ con } j \in \{1, \ldots, m\}\) dei vincoli monolateri e sia l'insieme $X$ definito come:
+
+	\[
+		X  = \{x \in \mathbb{R}^n: g_j(x) \leq 0, h_i(x) = 0 \quad \forall i, j \} \quad \text{e} \quad f, g_j, h_i \in C^1(X) \quad \forall i,j
+	\]
+
+	Se $x^*$ è un punto regolare in $X$ e un punto di minimo locale per \(f \in X\), allora esistono $s$ moltiplicatori $\lambda_i \in \mathbb{R}$ e $m$ $\mu_j \geq 0$ tali che:
+
+	\begin{align*}
+		\nabla f(x^*) + \sum_{i=1}^s \lambda_i \nabla h_i(x^*) + \sum_{j=1}^m \mu_j \nabla g_j(x^*) & = 0 \\
+		\mu_j g_j(x^*)                                                                              & = 0
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}[Condizioni KKT nel caso convesso]
+	Se le funzioni \(f, \bmg, \bmh \in C^1\) sono \textbf{funzioni convesse} le condizioni KKT sono condizioni sufficienti.
+\end{theorem}
+
+\begin{definition}[Cono critico]
+	Dato un punto \(\bmx^*\) ed i vettori di moltiplicatori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, viene chiamato \textbf{cono critico} l'insieme delle direzioni di discesa verso il punto \(\bmx^*\).
+
+	\[
+		C(\bmx^*, \bm{\lambda}^*, \bm{\mu}^*) = \crl{\bmd \in F(\bmx^*) : \nabla {h_j(\bmx^*)}^T\bmd = 0, j \in E; {g_j(\bmx^*)}^T\bmd, j \in I, \text{ con }\bm{\lambda}^*>0}
+	\]
+
+	Queste direzioni sono ortogonali al gradiente di \(f\).
+\end{definition}
+
+\end{document}

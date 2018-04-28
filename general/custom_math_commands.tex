@@ -38,22 +38,22 @@
 \newcommand{\bs}{\backslash}
 
 \NewDocumentCommand{\gmr}{m}{%
-  %
-  % #1 -> Value to build gomory cut upon
-  %
-  \rnd{#1-\floor{#1}}
+    %
+    % #1 -> Value to build gomory cut upon
+    %
+    \rnd{#1-\floor{#1}}
 }
 
 
 \NewDocumentCommand{\buildVectorAliases}{m O{#1}}{
-  %
-  % #1 -> Letter to use for aliases
-  % #2 -> Symbol to use as output
-  %
-  \expandafter\newcommand\csname bm#1\endcsname{\bm{#2}}%
-  \expandafter\newcommand\csname bbm#1\endcsname{\bbm{#2}}%
-  \expandafter\newcommand\csname bm#1t\endcsname{\bm{#2}^T}%
-  \expandafter\newcommand\csname bbm#1t\endcsname{\bbm{#2}^T}%
+    %
+    % #1 -> Letter to use for aliases
+    % #2 -> Symbol to use as output
+    %
+    \expandafter\newcommand\csname bm#1\endcsname{\bm{#2}}%
+    \expandafter\newcommand\csname bbm#1\endcsname{\bbm{#2}}%
+    \expandafter\newcommand\csname bm#1t\endcsname{\bm{#2}^T}%
+    \expandafter\newcommand\csname bbm#1t\endcsname{\bbm{#2}^T}%
 }
 
 \renewcommand{\a}{\alpha}
@@ -62,8 +62,12 @@
 
 \buildVectorAliases{a}[\a]
 \buildVectorAliases{w}[\w]
-\buildVectorAliases{c}
 \buildVectorAliases{b}
+\buildVectorAliases{c}
+\buildVectorAliases{d}
+\buildVectorAliases{h}
+\buildVectorAliases{g}
+\buildVectorAliases{p}
 \buildVectorAliases{u}
 \buildVectorAliases{v}
 \buildVectorAliases{x}
