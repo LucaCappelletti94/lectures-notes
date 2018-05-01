@@ -32,5 +32,96 @@ Aumentando il parametro \(\alpha \) a \(+\infty \), aumentiamo la penalità dell
 Possiamo usare su questo problema le tecniche tratte dall'ottimizzazione svincolata.
 
 \section{Metodo delle barriere}
+Dato un problema vincolato con disuguaglianze:
+\begin{align*}
+    \min &f(\bmx)\\
+    \bmg(\bmx) &\leq \bm{0}
+\end{align*}
+
+Si procede dividendo la regione ammissibile in due set: uno definito dalla frontiera dei vincoli (\(\bmg(\bmx) = \bm{0}\)) ed uno dall'interno (\(\bmg(\bmx) < \bm{0}\)).
+
+Questo metodo è applicabile solo quando il set interno non è vuoto. Viene utilizzata una \textbf{funzione di barriera} che aumenta a \(\infty \) quando il punto \(\bmx \) tende al set di frontiera.
+
+\begin{figure}
+    \[
+        v(\bmx) = \sum_{j=1}^k \log(-g_j^2(\bmx))
+    \]
+    \caption{Barrier function}
+\end{figure}
+
+Mettendole assieme si ottiene:
+\[
+    \min q(\bmx) = f(\bmx) + \alpha v(\bmx)
+\]
+
+\section{Metodo della proiezione del gradiente}
+Viene applicato su problemi con vincoli lineari:
+
+\begin{align*}
+    \min &f(\bmx)\\
+    A\bmx &= \bmb
+\end{align*}
+
+Si inizia con una soluzione ammissibile \(\bmx':A\bmx' = \bmb \) e si cerca una soluzione migliore \(\bmx = \bmx' + \alpha\bmd \) lungo la direzione \(\bmd \) che deve essere normalizzata, deve minimizzare la derivata direzionale \(\nabla {f(\bmx')}^T\bmd \) in \(\bmx'\) ed il punto \(\bmx \) deve essere ammissibile, cioè \(A\bmd = \bm{0}\).
+
+Da questo si va a costruire il problema di minimizzazione della derivata direzionale, da cui si ottiene che la direzione \(\bmd \) migliore è:
+
+\[
+    \bmd = \frac{\rnd{I - A^T\rnd{AA^T}^-1A}\nabla f(\bmx')}{\norm{\rnd{I - A^T\rnd{AA^T}^-1A}\nabla f(\bmx')}}
+\]
+
+La direzione che migliora di più \(f(\bmx)\) è l'anti-gradiente e \(\bmd \) risulta esserne la \textbf{proiezione} sull'iperpiano \(A\bmx = \bmd \). La matrice \(P = \rnd{I - A^T\rnd{AA^T}^-1A}\nabla f(\bmx')\) è detta \textbf{matrice di proiezione}.
+
+Si procede quindi con \(\bmd = -P\nabla f(\bmx_k)\) e si ottiene il punto successivo tramite:
+
+\[
+    \bmx_{k+1} = \bmx_k + \alpha\bmd
+\]
+
+Dove \(\alpha \) può essere ottenuto con per esempio il metodo di Armijo.
+
+\subsection{Caso con vincoli generici non lineari}
+Nel caso con vincoli generici viene utilizzato uno sviluppo di Taylor per individuare dei vincoli lineari nell'intorno del punto corrente \(\bmx'\).
+
+Partendo quindi da un problema del tipo:
+
+\begin{align*}
+    \min &f(\bmx)\\
+    \bmh(\bmx) &= \bm{0}
+\end{align*}
+
+Si svolge lo sviluppo di Taylor:
+
+\[
+    h_j(\bmx) = h_j(\bmx') + \nabla {h_j(\bmx')}^T(\bmx-\bmx')
+\]
+
+Da cui si ottiene:
+
+\[
+    \nabla {h_j(\bmx')}^T\bmx - \nabla {h_j(\bmx')}^T\bmx' = 0
+\]
+
+Imponendo quindi \(A = \nabla {h_j(\bmx')}^T\) e \(\bmb = \nabla {h_j(\bmx')}^T\bmx'\) ci si riconduce al caso precedente:
+
+\begin{align*}
+    \min &f(\bmx)\\
+    A\bmx &= \bmb
+\end{align*}
+
+Con l'eccezione che ora la matrice di proiezione \(P\) dipende da \(A\), che a sua volta ora dipende da \(\bmx'\). Pertanto la direzione da usare sarà \(\bmd = -P(\bmx_k)\nabla f(\bmx_k)\).
+
+Per costruzione del metodo però, molto probabilmente il punto ottenuto \(\bmx_{k+1}\) non soddisfa i vincoli non lineari originali, per cui si procede con uno step correttivo ottenendo \(\bmx_{{k+1}_{\text{corretto}}}\) con:
+
+\[
+    P(\bmx_k)(\bmx_{{k+1}_{\text{corretto}}}-\bmx_{k+1}) = \bm{0} \quad \land \quad \bmh(\bmx_{{k+1}_{\text{corretto}}}) = 0
+\]
+Da cui si ottiene che \(\bmx_{{k+1}_{\text{corretto}}}\) risulta:
+
+\[
+    \bmx_{{k+1}_{\text{corretto}}} \approx \bmx_{k+1} - A^T\rnd{AA^T}^-1 \bmh(\bmx_{k+1})
+\]
+
+Lo step correttivo viene applicato fino a che il valore di \(\bmh(\bmx_{k+1})\) è sufficientemente piccolo, mentre l'algoritmo complessivo si interrompe quando \(P(\bmx_k)\nabla f(\bmx_k) \approx 0\)
 
 \end{document}
