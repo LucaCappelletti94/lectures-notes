@@ -56,4 +56,62 @@ Mettendo assieme tutti questi risultati matematici otteniamo le \textbf{condizio
 	Queste direzioni sono ortogonali al gradiente di \(f\).
 \end{definition}
 
+\section{Condizioni di ottimilità del secondo ordine}
+
+\begin{theorem}[Matrice hessiana semi-definita positiva nel punto minimo]
+	Dato un problema di ottimizzazione in cui le funzioni \(f, \bmg, \bmh \in C^2\). Se \(\bmx^*\) è un minimo locale che \textbf{appartiene alla regione ammissibile} ed esistono due vettori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, allora:
+	\[
+		\bmdt \nabla^2_{\bmx, \bmx} L(\bmxo, \bm{\lambda}^*, \bm{\mu}^*)\bmd \geq 0, \qquad \forall \bmd \in \text{Cono critico}
+	\]
+\end{theorem}
+
+Se la matrice hessiana è \textbf{definita positiva} nel cono critico, allora le condizioni KKT divengono sufficienti.
+
+\begin{theorem}[Punto di minimo locale stretto]
+	Dato un problema di ottimizzazione in cui le funzioni \(f, \bmg, \bmh \in C^2\). Se \(\bmx^*\) appartiene alla regione ammissibile, esistono due vettori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT e vale la seguente relazione:
+	\[
+		\bmdt \nabla^2_{\bmx, \bmx} L(\bmxo, \bm{\lambda}^*, \bm{\mu}^*)\bmd > 0, \qquad \forall \bmd \in \text{Cono critico}
+	\]
+	Allora \(\bmxo \) è un punto di minimo locale stretto.
+\end{theorem}
+
+\section{Modello quadratico con vincoli lineari}
+Un problema quadratico del tipo:
+
+\begin{align*}
+	\min q(\bmx) &= \frac{1}{2} \bmxt Q \bmx + \bmbt \bmx \\
+	A\bmx &\geq \bmd
+\end{align*}
+
+è risolvibile facilmente quando la matrice \(Q\) è definita positiva.
+
+\subsection{Metodo dell'insieme attivo primale per problemi quadratici convessi (Primal Active set)}
+I metodi \textbf{Primal Active set} ad ogni iterazione risolvono un sottoproblema quadratico in cui i vincoli di disuguaglianza sono imposti come uguaglianze sul \textbf{working set} \(W_k\).
+
+I gradienti \(\bmat_i\) dei vincoli sul set \(W_k\) sono linearmente indipendenti.
+
+Per prima cosa viene controllato se \(\bmx_k\) minimizza la funzione quadratica \(q(\bmx)\) su \(W_k\) e se questo non avviene viene calcolato uno step  \(p\) risolvendo un sotto-problema quadratico sul set \(W_k\), vincolato da uguaglianze:
+
+\begin{align*}
+	\bmp &= \bmx - \bmx_k\\
+	\bmg_k &= Q\bmx_k + \bmb \\
+	\bmp_k &= \argmin q(\bmx) = \argmin q(\bmx_k + p) = \argmin \frac{1}{2}\bmpt Q \bmp + \bmgt_k \bmp + \rho_k\\
+	\bm{\rho}_k &= \frac{1}{2} \bmxt_k Q \bmx_k + \bmbt \bmx_k \\
+	\bmat_i \bmp &= 0 \qquad \forall i \in W_q
+\end{align*}
+
+Per ogni \(i \in W_k\) vale che:
+
+\[
+	\bmat_i(\bmx_k + \alpha\bmp_k) = \bmat_i \bmx_k = \bmd_i \forall \alpha
+\]
+
+Se \(\bmp_k \neq 0\) allora aggiorno il valore di \(\alpha_k\) ed ottengo il prossimo punto, \(\bmx_{k+1} = \bmx_k + \alpha_k\bmp_k\):
+
+\[
+	\alpha_k = \min\crl{1, \min\crl{\frac{\bmd_i - \bmat_i\bmx_k}{\bmat_i \bmp_k}: i \neq W_k, \bmat_i\bmp_k < 0}}
+\]
+
+Altrimenti testo le condizioni KKT o aggiorno il set di lavoro \(W_k\).
+
 \end{document}

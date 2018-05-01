@@ -1,0 +1,36 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmi}
+\section{Metodo della panalità quadratica}
+Questo metodo trasforma il problema vincolato in uno privo di vincoli, sfruttando una \textbf{penalty function}.
+
+Si parte quindi da un problema vincolato:
+
+\begin{align*}
+    \min &f(\bmx)\\
+    \bmh(\bmx) &= \bm{0}
+\end{align*}
+
+Si costruisce una \textbf{penalty function} utilizzando i vincoli:
+
+\begin{figure}
+    \[
+        p(\bmx) = \sum_{j=1}^h h_j^2(\bmx)
+    \]
+    \caption{Penalty function}
+\end{figure}
+
+Il modello che si ottiene è quindi la somma pesata tra la funzione obbiettivo e la \textbf{penalty function}:
+
+\[
+    \min q(\bmx) = f(\bmx) + \alpha\sum_{j=1}^h h_j^2(\bmx)
+\]
+
+Aumentando il parametro \(\alpha \) a \(+\infty \), aumentiamo la penalità della violazione dei vincoli, aumentandone la severità.
+
+Possiamo usare su questo problema le tecniche tratte dall'ottimizzazione svincolata.
+
+\section{Metodo delle barriere}
+
+\end{document}
