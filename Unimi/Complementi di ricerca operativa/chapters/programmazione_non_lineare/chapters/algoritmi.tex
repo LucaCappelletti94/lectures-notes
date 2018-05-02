@@ -122,6 +122,65 @@ Da cui si ottiene che \(\bmx_{{k+1}_{\text{corretto}}}\) risulta:
     \bmx_{{k+1}_{\text{corretto}}} \approx \bmx_{k+1} - A^T\rnd{AA^T}^-1 \bmh(\bmx_{k+1})
 \]
 
-Lo step correttivo viene applicato fino a che il valore di \(\bmh(\bmx_{k+1})\) è sufficientemente piccolo, mentre l'algoritmo complessivo si interrompe quando \(P(\bmx_k)\nabla f(\bmx_k) \approx 0\)
+Lo step correttivo viene applicato fino a che il valore di \(\bmh(\bmx_{k+1})\) è sufficientemente piccolo, mentre l'algoritmo complessivo si interrompe quando \(P(\bmx_k)\nabla f(\bmx_k) \approx 0\).
+
+\section{Augmented lagrangean method}
+Questo metodo combina l'uso di una funzione lagrangiana con una funzione di penalità quadratica, l'idea è quella di approssimare i moltiplicatori di Lagrange. Si inizia con un problema generico:
+
+\begin{align*}
+    \min &f(\bmx)\\
+    \bmh(\bmx) &= \bm{0}
+\end{align*}
+
+E si realizza una \textbf{funzione lagrangiana incrementata}:
+
+\begin{figure}
+\[
+    L(\bmx, \bm{\lambda}, \rho) = f(\bmx) + \sum_{j=1}^h \lambda_j h_j(\bmx) + \rho\sum_{j=1}^h h_j^2(\bmx)
+\]
+\caption{Augmented lagrangean function}
+\end{figure}
+
+\begin{enumerate}
+    \item Nel caso in cui \(\lambda_j=0\) si ottiene la funzione di penalità.
+    \item Se è noto \(\lambda^* \forall \rho > 0\) minimizzando \(L(\bmx, \bm{\lambda}, \rho)\) rispetto a \(\bmx \) si ottiene \(\bmxo \)
+    \item Se \(\bm{\lambda}^k\) è una approssimazione valida di \(\bm{\lambda}^*\), allora possiamo approssimare \(\bmx^*\) minimizzando \(L(\bmx, \bm{\lambda}^k, \rho)\) anche per valori bassi di \(\rho \).
+    \item Il parametro \(\rho \) deve garantire che \(L(\bmx, \bm{\lambda}^k, \rho)\) abbia un minimo locale rispetto a \(\bmx \) e non solamente un punto stazionario.
+\end{enumerate}
+
+Si procede quindi iterativamente, dati i valori iniziali di \(\bm{\lambda}^k\) e \(\rho \), finchè \(\norm{L(\bmx, \bm{\lambda}^k, \rho)} > \epsilon \) si procede ad ottenere il punto ottimo \(\bmxo_k\) risolvendo \(L(\bmx, \bm{\lambda}^k, \rho)\) rispetto a \(\bmx \) con un qualsiasi metodo di ottimizzazione svincolata, quindi si aggiorna il valore di \(\lambda \) come \(\lambda_j^{k+1} = \lambda_k^k + 2\rho h_j(\bmxo_k)\). Eventualmente viene aggiornato anche il valore di \(\rho \).
+
+\section{Sequential quadratic programming (SQP)}
+L'idea è di applicare il metodo di Newton per identificare \(\rnd{\bmxo, \bm{\lambda}^*}\) dalle condizioni KKT di un problema vincolato, riducendo ogni step del metodo di Newton in un problema di programmazione quadratica. Considerando un problema generale:
+
+\begin{align*}
+    \min f(\bmx)\\
+    \bmg(\bmx) &\leq 0\\
+    \bmh(\bmx) &= 0\\
+\end{align*}
+
+Possiamo costruirne il modello lagrangiano:
+
+\[
+    L(\bmx, \bm{\lambda}, \bm{\mu}) = f(\bmx) + \sum_{j=1}^k \lambda_j g_j(\bmx) + \sum_{j=1}^h \mu_j h_j(\bmx)
+\]
+
+Data un'approssimazione della soluzione e dei moltiplicatori lagrangiani \(\rnd{\bmx_k \bm{\lambda}_k, \bm{\mu}_k}\), nota la matrice hessiana di \(L\) possiamo scrivere:
+
+\[
+    \nabla^2 L(\bmx_k) = H(\bmx_k) + \sum_{j=1}^k \lambda_j^k \nabla^2g_j(\bmx_k) + \sum_{j=1}^h \mu_j^k \nabla^2h_j(\bmx_k)
+\]
+
+Per aggiornare i valori dobbiamo identificare la direzione di Newton \(\bmd \) tramite il sotto-problema quadratico seguente:
+
+\begin{align*}
+    \min \phi(\bmx) = f(\bmx_k) + \nabla {f(\bmx_k)}^T \bmd+ \frac{1}{2}\bmd^T\nabla^2L(\bmx_k)\bmd \\
+    \bmg(\bmx_k) + \sqr{\frac{\partial \bmg(\bmx_k)}{\partial \bmx}}\bmd &\leq 0\\
+    \bmh(\bmx_k) + \sqr{\frac{\partial \bmh(\bmx_k)}{\partial \bmx}}\bmd &= 0\\
+\end{align*}
+
+Risolvendo il problema si ottiene \(\bmx_{k+1} = \bmx_k + \bmd_k\) ed i moltiplicatori lagrangiani aggiornati \(\bm{\lambda}_{k+1}\) e \(\bm{\mu}_{k+1}\). L'iterazione si interrompe basandosi su un criterio costruito sulla norma della direzione migliorante \(\bmd \).
+
+Il Sequential quadratic programming identifica un punto che soddisfa le condizioni KKT, per cui tutti i punti non regolari sono evitati dall'algoritmo.
 
 \end{document}
