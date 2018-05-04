@@ -1,0 +1,31 @@
+Documenti da svolgere di CRO:
+
+COMB
+comb inequalities: 4 pagine
+
+COVER
+Cover slize: 20 pagine piene di formule
+Lifting delle cover: Dettagli sul testo L. Wolsey, Integer Programming pp 147-151, articolo (11 pagine).
+
+COLUMN
+Tecnica di Generazione di Colonne.pdf: 3 pagine dense
+Problema master, column generation: La lettura delle sezioni 11.1, 11.2 e 11.3 (3 pagine) del Wolsey aiuta ad inquadrare il problema. 
+Column generation: Si consiglia la lettura dei paragrafi 10.-10.3 del Wolsey.  (6 pagine)
+
+TAGLI
+Testo L.Wolsey, Integer Programming: 
+Paragrafi 8.1 e 8.2 pagg. 113-117 
+Paragrafo 8.7 da completare, pagg.127-129. 
+
+Tagli di Chvatal 8.3
+Tagli di Gomory 8.4,8.5,8.6, 8.7, 8.7.3 (27 pagine)
+
+NON 8.8
+
+Esercizio 7 pagina 109 (Una dimostrazione da fare?)
+
+Preprocessing. 
+Testo D.S. Chen, Applied Integer Programming: 
+I paragrafi 4.2, 4.3 e 4.4.2 (pp. 86-95) sono lasciati 
+all'approfondimento individuale. 
+La sezione 4.4.3. è stata trattata in aula.

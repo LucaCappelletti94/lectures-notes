@@ -133,7 +133,7 @@ Per essere efficace, la line-search approssimata richiede che siano rispettate l
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \begin{align*}
-            {f(\bmx+\a \bmd)}^T \bmd & \geq c_2 \a \nabla {f(\bmx )}^T \bmd \\
+            {\nabla f(\bmx+\a \bmd)}^T \bmd & \geq c_2 \a \nabla {f(\bmx )}^T \bmd \\
             \phi'(\a)                & \geq c_2 \phi' (0)
         \end{align*}
         \caption{Condizione di curvatura}
@@ -146,7 +146,7 @@ Le condizioni di Wolfe forti introducono un vincolo di segno sulla curvatura (va
 \section{Metodo di Armijo per stabilire la stepsize}
 Si itera riducendo gradualmente la distanza di un fattore \(\sigma \), usualmente pari circa a \(0.9\) sino a che il valore dello step successivo è più vicino all'ottimo dello step corrente. Nei metodi Newton e quasi Newton il coefficiente della distanza è inizializzato usualmente a 1.
 
-\section{Convergenza dei metodi di ricerca lineare approssimata}
+\section{Convergenza di metodi LS approssimati}
 Se definiamo \(\theta_k \) come l'angolo tra \(\bmd_k \) e \(-\nabla f_k \), allora possiamo determinare il coseno dell'angolo come:
 
 \[
@@ -157,7 +157,7 @@ Se definiamo \(\theta_k \) come l'angolo tra \(\bmd_k \) e \(-\nabla f_k \), all
     }
 \]
 
-\begin{theorem}
+\begin{theorem}[Convergenza dei metodi di ricerca lineare approssimata]
     Sia \(\bmd_k\) una direzione di discesa e sia \(\alpha_k\) una distanza che rispetti le condizioni di Wolfe. Sia inoltre \(f\) una funzione limitata inferiormente su \(\R^n\), \textbf{differenziabile continuamente} sull'insieme \(M\) che contiene \(L_f = \crl{\bmx: f(\bmx) \leq f(\bmx_0)}\), dove \(\bmx_0\) è il punto di inizio. Assumiamo inoltre che \(\nabla f\) sia \textbf{lipschitziana} sull'insieme \(M\). Allora:
     \[
         \sum_{j=0}^{\infty} \cos^2 \theta_j \norm{\nabla f (\bmx_j)}^2 \leq \infty
@@ -183,11 +183,11 @@ Se definiamo \(\theta_k \) come l'angolo tra \(\bmd_k \) e \(-\nabla f_k \), all
     \]
     Essendo quindi valida la \textbf{condizione di decremento sufficiente} vale la disequazione:
     \[
-        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c_1 \frac{1-c_2}{L} \frac{(\nabla f_k^T \bmd_k)^2}{\norm{\bmd_k}^2}
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c_1 \frac{1-c_2}{L} \frac{\rnd{\nabla f_k^T \bmd_k}^2}{\norm{\bmd_k}^2}
     \]
     Pongo \(c = c_1 \frac{1-c_2}{L}\) ed ottengo:
     \[
-        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c \frac{(\nabla f_k^T \bmd_k)^2}{\norm{\bmd_k}^2}
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c \frac{\rnd{\nabla f_k^T \bmd_k}^2}{\norm{\bmd_k}^2}
     \]
     Sostituisco \(
     \cos \theta_k = \frac{
