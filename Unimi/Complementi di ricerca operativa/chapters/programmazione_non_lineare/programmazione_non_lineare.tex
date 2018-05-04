@@ -183,28 +183,32 @@ Se definiamo \(\theta_k \) come l'angolo tra \(\bmd_k \) e \(-\nabla f_k \), all
     \]
     Essendo quindi valida la \textbf{condizione di decremento sufficiente} vale la disequazione:
     \[
-        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c_1 \frac{1-c_2}{L} \frac{\rnd{\nabla f_k^T \bmd_k}^2}{\norm{\bmd_k}^2}
+        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k
+    \]
+    Sostituendo il valore di \(\a_k\) ottenuto al passaggio precedente ottengo:
+    \[
+        f_{k+1} \leq f_k - c_1 \frac{1-c_2}{L} \frac{\rnd{\nabla f_k^T \bmd_k}^2}{\norm{\bmd_k}^2}
     \]
     Pongo \(c = c_1 \frac{1-c_2}{L}\) ed ottengo:
     \[
-        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c \frac{\rnd{\nabla f_k^T \bmd_k}^2}{\norm{\bmd_k}^2}
+        f_{k+1} \leq f_k - c \frac{\rnd{\nabla f_k^T \bmd_k}^2}{\norm{\bmd_k}^2}
     \]
     Sostituisco \(
-    \cos \theta_k = \frac{
-        -\nabla {f(\bmx )}_k^T \bmd_k
+    \cos^2 \theta_k = \frac{
+        \rnd{-\nabla {f(\bmx )}_k^T \bmd_k}^2
     }{
-        \norm{\nabla {f(\bmx )}_k} \cdot \norm{\bmd_k}
+        \norm{\nabla {f(\bmx )}_k}^2 \cdot \norm{\bmd_k}^2
     }
     \) ed ottengo:
 
     \[
-        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_k - c\cos^2 \theta_k \norm{\nabla f_k}^2
+        f_{k+1} \leq f_k - c\cos^2 \theta_k \norm{\nabla f_k}^2
     \]
 
     Per ricorsione ottengo la sommatoria:
 
     \[
-        f_{k+1} \leq f_k + c_1\a_k\bmd_k^T \nabla f_k = f_0 - c\sum_{j=0}^k\cos^2 \theta_j \norm{\nabla f_j}^2
+        f_{k+1} \leq f_0 - c\sum_{j=0}^k\cos^2 \theta_j \norm{\nabla f_j}^2
     \]
 
     Siccome la funzione \(f\) è limitata inferiormente si ottiene la \textbf{condizione di Zoutendijk}:
