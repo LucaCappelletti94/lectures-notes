@@ -1,0 +1,95 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Tecnica di generazione delle colonne}
+Questo problema nasce dalla neccessità di fornire una tecnica di risoluzione a problemi dal numero di soluzioni esponenziali, che spesso risultano equivalenti: questo infatti manda in crisi gli elaboratori, che seguendo l'albero di ricerca devono considerare un numero esponenziale di soluzioni equivalenti. Il problema dei \textbf{cutting stock} ne è un esempio tipico.
+
+\section{Cutting stock}
+In questo problema è necessario tagliare delle assi (tutte di pari lunghezza) in modo da minimizzare il numero di assi utilizzate e soddisfare la richiesta totale.
+
+\subsection{Formulazione classica}
+
+\begin{figure}
+\begin{align*}
+    \min \sum_{i=1}^m y_i & && \text{Va minimizzato il numero di assi che vengono utilizzate.}\\
+    \sum_{j=1}^n l_j x_{ij} &\leq L y_i \quad \forall i &&\parbox{10cm}{Da ogni assa \(i\) si può realizzare al massimo un numero di prodotti la cui lunghezza totale non superi la lunghezza \(L\) dell'assa}\\
+    \sum_{i=1}^n x_{ij} &\leq d_i \quad \forall j &&\text{Bisogna realizzare almeno un numero di prodotti per tipo pari alla domanda.}\\
+    x_{ij} \in \Z^+\\
+    y_i \in \crl{0,1}\\
+\end{align*}
+\caption{Cutting stock in formulazione classica}
+\end{figure}
+
+Il modello presenta un elevato grado di simmetria, cioè esistono tante soluzioni ottime equivalenti. Questo, come detto inizialmente, mette in crisi i risolutori ad albero.
+
+\subsection{Formulazione estesa}
+Consideriamo ora una formulazione che considera come variabili \(z_h\) i possibili schemi di taglio (considerando unicamente gli schemi non dominati, cioè che garantiscono il massimo numero di prodotti dallo stesso numero di tavole). Questo schema viene rappresentato da un vettore colonna \(\bma{A}_h = \begin{bmatrix}
+    a_{1h}\\
+    \vdots \\
+    a_{nh}
+\end{bmatrix}\), in cui ogni elemento \(a_{jh}\) rappresenta il numero di prodotti \(j\) ricavati dallo schema di taglio \(h\).
+
+\begin{figure}
+    \begin{align*}
+        \min \sum_{h=1}^H z_h & &&\parbox{10cm}{Vogliamo minimizzare il numero di assi utilizzate: ogni schema di taglio si applica ad una sola asse.}\\
+        \sum_{h=1}^H a_{jh} z_h &\geq d_j && \parbox{10cm}{Il numero di prodotti realizzati deve rispondere alla domanda richiesta.}\\
+        z_h &\in \crl{0,1} \quad \forall h
+    \end{align*}
+    \caption{Cutting stock in formulazione estesa}
+\end{figure}
+
+Il numero \(H\) di schemi di taglio è solitamente esponenziale, per cui non è possibile elencare tutti i possibili \(z_h\) o le rispettive colonne \(A_h\), per cui è necessaria adottare una tecnica per \textbf{generare} queste \textbf{colonne} in modo dinamico per poter arrivare a risolvere il rilassamento continuo del modello, che viene chiamato \textbf{Master Problem}.
+
+\section{Master Problem}
+Il master problem è il rilassamento continuo della formulazione estesa.
+\begin{figure}
+    \begin{align*}
+        \min \sum_{h=1}^H z_h & &&\parbox{10cm}{Vogliamo minimizzare il numero di assi utilizzate: ogni schema di taglio si applica ad una sola asse.}\\
+        \sum_{h=1}^H a_{jh} z_h &\geq d_j && \parbox{10cm}{Il numero di prodotti realizzati deve rispondere alla domanda richiesta.}\\
+        z_h &\in [0,1] \quad \forall h
+    \end{align*}
+    \caption{Master Problem}
+\end{figure}
+
+\section{Master Problem ridotto}
+Il master problem \textbf{ridotto} è una versione del master problem realizzata considerando un numero piccolo di colonne di \(\bm{A}\), scelte in modo tale da continuare a rispettare i vincoli della domanda. Questo insieme ridotto viene indicato con \(\bbm{A}\).
+
+\begin{figure}
+    \begin{align*}
+        \min \sum_{h=1}^{\bar{H}} z_h & &&\parbox{10cm}{Vogliamo minimizzare il numero di assi utilizzate: ogni schema di taglio si applica ad una sola asse.}\\
+        \sum_{h=1}^{\bar{H}} a_{jh} z_h &\geq d_j && \parbox{10cm}{Il numero di prodotti realizzati deve rispondere alla domanda richiesta.}\\
+        z_h &\in [0,1] \quad \forall h
+    \end{align*}
+    \caption{Master Problem ridotto}
+\end{figure}
+
+\section{Problema di Pricing}
+Una volta identificata una soluzione ottima \(z^*\) nel master problem ridotto è necessario verificare se essa risulti o meno ottima del master problem. Questo viene svolto cercando un \textbf{coefficiente di costo ridotto negativo} ottenuto tramite \(\bar{c}_h = c_h - {\bm{\lambda}^*}^T \bm{A}_h\), dove \(\bm{\lambda}^*\) è il vettore delle variabili duali ottime, \(c_h=1\) (in questo caso) ed \(\bm{A}_h \in \bm{A}\bs \bbm{A}\). Il problema viene quindi formulato come:
+
+\begin{figure}
+    \begin{subfigure}{0.49\textwidth}
+        \begin{align*}
+            \min 1 - \sum_{j=1}^n \lambda_j^* x_j\\
+            \sum_{j=1}^n l_j x_j \leq L\\
+            \bmx \in \Z^n
+        \end{align*}
+        \caption{Problema di Pricing}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \begin{align*}
+            w^* = \max \sum_{j=1}^n \lambda_j^* x_j\\
+            \sum_{j=1}^n l_j x_j \leq L\\
+            \bmx \in \Z^n
+        \end{align*}
+        \caption{Problema di Pricing riscritto}
+    \end{subfigure}
+    \caption{Problema di Pricing}
+\end{figure}
+
+Se \(w^* > 1\) allora \(\bmx \) è il nuovo vettore colonna da aggiungere alla matrice \(\bbm{A}\) e si ripete la ricerca dell'ottimo nel \textbf{master problem ridotto}, altrimenti se \(w^* \leq 1\) il vettore \(\bmzo \) è soluzione ottima anche del \textbf{master problem}.
+
+La procedura di generazione di colonne però si arresta solo quando il termine \(w^* \leq 0\), altrimenti non si ha garanzie che la soluzione identificata sia ottima anche per la formulazione \textbf{intera}.
+
+È importante notare che il problema di \textbf{pricing} sia risolvibile non necessariamente con tecniche di programmazione lineare intera, ma essendo un tipo di \textbf{problema dello zaino} è possibile utilizzare delle tecniche, anche euristiche, ad hoc. Solo alla fine è assolutamente necessario ricorrere a metodi esatti per verificare che non esistano soluzioni accettabili.
+
+\end{document}
