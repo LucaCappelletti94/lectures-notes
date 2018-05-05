@@ -1,0 +1,154 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmi dei piani di taglio}
+
+\begin{definition}[Poliedro]
+    Si definisce poliedro un insieme convesso del tipo:
+    \[
+        \text{conv}(X) = \crl{\bmx: A\bmx \leq \bmb, \bmb \geq 0}
+    \]
+\end{definition}
+\begin{definition}[Disuguaglianza valida]
+    Una disuguaglianza \(\bm{\pi}\bmx \leq \bm{\pi}_0\) è una disuguaglianza valida per \(X \subseteq \R^n\) se \(\bm{\pi}\bmx \leq \bm{\pi}_0 \forall \bmx \in X\).
+\end{definition}
+
+\begin{proposition}[Disuguaglianza valida per un problema]
+    Una disuguaglianza \(\bm{\pi}\bmx \leq \bm{\pi}_0\) è valida per \(P = \crl{\bmx: A\bmx \leq \bmb, \bmx \geq 0} \neq \emptyset \) se e solo se:
+    \begin{enumerate}
+    \item \(\exists \bmu \geq 0, \bmv \geq 0: \bmu A - \bmv = \bm{\pi} \quad \land \quad \bmu\bmb \leq \bm{\pi}_0\), oppure
+    \item \(\exists \bmu \geq 0: \bmu A \geq \bm{\pi} \quad \land \bmu\bmb \leq \bm{\pi}_0\)
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Disuguaglianza valida per un problema intero]
+    Sia \(X = \crl{\bmy \in \Z^1: \bmy \leq \bmb}\). Allora la diseguaglianza \(\bmy \leq \floor{\bmb}\) è valida per \(X\).
+\end{proposition}
+
+\section{Procedura di Chvatal-Gomory per la costruzione di disuguaglianze valide}
+Dato un set \(X = P \cup \Z^n\), dove \(P = \crl{\bmx \in \R^n_+: A\bmx \leq \bmb}\), \(A\) una matrice \(n\times m\) e \(\bmu \in \R^m_+\), vale che:
+
+La disuguaglianza \(\sum_{j=1}^n ua_j x_j \leq \bmu\bmb \) è valida per \(P\) con \(\bmu \geq 0\) e \(\sum_{j=1}^n a_j x_j \leq \bmb \).
+
+La disuguaglianza \(\sum_{j=1}^n \floor{ua_j} x_j \leq \bmu\bmb \) è valida per \(P\) con \(\bmx \geq 0\).
+
+La disuguaglianza \(\sum_{j=1}^n \floor{ua_j} x_j \leq \bmu\bmb \) è valida per \(X\) con \(\bmx \in \Z^n_+\), e quindi \(\sum_{j=1}^n \floor{ua_j} x_j\) è un intero.
+
+\begin{theorem}
+    Ogni disuguaglianza valida per \(X\) può essere ottenuta applicando la procedura di Chvatal-Gomory per un numero finito di volte.
+\end{theorem}
+
+\section{Algoritmo dei piani di taglio}
+Un generico algoritmo dei piani di taglio per un problema intero del tipo \(\max\crl{\bmc\bmx: \bmx \in X}\) che generi disuguaglianze utili da una certa famiglia \(\mathcal{F}\) è della forma seguente:
+
+\subsection{Inizializzazione}
+Il termine dell'iterazione \(t\) viene inizializzato a zero ed il problema intero elaborato inizialmente coincide con quello originale: \(P^0 = P\).
+
+\subsection{Iterazione}
+Si va a risolvere il seguente problema lineare:
+
+\[
+    \bar{z}^{(t)} = \max\crl{\bmc\bmx: \bmx \in P^{(t)}}
+\]
+
+Sia quindi \(\bmxo^{(t)}\) la soluzione ottima ottenuta:
+
+\begin{enumerate}
+    \item Se \(\bmxo^{(t)} \in \Z^n\) allora l'algoritmo si interrompe e \(\bmxo^{(t)}\) è una soluzione ottima della programmazione intera.
+    \item Se \(\bmxo^{(t)} \notin \Z^n\) si risolve il problema di separazione per \(\bmxo^{(t)}\) e \(\mathcal{F}\).
+    \begin{enumerate}
+        \item Se viene identificata una disuguaglianza \(\rnd{\bm{\pi}^{(t)}, \bm{\pi}^{(t)}_0} \in \mathcal{F}: \bm{\pi}^{(t)}\bmxo^{(t)} > \bm{\pi}^{(t)}_0\) tale che viene tagliata la soluzione \(\bmxo^{(t)}\), allora essa viene aggiunta ai vincoli del problema: \(P^{(t+1)} = P^{(t)} \cap \crl{\bmx: \bm{\pi}^{(i)}\bmxo^{(i)} > \bm{\pi}^{(i)}_0} \).
+        \item Se non viene identificata, termina.
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Considerazioni sul risultato}
+Se l'algoritmo termina senza aver identificato una soluzione intera, il problema risultante \(P^{(t)}\) rimane comunque un buon punto di partenza per eseguire un algoritmo branch-and-bound.
+
+\section{Algoritmo dei piani di taglio frazionari di Gomory}
+Considerato un problema intero del tipo \(\max\crl{\bmx\bmx: A\bmx = \bmb, \bmx \in \N^n}\), si procede ad identificare una base ottima \(B\) del rilassamento continuo, si sceglie una variabile di base \(x_{B_u}\) che sia frazionaria e quindi si procede a generare una disuguaglianza di Chvatal-Gomory associata con questa variabile in modo tale da tagliare la soluzione dalla regione ammissibile, scegliendo la riga della matrice dei vincoli \(A\) tale per cui un coefficiente \(\bar{a}_{uj}\) non sia intero (deve esistere, altrimenti la soluzione ottima sarebbe intera). Se la base fosse priva di variabili frazionarie ovviamente si avrebbe già identificato la soluzione ottima del problema intero.
+
+\begin{figure}
+    \begin{subfigure}{0.33\textwidth}
+        \[
+            x_{B_u} + \sum_{i \in \abs{B}} \floor{\bar{a}_{uj}}x_j \leq \floor{\bar{a}_{u0}}
+        \]
+        \caption{Taglio di Chvatal-Gomory per la riga \(u\)}
+    \end{subfigure}
+    \begin{subfigure}{0.33\textwidth}
+        \[
+            \sum_{i \in \abs{B}} (\bar{a}_{uj} - \floor{\bar{a}_{uj}})x_j \leq \bar{a}_{u0} - \floor{\bar{a}_{u0}}
+        \]
+        \caption{Taglio di Chvatal-Gomory per la riga \(u\) eliminando la variabile \(x_{B_u}\)}
+    \end{subfigure}
+    \begin{subfigure}{0.33\textwidth}
+        \[
+            \sum_{i \in \abs{B}} f_{uj}x_j \leq f_{u0}
+        \]
+        \caption{Taglio di Chvatal-Gomory ponendo \(f_{uj} = \bar{a}_{uj} - \floor{\bar{a}_{uj}}\) }
+    \end{subfigure}
+\caption{Esempi di tagli di Chvatal-Gomory (equivalenti)}
+\end{figure}
+
+\subsection{Variabile di slack}
+La variabile di slack \(s\) di un taglio di Chvatal-Gomory si ottiene come:
+
+\begin{figure}
+    \[
+        s = -f_{u0} + \sum_{j \in \abs{B}} f_{uj}x_{j}
+    \]
+    \caption{Variabile di slack di un taglio di Chvatal-Gomory}
+\end{figure}
+
+\begin{proposition}[Taglio di Gomory e disuguaglianza di Chvatal-Gomory]
+    Sia \(\beta \) la riga \(u\)-esima di \(B^-1\) e \(q_i = \beta_i - \floor{\beta_i} \forall i\). Il taglio di Gomory \(\sum_{i \in \abs{B}} f_{uj}x_j \leq f_{u0}\), quando scritto in termini della variabile originale coincide con la disuguaglianza di Chvatal-Gomory:
+    \[
+        \sum_{j=1}^n \floor{qa_j}x_j \leq \floor{qb}
+    \]
+\end{proposition}
+
+\section{Tagli interi misti}
+\begin{proposition}[Disuguaglianza intera mista semplice]
+    Sia \(X^{\geq} = \crl{(x,y) \in \R^1_+ \times \Z^1: x+y \geq b}\) e sia \(f = b - \floor{b} > 0\). La disuguaglianza:
+    \[
+        x \geq f(\ceil{b}-y) \quad \lor \quad \frac{x}{f} + y \geq \ceil{b}
+    \]
+    risulta valida per \(X^{\geq}\)
+\end{proposition}
+
+\begin{corollary}
+    Se \(X^{\leq} = \crl{(x,y) \in \R^1_+ \times \Z^1: y \leq b + x}\) e sia \(f = b - \floor{b} > 0\), la disuguaglianza
+    \[
+        y \leq \floor{b} + \frac{x}{1-f}
+    \]
+    È valida per \(X^{\leq}\).
+\end{corollary}
+
+\begin{proposition}[Disuguaglianza intera arrotondata mista (MIR)]
+    Questa variante della disuguaglianza semplice si ottiene considerando il set:
+    \[
+        X^{MIR} = \crl{(x,y) \in \R^1_+ \times \Z^2_+: a_1y_1 + a_2y_2 \leq b+x}
+    \]
+    Dove \(a_1, a_2\) e \(b\) sono degli scalari con \(b\) frazionario.
+
+    Sia \(f = b - \floor{b}\) ed \(f_i = a_i - \floor{a_i} \quad i \in \crl{1,2}\). Se \(f_1 \leq f \leq f_2\), allora:
+    \[
+        \floor{a_1}y_1 + \rnd{\floor{a_2} + \frac{f_2 - f}{1-f}}y_2 \leq \floor{b} + \frac{x}{1-f}
+    \]
+    È valida per \(X^{MIR}\)
+\end{proposition}
+
+\begin{proposition}[Taglio di Gomory intero misto]
+    Dato un tableau di un problema intero, contenente una \textbf{variabile di base frazionaria} \(y_{B_u}\) che quindi genera un set del tipo:
+    \[
+        X^{(G)} = \crl{(y_{B_u}, \bmy, \bmx) \in \Z^1 \times \Z^{n_1}_+ \times \Z^{n_2}_+: y_{B_u} + \sum_{j \in N_1} \bar{a}_{uj}y_j + \sum_{j \in N_2} \bar{a}_{uj}x_j = \bar{a}_{u0}}
+    \]
+    Se \(\bar{a}_{u0} \notin \Z^1, f_j = \bar{a}_{uj} - \floor{\bar{a}_{uj}} \forall j \in N_1 \cup N_2\) e \(f_0 = \bar{a}_{u0} - \floor{\bar{a}_{u0}}\) il taglio di Gomory misto:
+
+    \[
+        \sum_{f_j\leq f_0} f_j y_j + \sum_{f_j > f_0} \frac{f_0(1-f_j)}{1-f_0}y_j + \sum_{\bar{a}_{uj}>0} \bar{a}_{uj} x_j + \sum_{\bar{a}_{uj}<0} \frac{f_0}{1-f_0}\bar{a}_{uj} x_j \geq f_0
+    \]
+    È valida per \(X^G\). La formula si ottiene calcolando la MRI per il set e sostituire la variabile \(y_{B_u}\) con la forma in \(f_j\).
+\end{proposition}
+
+\end{document}
