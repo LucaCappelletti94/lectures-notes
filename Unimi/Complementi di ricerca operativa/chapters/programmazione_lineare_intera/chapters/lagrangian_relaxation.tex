@@ -31,7 +31,54 @@ Il seguente è il corrispendente \textbf{rilassamento lagrangiano}:
             \end{align*}
             \caption{Rilassamento lagrangiano di \(P\)}
         \end{subfigure}
+        \caption{Il rilassamento lagrangiano}
     \end{figure}
 \end{definition}
 
+\begin{theorem}[Condizioni di integralità]
+    Dato un problema di PLI \(P\), il suo rilassamento continuo \(RC\) ed il suo rilassamento lagrangiano \(RL\), se questi ammettono soluzione ottima, per qualsiasi vettore dei costi della funzione obbiettivo di \(P\) se:
+    \[
+        \text{Conv}\crl{\bmx \in \Z^n: C\bmx \geq \bmd, \bmd \geq bm{0}} = \crl{\bmx \in \R^n: C\bmx \geq \bmd, \bmd \geq bm{0}}
+    \]
+    Allora \(\bmzo_{RL} = \bmzo_{RC}\), cioè il rilassamento lagrangiano non può ottenere una limitazione inferiore sul valore ottimo migliore di quella ottenibile dal rilassamento lineare.
+\end{theorem}
+
+\begin{theorem}[Condizioni di dualità lagrangiana debole]
+    Sia \(\bar{\bm{x}}\) una soluzione ammissibile di \(P\), avente valore \(\bar{z}_P\). Vale che:
+    \[
+        \bar{z}_P \geq \bar{z}^*_{RL} \quad \forall \bm{\lambda} \in \R^m, \lambda \geq 0
+    \]
+\end{theorem}
+
+\begin{theorem}[Condizioni di ortogonalità lagrangiana]
+    Sia dato un problema di programmazione intera \(P\) ed il suo rilassamento lagrangiano \(RL\), in corrispondenza di un dato vettore di moltiplicatori di Lagrange \(\bm{\lambda}^*\geq 0\). Sia \(\bmxo_{RL}\) la soluzione ottima di \(RL\). Se vale che:
+    \begin{enumerate}
+        \item \(\bmxo_{RL}\) è ammissibile per \(P\), cioè \(A\bmxo_{RL} \geq \bmb \)
+        \item \({\bm{\lambda^*}}^T \rnd{A\bmxo_{RL}-\bmb}=0\)
+    \end{enumerate}
+    Allora la soluzione \(\bmxo_{RL}\) è ottima anche per \(P\).
+\end{theorem}
+
+\begin{corollary}[Condizioni di ortogonalità lagrangiana per vincoli di uguaglianza]
+    In questo caso se la soluzione ottima del rilassamento lagrangiano è ammissibile nel problema originario allora essa risulta anche essere ottima.
+\end{corollary}
+
+\section{Risolvere il lagrangiano duale}
+In generale la funzione lagrangiana risulta non essere differenziabile (nei punti in cui cambia la pendenza). Si utilizza quindi al posto di un \textbf{gradiente} un \textbf{sottogradiente}.
+
+\begin{definition}[Sottogradiente]
+    Data una funzione concava \(f(\bm{\lambda}): \R^m \rightarrow \R \) un vettore \(s(\bm{\lambda}') \in \R^m\) tale che:
+    \[
+        f(\bm{\lambda}) \leq f(\bm{\lambda}') + {s(\bm{\lambda}')}^T(\bm{\lambda}-\bm{\lambda}') \forall \lambda \in \R^m
+    \]
+    viene detto \textbf{sottogradiente} di \(f\) in \(\bm{\lambda}' \in \R^m\).
+\end{definition}
+
+\begin{theorem}[Sottogradiente nel rilassamento lagrangiano]
+    Siano \(\bm{\lambda}^{(t)} \in \R^m\) e \(\bmxo_{RL_{\bm{\lambda}^{(t)}}}^{(t)} \in \Z^n\) due vettori che soddisfano la seguente condizione:
+    \[
+        L^*(\bm{\lambda}^{(t)})=\bmct\bmx^{(t)} - \bm{\lambda}^{(t)T}(A\bmx^{(t)}-\bmb) = \min_{\bmx}\crl{\bmct\bmx-\bm{\lambda}^{(t)T}(A\bmx-\bmb): C\bmx \geq \bmd; \bmx \geq 0; \bmx \in \Z^n}
+    \]
+    Cioè \(\bmxo^{(t)}_{RL_{\bm{\lambda}^{(t)}}}\) è la soluzione ottima del lagrangiano con vettore di coefficienti \(\bm{\lambda}^{(t)}\). Allora il vettore \(s(\bm{\lambda}^{(t)}) = - (A\bmx^{(t)}-\bmb)\) è un \textbf{sottogradiente} di \(L^*(\bm{\lambda})\) in \(\bm{\lambda}^{(t)}\).
+\end{theorem}
 \end{document}
