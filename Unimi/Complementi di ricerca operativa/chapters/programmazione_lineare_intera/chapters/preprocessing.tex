@@ -1,0 +1,63 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Preprocessing}
+\section{Qualità della formulazione}
+\subsection{Programmazione lineare}
+Solitamente in un problema di programmazione lineare una buona metrica per la qualità della formulazione del problema è la dimensione della matrice caratteristica: una matrice più piccola è indice di un problema formulato meglio.
+
+\subsection{Programmazione intera}
+Per un problema di programmazione intera o intera mista però, la dimensione della matrice non risulta più essere una metrica valida:
+\begin{enumerate}
+    \item Variabili intere e continue non possono essere considerate equamente quando si va a misurare la qualità della formulazione: variabili intere tendono ad essere molto più difficili da risolvere che con variabili continue.
+    \item Il grado di difficoltà aumenta esponenzialmente con il numero delle variabili.
+    \item Una problema intero diventa più facile da risolvere, non più difficile (come viene fatto nell'algoritmo dei piani di taglio).
+\end{enumerate}
+
+In questi problemi il criterio per misurare la qualità va a basarsi sul poliedro della regione ammissibile del problema rilassato.
+
+L'idea fondamentale del \textbf{preprocessing} è di riformulare il problema in modo tale da minimizzare la differenza dei valori tra la funzione originale intera e quella rilassata.
+
+\begin{definition}[Poliedro]
+    L'insieme di tutti i punti (o soluzioni) che soddisfa un set di vincoli lineari del tipo:
+    \[
+        P = \crl{\bmx: A\bmx \leq \bmb, \bmx \text{ continuo}}
+    \]
+    È detto \textbf{poliedro}.
+\end{definition}
+
+\begin{definition}[Formulazione]
+    Dato un insieme \(S_y = \crl{\bmy \in \Z^p: G\bmy\leq \bmb, \bmy \text{ intero}}\), un poliedro \(P \subseteq E^p\) è una \textbf{formulazione} per \(S_y\) se e solo se \(S_y \subseteq P\).
+
+    Questo significa che una formulazione di un problema intero deve essere un poliedro definito sullo stesso spazio reale \(p\)-dimensionale e deve contenere lo stesso numero di punti ammissibili.
+\end{definition}
+
+\begin{definition}[Formulazione di un problema intero]
+    Dato \(S_{xy} = \crl{(\bmx, \bmy): A\bmx + G\bmy \leq \bmb, \bmx \in E^n, \bmy \in \Z^p}\), un poliedro \(P\subseteq E^{n+p}\) sono una \textbf{formulazione} per \(S_{xy}\) se \(S_{xy} \subseteq P\).
+\end{definition}
+
+\begin{definition}[Formulazione migliore]
+    Date due formulazioni \(P_1, P_2\) per \(S_y\), \(P_1\) è una \textbf{formulazione migliore} di \(P_2\) se \(P_1 \subseteq P_2\).
+\end{definition}
+
+\begin{definition}[Formulazione ideale]
+    Data una formulazione \(S = \crl{\bmy: G\bmy \leq \bmb, \bmy \text{ intero}}\), questa è detta \textbf{ideale} se tutti i vertici del poliedro corrispondente sono \textbf{interi}.
+\end{definition}
+
+\section{Migliorare i vincoli in un problema intero}
+Supponiamo da iniziare da un vincolo del tipo \(\bm{a}^T\bmy\leq b \). Si procede come segue:
+
+\begin{enumerate}
+    \item Definisco \(M = \sum_{a_j>0}a_j\) e \(S = \crl{a_j: \abs{a_j}>M-b}\).
+    \item Se il set \(S=\emptyset \) allora il vincolo non è migliorabile.
+    \item Altrimenti seleziono un termine \(a_k \in S\):
+    \begin{enumerate}
+        \item Se \(a_k>0\) allora aggiorno \(\bar{a}_k = M - b, \bar{b} = M-a_k\).
+        \item Altrimenti aggiorno \(\bar{a}_k = b - M\).
+    \end{enumerate}
+    \item Ripeto l'operazione dal punto 1.
+\end{enumerate}
+
+
+
+\end{document}
