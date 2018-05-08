@@ -124,6 +124,21 @@
 \pagestyle{fancy} % This activates it
 \usepackage[avantgarde]{quotchap} % Custom style for chapters
 
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  %\chapterheadstartvskip%
+  {\size@chapter{\sectfont\raggedleft
+    {\chapnumfont
+      \ifnum \c@secnumdepth >\m@ne%
+        \if@mainmatter\thechapter\else\phantom{\thechapter}%
+      \fi\else\phantom{\thechapter}\fi
+      \par\nobreak}%
+    {\raggedleft\advance\leftmargin10em\interlinepenalty\@M #1\par}}
+  \nobreak\chapterheadendvskip}}
+\makeatother
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[shortlabels]{enumitem} % For a todo check list
