@@ -7,35 +7,29 @@ Un problema è detto di ottimizzazione vincolata quando il dominio e limitato da
 Le condizioni di ottimalità possono essere ottenute tramite la funzione lagrangiana.
 
 \begin{theorem}
-    Data una funzione \(f(\bmx)\) e \(\bmh \) vincoli bilateri, con \(f,\bmh \in C^1\). Se i gradienti dei vincoli nel punto ottimo \(\bmx^*\) sono \textbf{linearemente indipendenti}, se \(\bmx^*\) sono di minimo locale di \(f(\bmx)\) ed esso soddisfa i vincoli \(\bmh \), allora esiste un vettore \(\bm{\lambda}^*\) tale che \((\bmx^*, \bm{\lambda}^*)\) è un punto stazionario della funzione Lagrangiana \(L\):
-
+    Data una funzione \(f\rnd{\bmx}\) e \(\bmh \) vincoli bilateri, con \(f,\bmh \in C^1\). Se i gradienti dei vincoli nel punto ottimo \(\bmxo \) sono \textbf{linearemente indipendenti}, se \(\bmxo \) sono di minimo locale di \(f\rnd{\bmx}\) ed esso soddisfa i vincoli \(\bmh \), allora esiste un vettore \(\bm{\lambda}^*\) tale che \((\bmxo, \bm{\lambda}^*)\) è un punto stazionario della funzione Lagrangiana \(L\):
     \[
         \begin{cases}
-            \frac{\partial L}{\partial x_i} = \frac{\partial f(\bmx^*)}{\partial x_i} + \sum^h_{j=1} \lambda_j^* \frac{\partial h_j(\bmx^*)}{\partial x_i} = 0\\
-            \frac{\partial L}{\partial \lambda_i} = h_j(\bmx^*) = 0
+            \frac{\partial L}{\partial x_i} = \frac{\partial f\rnd{\bmxo}}{\partial x_i} + \sum^h_{j=1} \lambda_j^* \frac{\partial h_j\rnd{\bmxo}}{\partial x_i} = 0\\
+            \frac{\partial L}{\partial \lambda_i} = h_j\rnd{\bmxo} = 0
         \end{cases}
-    \]
-\end{theorem}
+    \]\end{theorem}
 
 \begin{definition}[Condizioni di regolarità]
-    Un punto \(\bmx^*\) soddisfa le condizioni di regolarità se non esiste un vettore \(\bmh \) tale per cui tutti i gradienti dei vincoli attivi sono linearmente indipendenti in quel punto. Un punto che soddisfa queste condizioni è detto \textbf{regolare}.
+    Un punto \(\bmxo \) soddisfa le condizioni di regolarità se non esiste un vettore \(\bmh \) tale per cui tutti i gradienti dei vincoli attivi sono linearmente indipendenti in quel punto. Un punto che soddisfa queste condizioni è detto \textbf{regolare}.
 \end{definition}
 
 \begin{theorem}[Condizioni sufficienti del prim'ordine per problemi convessi]
-	Data una funzione \(f(\bmx)\) ed un vettore \(\bmh \) di vincoli bilateri, con \(f, \bmh \in C^1\). Se la matrice jacobiana \(J(\bmx^*)\) ha rango massimo \(\norm{\bmh}\), se esiste un vettore \(\bm{\lambda}^*\) tale che \(\bmx^*, \bm{\lambda}^*\) è un punto stazionario della funzione lagrangiana \(L\), allora \(\bmx^*\) è un minimo locale di \(f(\bmx)\).
+	Data una funzione \(f\rnd{\bmx}\) ed un vettore \(\bmh \) di vincoli bilateri, con \(f, \bmh \in C^1\). Se la matrice jacobiana \(J\rnd{\bmxo}\) ha rango massimo \(\norm{\bmh}\), se esiste un vettore \(\bm{\lambda}^*\) tale che \(\bmxo, \bm{\lambda}^*\) è un punto stazionario della funzione lagrangiana \(L\), allora \(\bmxo \) è un minimo locale di \(f\rnd{\bmx}\).
 \end{theorem}
 
 Mettendo assieme tutti questi risultati matematici otteniamo le \textbf{condizioni di Karush-Kuhn-Tucker}, o condizioni KKT\@
 
 \begin{theorem}[Condizioni di Karush-Kuhn-Tucker]
 	Sia \(f \) una funzione, \(h_i \text{ con } i \in \{1, \ldots, s\}\) dei vincoli bilateri e \(g_j \text{ con } j \in \{1, \ldots, m\}\) dei vincoli monolateri e sia l'insieme $X$ definito come:
-
 	\[
 		X  = \{x \in \mathbb{R}^n: g_j(x) \leq 0, h_i(x) = 0 \quad \forall i, j \} \quad \text{e} \quad f, g_j, h_i \in C^1(X) \quad \forall i,j
-	\]
-
-	Se $x^*$ è un punto regolare in $X$ e un punto di minimo locale per \(f \in X\), allora esistono $s$ moltiplicatori $\lambda_i \in \mathbb{R}$ e $m$ $\mu_j \geq 0$ tali che:
-
+	\]	Se $x^*$ è un punto regolare in $X$ e un punto di minimo locale per \(f \in X\), allora esistono $s$ moltiplicatori $\lambda_i \in \mathbb{R}$ e $m$ $\mu_j \geq 0$ tali che:
 	\begin{align*}
 		\nabla f(x^*) + \sum_{i=1}^s \lambda_i \nabla h_i(x^*) + \sum_{j=1}^m \mu_j \nabla g_j(x^*) & = 0 \\
 		\mu_j g_j(x^*)                                                                              & = 0
@@ -47,71 +41,59 @@ Mettendo assieme tutti questi risultati matematici otteniamo le \textbf{condizio
 \end{theorem}
 
 \begin{definition}[Cono critico]
-	Dato un punto \(\bmx^*\) ed i vettori di moltiplicatori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, viene chiamato \textbf{cono critico} l'insieme delle direzioni di discesa verso il punto \(\bmx^*\).
-
+	Dato un punto \(\bmxo \) ed i vettori di moltiplicatori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, viene chiamato \textbf{cono critico} l'insieme delle direzioni di discesa verso il punto \(\bmxo \).
 	\[
-		C(\bmx^*, \bm{\lambda}^*, \bm{\mu}^*) = \crl{\bmd \in F(\bmx^*) : \nabla {h_j(\bmx^*)}^T\bmd = 0, j \in E; {g_j(\bmx^*)}^T\bmd, j \in I, \text{ con }\bm{\lambda}^*>0}
-	\]
-
-	Queste direzioni sono ortogonali al gradiente di \(f\).
+		C(\bmxo, \bm{\lambda}^*, \bm{\mu}^*) = \crl{\bmd \in F\rnd{\bmxo} : \nabla {h_j\rnd{\bmxo}}^T\bmd = 0, j \in E; {g_j\rnd{\bmxo}}^T\bmd, j \in I, \text{ con }\bm{\lambda}^*>0}
+	\]	Queste direzioni sono ortogonali al gradiente di \(f\).
 \end{definition}
 
 \section{Condizioni di ottimilità del secondo ordine}
 
 \begin{theorem}[Matrice hessiana semi-definita positiva nel punto minimo]
-	Dato un problema di ottimizzazione in cui le funzioni \(f, \bmg, \bmh \in C^2\). Se \(\bmx^*\) è un minimo locale che \textbf{appartiene alla regione ammissibile} ed esistono due vettori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, allora:
+	Dato un problema di ottimizzazione in cui le funzioni \(f, \bmg, \bmh \in C^2\). Se \(\bmxo \) è un minimo locale che \textbf{appartiene alla regione ammissibile} ed esistono due vettori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, allora:
 	\[
 		\bmdt \nabla^2_{\bmx, \bmx} L(\bmxo, \bm{\lambda}^*, \bm{\mu}^*)\bmd \geq 0, \qquad \forall \bmd \in \text{Cono critico}
-	\]
-\end{theorem}
+	\]\end{theorem}
 
 Se la matrice hessiana è \textbf{definita positiva} nel cono critico, allora le condizioni KKT divengono sufficienti.
 
 \begin{theorem}[Punto di minimo locale stretto]
-	Dato un problema di ottimizzazione in cui le funzioni \(f, \bmg, \bmh \in C^2\). Se \(\bmx^*\) appartiene alla regione ammissibile, esistono due vettori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT e vale la seguente relazione:
+	Dato un problema di ottimizzazione in cui le funzioni \(f, \bmg, \bmh \in C^2\). Se \(\bmxo \) appartiene alla regione ammissibile, esistono due vettori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT e vale la seguente relazione:
 	\[
 		\bmdt \nabla^2_{\bmx, \bmx} L(\bmxo, \bm{\lambda}^*, \bm{\mu}^*)\bmd > 0, \qquad \forall \bmd \in \text{Cono critico}
-	\]
-	Allora \(\bmxo \) è un punto di minimo locale stretto.
+	\]	Allora \(\bmxo \) è un punto di minimo locale stretto.
 \end{theorem}
 
 \section{Modello quadratico con vincoli lineari}
 Un problema quadratico del tipo:
-
 \begin{align*}
-	\min q(\bmx) &= \frac{1}{2} \bmxt Q \bmx + \bmbt \bmx \\
-	A\bmx &\geq \bmd
+	\min q\rnd{\bmx} &= \frac{1}{2} \bmxt Q \bmx + \bmbt \bmx \\
+	\matr{A}\bmx &\geq \bmd
 \end{align*}
 
-è risolvibile facilmente quando la matrice \(Q\) è definita positiva.
+è risolvibile facilmente quando la matrice \(\matr{Q}\) è definita positiva.
 
 \subsection{Metodo dell'insieme attivo primale per problemi quadratici convessi (Primal Active set)}
 I metodi \textbf{Primal Active set} ad ogni iterazione risolvono un sottoproblema quadratico in cui i vincoli di disuguaglianza sono imposti come uguaglianze sul \textbf{working set} \(W_k\).
 
 I gradienti \(\bmat_i\) dei vincoli sul set \(W_k\) sono linearmente indipendenti.
 
-Per prima cosa viene controllato se \(\bmx_k\) minimizza la funzione quadratica \(q(\bmx)\) su \(W_k\) e se questo non avviene viene calcolato uno step  \(p\) risolvendo un sotto-problema quadratico sul set \(W_k\), vincolato da uguaglianze:
-
-\begin{align*}
+Per prima cosa viene controllato se \(\bmx_k\) minimizza la funzione quadratica \(q\rnd{\bmx}\) su \(W_k\) e se questo non avviene viene calcolato uno step  \(p\) risolvendo un sotto-problema quadratico sul set \(W_k\), vincolato da uguaglianze:\begin{align*}
 	\bmp &= \bmx - \bmx_k\\
 	\bmg_k &= Q\bmx_k + \bmb \\
-	\bmp_k &= \argmin q(\bmx) = \argmin q(\bmx_k + p) = \argmin \frac{1}{2}\bmpt Q \bmp + \bmgt_k \bmp + \rho_k\\
+	\bmp_k &= \argmin q\rnd{\bmx} = \argmin q(\bmx_k + p) = \argmin \frac{1}{2}\bmpt Q \bmp + \bmgt_k \bmp + \rho_k\\
 	\bm{\rho}_k &= \frac{1}{2} \bmxt_k Q \bmx_k + \bmbt \bmx_k \\
 	\bmat_i \bmp &= 0 \qquad \forall i \in W_q
 \end{align*}
 
 Per ogni \(i \in W_k\) vale che:
-
 \[
 	\bmat_i(\bmx_k + \alpha\bmp_k) = \bmat_i \bmx_k = \bmd_i \forall \alpha
 \]
-
 Se \(\bmp_k \neq 0\) allora aggiorno il valore di \(\alpha_k\) ed ottengo il prossimo punto, \(\bmx_{k+1} = \bmx_k + \alpha_k\bmp_k\):
-
 \[
 	\alpha_k = \min\crl{1, \min\crl{\frac{\bmd_i - \bmat_i\bmx_k}{\bmat_i \bmp_k}: i \neq W_k, \bmat_i\bmp_k < 0}}
 \]
-
 Altrimenti testo le condizioni KKT o aggiorno il set di lavoro \(W_k\).
 
 \end{document}

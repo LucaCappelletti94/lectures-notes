@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{I} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{J} \PYG{o}{=} \PYG{l+m+mi}{5}
+\PYG{n}{min\PYGZus{}cost} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{max\PYGZus{}cost} \PYG{o}{=} \PYG{l+m+mi}{100}
+\PYG{n}{p} \PYG{o}{=} \PYG{l+m+mi}{5}
+\PYG{n}{costs} \PYG{o}{=} \PYG{p}{\PYGZob{}(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{):}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{n}{min\PYGZus{}cost}\PYG{p}{,} \PYG{n}{max\PYGZus{}cost}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{I}\PYG{p}{)} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{J}\PYG{p}{)\PYGZcb{}}
+\end{Verbatim}

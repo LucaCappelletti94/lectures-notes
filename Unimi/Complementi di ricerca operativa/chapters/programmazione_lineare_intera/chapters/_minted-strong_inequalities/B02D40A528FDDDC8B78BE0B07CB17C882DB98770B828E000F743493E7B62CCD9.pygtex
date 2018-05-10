@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+sudo chown \PYGZhy{}R \PYG{k}{\PYGZdl{}(}whoami\PYG{k}{)}:admin /usr/local/share/man
+brew link \PYGZhy{}\PYGZhy{}overwrite gcc
+\end{Verbatim}

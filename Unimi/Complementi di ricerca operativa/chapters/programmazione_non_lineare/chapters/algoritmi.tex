@@ -2,181 +2,148 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \chapter{Algoritmi}
-\section{Metodo della panalità quadratica}
+\section{Metodo della penalità quadratica}
 Questo metodo trasforma il problema vincolato in uno privo di vincoli, sfruttando una \textbf{penalty function}.
 
 Si parte quindi da un problema vincolato:
-
 \begin{align*}
-    \min &f(\bmx)\\
-    \bmh(\bmx) &= \bm{0}
+    \min &f\rnd{\bmx}\\
+    \bmh\rnd{\bmx} &= \bm{0}
 \end{align*}
-
 Si costruisce una \textbf{penalty function} utilizzando i vincoli:
 
 \begin{figure}
     \[
-        p(\bmx) = \sum_{j=1}^h h_j^2(\bmx)
-    \]
-    \caption{Penalty function}
+        p\rnd{\bmx} = \sum_{j=1}^h h_j^2\rnd{\bmx}
+    \]    \caption{Penalty function}
 \end{figure}
 
 Il modello che si ottiene è quindi la somma pesata tra la funzione obbiettivo e la \textbf{penalty function}:
-
 \[
-    \min q(\bmx) = f(\bmx) + \alpha\sum_{j=1}^h h_j^2(\bmx)
+    \min q\rnd{\bmx} = f\rnd{\bmx} + \alpha\sum_{j=1}^h h_j^2\rnd{\bmx}
 \]
-
 Aumentando il parametro \(\alpha \) a \(+\infty \), aumentiamo la penalità della violazione dei vincoli, aumentandone la severità.
 
 Possiamo usare su questo problema le tecniche tratte dall'ottimizzazione svincolata.
 
+\clearpage
 \section{Metodo delle barriere}
 Dato un problema vincolato con disuguaglianze:
 \begin{align*}
-    \min &f(\bmx)\\
-    \bmg(\bmx) &\leq \bm{0}
+    \min &f\rnd{\bmx}\\
+    \bmg\rnd{\bmx} &\leq \bm{0}
 \end{align*}
 
-Si procede dividendo la regione ammissibile in due set: uno definito dalla frontiera dei vincoli (\(\bmg(\bmx) = \bm{0}\)) ed uno dall'interno (\(\bmg(\bmx) < \bm{0}\)).
+Si procede dividendo la regione ammissibile in due set: uno definito dalla frontiera dei vincoli (\(\bmg\rnd{\bmx} = \bm{0}\)) ed uno dall'interno (\(\bmg\rnd{\bmx} < \bm{0}\)).
 
 Questo metodo è applicabile solo quando il set interno non è vuoto. Viene utilizzata una \textbf{funzione di barriera} che aumenta a \(\infty \) quando il punto \(\bmx \) tende al set di frontiera.
 
 \begin{figure}
     \[
-        v(\bmx) = \sum_{j=1}^k \log(-g_j^2(\bmx))
-    \]
-    \caption{Barrier function}
+        v\rnd{\bmx} = -\sum_{j=1}^k \log\rnd{-g_j\rnd{\bmx}}
+    \]    \caption{Barrier function}
 \end{figure}
 
-Mettendole assieme si ottiene:
-\[
-    \min q(\bmx) = f(\bmx) + \alpha v(\bmx)
+Mettendole assieme si ottiene:\[
+    \min q\rnd{\bmx} = f\rnd{\bmx} - \alpha v\rnd{\bmx}
 \]
-
+\clearpage
 \section{Metodo della proiezione del gradiente}
-Viene applicato su problemi con vincoli lineari:
-
-\begin{align*}
-    \min &f(\bmx)\\
-    A\bmx &= \bmb
+Viene applicato su problemi con vincoli lineari:\begin{align*}
+    \min &f\rnd{\bmx}\\
+    \matr{A}\bmx &= \bmb
 \end{align*}
 
-Si inizia con una soluzione ammissibile \(\bmx':A\bmx' = \bmb \) e si cerca una soluzione migliore \(\bmx = \bmx' + \alpha\bmd \) lungo la direzione \(\bmd \) che deve essere normalizzata, deve minimizzare la derivata direzionale \(\nabla {f(\bmx')}^T\bmd \) in \(\bmx'\) ed il punto \(\bmx \) deve essere ammissibile, cioè \(A\bmd = \bm{0}\).
+Si inizia con una soluzione ammissibile \(\bmx':\matr{A}\bmx' = \bmb \) e si cerca una soluzione migliore \(\bmx = \bmx' + \alpha\bmd \) lungo la direzione \(\bmd \) che deve essere normalizzata, deve minimizzare la derivata direzionale \(\nabla {f(\bmx')}^T\bmd \) in \(\bmx'\) ed il punto \(\bmx \) deve essere ammissibile, cioè \(\matr{A}\bmd = \bm{0}\).
 
 Da questo si va a costruire il problema di minimizzazione della derivata direzionale, da cui si ottiene che la direzione \(\bmd \) migliore è:
-
 \[
-    \bmd = \frac{\rnd{I - A^T\rnd{AA^T}^-1A}\nabla f(\bmx')}{\norm{\rnd{I - A^T\rnd{AA^T}^-1A}\nabla f(\bmx')}}
+    \bmd = \frac{\rnd{\matr{I} - \matr{A}^T\rnd{\matr{A}\matr{A}^T}^{-1}\matr{A}}\nabla f(\bmx')}{\norm{\rnd{\matr{I} - \matr{A}^T\rnd{\matr{A}\matr{A}^T}^{-1}\matr{A}}\nabla f(\bmx')}}
 \]
+La direzione che migliora di più \(f\rnd{\bmx}\) è l'anti-gradiente e \(\bmd \) risulta esserne la \textbf{proiezione} sull'iperpiano \(\matr{A}\bmx = \bmd \). La matrice \(P = \rnd{I - \matr{A}^T\rnd{\matr{A}\matr{A}^T}^{-1}\matr{A}}\nabla f(\bmx')\) è detta \textbf{matrice di proiezione}.
 
-La direzione che migliora di più \(f(\bmx)\) è l'anti-gradiente e \(\bmd \) risulta esserne la \textbf{proiezione} sull'iperpiano \(A\bmx = \bmd \). La matrice \(P = \rnd{I - A^T\rnd{AA^T}^-1A}\nabla f(\bmx')\) è detta \textbf{matrice di proiezione}.
-
-Si procede quindi con \(\bmd = -P\nabla f(\bmx_k)\) e si ottiene il punto successivo tramite:
-
+Si procede quindi con \(\bmd = -P\nabla f\rnd{\bmx_k}\) e si ottiene il punto successivo tramite:
 \[
     \bmx_{k+1} = \bmx_k + \alpha\bmd
 \]
-
 Dove \(\alpha \) può essere ottenuto con per esempio il metodo di Armijo.
 
 \subsection{Caso con vincoli generici non lineari}
 Nel caso con vincoli generici viene utilizzato uno sviluppo di Taylor per individuare dei vincoli lineari nell'intorno del punto corrente \(\bmx'\).
 
 Partendo quindi da un problema del tipo:
-
 \begin{align*}
-    \min &f(\bmx)\\
-    \bmh(\bmx) &= \bm{0}
+    \min &f\rnd{\bmx}\\
+    \bmh\rnd{\bmx} &= \bm{0}
 \end{align*}
 
 Si svolge lo sviluppo di Taylor:
-
 \[
-    h_j(\bmx) = h_j(\bmx') + \nabla {h_j(\bmx')}^T(\bmx-\bmx')
+    h_j\rnd{\bmx} = h_j(\bmx') + \nabla {h_j(\bmx')}^T(\bmx-\bmx')
 \]
-
 Da cui si ottiene:
-
 \[
     \nabla {h_j(\bmx')}^T\bmx - \nabla {h_j(\bmx')}^T\bmx' = 0
 \]
-
-Imponendo quindi \(A = \nabla {h_j(\bmx')}^T\) e \(\bmb = \nabla {h_j(\bmx')}^T\bmx'\) ci si riconduce al caso precedente:
-
+Imponendo quindi \(\matr{A} = \nabla {h_j(\bmx')}^T\) e \(\bmb = \nabla {h_j(\bmx')}^T\bmx'\) ci si riconduce al caso precedente:
 \begin{align*}
-    \min &f(\bmx)\\
-    A\bmx &= \bmb
+    \min &f\rnd{\bmx}\\
+    \matr{A}\bmx &= \bmb
 \end{align*}
 
-Con l'eccezione che ora la matrice di proiezione \(P\) dipende da \(A\), che a sua volta ora dipende da \(\bmx'\). Pertanto la direzione da usare sarà \(\bmd = -P(\bmx_k)\nabla f(\bmx_k)\).
+Con l'eccezione che ora la matrice di proiezione \(\matr{P}\) dipende da \(\matr{A}\), che a sua volta ora dipende da \(\bmx'\). Pertanto la direzione da usare sarà \(\bmd = -\matr{P}\rnd{\bmx_k}\nabla f\rnd{\bmx_k}\).
 
 Per costruzione del metodo però, molto probabilmente il punto ottenuto \(\bmx_{k+1}\) non soddisfa i vincoli non lineari originali, per cui si procede con uno step correttivo ottenendo \(\bmx_{{k+1}_{\text{corretto}}}\) con:
-
 \[
-    P(\bmx_k)(\bmx_{{k+1}_{\text{corretto}}}-\bmx_{k+1}) = \bm{0} \quad \land \quad \bmh(\bmx_{{k+1}_{\text{corretto}}}) = 0
-\]
-Da cui si ottiene che \(\bmx_{{k+1}_{\text{corretto}}}\) risulta:
-
+    P\rnd{\bmx_k}(\bmx_{{k+1}_{\text{corretto}}}-\bmx_{k+1}) = \bm{0} \quad \land \quad \bmh(\bmx_{{k+1}_{\text{corretto}}}) = 0
+\]Da cui si ottiene che \(\bmx_{{k+1}_{\text{corretto}}}\) risulta:
 \[
-    \bmx_{{k+1}_{\text{corretto}}} \approx \bmx_{k+1} - A^T\rnd{AA^T}^-1 \bmh(\bmx_{k+1})
+    \bmx_{{k+1}_{\text{corretto}}} \approx \bmx_{k+1} - \matr{A}^T\rnd{A\matr{A}^T}^{-1} \bmh(\bmx_{k+1})
 \]
+Lo step correttivo viene applicato fino a che il valore di \(\bmh(\bmx_{k+1})\) è sufficientemente piccolo, mentre l'algoritmo complessivo si interrompe quando \(P\rnd{\bmx_k}\nabla f\rnd{\bmx_k} \approx 0\).
 
-Lo step correttivo viene applicato fino a che il valore di \(\bmh(\bmx_{k+1})\) è sufficientemente piccolo, mentre l'algoritmo complessivo si interrompe quando \(P(\bmx_k)\nabla f(\bmx_k) \approx 0\).
-
+\clearpage
 \section{Augmented lagrangean method}
 Questo metodo combina l'uso di una funzione lagrangiana con una funzione di penalità quadratica, l'idea è quella di approssimare i moltiplicatori di Lagrange. Si inizia con un problema generico:
-
 \begin{align*}
-    \min &f(\bmx)\\
-    \bmh(\bmx) &= \bm{0}
+    \min &f\rnd{\bmx}\\
+    \bmh\rnd{\bmx} &= \bm{0}
 \end{align*}
-
 E si realizza una \textbf{funzione lagrangiana incrementata}:
 
 \begin{figure}
 \[
-    L(\bmx, \bm{\lambda}, \rho) = f(\bmx) + \sum_{j=1}^h \lambda_j h_j(\bmx) + \rho\sum_{j=1}^h h_j^2(\bmx)
-\]
-\caption{Augmented lagrangean function}
+    L(\bmx, \bm{\lambda}, \rho) = f\rnd{\bmx} + \sum_{j=1}^h \lambda_j h_j\rnd{\bmx} + \rho\sum_{j=1}^h h_j^2\rnd{\bmx}
+\]\caption{Augmented lagrangean function}
 \end{figure}
 
 \begin{enumerate}
     \item Nel caso in cui \(\lambda_j=0\) si ottiene la funzione di penalità.
     \item Se è noto \(\lambda^* \forall \rho > 0\) minimizzando \(L(\bmx, \bm{\lambda}, \rho)\) rispetto a \(\bmx \) si ottiene \(\bmxo \)
-    \item Se \(\bm{\lambda}^k\) è una approssimazione valida di \(\bm{\lambda}^*\), allora possiamo approssimare \(\bmx^*\) minimizzando \(L(\bmx, \bm{\lambda}^k, \rho)\) anche per valori bassi di \(\rho \).
+    \item Se \(\bm{\lambda}^k\) è una approssimazione valida di \(\bm{\lambda}^*\), allora possiamo approssimare \(\bmxo \) minimizzando \(L(\bmx, \bm{\lambda}^k, \rho)\) anche per valori bassi di \(\rho \).
     \item Il parametro \(\rho \) deve garantire che \(L(\bmx, \bm{\lambda}^k, \rho)\) abbia un minimo locale rispetto a \(\bmx \) e non solamente un punto stazionario.
 \end{enumerate}
 
 Si procede quindi iterativamente, dati i valori iniziali di \(\bm{\lambda}^k\) e \(\rho \), finchè \(\norm{L(\bmx, \bm{\lambda}^k, \rho)} > \epsilon \) si procede ad ottenere il punto ottimo \(\bmxo_k\) risolvendo \(L(\bmx, \bm{\lambda}^k, \rho)\) rispetto a \(\bmx \) con un qualsiasi metodo di ottimizzazione svincolata, quindi si aggiorna il valore di \(\lambda \) come \(\lambda_j^{k+1} = \lambda_k^k + 2\rho h_j(\bmxo_k)\). Eventualmente viene aggiornato anche il valore di \(\rho \).
 
+\clearpage
 \section{Sequential quadratic programming (SQP)}
 L'idea è di applicare il metodo di Newton per identificare \(\rnd{\bmxo, \bm{\lambda}^*}\) dalle condizioni KKT di un problema vincolato, riducendo ogni step del metodo di Newton in un problema di programmazione quadratica. Considerando un problema generale:
-
 \begin{align*}
-    \min f(\bmx)\\
-    \bmg(\bmx) &\leq 0\\
-    \bmh(\bmx) &= 0\\
+    \min f\rnd{\bmx}\\
+    \bmg\rnd{\bmx} &\leq 0\\
+    \bmh\rnd{\bmx} &= 0\\
 \end{align*}
-
 Possiamo costruirne il modello lagrangiano:
-
 \[
-    L(\bmx, \bm{\lambda}, \bm{\mu}) = f(\bmx) + \sum_{j=1}^k \lambda_j g_j(\bmx) + \sum_{j=1}^h \mu_j h_j(\bmx)
-\]
-
-Data un'approssimazione della soluzione e dei moltiplicatori lagrangiani \(\rnd{\bmx_k \bm{\lambda}_k, \bm{\mu}_k}\), nota la matrice hessiana di \(L\) possiamo scrivere:
-
+    L(\bmx, \bm{\lambda}, \bm{\mu}) = f\rnd{\bmx} + \sum_{j=1}^k \lambda_j g_j\rnd{\bmx} + \sum_{j=1}^h \mu_j h_j\rnd{\bmx}
+\]Data un'approssimazione della soluzione e dei moltiplicatori lagrangiani \(\rnd{\bmx_k, \bm{\lambda}_k, \bm{\mu}_k}\), nota la matrice hessiana di \(L\) possiamo scrivere:
 \[
-    \nabla^2 L(\bmx_k) = H(\bmx_k) + \sum_{j=1}^k \lambda_j^k \nabla^2g_j(\bmx_k) + \sum_{j=1}^h \mu_j^k \nabla^2h_j(\bmx_k)
-\]
-
-Per aggiornare i valori dobbiamo identificare la direzione di Newton \(\bmd \) tramite il sotto-problema quadratico seguente:
-
-\begin{align*}
-    \min \phi(\bmx) = f(\bmx_k) + \nabla {f(\bmx_k)}^T \bmd+ \frac{1}{2}\bmd^T\nabla^2L(\bmx_k)\bmd \\
-    \bmg(\bmx_k) + \sqr{\frac{\partial \bmg(\bmx_k)}{\partial \bmx}}\bmd &\leq 0\\
-    \bmh(\bmx_k) + \sqr{\frac{\partial \bmh(\bmx_k)}{\partial \bmx}}\bmd &= 0\\
+    \nabla^2 L\rnd{\bmx_k} = H\rnd{\bmx_k} + \sum_{j=1}^k \lambda_j^k \nabla^2g_j\rnd{\bmx_k} + \sum_{j=1}^h \mu_j^k \nabla^2h_j\rnd{\bmx_k}
+\]Per aggiornare i valori dobbiamo identificare la direzione di Newton \(\bmd \) tramite il sotto-problema quadratico seguente:\begin{align*}
+    \min \phi\rnd{\bmx} = f\rnd{\bmx_k} + \nabla {f\rnd{\bmx_k}}^T \bmd+ \frac{1}{2}\bmd^T\nabla^2L\rnd{\bmx_k}\bmd \\
+    \bmg\rnd{\bmx_k} + \sqr{\frac{\partial \bmg\rnd{\bmx_k}}{\partial \bmx}}\bmd &\leq 0\\
+    \bmh\rnd{\bmx_k} + \sqr{\frac{\partial \bmh\rnd{\bmx_k}}{\partial \bmx}}\bmd &= 0\\
 \end{align*}
 
 Risolvendo il problema si ottiene \(\bmx_{k+1} = \bmx_k + \bmd_k\) ed i moltiplicatori lagrangiani aggiornati \(\bm{\lambda}_{k+1}\) e \(\bm{\mu}_{k+1}\). L'iterazione si interrompe basandosi su un criterio costruito sulla norma della direzione migliorante \(\bmd \).

@@ -1,0 +1,47 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{SCIP}
+\href{http://scip.zib.de/#scipoptsuite}{SCIP} è una libreria che permette di implementare rapidamente problemi lineari interi e di risolverli con \textbf{Branch-and-cut}.
+
+\section{Installare SCIP}
+Su sistemi \textbf{macOS} può essere installato in tre passi:
+
+\begin{enumerate}
+    \item Installa gmp con \mintinline{shell}{brew install gmp}
+    \item Installa gcc 7 con \mintinline{shell}{brew install gcc@7}, rinominando eventualmente in gcc. Purtroppo attualmente SCIP supporta solo fortran 4 disponibile in gcc 7.
+    \item Scarica SCIP da \url{http://scip.zib.de/#download} per il tuo sistema operativo.
+    \item Estrai l'archivio e sposta i file nella tua \mintinline{shell}{/usr/local}.
+\end{enumerate}
+
+\section{Installare PySCIPOpt}
+Si tratta di una libreria che consente di usare i metodi di SCIP comodamente da python. Dopo aver installato \textbf{SCIP} è sufficiente eseguire nel terminale per installarla \mintinline{shell}{pip install pyscipopt}.
+
+\section{Problemi di installazione comuni}
+\paragraph*{GCC non linkato}
+Se quando esegui \mintinline{shell}{brew doctor} ti suggerisce di linkare \mintinline{shell}{gcc} potrebbe essere necessario eseguire i seguenti due comandi:
+
+\begin{minted}{shell}
+sudo chown -R $(whoami):admin /usr/local/share/man
+brew link --overwrite gcc
+\end{minted}
+
+\chapter{Premessa}
+Nei script presentati in seguito, si assumerà presente il seguente codice:
+
+\begin{minted}{python}
+import random
+random.seed(42) # For reproducibility
+\end{minted}
+
+\begin{minted}{python}
+def print_results(model, EPS=1.e-6):
+    x,y = model.data
+    edges = [(i,j) for (i,j) in x if model.getVal(x[i,j]) > EPS]
+    facilities = [j for j in y if model.getVal(y[j]) > EPS]
+    print("Optimal value=", model.getObjVal())
+    print("Facilities at nodes:", facilities)
+    print("Edges:", edges)
+\end{minted}
+
+\end{document}

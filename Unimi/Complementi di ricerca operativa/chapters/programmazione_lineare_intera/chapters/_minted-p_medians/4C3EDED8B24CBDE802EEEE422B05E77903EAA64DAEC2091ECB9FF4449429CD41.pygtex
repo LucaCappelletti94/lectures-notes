@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{pyscipopt} \PYG{k+kn}{import} \PYG{n}{Model}\PYG{p}{,} \PYG{n}{quicksum}
+\PYG{k}{def} \PYG{n+nf}{p\PYGZus{}medians}\PYG{p}{(}\PYG{n}{I}\PYG{p}{,} \PYG{n}{J}\PYG{p}{,} \PYG{n}{costs}\PYG{p}{,} \PYG{n}{p}\PYG{p}{):}
+    \PYG{n}{model} \PYG{o}{=} \PYG{n}{Model}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}P\PYGZhy{}medians\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{x}\PYG{p}{,}\PYG{n}{y} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{},\PYGZob{}\PYGZcb{}}
+    \PYG{c+c1}{\PYGZsh{} Adding the variables to the model}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{I}\PYG{p}{):}
+        \PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{addVar}\PYG{p}{(}\PYG{n}{vtype}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}B\PYGZdq{}}\PYG{p}{,} \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}y(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{n}{i}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} Y variables are binary}
+        \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{J}\PYG{p}{):}
+            \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{addVar}\PYG{p}{(}\PYG{n}{vtype}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}B\PYGZdq{}}\PYG{p}{,} \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}x(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{,}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{))} \PYG{c+c1}{\PYGZsh{} X variables are binary}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{I}\PYG{p}{):}
+        \PYG{n}{model}\PYG{o}{.}\PYG{n}{addCons}\PYG{p}{(}\PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{J}\PYG{p}{))} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Demand(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{n}{i}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{I}\PYG{p}{):}
+        \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{J}\PYG{p}{):}
+            \PYG{n}{model}\PYG{o}{.}\PYG{n}{addCons}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{y}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}Open(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{,}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{))}
+    \PYG{n}{model}\PYG{o}{.}\PYG{n}{addCons}\PYG{p}{(}\PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{J}\PYG{p}{))} \PYG{o}{\PYGZlt{}=} \PYG{n}{p}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Median\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{model}\PYG{o}{.}\PYG{n}{setObjective}\PYG{p}{(}
+        \PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{costs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{I}\PYG{p}{)} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{J}\PYG{p}{)),}
+        \PYG{l+s+s2}{\PYGZdq{}minimize\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{model}\PYG{o}{.}\PYG{n}{data} \PYG{o}{=} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}
+    \PYG{k}{return} \PYG{n}{model}
+\end{Verbatim}

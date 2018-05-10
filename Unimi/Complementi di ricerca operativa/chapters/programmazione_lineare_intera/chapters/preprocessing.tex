@@ -21,19 +21,18 @@ L'idea fondamentale del \textbf{preprocessing} è di riformulare il problema in 
 \begin{definition}[Poliedro]
     L'insieme di tutti i punti (o soluzioni) che soddisfa un set di vincoli lineari del tipo:
     \[
-        P = \crl{\bmx: A\bmx \leq \bmb, \bmx \text{ continuo}}
-    \]
-    È detto \textbf{poliedro}.
+        P = \crl{\bmx: \matr{A}\bmx \leq \bmb, \bmx \text{ continuo}}
+    \]    È detto \textbf{poliedro}.
 \end{definition}
 
 \begin{definition}[Formulazione]
-    Dato un insieme \(S_y = \crl{\bmy \in \Z^p: G\bmy\leq \bmb, \bmy \text{ intero}}\), un poliedro \(P \subseteq E^p\) è una \textbf{formulazione} per \(S_y\) se e solo se \(S_y \subseteq P\).
+    Dato un insieme \(S_y = \crl{\bmy \in \Z^p: \matr{G}\bmy\leq \bmb, \bmy \text{ intero}}\), un poliedro \(P \subseteq E^p\) è una \textbf{formulazione} per \(S_y\) se e solo se \(S_y \subseteq P\).
 
     Questo significa che una formulazione di un problema intero deve essere un poliedro definito sullo stesso spazio reale \(p\)-dimensionale e deve contenere lo stesso numero di punti ammissibili.
 \end{definition}
 
 \begin{definition}[Formulazione di un problema intero]
-    Dato \(S_{xy} = \crl{(\bmx, \bmy): A\bmx + G\bmy \leq \bmb, \bmx \in E^n, \bmy \in \Z^p}\), un poliedro \(P\subseteq E^{n+p}\) sono una \textbf{formulazione} per \(S_{xy}\) se \(S_{xy} \subseteq P\).
+    Dato \(S_{xy} = \crl{(\bmx, \bmy): \matr{A}\bmx + \matr{G}\bmy \leq \bmb, \bmx \in E^n, \bmy \in \Z^p}\), un poliedro \(P\subseteq E^{n+p}\) sono una \textbf{formulazione} per \(S_{xy}\) se \(S_{xy} \subseteq P\).
 \end{definition}
 
 \begin{definition}[Formulazione migliore]
@@ -41,7 +40,7 @@ L'idea fondamentale del \textbf{preprocessing} è di riformulare il problema in 
 \end{definition}
 
 \begin{definition}[Formulazione ideale]
-    Data una formulazione \(S = \crl{\bmy: G\bmy \leq \bmb, \bmy \text{ intero}}\), questa è detta \textbf{ideale} se tutti i vertici del poliedro corrispondente sono \textbf{interi}.
+    Data una formulazione \(S = \crl{\bmy: \matr{G}\bmy \leq \bmb, \bmy \text{ intero}}\), questa è detta \textbf{ideale} se tutti i vertici del poliedro corrispondente sono \textbf{interi}.
 \end{definition}
 
 \section{Migliorare i vincoli in un problema intero}

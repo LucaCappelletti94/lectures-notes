@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{random}
+\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{42}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} For reproducibility}
+\end{Verbatim}

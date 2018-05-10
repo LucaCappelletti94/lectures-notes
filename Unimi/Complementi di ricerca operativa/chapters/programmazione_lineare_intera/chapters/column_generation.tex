@@ -13,7 +13,7 @@ In questo problema è necessario tagliare delle assi (tutte di pari lunghezza) i
 \begin{align*}
     \min \sum_{i=1}^m y_i & && \text{Va minimizzato il numero di assi che vengono utilizzate.}\\
     \sum_{j=1}^n l_j x_{ij} &\leq L y_i \quad \forall i &&\parbox{10cm}{Da ogni assa \(i\) si può realizzare al massimo un numero di prodotti la cui lunghezza totale non superi la lunghezza \(L\) dell'assa}\\
-    \sum_{i=1}^n x_{ij} &\leq d_i \quad \forall j &&\text{Bisogna realizzare almeno un numero di prodotti per tipo pari alla domanda.}\\
+    \sum_{i=1}^n x_{ij} &\geq d_i \quad \forall j &&\text{Bisogna realizzare almeno un numero di prodotti per tipo pari alla domanda.}\\
     x_{ij} \in \Z^+\\
     y_i \in \crl{0,1}\\
 \end{align*}
@@ -38,7 +38,7 @@ Consideriamo ora una formulazione che considera come variabili \(z_h\) i possibi
     \caption{Cutting stock in formulazione estesa}
 \end{figure}
 
-Il numero \(H\) di schemi di taglio è solitamente esponenziale, per cui non è possibile elencare tutti i possibili \(z_h\) o le rispettive colonne \(A_h\), per cui è necessaria adottare una tecnica per \textbf{generare} queste \textbf{colonne} in modo dinamico per poter arrivare a risolvere il rilassamento continuo del modello, che viene chiamato \textbf{Master Problem}.
+Il numero \(\matr{H}\) di schemi di taglio è solitamente esponenziale, per cui non è possibile elencare tutti i possibili \(z_h\) o le rispettive colonne \(A_h\), per cui è necessaria adottare una tecnica per \textbf{generare} queste \textbf{colonne} in modo dinamico per poter arrivare a risolvere il rilassamento continuo del modello, che viene chiamato \textbf{Master Problem}.
 
 \section{Master Problem}
 Il master problem è il rilassamento continuo della formulazione estesa.
@@ -63,6 +63,7 @@ Il master problem \textbf{ridotto} è una versione del master problem realizzata
     \caption{Master Problem ridotto}
 \end{figure}
 
+\clearpage
 \section{Problema di Pricing}
 Una volta identificata una soluzione ottima \(z^*\) nel master problem ridotto è necessario verificare se essa risulti o meno ottima del master problem. Questo viene svolto cercando un \textbf{coefficiente di costo ridotto negativo} ottenuto tramite \(\bar{c}_h = c_h - {\bm{\lambda}^*}^T \bm{A}_h\), dove \(\bm{\lambda}^*\) è il vettore delle variabili duali ottime, \(c_h=1\) (in questo caso) ed \(\bm{A}_h \in \bm{A}\bs \bbm{A}\). Il problema viene quindi formulato come:
 
@@ -88,7 +89,7 @@ Una volta identificata una soluzione ottima \(z^*\) nel master problem ridotto �
 
 Se \(w^* > 1\) allora \(\bmx \) è il nuovo vettore colonna da aggiungere alla matrice \(\bbm{A}\) e si ripete la ricerca dell'ottimo nel \textbf{master problem ridotto}, altrimenti se \(w^* \leq 1\) il vettore \(\bmzo \) è soluzione ottima anche del \textbf{master problem}.
 
-La procedura di generazione di colonne però si arresta solo quando il termine \(w^* \leq 0\), altrimenti non si ha garanzie che la soluzione identificata sia ottima anche per la formulazione \textbf{intera}.
+La procedura di generazione di colonne però si arresta solo quando il termine \(w^* \leq 1\), altrimenti non si ha garanzie che la soluzione identificata sia ottima anche per la formulazione \textbf{intera}.
 
 È importante notare che il problema di \textbf{pricing} sia risolvibile non necessariamente con tecniche di programmazione lineare intera, ma essendo un tipo di \textbf{problema dello zaino} è possibile utilizzare delle tecniche, anche euristiche, ad hoc. Solo alla fine è assolutamente necessario ricorrere a metodi esatti per verificare che non esistano soluzioni accettabili.
 

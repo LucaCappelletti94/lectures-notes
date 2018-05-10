@@ -6,53 +6,50 @@
 Son metodi che usano come funzione di aggiornamento \(\bmx_{k+1} = \bmx_k - \a_k\nabla f_k\), in cui le direzioni sono ortogonali al contorno della funzione. Non dovendo calcolare l'hessiana lo sforzo computazionale non è eccessivo e converge globalmente, ma estremamente piano quando una funzione è patologica.
 
 \begin{theorem}[Velocità di convergenza locale dei metodi a discesa rapida]
-    Data una matrice \(Q\) definita positiva, la seguente relazione vale \(\forall \bmx \in \R^n \):
+    Data una matrice \(\matr{Q}\) definita positiva, la seguente relazione vale \(\forall \bmx \in \R^n \):
     \[
         \frac{
-            (\bmxt \bmx)^2
+            \rnd{\bmxt \bmx}^2
         }{
-            (\bmxt Q \bmx)(\bmxt Q^-1 \bmx)
+            \rnd{\bmxt \matr{Q} \bmx}\rnd{\bmxt \matr{Q}^{-1} \bmx}
         }
         \geq
-        \frac{4\lambda_{\min}\lambda_{\max}}{(\lambda_{\min} + \lambda_{\max})^2}
-    \]
-    Dove \(\lambda_{\min}\) e \(\lambda_{\max}\) son gli autovalori mimimo e massimo di \(Q\).
+        \frac{\lambda_{\min}\lambda_{\max}}{\rnd{\lambda_{\min} + \lambda_{\max}}^2}
+    \]    Dove \(\lambda_{\min}\) e \(\lambda_{\max}\) son gli autovalori minimo e massimo di \(\matr{Q}\).
 
-    Ne segue che la velocità di covergenza dei metodi a discesa rapida è \textbf{lineare} per i modelli quadratici.
+    Ne segue che la velocità di convergenza dei metodi a discesa rapida è \textbf{lineare} per i modelli quadratici.
 
     \[
         \frac{
-            \norm{\bmx_{k+1}-\bmx^*}_Q
+            \norm{\bmx_{k+1}-\bmxo}_{\matr{Q}}
         }{
-            \norm{\bmx_{k}-\bmx^*}_Q
+            \norm{\bmx_{k}-\bmxo}_{\matr{Q}}
         }
         \leq
         \frac{
-            (\lambda_{\max} - \lambda_{\min})
+            \rnd{\lambda_{\max} - \lambda_{\min}}
         }{
-            (\lambda_{\max} + \lambda_{\min})
+            \rnd{\lambda_{\max} + \lambda_{\min}}
         }
     \]
-
 \end{theorem}
 
+\clearpage
 \section{Metodi Newton}
-Prendendo in considerazione l'approssimazione di Taylor fermata al secondo ordine, quindi con l'hessiana, otteniamo come direzione di discesa quella che minimizza \(\nabla f^T \bmd + \frac{1}{2}\bmdt H\bmd \), cioè \(\bmd = {-(H)}^{-1} \nabla f\). Quando \(H\) è \textbf{definita positiva} vale che:
-
+Prendendo in considerazione l'approssimazione di Taylor fermata al secondo ordine, quindi con l'hessiana, otteniamo come direzione di discesa quella che minimizza \(\nabla f^T \bmd + \frac{1}{2}\bmdt \matr{H}\bmd \), cioè \(\bmd = -\matr{H}^{-1} \nabla f\). Quando \(\matr{H}\) è \textbf{definita positiva} vale che:
 \[
-    \nabla f^T \bmd = -\bmd H \bmd \leq -\sigma \norm{\bmd}^2
+    \nabla f^T \bmd = -\bmdt \matr{H} \bmd \leq -\sigma \norm{\bmd}^2
 \]
+Cioè quando \(\matr{H}\) è \textbf{definita positiva} la direzione di Newton è la \textbf{direzione di discesa}.
 
-Cioè quando \(H\) è \textbf{definita positiva} la direzione di Newton è la \textbf{direzione di discesa}.
-
-Nei \textbf{modelli quadratici} con \(Q\) \textbf{definita positiva} il metodo di Newton converge in un'iterazione, altrimenti non converge. Su funzioni generiche, la qualità della direzione dipende da quanto è definita positiva la matrice hessiana.
+Nei \textbf{modelli quadratici} con \(\matr{Q}\) \textbf{definita positiva} il metodo di Newton converge in un'iterazione, altrimenti non converge. Su funzioni generiche, la qualità della direzione dipende da quanto è definita positiva la matrice hessiana.
 
 \begin{theorem}[Convergenza dei metodi di Newton]
-    Sia \(f \in C^2\) e sia \(H(x)\) continuamente lipschitziana in un intorno del punto ottimo \(\bmx^*\). Si assuma che valga \(\bmx_{k+1} = \bmx_k + \bmd_k\). Allora:
+    Sia \(f \in C^2\) e sia \(\matr{H}\rnd{\bmx}\) continuamente lipschitziana in un intorno del punto ottimo \(\bmxo \). Si assuma che valga \(\bmx_{k+1} = \bmx_k + \bmd_k\). Allora:
     \begin{enumerate}
-        \item Se \(\bmx_0\) è sufficientemente vicino a \(\bmx^*\), allora \(\crl{\bmx_k} \rightarrow \bmx^*\)
+        \item Se \(\bmx_0\) è sufficientemente vicino a \(\bmxo \), allora \(\crl{\bmx_k} \rightarrow \bmxo \)
         \item \(\crl{\bmx_k}\) converge \textbf{quadraticamente}
-        \item \(\crl{\norm{\nabla f(\bmx_k)}}\) converge quadraticamente a zero.
+        \item \(\crl{\norm{\nabla f\rnd{\bmx_k}}}\) converge quadraticamente a zero.
     \end{enumerate}
     I metodi Newton sono \textbf{convergenti localmente}.
 \end{theorem}
@@ -62,135 +59,121 @@ La complessità computazionale è di \(O(n^3)\)
 \subsection{Metodi Newton modificati}
 Sono metodi che modificano l'Hessiano, o rendendo la matrice positiva o scegliendo una direzione di discesa tramite metodi di discesa rapida quando necessario.
 
-
+\clearpage
 \section{Metodi Quasi-Newton}
-Sono metodi in cui viene utilizzata un'approssimazione dell'Hessiano, che è computazionalmente costoso da calcolare. Viene utilizzata al suo posto una matrice chiamata \(G_k\) al posto di \(H_k^{-1}\), e quindi calcolano la direzione di discesa come \(\bmd_k = -G_k \nabla f(\bmx_k)\).
+Sono metodi in cui viene utilizzata un'approssimazione dell'Hessiano, che è computazionalmente costoso da calcolare. Viene utilizzata al suo posto una matrice chiamata \(\matr{G}_k\) al posto di \(\matr{H}_k^{-1}\), e quindi calcolano la direzione di discesa come \(\bmd_k = -\matr{G}_k \nabla f\rnd{\bmx_k}\).
 
 \begin{definition}[Relazione secante]
-    Definendo \(\bmp_k = \nabla f(\bmx_{k+1}) - \nabla f(\bmx_k)\) possiamo definire la relazione secante:
+    Definendo \(\bmp_k = \nabla f(\bmx_{k+1}) - \nabla f\rnd{\bmx_k}\) possiamo definire la relazione secante:
 
     \[
-        H(\bmx_k)\bmh_k \approx \bmp_k \qquad \text{or} \qquad {H(\bmx_k)}^-1\bmp_k \approx \bmh_k
-    \]
-\end{definition}
+        \matr{H}\rnd{\bmx_k}\bmh_k \approx \bmp_k \qquad \lor \qquad {\matr{H}\rnd{\bmx_k}}^{-1}\bmp_k \approx \bmh_k
+    \]\end{definition}
 
-Inizializzando \(G_0 = I\), possiamo imporre che ad ogni iterazione la matrice \(G_{k+1}\) debba soddisfare la relazione secante con la seguente uguaglianza:
-
+Inizializzando \(\matr{G}_0 = I\), possiamo imporre che ad ogni iterazione la matrice \(\matr{G}_{k+1}\) debba soddisfare la relazione secante con la seguente uguaglianza:
 \[
-    G_{k+1}\bmp_k = \bmh_k
+    \matr{G}_{k+1}\bmp_k = \bmh_k
 \]
-
-La realizzazione specifica di come si ottiene \(G_{k+1}\) partendo da \(G_k\) varia dai differenti metodi Quasi-Newton. Questi metodi impongono che \(G_k = G_k^T\) e che \(G_{k+1} - G_k\) abbia un rango basso.
+La realizzazione specifica di come si ottiene \(\matr{G}_{k+1}\) partendo da \(\matr{G}_k\) varia dai differenti metodi Quasi-Newton. Questi metodi impongono che \(\matr{G}_k = \matr{G}_k^T\) e che \(\matr{G}_{k+1} - \matr{G}_k\) abbia un rango basso.
 
 Ne esistono di due categorie:
 
 \begin{enumerate}
     \item Matrice a rango unitario simmetrico o SR1.
-    \item A rango due:
+    \item A rango due (i nomi sono le iniziali degli autori):
           \begin{enumerate}
               \item DFP
               \item BFGS
           \end{enumerate}
 \end{enumerate}
 
-I \textbf{metodi a rango due} hanno alcune proprietà interessanti:
+I \textbf{metodi a rango due} hanno cinque proprietà interessanti:
 
 \begin{enumerate}
-    \item La matrice \(G_k\) converge a \(H(\bmx_k)^-1\) sui modelli quadratici.
-    \item Se \(G_0\) è definita positiva allora tutte le \(G_k\) sono definite positive.
-    \item Il costo computazionale è di \(O(n^2)\) in ogni iterazione.
+    \item La matrice \(\matr{G}_k\) converge a \(\matr{H}\rnd{\bmx_k}^{-1}\) sui modelli quadratici, cioè va ad approssimare l'inversa della matrice hessiana.
+    \item Se \(\matr{G}_0\) è definita positiva allora tutte le \(\matr{G}_k\) sono definite positive.
+    \item Il costo computazionale è di \(O\rnd{n^2}\) in ogni iterazione.
     \item La velocità di convergenza è \textbf{superlineare}.
     \item In particolare il metodo BFGS garantisce convergenza globale se lo step-size rispetta le condizioni di Wolfe.
 \end{enumerate}
 
 Con \textbf{Famiglia di Broyden} si intende una famiglia di formule ottenute tramite la combinazione convessa dell'aggiornamento DFP e BFGS.
-
+\clearpage
 \section{Metodi del gradiente coniugato}
-Si tratta di una delle tecniche più utili per risolvere sistemi lineari di grandi dimensioni e può essere adattata per risolvere problemi di ottimizzazione non lineare. Si tratta di un metodo iterativo che risolve sistemi della forma \(A\bmx = \bmb \) dove \(A\) è una matrice definita positiva che è \(A=A^T\).
+Si tratta di una delle tecniche più utili per risolvere sistemi lineari di grandi dimensioni e può essere adattata per risolvere problemi di ottimizzazione non lineare. Si tratta di un metodo iterativo che risolve sistemi della forma \(\matr{A}\bmx = \bmb \) dove \(\matr{A}\) è una matrice definita positiva che è \(\matr{A}=\matr{A}^T\).
 
 \begin{definition}[Vettori coniugati]
-    Un insieme di vettori \(\bmp_0, \bmp_1, \ldots, \bmp_h\) è detto \textbf{coniugato} rispetto ad una matrice \(A\) se vale la relazione:
-
+    Un insieme di vettori \(\bmp_0, \bmp_1, \ldots, \bmp_h\) è detto \textbf{coniugato} rispetto ad una matrice \(\matr{A}\) se vale la relazione:
     \[
-        \bmp_i^T A \bmp_j = 0 \quad \forall i \neq j
-    \]
-\end{definition}
-
+        \bmp_i^T \matr{A} \bmp_j = 0 \quad \forall i \neq j
+    \]\end{definition}
 Dato un punto di inizio \(\bmx_0\) e le \textbf{direzioni coniugate} \(\bmp_0, \ldots, \bmp_{n-1}\) generiamo la sequenza \(\bmx_{k+1} = \bmx_k + \a_k\bmp_k\) dove \(\a_k\) è un minimizzatore monodimensionale ed è dato da:
-
 \[
-    \a_k = - \frac{r_k^T\bmp_k}{\bmp_k^T A \bmp_k}
+    \a_k = - \frac{r_k^T\bmp_k}{\bmp_k^T \matr{A} \bmp_k}
 \]
-
-\begin{theorem}{Convergenza di sequenza con vettori coniugati}
-    Dato un qualsiasi \(\bmx_0\), la sequenza generata da \(\bmx_{k+1} = \bmx_k + \a_k\bmp_k\) converge a \(\bmx^*\) in al più \(n\) iterazioni.
+\begin{theorem}[Convergenza di sequenza con vettori coniugati]
+    Dato un qualsiasi \(\bmx_0\), la sequenza generata da \(\bmx_{k+1} = \bmx_k + \a_k\bmp_k\) converge a \(\bmxo \) in al più \(n\) iterazioni.
 \end{theorem}
 
 Il metodo del gradiente coniugato è un metodo a direzione coniugata con una proprietà importante: \(\bmp_k\) può essere ottenuta sapendo solo \(\bmp_{k-1}\) e \(\bmp_k\) risulta coniugato a tutte le direzioni precedenti.
 
 Il vettore \(\bmp_k\) è definito come una combinazione lineare del gradiente e del vettore precedente:
-
 \[
     \bmp_k = -\nabla f_k + \beta_k\bmp_{k-1}
-\]
-Dove \(\beta \) è definito sfruttando la definizione di vettore coniugato:
-
+\]Dove \(\beta \) è definito sfruttando la definizione di vettore coniugato:
 \[
-    \beta_k = \frac{\nabla f_k^T A \bmp_{k-1}}{\bmp^T_{k+1} A \bmp_{k-1}}
+    \beta_k = \frac{\nabla f_k^T \matr{A} \bmp_{k-1}}{\bmp^T_{k+1} \matr{A} \bmp_{k-1}}
 \]
-
 Inizialmente il valore del vettore è \(\bmp_0 = -\nabla f_0\).
 
 Esistono vari metodi del gradiente coniugato che variano in base a come viene calcolato il valore di \(\beta_{k+1}\) a partire dall'iterazione precedente.
 
-In particolare è utile perchè utilizza poco spazio, non è computazionalmente pesante e converge rapidamente. Viene però preferita l'eliminazione gaussiana quando il problema è di piccola dimensione, essendo meno sensibile agli errori di arrotondamento.
-
+In particolare è utile perché utilizza poco spazio, non è computazionalmente pesante e converge rapidamente. Viene però preferita l'eliminazione gaussiana quando il problema è di piccola dimensione, essendo meno sensibile agli errori di arrotondamento.
+\clearpage
 \section{Metodi Trust Region}
-Questi metodi realizzano un modello della funzione con lo sviluppo di Taylor fermato al secondo ordine, ma può usare sia l'Hessiano che una sua approssimazione. Tramite questo si determina un raggio della trust region e quindi si procede ad ottenere una direzione tale che miminimizzi la funzione, e nel caso la discesa non sia sufficiente si riduce il raggio e si ripete l'operazione. Per un raggio sufficientemente grande, quando viene utilizzata l'Hessiana e questa è definita positiva la direzione che si ottiene coincide con quella che si otterrebbe dai metodi Newton.
+Questi metodi realizzano un modello della funzione con lo sviluppo di Taylor fermato al \textbf{secondo ordine}. Si può usare sia la matrice hessiana che una sua approssimazione.
 
-Il metodo della trust region richiede di calcolare una sequenza di sottoproblemi la cui funzione obbiettivo e vincoli sono entrambi quadratici.
+Tramite questo si determina un raggio della trust region e quindi si procede ad ottenere una direzione tale che minimizzi la funzione, e nel caso la discesa non sia sufficiente si riduce il raggio e si ripete l'operazione. Per un raggio sufficientemente grande, quando viene utilizzata l'hessiana e questa è definita positiva la direzione che si ottiene coincide con quella che si otterrebbe dai metodi Newton.
+
+Il metodo della trust region richiede di calcolare una sequenza di sotto-problemi la cui funzione obbiettivo e vincoli sono entrambi quadratici.
 
 \begin{theorem}
-    Il vettore \(\bmp^*\) è una soluzione globale per il problema di trust-region di raggio \(\Delta\):
+    Il vettore \(\bmpo \) è una soluzione globale per il problema di trust-region di raggio \(\Delta\):
     \[
-        \min_{\bmp \in \R^n} m(\bmp) = f(\bmx) + \nabla f^T \bmp + \frac{1}{2}\bmp^T B\bmp \qquad \norm{\bmp} \leq \Delta
-    \]
-    se e solo se \(\bmp^*\) appartiene alla trust-region ed esiste uno scalare \(\lambda\geq 0\) tale per cui:
+        \min_{\bmp \in \R^n} m(\bmp) = f\rnd{\bmx} + \nabla f^T \bmp + \frac{1}{2}\bmp^T \matr{B}\bmp \qquad \norm{\bmp} \leq \Delta
+    \]    se e solo se \(\bmpo \) appartiene alla trust-region ed esiste uno scalare \(\lambda\geq 0\) tale per cui:
     \[
         \begin{cases}
-            (B+\lambda I)\bmp^*             & = -\nabla f                     \\
-            \lambda(\Delta - \norm{\bmp^*}) & = 0                             \\
-            (B + \lambda I)                 & \text{ è definita semipositiva}
+            (\matr{B}+\lambda \matr{I})\bmpo             & = -\nabla f                     \\
+            \lambda(\Delta - \norm{\bmpo}) & = 0                             \\
+            (\matr{B} + \lambda \matr{I})                 & \text{ è definita semipositiva}
         \end{cases}
     \]
 \end{theorem}
 
-I metodi trust-region garantiscono convergenza globale grazie ad una riduzione sufficiente del modello che può essere quantificata in termini del \textbf{punto di Cauchy}, definito come il punto minimo del modello quadratico lungo la direzione \(-\nabla f\). Questo punto può essere calcolato nell'ordine di \(O(n^2)\) e viene utilizzato per determinare se la soluzione di un sotto problema è accettabile.
+I metodi trust-region garantiscono convergenza globale grazie ad una riduzione sufficiente del modello che può essere quantificata in termini del \textbf{punto di Cauchy}, definito come il punto minimo del modello quadratico lungo la direzione \(-\nabla f\). Questo punto può essere calcolato nell'ordine di \(O\rnd{n^2}\) e viene utilizzato per determinare se la soluzione di un sotto problema è accettabile.
 
-Un metodo trust-region sarà globalmente convergente se un suo step \(\bmp_k\) da un riduzione nel modello \(m_k\) che è almeno un multiplo positivo della decrescita ottenuta tramite lo step di Cauchy. Se scegliessimo sempre il punto di Cauchy per la discesa implementeremmo banalmente il metodo di discesa rapida con una scelta fissata della step lenght e questo sarebbe poco efficiente.
+Un metodo trust-region sarà globalmente convergente se un suo step \(\bmp_k\) da un riduzione nel modello \(m_k\) che è almeno un multiplo positivo della decrescita ottenuta tramite lo step di Cauchy. Se scegliessimo sempre il punto di Cauchy per la discesa implementeremmo banalmente il metodo di discesa rapida con una scelta fissata della step length e questo sarebbe poco efficiente.
 
-Dobbiamo utilizzare le informazioni che possiamo trarre dalla matrice \(B_k\), la nostra approssimazione (o coincidente) dell'Hessiana.
+Dobbiamo utilizzare le informazioni che possiamo trarre dalla matrice \(\matr{B}_k\), la nostra approssimazione (o coincidente) della matrice hessiana.
 
 \subsection{Metodo zampa di cane}
-Questo metodo risulta applicabile quando la matrice \(B\) è definita positiva. Si inizia computando il punto \(\bmp^{(B)} = -B^{-1}\nabla f\) e quindi se questo punto cade nel raggio della regione ammissibile esso coincide con il punto ottimo \(\bmp^*\). Altrimenti si determina una traiettoria ottimale tra un punto \(\bmp^{(U)} = -\frac{\nabla f^T \nabla f}{\nabla f^T B \nabla f} \nabla f\) ed il punto \(\bmp^{(B)}\) seguendo la curva seguente:
-
+Questo metodo risulta applicabile quando la matrice \(\matr{B}\) è definita positiva. Si inizia computando il punto \(\bmp^{\rnd{\matr{B}}} = -\matr{B}^{-1}\nabla f\) e quindi se questo punto cade nel raggio della regione ammissibile esso coincide con il punto ottimo \(\bmpo \). Altrimenti si determina una traiettoria ottimale tra un punto \(\bmp^{\rnd{\matr{U}}} = -\frac{\nabla f^T \nabla f}{\nabla f^T \matr{B} \nabla f} \nabla f\) ed il punto \(\bmp^{\rnd{\matr{B}}}\) seguendo la curva seguente:
 \[
     \bmp(\tau) = \begin{cases}
-        \tau \bmp^{(U)}                                 & \tau \in [0,1] \\
-        \bmp^{(U)} + (\tau -1)(\bmp^{(B)} - \bmp^{(U)}) & \tau \in [1,2]
+        \tau \bmp^{\rnd{\matr{U}}}                                 & \tau \in [0,1] \\
+        \bmp^{\rnd{\matr{U}}} + (\tau -1)(\bmp^{\rnd{\matr{B}}} - \bmp^{\rnd{\matr{U}}}) & \tau \in [1,2]
     \end{cases}
 \]
-
 \subsection{Proprietà della matrice B}
-Se la matrice \(B\) risulta definita semi positiva, allora:
+Se la matrice \(\matr{B}\) risulta definita semi positiva, allora:
 
 \begin{enumerate}
     \item \(\norm{\bmp(\tau)}\) è una funzione crescente di \(\tau \)
     \item \(m(\bmp(\tau))\) è una funzione decrescente di \(\tau \)
     \item \(\tau \) può essere calcolata risolvendo l'equazione scalare quadratica: \[
-              \norm{\bmp^{(U)} + (\tau -1)(\bmp^{(B)}-\bmp^{(U)})}^2 = \Delta^2
-          \]
-    \item Esistono metodi iterativi per risolvere il modello quadratico.
+              \norm{\bmp^{\rnd{\matr{U}}} + (\tau -1)(\bmp^{\rnd{\matr{B}}}-\bmp^{\rnd{\matr{U}}})}^2 = \Delta^2
+          \]    \item Esistono metodi iterativi per risolvere il modello quadratico.
     \item La convergenza può arrivare ad essere \textbf{super-lineare}.
 \end{enumerate}
 

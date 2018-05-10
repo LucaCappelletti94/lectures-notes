@@ -1,0 +1,65 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Uncapacitated facility location}
+
+\begin{figure}
+    \begin{align*}
+        z = \min \sum_{i=1}^n \sum_{j=1}^m c_{ij} x_{ij} + \sum_{i=1}^n f_i y_i\\
+        \sum_{i=1}^n x_{ij} &= 1 \quad \forall j \in \crl{1, \ldots, m}\\
+        \sum_{j=1}^m x_{ij} &\leq M y_j \quad \forall i \in \crl{1, \ldots, n}\\
+        \bmx &\in {0,1}^{n\times m}\\
+        \bmy &\in {0,1}^n
+    \end{align*}
+    \caption{Uncapacitated facility location}
+\end{figure}
+
+\section{Modello}
+\begin{minted}{python}
+from pyscipopt import Model, quicksum
+
+def uncapacitated_facility_location(facilities_number, clients_number, fixed_costs, costs, capacity):
+    model = Model("Uncapacitated facility location")
+    x,y = {},{}
+    # Adding the variables to the model
+    for j in range(facilities_number):
+        y[j] = model.addVar(vtype="B", name="y(%s)"%j)
+        for i in range(clients_number):
+            x[i,j] = model.addVar(vtype="B", name="x(%s,%s)"%(i,j))
+    for i in range(clients_number):
+        model.addCons(quicksum(x[i,j] for j in range(facilities_number)) == 1, "Demand(%s)"%i)
+    for j in range(facilities_number):
+        model.addCons(
+            quicksum(x[i,j] for i in range(clients_number)) <= capacity[j]*y[j], "Capacity(%s)"%i
+        )
+    model.setObjective(
+        quicksum(fixed_costs[j]*y[j] for j in range(facilities_number)) +
+        quicksum(costs[i,j]*x[i,j] for i in range(clients_number) for j in range(facilities_number)),
+        "minimize")
+    model.data = x,y
+    return model
+\end{minted}
+\clearpage
+\section{Parametri}
+\begin{minted}{python}
+facilities_number = 10
+clients_number = 8
+min_cost = 1
+max_cost = 100
+default_capacity = 1
+capacity = {j:default_capacity for j in range(facilities_number)}
+costs = {(i,j):random.randint(min_cost, max_cost) for i in range(clients_number) for j in range(facilities_number)}
+fixed_costs = {j:random.randint(min_cost, max_cost) for j in range(facilities_number)}
+\end{minted}
+
+\section{Esecuzione}
+\begin{minted}{python}
+model = uncapacitated_facility_location(facilities_number, clients_number, fixed_costs, costs, capacity)
+model.optimize()
+print_results(model)
+# Optimal value= 429.0
+# Facilities at nodes: [0, 2, 3, 4, 5, 6, 8, 9]
+# Edges: [(7, 0), (0, 2), (2, 3), (5, 4), (3, 5), (4, 6), (1, 8), (6, 9)]
+\end{minted}
+
+\end{document}

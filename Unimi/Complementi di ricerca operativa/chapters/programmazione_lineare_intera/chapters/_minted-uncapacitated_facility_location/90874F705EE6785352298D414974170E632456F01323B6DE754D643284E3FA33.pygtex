@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{print\PYGZus{}results}\PYG{p}{(}\PYG{n}{model}\PYG{p}{,} \PYG{n}{EPS}\PYG{p}{):}
+    \PYG{n}{x}\PYG{p}{,}\PYG{n}{y} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{data}
+    \PYG{n}{edges} \PYG{o}{=} \PYG{p}{[(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{)} \PYG{k}{for} \PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{)} \PYG{o+ow}{in} \PYG{n}{x} \PYG{k}{if} \PYG{n}{model}\PYG{o}{.}\PYG{n}{getVal}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{n}{EPS}\PYG{p}{]}
+    \PYG{n}{facilities} \PYG{o}{=} \PYG{p}{[}\PYG{n}{j} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n}{y} \PYG{k}{if} \PYG{n}{model}\PYG{o}{.}\PYG{n}{getVal}\PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{n}{j}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{n}{EPS}\PYG{p}{]}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Optimal value=\PYGZdq{}}\PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{getObjVal}\PYG{p}{())}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Facilities at nodes:\PYGZdq{}}\PYG{p}{,} \PYG{n}{facilities}\PYG{p}{)}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Edges:\PYGZdq{}}\PYG{p}{,} \PYG{n}{edges}\PYG{p}{)}
+\end{Verbatim}

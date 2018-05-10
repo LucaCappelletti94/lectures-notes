@@ -1,0 +1,38 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{pyscipopt} \PYG{k+kn}{import} \PYG{n}{Model}\PYG{p}{,} \PYG{n}{quicksum}\PYG{p}{,} \PYG{n}{multidict}
+
+\PYG{k}{def} \PYG{n+nf}{uncapacitated\PYGZus{}facility\PYGZus{}location}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{,} \PYG{n}{clients\PYGZus{}number}\PYG{p}{,} \PYG{n}{fixed\PYGZus{}costs}\PYG{p}{,} \PYG{n}{costs}\PYG{p}{,} \PYG{n}{capacieties}\PYG{p}{):}
+    \PYG{n}{model} \PYG{o}{=} \PYG{n}{Model}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Uncapacitated facility location\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{x}\PYG{p}{,}\PYG{n}{y} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{},\PYGZob{}\PYGZcb{}}
+    \PYG{c+c1}{\PYGZsh{} Adding the variables to the model}
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{):}
+        \PYG{n}{y}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{addVar}\PYG{p}{(}\PYG{n}{vtype}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}B\PYGZdq{}}\PYG{p}{,} \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}y(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{n}{j}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} Y variables are binary}
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{clients\PYGZus{}number}\PYG{p}{):}
+            \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{addVar}\PYG{p}{(}\PYG{n}{vtype}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}B\PYGZdq{}}\PYG{p}{,} \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}x(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{,}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{))} \PYG{c+c1}{\PYGZsh{} X variables are continous}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{clients\PYGZus{}number}\PYG{p}{):}
+        \PYG{n}{model}\PYG{o}{.}\PYG{n}{addCons}\PYG{p}{(}\PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{))} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Demand(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{n}{i}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{):}
+        \PYG{n}{model}\PYG{o}{.}\PYG{n}{addCons}\PYG{p}{(}\PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{clients\PYGZus{}number}\PYG{p}{))} \PYG{o}{\PYGZlt{}=} \PYG{n}{capacieties}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}Capacity(}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{)\PYGZdq{}}\PYG{o}{\PYGZpc{}}\PYG{n}{i}\PYG{p}{)}
+    \PYG{n}{model}\PYG{o}{.}\PYG{n}{setObjective}\PYG{p}{(}
+        \PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{fixed\PYGZus{}costs}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{))} \PYG{o}{+}
+        \PYG{n}{quicksum}\PYG{p}{(}\PYG{n}{costs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{]} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{clients\PYGZus{}number}\PYG{p}{)} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{)),}
+        \PYG{l+s+s2}{\PYGZdq{}minimize\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{model}\PYG{o}{.}\PYG{n}{data} \PYG{o}{=} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}
+    \PYG{k}{return} \PYG{n}{model}
+
+\PYG{n}{facilities\PYGZus{}number} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{clients\PYGZus{}number} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{min\PYGZus{}cost} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{max\PYGZus{}cost} \PYG{o}{=} \PYG{l+m+mi}{100}
+\PYG{n}{capacity} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{capacieties} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{j}\PYG{p}{:}\PYG{n}{capacity} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{)\PYGZcb{}}
+\PYG{n}{costs} \PYG{o}{=} \PYG{p}{\PYGZob{}(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{):}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{n}{min\PYGZus{}cost}\PYG{p}{,} \PYG{n}{max\PYGZus{}cost}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{clients\PYGZus{}number}\PYG{p}{)} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{)\PYGZcb{}}
+\PYG{n}{fixed\PYGZus{}costs} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{j}\PYG{p}{:}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{n}{min\PYGZus{}cost}\PYG{p}{,} \PYG{n}{max\PYGZus{}cost}\PYG{p}{)} \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{)\PYGZcb{}}
+
+\PYG{n}{ufl\PYGZus{}model} \PYG{o}{=} \PYG{n}{ufl}\PYG{p}{(}\PYG{n}{facilities\PYGZus{}number}\PYG{p}{,} \PYG{n}{clients\PYGZus{}number}\PYG{p}{,} \PYG{n}{fixed\PYGZus{}costs}\PYG{p}{,} \PYG{n}{costs}\PYG{p}{,} \PYG{n}{capacieties}\PYG{p}{)}
+
+\PYG{n}{ufl\PYGZus{}model}\PYG{o}{.}\PYG{n}{optimize}\PYG{p}{()}
+\PYG{n}{EPS} \PYG{o}{=} \PYG{l+m+mf}{1.e\PYGZhy{}6}
+
+\PYG{n}{print\PYGZus{}results}\PYG{p}{(}\PYG{n}{ufl\PYGZus{}model}\PYG{p}{,} \PYG{n}{EPS}\PYG{p}{)}
+\end{Verbatim}

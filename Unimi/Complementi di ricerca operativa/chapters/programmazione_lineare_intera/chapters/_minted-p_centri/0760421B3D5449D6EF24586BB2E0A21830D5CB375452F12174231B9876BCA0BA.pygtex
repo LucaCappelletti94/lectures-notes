@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{p\PYGZus{}centers}\PYG{p}{(}\PYG{n}{I}\PYG{p}{,} \PYG{n}{J}\PYG{p}{,} \PYG{n}{costs}\PYG{p}{,} \PYG{n}{p}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{optimize}\PYG{p}{()}
+\PYG{n}{print\PYGZus{}results}\PYG{p}{(}\PYG{n}{model}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Optimal value= 29.0}
+\PYG{c+c1}{\PYGZsh{} Facilities at nodes: [0, 1, 2, 3, 4]}
+\PYG{c+c1}{\PYGZsh{} Edges: [(0, 2), (1, 4), (2, 3), (3, 2), (4, 3), (5, 0), (6, 1), (7, 0), (8, 2), (9, 2)]}
+\end{Verbatim}

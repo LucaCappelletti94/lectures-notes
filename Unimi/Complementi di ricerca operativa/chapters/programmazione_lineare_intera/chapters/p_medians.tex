@@ -1,0 +1,62 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Problema delle p-Mediane}
+Si tratta di un problema simile all'uncapacitated facility location ma cerca di posizionare \(p\) facilities ignorando i costi fissi.
+
+\begin{figure}
+    \begin{align*}
+        z = \min \sum_{i=1}^n \sum_{j=1}^m c_{ij} x_{ij} \\
+        \sum_{i=1}^n x_{ij} &= 1 \quad \forall j \in \crl{1, \ldots, m}\\
+        \sum_{i=1}^n y_{i} &= p\\
+        x_{ij} &\leq y_j \quad \forall i \in \crl{1, \ldots, n} \quad \forall j \in \crl{1, \ldots, m}\\
+        \bmx &\in {0,1}^{n\times m}\\
+        \bmy &\in {0,1}^n
+    \end{align*}
+    \caption{Problema delle p-Mediane}
+\end{figure}
+
+\section{Modello}
+\begin{minted}{python}
+from pyscipopt import Model, quicksum
+def p_medians(I, J, costs, p):
+    model = Model("P-medians")
+    x,y = {},{}
+    # Adding the variables to the model
+    for i in range(I):
+        y[i] = model.addVar(vtype="B", name="y(%s)"%i) # Y variables are binary
+        for j in range(J):
+            x[i,j] = model.addVar(vtype="B", name="x(%s,%s)"%(i,j)) # X variables are binary
+    for i in range(I):
+        model.addCons(quicksum(x[i,j] for j in range(J)) == 1, "Demand(%s)"%i)
+    for i in range(I):
+        for j in range(J):
+            model.addCons(x[i,j] <= y[j], "Open(%s,%s)"%(i,j))
+    model.addCons(quicksum(y[j] for j in range(J)) <= p, "Median")
+    model.setObjective(
+        quicksum(costs[i,j]*x[i,j] for i in range(I) for j in range(J)),
+        "minimize")
+    model.data = x,y
+    return model
+\end{minted}
+
+\section{Parametri}
+\begin{minted}{python}
+I = 10
+J = 5
+min_cost = 1
+max_cost = 100
+p = 5
+costs = {(i,j):random.randint(min_cost, max_cost) for i in range(I) for j in range(J)}
+\end{minted}
+\section{Esecuzione}
+\begin{minted}{python}
+model = p_medians(I, J, costs, p)
+model.optimize()
+print_results(model)
+#Optimal value= 126.0
+#Facilities at nodes: [0, 1, 2, 3, 4]
+#Edges: [(0, 2), (1, 4), (2, 3), (3, 2), (4, 3), (5, 0), (6, 1), (7, 0), (8, 2), (9, 2)]
+\end{minted}
+
+\end{document}
