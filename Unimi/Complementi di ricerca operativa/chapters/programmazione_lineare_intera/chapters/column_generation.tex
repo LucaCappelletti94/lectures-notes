@@ -13,7 +13,7 @@ In questo problema è necessario tagliare delle assi (tutte di pari lunghezza) i
 \begin{align*}
     \min \sum_{i=1}^m y_i & && \text{Va minimizzato il numero di assi che vengono utilizzate.}\\
     \sum_{j=1}^n l_j x_{ij} &\leq L y_i \quad \forall i &&\parbox{10cm}{Da ogni assa \(i\) si può realizzare al massimo un numero di prodotti la cui lunghezza totale non superi la lunghezza \(L\) dell'assa}\\
-    \sum_{i=1}^n x_{ij} &\geq d_i \quad \forall j &&\text{Bisogna realizzare almeno un numero di prodotti per tipo pari alla domanda.}\\
+    \sum_{i=1}^m x_{ij} &\geq d_j \quad \forall j &&\text{Bisogna realizzare almeno un numero di prodotti per tipo pari alla domanda.}\\
     x_{ij} \in \Z^+\\
     y_i \in \crl{0,1}\\
 \end{align*}
