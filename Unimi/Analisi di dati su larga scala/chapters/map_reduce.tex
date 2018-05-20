@@ -122,17 +122,17 @@ Ottengo quindi che: $6\times 10^11 \sqrt{k} \leq 1\times 86 \times 10^33 \longri
 Come funziona \textbf{pagerank}:
 
 \begin{center}
-\begin{tabular}{ |c|c|c|c|c| } 
+\begin{tabular}{ |c|c|c|c|c| }
  \hline
-  & A & B & C & D \\ 
+  & A & B & C & D \\
  \hline
- A & 0 & $\sfrac{1}{2}$ & 1 & 0 \\ 
+ A & 0 & $\sfrac{1}{2}$ & 1 & 0 \\
  \hline
- B & $\sfrac{1}{3}$ & 0 & 0 & $\sfrac{1}{2}$ \\ 
+ B & $\sfrac{1}{3}$ & 0 & 0 & $\sfrac{1}{2}$ \\
  \hline
- C & $\sfrac{1}{3}$ & 0 & 0 & $\sfrac{1}{2}$ \\ 
+ C & $\sfrac{1}{3}$ & 0 & 0 & $\sfrac{1}{2}$ \\
  \hline
- D & $\sfrac{1}{3}$ & $\sfrac{1}{2}$ & 0 & 0 \\ 
+ D & $\sfrac{1}{3}$ & $\sfrac{1}{2}$ & 0 & 0 \\
  \hline
 \end{tabular}
 \end{center}
@@ -155,21 +155,21 @@ con $M_{ij} = P \text{Spostarsi da j a i}$.
 
 \begin{definition}[Determinante]
 	\[
-		\text{det}A = \sum_i a_{ij} c_{ij} = \sum_j a_{ij} c_{ij}	
+		\text{det}A = \sum_i a_{ij} c_{ij} = \sum_j a_{ij} c_{ij}
 	\]
 \end{definition}
 
 \begin{definition}[Determinante di matrice trasposta]
 Una matrice e la sua trasposta possiedono lo stesso determinante.
 	\[
-		\text{det}A^T = \sum_i a^T_{ij} c^T_{ij} = \sum_i a_{ji} c_{ji}	 =  \sum_j a_{ij} c_{ij}	
+		\text{det}\matr{A}^T = \sum_i a^T_{ij} c^T_{ij} = \sum_i a_{ji} c_{ji}	 =  \sum_j a_{ij} c_{ij}
 	\]
 \end{definition}
 
 \begin{definition}[Autovalori]
 Si ottengono trovando gli zeri dell'equazione caratteristica.
 \[
-	\text{det}(A-\lambda I) = 0 \leftrightarrow \text{det}(A-\lambda I)^T = 0 \leftrightarrow  \text(A^T-\lambda I) = 0
+	\text{det}(A-\lambda I) = 0 \leftrightarrow \text{det}(A-\lambda I)^T = 0 \leftrightarrow  \text(\matr{A}^T-\lambda I) = 0
 \]
 \end{definition}
 
@@ -188,7 +188,7 @@ Una qualsiasi matrice stocastica per colonne ammette $1$ come autovettore poich�
 Il risultato dell'elevazione a potenza di una matrice stocastica risulta sempre essere stocastico. Dimostriamo per induzione:
 \[
 	\text{Base: } k=1 \qquad A^k = A
-\] 
+\]
 \[
 	\text{Passo: } A^k \text{ stocastica } \rightarrow A^{k+1} \text{ stocastica }
 \]
@@ -196,7 +196,7 @@ Dimostriamo che ad un generico passo $k$, otteniamo sempre 1 quando andiamo a so
 \[
 	a_{ij}^{k+1} = \sum_s a^k_{ij} a_{sj}\\
 	\sum_j a^k_{ij} = \sum_j \sum_s a^k_{is}a_{sj}
-\] 
+\]
 Inverto le sommatorie ed ottengo:
 \[
 	\sum_s a_{is}^k \sum_j a_{sj} = \sum_s a^k_{is} = 1
@@ -208,14 +208,14 @@ Se A è stocastica per colonne, il suo autovalore massimo è 1.
 
 \textbf{Procediamo a dimostrare per assurdo.}
 
-Sappiamo che 1 è un autovale di A, poiché A è stocastica. Affermiamo che, per assurdo, esista un $\lambda > 1$ autovalore di A (che è anche l'autovalore di $A^T$) e $v$ un autovettore per $\lambda$.
+Sappiamo che 1 è un autovale di A, poiché A è stocastica. Affermiamo che, per assurdo, esista un $\lambda > 1$ autovalore di A (che è anche l'autovalore di $\matr{A}^T$) e $v$ un autovettore per $\lambda$.
 
 \[
-	A^Tv \Rightarrow \lambda v
+	\matr{A}^Tv \Rightarrow \lambda v
 \]
 
 \[
-	A^{2T} v = A^T \times A^T v = A (\lambda v) = \lambda A^T v = \lambda ^2 v \Rightarrow A^{Tk} v = \lambda ^ k v
+	A^{2T} v = \matr{A}^T \times \matr{A}^T v = A (\lambda v) = \lambda \matr{A}^T v = \lambda ^2 v \Rightarrow A^{Tk} v = \lambda ^ k v
 \]
 
 Maggioriamo / minoriamo la sommatoria:
@@ -242,7 +242,7 @@ Ma siccome la sommatoria è dei termini di una matrice stocastica per righe (ess
 
 \begin{theorem}[Autovalori di potenza di matrice]
 \[
-	v_0 \rightarrow v_1 = A v_0 \rightarrow v_2 = A v_1 = A^2 v_0 \rightarrow ... \rightarrow v_k = A^k v_0	
+	v_0 \rightarrow v_1 = A v_0 \rightarrow v_2 = A v_1 = A^2 v_0 \rightarrow ... \rightarrow v_k = A^k v_0
 \]
 
 \textbf{Dimostrazione}
@@ -329,10 +329,10 @@ draw,processblue , text=blue , minimum width =1 cm}]
 
 \subsection{Risolvere le trappole per ragni col teletrasporto}
  Per evitare le trappole per ragni, andiamo a inserire una certa probabilità $\beta$ di teletrasportarci da un nodo ad un altro al posto di continuare a navigare tramite link.
- 
+
  \[
  	\bm{v}_{t+1} = \beta M \bm{v}_t + (1-\beta) \dfrac{1}{n} \bm{1}
- \] 
+ \]
 
 P(mi trovo in $i$ al tempo $t+1$) = P(spostarsi tramite link in $i$ | scelgo i link) P(scelgo i link) + P (teletrasportarsi in i | mi teletrasporto) P(scegliere teletrasporto)
 
