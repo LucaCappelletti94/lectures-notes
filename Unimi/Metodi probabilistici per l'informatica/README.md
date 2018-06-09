@@ -1,3 +1,5 @@
+![Cover](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/metodi-probabilistici.png?raw=true)
+
 # Metodi probabilistici per L'informatica
 Questo è lo scheletro per la dispensa di metodi probabilistici per l'informatica.
 
