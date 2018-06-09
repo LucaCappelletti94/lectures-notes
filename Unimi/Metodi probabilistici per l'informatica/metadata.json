@@ -1,5 +1,9 @@
 {
 	"title":"Metodi Probabilistici per L'informatica",
+  "authors":[{
+    "name":"Work",
+    "surname":"In Progress"
+  }],
 	"professors":[{
 		"name":"Massimiliano",
 		"surname":"Goldwurm"
