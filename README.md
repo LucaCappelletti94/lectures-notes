@@ -18,7 +18,8 @@ These are notes from courses that we might be currently following, so they might
     - [★ Implementazione in Scip di modelli PLI (Jupyter) 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Models_SCIP.ipynb)
 - [★ Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
 - [Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
-    - [Mappa concettuale 🇮🇹](https://raw.githubusercontent.com/LucaCappelletti94/various-notes/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/Metodi%20probabilistici%20per%20l'informatica%20mappa%20concettuale.png)
+    + [Mappa degli algoritmi probabilistici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/images/Mappa_algoritmi_probabilistici.png?raw=true)
+    + [Mappa concettuale del corso 🇮🇹](https://raw.githubusercontent.com/LucaCappelletti94/various-notes/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/Metodi%20probabilistici%20per%20l'informatica%20mappa%20concettuale.png)
 - [★ Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
 - [★ Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sistemi%20Intelligenti/main.pdf)
 
