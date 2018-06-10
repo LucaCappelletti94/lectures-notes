@@ -9,12 +9,46 @@
   % #3 (optional) -> second term of probability, when conditioned
   %
   \IfNoValueTF{#3}{%
-    P\rnd{#1}
+    \mathbb{P}\rnd{#1}
   }{%
     \IfNoValueTF{#2}{%
-      P\rnd{\left. #1 \;\right\rvert\; #3}
+      \mathbb{P}\rnd{\left. #1 \;\right\rvert\; #3}
     }{%
-      P\rnd{#1\;#2\;#3}
+      \mathbb{P}\rnd{#1\;#2\;#3}
+    }
+  }
+}
+
+\NewDocumentCommand{\mean}{m o g}{%
+  %
+  % #1 -> first term of mean
+  % #2 (optional) -> operator beetween events, defaults to conditioned probabilities.
+  % #3 (optional) -> second term of mean, when conditioned
+  %
+  \IfNoValueTF{#3}{%
+    \mathbb{E}\rnd{#1}
+  }{%
+    \IfNoValueTF{#2}{%
+      \mathbb{E}\rnd{\left. #1 \;\right\rvert\; #3}
+    }{%
+      \mathbb{E}\rnd{#1\;#2\;#3}
+    }
+  }
+}
+
+\NewDocumentCommand{\Var}{m o g}{%
+  %
+  % #1 -> first term of mean
+  % #2 (optional) -> operator beetween events, defaults to conditioned probabilities.
+  % #3 (optional) -> second term of mean, when conditioned
+  %
+  \IfNoValueTF{#3}{%
+    \text{Var}\rnd{#1}
+  }{%
+    \IfNoValueTF{#2}{%
+      \text{Var}\rnd{\left. #1 \;\right\rvert\; #3}
+    }{%
+      \text{Var}\rnd{#1\;#2\;#3}
     }
   }
 }
