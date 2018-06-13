@@ -2,10 +2,79 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Proprietà di Grafi, matrici e vettori stocastici}
-\subsection{Cos'è una matrice stocastica?}
-\subsection{Cos'è una matrice primitiva?}
-\subsection{Proprietà di autovalori ed autovettori di una matrice stocastica}
-\subsection{Teoremi sulla periodicità}
+% \section{Proprietà di Grafi, matrici e vettori stocastici}
+% \subsection{Cos'è una matrice stocastica?}
+% \subsection{Cos'è una matrice primitiva?}
+% \subsection{Proprietà di autovalori ed autovettori di una matrice stocastica}
+% \subsection{Teoremi sulla periodicità}
+
+\section{Matrici e grafi}
+\subsection{Grafo orientato}
+Si tratta di una coppia \(\rnd{\mathcal{V}, \mathcal{E}}\), dove \(\mathcal{V}\) rappresenta un insieme finito di elementi detti \textbf{nodi} (o vertici) mentre \(\mathcal{E}\) rappresenta un insieme ordinato di nodi che vengono chiamati \textbf{lati} (edges).
+
+\subsection{Matrice associata a grafo}
+Ogni matrice non negativa può essere associata a un grafo orientato nel quale i lati sono pesati con valori positivi.
+
+\subsection{Cammino}
+Si tratta di una sequenza di nodi del tipo \(c = {v_0, v_1, \ldots, v_n}\) non necessariamente distinti tali che la tupla \(\rnd{v_{i-1}, v_{v_i}} \in \mathcal{E}\). Se esiste un cammino da un nodo \(v_0\) a \(v_k\) la sua lunghezza è \(k\).
+
+\subsection{Cammino semplice}
+Un cammino è detto semplice se tutti i suoi nodi sono distinti tranne al più il primo e l'ultimo.
+
+\subsection{Ciclo}
+Si tratta di un cammino con lunghezza non nulla nel quale primo e ultimo nodo coincidono.
+
+\subsection{Grafo fortemente connesso}
+Una grafo in cui per ogni coppia di nodi esiste una arco.
+
+\subsection{Componente fortemente connessa}
+Un sotto-grafo formato da una classe \(C\) e dai lati di \(C_e\) che connettono tali nodi.
+
+\subsection{Classe essenziale}
+Una classe \(C\) è detta essenziale se \(\forall v_i \in C \quad v_i \rightarrow v_j \Rightarrow v_j \in C\).
+
+Non è possibile uscire da una classe essenziale seguendo un cammino che porta ad uno dei suoi nodi.
+
+\subsection{Nodo essenziale}
+Ogni nodo appartenente ad una classe essenziale viene detto essenziale \(\Leftrightarrow \forall v_j: v_i \rightarrow v_j \Rightarrow v_j \rightarrow v_i\).
+
+\subsection{Periodicità}
+Dato un grado \(\mathcal{G}\), consideriamo \(v_i\), un nodo per il quale passa almeno un ciclo. Il \textbf{periodo} \(d(v_i)\) di \(v_i\) è il massimo comun divisore delle lunghezze dei cicli che passano per \(v_i\).
+
+\begin{figure}
+  \[
+    d(v_i) = \mcd\crl{n \in \N: v_i\xrightarrow{n}v_j}
+  \]
+  \caption{Periodo di un nodo}
+\end{figure}
+
+Ogni nodo con un \textbf{auto-anello} è detto \textbf{aperiodico}. I nodi appartenenti alla stessa classe hanno lo stesso periodo.
+
+\subsection{Matrice di adiacenza}
+Matrice che assume solo valori binari: \(\rnd{0,1}\).
+
+\subsection{P}
+Si tratta di una matrice quadrata non negativa con grafo \(\mathcal{G}\) associato che \(\forall n \in \N, \forall \rnd{i,j}: a_{ij}^{\rnd{n}} = \sum \text{passi di tutti i cammini di lunghezza \(n\) da \(v_i\) a \(v_j\)}\).
+
+Nelle matrici di \textbf{adiacenza} \(a_{ij}^{\rnd{n}}\) denota il numero di cammini da \(v_i \rightarrow v_j\) con lunghezza \(n\).
+
+\subsection{Matrice irriducibile}
+Una matrice non-negativa \(\matr{A}\) si dice \textbf{irriducibile} se \(\forall \rnd{i,j} \exists n \in \N: a_{ij}^n > 0\).
+
+\subsection{Proprietà di una matrice irriducibile}
+\begin{enumerate}
+  \item \(\forall i = 1, \ldots, k \exists N(i): \forall n \in N(i) \quad a_{ij}^{\rnd{n}} > 0\).
+  \item \(\forall i = 1, \ldots, k \exists r \in \N: 0 \leq r \leq d \land a_{ij}^{\rnd{s}}>0 \Rightarrow s = r\mod\rnd{d}\)
+  \item \(\forall i,j = 1, \ldots, k \exists q(i,j) \in \N: \forall n \geq q a_{ij}^{\rnd{r+nd}}>0\)
+\end{enumerate}
+
+\subsection{Matrice riducibile}
+Quando non è irriducibile, cioè se:
+\begin{enumerate}
+  \item Se e solo se il grafo associato possiede almeno due componenti totalmente connesse, o equivalentemente,
+  \item Se e solo se mediante una permutazione di righe e delle colonne può essere trasformata in una matrice triangolare a blocchi.
+\end{enumerate}
+
+TODO: mancano ancora diverse cose qui.
 
 \end{document}
