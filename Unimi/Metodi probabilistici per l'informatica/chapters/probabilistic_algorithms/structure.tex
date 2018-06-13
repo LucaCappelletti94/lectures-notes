@@ -3,18 +3,26 @@
 \begin{document}
 
 \chapter{Algoritmi probabilistici}
-Gli algoritmi probabilistici richiedono un numero minore di calcoli degli algoritmi deterministici e quindi determinano una soluzione in un tempo minore.
+Gli algoritmi probabilistici richiedono un numero minore di calcoli degli algoritmi deterministici e quindi determinano una soluzione in un tempo minore. Esistono principalmente due famiglie di algoritmi probabilistici:
 
-\section{Classificazione degli algoritmi probabilistici}
+\begin{enumerate}
+	\item Per cercare una soluzione esatta.
+	\item Per cercare una soluzione approssimata.
+\end{enumerate}
+
+Per \textbf{algoritmi Monte-Carlo} si intendono gli algoritmi della categoria \textbf{1-sided error} e \textbf{2-sided error}.
+
+Generalmente, per diminuire la probabilità di errore viene reiterato l'algoritmo probabilistico per un numero di volte ottenuto utilizzando la \textbf{disequazione di Chernoff} sino a che l'errore è inferiore ad un \(\delta \) accettabile.
+
 \begin{figure}
 	\includegraphics[width=\textwidth]{Mappa_algoritmi_probabilistici.png}
 	\caption{Mappa degli algoritmi probabilistici}
 \end{figure}
 
-\subsection{1-Sided Error}
+\section{1-Sided Error}
 Hanno risposta SI/NO e vengono applicati a problemi di decisione.
 
-\subsubsection{Esempio: Problema di protocollo di comunicazione}
+\subsection{Esempio: Problema di protocollo di comunicazione}
 Si vuole determinare se due stringhe binarie \(a\) e \(b\), lunghe \(n\), salvate su due terminali separati sono uguali senza inviare una stringa completamente da un terminale all'altro.
 
 Un approccio banale risolverebbe in \(n\) messaggi il problema.
@@ -74,7 +82,7 @@ Si determina che la probabilità di scegliere un certo \(p\) risulta essere pari
 
 Anche per \(n\) piccolo, se \(\frac{2\ln n}{n} < \frac{1}{2}\) ripeto l'algoritmo \(t\) volte ed ottengo una probabilità di errore pari a \(\prob{\text{errore}} < \frac{1}{2}^t\)
 
-\subsubsection{Esempio: Quicksort}
+\subsection{Esempio: Quicksort}
 Dato \(\mean{n}\), numero medio di confronti richiesto da \textbf{Quicksort} su un input di \(n\) elementi determinato come:
 
 \[
@@ -95,7 +103,7 @@ Ottengo che i \textbf{tempo di calcolo che Quicksort} impiegati con un input di 
 
 Dove \(H_n\) è l'\(n\)-esimo numero armonico, cioè \(H_n = \sum_{i=1}^n \frac{1}{i}\).
 
-\subsubsection{Esempio: commutatività di matrici}
+\subsection{Esempio: commutatività di matrici}
 L'approccio deterministico usualmente termina in \(\O{k^3}\) o \(\O{k^\alpha}\) con \(2 < \alpha < 3\).
 
 La procedura probabilistica cerca di determinare se \(\matr{A}\matr{B} \neq \matr{B}\matr{A}\).
@@ -160,10 +168,10 @@ Uno di questi due vettori deve coincidere con \(A\).
 
 È importante notare che non può capire che entrambe le relazioni siano vere allo stesso tempo poiché implicherebbe, ricordando la premessa \(\bmc_i \neq 0\), che \(\bmc_i = 0\).
 
-\subsection{Las Vegas}
-Sono sempre esatti o ritornano `impossibile determinare soluzione'.
+\section{Las Vegas}
+Sono sempre esatti o ritornano `impossibile determinare soluzione' (spesso rappresentato con un punto di domanda).
 
-\subsubsection{Esempio: RSEL}
+\subsection{Esempio: RSEL}
 Si tratta di un algoritmo \textbf{Las Vegas} utilizzato per estrarre il \(k\)-esimo elemento da un vettore definito su dominio \(\mathbb{U}\) totalmente ordinato (non esistono termini intercambiabili nell'ordine).
 
 \IncMargin{1em}
@@ -189,7 +197,7 @@ Si tratta di un algoritmo \textbf{Las Vegas} utilizzato per estrarre il \(k\)-es
 				\Return \(\text{RSEL}\rnd{A_<, k}\)
 			}
 			\Else{
-				\Return \(\text{RSEL}\rnd{A_>, k- \arity{A_<}-1}\)
+				\Return \(\text{RSEL}\rnd{A_>, k- \arity{A_<} -1}\)
 			}
 		}
 	}
@@ -204,13 +212,13 @@ Si tratta di un algoritmo \textbf{Las Vegas} utilizzato per estrarre il \(k\)-es
 	\item[Caso medio] \(T(n,k) = \O{n\log{n}}\)
 \end{description}
 
-\subsubsection{Numero medio di confronti in RSEL}
+\subsection{Numero medio di confronti in RSEL}
 \[
 	T(n,k) = n-1 + \frac{1}{n}\sum_{l=k}^{n-1} T(l,k) + \frac{1}{n} \frac{1}{n}\sum_{l=0}^{k-2} T(n-1-l, k-l-1)
 \]
 Con \(k\leq n, \arity{A_<} = l\).
 
-\subsubsection{Esempio: Protocollo 10}
+\subsection{Esempio: Protocollo 10}
 Si tratta di un algoritmo \textbf{Las Vegas} per la comunicazione, che vuole stabilire se esiste un termine condiviso tra le due liste: \(\exists i: x_i = y_i\).
 
 \begin{align*}
@@ -234,7 +242,7 @@ L'algoritmo nel caso di risposta ``NO'' richiede \(10\cdot n \cdot \rnd{2 \log_2
 
 Le risposte ``SI'' e ``NO'' sono corrette.
 
-\subsubsection{Probabilità di errore del protocollo 10}
+\subsection{Probabilità di errore del protocollo 10}
 \paragraph{Primo Caso} \(\prob{?}{\forall i x_i \neq y_i} = \prob{\exists l}{ r_l = s_l: \forall i x_i \neq y_i} \leq \sum_{l=1}^10 \prob{ r_l = s_l: \forall i x_i \neq y_i} = 10\cdot \frac{2\ln n}{n} = \frac{10\ln n}{n} \Rightarrow n \geq 40 \ln n\)
 \paragraph{Secondo Caso}
 \begin{align*}
@@ -245,9 +253,20 @@ Le risposte ``SI'' e ``NO'' sono corrette.
 	                               & \Rightarrow n \geq 40 \ln n
 \end{align*}
 
-\subsection{Errore limitato (2-Sided Error)}
+\section{Errore limitato (2-Sided Error)}
+\[
+	f: I \rightarrow O, \qquad \exists \epsilon > 0 \quad \prob{A(x) ) f(x)} \geq \frac{1}{2} + \epsilon
+\]
 La probabilità di rispondere correttamente è \(\prob{\text{corretto}} \geq \frac{1}{2} + \epsilon\). Non si è mai assolutamente certi della risposta ottenuta ma si sceglie quella che appare più frequentemente. Generalmente si usa la \textbf{disuguaglianza di Chernoff} per determinare il numero di ripetizioni dell'algoritmo per avere un errore accettabile.
 
-\subsection{Errore Illimitato}
-Sono una tipologia di algoritmi probabilistici usati per stimare funzioni ma non ho la certezza di una risposta corretta. L'errore \(\epsilon\) dipende dalla \(x\).
+\textbf{L'errore \(\epsilon \) non dipende da \(x\).}
+
+\section{Errore Illimitato}
+\[
+	f: I \rightarrow O, \qquad \exists \epsilon > 0 \quad \prob{A(x) ) f(x)} \geq \frac{1}{2} + \epsilon(x)
+\]
+
+Sono una tipologia di algoritmi probabilistici usati per stimare funzioni ma \textbf{non ho mai} la certezza di una risposta corretta.
+
+\textbf{L'errore \(\epsilon\) dipende dalla \(x\).}
 \end{document}
