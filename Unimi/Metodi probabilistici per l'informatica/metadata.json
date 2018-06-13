@@ -1,8 +1,11 @@
 {
 	"title":"Metodi Probabilistici per L'informatica",
   "authors":[{
-    "name":"Work",
-    "surname":"In Progress"
+    "name":"Luca",
+    "surname":"Cappelletti"
+  }, {
+    "name":"Desilda",
+    "surname":"Toska"
   }],
 	"professors":[{
 		"name":"Massimiliano",
