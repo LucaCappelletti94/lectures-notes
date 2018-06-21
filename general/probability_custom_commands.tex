@@ -2,36 +2,40 @@
   \mathcal{N}\rnd{#1, #2}
 }
 
-\NewDocumentCommand{\prob}{m o g}{%
+\NewDocumentCommand{\prob}{m o G{} G{} G{}}{%
   %
   % #1 -> first term of probability
   % #2 (optional) -> operator beetween probabilities, defaults to conditioned probabilities.
   % #3 (optional) -> second term of probability, when conditioned
+  % #4 (optional) -> subscript
+  % #5 (optional) -> upscript
   %
-  \IfNoValueTF{#3}{%
-    \mathbb{P}\rnd{#1}
+  \ifblank{#3}{%
+    \mathbb{P}_{#4}^{#5}\rnd{#1}
   }{%
     \IfNoValueTF{#2}{%
-      \mathbb{P}\rnd{\left. #1 \;\right\rvert\; #3}
+      \mathbb{P}_{#4}^{#5}\rnd{\left. #1 \;\right\rvert\; #3}
     }{%
-      \mathbb{P}\rnd{#1\;#2\;#3}
+      \mathbb{P}_{#4}^{#5}\rnd{#1\;#2\;#3}
     }
   }
 }
 
-\NewDocumentCommand{\mean}{m o g}{%
+\NewDocumentCommand{\mean}{m o G{} G{} G{}}{%
   %
   % #1 -> first term of mean
   % #2 (optional) -> operator beetween events, defaults to conditioned probabilities.
   % #3 (optional) -> second term of mean, when conditioned
+  % #4 (optional) -> subscript
+  % #5 (optional) -> upscript
   %
-  \IfNoValueTF{#3}{%
-    \mathbb{E}\rnd{#1}
+  \ifblank{#3}{%
+    \mathbb{E}_{#4}^{#5}\rnd{#1}
   }{%
     \IfNoValueTF{#2}{%
-      \mathbb{E}\rnd{\left. #1 \;\right\rvert\; #3}
+      \mathbb{E}_{#4}^{#5}\rnd{\left. #1 \;\right\rvert\; #3}
     }{%
-      \mathbb{E}\rnd{#1\;#2\;#3}
+      \mathbb{E}_{#4}^{#5}\rnd{#1\;#2\;#3}
     }
   }
 }
