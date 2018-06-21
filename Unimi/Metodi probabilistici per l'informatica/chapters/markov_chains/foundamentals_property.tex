@@ -2,7 +2,56 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 \section{Definizione di una catena di Markov}
+Una catena di Markov è definita da 3 quantità:
+\begin{enumerate}
+  \item Un insieme finito \(S = \crl{1, 2, \ldots, k}\) di stati.
+  \item \(\mu \) una distribuzione di probabilità di un insieme \(\mu = \rnd{\mu_1, \ldots, \mu_n}\).
+  \item \(\matr{P}\), una matrice stocastica \(\sum righe =1\).
+\end{enumerate}
 \section{Proprietà fondamentali sulle catene}
+Una catena di Markov finita e omogenea definita sulla tripla \(S, \mu, \matr{P}\) è una successione \(\crl{X_u}_{n \in N}\) di variabili aleatorie a valori in \(S\) che soddisfano le seguenti proprietà seguenti:
+\begin{enumerate}
+  \item \(\forall i \in S \qquad \prob{X_0 = i} = \mu(i)\)
+  \item \textbf{Proprietà di Markov}: la probabilità di essere al passo \(n+1\) dipende solo dal passo \(n\).
+        \[
+          \forall n > 0,\; \forall i,j \in S \; \forall i_0, \ldots, i_{n-1} \in S \qquad \prob{X_{n+1} = j}{X_0=i_0, x_1 = i_1, \ldots, X_n=i} = \prob{X_{n+1} = j}{X_n = i}
+        \]
+  \item \(\forall n \in \N, \forall i,j \in S \quad \prob{X_{n+1} = j}{X_n = i} = p(i,j)\)
+\end{enumerate}
+
+\begin{proposition}
+  Per ogni \(n,k \in \N \) e \(\forall (i,j) \in S\), la \(\prob{X_{n+k} = j}{X_k = i} = p^{(n)}(i,j)\).
+\end{proposition}
+\begin{proof}
+  Procediamo per induzione su \(n\):
+  \paragraph*{Caso con \(n=0\): } \(\prob{X_{n+k}=j}{X_k=i} = \prob{X_k = j}{X_k = i} = p^{(0)}(i,j)\)
+  \paragraph*{Caso con \(n=1\): } \(\prob{X_{n+k}=j}{X_k=i} = p(i,j)\) (da proprietà 3).
+
+  \paragraph*{Dimostriamo per \(n=n+1\):}
+
+  Sappiamo che per ogni tripla di eventi \(\rnd(A,B,C)\) vale che:
+  \[
+    \prob{A\cap B}{C} = \prob{B}{C}\prob{A}{B\cap C}
+  \]
+  Da cui otteniamo la seguente catena di uguaglianze:
+
+  \begin{align*}
+    \prob{X_{n+k+1}=j}{X_k = i}{\mu} & = \prob{X_{n+k+1}=j, \exists l \in S: X_{k+1 = l}}{X_k = i}{\mu}                              \\
+                                     & = \sum_{l \in S} \prob{X_{k+n+1}=j, X_{k+1}=l}{X_k = i}{\mu}                                  \\
+                                     & = \sum_{l \in S} \prob{X_{k+1} = l}{X_k = i}{\mu}\cdot \prob{X_{k+n+1}=j}{X_{k+1} = l, X_k=i}
+  \end{align*}
+  Notiamo che la \(\prob{X_{k+1} = l}{X_k = i}{\mu} > 0\) implica che \(\prob{X_{k+1} = l, X_k = i}{\mu} > 0\). Quindi, per la \textbf{proprietà di Markov} si ottiene che:
+
+  \begin{align*}
+    \prob{X_{n+k+1}=j}{X_k = i}{\mu} & = \sum_{l \in S}\prob{X_{k+1}=l}{X_k = i}{\mu}\cdot\prob{X_{k+n+1}=j}{X_{k+1} = l}{\mu} \\
+                                     & = \sum_{l\in S} p(i,l)\cdot \prob{X_{n+k+1}=j}{X_{k+1} = l}
+  \end{align*}
+  che per ipotesi di induzione diventa:
+  \[
+    \prob{X_{k+n+1} = j}{X_k = i} = \sum_{l \in S} p(i,l)\cdot p^{(n)}(l,j) = p^{(n+1)}(i,j)
+  \]
+\end{proof}
+
 \section{Stati ricorrenti}
 La ricorrenza è una proprietà della classe. Se \(i \in S\) è uno stato ricorrente e \(C\) è la sua classe, allora per ogni stato \(j \in C\) è ricorrente.
 
@@ -55,6 +104,26 @@ Se uno stato \(i\) è ricorrente \(i \rightarrow j\) allora anche \(j\) è ricor
   \]
 \end{theorem}
 \begin{proof}[Tempi di rientro negli stati ricorrenti]
+  Sia C la classe di \(i\) tale che \(\sum_{j \in C} p(i,j) = 1\).
 
+  Vogliamo provare che \(\mean{\tau_i}{}{i} = \sum_{n \geq 1} n f^n(i,i)\), cioè \(f^n(i,i) = \O(\epsilon^n)\).
+
+  Andiamo a costruire una nuova catena su \(\rnd{S, \mu, \tilde{p}}\), dove \(\tilde{p} \rightarrow\) è una matrice di ransizione che è uguale alla precedente ma con \(i\) assorbente, cioè:
+  \[
+    \begin{cases}
+      \tilde{p}(u,v) = p(u,v) & \text{se } u\neq i, \quad \forall v \in C \\
+      \tilde{p}(i,u) = 1      & v = i                                     \\
+      \tilde{p}(i,u) = 0      & v \neq i
+    \end{cases}
+  \]
+  Nella nuova catena \(i\) è l'unico stato ricorrente e \(\forall u \in T, \quad n\neq i\), \(n\) è transiente.
+
+  \[
+    \forall n \geq 2, \quad f^{(n)}(i,i) = \sum_{u,v \in C \; \land \; u \neq i \neq v} p(i,n) \tilde{p}^{n - 2} (u,v) p(v, i)
+  \]
+  Applicando la proprietà della lemma ottengo:
+  \[
+    f^n (i,i) \leq \O{\epsilon^n} \cdot \sum_{k,j \in C, \;k,j \neq i} p(i,k)p(j,i) = \O{\epsilon^n}
+  \]
 \end{proof}
 \end{document}
