@@ -4,11 +4,57 @@
 \section{Definizione di una catena di Markov}
 \section{Proprietà fondamentali sulle catene}
 \section{Stati ricorrenti}
+La ricorrenza è una proprietà della classe. Se \(i \in S\) è uno stato ricorrente e \(C\) è la sua classe, allora per ogni stato \(j \in C\) è ricorrente.
+
+Se uno stato \(i\) è ricorrente \(i \rightarrow j\) allora anche \(j\) è ricorrente.
+
 \subsection{Prima definizione}
+\begin{definition}[Stato ricorrente]
+  Uno stato \(i \in S\) è ricorrente se e solo se:
+  \[
+    \prob{X_n = i \quad \forall n > 0}{}{i} = 1
+  \]
+\end{definition}
 \subsection{Seconda definizione}
+\begin{definition}[Stato ricorrente]
+  Uno stato \(i \in S\) è ricorrente se e solo se \(f(i,i) = 1\):
+  \[
+    \prob{\tau_i = +\infty}{}{i} = 0
+  \]
+  Dove \(\tau_i\) è il tempo di attesa necessaria per entrare in \(i\) per la prima volta.
+\end{definition}
 \subsection{Terza definizione}
+\begin{definition}[Stato ricorrente]
+  Un stato \(i \in S \) è ricorrente se e solo se:
+  \[
+    \sum_{n\geq 0} p^{(n)}(i,i) = + \infty
+  \]
+\end{definition}
 \subsection{Stati essenziali}
 \subsection{Gli stati ricorrenti sono stati essenziali}
+\begin{theorem}[Stati ricorrenti = stati essenziali]
+  Gli stati ricorrenti sono stati essenziali.
+\end{theorem}
+\begin{proof}
+  Sia \(i \in S\) essenziale e \(C\) sia la sua classe \(\Rightarrow \forall n \in \N, \forall i \in C \quad \sum_{j \in C} p^{(n)}(i,j) = 1\). Procediamo per assurdo: \(i\) è transiente \(\Rightarrow \) ogni \(j \in C\) è transiente.
+  \[
+    \sum_{j \in C} p^{(n)}(i,j) < + \infty,\quad p^{(p)}(i,j) \rightarrow 0 \quad \text{per } n \rightarrow + \infty
+  \]
+  Allora:
+  \[
+    f = \sum_{j \in C} p^{(n)}(i,j) = \lim_{n \rightarrow n} \sum_{j \in C} p^{(n)}(i,j) \quad \land \quad C \text{ è finito }\Rightarrow \sum_{j \in C} \lim_{n\rightarrow \infty} p^{(n)} (i,j) \rightarrow 0
+  \]
+  Da cui l'assurdo.
+\end{proof}
 \section{Tempi medi di rientro}
 \subsection{Caso degli stati ricorrenti (*)}
+\begin{theorem}[Tempi di rientro negli stati ricorrenti]
+  \(\forall i \in S\) ricorrente il valor medio di tempo di rientro è \(< \infty\).
+  \[
+    \mean{\tau_i}{}{i} < + \infty
+  \]
+\end{theorem}
+\begin{proof}[Tempi di rientro negli stati ricorrenti]
+
+\end{proof}
 \end{document}
