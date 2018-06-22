@@ -3,6 +3,99 @@
 \begin{document}
 
 \section{Definizione di catena ergodica}
+\begin{definition}[Catena ergodica]
+	Una catena di Markov finita \(\crl{X_n}\) su un insieme di stati \(S\) si dice \textbf{ergodica} se esiste un vettore stocastico \(\bm{\pi}^* = \rnd{\bm{\pi}_i^*}_{i \in S}\) tale che, \(\forall i,j \in S\):
+	\[
+		\lim_{n\rightarrow+\infty} \prob{X_n = j}{}{i} = \bm{\pi}_j^* = \lim_{n \rightarrow + \infty} p^{(n)} (i,j)
+	\]
+	Dove \(\matr{P} = \sqr{p(i,j)}_{i,j \in S}\) è la matrice di transizione della catena.
+
+	Cioè, al crescere di \(n\), la distribuzione limite esiste e risulta indipendente dalla distribuzione iniziale.
+\end{definition}
+
+\section{Distribuzioni stazionarie}
+\begin{definition}[Distribuzione stazionaria]
+	Data una catena di Markov finita \(\crl{X_n}\) sull'insieme degli stati \(S = \crl{1,2, \ldots, k}\), con matrice di transizione \(\matr{P}\), chiamiamo \textbf{distribuzione stazionaria} un vettore \(\bm{\pi} \in \R^k\) tale che:
+	\begin{enumerate}
+		\item \(\bm{\pi}\) è un vettore stocastico, ovvero \(\pi_i \geq 0 \quad \forall i = 1,2,\ldots, k\).
+		\item \(\sum_{i=1}^k \pi_i = 1\)
+		\item \(\bm{\pi}\) è un autovettore sinistro di \(\matr{P}\) corrispondente a 1, ovvero \(\bm{\pi}^T = \bm{\pi}^T\)
+	\end{enumerate}
+\end{definition}
+
+\subsection{Proprietà dei coefficienti di una distribuzione stazionaria}
+Poichè ogni catena finita ammette sempre una classe ricorrente, senza perdita di generalità possiamo supporre che lo stato \(1\) sia ricorrente.
+
+Per ogni \(i \in S\), definiamo:
+
+\[
+	\rho_i = \sum_{n=0}^{+\infty} \prob{X_n = i, \tau_1 > n}{}{1}
+\]
+Tali coefficienti godono delle seguenti 3 proprietà:
+
+\begin{enumerate}
+	\item Ogni \(\rho_i\) è finito.
+	\item \(\rho_1 = 1\)
+	\item Ogni \(\rho_i\) rappresenta il numero medio di entrate nello stato \(i\) nell'intervallo di tempo \(\crl{0,1,\ldots,\tau_1-1}\) supponendo \(X_0 = 1\).
+\end{enumerate}
+
+Il vettore \(\bm{\pi}\) viene definito come:
+
+\[
+	\bm{\pi} = \rnd{\frac{\rho_1}{\mean{\tau_1}{}{1}}, \frac{\rho_2}{\mean{\tau_1}{}{1}}, \ldots, \frac{\rho_k}{\mean{\tau_1}{}{1}}}
+\]
+Procediamo a dimostrare che il vettore così ottenuto sia \textbf{stocastico}:
+
+\paragraph*{Positività} Ogni termine del vettore è certamente positivo.
+
+\paragraph*{Somma a 1} Procediamo a dimostrare che la somma dei termini nel vettore è unitaria. Tenendo a mente che il vettore ha una componente normalizzante pari a \(\mean{\tau_1}{}{1}\) procediamo sui coefficienti:
+
+\begin{align*}
+	\sum_{i=1}^k \rho_i & = \sum_{i=1}^k \sum_{n=0}^{+\infty} \prob{X_n = i, \tau_1 > n}{}{1} \\
+	                    & = \sum_{n=0}^{+\infty} \sum_{i=1}^k \prob{X_n = i, \tau_1 > n}{}{1} \\
+	                    & = \sum_{n=0}^{+\infty} \prob{\tau_1 > n}{}{1}                       \\
+	                    & = \mean{\tau_1}{}{1}
+\end{align*}
+Dividendo quindi per \(\mean{\tau_1}{}{1}\) si ottiene \(1\).
+
 \section{Esistenza di distribuzioni stazionarie (*)}
+\begin{theorem}[Esistenza di distribuzioni stazionarie]
+	Sia \(\crl{X_n}\) una catena di Markov sugli stati \(\crl{1, 2, \ldots, k}\) con matrice di transizione \(\matr{P} = \sqr{p(i,j)}\) e supponiamo che lo stato \(1\) sia ricorrente.
+
+	Allora il vettore \(\bm{\pi}\) è una distribuzione stazionaria per \(\crl{X_n}\).
+\end{theorem}
+
+\begin{proof}
+	È sufficiente provare che il vettore \(\bm{\rho} = \crl{\rho_1, \rho_2, \ldots, \rho_k}\) è autovettore sinistro di \(\matr{P}\) corrispondente all'autovalore \(1\).
+
+	Consideriamo il caso \(j \neq 1\) e proviamo che \(\rho_j = \rnd{\bm{\rho}^T\matr{P}}_j\).
+
+	\begin{align*}
+		\rho_j & = \sum_{n=1}^{+\infty} \prob{X_n = j, \tau_1 > n}{}{1}                                                                  \\
+		       & = \sum_{n=1}^{+\infty} \prob{X_n = j, \tau_1 > n-1}{}{1}                                                                \\
+		       & = \sum_{n=1}^{+\infty} \sum_{i=1}^{k} \prob{X_n = j, X_{n-1} = i, \tau_1 > n-1}{}{1}                                    \\
+		       & = \sum_{n=1}^{+\infty} \sum_{i=1}^{k} \prob{X_n = j}{X_{n-1} = i, \tau_1 > n-1}{1}\prob{X_{n-1} = i, \tau_1 > n-1}{}{1} \\
+	\end{align*}
+	Se \(n>1\) il primo termine coincide con \(p(i,j)\), mentre se \(n=1\) il secondo termine risulta nullo.
+
+	\begin{align*}
+		\rho_j & = \sum_{n=1}^{+\infty} \sum_{i=1}^{k} p(i,j) \prob{X_{n-1} = i, \tau_1 > n-1}{}{1}  \\
+		       & = \sum_{i=1}^{k} p(i,j)  \sum_{n=1}^{+\infty} \prob{X_{n-1} = i, \tau_1 > n-1}{}{1} \\
+		       & = \sum_{i=1}^{k} p(i,j) \rho_i                                                      \\
+		       & = \rnd{\bm{\rho}^T \matr{P}}_j
+	\end{align*}
+	Consideriamo ora il caso \(j=1\):
+	\begin{align*}
+		\rho_1 & = \sum_{n=1}^{+\infty} \prob{\tau_1 = n}{}{1}                                                                           \\
+		       & = \sum_{n=1}^{+\infty} \sum_{i=1}^{k} \prob{X_{n-1} = i, \tau_1 = n}{}{1}                                               \\
+		       & = \sum_{n=1}^{+\infty} \sum_{i=1}^{k} \prob{X_n = 1}{X_{n-1} = i, \tau_1 > n-1}{1}\prob{X_{n-1} = i, \tau_1 > n-1}{}{1} \\
+		       & = \sum_{n=1}^{+\infty} \sum_{i=1}^{k} p(i,1)\prob{X_{n-1} = i, \tau_1 > n-1}{}{1}                                       \\
+		       & = \sum_{i=1}^{k} p(i,1) \sum_{n=1}^{+\infty} \prob{X_{n-1} = i, \tau_1 > n-1}{}{1}                                      \\
+		       & = \sum_{i=1}^{k} p(i,1) \rho_i                                                                                          \\
+		       & = \rnd{\bm{\rho}^T \matr{P}}_1
+	\end{align*}
+	Abbiamo quindi dimostrato che \(\bm{\rho} = \bm{\pi} = \rnd{\bm{\rho}^T\matr{P}}\)
+\end{proof}
+
 \section{Ergodicità delle catene con matrici di transizione primitive (*)}
 \end{document}
