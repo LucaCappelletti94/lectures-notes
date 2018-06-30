@@ -4,7 +4,7 @@
 
 ## Domande
 - Domande
-    - [ ] Disuguaglianza di Chernoff
+    - [x] Disuguaglianza di Chernoff
 
 ## Come partecipo?
 Vuoi aiutare e non sei parte del gruppo? Puoi aggiungerti al gruppo di Telegram qui:  https://t.me/joinchat/CcGyMA3VsILmCrO-UeIJoQ
