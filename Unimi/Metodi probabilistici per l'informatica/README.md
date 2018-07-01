@@ -3,11 +3,13 @@
 # Metodi probabilistici per L'informatica
 
 ## Domande
+Le domande indicate con √ sono state chieste ad almeno una persona all'orale con il professore.
+
 - *Probabilità*
     - [x] **Disuguaglianza di Chernoff**
-        - [x] Applicazioni alle binomiali
-        - [x] Esempi
-            - [x] Riduzione della probabilità di errore di un algoritmo 
+        - [x] Applicazioni alle binomiali √
+        - [x] Esempi √
+            - [x] Riduzione della probabilità di errore di un algoritmo √
             - [x] Lancio di monete
             - [x] Intervalli di confidenza
 - *Algoritmi probabilistici*
@@ -30,36 +32,41 @@
         - [x] Cammino
         - [x] Cammino semplice
         - [x] Ciclo
-        - [x] Grafo fortemente connesso
+        - [x] Grafo fortemente connesso √
         - [x] Componente fortemente connessa
         - [x] Classe essenziale
-        - [x] Nodo essenziale
-        - [x] Periodicità
+        - [x] Nodo essenziale √
+        - [x] Periodicità √
+            - [ ] Dimostrazione del teorema per la periodicità √
         - [x] Matrice di adiacenza
-        - [x] P
+        - [x] P √
         - [x] Matrice irriducibile
-        - [x] Proprietà di una matrice irriducibile
-        - [x] Matrice riducibile
+        - [x] Proprietà di una matrice irriducibile √
+        - [x] Matrice riducibile √
         - [x] Matrici primitive
-        - [x] Proprietà delle matrici irriducibili (Teorema di Perron-Frobenius)
+        - [x] Proprietà delle matrici irriducibili (Teorema di Perron-Frobenius) √
         - [x] Matrice stocastica
         - [x] Proprietà delle matrici stocastiche
     - [x] **Definizione di una catena di Markov**
     - [x] **Proprietà fondamentali sulle catene** 
-    - [x] **Stati ricorrenti**
-        - [x] Prima definizione
-        - [x] Seconda definizione
-        - [x] Terza definizione
+    - [x] **Stati ricorrenti** √
+        - [x] Prima definizione √
+            - [ ] Perchè vale? √
+        - [x] Seconda definizione √
+            - [ ] Perchè vale? √
+        - [x] Terza definizione √
+            - [ ] Perchè vale? √
         - [x] Stati essenziali
         - [x] Gli stati ricorrenti sono stati essenziali
     - [ ] **Tempi medi di rientro**
         - [ ] Caso degli stati ricorrenti (*)
     - [ ] **Definizione di catena ergodica**
+        - [ ] Dimostrazione che una catena ergodica √
     - [ ] **Distribuzioni stazionarie**
-        - [ ] Proprietà dei coefficienti di una distribuzione stazionaria
+        - [ ] Proprietà dei coefficienti di una distribuzione stazionaria √
     - [ ] **Esistenza di distribuzioni stazionarie (*)**
     - [ ] **Catene primitive**
-    - [ ] **Ergodicità delle catene con matrici di transizione primitive (*)**
+    - [ ] **Ergodicità delle catene con matrici di transizione primitive (*)** √
 - [ ] *Applicazioni algoritmiche*
     - [ ] **Catene reversibili**
     - [ ] **Passeggiate a caso su grafi**
@@ -71,10 +78,10 @@
     - [ ] **Algoritmo di Metropolis**
     - [ ] **Campionatore di Gibbs**
 - [ ] *Velocità di convergenza degli algoritmi MCMC*
-    - [ ] **La problematica**
-    - [ ] **Come stimare la velocità di convergenza**
-    - [ ] **Stimare il numero di passi**
-    - [ ] **Metodo generale basato sul coefficiente ergodico**
+    - [ ] **La problematica** √
+    - [ ] **Come stimare la velocità di convergenza** √
+    - [ ] **Stimare il numero di passi** √
+    - [ ] **Metodo generale basato sul coefficiente ergodico** √
 - [ ] *Coupling*
     - [ ] **Metodo di accoppiamento (Coupling method)**
     - [ ] **Caso del campionatore di set indipendenti di dimensione fissa**
