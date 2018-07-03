@@ -1,6 +1,6 @@
 # Bioinformatica
 
-[![Bioinformatica cover]](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Bioinformatica/bioinformatica.png?raw=true)
+![Bioinformatica cover](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Bioinformatica/bioinformatica.png?raw=true)
 
 Domande dall'esame orale del corso 2017/2018, prof. Giorgio Valentini.
 
