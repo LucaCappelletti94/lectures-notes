@@ -1,5 +1,7 @@
 # Bioinformatica
 
+[![Bioinformatica cover]](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Bioinformatica/bioinformatica.png?raw=true)
+
 Domande dall'esame orale del corso 2017/2018, prof. Giorgio Valentini.
 
 ## Progetto
@@ -11,10 +13,14 @@ In seguito alla presentazione del progetto, si procede, se il progetto già non 
 
 ### Link a repository dei progetti 17/18
 
-- [SNV classifier](https://github.com/LucaCappelletti94/snv_classifier)
+- [Luca Cappelletti SNV classifier](https://github.com/LucaCappelletti94/snv_classifier)
 
 ## Articolo
-Si concorda un articolo a piacere coerente con il corso con il professore. All'orale vengono fatte domande sull'articolo e poi ci si muove ad argomenti trattati nel corso (vedi giù).
+Si concorda un articolo a piacere coerente con il corso con il professore. All'orale vengono fatte domande sull'articolo e poi ci si muove ad argomenti trattati nel corso.
+
+## Appunti
+
+- [Marco Tiraboschi Appunti 17/18](https://gitlab.com/infomasternotes/BIO)
 
 ## Argomenti richiesti nelle domande
 - Conservazione evolutiva
