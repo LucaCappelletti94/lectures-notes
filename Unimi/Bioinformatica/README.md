@@ -24,5 +24,5 @@ Si concorda un articolo a piacere coerente con il corso con il professore. All'o
 
 ## Argomenti richiesti nelle domande
 - Conservazione evolutiva
-- DeepSea
-- HyperSmurf
+- [DeepSea](https://www.ncbi.nlm.nih.gov/pubmed/26301843)
+- [HyperSmurf](https://www.nature.com/articles/s41598-017-03011-5)
