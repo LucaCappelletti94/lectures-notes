@@ -82,27 +82,6 @@ Si determina che la probabilità di scegliere un certo \(p\) risulta essere pari
 
 Anche per \(n\) piccolo, se \(\frac{2\ln n}{n} < \frac{1}{2}\) ripeto l'algoritmo \(t\) volte ed ottengo una probabilità di errore pari a \(\prob{\text{errore}} < \frac{1}{2}^t\)
 
-\subsection{Esempio: Quicksort}
-Dato \(\mean{n}\), numero medio di confronti richiesto da \textbf{Quicksort} su un input di \(n\) elementi determinato come:
-
-\[
-	\mean{n} = (n+1) + \frac{1}{n}\sum_{k=0}^{n-1} \sqr{\mean{k} + \mean{n-1-k}}
-\]
-Usando il corollario del \textbf{teorema delle probabilità totali} che ricordiamo essere:
-
-\formulaProbTot{}
-
-Ottengo che i \textbf{tempo di calcolo che Quicksort} impiegati con un input di dimensione \(n\) sono pari a:
-
-\[
-	\mean{T_n} = \sum_{i = 0}^{n-1} \mean{T_n}{B_i} \prob{B_i} = n-1 + \sum_{i = 0}^{n-1} \mean{T_i} + \mean{T_{n-1-i}}
-\]
-\[
-	\mean{n} = 2(n+1)H_n - 4n
-\]
-
-Dove \(H_n\) è l'\(n\)-esimo numero armonico, cioè \(H_n = \sum_{i=1}^n \frac{1}{i}\).
-
 \subsection{Esempio: commutatività di matrici}
 L'approccio deterministico usualmente termina in \(\O{k^3}\) o \(\O{k^\alpha}\) con \(2 < \alpha < 3\).
 
@@ -211,6 +190,27 @@ Si tratta di un algoritmo \textbf{Las Vegas} utilizzato per estrarre il \(k\)-es
 	\item[Caso pessimo] \(T(n,k) = \O{n^2}\)
 	\item[Caso medio] \(T(n,k) = \O{n\log{n}}\)
 \end{description}
+
+\subsection{Esempio: Quicksort}
+Dato \(\mean{n}\), numero medio di confronti richiesto da \textbf{Quicksort} su un input di \(n\) elementi determinato come:
+
+\[
+	\mean{n} = (n+1) + \frac{1}{n}\sum_{k=0}^{n-1} \sqr{\mean{k} + \mean{n-1-k}}
+\]
+Usando il corollario del \textbf{teorema delle probabilità totali} che ricordiamo essere:
+
+\formulaProbTot{}
+
+Ottengo che i \textbf{tempo di calcolo che Quicksort} impiegati con un input di dimensione \(n\) sono pari a:
+
+\[
+	\mean{T_n} = \sum_{i = 0}^{n-1} \mean{T_n}{B_i} \prob{B_i} = n-1 + \sum_{i = 0}^{n-1} \mean{T_i} + \mean{T_{n-1-i}}
+\]
+\[
+	\mean{n} = 2(n+1)H_n - 4n
+\]
+
+Dove \(H_n\) è l'\(n\)-esimo numero armonico, cioè \(H_n = \sum_{i=1}^n \frac{1}{i}\).
 
 \subsection{Numero medio di confronti in RSEL}
 \[
