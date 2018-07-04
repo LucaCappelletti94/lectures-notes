@@ -96,10 +96,10 @@ La procedura probabilistica cerca di determinare se \(\matr{A}\matr{B} \neq \mat
 	\Output{Il \(k\)-esimo elemento di \(A\)}
 	\BlankLine
 	\Begin{
-		Scegli \(a \in \crl{-1, 1}^k\) a caso in modo uniforme\;
+		Scegli \(\bm{a} \in \crl{-1, 1}^k\) a caso in modo uniforme\;
 
-		\(\bmu = \rnd{a'\cdot \matr{A}}\matr{B}\)
-		\(\bmv = \rnd{a'\cdot \matr{B}}\matr{A}\)
+		\(\bmu = \rnd{\bm{a}'\cdot \matr{A}}\matr{B}\)\;
+		\(\bmv = \rnd{\bm{a}'\cdot \matr{B}}\matr{A}\)\;
 
 		\If{\(\bmu \neq \bmv\)}{
 			\Return ``Sono diverse''\;
@@ -165,9 +165,9 @@ Si tratta di un algoritmo \textbf{Las Vegas} utilizzato per estrarre il \(k\)-es
 			Risolvi il problema direttamente.
 		}
 		\Else{
-			Scegli \(t \in \crl{1, 2, \ldots, n}\) a caso in modo uniforme.
-			Calcola \(A \leq \crl{A[j], A[j] < A[t]}\).
-			Calcola \(A \geq \crl{A[j], j \neq t, A[j] \geq A[t]}\).
+			Scegli \(t \in \crl{1, 2, \ldots, n}\) a caso in modo uniforme.\;
+			Calcola \(A \leq \crl{A[j], A[j] < A[t]}\).\;
+			Calcola \(A \geq \crl{A[j], j \neq t, A[j] \geq A[t]}\).\;
 
 			\uIf{\(\arity{A} \leq k-1\)}{
 				\Return \(A[t]\)
