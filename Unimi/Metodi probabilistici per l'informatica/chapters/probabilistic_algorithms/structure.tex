@@ -169,7 +169,7 @@ Si tratta di un algoritmo \textbf{Las Vegas} utilizzato per estrarre il \(k\)-es
 			Calcola \(A \leq \crl{A[j], A[j] < A[t]}\).\;
 			Calcola \(A \geq \crl{A[j], j \neq t, A[j] \geq A[t]}\).\;
 
-			\uIf{\(\arity{A} \leq k-1\)}{
+			\uIf{\(\arity{A_<} \leq k-1\)}{
 				\Return \(A[t]\)
 			}
 			\uElseIf{\(\arity{A_<} \geq k\)}{
@@ -222,8 +222,8 @@ Con \(k\leq n, \arity{A_<} = l\).
 Si tratta di un algoritmo \textbf{Las Vegas} per la comunicazione, che vuole stabilire se esiste un termine condiviso tra le due liste: \(\exists i: x_i = y_i\).
 
 \begin{align*}
-	A & : x_i, x_2, \ldots, x_10, \qquad x_i \in \crl{0,1}^n \qquad \forall i \in 1, \ldots, 10 \\
-	B & : y_i, y_2, \ldots, y_10, \qquad y_i \in \crl{0,1}^n \qquad \forall i \in 1, \ldots, 10
+	A & : x_i, x_2, \ldots, x_{10}, \qquad x_i \in \crl{0,1}^n \qquad \forall i \in 1, \ldots, 10 \\
+	B & : y_i, y_2, \ldots, y_{10}, \qquad y_i \in \crl{0,1}^n \qquad \forall i \in 1, \ldots, 10
 \end{align*}
 
 \begin{enumerate}
