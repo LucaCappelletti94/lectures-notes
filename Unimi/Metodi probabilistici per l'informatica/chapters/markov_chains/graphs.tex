@@ -2,12 +2,6 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-% \section{Proprietà di Grafi, matrici e vettori stocastici}
-% \subsection{Cos'è una matrice stocastica?}
-% \subsection{Cos'è una matrice primitiva?}
-% \subsection{Proprietà di autovalori ed autovettori di una matrice stocastica}
-% \subsection{Teoremi sulla periodicità}
-
 \section{Matrici e grafi}
 \subsection{Grafo orientato}
 Si tratta di una coppia \(\rnd{\mathcal{V}, \mathcal{E}}\), dove \(\mathcal{V}\) rappresenta un insieme finito di elementi detti \textbf{nodi} (o vertici) mentre \(\mathcal{E}\) rappresenta un insieme ordinato di nodi che vengono chiamati \textbf{lati} (edges).
@@ -49,6 +43,32 @@ Dato un grado \(\mathcal{G}\), consideriamo \(v_i\), un nodo per il quale passa 
 \end{figure}
 
 Ogni nodo con un \textbf{auto-anello} è detto \textbf{aperiodico}. I nodi appartenenti alla stessa classe hanno lo stesso periodo.
+
+\subsection{Teorema per la periodicità}
+\begin{theorem}[Teorema per la periodicità]
+  Dato un grafo orientato \(\bm{G}\) consideriamo due nodi distinti \(i,j\) tali che \(i \leftrightarrow j\). Allora \(d(i)=d(j)\).
+\end{theorem}
+
+\begin{proof}[Teorema per la periodicità]
+  Sia \(C\) un ciclo qualunque che passa per \(j\) e sia \(s\) la sua lunghezza.
+
+  Per ipotesi esistono cammini sia da \(i\) a \(j\) (chiamiamolo \(C_1\)) che da \(j\) a \(i\)  (chiamiamolo \(C_2\)): chiamiamo le rispettive lunghezze \(u\) e \(v\).
+
+  \paragraph*{Proviamo inanzitutto che \(d(i)\) è un divisore di \(s\).}
+
+  I cammini \(C_1\) e \(C_2\) formano un ciclo di lunghezza \(u+v\) passante per \(i\), per cui \(d(i)\) è un divisore di \(u+v\). Analogamente esso deve essere un divisore anche per \(u+v+s\) poichè \(C_1\), \(C\) e \(C_2\) formano un ciclo per \(i\).
+
+  Ne segue che \(d(i)\) divide anche la differenza: \((u+v+s) - (u+v) = s\) e quindi risulta essere divisore della lunghezza di qualsiasi ciclo passante per \(j\).
+
+  \paragraph*{Proviamo che \(d(i)=d(j)\)}
+
+  Poichè \(d(j)\) è il massimo di tali divisore, \(d(i) \leq d(j)\). Ripetendo il ragionamento con \(i\) e \(j\) scambiati, si ottiene che:
+
+  \[
+    d(i) \leq d(j) \quad \land \quad d(i) \geq d(j) \Rightarrow d(i) = d(j)
+  \]
+
+\end{proof}
 
 \subsection{Matrice di adiacenza}
 Matrice che assume solo valori binari: \(\rnd{0,1}\).

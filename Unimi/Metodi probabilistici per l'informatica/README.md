@@ -37,7 +37,7 @@ Le domande indicate con √ sono state chieste ad almeno una persona all'orale c
         - [x] Classe essenziale
         - [x] Nodo essenziale √
         - [x] Periodicità √
-            - [ ] Dimostrazione del teorema per la periodicità √
+            - [x] Dimostrazione del teorema per la periodicità √
         - [x] Matrice di adiacenza
         - [x] P √
         - [x] Matrice irriducibile
