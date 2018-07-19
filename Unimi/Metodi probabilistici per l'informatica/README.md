@@ -16,10 +16,10 @@ Le domande indicate con √ sono state chieste ad almeno una persona all'orale c
     - [x] **1-SidedError**
         - [x] Esempi
             - [x] Problema di protocollo di comunicazione 
-            - [x] Quicksort 
             - [x] Commutatività di matrici
     - [x] **Las Vegas** 
         - [x] RSEL
+        - [x] Quicksort 
         - [x] Numero medio di confronti in RSEL
         - [x] Protocollo 10
         - [x] Probabilità di errore del protocollo 10
