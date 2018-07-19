@@ -3,7 +3,7 @@
 All are available to the public, but please take them with a grain of salt :)
 These are notes from courses that we might be currently following, so they might not be complete.
 
-Notes marked with the ★ symbol are considered completed and notes marked with † is considered dead, meaning that no further effort on enhancing them will be made.
+Notes marked with the ★ symbol are considered completed, those marked with ★★ are approved by the professor of the course and finally notes marked with † is considered dead (no further attempt at enhancing them will be made).
 
 ## Polytechnic University of Milan
 
@@ -15,14 +15,14 @@ Notes marked with the ★ symbol are considered completed and notes marked with 
 - † Analisi di dati su larga scala
     - [† PySpark and KMeans Example 🇬🇧](https://github.com/LucaCappelletti94/pyspark_example)
     - [† FlashCards 🇬🇧 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Analisi%20di%20dati%20su%20larga%20scala/flash%20card)
-- [★ Complementi di ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/main.pdf)
-    - [★ Implementazione in Column Generation in Scip (Jupyter)](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Column%20generation.ipynb)
-    - [★ Mappa concettuale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/mappa%20concettuale.png?raw=true)
-    - [★ Implementazione in Scip di modelli PLI (Jupyter) 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Models_SCIP.ipynb)
-- [★ Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
+- [★★ Complementi di ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/main.pdf)
+    - [★★ Implementazione in Column Generation in Scip (Jupyter)](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Column%20generation.ipynb)
+    - [★★ Mappa concettuale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/mappa%20concettuale.png?raw=true)
+    - [★★ Implementazione in Scip di modelli PLI (Jupyter) 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Models_SCIP.ipynb)
+- [★★ Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
 - [† Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
     + [† Mappa degli algoritmi probabilistici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/images/Mappa_algoritmi_probabilistici.png?raw=true)
-- [★ Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
+- [★★ Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
 - [★ Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sistemi%20Intelligenti/main.pdf)
 
 Feel absolutely **FREE** to correct my errors.
