@@ -1,0 +1,79 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Distribuzioni stazionarie}
+\begin{definition}[Distribuzioni stazionarie]
+  Data una catena di Markov finita \(\crl{X_n}\) sull'insieme di stati \(S\), con matrice di transizione \(\matr{P}\), chiamiamo \textbf{distribuzione stazionaria} un vettore \(\pi \in \R^k\) che soddisfa le seguenti proprietà:
+  \begin{enumerate}
+    \item \(\bm{\pi} \) è un vettore \textbf{stocastico}, ovvero \(\pi_i \geq 0 \quad \forall i \in S\) e la somma è pari a \(1\).
+    \item \(\bm{\pi} \) è autovettore sinistro di \(\matr{P}\) corrispondente a \(1\), ovvero \(\bm{\pi}^T \matr{P} = \bm{\pi}^T\)
+  \end{enumerate}
+  Un vettore con tali proprietà verifica l'equazione:
+  \[
+    \bm{\pi}^T \matr{P}^n = \bm{\pi}^T \quad \forall n \in \N
+  \]
+  Per cui vale che:
+  \[
+    \prob{X_n = i}{}{\bm{\pi}} = \pi_i \quad \forall i \in S
+  \]
+  Se \(\bm{\pi} \) coincide con la distribuzione iniziale della catena, la probabilità di trovarsi nei vari stati rimane sempre la stessa durante l'evoluzione del processo.
+\end{definition}
+
+\begin{definition}[Coefficienti di una distribuzione stazionaria]
+  Poiché ogni catena finita ammette sempre una classe \textbf{ricorrente}, senza perdita di generalità supponiamo che lo stato \(1\) sia ricorrente. Allora, \(\forall i \in S\) definiamo:
+  \[
+    \rho_i = \sum_{n=0}^{+\infty} \prob{X_n = i, \tau_1 > n}{}{1}
+  \]
+\end{definition}
+
+\begin{definition}[Proprietà dei coefficienti di una distribuzione stazionaria]
+  I coefficienti di una distribuzione stazionaria godono di 3 proprietà:
+  \begin{enumerate}
+    \item Ogni \(\rho_i\) è finito.
+    \item \(\rho_1 = 1\)
+    \item Ogni \(\rho_i\) rappresenta il numero medio di entrate nello stato \(i\) nell'intervallo di tempo \(\crl{0, 1, \ldots, \tau_1 -1}\), supponendo \(X_0 =1\).
+  \end{enumerate}
+\end{definition}
+\clearpage
+\begin{theorem}[Esistenza di distribuzione stazionaria]
+  Sia \(\crl{X_n}\) una catena di Markov sugli stati \(\crl{1,2,\ldots, k}\) con matrice di transizione \(\matr{P}\) e supponiamo che lo stato \(1\) sia ricorrente. Allora il vettore \(\bm{\pi} \) è una distribuzione stazionaria per \(\crl{X_n}\):
+  \[
+    \bm{\pi} = \begin{bmatrix}
+      \frac{\rho_1}{\mean{\tau_1}{}{1}} & \frac{\rho_2}{\mean{\tau_1}{}{1}} & \ldots & \frac{\rho_k}{\mean{\tau_1}{}{1}}
+    \end{bmatrix}
+  \]
+\end{theorem}
+
+\begin{proof}[Esistenza di distribuzione stazionaria]
+  È sufficiente provare che il vettore \(\bm{\rho}\) è autovettore sinistro di \(\matr{P}\) in corrispondenza dell'autovalore \(1\).
+
+  Consideriamo prima il caso \(j \neq 1\) e proviamo che \(\rho_j = \rnd{\bm{\rho}^T\matr{P}}_j\).
+
+  Procediamo condizionando la definizione di \(\rho_j\) condizionando sullo stato raggiunto al passo \(n\)-esimo e successivamente applichiamo la condizione di Markov:
+
+  \begin{align*}
+    \rho_j & = \sum_{n=1}^{+\infty} \prob{X_n = j, \tau_1 > n}{}{1}                                                                \\
+           & = \sum_{n=1}^{+\infty} \prob{X_n = j, \tau_1 > n-1}{}{1}                                                              \\
+           & = \sum_{n=1}^{+\infty} \sum_{i=1}^k \prob{X_n = j, X_{n-1} = i, \tau_1 > n-1}{}{1}                                    \\
+           & = \sum_{n=1}^{+\infty} \sum_{i=1}^k \prob{X_n = j}{X_{n-1} = i, \tau_1 > n-1}{1}\prob{X_{n-1} = i, \tau_1 > n-1}{}{1} \\
+  \end{align*}
+  Se \(i \neq 1\) e \(n> 1\) il primo termine, per la proprietà di Markov, coincide con \(p_ij\) e negli altri casi il secondo termine è nullo. Ne segue che:
+  \begin{align*}
+    \rho_j & = \sum_{n=1}^{+\infty} \sum_{i=1}^k p_{ij} \prob{X_{n-1} = i, \tau_1 > n-1}{}{1} \\
+           & = \sum_{i=1}^k p_{ij} \sum_{n=1}^{+\infty} \prob{X_{n-1} = i, \tau_1 > n-1}{}{1} \\
+           & = \sum_{i=1}^k p_{ij} \rho_i = \rnd{\bm{\rho}^T \matr{P}}_j
+  \end{align*}
+  Consideriamo ora il caso in cui \(j=1\). Poiché lo stato è ricorrente:
+  \begin{align*}
+    \rho_1 & = \sum_{n=1}^{+\infty} \prob{X_{n}= 1, \tau_1 = n}{}{1}                                                              \\
+           & = \sum_{n=1}^{+\infty} \sum_{i=1}^k \prob{X_{n}= 1, X_{n-1}= i, \tau_1 = n}{}{1}                                     \\
+           & = \sum_{n=1}^{+\infty} \sum_{i=1}^k \prob{X_{n}= 1}{X_{n-1}= i, \tau_1 > n-1}{1}\prob{X_{n-1}= i, \tau_1 > n-1}{}{1} \\
+           & = \sum_{n=1}^{+\infty} \sum_{i=1}^k p_{i1}\prob{X_{n-1}= i, \tau_1 > n-1}{}{1}                                       \\
+           & = \sum_{i=1}^k p_{i1} \sum_{n=1}^{+\infty} \prob{X_{n-1}= i, \tau_1 > n-1}{}{1}                                      \\
+           & = \sum_{i=1}^k p_{i1} \rho_i =\rnd{\bm{\rho}^T \matr{P}}_1                                                           \\
+  \end{align*}
+\end{proof}
+\clearpage
+
+\end{document}

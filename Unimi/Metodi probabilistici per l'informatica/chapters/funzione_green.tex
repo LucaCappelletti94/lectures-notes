@@ -1,0 +1,13 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Funzione di Green}
+\begin{definition}[Funzione di Green]
+  La \textbf{funzione di Green} associata a una matrice stocastica \(\matr{P}\) è una matrice di funzioni \(\matr{G}(z)\) data da:
+  \[
+    \matr{G}(z) = \rnd{\matr{I} - \matr{P}z}^{-1} = \sum_{n=0}^{+\infty} \matr{P}^n z^n
+  \]
+  definita per ogni \(z \in \mathbb{C}\) tale che \(\abs{z} \leq 1\).
+\end{definition}
+\end{document}

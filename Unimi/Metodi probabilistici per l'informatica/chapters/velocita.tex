@@ -1,0 +1,54 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{La problematica}
+Non tutte le distribuzioni di probabilità sono uguali ed è quindi lecito chiedersi dopo quanti \(n\) passi la catena approssima effettivamente la desiderata distribuzione in un modo che la loro differenza sia minore di una quantità fissata.
+
+\section{Applicazioni della variazione totale}
+\begin{theorem}[Variazione totale tra distribuzioni]
+  Se \(\bm{\mu} \) e \(\bm{v}\) sono due distribuzioni di probabilità definite sullo stesso insieme finito \(S\) allora la massima differenza tra le due distribuzioni valutate su un qualunque sottoinsieme di \(S\) è la \textbf{variazione totale}:
+  \[
+    d_{TV}(\bm{\mu}, \bm{v}) \max_{A \subseteq S}\abs{\bm{\mu}(A) - \bmv(A)}
+  \]
+\end{theorem}
+
+\begin{theorem}[Relazione tra variazione totale e probabilità]
+  Se \(X\) e \(Y\) sono due variabili aleatorie definite sullo stesso spazio di probabilità a valori in un insieme finito \(S\) e hanno distribuzione \(\bm{\mu} \) e \(\bm{v}\) rispettivamente, allora:
+  \[
+    d_{TV}(\bm{\mu}, \bm{v}) \leq \prob{X \neq Y}
+  \]
+\end{theorem}
+\clearpage
+
+\section{Convergenza di matrice stocastica primitiva}
+\begin{theorem}[Convergenza di matrice stocastica primitiva]
+  Sia \(\matr{P}\) una matrice stocastica primitiva di dimensione \(k \times k\), con distribuzione stazionaria \(\bm{\pi} \) e sia \(t \in \N \) il minimo intero tale che \(\matr{P}^t > 0\). Allora, \(\forall \epsilon > 0\) e ogni vettore stocastico \(\bm{\mu} \) di dimensione \(k\), si verifica che \(d_{TV}(\bm{\mu}\matr{P}^n, \bm{\pi}) \leq \epsilon \) e per tutti gli \(n \in \N \) tali che:
+  \[
+    n \geq t\rnd{1+\frac{\log \epsilon}{\log \beta(\matr{P}^t)}}
+  \]
+\end{theorem}
+\begin{proof}[Convergenza di matrice stocastica primitiva]
+  Sappiamo che, per una catena definita su un insieme finito di stati \(S\), con matrice di transizione \(\matr{P}\) \textbf{primitiva} e distribuzione \textbf{stazionaria} \(\bm{\pi} \) vale:
+  \[
+    \lim_{n\rightarrow +\infty} \norm{\bm{\mu} \matr{P}^n - \bm{\pi}}_1 = 0
+  \]
+  Poiché \(\matr{P}\) è primitiva esiste un intero \(t \in \N \), minore del numero di stati, tale che \(\matr{P}^t > 0\) e pertanto il \textbf{coefficiente ergodico} \(\beta(\matr{P}^t) < 1\). Per il \textbf{lemma di relazione tra potenze di matrici e vettori stocastici}, inoltre, vale che:
+  \[
+    \norm{\bm{\mu}\matr{P}^t - \bm{\pi}}_1 \leq \beta\rnd{\matr{P}^t} \norm{\bm{\mu} - \bm{v}}_1
+  \]
+  Quindi, \(\forall n \in N: n > t\), ponendo \(n = mt + r\) e con \(r \in \crl{0, 1, \ldots, t-1}\) si ottiene:
+  \begin{align*}
+    d_{TV}\rnd{\bm{\mu}\matr{P}^n, \bm{\pi}} & = \frac{1}{2}\norm{\bm{\mu}\matr{P}^t - \bm{\pi}}_1                            \\
+                                             & = \norm{\bm{\mu}\matr{P}^r\cdot\matr{P}^{tm} - \bm{\pi}}_1                     \\
+                                             & \leq \frac{1}{2}\beta\rnd{\matr{P}^t}^m \norm{\bm{\mu}\matr{P}^r - \bm{\pi}}_1 \\
+                                             & \leq \beta\rnd{\matr{P}^t}^{\frac{n}{t}-1}
+  \end{align*}
+  Ovvero, per ogni \(n \in N\) tale che:
+  \[
+    n \geq t\rnd{1+\frac{\log \epsilon}{\log \beta(\matr{P}^t)}}
+  \]
+  la distanza totale è minore di un dato \(\epsilon \).
+\end{proof}
+
+\end{document}

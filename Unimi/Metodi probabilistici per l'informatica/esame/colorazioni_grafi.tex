@@ -1,0 +1,44 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Generazione di colorazioni su grafi}
+Si tratta di un classico campionatore di Gibbs per la generazione casuale di colorazioni di un grafo: il problema è definito da un grafo non orientato \(G = \rnd{V, E}\) di \(k\) nodi e da un insieme di colori \(Q = \crl{1, 2, \ldots, q}\).
+
+\begin{definition}[\(q\)-colorazione]
+  Una \(q\)-colorazione di un grafo \(G\) è una funzione \(f: V \rightarrow Q\) tale che:
+  \[
+    f(u) \neq f(v) \quad \forall \crl{u, v} \in E
+  \]
+  Cioè è una funzione che assegna valori diversi ai nodi, per ogni tupla di nodi connessi.
+\end{definition}
+
+Denotiamo con \(Z_{G, q}\) il numero di \(q\)-colorazioni di \(G\) e con \(\bm{\pi} \) rappresentiamo la distribuzione uniforme sulle \(q\)-colorazioni, ovvero la funzione \(\pi: Q^V \rightarrow \sqr{0,1}\) tale che, \(\forall f \in Q^V\):
+
+\[
+  \pi(f) = \begin{cases}
+    \frac{1}{Z_{G, q}} & \text{Se \(f\) è una \(q\)-colorazione di \(G\)} \\
+    0                  & \text{altrimenti}
+  \end{cases}
+\]
+L'obbiettivo è quello di generare una funzione \(f \in Q^V\) secondo la distribuzione di probabilità \(\bm{\pi} \).
+
+Si definisce quindi una catena di Markov sull'insieme di stati \(S = \crl{\left. f \in Q^V \right\rvert f \text{ è } q\text{-colorazione di }G}\) e si procede a simulare la catena per \(n\) passi. È necessaria determinare una \(q\)-colorazione iniziale che funge da stato iniziale.
+
+Si sceglie uniformemente a caso \(v \in V\) secondo la distribuzione uniforme, si determina l'insieme:
+\[
+  U_{f}(v) = \crl{c \in Q: f(w)\neq c \text{ per ogni \(w\) vicino di \(v\)}}
+\]
+e si sceglie a caso un \(f(v) = c\) appartenente ad esso secondo la distribuzione uniforme.
+
+La matrice di transizione della catena è definita come:
+
+\[
+  P_{f,g} = \begin{cases}
+    0                                   & \text{se \(f\) e \(g\) si differenziano per il valore attribuito ad almeno 2 nodi}      \\
+    \frac{1}{k}\frac{1}{\#\crl{U_f(v)}} & \text{se \(f\) e \(g\) si differenziano per il valore attribuito ad un solo nodo \(v\)}
+  \end{cases}
+\]
+
+
+
+\end{document}

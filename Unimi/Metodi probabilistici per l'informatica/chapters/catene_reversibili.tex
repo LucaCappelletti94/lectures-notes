@@ -1,0 +1,42 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Catena di Markov reversibile}
+\begin{definition}[Catena di Markov reversibile]
+  Una catena di Markov \(\crl{X_n}_n\) definita sugli spazi \(S\) con matrice di transizione \(\matr{P}\) si dice \textbf{reversibile} se esiste un \textbf{vettore stocastico} \(\bm{\pi} \) definito in \(S\) tale che:
+  \[
+    \pi_i p_{ij} = \pi_j p_{ji}
+  \]
+  O equivalentemente per qualsiasi sequenza di finita di stati:
+  \[
+    \prob{X_0 = i, X_1 = j}{}{\bm{\pi}} = \prob{X_0 = j, X_1 = i}{}{\bm{\pi}}
+  \]
+  Il vettore \(\bm{\pi} \) è detto \textbf{distribuzione reversibile} per la catena \(\crl{X_n}_n\).
+\end{definition}
+
+\begin{theorem}[Distribuzioni reversibili stazionarie]
+  Se \(\bm{\pi} \) è una distribuzione reversibile per una catena \(\crl{X_n}_n\) allora \(\bm{\pi} \) è anche una distribuzione stazionaria per \(\crl{X_n}_n\).
+\end{theorem}
+\begin{proof}[Distribuzioni reversibili stazionarie]
+  Siano \(S\) e \(\matr{P}\) rispettivamente, l'insieme degli stati e la matrice di transizione della catena. Poiché \(\bm{\pi} \) è una \textbf{distribuzione reversibile}, per ogni \(j \in S\) abbiamo che:
+  \[
+    \crl{\bm{\pi}^T \matr{P}}_j = \sum_{i=1}^m \pi_i p_{ij} = \sum_{i=1}^m \pi_i p_{ji} = \pi_j
+  \]
+  Di conseguenza \(\bm{\pi}^T \matr{P} = \bm{\pi}^T\) e quindi \(\bm{\pi} \) risulta stazionaria.
+\end{proof}
+
+\begin{theorem}[Matrice simmetrica irriducibile bistocastica]
+  Sia \(\crl{X_n}_n\) una catena di Markov con matrice di transizione \(\matr{P}\) irriducibile e bistocastica. Se \(\crl{X_n}_n\) è reversibile allora \(\matr{P}\) è simmetrica.
+\end{theorem}
+\begin{proof}[Matrice simmetrica irriducibile bistocastica]
+  Infatti, essendo \(\matr{P}\) irriducibile e bistocastica, la sua unica distribuzione stazionaria è quella uniforme \(\bm{\pi} = \begin{bmatrix}
+    \frac{1}{k} & \frac{1}{k} & \cdots & \frac{1}{k}
+  \end{bmatrix}\) dove \(k\) è la dimensione della matrice \(\matr{P}\).
+
+  Inoltre per la reversibilità della catena \(\bm{\pi} \) è anche l'unica distribuzione reversibile.
+
+  Di conseguenza, \(\pi_i \matr{P}_{ij} = \pi_j \matr{P}_{ji}\) per ogni coppia di indici \(i,j\) il che implica \(\matr{P}_{ij} = \matr{P}_{ji}\).
+\end{proof}
+
+\end{document}

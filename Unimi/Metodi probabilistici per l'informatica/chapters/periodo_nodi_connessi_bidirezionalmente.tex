@@ -1,0 +1,32 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Periodo di nodi connessi bi-direzionalmente}
+\begin{theorem}[Periodo di nodi connessi bi-direzionalmente]
+  Dato un grafo orientato \(G\) consideriamo due nodi distinti \(i,j\) tali che \(i \leftrightarrow j\). Allora \(d(i) = d(j)\).
+\end{theorem}
+\begin{proof}[Periodo di nodi connessi bi-direzionalmente]
+  Consideriamo un ciclo \(C\) qualsiasi di lunghezza \(s\) passante per \(j\), un cammino \(C_1\) da \(j\) a \(i\) lungo \(u\) ed un cammino \(C_2\) da \(i\) a \(j\) di lunghezza \(v\).
+
+  \paragraph*{Dimostriamo che il periodo di \(i\) è divisore di \(C\)}
+  I cammini \(C_1\) e \(C_2\) formano un ciclo passante per \(i\) e quindi \(d(i)\) ne è, per definizione, divisore. Possiamo costruire un ciclo di dimensione maggiore, combinando \(C_1\), \(C_2\) e \(C\): nuovamente, per definizione, \(d(i)\) ne è divisore.
+
+  Essendo \(d(i)\) divisore sia di \(u+v\) che \(u+v+s\) è certamente divisore anche di \(s\).
+
+  \paragraph*{Dimostriamo che \(d(i)=d(j)\)}
+  Il massimo dei divisore di \(C\) è \(d(j)\) \textit{per definizione}, per cui:
+  \[
+    d(i) \leq d(j)
+  \]
+  Ripetendo il ragionamento analogamente su \(j\) e \(i\) si ottiene anche la seconda disequazione:
+  \[
+    d(j) \leq d(i)
+  \]
+  Da cui la tesi:
+  \[
+    d(i) = d(j)
+  \]
+\end{proof}
+
+\end{document}

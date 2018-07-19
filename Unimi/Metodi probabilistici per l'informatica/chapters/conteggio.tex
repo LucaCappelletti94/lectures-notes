@@ -1,0 +1,60 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Conteggio approssimato di colorazioni}
+\subsection{Cosa è un RPTAS}
+\begin{definition}[RPTAS]
+  Si definisce \textbf{RPTAS} uno schema di approssimazione probabilistico pienamente polinomiale per una funzione \(F: I \rightarrow \N \) è un algoritmo probabilistico che su input \(\rnd{x, \epsilon}\) che soddisfa le seguenti condizioni:
+  \begin{enumerate}
+    \item Per ogni \(\epsilon>0\) esiste un polinomio \(p_{\epsilon}(y)\) tale che l'algoritmo su input \(\rnd{x, \epsilon}\) richiede un tempo minore o uguale a \(p_{\epsilon}(n)\) dove \(n = \abs{x}\).
+    \item Il valore \(R(x, \epsilon)\) restituito dall'algoritmo su input \(\rnd{x, \epsilon}\) verifica la relazione:
+          \[
+            \prob{\rnd{1-\epsilon}F(x) \leq R(x, \epsilon) \leq \rnd{1+\epsilon}F(x)} \geq \frac{2}{3}
+          \]
+  \end{enumerate}
+\end{definition}
+
+\subsection{Applicazione}
+Si considera un \(G=(V, E)\) e da un numero \(q\) di colori. Denotiamo con \(k\) il numero dei nodi del grafo, \(d\) il suo grado ed \(m\) il numero dei suoi lati. La coppia \(\rnd{k, m}\) rappresenta la dimensione dell'istanza del problema.
+
+Consideriamo l'insieme dei lati \(E = \crl{e_1, e_2, \ldots, e_m}\) del grafo e per ogni \(j \in \crl{0, 1, \ldots, m}\) definiamo:
+\[
+  G_j = \rnd{V, \crl{e_1, \ldots, e_j}} \quad \ldots \quad G_0 = \rnd{V, \emptyset}
+\]
+Denotiamo inoltre \(Z_j\) come il numero di \(q\)-colorazioni di \(G_j\), in particolare \(Z_0 = q^k\), poiché nel grafo \(G_0\) ogni assegnamento di colori ai nodi è una \(q\)-colorazione.
+
+Il valore di \(Z_m\) che vogliamo calcolare può essere ottenuto mediante:
+\[
+  Z_m = Z_0 \cdot \frac{Z_1}{Z_0} \cdot \frac{Z_2}{Z_1} \cdots \frac{Z_m}{Z_{m-1}}
+\]
+Denotiamo ora con \(x_j\) e \(y_j\) i due nodi del lato \(e_j\), per ciascun \(j = \crl{1, 2, \ldots, m}\). Allora:
+\[
+  Z_j = \#\crl{\left. f \in Q^V \right\rvert f \text{ è }q-\text{colorazione di }G_{j-1}\text{ tale che }f(x_j)\neq f(y_j)}
+\]
+Quindi \(\frac{Z_j}{Z_{j-1}}\) è la frequenza di colorazioni di \(G_{j-1}\) che sono valide anche per \(G_j\).
+Ne segue che:
+\[
+  \frac{Z_j}{Z_{j-1}} = \prob{f(x_j)\neq f(y_j)}
+\]
+\subsection{La sequenza}
+Per ogni grafo \(G_{j-1}\) si generano diverse \(q\)-colorazioni casuali usando il metodo dei campionatore di Gibbs e si verifica quante di queste attribuiscono colori diversi ai nodi \(x_j\) e \(y_j\). Si ottiene così una stima \(Y_j\) della probabilità \(\frac{Z_j}{Z_{j-1}}\).
+
+Moltiplicando tutti questi valori tra di loro insieme alla quantità \(Z_0 = q^k\) si ottiene \(R\), un'approssimazione di \(Z_m\):
+
+\[
+  R = q^k \prod_{j=1}^m Y_j = \prod_{j=1}^m \frac{H_j}{l}
+\]
+Dove \(H_j\) è il numero di \(q\)-colorazioni di \(G_{j-1}\) che attribuiscono colori diversi ai nodi \(x_j\) e \(y_j\)
+
+Il procedimento descritto dipende da due parametri, \(l\) e \(n\):
+\begin{description}
+  \item[\(l\)] numero di \(q\)-colorazioni casuali di \(G_{j-1}\).
+  \item[\(n\)] numero di passi principali eseguiti da ciascun campionatore di Gibbs per determinare la \(q\)-colorazione casuale corrispondente.
+\end{description}
+
+\begin{theorem}[RPTAS per \(q\)-colorazioni]
+  Assumendo la notazione illustrata sopra, supponiamo che \(d\geq2\) e \(q>2d^2\). Allora esiste un \textbf{RPTAS} per il problema di determinare il numero minimo di colorazioni di \(G\).
+\end{theorem}
+
+\end{document}

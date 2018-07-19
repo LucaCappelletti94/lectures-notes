@@ -1,0 +1,52 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Tempi medi di rientro}
+\begin{definition}[Tempi medi di rientro]
+  Supponendo \(X_0 = i\) ricorrente, definiamo il tempo medio di rientro nello stato \(i\):
+  \[
+    \mean{\tau_i}{}{i} = \sum_{n \geq 1} n \prob{\tau_i = n}{}{i} = \sum_{n \geq 1} n f^{(n)}_{ii}
+  \]
+\end{definition}
+
+\begin{theorem}[Il tempo medio di nodi ricorrenti è finito]
+  Per ogni nodo \(i \in S\) ricorrente vale che:
+  \[
+    \mean{\tau_i}{}{i} < + \infty
+  \]
+\end{theorem}
+
+\begin{proof}[Il tempo medio di nodi ricorrenti è finito]
+  Per il \textbf{teorema della probabilità di rientro per stati transienti}, possiamo limitarci a provare che \(f^{(n)}_{ii} = \O{\epsilon^n}\).
+
+  Essendo inoltre \(i\) essenziale, per la \textbf{relazione tra stati essenziali e ricorrenti}, possiamo restringere l'insieme degli stati \(S\) alla classe \(C\) di \(i\).
+
+  Definiamo una nuova catena di Markov sugli stati \(C\), rendendo \(i\) assorbente. Definiamo la nuova matrice di transizione \(\tilde{\matr{P}}\) della catena come:
+
+  \begin{align*}
+    \tilde{p}_{kj} & = p_{kj} \quad k \neq i     \\
+    \tilde{p}_{ij} & = \begin{cases}
+      1 & j = i    \\
+      0 & j \neq i
+    \end{cases}
+  \end{align*}
+
+  Tutti gli stati \(j \neq i\) sono \textbf{transienti} e quindi:
+  \[
+    \sum_{j \neq i} \tilde{p}^{(n)}_{kj} = \O{\epsilon^n}
+  \]
+  Ne segue allora che, per ogni intero \(n\geq 2\):
+  \begin{align*}
+    f^{(n)}_{ii} & = \sum_{k, j \in Cm k, j \neq i} p_{ik} \tilde{p}^{(n-2)}_{kj}p_{ji}                 \\
+                 & = \O{\epsilon^n} \cdot \sum_{k, j \in Cm k, j \neq i} p_{ik} p_{ji} = \O{\epsilon^n} \\
+  \end{align*}
+\end{proof}
+
+\begin{theorem}[Tempi medi di rientro di matrici irriducibili]
+  Se \(\matr{P}\) è \textbf{irriducibile}, per ogni nodo \(i, j \in S\) vale che:
+  \[
+    \mean{\tau_i}{}{i} = \sum_{n \geq 1} n f^{(n)}_{ij} < + \infty
+  \]
+\end{theorem}
+\end{document}

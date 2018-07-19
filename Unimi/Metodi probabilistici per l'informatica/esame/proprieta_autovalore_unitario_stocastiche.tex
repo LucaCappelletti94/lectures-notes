@@ -1,0 +1,21 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Proprietà di autovalore unitario delle matrici stocastiche}
+\begin{theorem}[Proprietà di autovalore unitario delle matrici stocastiche]
+  Sia \(\matr{P}\) una matrice stocastica di dimensione \(r\). Allora \(1\) è autovalore di \(\matr{P}\) e ammette come corrispondente autovettore destro il vettore \(\bme \), di dimensione \(r\) tale che \(\bmet = \begin{bmatrix}
+    1 & 1 & \ldots & 1
+  \end{bmatrix}\).
+\end{theorem}
+\begin{proof}[Proprietà di autovalore unitario delle matrici stocastiche]
+  Sia \(\matr{P} = \begin{bmatrix}
+    p_{ij}
+  \end{bmatrix}\). Le righe di una \textbf{matrice stocastica} hanno somma unitaria, per cui vale che:
+  \[
+    \matr{P}\bme = \bme
+  \]
+  Da cui segue che \(1\) è un autovalore di \(\matr{P}\) e che \(\bme \) è un autovettore destro di \(\matr{P}\) corrispondente a \(1\).
+\end{proof}
+
+\end{document}

@@ -1,0 +1,49 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Probabilità di transizione}
+\begin{theorem}[Probabilità di transizione]
+  Supponendo che la probabilità di trovarsi nello stato \(i\) \(\prob{X_k = i}{}{\mu}\) sia non nulla, la probabilità di trovarsi nello stato \(j\) dopo \(n\) passi è pari a:
+  \[
+    \prob{X_{k+n}=j}{X_{k}=i}{\mu} = p^{(n)}_{ij}
+  \]
+\end{theorem}
+\begin{proof}[Probabilità di transizione]
+
+  \textbf{Caso \(n=0\):}
+
+  Per \(n=0\), \(p^{(0)}_{ij}\) coincide con il \textbf{coefficiente di Kronecker} \(\sigma_{ij}\): senza muoversi si rimane certamente nello stato \(k\).
+
+  \textbf{Caso \(n=1\):}
+
+  Per \(n=1\) il coefficiente  \(p^{(1)}_{ij}\) coincide con il coefficiente della \textbf{matrice di transizione}, per cui per definizione è vero.
+
+  \textbf{Caso \(n \geq 1\):}
+
+  Ragionando per induzione, ricordando che \textbf{per ogni tripla di eventi} \(A, B, C\) vale che:
+  \[
+    \prob{A\cap B}{C} = \prob{B}{C}\cdot \prob{A}{B \cap C}
+  \]
+  Si ottiene così la catena di uguaglianze:
+  \begin{align*}
+    \prob{X_{k+n+1}=j}{X_k=i}{\mu} & = \prob{X_{k+n+1}=j \cap \exists l \in S: X_{k+1}=l}{X_k=i}{\mu}                                 \\
+                                   & = \sum_{l \in S} \prob{X_{k+n+1}=j \cap X_{k+1}=l}{X_k=i}{\mu}                                   \\
+                                   & = \sum_{l \in S} \prob{X_{k+1}=l}{X_k=i}{\mu}\cdot \prob{X_{k+n+1}=j}{X_{k+1}=l \cap X_k=i}{\mu} \\
+  \end{align*}
+  Siccome \(\prob{X_{k+1}=l}{X_k=i}{\mu} > 0 \Rightarrow \prob{X_{k+1}=l, X_k=i}{}{\mu} > 0\), per la \textbf{proprietà di Markov} si ottiene:
+
+  \begin{align*}
+    \prob{X_{k+n+1}=j}{X_k=i}{\mu} & = \sum_{l \in S} \prob{X_{k+1}=l}{X_k=i}{\mu}\cdot \prob{X_{k+n+1}=j}{X_{k+1}=l}{\mu} \\
+                                   & = \sum_{l \in S} p_{il}\cdot \prob{X_{k+n+1}=j}{X_{k+1}=l}{\mu}
+  \end{align*}
+  Che \textbf{per ipotesi di induzione} diventa:
+
+  \[
+    \prob{X_{k+n+1}=j}{X_k=i}{\mu} = \sum_{l \in S} p_{il}\cdot p^{(n)}_{lj} = p^{(n+1)}_{ij}
+  \]
+
+
+\end{proof}
+
+\end{document}

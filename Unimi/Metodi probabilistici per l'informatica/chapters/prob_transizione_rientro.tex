@@ -1,0 +1,29 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Relazione tra probabilità di transizione e di ingresso}
+\begin{theorem}[Relazione tra probabilità di transizione e di ingresso]
+  Per transitare da \(i\) a \(j\) in \(n\) passi è necessario entrare in \(j\) per la prima volta in \(k\leq n\) passi e poi rientrarvi in \(n-k\) passi.
+  \[
+    p^{(n)}_{ij} = \sum_{k=1}^n f^{(k)}_{ij}p^{(n-k)}_{ij}
+  \]
+\end{theorem}
+\begin{proof}[Relazione tra probabilità di transizione e di ingresso]
+  Considerando \textbf{l'evento condizionato} su \(\tau_j = k\):
+  \[
+    p^{(n)}_{ij} = \prob{X_n = j}{}{i} = \sum_{k=1}^{n} \prob{X_n = j}{\tau_j=k}{i}\prob{\tau_j=k}{}{i}
+  \]
+  \textbf{Procediamo ad ottenere il primo coefficiente della sommatoria:} se \(\prob{\tau_j=k}{}{i} \neq 0\) per la \textbf{proprietà di Markov} vale che:
+  \[
+    \prob{X_n = j}{\tau_j=k}{i} = \prob{X_n = j}{X_k = j}{i} = p^{(n-k)}_{jj}
+  \]
+  \textbf{Il secondo coefficiente già lo conosciamo:} si tratta della definizione di coefficiente di probabilità di ingresso, \(f^{(k)}_{ij}  = \prob{\tau_j=k}{}{i}\).
+
+  Sostituendo nella sommatoria ottengo la relazione che volevamo raggiungere:
+  \[
+    p^{(n)}_{ij} = \sum_{k=1}^{n} p^{(n-k)}_{jj}f^{(k)}_{ij}
+  \]
+\end{proof}
+
+\end{document}

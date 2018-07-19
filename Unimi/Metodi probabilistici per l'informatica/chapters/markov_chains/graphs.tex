@@ -19,7 +19,7 @@ Un cammino è detto semplice se tutti i suoi nodi sono distinti tranne al più i
 Si tratta di un cammino con lunghezza non nulla nel quale primo e ultimo nodo coincidono.
 
 \subsection{Grafo fortemente connesso}
-Una grafo in cui per ogni coppia di nodi esiste una arco.
+Un grafo in cui per ogni coppia di nodi esiste una arco.
 
 \subsection{Componente fortemente connessa}
 Un sotto-grafo formato da una classe \(C\) e dai lati di \(C_e\) che connettono tali nodi.
@@ -56,13 +56,13 @@ Ogni nodo con un \textbf{auto-anello} è detto \textbf{aperiodico}. I nodi appar
 
   \paragraph*{Proviamo inanzitutto che \(d(i)\) è un divisore di \(s\).}
 
-  I cammini \(C_1\) e \(C_2\) formano un ciclo di lunghezza \(u+v\) passante per \(i\), per cui \(d(i)\) è un divisore di \(u+v\). Analogamente esso deve essere un divisore anche per \(u+v+s\) poichè \(C_1\), \(C\) e \(C_2\) formano un ciclo per \(i\).
+  I cammini \(C_1\) e \(C_2\) formano un ciclo di lunghezza \(u+v\) passante per \(i\), per cui \(d(i)\) è un divisore di \(u+v\). Analogamente esso deve essere un divisore anche per \(u+v+s\) Poiché \(C_1\), \(C\) e \(C_2\) formano un ciclo per \(i\).
 
   Ne segue che \(d(i)\) divide anche la differenza: \((u+v+s) - (u+v) = s\) e quindi risulta essere divisore della lunghezza di qualsiasi ciclo passante per \(j\).
 
   \paragraph*{Proviamo che \(d(i)=d(j)\)}
 
-  Poichè \(d(j)\) è il massimo di tali divisore, \(d(i) \leq d(j)\). Ripetendo il ragionamento con \(i\) e \(j\) scambiati, si ottiene che:
+  Poiché \(d(j)\) è il massimo di tali divisore, \(d(i) \leq d(j)\). Ripetendo il ragionamento con \(i\) e \(j\) scambiati, si ottiene che:
 
   \[
     d(i) \leq d(j) \quad \land \quad d(i) \geq d(j) \Rightarrow d(i) = d(j)
@@ -79,13 +79,13 @@ Si tratta di una matrice quadrata non negativa con grafo \(\mathcal{G}\) associa
 Nelle matrici di \textbf{adiacenza} \(a_{ij}^{\rnd{n}}\) denota il numero di cammini da \(v_i \rightarrow v_j\) con lunghezza \(n\).
 
 \subsection{Matrice irriducibile}
-Una matrice non-negativa \(\matr{A}\) si dice \textbf{irriducibile} se \(\forall \rnd{i,j} \exists n \in \N: a_{ij}^n > 0\).
+Una matrice non-negativa \(\matr{A}\) si dice \textbf{irriducibile} se \(\forall \rnd{i,j} \quad \exists n \in \N: a_{ij}^n > 0\).
 
 \subsection{Proprietà di una matrice irriducibile}
 \begin{enumerate}
-  \item \(\forall i = 1, \ldots, k \exists N(i): \forall n \in N(i) \quad a_{ij}^{\rnd{n}} > 0\).
-  \item \(\forall i = 1, \ldots, k \exists r \in \N: 0 \leq r \leq d \land a_{ij}^{\rnd{s}}>0 \Rightarrow s = r\mod\rnd{d}\)
-  \item \(\forall i,j = 1, \ldots, k \exists q(i,j) \in \N: \forall n \geq q a_{ij}^{\rnd{r+nd}}>0\)
+  \item \(\forall i = 1, \ldots, k \quad \exists N(i): \forall n \in N(i) \quad a_{ij}^{\rnd{n}} > 0\).
+  \item \(\forall i = 1, \ldots, k \quad \exists r \in \N: 0 \leq r \leq d \land a_{ij}^{\rnd{s}}>0 \Rightarrow s = r\mod\rnd{d}\)
+  \item \(\forall i,j = 1, \ldots, k \quad \exists q(i,j) \in \N: \forall n \geq q a_{ij}^{\rnd{r+nd}}>0\)
 \end{enumerate}
 
 \subsection{Matrice riducibile}

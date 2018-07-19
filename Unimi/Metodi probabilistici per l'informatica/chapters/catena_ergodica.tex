@@ -1,0 +1,18 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Catena ergodica}
+\begin{theorem}[Catena ergodica]
+  Una catena di Markov finita \(\crl{X_n}\) su un insieme di stati \(S\) si dice \textbf{ergodica} se esiste un vettore stocastico \(\bm{\pi}^* = \rnd{\pi_i^*}_{i \in S}\) tale che, per ogni \(i, j \in S\):
+  \[
+    \lim_{n \rightarrow +\infty} \prob{X_n = j}{}{i} = \lim_{n \rightarrow +\infty} p^{(n)}_{ij} = \pi_{j}^*
+  \]
+  Equivale a richiedere che per ogni distribuzione \(\bm{\mu} \) definita su \(S\) e ogni \(j \in S\):
+  \[
+    \lim_{n \rightarrow +\infty} \rnd{\bm{\mu}^T \matr{P}^n}_{j} = \pi_{j}^*
+  \]
+  Una catena di Markov \(\crl{X_n}\) è \textbf{ergodica} se al crescere di \(n\) la distribuzione limite della variabile \(X_n\) esiste ed è indipendente dalla distribuzione iniziale \(\bm{\mu} \).
+\end{theorem}
+
+\end{document}

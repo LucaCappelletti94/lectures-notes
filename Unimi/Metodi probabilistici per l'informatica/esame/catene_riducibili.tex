@@ -1,0 +1,19 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Catene riducibili}
+Nel caso di catene con un grado di connessione che contiene più componenti fortemente connesse non è possibile dare una risposta univoca ed il comportamento dipende dalla relazione di connessione tra le varie componenti e dalla periodicità dei loro elementi. È possibile provare che se esiste una sola classe essenziale e quest'ultima è aperiodica allora la catena è ergodica, viceversa allora la catena non può essere ergodica.
+
+\begin{theorem}[Catene riducibili ergodiche]
+  Se la catena di Markov \(\crl{M_k}\) possiede una sola classe essenziale \(C\) e quest'ultima è \textbf{aperiodica} allora, per ogni \(j \in C\) e ogni \(i \in S\):
+  \[
+    \lim_{n\rightarrow+\infty} p^{(n)}_{ij} = \frac{1}{\sum_{n\geq 1} n f^{(n)}_{ij}}
+  \]
+  La catena risulta pertanto \textbf{ergodica}.
+\end{theorem}
+
+\begin{theorem}[Relazione tra classi essenziali e catene ergodiche]
+  Una catena di Markov finita è \textbf{ergodica} se e solo se possiede un'unica classe essenziale e quest'ultima è \textbf{aperiodica}.
+\end{theorem}
+\end{document}

@@ -1,0 +1,121 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Catena primitiva}
+\begin{definition}[Insieme dei vettori stocastici]
+  Sia \(\R_+\) l'insieme dei reali non negativi. Per ogni \(k \in \N \) denotiamo con \(M_k\) l'insieme dei \textbf{vettori stocastici} a \(k\) \textbf{componenti}:
+  \[
+    M_k = \crl{\left. \bmv \in \R^k_+ \right\rvert \sum_{i=1}^k v_i = 1}
+  \]
+\end{definition}
+
+\begin{definition}[Distanza di variazione totale]
+  Per ogni \(\bm{u},\bm{v} \in M_k\) chiamiamo \textbf{distanza di variazione totale} tra i due vettori:
+  \[
+    d_{TV}(\bm{u},\bm{v}) = \frac{1}{2}\sum_{i=1}^k \abs{u_i - v_i}
+  \]
+\end{definition}
+
+\begin{definition}[Coefficienti di matrice stocastica]
+  Data una matrice stocastica \(\matr{P}\) di dimensione \(k \times k\) e un qualsiasi \(j \in \crl{1, 2, \ldots, k}\), denotiamo con \(\alpha(j)\) e \(\beta(\matr{P})\) i valori:
+  \[
+    \alpha(j) = \min{p_{ij}} \qquad \beta(\matr{P}) = 1 - \sum_{j=1}^k \alpha{j}
+  \]
+  Dove \(\beta(\matr{P})\) rispetta le seguenti proprietà:
+  \begin{enumerate}
+    \item \(0\leq \beta(\matr{P}) \leq 1\) per ogni matrice stocastica \(\matr{P}\).
+    \item \(\beta(\matr{P}) < 1\) se e solo se \(\matr{P}\) possiede una colonna a valori tutti positivi.
+    \item \(\beta(\matr{P}) < 1\) se \(\matr{P} > 0\)
+  \end{enumerate}
+\end{definition}
+
+\clearpage
+
+\begin{lemma}[Relazione tra matrici e vettori stocastici]
+  Per ogni matrice stocastica \(\matr{P} \in \R^{k\times k}_+\) e ogni coppia di vettori stocastici \(\bmu, \bmv \in M_k\) abbiamo:
+  \[
+    \norm{\bmut \matr{P} - \bmvt \matr{P}}_1 \leq \beta\rnd{\matr{P}} \norm{\bmu - \bmv}_1
+  \]
+\end{lemma}
+
+\begin{proof}[Relazione tra matrici e vettori stocastici]
+  Per ogni \(j = 1, 2, \ldots, k\) è possibile scrivere:
+  \begin{align*}
+    \rnd{\bmut \matr{P}}_j - \rnd{\bmvt \matr{P}}_j & = \sum_{i=1}^k \rnd{u_i - v_i}p_{ij}                                                                       \\
+                                                    & = \sum_{i=1}^k \abs{u_i - v_i}p_{ij} - \sqr{\sum_{i=1}^k \rnd{\abs{u_i - v_i} - (u_i - v_i)}p_{ij}}        \\
+                                                    & \leq \sum_{i=1}^k \abs{u_i - v_i}p_{ij} - \alpha(j) \sqr{\sum_{i=1}^k \rnd{\abs{u_i - v_i} - (u_i - v_i)}} \\
+                                                    & = \sum_{i=1}^k \abs{u_i - v_i}\rnd{p_{ij} - \alpha(j)}                                                     \\
+  \end{align*}
+  In modo analogo si prova che \(\rnd{\bmvt \matr{P}}_j - \rnd{\bmut \matr{P}}_j \leq \sum_{i=1}^k \abs{u_i - v_i}\rnd{p_{ij} - \alpha(j)}\) e quindi si ottiene:
+  \[
+    \abs{\rnd{\bmut \matr{P}}_j - \rnd{\bmvt \matr{P}}_j} \leq \sum_{i=1}^k \abs{u_i - v_i}\rnd{p_{ij} - \alpha(j)}
+  \]
+  Questo implica:
+  \begin{align*}
+    \norm{\bmut \matr{P} - \bmvt \matr{P}}_1 & = \sum_{j=1}^k \abs{\rnd{\bmut \matr{P}}_j - \rnd{\bmvt \matr{P}}_j}    \\
+                                             & \leq \sum_{j=1}^k \sum_{i=1}^k \abs{u_i - v_i}\rnd{p_{ij} - \alpha(j)}  \\
+                                             & \leq \sum_{i=1}^k \abs{u_i - v_i} \sum_{j=1}^k \rnd{p_{ij} - \alpha(j)} \\
+                                             & \leq \sum_{i=1}^k \abs{u_i - v_i} \beta(\matr{P})                       \\
+                                             & \leq \beta(P) \norm{\bmv - \bmu}_1
+  \end{align*}
+\end{proof}
+\clearpage
+
+
+\begin{theorem}[Relazione tra potenze di matrici e vettori stocastici]
+  Per ogni matrice stocastica \(\matr{P} \in \R^{k\times k}_+\) primitiva esistono una costante \(C > 0\) e un valore \(0< \epsilon <1\) tali che per ogni coppia di vettori stocastici \(\bmu, \bmv \in M_k\):
+  \[
+    \norm{\bmut \matr{P}^n - \bmvt \matr{P}^n}_1 \leq C\epsilon^n
+  \]
+\end{theorem}
+
+\begin{proof}[Relazione tra potenze di matrici e vettori stocastici]
+  Poiché \(\matr{P}\) è primitiva esiste \(t \in \N \) tale che \(\matr{P}^t > 0\) e di conseguenza il suo coefficiente \(0\leq\beta(\matr{P}^n)<1\).
+
+  Per ogni \(n \in \N \; \exists q \in \N\; r \in \crl{0, 1, \ldots, t-1}: \, n = qt + r\).
+
+  Applicando quindi il \textbf{lemma di relazione tra matrici e vettori stocastici}, si ottiene:
+  \begin{align*}
+    \norm{\bmut \matr{P}^n - \bmvt \matr{P}^n}_1 & = \norm{\bmut \matr{P}^r\rnd{\matr{P}^t}^q - \bmvt\matr{P}^r\rnd{\matr{P}^t}^q}_1 \\
+                                                 & \leq \rnd{\beta(\matr{P}^t)}^q \norm{\bmut \matr{P}^r - \bmvt \matr{P}^r}_1       \\
+                                                 & \leq 2\rnd{\beta(\matr{P}^t)}^{\frac{n-r}{t}}                                     \\
+                                                 & \leq 2\rnd{\beta(\matr{P}^t)}^{-1} \sqr{\rnd{\beta(\matr{P}^t)}^{\frac{1}{t}}}^n  \\
+                                                 & \leq C\epsilon^n                                                                  \\
+  \end{align*}
+  Dove \(C = 2\rnd{\beta(\matr{P}^t)}^{-1}\) e \(\epsilon = \rnd{\beta(\matr{P}^t)}^{\frac{1}{t}} <1\).
+\end{proof}
+
+\section{Proprietà di catene di Markov primitive}
+\begin{theorem}[Proprietà di catene di Markov primitive]
+  Sia \(\crl{X_n}\) una catena di Markov con matrice di transizione primitiva sull'insieme di stati \(S\). Allora valgono le seguenti proprietà:
+  \begin{enumerate}
+    \item \(\crl{X_n}\) possiede una sola distribuzione stazionaria \(\bm{\pi}^*\).
+    \item \(\pi^*_i = \frac{1}{\mean{\tau_i}{}{i}} \quad \forall i \in S\)
+    \item \(\crl{X_n}\) è ergodica e \(\lim_{n\rightarrow +\infty} \prob{X_n = j}{}{i} = \pi^*_j\)
+  \end{enumerate}
+\end{theorem}
+\begin{proof}[Proprietà di catene di Markov primitive]
+  Sia \(\matr{P}\) la matrice di transizione della catena. Per la \textbf{relazione tra potenze di matrici e vettori stocastici} sappiamo che per ogni coppia di distribuzioni \(\bmu, \bmv \in S\) vale che:
+  \[
+    \norm{\bmut \matr{P}^n - \bmvt \matr{P}^n}_1 \rightarrow 0 \quad \text{per } n \rightarrow +\infty
+  \]
+  Se \(\bmu \) e \(\bmv \) sono distribuzioni stazionarie per la catena allora \(\bmut \matr{P}^n = \bmut \) e \(\bmvt \matr{P}^n = \bmvt \) e sostituendo nella relazione otteniamo:
+  \[
+    \norm{\bmut - \bmvt}_1 = 0
+  \]
+  Per cui \(\bmu = \bmv\). La catena pertanto ammette un'unica distribuzione stazionaria \(\pi^*\).
+
+  Tutti gli stati sono \textbf{ricorrenti}, per cui è possibile costruire la distribuzione \(\pi^*\) a partire da qualsiasi stato \(i \in S\) invece che solamente da \(1\).
+
+  Ne segue che \(\pi^*_i = \frac{1}{\mean{\tau_i}{}{i}} \quad \forall i \in S\).
+
+  Assumendo infine \(\bmv = \bm{\pi}^*\), per ogni distribuzione \(\bmu \in S\) vale che:
+
+  \[
+    \norm{\bmut \matr{P}^n - \bm{\pi}^{*T}}_1 \rightarrow 0 \quad \Rightarrow \quad \rnd{\bmut \matr{P}^n}_j \rightarrow \pi^*_j \quad \forall j \in \crl{1, 2, \ldots, k}
+  \]
+  Che è la definizione di catena ergodica.
+\end{proof}
+
+\end{document}

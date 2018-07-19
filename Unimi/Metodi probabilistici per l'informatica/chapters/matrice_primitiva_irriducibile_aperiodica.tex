@@ -1,0 +1,28 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Relazione tra matrici primitive e irriducibili}
+\begin{theorem}[Relazione tra matrici primitive e irriducibili]
+  Una matrice non negativa \(\matr{A}\) è primitiva se e solo se \(\matr{A}\) è irriducibile e aperiodica.
+\end{theorem}
+\begin{proof}[Relazione tra matrici primitive e irriducibili]
+
+  \textbf{Se matrice è primitiva allora è irriducibile e aperiodica}
+
+  Per definizione, tutte le matrici primitive sono irriducibili e aperiodiche.
+
+  \textbf{Se una matrice è irriducibile e aperiodica allora è primitiva}
+
+  Supponiamo che \(\matr{A}\) sia irriducibile e aperiodica. Utilizzando le \textbf{proprietà dei coefficienti di matrici irriducibili}, notiamo che tutti i coefficienti \(r_j\) in questo caso sono \textbf{nulli}. Per la seconda proprietà, essendo \(r_j = 0\) e \(d=1\) deve valere che:
+  \[
+    a_{ij}^{(n)} > 0 \quad \forall n \geq q_j
+  \]
+  È quindi possibile scegliere un \(n\) tale per cui:
+  \[
+    \matr{A}^n > 0
+  \]
+  Per cui \(\matr{A}\) è \textbf{primitiva}.
+\end{proof}
+
+\end{document}

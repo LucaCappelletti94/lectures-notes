@@ -1,0 +1,12 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Tempi di prima entrata}
+\begin{definition}[Tempi di prima entrata]
+  Prendendo in considerazione una catena di Markov finita ed omogenea \(\crl{X_n}\), con spazio degli stati \(S\) e matrice di transizione \(\matr{P}\). Per ogni \(j \in S\) denotiamo con \(\tau_j\) la variabile aleatoria che rappresenta il minimo numero di passi \(n\geq 1\) tale che \(X_n = j\), cioè il tempo di attesa necessario per entrare in \(j\) per la prima volta dopo l'istante \(0\):
+  \[
+    \tau_j = \min\crl{\left. n\geq 1 \right\rvert X_n = j}, \quad \tau_j \in \N_+ \cup \crl{+\infty}
+  \]
+\end{definition}
+\end{document}

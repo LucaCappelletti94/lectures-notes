@@ -106,7 +106,7 @@ Se uno stato \(i\) è ricorrente \(i \rightarrow j\) allora anche \(j\) è ricor
 \begin{proof}[Tempi di rientro negli stati ricorrenti]
   Sia C la classe di \(i\) tale che \(\sum_{j \in C} p(i,j) = 1\).
 
-  Vogliamo provare che \(\mean{\tau_i}{}{i} = \sum_{n \geq 1} n f^n(i,i)\), cioè \(f^n(i,i) = \O(\epsilon^n)\).
+  Vogliamo provare che \(\mean{\tau_i}{}{i} = \sum_{n \geq 1} n f^n(i,i)\), cioè \(f^n(i,i) = \O{\epsilon^n}\).
 
   Andiamo a costruire una nuova catena su \(\rnd{S, \mu, \tilde{p}}\), dove \(\tilde{p} \rightarrow\) è una matrice di ransizione che è uguale alla precedente ma con \(i\) assorbente, cioè:
   \[

@@ -1,0 +1,42 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Algoritmo di Metropolis}
+si tratta di una procedimento per generare a caso un elemento secondo una distribuzione fissata.
+
+Sia \(S\) un insieme finito e \(\bm{\pi} \) una distribuzione definita su \(S\) tale che \(\pi(i) > 0 \, \forall i \in S\). Definiamo inoltre un grafo non orientato \(G = (S, E)\) che gode delle seguenti proprietà:
+\begin{enumerate}
+  \item \(S\) sia l'insieme dei nodi di \(G\).
+  \item \(G\) sia connesso.
+  \item Il grado di \(G\) sia limitato da una opportuna costante.
+\end{enumerate}
+
+Possiamo procedere a definire la matrice di transizione \(\matr{P}\) come:
+\[
+  p_{ij} = \begin{cases}
+    0                                                                                & i \neq j \, \land \, \crl{i, j} \not\in E \\
+    \frac{1}{d_i}\min\crl{\frac{\pi_j d_i}{\pi_di d_j}, 1}                           & \crl{i,j} \in E                           \\
+    1-\frac{1}{d_i}\sum_{l:\crl{i,l} \in E}\min\crl{\frac{\pi_l d_i}{\pi_di d_l}, 1} & i==j
+  \end{cases}
+\]
+Dove:
+\begin{enumerate}
+  \item Se i nodi non hanno un arco non vi è possibilità di transitarvi.
+  \item Se i nodi hanno un arco tra loro, la probabilità è pari all'uniforme di entrare in \(i\), \(\frac{1}{d_i}\) moltiplicata per il rapporto dell'estrazione dell'elemento \(j\) e dell'elemento \(i\) limitato a 1, cioè \(\min\crl{\frac{\pi_j d_i}{\pi_i d_j}, 1}\).
+  \item Se i nodi coincidono, la probabilità di rimanere nello stesso è \(1\) meno la somma delle probabilità di andare in uno qualsiasi dei nodi adiacenti.
+\end{enumerate}
+dove \(d_i\) è il grado del generico nodo \(i\).
+
+La catena è \textbf{irriducibile} Poiché il grafo associato \(G\) è connesso, ed inoltre la distribuzione \(\bm{\pi} \) è reversibile per la catena, infatti:
+\[
+  \pi_i p_{ij} = \pi_j p_{ji}
+\]
+
+\subsection{La procedura}
+Si inizia da un nodo \(i\) e si estrae a caso in modo uniforme un nodo \(l \in S\) tale che \(\crl{i,l} \in E\), quindi si confrontano le probabilità \(\pi_l d_i \geq \pi_i d_l\): se la disuguaglianza è vera, il prossimo nodo \(j=l\), altrimenti si sceglie a caso un nuovo nodo \(j \in {l, i}\) con le seguenti probabilità:
+\[
+  \prob{l} = \frac{\pi_l d_i}{\pi_i d_l} \qquad \prob{i} = 1- \prob{l}
+\]
+
+\end{document}

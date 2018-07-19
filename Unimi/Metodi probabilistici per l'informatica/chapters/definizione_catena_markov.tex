@@ -1,0 +1,36 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Definizione di catena di Markov}
+\subsection{Stati}
+\begin{definition}[Stati]
+  Un insieme finito \(S = \crl{1,2,\ldots, k}\) di elementi detto insieme di \textbf{stati}.
+\end{definition}
+
+\subsection{Distribuzione iniziale}
+\begin{definition}[Distribuzione iniziale]
+  Una distribuzione di probabilità \(\mu: S \rightarrow \R \) definita su un insieme di stati \(S\), tale che:
+  \[
+    \mu(i) \geq 0 \quad \forall i \in S \qquad \sum_{i \in S} \mu(i) = 1
+  \]
+\end{definition}
+
+\subsection{Matrice di transizione}
+\begin{definition}[Matrice di transizione]
+  Una matrice \textbf{stocastica} \(\matr{P}\) con indici in un insieme di stati \(S\), detta \textbf{matrice di transizione} , ovvero una famiglia di coefficienti tale che:
+  \[
+    p_{ij} \geq 0 \qquad \forall i,j \in S \qquad \sum_{j \in S} p_{ij} = 1 \quad \forall i \in S
+  \]
+\end{definition}
+
+\begin{definition}[Catena di Markov]
+  Una \textbf{Catena di Markov finita e omogenea} con spazio degli stati \(S\), distribuzione iniziale \(\mu \) e matrice di transizione \(\matr{P}\) è una sequenza di variabili aleatorie \(\crl{X_n}_{n \in \N}\) a valori in \(S\) tale che:
+  \begin{enumerate}
+    \item \(\prob{X_0 = i} = \mu(i) \quad \forall i \in S\)
+    \item La probabilità di trovarsi in uno stato è data unicamente dallo stato precedente, proprietà nota anche come \textbf{proprietà di Markov}.
+    \item Un elemento \(p_{ij}\) della matrice rappresenta la probabilità di spostarsi nello stato \(j\) dallo stato \(i\).
+  \end{enumerate}
+\end{definition}
+
+\end{document}

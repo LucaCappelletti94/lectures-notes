@@ -1,0 +1,50 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Cosa sono i metodi MCMC}
+Tipicamente nella \textbf{generazione casuale} si utilizzano catene di Markov definite su un insieme di elementi \(S\), da cui si vuole estrarre un elemento a caso. Talvolta però, l'insieme \(S\) non è ben definito oppure è difficile calcolare la probabilità dei suoi elementi.
+
+In questi casi si utilizzano di metodi MCMC, che consistono nel definire una catena \textbf{irriducibile} e \textbf{aperiodica} sull'insieme di dati \(S\) che abbia \(\bm{\pi} \) come distribuzione stazionaria, in modo tale che eseguendo un numero di stati \(n\) abbastanza grande, qualunque sia lo stato iniziale \(X_0\), la probabilità \(\prob{X_n=i}\) approssima \(\pi_i\, \forall i \in S\).
+
+\section{Generazione di insiemi indipendenti}
+Definiamo una catena di Markov per generare a caso in modo uniforme un insieme indipendente in un grafo non orientato \(G = \rnd{V, E}\). Sia \(S\) la famiglia di tutti gli insiemi indipendenti in \(G\) e sia \(Z_G\) la cardinalità di \(S\) e consideriamo \(\bm{\pi} \) una distribuzione uniforme.
+
+Si sceglie un nodo \(v \in V\) a caso in maniera uniforme e se \(v \in A\) allora si toglie \(v\) da \(A\). Altrimenti se \(A\) non possiede nemmeno nodi adiacenti a \(v\), esso viene aggiunto ad \(A\). In caso contrario, infine, non si modifica \(A\). Lo stato \(A\) modificato viene chiamato \(B\).
+
+\begin{theorem}[La catena di Markov per generazione di indipendent set è reversibile]
+	La matrice di transizione \(\matr{P}\) definita come:
+	\begin{enumerate}
+		\item Se i due set \(A\) e \(B\) hanno più di un elemento di differenza non è possibile transitare in un'iterazione da uno all'altro.
+		\item Se gli insiemi \(A\) e \(B\) hanno esattamente un elemento di differenza, la probabilità di transitare da uno all'altro è uniforme \(\frac{1}{k}\).
+		\item Se gli insiemi coincidono, la probabilità di non cambiare insieme è pari a \(1\) meno la somma delle probabilità di cambiare insieme, cioè l'uniforme moltiplicata per il numero di insiemi a distanza \(1\) da \(A\).
+	\end{enumerate}
+	Con notazione formale dei coefficienti, usando la notazione della sottrazione insiemistica \(\#\crl{\frac{A \cup B}{A \cap B}}\):
+	\[
+		p_{AA'} = \begin{cases}
+			0                                                                                       & \#\crl{\frac{A \cup B}{A \cap B}} > 1 \\
+			\frac{1}{k}                                                                             & \#\crl{\frac{A \cup B}{A \cap B}} = 1 \\
+			1 - \frac{\#\crl{\left. C \in S \right\rvert \#\crl{\frac{A \cup C}{A \cap C}} = 1}}{k} & A = B
+		\end{cases}
+	\]
+	è \textbf{irriducibile} e \textbf{aperiodica}. Inoltre, la distribuzione \(\bm{\pi} \) è \textbf{reversibile} per la catena \(\crl{X_n}\) associata.
+
+	In particolare, gli elementi dell'insieme sono:
+\end{theorem}
+
+\begin{proof}[La catena di Markov per generazione di indipendent set è reversibile]
+	Possiamo costruire un cammino dallo stato \(A\) allo stato \(B\) rimuovendo prima i nodi dell'insieme \(A\setminus B\), ottenendo lo stato \(A\cup B\), e poi aggiungendo i nodi del set \(B \setminus A\): per la definizione della catena ognuno di questi passi ha probabilità non nulla e quindi la probabilità dell'intero cammino è positiva.
+
+	Per un opportuno \(n \in \N \) quindi \(\matr{P}^n\) è positiva ed è pertanto \textbf{irriducibile}.
+
+	La matrice è inoltre \textbf{aperiodica} Poiché esiste sempre una probabilità uniforme \(\frac{1}{k}\) di spostarsi da un determinato nodo \(\crl{a}\) ad un nodo \(\crl{b}\), compreso \(\crl{a}\rightarrow \crl{a}\): il periodo pertanto è unitario.
+
+	Per la \textbf{reversibilità} della distribuzione \(\bm{\pi} \) è sufficiente osservare che \(\matr{P}\) è simmetrica e \(\bm{\pi} \) è uniforme:
+	\[
+		\pi_A p_{AB} = \pi_B p_{BA}
+	\]
+\end{proof}
+
+La catena pertanto definisce un \textbf{algoritmo MCMC corretto}.
+
+\end{document}

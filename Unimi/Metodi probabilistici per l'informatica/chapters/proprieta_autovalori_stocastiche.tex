@@ -1,0 +1,14 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Proprietà degli autovalori delle matrici stocastiche}
+\begin{theorem}[Proprietà degli autovalori delle matrici stocastiche]
+  Se \(\lambda \) è un autovalore di una matrice stocastica allora \(\abs{\lambda} \leq 1\).
+\end{theorem}
+\begin{proof}[Proprietà degli autovalori delle matrici stocastiche]
+  Sia \(\matr{P} = \begin{bmatrix}
+    p_{ij}
+  \end{bmatrix}\) una matrice stocastica di dimensione \(r\) e sia \(\lambda \) un suo autovalore. Consideriamo un autovettore sinistro \(\bmv \) di \(\matr{P}\) corrispondente a \(\lambda \). Allora \(\bmvt\matr{P} = \lambda\bmvt \) e siccome la somma delle righe di una matrice stocastica è unitaria, segue che \(\abs{\lambda}\sum_{j=1}^r \abs{v_j} \leq \sum_{j=1}^r \abs{v_j} \Rightarrow \abs{\lambda} \leq 1\).
+\end{proof}
+\end{document}

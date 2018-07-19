@@ -58,8 +58,8 @@ Le domande indicate con √ sono state chieste ad almeno una persona all'orale c
             - [ ] Perchè vale? √
         - [x] Stati essenziali
         - [x] Gli stati ricorrenti sono stati essenziali
-    - [ ] **Tempi medi di rientro**
-        - [ ] Caso degli stati ricorrenti (*)
+    - [x] **Tempi medi di rientro**
+        - [x] Caso degli stati ricorrenti (*)
     - [ ] **Definizione di catena ergodica**
         - [ ] Dimostrazione che una catena ergodica √
     - [ ] **Distribuzioni stazionarie**

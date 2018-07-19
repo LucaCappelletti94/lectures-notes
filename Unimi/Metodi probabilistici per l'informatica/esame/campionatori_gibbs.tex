@@ -1,0 +1,28 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Campionatori di Gibbs}
+Dati due insiemi finiti \(V, R\) di cardinalità \(k, q > 1\), denotiamo con \(R^V\) il set delle funzioni a valori da \(V\) a \(R\), di cardinalità \(q^k\): un campionatore di Gibbs estrae secondo una distribuzione fissata \(\bm{\pi} \) un elemento da tale insieme.
+
+Viene definito tramite una catena di Markov sull'insieme di stati:
+\[
+  S = \crl{A \in R^V: \pi(A) > 0}
+\]
+Il nuovo stato della catena viene ottenuto estraendo a caso in modo uniforme un elemento \(v \in V\) e scegliendo un nuovo valore \(c \in R\) con probabilità \(\bm{\pi} \) condizionata a conservare uguali ad \(A\) i valori degli altri elementi di \(V\).
+
+Il nuovo stato \(B\) differisce da \(A\) al più per il solo valore attribuito all'elemento \(v\) estratto, ed esiste sempre una probabilità non nulla che \(B\) coincida con \(A\).
+
+\begin{theorem}[La distribuzione di un campionatore di Gibbs è reversibile]
+  La distribuzione \(\bm{\pi} \) è \textbf{reversibile} per la catena di Markov con matrice di transizione \(\matr{P}\) definita per un campionatore di Gibbs.
+
+  Chiamando \(\pi_v\) la probabilità \(\pi(C \in R^V: C(u) = A(u) \, \forall u \neq v)\)
+  \[
+    p_{AB} = \begin{cases}
+      0                                  & \exists u, v \in V: A(u) \neq B(U) \, \land \, A(v) \neq B(v) \\
+      \frac{\pi_B}{k\pi_v}               & !\exists v \in V: A(v) \neq B(v)                              \\
+      \frac{\pi_A}{k\sum_{v \in V}\pi_v} & A = B
+    \end{cases}
+  \]
+\end{theorem}
+\end{document}

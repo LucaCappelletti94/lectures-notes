@@ -1,0 +1,32 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Passeggiate a caso su grafi}
+\begin{theorem}[Catena delle passeggiate a caso su grafo non orientato]
+  Se \(G\) è un grafo non orientato connesso allora la catena delle passeggiate a caso su \(G\) gode delle seguenti proprietà:
+  \begin{enumerate}
+    \item La catena è \textbf{irriducibile} e \textbf{reversibile}.
+    \item La sua \textbf{periodicità} è al più 2.
+    \item La sua distribuzione stazionaria è data dal vettore \(\pi = \begin{bmatrix}
+            \frac{d_1}{2m} & \frac{d_2}{2m} & \cdots & \frac{d_k}{2m}
+          \end{bmatrix}\)
+    \item Per ogni nodo \(i\) di \(G\) il tempo medio di rientro in \(i\) è dato da \(\mean{\tau_i}{}{i} = 2\frac{m}{d_i}\) dove \(m\) è il numero di lati di \(G\) e \(d_i\) è il grado di \(i\).
+  \end{enumerate}
+\end{theorem}
+
+\section{Passeggiate in un cammino semplice}
+\begin{theorem}[Lunghezza di una passeggiata]
+  Compiendo una passeggiata a caso in un grafo formato da un cammino semplice di \(k\) nodi il numero medio di un passi necessari per raggiungere una estremità del grafo a partire da un vertice qualunque è minore o uguale a \(k^2\).
+\end{theorem}
+
+\section{Problema 2-CNF SODD}
+Il problema consiste nella determinazione della soddisfacibilità di formule booleane in forma normale seconda congiunta.
+
+La procedura è un algoritmo \textbf{one-sided error} e si procede ripetendo un certo numero di volte un ciclo principale di istruzioni nel quale  partendo da un assegnamento casuale \(A\) di valori alle variabili in \(V\) si verifica se \(A\) soddisfa la formula booleana data \(\Phi \). In caso affermativo è stato identificato un assegnamento che rende vera a formula, altrimenti si procede a modificare il valore di una variabile che compare in una clausola non correntemente soddisfatta di \(A\) e si ripete con il nuovo assegnamento.
+
+Il ciclo interno viene ripetuto \(2k^2\) volte per portare la probabilità di errore a \(\frac{1}{2}\), dato che per il teorema della \textbf{lunghezza di una passeggiata a caso} il tempo medio per raggiungere un'estremità del grafo da un vertice è \(k^2\) e per la disuguaglianza di Markov:
+\[
+  \prob{u_i > 2k^2} \leq \frac{\mean{u_i}}{2k^2} \leq \frac{1}{2}
+\]
+\end{document}

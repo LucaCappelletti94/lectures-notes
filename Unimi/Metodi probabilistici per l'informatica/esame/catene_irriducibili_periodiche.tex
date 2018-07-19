@@ -1,0 +1,16 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Esempio: catena irriducibile non primitiva}
+Prendendo in considerazione una catena formata da soli due stati con una matrice di transizione:
+\[
+  \matr{P} = \begin{bmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{bmatrix}
+\]
+Chiaramente \(\matr{P}\) è irriducibile di periodo \(2\) e si verifica subito che \(p^{(n)}_{12} = 1\) per \(n\) dispari e \(p^{(n)}_{12} = 0\) per \(n\) pari.
+
+Al crescere di \(n\) quindi la sequenza non ammette limite., per quanto è possibile dimostrare una forma di convergenza più debole, data da una media dei valori di \(p^{(n)}_{ij}\).
+\end{document}

@@ -1,0 +1,19 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{La ricorrenza è proprietà delle classi}
+\begin{theorem}[La ricorrenza è proprietà delle classi]
+  La ricorrenza è una proprietà delle classi. Ovvero, se \(i \in S\) è uno stato ricorrente e \(C\) è la sua classe allora ogni stato \(j \in C\) è ricorrente.
+\end{theorem}
+\begin{proof}[La ricorrenza è proprietà delle classi]
+  Data una classe \(C\), siano \(i,j \in C\) due stati distinti. Allora esistono due valori \(a, b > 0\) tali che \(a = p^{(p)}_{ij}\) e \(b = p^{(s)}_{ji}\) per qualche \(r, s \in \N \) tali che:
+  \[
+    p^{(n+r+s)}_{jj} \geq bap^{(n)}_{ii}
+  \]
+  Se \(i\) è ricorrente, osservando che \textbf{la somma delle probabilità di transienza è limitata}, se \(i\) è \textbf{ricorrente} la serie è \textbf{divergente}. Per la maggiorazione appena svolta anche \(p^{(n+r+s)}_{jj}\) diverge, per cui \(j\) è ricorrente.
+
+  Per \textbf{simmetria}, se \(i\) fosse ricorrente anche \(j\) lo sarebbe.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,15 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\section{Probabilità di ingresso}
+\begin{definition}[Probabilità di ingresso]
+  Il coefficiente  \(f_{ij}\) denota la probabilità di ingresso in uno stato \(j\) partendo da uno stato \(i\). Essi possiedono alcune caratteristiche:
+  \begin{align*}
+    f^{(0)}(i,j) & = 0                                                                                            \\
+    f^{(n)}(i,j) & = \prob{\tau_j=n}{}{i} \quad \forall n \in \N_+                                                \\
+    f(i,j)       & = \sum_{n\geq 1} f^{(n)}(i,j) = \prob{\tau_j < \infty}{}{i}  = 1 - \prob{\tau_j = \infty}{}{i}
+  \end{align*}
+  I coefficienti sulla diagonale principale \(f_{ii}\) sono detti \textbf{coefficienti di probabilità di rientro}.
+\end{definition}
+\end{document}
