@@ -1,5 +1,5 @@
 # Esami
-
+## Temi, modalità, domande e risposte.
 <img src="https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Esami/esami.png" width="400">
 
 Nella sessione d'esami, spesso, la problematica maggiore è capire cosa il professore voglia sentirsi dire. I corsi talvolta cambiano, ma spesso molti tarli rimangono gli stessi.
