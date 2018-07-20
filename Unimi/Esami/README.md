@@ -1,4 +1,6 @@
 # Esami
+![Esami cover](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Esami/esami.png)
+
 Nella sessione d'esami, spesso, la problematica maggiore è capire cosa il professore voglia sentirsi dire. I corsi talvolta cambiano, ma spesso molti tarli rimangono gli stessi.
 
 Questa repository vuole essere una raccolta di temi, modalità, domande e risposte dei temi d'esame di corsi dell'Università di Milano, con lo scopo di lasciare meno disarmati chi dovrò affrontare l'esame successivamente.
