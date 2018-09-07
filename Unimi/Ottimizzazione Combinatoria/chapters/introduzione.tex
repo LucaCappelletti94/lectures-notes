@@ -1,0 +1,41 @@
+ \providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\begin{multicols}{2}
+  [
+    \chapter{Introduzione}
+    L' \textbf{Ottimizzazione combinatoria} propone modelli di soluzioni ad innumerevole problemi, tra i quali vi sono:
+  ]
+  \paragraph*{Matching covers}
+  Consideriamo due insiemi \(A\) e \(B\), di cardinalità \(n\): ad ogni coppia di valori del prodotto cartesiano dei due insiemi è associato un valore positivo che descrive la compatibilità tra i due valori. Si vanno a scegliere \(n\) coppie, senza che gli elementi vengano ripetuti, in modo da massimizzare la compatibilità totale.
+
+  \paragraph*{Set Covering}
+  Data una \textit{matrice binaria} ed un vettore di costi associati alle colonne si va a realizzare il sottoinsieme di costo minimo che copra tutte le righe.
+
+  \paragraph*{Set Packing}
+  Data una \textit{matrice binaria} ed un vettore di valori associati alle colonne, si cerca il sottoinsieme di colonne di valore massimo tali che non coprino entrambe una stessa riga.
+
+  \paragraph*{Set Partitioning}
+  Data una \textit{matrice binaria} ed un vettore di cosi associati alle colonne, si cerca il sottoinsieme di colonne di costo minimo che copra tutte le righe senza conflitti.
+
+  \paragraph*{Vertex Cover}
+  Dato un grafo non orientato \(G=\rnd{V, E}\) si cerca il sottoinsieme di vertici di cardinalità minima tale che ogni lato del grafo vi incida.
+
+  \paragraph*{Maximum Clique Problem}
+  Dato un grafo non orientato e una funzione peso definita sui vertici, si cerca il sottoinsieme di vertici fra loro adiacenti di peso massimo.
+
+  \paragraph*{Maximum Independent Set Problem}
+  Dato un grafo non orientato e una funzione di peso definita sui vertici, si cerca il sottoinsieme di vertici fra loro non adiacenti di peso massimo.
+
+  \paragraph*{Minimum Steiner Tree}
+  Dato un grafo non orientato e una funzione costo definita sui lati, si cerca un albero ricoprente di costo minimo.
+
+  \paragraph*{Boolean satisfiability problem or SAT}
+  Data una forma normale congiunta (CNF), si cerca un assegnamento di verità alle variabili logiche che la soddisfi.
+
+  \subparagraph*{Versione pesata (MAX-SAT)}
+  Viene considerata anche una funzione peso associata alle formule che compongono la CNF. L'obbiettivo è massimizzare il peso totale delle formule soddisfatte.
+\end{multicols}
+
+\end{document}
