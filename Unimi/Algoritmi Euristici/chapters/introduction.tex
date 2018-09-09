@@ -2,7 +2,34 @@
 \documentclass[\main/main.tex]{subfiles}
 \begin{document}
 
-\section{Dispense}
-Sono disponibili dispense sul sito del corso: \url{https://homes.di.unimi.it/cordone/courses/2017-mmd/2017-mmd.html}.
+\chapter{Introduzione}
+\section{Problemi tipici}
+\begin{multicols}{2}[
+    I problemi vengono catalogati in base alla natura della loro soluzione.
+  ]
+  \paragraph*{Problema di decisione:} la soluzione è vero o falso.
+  \paragraph*{Problema di conteggio:} la soluzione è il numero dei sottosistemi che soddisfano certe condizioni.
+  \paragraph*{Problema di ottimizzazione:} la soluzione è il valore minimo o massimo di una funzione obbiettivo definita su sottoinsiemi che soddisfano certe condizioni.
+  \paragraph*{Problema di ricerca:} la soluzione è la descrizione formale di un sottosistema che soddisfa certe condizioni.
+  \paragraph*{Problema di enumerazione:} la soluzione è la descrizione formale di tutti i sottosistemi che soddisfano certe condizioni.
+\end{multicols}
 
+\section{Classificazione delle euristiche}
+\begin{multicols}{2}
+  \paragraph*{Euristiche costruttive/distruttive:} partono da un sottoinsieme ovvio (l'insieme intero o vuoto) ed aggiungono o tolgono elementi sino ad ottenere la soluzione desiderata.
+  \paragraph*{Euristiche di ricerca locale:} partono da una soluzione ottenuta in qualsiasi modo e scambiano elementi fino a ottenere la soluzione desiderata.
+  \paragraph*{Euristiche di ricombinazione:} partono da una popolazione di soluzioni ottenuta in qualsiasi modo e ricombinano soluzioni diverse producendo una nuova popolazione.
+  \paragraph*{Euristiche a convergenza:} associano a ogni elemento del set un valore frazionario tra \(0\) e \(1\) e lo aggiornano iterativamente finché converge a \(\crl{0, 1}\)
+\end{multicols}
+
+\section{Rischi tipici}
+\begin{multicols}{2}
+  \paragraph*{Atteggiamento referenziale o modaiolo:} farsi dettare l'approccio dal contesto sociale.
+  \paragraph*{Atteggiamento magico:} credere all'efficacia di un metodo per pura analogia con fenomeni fisici e naturali.
+  \paragraph*{Ipercomplicazione:} introdurre componenti e parametri pletorici, come se potessero portare solo miglioramenti.
+  \paragraph*{Number crunching:} fare calcoli pesanti e sofisticati con numeri di dubbia utilità.
+  \paragraph*{Overfitting:} sovradattare componenti e parametri dell'algoritmo allo specifico insieme di dati usati nella valutazione sperimentale.
+  \paragraph*{Integralismo euristico:} usare euristiche quando esistono metodi esatti utilizzabili.
+  \paragraph*{Effetto SUV:} confidare nella potenza dell'hardware
+\end{multicols}
 \end{document}
