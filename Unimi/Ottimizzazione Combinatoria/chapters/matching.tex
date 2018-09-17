@@ -157,4 +157,93 @@
 
 \end{proof}
 
+\section{Cammino alternante e aumentante}
+\begin{multicols}{2}[Sia \(M\) un matching di \(G = \rnd{V, E}\).]
+  \begin{definition}[Arco accoppiato]
+    Un arco \(\rnd{i,j} \in E\) si dice \textbf{accoppiato} se:
+    \[
+      \rnd{i,j} \in M
+    \]
+    Altrimenti è detto \textbf{libero}.
+  \end{definition}
+  \begin{definition}[Vertice accoppiato]
+    Un vertice \(i \in V\) si dice \textbf{accoppiato} se su di esso incide un arco di \(M\). Altrimenti si dice che \textbf{non incide}.
+  \end{definition}
+  \begin{definition}[Cammino alternante]
+    Un cammino \(P\) sul grafo \(G\) si dice \textbf{alternante} rispetto a \(M\) se esso è costituito alternativamente da archi accoppiati e liberi.
+  \end{definition}
+  \begin{definition}[Cammino aumentante]
+    Un cammino \(P\) \textit{alternante} rispetto ad \(M\) che abbia entrambi gli estremi esposti si dice \textbf{aumentante}.
+  \end{definition}
+\end{multicols}
+
+\begin{theorem}
+  Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). La differenza simmetrica:
+  \[
+    M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}
+  \]
+  È un matching di cardinalità \(\abs{M} + 1\).
+\end{theorem}
+
+\begin{proof}
+  Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). L'insieme \(M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}\) gode delle seguenti proprietà:
+  \begin{enumerate}
+    \item \(M'\) è un matching:
+          \begin{enumerate}
+            \item I nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
+            \item Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
+            \item I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
+          \end{enumerate}
+    \item \(M'\) ha un elemento in più di \(M\):
+          \begin{enumerate}
+            \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \abs{M \setminus P}\) ed \(m_2 = \text{numero di archi del matching appartenenti al cammino.}\)
+            \item Poiché \(P\) è aumentante, \(\abs{P} = m_2 + \rnd{m_2 + 1}\) dove \(m_2 + 1 = \abs{P\setminus M}\).
+            \item \(\abs{M'} = \abs{M \setminus P} + \abs{P \setminus M} = m_1 + m_2 + 1 = \abs{M} +1\)
+          \end{enumerate}
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Teorema di Berge]
+  Un matching \(M\) di \(G\) è massimo \textbf{se e solo se} \(G\) non ammette cammini aumentanti rispetto a \(M\).
+\end{theorem}
+\begin{proof}[Teorema di Berge]
+  La condizione sufficiente segue dal teorema precedente. Per la condizione necessaria, facciamo vedere che, se non esistono cammini aumentanti rispetto a un certo matching \(M\), allora quel matching \(M\) è massimo:
+
+  Supponiamo che \(G\) ammetta un matching \(M'\) con un elemento in più di \(M\). Vogliamo dimostrare che allora esiste un cammino aumentante per \(M\).
+
+  Consideriamo l'insieme di archi:
+  \[
+    F = \crl{M'\cup M}\setminus\crl{M' \cap M}
+  \]
+  e sia \(G'\) il sottografo di \(G\) avente gli stessi nodi di \(G\) ma contenente solo l'insieme di archi di \(F\). Analizziamo il grado di ciascun nodo di \(G'\), considerando tutti i casi possibili:
+  \begin{enumerate}
+    \item Un nodo su cui incide lo stesso arco appartenente sia ad \(M\) che ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
+    \item Un nodo su cui incide sia un arco di \(M\) sia un arco di \(M'\) è un nodo che ha grado \(2\) su \(G'\).
+    \item Un nodo su cui incide un arco di \(M\) e nessun arco di \(M'\) o viceversa è un nodo che ha grado \(1\) su \(G'\).
+  \end{enumerate}
+  Considerando ora \(G'\), il sott
+
+  TODO FINIRE DIMOSTRAZIONEEEE!!!
+\end{proof}
+
+\begin{theorem}[Teorema del cammino aumentante]
+  Sia \(v\) un vertice esposto in un matching \(M\). Se non esiste un cammino aumentante per \(M\) che parte da \(v\), allora esiste un matching massimo avente \(v\) esposto.
+\end{theorem}
+
+\begin{proof}[Teorema del cammino aumentante]
+  Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\crl{M^*\cup M}\setminus\crl{M^* \cap M}\):
+
+  TODO FINIRE DIMOSTRAZIONE
+\end{proof}
+
+\begin{theorem}[Teorema di König]
+  Se \(G=\rnd{X, Y, E}\) è un grafo bipartito, allora \(\mu(G) = \tau(G)\).
+\end{theorem}
+
+\begin{proof}[Teorema di König]
+  Sia \(M^*\) un matching massimo, e siano
+
+  TODO FINIRE DIMOSTRAZIONE
+\end{proof}
+
 \end{document}
