@@ -220,30 +220,86 @@
     \item Un nodo su cui incide lo stesso arco appartenente sia ad \(M\) che ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
     \item Un nodo su cui incide sia un arco di \(M\) sia un arco di \(M'\) è un nodo che ha grado \(2\) su \(G'\).
     \item Un nodo su cui incide un arco di \(M\) e nessun arco di \(M'\) o viceversa è un nodo che ha grado \(1\) su \(G'\).
+    \item Un nodo esposto sia rispetto ad \(M\) che rispetto ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
   \end{enumerate}
-  Considerando ora \(G'\), il sott
+  Pertanto in \(G'\) nessun nodo ha un grado superiore a 2 e possiamo concludere che le componenti connesse di \(G'\) sono o nodi isolati o percorsi o cicli.
 
-  TODO FINIRE DIMOSTRAZIONEEEE!!!
+  Nessun ciclo può essere dispari altrimenti ci sarebbero due archi dello stesso matching incidenti sullo stesso nodo e questo è impossibile.
+
+  Non possono essere tutti cicli pari altrimenti \(\abs{M} = \abs{M'}\). Deve esistere una componente connessa che è un percorso.
+
+  Non tutti i percorsi possono essere pari altrimenti, nuovamente, \(\abs{M} = \abs{M'}\).
+
+  Quindi, senza perdita di generalità, possiamo assumere che esista un percorso dispari che inizia e termina con un arco di \(M'\).
+
+  Questo percorso è aumentante per \(M\).
 \end{proof}
+
+\section{Teorema del cammino aumentante}
 
 \begin{theorem}[Teorema del cammino aumentante]
   Sia \(v\) un vertice esposto in un matching \(M\). Se non esiste un cammino aumentante per \(M\) che parte da \(v\), allora esiste un matching massimo avente \(v\) esposto.
 \end{theorem}
 
 \begin{proof}[Teorema del cammino aumentante]
-  Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\crl{M^*\cup M}\setminus\crl{M^* \cap M}\):
+  Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\crl{M^*\cup M}\setminus\crl{M^* \cap M}\): questo insieme non può contenere un cammino alternante con i vertici degli archi di \(M\) esposti, altrimenti sarebbe aumentante per esso.
 
-  TODO FINIRE DIMOSTRAZIONE
+  Però deve contenere un cammino composto dallo stesso numero di archi dei due insiemi, \(M\) e \(M^*\): un cammino con un solo arco di un insieme, infatti, sarebbe aumentante per l'altro e viceversa.
+
+  Consideriamo quindi un cammino \(P\) composto da un ugual numero di archi dai due insiemi e consideriamo un nuovo matching \(M' = \crl{M^*\cup P}\setminus\crl{M^* \cap P}\). Vanno osservate due proprietà:
+
+  \begin{enumerate}
+    \item La cardinalità del nuovo insieme e del matching massimo sono uguali:
+          \[
+            \abs{M'} = \abs{M^*}
+          \]
+    \item Il nodo \(v\) è esposto rispetto ad \(M'\).
+  \end{enumerate}
+  Pertanto abbiamo individuato un nuovo matching massimo con \(v\) esposto.
 \end{proof}
+
+\section{Teorema di König}
 
 \begin{theorem}[Teorema di König]
   Se \(G=\rnd{X, Y, E}\) è un grafo bipartito, allora \(\mu(G) = \tau(G)\).
 \end{theorem}
 
 \begin{proof}[Teorema di König]
-  Sia \(M^*\) un matching massimo, e siano
+  Sia \(M^*\) un matching massimo, e siano:
+  \begin{enumerate}
+    \item \(X_1\) un insieme dei nodi \(x\) di \(X\) \textbf{accoppiati} rispetto ad \(M^*\)
+    \item \(X_2\) un insieme dei nodi \(x\) di \(X\) \textbf{esposti} rispetto ad \(M^*\)
+    \item \(Y_1\) insieme dei nodi \(y\) di \(Y\) raggiungibili da \(x\) in \(X_2\). Questi nodi, per definizione, sono \textbf{accoppiati} altrimenti \(M^*\) non sarebbe massimo.
+    \item \(Y_2 = Y \setminus Y_1\)
+  \end{enumerate}
 
-  TODO FINIRE DIMOSTRAZIONE
+  \begin{definition}[Nodo raggiungibile]
+    Un nodo \(y \in Y\) è raggiungibile se esiste \(P\) alternante rispetto ad \(M^*\) da \(x\) in \(X_2\) tale che l'ultimo arco non appartiene ad \(M^*\).
+  \end{definition}
+
+  Consideriamo un set di nodi \(Z\) definito come:
+  \[
+    Z = \crl{z_1, z_2, \ldots, z_{\mu(G)}} \quad \text{con} \quad \begin{cases}
+      z_i = y_i & \text{se \(y_i\) è raggiungibile} \\
+      z_i = x_i & \text{altrimenti}
+    \end{cases}
+  \]
+  \textbf{Procediamo ora a dimostrare che il set \(Z\) è \textit{trasversale}}.
+
+  Iniziamo dimostrando che non esistono archi da nodi in \(X_2\) verso nodi in \(Y\) non coperti da \(Z\):
+
+  \begin{enumerate}
+    \item Non può esistere un arco non coperto da \(Z\) tra un nodo in \(X_2\) e un nodo in \(Y_2\), altrimenti il matching non sarebbe massimo.
+    \item Non può esistere un arco non coperto da \(Z\) tra un nodo in \(X_2\) e un nodo in \(Y_1\) perché i nodi in \(Y_1\) sono raggiungibili e quindi l'arco necessariamente deve essere coperto.
+  \end{enumerate}
+
+  Dimostriamo ora che non esistono archi da nodi in \(X_1\) verso nodi in \(Y\) non coperti da \(Z\):
+
+  Consideriamo un arco da \(X_1\) a \(Y_2\): se non fosse coperto, allora esisterebbe un nodo, estremo dell'arco del matching, raggiungibile da \(X_2\) in \(Y_2\). Ciò implicherebbe l'esistenza di un cammino aumentante ed il matching sarebbe pertanto non massimo.
+
+  Consideriamo ora un arco da \(X_1\) a \(Y_1\): se il nodo terminale non fosse coperto non sarebbe raggiungibile (per la definizione di \(Y_1\) e di \(Z\)) e non apparterrebbe in primo luogo a \(Y_1\), quindi l'arco non esisterebbe.
+
+  Pertanto, \(Z\) è un insieme trasversale di cardinalità pari a \(\mu(G)\).
 \end{proof}
 
 \end{document}
