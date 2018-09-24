@@ -302,4 +302,22 @@
   Pertanto, \(Z\) è un insieme trasversale di cardinalità pari a \(\mu(G)\).
 \end{proof}
 
+\section{Teorema di Hall o dei matrimoni}
+\begin{theorem}[Teorema di Hall]
+  Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subset V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora il grafo \(G\) ammette un \textbf{matching massimo} se e solo se:
+  \[
+    \abs{\Gamma(J)} \geq \abs{J} \quad \forall J \subset V_2
+  \]
+\end{theorem}
+
+\begin{proof}[Teorema di Hall]
+  Sia \(M\) un \textbf{matching massimo} di \(G\) e \(J\) un sottoinsieme qualsiasi di \(V_2\). Sia \(E(J)\) l'insieme dei lati contenuti nel matching \(M\) che sono incidenti con un vertice in \(J\). Allora, i vertici terminali dei lati in \(E(J)\) che sono contenuti in \(V_1\) formano un sottoinsieme di cardinalità \(\abs{J}\) di \(\Gamma(J)\).
+
+  Per assurdo, supponiamo che la condizione \(\abs{\Gamma(J)} \geq \abs{J}\) è valida e che la cardinalità massima di un matching in \(G\) è minore di \(\abs{T}\). Allora per il \textbf{Teorema di König} è possibile costruire una \textbf{vertex cover} \(X=V'_1 \cup V'_2\) dove \(V'_1 \subset V_1\) e \(V'_2 \subset V'_2\) e \(\abs{S'} + \abs{T'} < \abs{T}\) ma quindi i vertici terminali \(u\) dei lati \(\bar{uv}\), dove \(v\) è uno dei \(\abs{V_2} - \abs{V'_2}\) vertici in \(V_2\setminus V'_2\) sono tutti contenuti in \(V_1\), quindi:
+  \[
+    \abs{\Gamma(V_2\setminus V'_2)} \leq \abs{V'_1} < \abs{V_2} - \abs{V'_2} = \abs{V_2\setminus V'_2}
+  \]
+  da cui la contraddizione.
+\end{proof}
+
 \end{document}
