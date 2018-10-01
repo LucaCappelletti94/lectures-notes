@@ -200,6 +200,12 @@
 \renewenvironment{lemma}{\begin{shaded}\begin{oldLemma}}{\end{oldLemma}\end{shaded}\ignorespacesafterend
 }
 
+\let\oldComplexity\complexity
+\renewenvironment{complexity}{\begin{shaded}\begin{oldComplexity}}{\end{oldComplexity}\end{shaded}\ignorespacesafterend}
+
+\let\oldProperty\property
+\renewenvironment{property}{\begin{shaded}\begin{oldProperty}}{\end{oldProperty}\end{shaded}\ignorespacesafterend}
+
 
 %
 % THE FOLLOWING CODE ADDS BOLD TO THE THEOREM NAME
