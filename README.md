@@ -3,7 +3,7 @@
 All are available to the public, but please take them with a grain of salt :)
 These are notes from courses that we might be currently following, so they might not be complete.
 
-Notes marked with the ★ symbol are considered completed, those marked with ★★ are approved by the professor of the course and finally notes marked with † is considered dead (no further attempt at enhancing them will be made).
+Notes marked with the ★ symbol are considered completed, those marked with ★★ are approved by the professor of the course and finally notes marked with † are considered dead (no further attempt at enhancing them will be made).
 
 ## Polytechnic University of Milan
 
