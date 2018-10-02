@@ -20,17 +20,28 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
     - [★★ Mappa concettuale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/mappa%20concettuale.png?raw=true)
     - [★★ Implementazione in Scip di modelli PLI (Jupyter) 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Models_SCIP.ipynb)
 - [★★ Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
+- [Algoritmi Euristici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20Euristici)
+- [Algoritmi e Complessità 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20e%20Complessita%CC%80)
+- [Algoritmica per il web 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmica%20per%20il%20web)
+- [Bioinformatica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Bioinformatica)
 - [† Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
     + [† Mappa degli algoritmi probabilistici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/images/Mappa_algoritmi_probabilistici.png?raw=true)
 - [★★ Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
 - [★ Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sistemi%20Intelligenti/main.pdf)
+- [Esami 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Esami)
 
 Feel absolutely **FREE** to correct my errors.
 
 ## Contributors are WELCOME!
 If you feel like sharing your work, helping us to offer everyone better notes, feel free to either ask to be added as contributor or to go for a pull request!
 
-Here's what you need to get started:
+### Telegram groups
+There are already Telegram groups, so PLEASE do not spawn others! If the group doesn't already exist and you create one, add it to this list!
+
+Here are links:
+
+- [Bioinformatica](https://t.me/joinchat/CcGyMEoTknxR1GwqK2GNAQ)
+- [Sistemi Intelligenti](https://t.me/joinchat/CcGyMEaSvFfhWdzdcg3Fsg)
 
 ### Setup for macOs users
 Luca wrote a set of small tutorials just for you:
@@ -39,4 +50,4 @@ Luca wrote a set of small tutorials just for you:
 - [Firing up LaTex on macOS 🔥](https://gist.github.com/LucaCappelletti94/920186303d71c85e66e76ff989ea6b62): a setup for making latex just work.
 - [Firing up LaTex on Windows 🔥](https://gist.github.com/zommiommy/65d9f327d4ccfd5a5166b9e221bbd336): a setup for making latex just work.
 
-For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*"
+For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*" or on the telegram or facebook groups.
