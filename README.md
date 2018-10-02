@@ -42,6 +42,7 @@ Here are links:
 
 - [Bioinformatica](https://t.me/joinchat/CcGyMEoTknxR1GwqK2GNAQ)
 - [Sistemi Intelligenti](https://t.me/joinchat/CcGyMEaSvFfhWdzdcg3Fsg)
+- [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 
 ### Setup for macOs users
 Luca wrote a set of small tutorials just for you:
