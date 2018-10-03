@@ -48,7 +48,7 @@ Here are links:
 - [Analisi di dati su larga scala](https://t.me/joinchat/AC9fAkdkzlIKm256WUWbfw)
 - [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
 - [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
-- [Sviluppo software in gruppi di lavoro complessi](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sviluppo%20software%20in%20gruppi%20di%20lavoro%20complessi/svigruppo.png)
+- [Sviluppo software in gruppi di lavoro complessi](https://t.me/joinchat/AC9fAkkXZlug2l3lWO3T2Q)
 - [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 - [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
 
