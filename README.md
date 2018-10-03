@@ -23,6 +23,7 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
 - [Algoritmi Euristici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20Euristici)
 - [Algoritmi e Complessità 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20e%20Complessita%CC%80)
 - [Algoritmica per il web 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmica%20per%20il%20web)
+- [Sviluppo software in gruppi di lavoro complessi ](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Sviluppo%20software%20in%20gruppi%20di%20lavoro%20complessi)
 - [Interazione naturale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Interazione%20Naturale)
 - [Bioinformatica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Bioinformatica)
 - [† Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
@@ -47,6 +48,7 @@ Here are links:
 - [Analisi di dati su larga scala](https://t.me/joinchat/AC9fAkdkzlIKm256WUWbfw)
 - [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
 - [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
+- [Sviluppo software in gruppi di lavoro complessi](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sviluppo%20software%20in%20gruppi%20di%20lavoro%20complessi/svigruppo.png)
 - [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 - [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
 
