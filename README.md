@@ -12,7 +12,7 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
 - [Sistemi Informativi 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Polimi/Sistemi%20Informativi/main.pdf)
 
 ## University of Milan
-- † [Analisi di dati su larga scala](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Analisi%20di%20dati%20su%20larga%20scala)
+- † [Analisi di dati su larga scala 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Analisi%20di%20dati%20su%20larga%20scala)
     - [† PySpark and KMeans Example 🇬🇧](https://github.com/LucaCappelletti94/pyspark_example)
     - [† FlashCards 🇬🇧 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Analisi%20di%20dati%20su%20larga%20scala/flash%20card)
 - [★★ Complementi di ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/main.pdf)
@@ -23,6 +23,7 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
 - [Algoritmi Euristici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20Euristici)
 - [Algoritmi e Complessità 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20e%20Complessita%CC%80)
 - [Algoritmica per il web 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmica%20per%20il%20web)
+- [Interazione naturale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Interazione%20Naturale)
 - [Bioinformatica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Bioinformatica)
 - [† Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
     + [† Mappa degli algoritmi probabilistici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/images/Mappa_algoritmi_probabilistici.png?raw=true)
@@ -44,6 +45,8 @@ Here are links:
 - [Sistemi Intelligenti](https://t.me/joinchat/CcGyMEaSvFfhWdzdcg3Fsg)
 - [Algoritmica per il web](https://t.me/joinchat/CcGyME-oQIakCN4_NV28Pw)
 - [Analisi di dati su larga scala](https://t.me/joinchat/AC9fAkdkzlIKm256WUWbfw)
+- [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
+- [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
 - [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 - [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
 
