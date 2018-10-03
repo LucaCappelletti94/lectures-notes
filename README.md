@@ -46,6 +46,7 @@ Here are links:
 - [Algoritmica per il web](https://t.me/joinchat/CcGyME-oQIakCN4_NV28Pw)
 - [Analisi di dati su larga scala](https://t.me/joinchat/AC9fAkdkzlIKm256WUWbfw)
 - [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
+- [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
 - [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 - [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
 
