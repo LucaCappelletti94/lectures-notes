@@ -46,6 +46,7 @@ Here are links:
 - [Sistemi Intelligenti](https://t.me/joinchat/CcGyMEaSvFfhWdzdcg3Fsg)
 - [Algoritmica per il web](https://t.me/joinchat/CcGyME-oQIakCN4_NV28Pw)
 - [Analisi di dati su larga scala](https://t.me/joinchat/AC9fAkdkzlIKm256WUWbfw)
+- [Algoritmi e complessità](https://t.me/joinchat/CcGyMBI8xD8ayp5n0UqeZg)
 - [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
 - [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
 - [Sviluppo software in gruppi di lavoro complessi](https://t.me/joinchat/AC9fAkkXZlug2l3lWO3T2Q)

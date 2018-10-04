@@ -1,0 +1,24 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Notazioni}
+\begin{definition}[O grande]
+  Con notazione \textbf{O grande} si intende:
+  \[
+    g(n) = O(f(n)) \quad \exists c \forall n \geq N \quad g(n) \leq c\cdot f(n)
+  \]
+\end{definition}
+
+\begin{definition}[Problema polinomiale]
+  Un problema \(P(n)\) è detto \textbf{polinomiale} se la sua complessità temporale è \(O(P(n))\).
+\end{definition}
+
+\begin{definition}[Non Polinomiale NP]
+  Questa classe di problemi viene definita tramite un \textit{verificatore} con un'instanza ed un \textit{testimone}.
+  \begin{align*}
+     & \forall x \in L \quad \exists \omega \in 2^* \text{ t.c. il verificatore risponde in tempo P. Si.}     \\
+     & \forall x \not\in L \quad \forall \omega \in 2^* \text{ t.c. il verificatore risponde in tempo P. No.}
+  \end{align*}
+\end{definition}
+\end{document}
