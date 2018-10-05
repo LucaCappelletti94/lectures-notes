@@ -24,6 +24,8 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
 - [Algoritmi e Complessità 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20e%20Complessita%CC%80)
 - [Algoritmica per il web 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmica%20per%20il%20web)
 - [Sviluppo software in gruppi di lavoro complessi ](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Sviluppo%20software%20in%20gruppi%20di%20lavoro%20complessi)
+- [Sicurezza Informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Sicurezza%20Informatica)
+- [Gestione dell'Informazione Geospaziale](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Gestione%20dell'Informazione%20Geospaziale)
 - [Interazione naturale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Interazione%20Naturale)
 - [Bioinformatica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Bioinformatica)
 - [† Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
@@ -50,6 +52,10 @@ Here are links:
 - [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
 - [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
 - [Sviluppo software in gruppi di lavoro complessi](https://t.me/joinchat/AC9fAkkXZlug2l3lWO3T2Q)
+- [Gestione dell'Informazione Geospaziale](https://t.me/joinchat/CcGyMFJtJSBxg5YU8P0atw)
+- [Metodi probabilistici per l'informatica](https://t.me/joinchat/CcGyMA3VsILmCrO-UeIJoQ)
+- [Ottimizzazione combinatoria](https://t.me/joinchat/CcGyMEz8DnWayaymiAlapQ)
+- [Sicurezza Informatica](https://t.me/joinchat/CcGyMEv6Cz1h1BouUUD0Cw)
 - [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 - [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
 
@@ -60,4 +66,4 @@ Luca wrote a set of small tutorials just for you:
 - [Firing up LaTex on macOS 🔥](https://gist.github.com/LucaCappelletti94/920186303d71c85e66e76ff989ea6b62): a setup for making latex just work.
 - [Firing up LaTex on Windows 🔥](https://gist.github.com/zommiommy/65d9f327d4ccfd5a5166b9e221bbd336): a setup for making latex just work.
 
-For any question, contact me either here or by mail at "*cappelletti (dot) luca (ninetyfour) at gmail (dot) com*" or on the telegram or facebook groups.
+For any question, contact me either here or on one of the Telegram groups.
