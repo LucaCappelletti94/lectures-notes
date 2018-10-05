@@ -19,6 +19,7 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
     - [★★ Implementazione in Column Generation in Scip (Jupyter)](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Column%20generation.ipynb)
     - [★★ Mappa concettuale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/mappa%20concettuale.png?raw=true)
     - [★★ Implementazione in Scip di modelli PLI (Jupyter) 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Complementi%20di%20ricerca%20operativa/Models_SCIP.ipynb)
+- [Ottimizzazione Combinatoria](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Ottimizzazione%20Combinatoria)
 - [★★ Metodi e modelli per le decisioni 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20e%20Modelli%20per%20le%20decisioni/main.pdf)
 - [Algoritmi Euristici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20Euristici)
 - [Algoritmi e Complessità 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Algoritmi%20e%20Complessita%CC%80)
