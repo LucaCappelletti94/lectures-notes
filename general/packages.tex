@@ -39,7 +39,7 @@
 
 \usepackage[T1]{fontenc}  % Defines true type fonts
 
-\usepackage[x11names,table]{xcolor} % To highlight text or color tables
+\usepackage[x11names,table,dvipsnames]{xcolor} % To highlight text or color tables
 
 \usepackage{emptypage} % When a page is empty, Latex won't generate page number or other page elements.
 
@@ -181,30 +181,28 @@
 %
 \colorlet{shadecolor}{gray!10}
 \let\oldTheorem\theorem
-\renewenvironment{theorem}{\begin{shaded}\begin{oldTheorem}}{\end{oldTheorem}\end{shaded}\ignorespacesafterend
-}
+\renewenvironment{theorem}{\colorlet{shadecolor}{Melon!20}\begin{shaded}\begin{oldTheorem}}{\end{oldTheorem}\end{shaded}\ignorespacesafterend}
 
 \let\oldDefinition\definition
-\renewenvironment{definition}{\begin{shaded}\begin{oldDefinition}}{\end{oldDefinition}\end{shaded}\ignorespacesafterend
-}
+\renewenvironment{definition}{\colorlet{shadecolor}{Blue!10}\begin{shaded}\begin{oldDefinition}}{\end{oldDefinition}\end{shaded}\ignorespacesafterend}
 
 \let\oldCorollary\corollary
-\renewenvironment{corollary}{\begin{shaded}\begin{oldCorollary}}{\end{oldCorollary}\end{shaded}\ignorespacesafterend
+\renewenvironment{corollary}{\colorlet{shadecolor}{Brown!10}\begin{shaded}\begin{oldCorollary}}{\end{oldCorollary}\end{shaded}\ignorespacesafterend
 }
 
 \let\oldProposition\proposition
-\renewenvironment{proposition}{\begin{shaded}\begin{oldProposition}}{\end{oldProposition}\end{shaded}\ignorespacesafterend
+\renewenvironment{proposition}{\colorlet{shadecolor}{Orange!10}\begin{shaded}\begin{oldProposition}}{\end{oldProposition}\end{shaded}\ignorespacesafterend
 }
 
 \let\oldLemma\lemma
-\renewenvironment{lemma}{\begin{shaded}\begin{oldLemma}}{\end{oldLemma}\end{shaded}\ignorespacesafterend
+\renewenvironment{lemma}{\colorlet{shadecolor}{Green!10}\begin{shaded}\begin{oldLemma}}{\end{oldLemma}\end{shaded}\ignorespacesafterend
 }
 
 \let\oldComplexity\complexity
-\renewenvironment{complexity}{\begin{shaded}\begin{oldComplexity}}{\end{oldComplexity}\end{shaded}\ignorespacesafterend}
+\renewenvironment{complexity}{\colorlet{shadecolor}{Violet!10}\begin{shaded}\begin{oldComplexity}}{\end{oldComplexity}\end{shaded}\ignorespacesafterend}
 
 \let\oldProperty\property
-\renewenvironment{property}{\begin{shaded}\begin{oldProperty}}{\end{oldProperty}\end{shaded}\ignorespacesafterend}
+\renewenvironment{property}{\colorlet{shadecolor}{Red!10}\begin{shaded}\begin{oldProperty}}{\end{oldProperty}\end{shaded}\ignorespacesafterend}
 
 
 %
