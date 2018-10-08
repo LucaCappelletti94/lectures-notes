@@ -4,10 +4,10 @@
 
 \chapter{Algoritmi di Approssimazione}
 \section{Bilanciamento di carico (load balancing)}
-Con \textbf{load balancing} si intende il problema di assegnare lavori ad ogni macchina in modo da minimizzare il \textbf{makespan}, cioè il carico massimo assegnato ad una data macchina. Ogni lavoro \(j\) deve lavorare continuamente su una macchina e una macchina può processare solo un lavoro per volta. Si tratta di un problema \textbf{NP-Hard} persino con solo due macchine.
+Con \textbf{load balancing} si intende il problema di assegnare lavori ad ogni macchina in modo da minimizzare il \textbf{makespan}, cioè il carico massimo assegnato ad una data macchina. Ogni lavoro \(j\) deve lavorare continuamente su una macchina e una macchina può processare solo un lavoro per volta. Si tratta di un problema \textbf{NP-Difficile} persino con solo due macchine.
 \begin{definition}[Carico]
 	Sia \(J(i)\) il sottoinsieme di lavori assegnati alla macchina \(i\)-esima.
-	Allora il carico della \(i\)-esima macchina è pari a:
+	Allora il \textbf{carico} della \(i\)-esima macchina è pari a:
 	\[
 		L_i = \sum_{j \in J(i)} t_j
 	\]
@@ -26,7 +26,7 @@ Prendiamo in considerazione \(n\) lavori in un ordine fissato. Assegniamo il lav
 	L'implementazione del List Scheduling ha complessità computazionale \(O(n\log m)\) utilizzando una coda di priorità.
 \end{complexity}
 
-\subsubsection{Analisi}
+\subsubsection{Analisi dell'algoritmo greedy proposto}
 \begin{lemma}
 	Il \textbf{makespan} ottimo \(L^*\) risulta maggiore o uguale del tempo di lavoro massimo.
 	\[
@@ -47,7 +47,7 @@ Prendiamo in considerazione \(n\) lavori in un ordine fissato. Assegniamo il lav
 \begin{proof}
 	Il tempo di processo totale è \(T = \sum_{j} t_j\) ed una delle macchine deve fare certamente almeno \(\frac{1}{m}\) del lavoro.
 \end{proof}
-\begin{theorem}[Teorema di Graham 1966]
+\begin{theorem}[Teorema di Graham (1966)]
 	Un algoritmo greedy è una \textbf{2-approximation}, cioè l'ottimo locale individuato dall'algoritmo è al più due volte peggiore dell'ottimo globale.
 	\label{graham_theorem}
 \end{theorem}
@@ -58,9 +58,9 @@ Prendiamo in considerazione \(n\) lavori in un ordine fissato. Assegniamo il lav
 	\]
 	Sommando le disuguaglianze su \(k\) ed applicando il lemma \ref{secondo_lemma_graham} otteniamo:
 	\begin{align*}
-		L_i - t_j & \leq \frac{1}{m} \sum_{k} L_k &                                                            \\
-		          & = \frac{1}{m} \sum_{k} t_k    &                                                            \\
-		          & \leq L^*                      & \text{Applichiamo qui il lemma \ref{secondo_lemma_graham}} \\
+		L_i - t_j & \leq \frac{1}{m} \sum_{k} L_k                                                       \\
+		          & = \frac{1}{m} \sum_{k} t_k                                                          \\
+		          & \leq \underbrace{ L^*}_{\text{Applichiamo qui il lemma \ref{secondo_lemma_graham}}}
 	\end{align*}
 	Quindi applicando il lemma \ref{primo_lemma_graham}:
 	\[
@@ -93,7 +93,7 @@ Ordina \(n\) lavori in ordine decrescente di tempo di elaborazione e quindi eseg
 
 	\textit{Esiste un teorema più sofisticato che dimostra che l'algoritmo sia una \(\frac{4}{3}\)-approximation.}
 \end{theorem}
-\begin{proof}[Approssimazione della regola LPT]
+\begin{proof}
 	La dimostrazione è analoga a quella del teorema \ref{graham_theorem}, ma nella conclusione viene sfruttato il lemma \ref{terzo_lemma_graham}:
 	\[
 		L_i = \underbrace{L_i - t_j}_{\leq L^*} + \underbrace{\leq \frac{1}{2}L^*} \leq \frac{3}{2} L^*
@@ -136,7 +136,7 @@ Ogni nuovo centroide è posizionato in modo da essere quanto più distante possi
 	A meno che \textbf{P=NP}, non esiste nessuna \textit{\(\rho\)-approximation} per la selezione dei centroidi che abbia \(\rho<2\).
 \end{theorem}
 \begin{proof}
-	Procediamo per assurdo assumendo che esista una \textit{\(2-\epsilon\)-approximation} con cui possiamo risolvere in tempo polinomiale il set dei punti \(S\).
+	Procediamo per assurdo assumendo che esista una \textit{\(\rnd{2-\epsilon}\)-approximation} con cui possiamo risolvere in tempo polinomiale il set dei punti \(S\).
 
 	Sia \(G = \rnd{V, E}, k \in \N \) un'istanza di \(S\). Procediamo a costruire un'istanza \(G'\) del problema, con \(V\) punti e distanze pari a:
 	\[
@@ -149,7 +149,7 @@ Ogni nuovo centroide è posizionato in modo da essere quanto più distante possi
 
 	\(G'\) possiede un insieme dominante di dimensione \(k\) se e solo se esistono \(k\) centroidi \(C^*\) con \(r\rnd{C^*} = 1\).
 
-	Ne segue che se \(G'\) ha un insieme dominante di dimensione \(k\), un algoritmo con \textit{\(2-\epsilon\)-approximation} troverebbe una soluzione \(C^*\) con \(r(C^*) = 1\), dato che non può utilizzare nessun arco a distanza \(2\).
+	Ne segue che se \(G'\) ha un insieme dominante di dimensione \(k\), un algoritmo con \textit{\(\rnd{2-\epsilon}\)-approximation} troverebbe una soluzione \(C^*\) con \(r(C^*) = 1\), dato che non può utilizzare nessun arco a distanza \(2\).
 \end{proof}
 
 
