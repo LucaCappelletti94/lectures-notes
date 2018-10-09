@@ -40,5 +40,37 @@ Data un'istanza di un problema di ottimizzazione combinatoria, con cardinalità 
 \[
   T(n) \in \Omega(2^n)
 \]
+Solitamente, \(\a(n) e \beta(n)\) sono polinomi e la complessità risulta \textit{solo} esponenziali:
+\[
+  T(n) \in O(2^n\rnd{\a(n) + \beta(n)})
+\]
 
+\chapter{VCP}
+\section{Bounded Tree Search}
+Si tratta di una ricerca su albero, che termina dopo che ha esteso la ricerca di al più \(k\) livelli.
+\begin{property}
+  Per ogni lato \(\rnd{u,v} \in E\), qualsiasi soluzione ammissibile deve contenere almeno uno dei vertici:
+  \[
+    x \cap \rnd{u,v} \neq \emptyset
+  \]
+\end{property}
+\begin{complexity}[Bounded Tree Search]
+  La complessità temporale del Bounded Tree Search è:
+  \[
+    T(n,k) \in \Theta(2^k m)
+  \]
+  Risulta polinomiale in \(n\) e infatti per \(n>>2\) risulta \textbf{molto} più efficiente di quello ingenuo.
+\end{complexity}
+
+\section{Kernelization}
+Consiste nel ridurre l'istanza a una molto più piccola con ugual soluzione.
+\begin{property}
+  Ogni vertice \(v\) di grado \(\delta_v \geq k+1\) deve appartenere a qualsiasi soluzione ammissibile di valore \(\leq k\).
+\end{property}
+\begin{complexity}
+  La complessità dell'algoritmo Kernelization è:
+  \[
+    T(n,k) \in \Theta(n+m+2^{2k^2}k^2)
+  \]
+\end{complexity}
 \end{document}
