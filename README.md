@@ -30,6 +30,8 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
 - [Game and Level Design](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Game%20and%20Level%20Design)
 - [Interazione naturale 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Interazione%20Naturale)
 - [Progetto di Sistemi a Sensore](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Progetto%20di%20Sistemi%20a%20Sensore)
+- [Programmazione Avanzata](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Programmazione%20Avanzata)
+- [Tecniche Speciali di Programmazione](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Tecniche%20Speciali%20di%20Programmazione)
 - [Bioinformatica 🇮🇹](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Bioinformatica)
 - [† Metodi probabilistici per l'informatica](https://github.com/LucaCappelletti94/various-notes/tree/master/Unimi/Metodi%20probabilistici%20per%20l'informatica)
     + [† Mappa degli algoritmi probabilistici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/images/Mappa_algoritmi_probabilistici.png?raw=true)
@@ -61,6 +63,8 @@ Here are links:
 - [Sicurezza Informatica](https://t.me/joinchat/CcGyMEv6Cz1h1BouUUD0Cw)
 - [Game and Level Design](https://t.me/joinchat/CcGyMFIDiYskCI0XgW7b4Q)
 - [Progetto di Sistemi a Sensore](https://t.me/joinchat/CcGyMES907s5-asRK2tgCw)
+- [Programmazione Avanzata](https://t.me/joinchat/CcGyMEiBJialWeVvRLz7Lw)
+- [Tecniche Speciali di Programmazione](https://t.me/joinchat/CcGyMFLe9jEqpOMhUW319w)
 - [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
 - [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
 
