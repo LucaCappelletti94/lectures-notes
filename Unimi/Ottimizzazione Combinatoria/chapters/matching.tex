@@ -156,7 +156,7 @@
   \]
 
 \end{proof}
-
+\clearpage
 \section{Cammino alternante e aumentante}
 \begin{multicols}{2}[Sia \(M\) un matching di \(G = \rnd{V, E}\).]
   \begin{definition}[Arco accoppiato]
@@ -320,4 +320,90 @@
   da cui la contraddizione.
 \end{proof}
 
+\section{Formula di Tutte-Berge e Teorema di Tutte}
+\subsection{Formula di Tutte-Berge}
+\begin{theorem}[Formula di Tutte-Berge]
+  La dimensione di un matching massimo in un grafo \(\Gr \) è pari a:
+  \[
+    \frac{1}{2} \min_{U \subseteq V} \crl{\abs{U} - \text{odd}\rnd{G-U} + \abs{V}}
+  \]
+  dove \(\text{odd}(H)\) è il numero di componenti connesse del grafo \(H\) con un numero dispari di vertici.
+\end{theorem}
+
+Questa formula implica immediatamente una condizione per l'esistenza di un matching perfetto: il Teorema di Tutte.
+
+\subsection{Teorema di Tutte}
+\begin{theorem}[Teorema di Tutte]
+  Un grafo \(\Gr \) contiene un matching perfetto se e solo se per ogni sottoinsieme di nodi \(A\) vale che:
+  \[
+    \text{odd}\rnd{G\setminus A} \leq \abs{A}
+  \]
+\end{theorem}
+\clearpage
+\section{Proposizioni sugli alberi alternanti}
+\begin{definition}[Albero alternante]
+  Un albero alternante è costruito a partire da un matching \(M\) di un grafo \(\Gr \) ed un nodo \(r \in V\) di \(M\) esposto.
+
+  Costruiamo iterativamente set di nodi \(A\) e \(B\), in modo tale che ogni nodo \(A\) sia al termine di un cammino alternante di \(M\) di lunghezza dispari che inizia con \(r\), mentre ogni nodo \(B\) al termine di quelli pari.
+
+  Tali insiemi possono essere costruiti iniziando da \(A=\emptyset, B=\crl{r}\) e seguendo la regola seguente:
+  \[
+    vw \in E, v \in B, w \not\in A \cup B, wz \in M \Rightarrow A' = A \cup \crl{w}, B' = B \cup \crl{z}
+  \]
+  L'albero così costruito possiede due proprietà:
+  \begin{enumerate}
+    \item Ogni nodo dell'albero oltre alla radice è coperto da un lato di \(M \cap E(T)\).
+    \item Per ogni nodo \(v\) dell'albero, il cammino nell'albero da \(v\) alla radice è alternante nel matching \(M\) associato all'albero.
+  \end{enumerate}
+\end{definition}
+\begin{definition}[Albero alternante frustrato]
+  Un albero alternante in un grafo \(\Gr \) si dice frustrato se ogni lato di \(G\) avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\).
+\end{definition}
+\begin{proposition}[Prima proposizione su AAF (5.6)]
+  Sia \(\Gr \) un grafo con un matching \(M\) ed un albero alternante frustrato \(T\) associato ad esso. Allora \(G\) non possiede un matching perfetto.
+\end{proposition}
+\begin{proof}[Prima proposizione su AAF (5.6)]
+  Ogni elemento di \(B(T)\) è una componente dispari a nodo singolo in \(G \setminus A(T)\).
+
+  Siccome \(\abs{A(T)} < \abs{B(T)}\), per il teorema di Tutte \(G\) non possiede nessun matching perfetto.
+\end{proof}
+\begin{proposition}[Seconda proposizione su AAF (5.7)]
+  Sia \(\Gr \) un grafo bipartito, \(M\) un matching definito su \(G\) e \(T\) un albero \(M\)-alternante tale che nessun lato di \(G\) sia posto tra un nodo in \(B(T)\) ed un nodo non in \(V(T)\). Allora risulta che \(T\) è frustrato e di conseguenza \(G\) non ha un matching perfetto.
+\end{proposition}
+\begin{proof}[Seconda proposizione su AAF (5.7)]
+  Procediamo a mostrare che ogni lato avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\). Dalle ipotesi del teorema, l'unica possibile eccezione sarebbe un lato tra due nodi in \(B(T)\). Ma questo lato, insieme con i lati che lo uniscono alla radice \(r\), formerebbero un ciclo di lunghezza dispari, una cosa impossibile in un grafo bipartito.
+
+  Di conseguenza \(T\) è frustrato e quindi per la prima proposizione su AAF (5.6), il grafo \(G\) non possiede un matching perfetto.
+\end{proof}
+\begin{definition}[Pseudonodo]
+  In riferimento ad un grafo \(G'\) ottenuto da \(G\), vengono detti \textbf{pseudonodi} qui nodi che sono parte di \(G'\) ma non di \(G\).
+\end{definition}
+\begin{proposition}[Terza proposizione su AAF (5.8)]
+  Sia \(G'\) un grafo derivato da \(G\), sia \(M'\) un matching di \(G'\) e sia \(T\) un albero \(M'\)-alternante frustrato di \(G'\) tale che nessun elemento di \(A(T)\) è uno pseudonodo.
+
+  Se \(T\) è frustrato, allora \(G\) non possiede un matching perfetto.
+\end{proposition}
+\begin{proof}[Terza proposizione su AAF (5.8)]
+  Se eliminiamo \(A(T)\) da \(G\) otteniamo una componente con un insieme di nodi \(S(v)\) per ogni nodo \(v \in B(T)\). Utilizzando quindi la regola di Tutte-Berge si ha che:
+  \[
+    \text{odd}\rnd{G \setminus A(T)} > \abs{A(T)}
+  \]
+  Ne Segue che \(G\) non possiede un matching perfetto.
+\end{proof}
+
+\section{Algoritmo Blossom}
+L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se riesce ad identificare un matching perfetto in un grafo derivato allora è noto che esiste un matching perfetto in \(G\) e se riusciamo ad identificare un certo tipo di AAF all'interno di un grafo derivato possiamo concludere che \(G\) non possiede un matching perfetto. I grafi derivati \(G'\) vengono ottenuti identificando circuiti dispari all'interno dell'albero alternante \(T\) ottenuto da \(G\) e rimuovendoli attraverso un procedimento detto di ``shrinking'' (questo tipo di circuito veniva chiamato blossom, da cui il nome dell'algoritmo.)
+
+\begin{theorem}[Algoritmo Blossom]
+  L'algoritmo Blossom termina dopo \(O(n)\) passi di ``augmentations'', \(O(n^2)\) passi di ``shrinking'' e \(O(n^2)\) passi di estensione dell'albero. Inoltre, determina correttamente se il grafo \(G\) possiede un matching perfetto.
+\end{theorem}
+\begin{proof}[Algoritmo Blossom]
+  L'algoritmo inizia con un matching qualsiasi \(M=M'\) di \(G\), che non cessa di essere tale per tutto il procedimento. Siccome ad ogni passo di ``augmentation'' il numero di nodi esposti decresce, vi saranno \(O(n)\) passi di ``augmentation''. Tra questi, ogni passo di ``shrinking'' riduce il numero dei nodi in \(G'\) senza tuttavia cambiare il numero dei nodi in \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
+
+  Ne segue che il numero di passi di ``shrinking'' ed estensione dell'albero tra passi di ``augmentation'' è \(O(n)\) e quindi in totale sono \(O(n^2)\).
+
+  Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) non possiede un matching perfetto.
+\end{proof}
+
+\section{Il postino cinese}
 \end{document}
