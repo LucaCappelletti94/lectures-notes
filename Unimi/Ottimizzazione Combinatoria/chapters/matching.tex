@@ -405,5 +405,20 @@ L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se rie
   Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) non possiede un matching perfetto.
 \end{proof}
 
-\section{Il postino cinese}
+\section{Il postino cinese (Chinese postman problem, CPP)}
+Sia \(\Gr \) un grafo connesso e sia \(w: E \rightarrow \R^+_0\) una lunghezza definita su \(G\). Vogliamo trovare un percorso chiuso \(C\) di lunghezza minima \(w(C)\) che contiene ogni lato di \(G\) almeno una volta.
+\begin{definition}[Grafo e cammino euleriano]
+  Un grafo è detto \textbf{euleriano} se è possibile tracciare un cammino che passa una sola volta per tutti gli archi del grafo. Un tale cammino è detto a sua volta euleriano.
+
+  Equivalentemente, un grafo \(G\) è euleriano se e solo se ogni vertice ha grado pari e un cammino euleriano può essere costruiti con complessità \(O(\abs{E})\).
+\end{definition}
+Se il grafo \(G\) risulta euleriano allora la soluzione del CPP è banale: qualsiasi cammino euleriano andrebbe bene.
+
+Altrimenti si procede come segue: sia \(X\) l'insieme di tutti i vertici di \(G\) con grado dispari. Aggiungiamo un insieme di lati \(E'\) a \(G\) tale che le seguenti tre condizioni siano soddisfatte:
+\begin{enumerate}
+  \item Ogni lato \(e' \in E'\) è parallelo a qualche lato \(e \in E\). Estendiamo la distanza \(w\) a \(E'\) definendo \(w(e') = w(e)\).
+  \item In \(V, E'\), solo i vertici di \(X\) hanno grado dispari.
+  \item La distanza \(w(E')\) è minima: \(w(E') \leq w(E'')\) per ogni insieme \(E''\) che soddisfa le due condizioni precedenti.
+\end{enumerate}
+Ne segue che \(\rnd{V, E \cup E'}\) è un multigrafo euleriano, e ogni percorso euleriano introduce un cammino chiuso di lunghezza minima \(w(E) + w(E')\) in \(G\).
 \end{document}
