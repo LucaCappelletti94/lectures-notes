@@ -59,6 +59,7 @@ Here are links:
 - [Sviluppo software in gruppi di lavoro complessi](https://t.me/joinchat/AC9fAkkXZlug2l3lWO3T2Q)
 - [Gestione dell'Informazione Geospaziale](https://t.me/joinchat/CcGyMFJtJSBxg5YU8P0atw)
 - [Metodi probabilistici per l'informatica](https://t.me/joinchat/CcGyMA3VsILmCrO-UeIJoQ)
+- [Metodi e modelli per le decisioni](https://t.me/joinchat/CcGyMEO57MVHmVWwbI-D2g)
 - [Ottimizzazione combinatoria](https://t.me/joinchat/CcGyMEz8DnWayaymiAlapQ)
 - [Sicurezza Informatica](https://t.me/joinchat/CcGyMEv6Cz1h1BouUUD0Cw)
 - [Game and Level Design](https://t.me/joinchat/CcGyMFIDiYskCI0XgW7b4Q)
