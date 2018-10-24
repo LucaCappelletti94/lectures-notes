@@ -6,419 +6,434 @@
 \section{Matching}
 \setlength\columnsep{25pt}
 \begin{multicols}{2}
-  \begin{definition}[Matching o Accoppiamento]
-    Dato un grafo \(G=\rnd{V, E}\), un \textbf{matching} è un sottoinsieme \(M\subseteq E\) di archi \textit{a due a due non adiacenti}.
-  \end{definition}
-  \begin{definition}[Matching massimo]
-    Matching \(M^*\) di cardinalità massima.
-  \end{definition}
-  \begin{definition}[Matching ripartito]
-    Se il grafo \(G\) è \textbf{bipartito}, allora anche \(M\) si dice \textbf{bipartito}.
-  \end{definition}
-  \begin{definition}[Matching perfetto]
-    Se la cardinalità del matching è pari a metà del numero di vertici, allora si dice \textbf{perfetto}:
-    \[
-      \abs{M} = \frac{\abs{V}}{2}
-    \]
-  \end{definition}
-  \begin{definition}[Matching massimale]
-    Un matching \(M\) si dice \textbf{massimale} se ogni elemento di \(E\setminus M\) è adiacente ad almeno un elemento di \(M\).
+	\begin{definition}[Matching o Accoppiamento]
+		Dato un grafo \(G=\rnd{V, E}\), un \textbf{matching} è un sottoinsieme \(M\subseteq E\) di archi \textit{a due a due non adiacenti}.
+	\end{definition}
+	\begin{definition}[Matching massimo]
+		Matching \(M^*\) di cardinalità massima.
+	\end{definition}
+	\begin{definition}[Matching ripartito]
+		Se il grafo \(G\) è \textbf{bipartito}, allora anche \(M\) si dice \textbf{bipartito}.
+	\end{definition}
+	\begin{definition}[Matching perfetto]
+		Se la cardinalità del matching è pari a metà del numero di vertici, allora si dice \textbf{perfetto}:
+		\[
+			\abs{M} = \frac{\abs{V}}{2}
+		\]
+	\end{definition}
+	\begin{definition}[Matching massimale]
+		Un matching \(M\) si dice \textbf{massimale} se ogni elemento di \(E\setminus M\) è adiacente ad almeno un elemento di \(M\).
 
-    Un matching massimale \textbf{non} necessariamente è massimo, mentre un matching massimo è sempre massimale.
-  \end{definition}
+		Un matching massimale \textbf{non} necessariamente è massimo, mentre un matching massimo è sempre massimale.
+	\end{definition}
 \end{multicols}
 
 \section{Insieme stabile}
 \begin{definition}[Insieme stabile o indipendente]
-  Dato un grafo simmetrico \(G=\rnd{V, E}\), un qualunque sottoinsieme \(S\) di vertici si dice \textbf{indipendente} o \textbf{stabile} se esso è costituito da elementi a due a due non adiacenti.
+	Dato un grafo simmetrico \(G=\rnd{V, E}\), un qualunque sottoinsieme \(S\) di vertici si dice \textbf{indipendente} o \textbf{stabile} se esso è costituito da elementi a due a due non adiacenti.
 \end{definition}
 \begin{definition}[Insieme stabile massimo]
-  Un insieme stabile \(S^*\) si dice \textbf{massimo} se \(\abs{S^*} \geq \abs{S}\), per ogni insieme stabile \(S\) di G.
+	Un insieme stabile \(S^*\) si dice \textbf{massimo} se \(\abs{S^*} \geq \abs{S}\), per ogni insieme stabile \(S\) di G.
 \end{definition}
 \begin{definition}[Insieme stabile massimale]
-  Un insieme stabile \(S\) si dice \textbf{massimale} se ogni elemento di \(V\setminus S\) è adiacente ad almeno un elemento di \(S\).
+	Un insieme stabile \(S\) si dice \textbf{massimale} se ogni elemento di \(V\setminus S\) è adiacente ad almeno un elemento di \(S\).
 \end{definition}
 
 \section{Copertura}
 \begin{definition}[Copertura]
-  Dato un grafo simmetrico \(G = \rnd{V, E}\), un qualunque sottoinsieme \(T\) di vertici (\(F\) di archi) tale che ogni arco di \(E\) (vertice di \(V\)) incide su almeno un elemento di \(T\) (di \(F\)) si dice \textbf{copertura}. In particolare, l'insieme \(T\) è detto \textbf{trasversale} o \textbf{vertex cover} mentre l'insieme \(F\) è detto \textbf{edge cover}.
+	Dato un grafo simmetrico \(G = \rnd{V, E}\), un qualunque sottoinsieme \(T\) di vertici (\(F\) di archi) tale che ogni arco di \(E\) (vertice di \(V\)) incide su almeno un elemento di \(T\) (di \(F\)) si dice \textbf{copertura}. In particolare, l'insieme \(T\) è detto \textbf{trasversale} o \textbf{vertex cover} mentre l'insieme \(F\) è detto \textbf{edge cover}.
 \end{definition}
 \begin{definition}[Copertura minima]
-  Una copertura \(X^*\) si dice \textbf{minima} se \(\abs{X^*} \leq \abs{X}\), per ogni insieme copertura \(X\) di \(G\).
+	Una copertura \(X^*\) si dice \textbf{minima} se \(\abs{X^*} \leq \abs{X}\), per ogni insieme copertura \(X\) di \(G\).
 \end{definition}
 \begin{definition}[Copertura minimale]
-  Una copertura \(X\) si dice \textbf{minimale} se \(X \setminus \crl{x}\) non è una copertura per ogni \(x \in X\).
+	Una copertura \(X\) si dice \textbf{minimale} se \(X \setminus \crl{x}\) non è una copertura per ogni \(x \in X\).
 \end{definition}
 
 \section{Disuguaglianze duali deboli}
 \begin{theorem}[Disuguaglianze duali deboli]
-  Indichiamo con \(\a(G)\) l'\textbf{insieme stabile massimo} di \(G\), con \(\mu(G)\) il \textbf{matching massimo} di \(G\), con \(\rho(G)\) l'\textbf{edge cover minimo} di \(G\) e \(\tau(G)\) \textbf{trasversale minimo} di \(G\).
-  Per un grafo \(G\) valgono le seguenti due disuguaglianze:
-  \begin{align*}
-    \a(G)  & \leq \rho(G) \\
-    \mu(G) & \leq \tau(G)
-  \end{align*}
+	Indichiamo con \(\a(G)\) l'\textbf{insieme stabile massimo} di \(G\), con \(\mu(G)\) il \textbf{matching massimo} di \(G\), con \(\rho(G)\) l'\textbf{edge cover minimo} di \(G\) e \(\tau(G)\) \textbf{trasversale minimo} di \(G\).
+	Per un grafo \(G\) valgono le seguenti due disuguaglianze:
+	\begin{align*}
+		\a(G)  & \leq \rho(G) \\
+		\mu(G) & \leq \tau(G)
+	\end{align*}
 \end{theorem}
 \begin{proof}[Disuguaglianze duali deboli]
-  Siano \(X\) l'\textbf{insieme stabile} di \(G\) e \(Y\) l'\textbf{edge cover} di \(G\).
+	Siano \(X\) l'\textbf{insieme stabile} di \(G\) e \(Y\) l'\textbf{edge cover} di \(G\).
 
-  Poiché \(Y\) copre \(V\), ogni elemento di \(X\) incide su almeno un elemento di \(Y\).
+	Poiché \(Y\) copre \(V\), ogni elemento di \(X\) incide su almeno un elemento di \(Y\).
 
-  D'altra parte, nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X \) altrimenti i due elementi sarebbero adiacenti e quindi non potrebbero appartenere all'insieme stabile \(X\).
+	D'altra parte, nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X \) altrimenti i due elementi sarebbero adiacenti e quindi non potrebbero appartenere all'insieme stabile \(X\).
 
-  Pertanto, per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\).
+	Pertanto, per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\).
 
-  Riscrivendo la precedente relazione per gli insiemi massimi \(X^*\) e \(Y^*\) si ottiene:
-  \[
-    \a(G) \leq \rho(G)
-  \]
-  Scambiando il ruolo di \(V\) ed \(E\), si ottiene \(\mu(G) \leq \tau(G)\).
+	Riscrivendo la precedente relazione per gli insiemi massimi \(X^*\) e \(Y^*\) si ottiene:
+	\[
+		\a(G) \leq \rho(G)
+	\]
+	Scambiando il ruolo di \(V\) ed \(E\), si ottiene \(\mu(G) \leq \tau(G)\).
 \end{proof}
 \clearpage
 \section{Teorema di Gallai}
 \begin{theorem}[Teorema di Gallai]
-  Per ogni grafo \(G\) con \(n\) nodi si ha:
-  \[
-    \a(G) + \tau(G) = n
-  \]
-  Se inoltre \(G\) non ha nodi isolati
-  \[
-    \mu(G) + \rho(G) = n
-  \]
+	Per ogni grafo \(G\) con \(n\) nodi si ha:
+	\[
+		\a(G) + \tau(G) = n
+	\]
+	Se inoltre \(G\) non ha nodi isolati
+	\[
+		\mu(G) + \rho(G) = n
+	\]
 \end{theorem}
 \begin{proof}[Teorema di Gallai]
-  \textbf{Iniziamo ottenendo la prima equazione:}
-  Sia \(S\) un insieme stabile di \(G\). Allora \(V\setminus S\) è un insieme trasversale. In particolare, \(\abs{V\setminus S} \geq \tau(G)\).
-  Se consideriamo l'insieme stabile massimo \(S^*\), otteniamo:
-  \[
-    \tau(G) \geq \abs{V\setminus S^*} = n - \alpha(G)
-  \]
-  da cui ricaviamo:
-  \[
-    \alpha(G) + \tau(G) \leq n
-  \]
+	\textbf{Iniziamo ottenendo la prima equazione:}
+	Sia \(S\) un insieme stabile di \(G\). Allora \(V\setminus S\) è un insieme trasversale. In particolare, \(\abs{V\setminus S} \geq \tau(G)\).
+	Se consideriamo l'insieme stabile massimo \(S^*\), otteniamo:
+	\[
+		\tau(G) \geq \abs{V\setminus S^*} = n - \alpha(G)
+	\]
+	da cui ricaviamo:
+	\[
+		\alpha(G) + \tau(G) \leq n
+	\]
 
-  Viceversa, sia \(T\) un insieme trasversale di \(G\). Allora \(V\setminus T\) è un insieme stabile.
+	Viceversa, sia \(T\) un insieme trasversale di \(G\). Allora \(V\setminus T\) è un insieme stabile.
 
-  In particolare, \(\abs{V-T} \leq \alpha(G)\).
+	In particolare, \(\abs{V-T} \leq \alpha(G)\).
 
-  Se consideriamo l'insieme trasversale minimo \(T^*\), otteniamo:
-  \[
-    \a(G) \geq \abs{V\setminus T^*} = n - \tau(G)
-  \]
-  da cui ricaviamo
-  \[
-    \a(G) + \tau(G) \geq n
-  \]
-  Considerando la condizione ottenuta precedentemente possiamo concludere che:
-  \[
-    \a(G) + \tau(G) = n
-  \]
-  \textbf{Procediamo a dimostrare la seconda equazione}
-  Sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il matching massimo di \(G\). Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
+	Se consideriamo l'insieme trasversale minimo \(T^*\), otteniamo:
+	\[
+		\a(G) \geq \abs{V\setminus T^*} = n - \tau(G)
+	\]
+	da cui ricaviamo
+	\[
+		\a(G) + \tau(G) \geq n
+	\]
+	Considerando la condizione ottenuta precedentemente possiamo concludere che:
+	\[
+		\a(G) + \tau(G) = n
+	\]
+	\textbf{Procediamo a dimostrare la seconda equazione}
+	Sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il matching massimo di \(G\). Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
 
-  Sia \(H\) un insieme minimale di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\).
+	Sia \(H\) un insieme minimale di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\).
 
-  Segue che:
-  \[
-    \abs{H} = \abs{V\setminus V_{M^*}} = n - 2\abs{M^*}
-  \]
-  Osserviamo che l'insieme \(C=H\cup M^*\) è un edge-cover di \(G\).
+	Segue che:
+	\[
+		\abs{H} = \abs{V\setminus V_{M^*}} = n - 2\abs{M^*}
+	\]
+	Osserviamo che l'insieme \(C=H\cup M^*\) è un edge-cover di \(G\).
 
-  Sicuramente, \(\abs{C} \geq \rho(G)\), quindi:
-  \[
-    \rho(G) \leq \abs{C} = \abs{M^*} + \abs{H} = \abs{M^*} + n - 2\abs{M^*} = n - \abs{M^*} = n - \mu(G)
-  \]
-  da cui ricaviamo:
-  \[
-    \rho(G) + \mu(G) \leq n
-  \]
-  Sia \(C\) il minimo edge-cover su \(G\), cioè tale che \(\abs{C} = \rho(G)\) e sia \(H = (V, C)\) il sottografo indotto da C. Valgono quindi le seguenti proprietà:
+	Sicuramente, \(\abs{C} \geq \rho(G)\), quindi:
+	\[
+		\rho(G) \leq \abs{C} = \abs{M^*} + \abs{H} = \abs{M^*} + n - 2\abs{M^*} = n - \abs{M^*} = n - \mu(G)
+	\]
+	da cui ricaviamo:
+	\[
+		\rho(G) + \mu(G) \leq n
+	\]
+	Sia \(C\) il minimo edge-cover su \(G\), cioè tale che \(\abs{C} = \rho(G)\) e sia \(H = (V, C)\) il sottografo indotto da C. Valgono quindi le seguenti proprietà:
 
-  \begin{enumerate}
-    \item \(H\) è un grafo aciclico.
-    \item Ogni cammino di \(H\) è composto al più da due archi.
-  \end{enumerate}
+	\begin{enumerate}
+		\item \(H\) è un grafo aciclico.
+		\item Ogni cammino di \(H\) è composto al più da due archi.
+	\end{enumerate}
 
-  Dalle proprietà precedenti concludiamo che il grafo \(H = (V, C)\) ha \(\abs{V} = n\) vertici e \(\abs{C} = \rho(G)\) archi. Può infine essere decomposto in \(N\) componenti connesse aventi la forma di stella.
+	Dalle proprietà precedenti concludiamo che il grafo \(H = (V, C)\) ha \(\abs{V} = n\) vertici e \(\abs{C} = \rho(G)\) archi. Può infine essere decomposto in \(N\) componenti connesse aventi la forma di stella.
 
-  Consideriamo l'\(i\)-esima componente connessa di \(H\). Indichiamo con \(s_i\) il numero di nodi della componente connessa e con \(s_i-1\) il numero di archi della componente connessa. Pertanto:
-  \[
-    n = \sum_{i=1}^N s_i \quad \text{e} \quad \rho(G) = \sum_{i=1}^N (s_i -1) = n - N \Rightarrow N = n - \rho(G)
-  \]
-  Sia \(M\) un matching con un arco per ogni componente di \(H\). Si ottiene:
-  \[
-    \mu(G) \geq \abs{M} = n - \rho(G) \Rightarrow \rho(G) + \mu(G) \geq n
-  \]
-  Considerando la condizione ottenuta precedentemente, possiamo concludere che:
-  \[
-    \rho(G) + \mu(G) = n
-  \]
+	Consideriamo l'\(i\)-esima componente connessa di \(H\). Indichiamo con \(s_i\) il numero di nodi della componente connessa e con \(s_i-1\) il numero di archi della componente connessa. Pertanto:
+	\[
+		n = \sum_{i=1}^N s_i \quad \text{e} \quad \rho(G) = \sum_{i=1}^N (s_i -1) = n - N \Rightarrow N = n - \rho(G)
+	\]
+	Sia \(M\) un matching con un arco per ogni componente di \(H\). Si ottiene:
+	\[
+		\mu(G) \geq \abs{M} = n - \rho(G) \Rightarrow \rho(G) + \mu(G) \geq n
+	\]
+	Considerando la condizione ottenuta precedentemente, possiamo concludere che:
+	\[
+		\rho(G) + \mu(G) = n
+	\]
 
 \end{proof}
 \clearpage
 \section{Cammino alternante e aumentante}
 \begin{multicols}{2}[Sia \(M\) un matching di \(G = \rnd{V, E}\).]
-  \begin{definition}[Arco accoppiato]
-    Un arco \(\rnd{i,j} \in E\) si dice \textbf{accoppiato} se:
-    \[
-      \rnd{i,j} \in M
-    \]
-    Altrimenti è detto \textbf{libero}.
-  \end{definition}
-  \begin{definition}[Vertice accoppiato]
-    Un vertice \(i \in V\) si dice \textbf{accoppiato} se su di esso incide un arco di \(M\). Altrimenti si dice che \textbf{non incide}.
-  \end{definition}
-  \begin{definition}[Cammino alternante]
-    Un cammino \(P\) sul grafo \(G\) si dice \textbf{alternante} rispetto a \(M\) se esso è costituito alternativamente da archi accoppiati e liberi.
-  \end{definition}
-  \begin{definition}[Cammino aumentante]
-    Un cammino \(P\) \textit{alternante} rispetto ad \(M\) che abbia entrambi gli estremi esposti si dice \textbf{aumentante}.
-  \end{definition}
+	\begin{definition}[Arco accoppiato]
+		Un arco \(\rnd{i,j} \in E\) si dice \textbf{accoppiato} se:
+		\[
+			\rnd{i,j} \in M
+		\]
+		Altrimenti è detto \textbf{libero}.
+	\end{definition}
+	\begin{definition}[Vertice accoppiato]
+		Un vertice \(i \in V\) si dice \textbf{accoppiato} se su di esso incide un arco di \(M\). Altrimenti si dice che \textbf{non incide}.
+	\end{definition}
+	\begin{definition}[Cammino alternante]
+		Un cammino \(P\) sul grafo \(G\) si dice \textbf{alternante} rispetto a \(M\) se esso è costituito alternativamente da archi accoppiati e liberi.
+	\end{definition}
+	\begin{definition}[Cammino aumentante]
+		Un cammino \(P\) \textit{alternante} rispetto ad \(M\) che abbia entrambi gli estremi esposti si dice \textbf{aumentante}.
+	\end{definition}
 \end{multicols}
 
 \begin{theorem}
-  Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). La differenza simmetrica:
-  \[
-    M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}
-  \]
-  È un matching di cardinalità \(\abs{M} + 1\).
+	Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). La differenza simmetrica:
+	\[
+		M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}
+	\]
+	È un matching di cardinalità \(\abs{M} + 1\).
 \end{theorem}
 
 \begin{proof}
-  Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). L'insieme \(M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}\) gode delle seguenti proprietà:
-  \begin{enumerate}
-    \item \(M'\) è un matching:
-          \begin{enumerate}
-            \item I nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
-            \item Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
-            \item I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
-          \end{enumerate}
-    \item \(M'\) ha un elemento in più di \(M\):
-          \begin{enumerate}
-            \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \abs{M \setminus P}\) ed \(m_2 = \text{numero di archi del matching appartenenti al cammino.}\)
-            \item Poiché \(P\) è aumentante, \(\abs{P} = m_2 + \rnd{m_2 + 1}\) dove \(m_2 + 1 = \abs{P\setminus M}\).
-            \item \(\abs{M'} = \abs{M \setminus P} + \abs{P \setminus M} = m_1 + m_2 + 1 = \abs{M} +1\)
-          \end{enumerate}
-  \end{enumerate}
+	Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). L'insieme \(M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}\) gode delle seguenti proprietà:
+	\begin{enumerate}
+		\item \(M'\) è un matching:
+		      \begin{enumerate}
+			      \item I nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
+			      \item Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
+			      \item I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
+		      \end{enumerate}
+		\item \(M'\) ha un elemento in più di \(M\):
+		      \begin{enumerate}
+			      \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \abs{M \setminus P}\) ed \(m_2 = \text{numero di archi del matching appartenenti al cammino.}\)
+			      \item Poiché \(P\) è aumentante, \(\abs{P} = m_2 + \rnd{m_2 + 1}\) dove \(m_2 + 1 = \abs{P\setminus M}\).
+			      \item \(\abs{M'} = \abs{M \setminus P} + \abs{P \setminus M} = m_1 + m_2 + 1 = \abs{M} +1\)
+		      \end{enumerate}
+	\end{enumerate}
 \end{proof}
 
 \begin{theorem}[Teorema di Berge]
-  Un matching \(M\) di \(G\) è massimo \textbf{se e solo se} \(G\) non ammette cammini aumentanti rispetto a \(M\).
+	Un matching \(M\) di \(G\) è massimo \textbf{se e solo se} \(G\) non ammette cammini aumentanti rispetto a \(M\).
 \end{theorem}
 \begin{proof}[Teorema di Berge]
-  La condizione sufficiente segue dal teorema precedente. Per la condizione necessaria, facciamo vedere che, se non esistono cammini aumentanti rispetto a un certo matching \(M\), allora quel matching \(M\) è massimo:
+	La condizione sufficiente segue dal teorema precedente. Per la condizione necessaria, facciamo vedere che, se non esistono cammini aumentanti rispetto a un certo matching \(M\), allora quel matching \(M\) è massimo:
 
-  Supponiamo che \(G\) ammetta un matching \(M'\) con un elemento in più di \(M\). Vogliamo dimostrare che allora esiste un cammino aumentante per \(M\).
+	Supponiamo che \(G\) ammetta un matching \(M'\) con un elemento in più di \(M\). Vogliamo dimostrare che allora esiste un cammino aumentante per \(M\).
 
-  Consideriamo l'insieme di archi:
-  \[
-    F = \crl{M'\cup M}\setminus\crl{M' \cap M}
-  \]
-  e sia \(G'\) il sottografo di \(G\) avente gli stessi nodi di \(G\) ma contenente solo l'insieme di archi di \(F\). Analizziamo il grado di ciascun nodo di \(G'\), considerando tutti i casi possibili:
-  \begin{enumerate}
-    \item Un nodo su cui incide lo stesso arco appartenente sia ad \(M\) che ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
-    \item Un nodo su cui incide sia un arco di \(M\) sia un arco di \(M'\) è un nodo che ha grado \(2\) su \(G'\).
-    \item Un nodo su cui incide un arco di \(M\) e nessun arco di \(M'\) o viceversa è un nodo che ha grado \(1\) su \(G'\).
-    \item Un nodo esposto sia rispetto ad \(M\) che rispetto ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
-  \end{enumerate}
-  Pertanto in \(G'\) nessun nodo ha un grado superiore a 2 e possiamo concludere che le componenti connesse di \(G'\) sono o nodi isolati o percorsi o cicli.
+	Consideriamo l'insieme di archi:
+	\[
+		F = \crl{M'\cup M}\setminus\crl{M' \cap M}
+	\]
+	e sia \(G'\) il sottografo di \(G\) avente gli stessi nodi di \(G\) ma contenente solo l'insieme di archi di \(F\). Analizziamo il grado di ciascun nodo di \(G'\), considerando tutti i casi possibili:
+	\begin{enumerate}
+		\item Un nodo su cui incide lo stesso arco appartenente sia ad \(M\) che ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
+		\item Un nodo su cui incide sia un arco di \(M\) sia un arco di \(M'\) è un nodo che ha grado \(2\) su \(G'\).
+		\item Un nodo su cui incide un arco di \(M\) e nessun arco di \(M'\) o viceversa è un nodo che ha grado \(1\) su \(G'\).
+		\item Un nodo esposto sia rispetto ad \(M\) che rispetto ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
+	\end{enumerate}
+	Pertanto in \(G'\) nessun nodo ha un grado superiore a 2 e possiamo concludere che le componenti connesse di \(G'\) sono o nodi isolati o percorsi o cicli.
 
-  Nessun ciclo può essere dispari altrimenti ci sarebbero due archi dello stesso matching incidenti sullo stesso nodo e questo è impossibile.
+	Nessun ciclo può essere dispari altrimenti ci sarebbero due archi dello stesso matching incidenti sullo stesso nodo e questo è impossibile.
 
-  Non possono essere tutti cicli pari altrimenti \(\abs{M} = \abs{M'}\). Deve esistere una componente connessa che è un percorso.
+	Non possono essere tutti cicli pari altrimenti \(\abs{M} = \abs{M'}\). Deve esistere una componente connessa che è un percorso.
 
-  Non tutti i percorsi possono essere pari altrimenti, nuovamente, \(\abs{M} = \abs{M'}\).
+	Non tutti i percorsi possono essere pari altrimenti, nuovamente, \(\abs{M} = \abs{M'}\).
 
-  Quindi, senza perdita di generalità, possiamo assumere che esista un percorso dispari che inizia e termina con un arco di \(M'\).
+	Quindi, senza perdita di generalità, possiamo assumere che esista un percorso dispari che inizia e termina con un arco di \(M'\).
 
-  Questo percorso è aumentante per \(M\).
+	Questo percorso è aumentante per \(M\).
 \end{proof}
 
 \section{Teorema del cammino aumentante}
 
 \begin{theorem}[Teorema del cammino aumentante]
-  Sia \(v\) un vertice esposto in un matching \(M\). Se non esiste un cammino aumentante per \(M\) che parte da \(v\), allora esiste un matching massimo avente \(v\) esposto.
+	Sia \(v\) un vertice esposto in un matching \(M\). Se non esiste un cammino aumentante per \(M\) che parte da \(v\), allora esiste un matching massimo avente \(v\) esposto.
 \end{theorem}
 
 \begin{proof}[Teorema del cammino aumentante]
-  Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\crl{M^*\cup M}\setminus\crl{M^* \cap M}\): questo insieme non può contenere un cammino alternante con i vertici degli archi di \(M\) esposti, altrimenti sarebbe aumentante per esso.
+	Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\crl{M^*\cup M}\setminus\crl{M^* \cap M}\): questo insieme non può contenere un cammino alternante con i vertici degli archi di \(M\) esposti, altrimenti sarebbe aumentante per esso.
 
-  Però deve contenere un cammino composto dallo stesso numero di archi dei due insiemi, \(M\) e \(M^*\): un cammino con un solo arco di un insieme, infatti, sarebbe aumentante per l'altro e viceversa.
+	Però deve contenere un cammino composto dallo stesso numero di archi dei due insiemi, \(M\) e \(M^*\): un cammino con un solo arco di un insieme, infatti, sarebbe aumentante per l'altro e viceversa.
 
-  Consideriamo quindi un cammino \(P\) composto da un ugual numero di archi dai due insiemi e consideriamo un nuovo matching \(M' = \crl{M^*\cup P}\setminus\crl{M^* \cap P}\). Vanno osservate due proprietà:
+	Consideriamo quindi un cammino \(P\) composto da un ugual numero di archi dai due insiemi e consideriamo un nuovo matching \(M' = \crl{M^*\cup P}\setminus\crl{M^* \cap P}\). Vanno osservate due proprietà:
 
-  \begin{enumerate}
-    \item La cardinalità del nuovo insieme e del matching massimo sono uguali:
-          \[
-            \abs{M'} = \abs{M^*}
-          \]
-    \item Il nodo \(v\) è esposto rispetto ad \(M'\).
-  \end{enumerate}
-  Pertanto abbiamo individuato un nuovo matching massimo con \(v\) esposto.
+	\begin{enumerate}
+		\item La cardinalità del nuovo insieme e del matching massimo sono uguali:
+		      \[
+			      \abs{M'} = \abs{M^*}
+		      \]
+		\item Il nodo \(v\) è esposto rispetto ad \(M'\).
+	\end{enumerate}
+	Pertanto abbiamo individuato un nuovo matching massimo con \(v\) esposto.
 \end{proof}
 
 \section{Teorema di König}
 
 \begin{theorem}[Teorema di König]
-  Se \(G=\rnd{X, Y, E}\) è un grafo bipartito, allora \(\mu(G) = \tau(G)\).
+	Se \(G=\rnd{X, Y, E}\) è un grafo bipartito, allora \(\mu(G) = \tau(G)\).
 \end{theorem}
 
 \begin{proof}[Teorema di König]
-  Sia \(M^*\) un matching massimo, e siano:
-  \begin{enumerate}
-    \item \(X_1\) un insieme dei nodi \(x\) di \(X\) \textbf{accoppiati} rispetto ad \(M^*\)
-    \item \(X_2\) un insieme dei nodi \(x\) di \(X\) \textbf{esposti} rispetto ad \(M^*\)
-    \item \(Y_1\) insieme dei nodi \(y\) di \(Y\) raggiungibili da \(x\) in \(X_2\). Questi nodi, per definizione, sono \textbf{accoppiati} altrimenti \(M^*\) non sarebbe massimo.
-    \item \(Y_2 = Y \setminus Y_1\)
-  \end{enumerate}
+	Sia \(M^*\) un matching massimo, e siano:
+	\begin{enumerate}
+		\item \(X_1\) un insieme dei nodi \(x\) di \(X\) \textbf{accoppiati} rispetto ad \(M^*\)
+		\item \(X_2\) un insieme dei nodi \(x\) di \(X\) \textbf{esposti} rispetto ad \(M^*\)
+		\item \(Y_1\) insieme dei nodi \(y\) di \(Y\) raggiungibili da \(x\) in \(X_2\). Questi nodi, per definizione, sono \textbf{accoppiati} altrimenti \(M^*\) non sarebbe massimo.
+		\item \(Y_2 = Y \setminus Y_1\)
+	\end{enumerate}
 
-  \begin{definition}[Nodo raggiungibile]
-    Un nodo \(y \in Y\) è raggiungibile se esiste \(P\) alternante rispetto ad \(M^*\) da \(x\) in \(X_2\) tale che l'ultimo arco non appartiene ad \(M^*\).
-  \end{definition}
+	\begin{definition}[Nodo raggiungibile]
+		Un nodo \(y \in Y\) è raggiungibile se esiste \(P\) alternante rispetto ad \(M^*\) da \(x\) in \(X_2\) tale che l'ultimo arco non appartiene ad \(M^*\).
+	\end{definition}
 
-  Consideriamo un set di nodi \(Z\) definito come:
-  \[
-    Z = \crl{z_1, z_2, \ldots, z_{\mu(G)}} \quad \text{con} \quad \begin{cases}
-      z_i = y_i & \text{se \(y_i\) è raggiungibile} \\
-      z_i = x_i & \text{altrimenti}
-    \end{cases}
-  \]
-  \textbf{Procediamo ora a dimostrare che il set \(Z\) è \textit{trasversale}}.
+	Consideriamo un set di nodi \(Z\) definito come:
+	\[
+		Z = \crl{z_1, z_2, \ldots, z_{\mu(G)}} \quad \text{con} \quad \begin{cases}
+			z_i = y_i & \text{se \(y_i\) è raggiungibile} \\
+			z_i = x_i & \text{altrimenti}
+		\end{cases}
+	\]
+	\textbf{Procediamo ora a dimostrare che il set \(Z\) è \textit{trasversale}}.
 
-  Iniziamo dimostrando che non esistono archi da nodi in \(X_2\) verso nodi in \(Y\) non coperti da \(Z\):
+	Iniziamo dimostrando che non esistono archi da nodi in \(X_2\) verso nodi in \(Y\) non coperti da \(Z\):
 
-  \begin{enumerate}
-    \item Non può esistere un arco non coperto da \(Z\) tra un nodo in \(X_2\) e un nodo in \(Y_2\), altrimenti il matching non sarebbe massimo.
-    \item Non può esistere un arco non coperto da \(Z\) tra un nodo in \(X_2\) e un nodo in \(Y_1\) perché i nodi in \(Y_1\) sono raggiungibili e quindi l'arco necessariamente deve essere coperto.
-  \end{enumerate}
+	\begin{enumerate}
+		\item Non può esistere un arco non coperto da \(Z\) tra un nodo in \(X_2\) e un nodo in \(Y_2\), altrimenti il matching non sarebbe massimo.
+		\item Non può esistere un arco non coperto da \(Z\) tra un nodo in \(X_2\) e un nodo in \(Y_1\) perché i nodi in \(Y_1\) sono raggiungibili e quindi l'arco necessariamente deve essere coperto.
+	\end{enumerate}
 
-  Dimostriamo ora che non esistono archi da nodi in \(X_1\) verso nodi in \(Y\) non coperti da \(Z\):
+	Dimostriamo ora che non esistono archi da nodi in \(X_1\) verso nodi in \(Y\) non coperti da \(Z\):
 
-  Consideriamo un arco da \(X_1\) a \(Y_2\): se non fosse coperto, allora esisterebbe un nodo, estremo dell'arco del matching, raggiungibile da \(X_2\) in \(Y_2\). Ciò implicherebbe l'esistenza di un cammino aumentante ed il matching sarebbe pertanto non massimo.
+	Consideriamo un arco da \(X_1\) a \(Y_2\): se non fosse coperto, allora esisterebbe un nodo, estremo dell'arco del matching, raggiungibile da \(X_2\) in \(Y_2\). Ciò implicherebbe l'esistenza di un cammino aumentante ed il matching sarebbe pertanto non massimo.
 
-  Consideriamo ora un arco da \(X_1\) a \(Y_1\): se il nodo terminale non fosse coperto non sarebbe raggiungibile (per la definizione di \(Y_1\) e di \(Z\)) e non apparterrebbe in primo luogo a \(Y_1\), quindi l'arco non esisterebbe.
+	Consideriamo ora un arco da \(X_1\) a \(Y_1\): se il nodo terminale non fosse coperto non sarebbe raggiungibile (per la definizione di \(Y_1\) e di \(Z\)) e non apparterrebbe in primo luogo a \(Y_1\), quindi l'arco non esisterebbe.
 
-  Pertanto, \(Z\) è un insieme trasversale di cardinalità pari a \(\mu(G)\).
+	Pertanto, \(Z\) è un insieme trasversale di cardinalità pari a \(\mu(G)\).
 \end{proof}
 
 \section{Teorema di Hall o dei matrimoni}
 \begin{theorem}[Teorema di Hall]
-  Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subset V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora il grafo \(G\) ammette un \textbf{matching massimo} se e solo se:
-  \[
-    \abs{\Gamma(J)} \geq \abs{J} \quad \forall J \subset V_2
-  \]
+	Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subset V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora il grafo \(G\) ammette un \textbf{matching massimo} se e solo se:
+	\[
+		\abs{\Gamma(J)} \geq \abs{J} \quad \forall J \subset V_2
+	\]
 \end{theorem}
 
 \begin{proof}[Teorema di Hall]
-  Sia \(M\) un \textbf{matching massimo} di \(G\) e \(J\) un sottoinsieme qualsiasi di \(V_2\). Sia \(E(J)\) l'insieme dei lati contenuti nel matching \(M\) che sono incidenti con un vertice in \(J\). Allora, i vertici terminali dei lati in \(E(J)\) che sono contenuti in \(V_1\) formano un sottoinsieme di cardinalità \(\abs{J}\) di \(\Gamma(J)\).
+	Sia \(M\) un \textbf{matching massimo} di \(G\) e \(J\) un sottoinsieme qualsiasi di \(V_2\). Sia \(E(J)\) l'insieme dei lati contenuti nel matching \(M\) che sono incidenti con un vertice in \(J\). Allora, i vertici terminali dei lati in \(E(J)\) che sono contenuti in \(V_1\) formano un sottoinsieme di cardinalità \(\abs{J}\) di \(\Gamma(J)\).
 
-  Per assurdo, supponiamo che la condizione \(\abs{\Gamma(J)} \geq \abs{J}\) è valida e che la cardinalità massima di un matching in \(G\) è minore di \(\abs{T}\). Allora per il \textbf{Teorema di König} è possibile costruire una \textbf{vertex cover} \(X=V'_1 \cup V'_2\) dove \(V'_1 \subset V_1\) e \(V'_2 \subset V'_2\) e \(\abs{S'} + \abs{T'} < \abs{T}\) ma quindi i vertici terminali \(u\) dei lati \(\bar{uv}\), dove \(v\) è uno dei \(\abs{V_2} - \abs{V'_2}\) vertici in \(V_2\setminus V'_2\) sono tutti contenuti in \(V_1\), quindi:
-  \[
-    \abs{\Gamma(V_2\setminus V'_2)} \leq \abs{V'_1} < \abs{V_2} - \abs{V'_2} = \abs{V_2\setminus V'_2}
-  \]
-  da cui la contraddizione.
+	Per assurdo, supponiamo che la condizione \(\abs{\Gamma(J)} \geq \abs{J}\) è valida e che la cardinalità massima di un matching in \(G\) è minore di \(\abs{T}\). Allora per il \textbf{Teorema di König} è possibile costruire una \textbf{vertex cover} \(X=V'_1 \cup V'_2\) dove \(V'_1 \subset V_1\) e \(V'_2 \subset V'_2\) e \(\abs{S'} + \abs{T'} < \abs{T}\) ma quindi i vertici terminali \(u\) dei lati \(\bar{uv}\), dove \(v\) è uno dei \(\abs{V_2} - \abs{V'_2}\) vertici in \(V_2\setminus V'_2\) sono tutti contenuti in \(V_1\), quindi:
+	\[
+		\abs{\Gamma(V_2\setminus V'_2)} \leq \abs{V'_1} < \abs{V_2} - \abs{V'_2} = \abs{V_2\setminus V'_2}
+	\]
+	da cui la contraddizione.
 \end{proof}
 
 \section{Formula di Tutte-Berge e Teorema di Tutte}
 \subsection{Formula di Tutte-Berge}
 \begin{theorem}[Formula di Tutte-Berge]
-  La dimensione di un matching massimo in un grafo \(\Gr \) è pari a:
-  \[
-    \frac{1}{2} \min_{U \subseteq V} \crl{\abs{U} - \text{odd}\rnd{G-U} + \abs{V}}
-  \]
-  dove \(\text{odd}(H)\) è il numero di componenti connesse del grafo \(H\) con un numero dispari di vertici.
+	La dimensione di un matching massimo in un grafo \(\Gr \) è pari a:
+	\[
+		\frac{1}{2} \min_{U \subseteq V} \crl{\abs{U} - \text{odd}\rnd{G-U} + \abs{V}}
+	\]
+	dove \(\text{odd}(H)\) è il numero di componenti connesse del grafo \(H\) con un numero dispari di vertici.
 \end{theorem}
 
 Questa formula implica immediatamente una condizione per l'esistenza di un matching perfetto: il Teorema di Tutte.
 
 \subsection{Teorema di Tutte}
 \begin{theorem}[Teorema di Tutte]
-  Un grafo \(\Gr \) contiene un matching perfetto se e solo se per ogni sottoinsieme di nodi \(A\) vale che:
-  \[
-    \text{odd}\rnd{G\setminus A} \leq \abs{A}
-  \]
+	Un grafo \(\Gr \) contiene un matching perfetto se e solo se per ogni sottoinsieme di nodi \(A\) vale che:
+	\[
+		\text{odd}\rnd{G\setminus A} \leq \abs{A}
+	\]
 \end{theorem}
 \clearpage
 \section{Proposizioni sugli alberi alternanti}
 \begin{definition}[Albero alternante]
-  Un albero alternante è costruito a partire da un matching \(M\) di un grafo \(\Gr \) ed un nodo \(r \in V\) di \(M\) esposto.
+	Un albero alternante è costruito a partire da un matching \(M\) di un grafo \(\Gr \) ed un nodo \(r \in V\) di \(M\) esposto.
 
-  Costruiamo iterativamente set di nodi \(A\) e \(B\), in modo tale che ogni nodo \(A\) sia al termine di un cammino alternante di \(M\) di lunghezza dispari che inizia con \(r\), mentre ogni nodo \(B\) al termine di quelli pari.
+	Costruiamo iterativamente set di nodi \(A\) e \(B\), in modo tale che ogni nodo \(A\) sia al termine di un cammino alternante di \(M\) di lunghezza dispari che inizia con \(r\), mentre ogni nodo \(B\) al termine di quelli pari.
 
-  Tali insiemi possono essere costruiti iniziando da \(A=\emptyset, B=\crl{r}\) e seguendo la regola seguente:
-  \[
-    vw \in E, v \in B, w \not\in A \cup B, wz \in M \Rightarrow A' = A \cup \crl{w}, B' = B \cup \crl{z}
-  \]
-  L'albero così costruito possiede due proprietà:
-  \begin{enumerate}
-    \item Ogni nodo dell'albero oltre alla radice è coperto da un lato di \(M \cap E(T)\).
-    \item Per ogni nodo \(v\) dell'albero, il cammino nell'albero da \(v\) alla radice è alternante nel matching \(M\) associato all'albero.
-  \end{enumerate}
+	Tali insiemi possono essere costruiti iniziando da \(A=\emptyset, B=\crl{r}\) e seguendo la regola seguente:
+	\[
+		vw \in E, v \in B, w \not\in A \cup B, wz \in M \Rightarrow A' = A \cup \crl{w}, B' = B \cup \crl{z}
+	\]
+	L'albero così costruito possiede due proprietà:
+	\begin{enumerate}
+		\item Ogni nodo dell'albero oltre alla radice è coperto da un lato di \(M \cap E(T)\).
+		\item Per ogni nodo \(v\) dell'albero, il cammino nell'albero da \(v\) alla radice è alternante nel matching \(M\) associato all'albero.
+	\end{enumerate}
 \end{definition}
 \begin{definition}[Albero alternante frustrato]
-  Un albero alternante in un grafo \(\Gr \) si dice frustrato se ogni lato di \(G\) avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\).
+	Un albero alternante in un grafo \(\Gr \) si dice frustrato se ogni lato di \(G\) avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\).
 \end{definition}
 \begin{proposition}[Prima proposizione su AAF (5.6)]
-  Sia \(\Gr \) un grafo con un matching \(M\) ed un albero alternante frustrato \(T\) associato ad esso. Allora \(G\) non possiede un matching perfetto.
+	Sia \(\Gr \) un grafo con un matching \(M\) ed un albero alternante frustrato \(T\) associato ad esso. Allora \(G\) non possiede un matching perfetto.
 \end{proposition}
 \begin{proof}[Prima proposizione su AAF (5.6)]
-  Ogni elemento di \(B(T)\) è una componente dispari a nodo singolo in \(G \setminus A(T)\).
+	Ogni elemento di \(B(T)\) è una componente dispari a nodo singolo in \(G \setminus A(T)\).
 
-  Siccome \(\abs{A(T)} < \abs{B(T)}\), per il teorema di Tutte \(G\) non possiede nessun matching perfetto.
+	Siccome \(\abs{A(T)} < \abs{B(T)}\), per il teorema di Tutte \(G\) non possiede nessun matching perfetto.
 \end{proof}
 \begin{proposition}[Seconda proposizione su AAF (5.7)]
-  Sia \(\Gr \) un grafo bipartito, \(M\) un matching definito su \(G\) e \(T\) un albero \(M\)-alternante tale che nessun lato di \(G\) sia posto tra un nodo in \(B(T)\) ed un nodo non in \(V(T)\). Allora risulta che \(T\) è frustrato e di conseguenza \(G\) non ha un matching perfetto.
+	Sia \(\Gr \) un grafo bipartito, \(M\) un matching definito su \(G\) e \(T\) un albero \(M\)-alternante tale che nessun lato di \(G\) sia posto tra un nodo in \(B(T)\) ed un nodo non in \(V(T)\). Allora risulta che \(T\) è frustrato e di conseguenza \(G\) non ha un matching perfetto.
 \end{proposition}
 \begin{proof}[Seconda proposizione su AAF (5.7)]
-  Procediamo a mostrare che ogni lato avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\). Dalle ipotesi del teorema, l'unica possibile eccezione sarebbe un lato tra due nodi in \(B(T)\). Ma questo lato, insieme con i lati che lo uniscono alla radice \(r\), formerebbero un ciclo di lunghezza dispari, una cosa impossibile in un grafo bipartito.
+	Procediamo a mostrare che ogni lato avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\). Dalle ipotesi del teorema, l'unica possibile eccezione sarebbe un lato tra due nodi in \(B(T)\). Ma questo lato, insieme con i lati che lo uniscono alla radice \(r\), formerebbero un ciclo di lunghezza dispari, una cosa impossibile in un grafo bipartito.
 
-  Di conseguenza \(T\) è frustrato e quindi per la prima proposizione su AAF (5.6), il grafo \(G\) non possiede un matching perfetto.
+	Di conseguenza \(T\) è frustrato e quindi per la prima proposizione su AAF (5.6), il grafo \(G\) non possiede un matching perfetto.
 \end{proof}
 \begin{definition}[Pseudonodo]
-  In riferimento ad un grafo \(G'\) ottenuto da \(G\), vengono detti \textbf{pseudonodi} qui nodi che sono parte di \(G'\) ma non di \(G\).
+	In riferimento ad un grafo \(G'\) ottenuto da \(G\), vengono detti \textbf{pseudonodi} qui nodi che sono parte di \(G'\) ma non di \(G\).
 \end{definition}
 \begin{proposition}[Terza proposizione su AAF (5.8)]
-  Sia \(G'\) un grafo derivato da \(G\), sia \(M'\) un matching di \(G'\) e sia \(T\) un albero \(M'\)-alternante frustrato di \(G'\) tale che nessun elemento di \(A(T)\) è uno pseudonodo.
+	Sia \(G'\) un grafo derivato da \(G\), sia \(M'\) un matching di \(G'\) e sia \(T\) un albero \(M'\)-alternante frustrato di \(G'\) tale che nessun elemento di \(A(T)\) è uno pseudonodo.
 
-  Se \(T\) è frustrato, allora \(G\) non possiede un matching perfetto.
+	Se \(T\) è frustrato, allora \(G\) non possiede un matching perfetto.
 \end{proposition}
 \begin{proof}[Terza proposizione su AAF (5.8)]
-  Se eliminiamo \(A(T)\) da \(G\) otteniamo una componente con un insieme di nodi \(S(v)\) per ogni nodo \(v \in B(T)\). Utilizzando quindi la regola di Tutte-Berge si ha che:
-  \[
-    \text{odd}\rnd{G \setminus A(T)} > \abs{A(T)}
-  \]
-  Ne Segue che \(G\) non possiede un matching perfetto.
+	Se eliminiamo \(A(T)\) da \(G\) otteniamo una componente con un insieme di nodi \(S(v)\) per ogni nodo \(v \in B(T)\). Utilizzando quindi la regola di Tutte-Berge si ha che:
+	\[
+		\text{odd}\rnd{G \setminus A(T)} > \abs{A(T)}
+	\]
+	Ne Segue che \(G\) non possiede un matching perfetto.
 \end{proof}
 
 \section{Algoritmo Blossom}
 L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se riesce ad identificare un matching perfetto in un grafo derivato allora è noto che esiste un matching perfetto in \(G\) e se riusciamo ad identificare un certo tipo di AAF all'interno di un grafo derivato possiamo concludere che \(G\) non possiede un matching perfetto. I grafi derivati \(G'\) vengono ottenuti identificando circuiti dispari all'interno dell'albero alternante \(T\) ottenuto da \(G\) e rimuovendoli attraverso un procedimento detto di ``shrinking'' (questo tipo di circuito veniva chiamato blossom, da cui il nome dell'algoritmo.)
 
 \begin{theorem}[Algoritmo Blossom]
-  L'algoritmo Blossom termina dopo \(O(n)\) passi di ``augmentations'', \(O(n^2)\) passi di ``shrinking'' e \(O(n^2)\) passi di estensione dell'albero. Inoltre, determina correttamente se il grafo \(G\) possiede un matching perfetto.
+	L'algoritmo Blossom termina dopo \(O(n)\) passi di ``augmentations'', \(O(n^2)\) passi di ``shrinking'' e \(O(n^2)\) passi di estensione dell'albero. Inoltre, determina correttamente se il grafo \(G\) possiede un matching perfetto.
 \end{theorem}
 \begin{proof}[Algoritmo Blossom]
-  L'algoritmo inizia con un matching qualsiasi \(M=M'\) di \(G\), che non cessa di essere tale per tutto il procedimento. Siccome ad ogni passo di ``augmentation'' il numero di nodi esposti decresce, vi saranno \(O(n)\) passi di ``augmentation''. Tra questi, ogni passo di ``shrinking'' riduce il numero dei nodi in \(G'\) senza tuttavia cambiare il numero dei nodi in \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
+	L'algoritmo inizia con un matching qualsiasi \(M=M'\) di \(G\), che non cessa di essere tale per tutto il procedimento. Siccome ad ogni passo di ``augmentation'' il numero di nodi esposti decresce, vi saranno \(O(n)\) passi di ``augmentation''. Tra questi, ogni passo di ``shrinking'' riduce il numero dei nodi in \(G'\) senza tuttavia cambiare il numero dei nodi in \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
 
-  Ne segue che il numero di passi di ``shrinking'' ed estensione dell'albero tra passi di ``augmentation'' è \(O(n)\) e quindi in totale sono \(O(n^2)\).
+	Ne segue che il numero di passi di ``shrinking'' ed estensione dell'albero tra passi di ``augmentation'' è \(O(n)\) e quindi in totale sono \(O(n^2)\).
 
-  Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) non possiede un matching perfetto.
+	Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) non possiede un matching perfetto.
 \end{proof}
 
 \section{Il postino cinese (Chinese postman problem, CPP)}
 Sia \(\Gr \) un grafo connesso e sia \(w: E \rightarrow \R^+_0\) una lunghezza definita su \(G\). Vogliamo trovare un percorso chiuso \(C\) di lunghezza minima \(w(C)\) che contiene ogni lato di \(G\) almeno una volta.
 \begin{definition}[Grafo e cammino euleriano]
-  Un grafo è detto \textbf{euleriano} se è possibile tracciare un cammino che passa una sola volta per tutti gli archi del grafo. Un tale cammino è detto a sua volta euleriano.
+	Un grafo è detto \textbf{euleriano} se è possibile tracciare un cammino che passa una sola volta per tutti gli archi del grafo. Un tale cammino è detto a sua volta euleriano.
 
-  Equivalentemente, un grafo \(G\) è euleriano se e solo se ogni vertice ha grado pari e un cammino euleriano può essere costruiti con complessità \(O(\abs{E})\).
+	Equivalentemente, un grafo \(G\) è euleriano se e solo se ogni vertice ha grado pari e un cammino euleriano può essere costruiti con complessità \(O(\abs{E})\).
 \end{definition}
 Se il grafo \(G\) risulta euleriano allora la soluzione del CPP è banale: qualsiasi cammino euleriano andrebbe bene.
 
 Altrimenti si procede come segue: sia \(X\) l'insieme di tutti i vertici di \(G\) con grado dispari. Aggiungiamo un insieme di lati \(E'\) a \(G\) tale che le seguenti tre condizioni siano soddisfatte:
 \begin{enumerate}
-  \item Ogni lato \(e' \in E'\) è parallelo a qualche lato \(e \in E\). Estendiamo la distanza \(w\) a \(E'\) definendo \(w(e') = w(e)\).
-  \item In \(V, E'\), solo i vertici di \(X\) hanno grado dispari.
-  \item La distanza \(w(E')\) è minima: \(w(E') \leq w(E'')\) per ogni insieme \(E''\) che soddisfa le due condizioni precedenti.
+	\item Ogni lato \(e' \in E'\) è parallelo a qualche lato \(e \in E\). Estendiamo la distanza \(w\) a \(E'\) definendo \(w(e') = w(e)\).
+	\item In \(V, E'\), solo i vertici di \(X\) hanno grado dispari.
+	\item La distanza \(w(E')\) è minima: \(w(E') \leq w(E'')\) per ogni insieme \(E''\) che soddisfa le due condizioni precedenti.
 \end{enumerate}
 Ne segue che \(\rnd{V, E \cup E'}\) è un multigrafo euleriano, e ogni percorso euleriano introduce un cammino chiuso di lunghezza minima \(w(E) + w(E')\) in \(G\).
+
+\subsection{Applicazione su grafo orientato}
+\begin{definition}[Grafo orientato euleriano]
+	Un grafo orientato è detto \textbf{euleriano} se tutti i vertici hanno grado entrante uguale al grado uscente.
+\end{definition}
+Consideriamo un grafo orientato non euleriano \(G\) e sia \(S(T)\) l'insieme di tutti i vertici che hanno un eccesso di archi entranti (o uscenti) rispetto a quelli uscenti (o entranti).
+
+Indichiamo con \(d^{+(i)}\) (o \(d^{-(i)}\)) l'eccesso di grado entrante (o uscente) nei nodi di \(S(T)\). Per pareggiare il grado dei nodi \(i \in S(T)\) devo aggiungere \(d^{+(i)}\) (o \(d^{-(i)}\)) archi uscenti (o entranti). Poiché ogni arco contribuisce con un grado in uscita ed uno in ingresso, la somma totale dei gradi in uscita coincide con quella dei gradi in ingresso.
+
+Come conseguenza la somma delle etichette \(d^{(i)}\) dei vertici in \(S\) coincide con quella dei vertici in \(T\). Calcolo il costo \(C_{ij}\) di un cammino di costo minimo fra ogni vertice \(i \in S\) ed ogni vertice \(j \in T\).
+
+Costruisco una istanza di un problema di trasporto con gli insiemi \(S\) e \(T\), dove le quantità prodotte dai vertici in \(S\) e da trasportare a quelli in \(T\) sono le etichette \(d^{+(i)}\) mentre la domanda dei vertici in \(T\) sono i valori \(d^{-(i)}\), ed il costo per unità di merce trasportata lungo l'arco \((i,j)\) è \(C_{ij}\). La soluzione del problema di trasporto indica gli archi da aggiungere.
+
+Se la soluzione dice di trasportare \(k\) unità di merda da \(i\) a \(j\) allora aggiungiamo \(k\) archi paralleli ad ogni arco nel cammino di costo minimo da \(i\) a \(j\).
+
 \end{document}
