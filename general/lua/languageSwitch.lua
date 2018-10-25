@@ -1,4 +1,4 @@
-function multiLanguage(chapter, index, theorem, corollary, lemma, definition, proposition, observation, complexity, property, problem, algorithm)
+function multiLanguage(chapter, index, theorem, corollary, lemma, definition, proposition, observation, complexity, property, problem, proof)
   tex.print("\\renewcommand{\\chaptername}{"..chapter.."}")
   tex.print("\\renewcommand{\\contentsname}{"..index.."}")
   tex.print("\\newtheorem{theorem}{"..theorem.."}[section]")
@@ -10,10 +10,11 @@ function multiLanguage(chapter, index, theorem, corollary, lemma, definition, pr
   tex.print("\\newtheorem{complexity}[theorem]{"..complexity.."}")
   tex.print("\\newtheorem{property}[theorem]{"..property.."}")
   tex.print("\\newtheorem{problem}[theorem]{"..problem.."}")
+  tex.print("\\newtheorem{customProof}[theorem]{"..proof.."}")
 end
 
 if metadata["language"] == "it" then
-  multiLanguage("Capitolo", "Indice", "Teorema", "Corollario", "Lemma", "Definizione", "Proposizione", "Osservazione", "Complessità computazionale", "Proprietà", "Problema")
+  multiLanguage("Capitolo", "Indice", "Teorema", "Corollario", "Lemma", "Definizione", "Proposizione", "Osservazione", "Complessità computazionale", "Proprietà", "Problema", "Dimostrazione")
 else
-  multiLanguage("Chapter", "Index", "Theorem", "Corollary", "Lemma", "Definition", "Proposition", "Observation", "Computational complexity", "Property", "Problem")
+  multiLanguage("Chapter", "Index", "Theorem", "Corollary", "Lemma", "Definition", "Proposition", "Observation", "Computational complexity", "Property", "Problem", "Proof")
 end
