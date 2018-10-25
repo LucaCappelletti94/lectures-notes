@@ -5,11 +5,11 @@
 \chapter{Matroidi e Algoritmo Greedy}
 \section{Sistema di Indipendenza}
 \begin{definition}[Sistema di Indipendenza (SI)]
-  Sia \(E = \crl{e_1, \ldots, e_n}\) e \(\bm{I} \subseteq 2^E\) tale che per tutti \(I, J \subseteq E\) valga la proprietà:
+  Sia \(E = \crl{e_1, \ldots, e_n}\) e \(F \subseteq 2^E\) tale che per tutti \(I, J \subseteq E\) valga la proprietà:
   \[
-    J \subset I \in \bm{I} \rightarrow J \in \bm{I}
+    J \subset I \in F \rightarrow J \in F
   \]
-  Allora la coppia \(\rnd{E, \bm{I}}\) è detta \textbf{Sistema di Indipendenza} ed i membri di \(\bm{I}\) vengono detti \textbf{insiemi indipendenti}.
+  Allora la coppia \(\rnd{E, F}\) è detta \textbf{Sistema di Indipendenza} ed i membri di \(F\) vengono detti \textbf{insiemi indipendenti}.
 \end{definition}
 \section{GREEDSUM}
 L'algoritmo riceve un insieme di elementi \(E\) ed una funzione di costo \(c\) ed inizia con l'insieme soluzione \(I = \emptyset \).
@@ -23,11 +23,11 @@ Se l'insieme \(I \cup \crl{e^*}\) risulta essere indipendente, allora il nuovo e
 \section{I teoremi di Rado}
 I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un matroide''.
 \begin{theorem}[Primo teorema di Rado]
-  Sia \(\rnd{E, \bm{I}}\) un Sistema di Indipendenza (SI). Se per due qualunque indipendenti \(I\) e \(J\) tali che \(\abs{I} = \abs{J} + 1\) vale la proprietà:
+  Sia \(\rnd{E, F}\) un Sistema di Indipendenza (SI). Se per due qualunque indipendenti \(I\) e \(J\) tali che \(\abs{I} = \abs{J} + 1\) vale la proprietà:
   \[
-    \exists e \in I: J \cup \crl{e} \in I
+    \exists e \in I: J \cup \crl{e} \in F
   \]
-  allora \textbf{GREEDSUM} fornisce un membro di \(\bm{I}\) di valore massimo per qualunque funzione di valutazione non-negativa: \(e: E \rightarrow \R^+\).
+  allora \textbf{GREEDSUM} fornisce un membro di \(F\) di valore massimo per qualunque funzione di valutazione: \(e: E \rightarrow \R^+\).
   \label{primo_rado}
 \end{theorem}
 \begin{proof}[Primo teorema di Rado]
@@ -35,7 +35,7 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
 
   Infatti se \textbf{per assurdo} \(\abs{I} < \abs{I'}\), si può trovare \(I'' \subseteq I'\) tale che \(\abs{I''} = \abs{I} + 1\) eliminando da \(I'\) un numero di elementi pari a \(\abs{I'} - \abs{I} - 1\).
 
-  Per la proprietà del teorema esiste \(e \in I'' \setminus I\) tale che \(I \cup \crl{e} \in I\) e \(I\) non sarebbe massimale. \textbf{CHIEDI QUALE È LA F DELLA FAMIGLIA!!!}
+  Per la proprietà del teorema esiste \(e \in I'' \setminus I\) tale che \(I \cup \crl{e} \in F\) e \(I\) non sarebbe massimale.
 
   Supponiamo adesso ancora per assurdo che \textbf{GREEDSUM} non dia un risultato ottimo, cioè che per una certa funzione di valutazione \(c: E \rightarrow \R^+\) l'algoritmo fornisce un insieme indipendente \(I = \crl{e_1, \ldots, e_i}\) mentre ne esiste un altro \(J = \crl{e'_1, \ldots, e'_j}\) tale che \(c(j) > c(i)\).
 
@@ -52,14 +52,10 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
   Ciò contraddice quanto dimostrato all'inizio dato che \(\crl{e'_1, \ldots, e'_m}\) è un altro insieme indipendente di \(A\) ed avrebbe cardinalità maggiore.
 \end{proof}
 \begin{theorem}[Secondo teorema di Rado]
-  Sia \(\rnd{E, \bm{I}}\) un Sistema di Indipendenza (SI). Se per qualunque funzione di valutazione non negativa \(c: E \rightarrow \R^+\) degli elementi di \(E\), \textbf{GREEDSUM} fornisce sempre un membro di \(\bm{I}\) di valore massimo, allora il SI gode della proprietà del primo teorema di Rado \ref{primo_rado}.
+  Sia \(\rnd{E, F}\) un Sistema di Indipendenza (SI). Se per qualunque funzione di valutazione non negativa \(c: E \rightarrow \R^+\) degli elementi di \(E\), \textbf{GREEDSUM} fornisce sempre un membro di \(F\) di valore massimo, allora il SI gode della proprietà del primo teorema di Rado \ref{primo_rado}.
 \end{theorem}
 \begin{proof}[Secondo teorema di Rado]
-  Procediamo \textbf{per assurdo} e supponiamo che
-  \[
-    f(x) = c x(I) = \sum_{e_j \in I} c(e_j)
-  \]
-  non valga. \textbf{È una definizione, perché non dovrebbe valere? Intendeva forse la proprietà del teorema \ref{primo_rado}?}
+  Procediamo \textbf{per assurdo} e supponiamo che la proprietà del primo teorema di Rado \ref{primo_rado} non valga.
 
   Ciò significa che esistono due insiemi indipendente \(I\) e \(J\) con \(\abs{I} = p\) e \(\abs{J} = p+1\) tali che per nessun elemento \(e \in J \setminus I\) accade che \(I \cup \crl{e} \in I\).
 
