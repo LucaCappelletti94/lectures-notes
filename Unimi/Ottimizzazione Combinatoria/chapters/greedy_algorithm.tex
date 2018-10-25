@@ -1,0 +1,36 @@
+ \providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Matroidi e Algoritmo Greedy}
+\section{Sistema di Indipendenza}
+\begin{definition}[Sistema di Indipendenza (SI)]
+  Sia \(E = \crl{e_1, \ldots, e_n}\) e \(\bm{I} \subseteq 2^E\) tale che per tutti \(I, J \subseteq E\) valga la proprietà:
+  \[
+    J \subset I \in \bm{I} \rightarrow J \in \bm{I}
+  \]
+  Allora la coppia \(\rnd{E, \bm{I}}\) è detta \textbf{Sistema di Indipendenza} ed i membri di \(\bm{I}\) vengono detti \textbf{insiemi indipendenti}.
+\end{definition}
+\section{GREEDSUM}
+TODO: scrivere GREEDSUM.
+\section{I teoremi di Rado}
+I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un matroide'.
+\begin{theorem}[Primo teorema di Rado]
+  Sia \(\rnd{E, \bm{I}}\) un Sistema di Indipendenza (SI). Se per due qualunque indipendenti \(I\) e \(J\) tali che \(\abs{I} = \abs{J} + 1\) vale la proprietà:
+  \[
+    \exists e \in I: J \cup \crl{e} \in I
+  \]
+  allora \textbf{GREEDSUM} fornisce un membro di \(\bm{I}\) di valore massimo per qualunque funzione di valutazione non-negativa: \(e: E \rightarrow \R^+\).
+  \label{primo_rado}
+\end{theorem}
+\begin{proof}[Primo teorema di Rado]
+\end{proof}
+\begin{theorem}[Secondo teorema di Rado]
+  Sia \(\rnd{E, \bm{I}}\) un Sistema di Indipendenza (SI). Se per qualunque funzione di valutazione non negativa \(c: E \rightarrow \R^+\) degli elementi di \(E\), \textbf{GREEDSUM} fornisce sempre un membro di \(\bm{I}\) di valore massimo, allora il SI gode della proprietà del primo teorema di Rado \ref{primo_rado}.
+\end{theorem}
+\begin{proof}[Secondo teorema di Rado]
+\end{proof}
+\begin{definition}[Matroide]
+  Un SI che gode della proprietà del primo teorema di Rado \ref{primo_rado} si dice \textbf{matroide}.
+\end{definition}
+\end{document}
