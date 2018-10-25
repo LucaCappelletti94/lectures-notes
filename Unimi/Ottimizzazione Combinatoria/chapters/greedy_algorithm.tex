@@ -12,9 +12,16 @@
   Allora la coppia \(\rnd{E, \bm{I}}\) è detta \textbf{Sistema di Indipendenza} ed i membri di \(\bm{I}\) vengono detti \textbf{insiemi indipendenti}.
 \end{definition}
 \section{GREEDSUM}
-TODO: scrivere GREEDSUM.
+L'algoritmo riceve un insieme di elementi \(E\) ed una funzione di costo \(c\) ed inizia con l'insieme soluzione \(I = \emptyset \).
+
+Successivamente itera \(\abs{E}\) volte, sceglindo ogni volta l'elemento di \(E\) che massimizza la funzione \(c\).
+
+Questo elemento \(e^* = \max_e c(E)\) viene quindi rimosso dal set degli oggetti: \(E = E - \crl{e^*}\).
+
+Se l'insieme \(I \cup \crl{e^*}\) risulta essere indipendente, allora il nuovo elemento viene aggiunto all'insieme di soluzione: \(I = I \cup \crl{e^*}\).
+
 \section{I teoremi di Rado}
-I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un matroide'.
+I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un matroide''.
 \begin{theorem}[Primo teorema di Rado]
   Sia \(\rnd{E, \bm{I}}\) un Sistema di Indipendenza (SI). Se per due qualunque indipendenti \(I\) e \(J\) tali che \(\abs{I} = \abs{J} + 1\) vale la proprietà:
   \[
@@ -24,6 +31,9 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
   \label{primo_rado}
 \end{theorem}
 \begin{proof}[Primo teorema di Rado]
+  La proprietà del teorema implica che se \(A \subseteq E\) e \(I, I' \subseteq A\) sono insiemi indipendenti massimali, allora \(\abs{I} = \abs{I'}\).
+
+  Infatti se \textbf{per assurdo}
 \end{proof}
 \begin{theorem}[Secondo teorema di Rado]
   Sia \(\rnd{E, \bm{I}}\) un Sistema di Indipendenza (SI). Se per qualunque funzione di valutazione non negativa \(c: E \rightarrow \R^+\) degli elementi di \(E\), \textbf{GREEDSUM} fornisce sempre un membro di \(\bm{I}\) di valore massimo, allora il SI gode della proprietà del primo teorema di Rado \ref{primo_rado}.
