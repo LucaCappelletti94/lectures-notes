@@ -3,6 +3,65 @@
 \begin{document}
 \chapter{Algoritmo di Ford-Fulkerson}
 \section{Utilità}
-\section{Complessità}
+Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo} un un grafo. Spesso è chiamato \textit{metodo} invece di \textit{algoritmo} perché l'approccio per trovare i cammini aumentanti nel grafo residuo non è completamente specificato. Spesso viene implementato completamente nell'algoritmo di \textbf{Edmonds-Karp}, in cui si procede a scegliere ad ogni iterazione il \textbf{cammino aumentante più corto}.
 
+\begin{definition}[Cammino aumentante]
+  Un cammino \(P\) da \(s\) a \(t\) tale che ogni arco \(\rnd{i,j} \in P\) orientato verso \(t\) (in avanti o forward) ha capacità \(x_{ij}<u_{ij}\) ed ogni arco orientato verso \(s\) (all'indietro o reverse) ha capacità \(x_{ji} > 0\) si dice \textbf{cammino aumentante}.
+\end{definition}
+
+\begin{definition}[Cammino incrementante]
+  Un cammino \(P\) da \(s\) a \(v\) tale che \(v \neq t\) e per ogni arco \(\rnd{i,j} \in P\) forward ha capacità \(x_{ij} < u_{ij}\) e per ogni arco \(\rnd{i,j} \in P\) reverse ha capacità \(x_{ji}>0\) si dice \textbf{cammino incrementante}.
+\end{definition}
+
+\section{Algoritmo di Edmonds-Karp}
+\begin{lemma}[Primo lemma di Edmonds-Karp]\label{first_lemma_karp}
+  \[
+    \forall v \in \N, \quad d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v} \quad \land \quad d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}
+  \]
+\end{lemma}
+\begin{proof}[Primo lemma di Edmonds-Karp]
+  Iniziamo dividendo il lemma in due parti:
+  \[
+    \forall v \in \N, \quad \underbrace{d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}}_{\text{Prima parte}} \quad \land \quad \underbrace{d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}}_{\text{Seconda parte}}
+  \]
+  Procediamo ora a dimostrare la prima parte del lemma.
+
+  Supponiamo che esista un nodo \(v\) tale che \(d_{x'}\rnd{s, v} < d_x\rnd{s, v}\) e scegliamo \(v\) in modo che \(d_{x'}\rnd{s, v}\) sia la distanza più piccola il possibile.
+
+  Essendo \(v \neq s\), \(d_{x'}\rnd{s, v} > 0\).
+
+  Sia \(P'\) un cammino \(\rnd{s, v}\) in \(G_{x'}\) e \(w\) il penultimo nodo di \(P'\). Si ha che:
+  \[
+    d_{x}\rnd{s, v} > d_{x'}\rnd{s, v} = d_{x'}\rnd{s, w} + 1 \geq d_{x}\rnd{s, w} + 1
+  \]
+  Se \(d_{x}\rnd{s, v} > d_{x}\rnd{s, w} + 1\), allora l'arco \(\rnd{w, v}\) non appartiene a \(G_x\), perché altrimenti \(d_x\rnd{s, v} = d_x\rnd{s, w}+1\).
+
+  Se l'arco \(\rnd{w, v}\), che appartiene a \(G_{x'}\) non appartiene a \(G_x\) allora esiste un indice \(i: w = v_ i e v = v_{i-1}\), pertanto:
+  \[
+    d_{x}\rnd{s, v} = i -1 > d_{x}\rnd{s, w} + 1 = i+1
+  \]
+  e si ha una \textbf{contraddizione}.
+
+  Analogamente si procede a dimostrare la seconda parte del lemma.
+\end{proof}
+\begin{lemma}[Secondo lemma di Edmonds-Karp]\label{second_lemma_karp}
+  Durante l'esecuzione dell'algoritmo di Edmonds e Karp, un arco \(\rnd{i,j}\) scompare (e compare) in \(G_{x}\) al più \(\frac{n}{2}\) volte.
+\end{lemma}
+\begin{proof}[Secondo lemma di Edmonds-Karp]
+  Se un arco \(\rnd{i, j}\) ``scompare'' dalla rete ausiliaria, significa che esso è su un cammino aumentate e che il corrispondente arco in \(G\) si satura oppure si svuota. Pertanto, nella rete ausiliaria successiva compare l'arco \(\rnd{j, i}\). Sia \(x_f\) il flusso al momento della ``scomparsa dell'arco''.
+
+  Supponiamo che ad una successiva iterazione l'arco \(\rnd{i, j}\) ricompaia in \(G_{x_h}\). Ciò significa che il cammino aumentante che ha generato \(x_h\) contiene l'arco \(\rnd{j, i}\).
+
+  Allora se \(x_g\) è il flusso a partire dal quale si è generato \(x_h\), si ha per il primo lemma \ref{first_lemma_karp} che:
+  \[
+    d_g\rnd{s, i} = d_g\rnd{s, j} + 1 \geq d_f\rnd{s, j} + 1 = d_f\rnd{s, i} + 2
+  \]
+  Pertanto, nel passare del flusso \(x_f\) al flusso \(x_h\), \(d\rnd{s, u}\) è aumentata almeno di \(2\). Poiché il massimo valore che può assumere \(d\rnd{s, u}\) è \(n\), un arco può scomparire e riapparire al più \(\frac{n}{2}\) volte.
+\end{proof}
+\begin{lemma}[Terzo lemma di Edmonds-Karp]
+  L'algoritmo di Edmonds-Karp ha complessità \(O\rnd{nm^2}\).
+\end{lemma}
+\begin{proof}[Terzo lemma di Edmonds-Karp]
+  Ogni arco può scomparire al più \(\frac{n}{2}\) volte durante l'esecuzione dell'algoritmo per il secondo lemma \ref{second_lemma_karp}. Ogni volta che effettuiamo un aumento di flusso, scompare almeno un arco. Pertanto, almeno un arco. Pertanto, durante l'esecuzione, si hanno al più \(\frac{mn}{2}\) ``sparizioni''. Ogni operazione di aumento richiede \(O\rnd{m}\) e, quindi, la complessità dell'algoritmo è \(O\rnd{nm^2}\).
+\end{proof}
 \end{document}
