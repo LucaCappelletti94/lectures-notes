@@ -303,7 +303,21 @@
 \end{proof}
 
 \begin{proof}[Teorema di König (Rizzi, 1999)]
-	\textbf{TODO}
+	Chiamiamo \(\abs{G}_M\) la cardinalità massima di un matching di \(G\) e \(\abs{G}_C\) la cardinalità minima di una cover di \(G\). Vale che \(\abs{G}_M \leq \abs{G}_C\).
+
+	Sia \(\Gr \) un contro esempio minimo: il più piccolo grafo \textbf{connesso} che non sia un \textbf{circuito} ne un \textbf{cammino}.
+
+	Ne segue che \(G\) ha un nodo \(u\) di grado almeno \(3\).
+
+	Sia \(v\) uno dei nodi vicini di \(u\): se \(\abs{G\setminus v}_M < \abs{G}_M\), allora per minimalità \(G \setminus v\) ha una cover \(W'\) tale che \(\abs{W'} < \abs{G}_M\).
+
+	Ne segue che \(W' \cup \crl{v}\) è una cover di \(G\) con cardinalità al più \(\abs{G}_M\).
+
+	Possiamo assumere di conseguenza che deve esistere un matching massimo \(M\) di \(G\) privo di lati incidenti a \(v\).
+
+	Sia \(f\) un lato di \(G\setminus M\) incidente a \(u\) ma non a \(v\). Sia \(W'\) una cover di \(G\setminus f\) con \(\abs{W'} = \abs{G}_M\). Siccome nessun lato di \(M\) è incidente a \(v\), ne segue che \(W'\) non contiene \(v\).
+
+	Di conseguenza, \(W'\) contiene \(u\) ed è una cover di \(G\).
 \end{proof}
 
 \section{Teorema di Hall o dei matrimoni}
