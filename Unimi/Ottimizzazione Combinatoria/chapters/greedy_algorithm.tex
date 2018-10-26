@@ -19,7 +19,10 @@ Successivamente itera \(\abs{E}\) volte, scegliendo ogni volta l'elemento di \(E
 Questo elemento \(e^* = \max_e c(E)\) viene quindi rimosso dal set degli oggetti: \(E = E - \crl{e^*}\).
 
 Se l'insieme \(I \cup \crl{e^*}\) risulta essere indipendente, allora il nuovo elemento viene aggiunto all'insieme di soluzione: \(I = I \cup \crl{e^*}\).
-
+\begin{definition}[Matroide]
+  Un SI che gode della proprietà del primo teorema di Rado \ref{primo_rado} si dice \textbf{matroide}.
+\end{definition}
+\clearpage
 \section{I teoremi di Rado}
 I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un matroide''.
 \begin{theorem}[Primo teorema di Rado]
@@ -73,7 +76,4 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
 
   Ma allora abbiamo trovato una funzione di valutazione per cui l'algoritmo non fornisce l'ottimo, contrariamente a quanto assunto.
 \end{proof}
-\begin{definition}[Matroide]
-  Un SI che gode della proprietà del primo teorema di Rado \ref{primo_rado} si dice \textbf{matroide}.
-\end{definition}
 \end{document}
