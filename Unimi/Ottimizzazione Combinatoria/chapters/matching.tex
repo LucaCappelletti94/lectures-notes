@@ -12,7 +12,7 @@
 	\begin{definition}[Matching massimo]
 		Matching \(M^*\) di cardinalità massima.
 	\end{definition}
-	\begin{definition}[Matching ripartito]
+	\begin{definition}[Matching bipartito]
 		Se il grafo \(G\) è \textbf{bipartito}, allora anche \(M\) si dice \textbf{bipartito}.
 	\end{definition}
 	\begin{definition}[Matching perfetto]
@@ -58,6 +58,7 @@
 		\a(G)  & \leq \rho(G) \\
 		\mu(G) & \leq \tau(G)
 	\end{align*}
+	L'\textbf{insieme stabile minimo di un grafo} è sempre di cardinalità minore dell'\textbf{edge cover minimo}. Inoltre, l'\textbf{insieme stabile massimo} è sempre minore o uguale dell'\textbf{insieme trasversale minimo}.
 \end{theorem}
 \begin{proof}[Disuguaglianze duali deboli]
 	Siano \(X\) l'\textbf{insieme stabile} di \(G\) e \(Y\) l'\textbf{edge cover} di \(G\).
@@ -323,7 +324,7 @@
 
 	Di conseguenza, \(W'\) contiene \(u\) ed è una cover di \(G\).
 \end{proof}
-
+\clearpage
 \section{Teorema di Hall o dei matrimoni}
 \begin{theorem}[Teorema di Hall]
 	Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subset V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora il grafo \(G\) ammette un \textbf{matching massimo} se e solo se:
@@ -370,13 +371,42 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 
 	Tali insiemi possono essere costruiti iniziando da \(A=\emptyset, B=\crl{r}\) e seguendo la regola seguente:
 	\[
-		vw \in E, v \in B, w \not\in A \cup B, wz \in M \Rightarrow A' = A \cup \crl{w}, B' = B \cup \crl{z}
+		\rnd{v,w} \in E, v \in B, w \not\in A \cup B, \rnd{w,z} \in M \Rightarrow A' = A \cup \crl{w}, B' = B \cup \crl{z}
 	\]
+
 	L'albero così costruito possiede due proprietà:
 	\begin{enumerate}
 		\item Ogni nodo dell'albero oltre alla radice è coperto da un lato di \(M \cap E(T)\).
 		\item Per ogni nodo \(v\) dell'albero, il cammino nell'albero da \(v\) alla radice è alternante nel matching \(M\) associato all'albero.
 	\end{enumerate}
+
+	Tali insiemi sono importanti poiché se identifichiamo un lato \(\rnd{v, w}\) tale che \(v \in B\) e \(w \not\in A \cup B\) ed esposto, allora esiste un cammino \(M\)-alternante da \(r\) a \(v\) che assieme a \(\rnd{v, w}\) va a formare un cammino \(M\)-aumentante.
+\end{definition}
+\begin{definition}[Estendere un albero alternante]
+	\textbf{Input:} Un matching \(M'\) di un grafo \(G'\), un albero \(M'\)-alternante \(T\) di \(G'\), un lato \(\rnd{v, w}\) di \(G'\) tale che \(v \in B\rnd{T}\), \(v \not\in V(T)\) e \(w\) sia \(M'\)-coperto.
+
+	\textbf{Azione:} Sia \(\rnd{w, z}\) un lato nel matching \(M'\) che comprende \(w\), con \(z\) il nodo da aggiungere all'albero. L'albero viene aggiornato come:
+	\[
+		E\rnd{T} = E\rnd{T} \cup \crl{\rnd{v, w}, \rnd{w, z}}
+	\]
+\end{definition}
+\begin{definition}[Aumentare un Matching]
+	\textbf{Input:} Un matching \(M'\) di un grafo \(G'\), un albero \(M'\)-alternante \(T\) di \(G'\) con radice \(r\), un lato \(\rnd{v, w}\) di \(G'\) tale che \(v \in B\rnd{T}\), \(v \not\in V(T)\) e \(w\) sia \(M'\)-coperto.
+
+	\textbf{Azione:} Sia \(P\) un cammino ottenuto appendendo \(\rnd{v, w}\) al cammino da \(r\) a \(v\) in \(T\). Il matching viene aggiornato come:
+	\[
+		M' = \crl{M'\cup E\rnd{P}}\setminus\crl{M' \cap E\rnd{P}}
+	\]
+\end{definition}
+\begin{definition}[Ridurre e aggiornare un matching ed albero alternante]
+	\textbf{Input:} Un matching \(M'\) del grafo \(G'\), un albero \(M'\)-alternante \(T\), ed un lato \(\rnd{v, w}\) di \(G'\) tale che \(v, w \in B\rnd{T}\).
+
+	\textbf{Azione:} Sia \(C\) il circuito formato da \(\rnd{v, w}\) insieme con il cammino in \(T\) da \(v\) a \(w\). Aggiorniamo albero e matching come segue:
+	\begin{align*}
+		G'       & = G' X C \textbf{TODO: SCOPRI COSA È LA X!!!} \\
+		M'       & = M\setminus E\rnd{C}                         \\
+		E\rnd{T} & = E\rnd{T} \setminus E\rnd{C}
+	\end{align*}
 \end{definition}
 \begin{definition}[Albero alternante frustrato]
 	Un albero alternante in un grafo \(\Gr \) si dice frustrato se ogni lato di \(G\) avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\).
