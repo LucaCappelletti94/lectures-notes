@@ -9,6 +9,9 @@
 	top=20mm,
 }
 
+\ifdef{\main}{}{
+	\providecommand{\main}{/Users/lucacappelletti/github/various-notes/Polimi/Meccanica}
+}
 \input{\main/../../general/silence.tex}
 
 \usepackage{amsmath,amsthm,amsfonts,amssymb}
@@ -28,8 +31,6 @@
 	\directlua{pdf.setminorversion(5)}
 	\usepackage{shellesc}
 	\usepackage{polyglossia}
-	\setotherlanguage{english}
-	\setdefaultlanguage{italian}
 	\usepackage{fontspec}
 	\usepackage{luacode} % Used to script stuff
 \else
