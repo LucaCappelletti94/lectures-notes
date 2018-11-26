@@ -1,5 +1,4 @@
 function multiLanguage(language, theorem, corollary, lemma, definition, proposition, observation, complexity, property, problem, proof)
-  tex.print("\\renewcommand{\\contentsname}{"..index.."}")
   tex.print("\\setdefaultlanguage{"..language.."}")
   tex.print("\\newtheorem{theorem}{"..theorem.."}[section]")
   tex.print("\\newtheorem{corollary}{"..corollary.."}[theorem]")
