@@ -15,18 +15,19 @@ Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo}
 
 \section{Algoritmo di Edmonds-Karp}
 \begin{lemma}[Primo lemma di Edmonds-Karp]\label{first_lemma_karp}
+  Sia \(d_x(v,w)\) la lunghezza del cammino da \(v\) a \(w\) avente il minor numero di archi e siano \(x\) e \(x'\) il flusso alla iterazione \(i\) ed \(i+1\).
   \[
-    \forall v \in \N, \quad d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v} \quad \land \quad d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}
+    \forall v \in \N, \quad d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v} \quad \land \quad d_{x'}\rnd{v, t} \geq d_{x}\rnd{v, t}
   \]
+
+  La lunghezza dei cammini passanti dalla sorgente ad ogni nodo e dal ogni nodo alla destinazione da una iterazione alla successiva, aumenta o rimane uguale.
 \end{lemma}
 \begin{proof}[Primo lemma di Edmonds-Karp]
   Iniziamo dividendo il lemma in due parti:
   \[
-    \forall v \in \N, \quad \underbrace{d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}}_{\text{Prima parte}} \quad \land \quad \underbrace{d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}}_{\text{Seconda parte}}
+    \forall v \in \N, \quad \underbrace{d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}}_{\text{Prima parte}} \quad \land \quad \underbrace{d_{x'}\rnd{v, t} \geq d_{x}\rnd{v, t}}_{\text{Seconda parte}}
   \]
-  Procediamo ora a dimostrare la prima parte del lemma.
-
-  Supponiamo che esista un nodo \(v\) tale che \(d_{x'}\rnd{s, v} < d_x\rnd{s, v}\) e scegliamo \(v\) in modo che \(d_{x'}\rnd{s, v}\) sia la distanza più piccola il possibile.
+  \paragraph*{Procediamo ora a dimostrare la prima parte del lemma:} supponiamo che esista un nodo \(v\) tale che \(d_{x'}\rnd{s, v} < d_x\rnd{s, v}\) e scegliamo \(v\) in modo che \(d_{x'}\rnd{s, v}\) sia la distanza più piccola il possibile.
 
   Essendo \(v \neq s\), \(d_{x'}\rnd{s, v} > 0\).
 

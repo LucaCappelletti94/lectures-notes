@@ -30,21 +30,29 @@
 
 \section{Insieme stabile}
 \begin{definition}[Insieme stabile o indipendente]
-	Dato un grafo simmetrico \(G=\rnd{V, E}\), un qualunque sottoinsieme \(S\) di vertici si dice \textbf{indipendente} o \textbf{stabile} se esso è costituito da elementi a due a due non adiacenti.
+	Dato un grafo simmetrico \(G=\rnd{V, E}\), un qualunque sottoinsieme \(S\) di vertici si dice \textbf{indipendente} o \textbf{stabile} se esso è costituito da elementi \textit{a due a due non adiacenti}.
+
+	Si tratta dell'insieme dei vertici a cui sono connessi i lati di un matching.
 \end{definition}
 \begin{definition}[Insieme stabile massimo]
 	Un insieme stabile \(S^*\) si dice \textbf{massimo} se \(\abs{S^*} \geq \abs{S}\), per ogni insieme stabile \(S\) di G.
+
+	Si tratta dell'insieme dei vertici a cui sono connessi i lati di un matching massimo.
 \end{definition}
 \begin{definition}[Insieme stabile massimale]
 	Un insieme stabile \(S\) si dice \textbf{massimale} se ogni elemento di \(V\setminus S\) è adiacente ad almeno un elemento di \(S\).
+
+	Si tratta dell'insieme dei vertici a cui sono connessi i lati di un matching massimale.
 \end{definition}
 
 \section{Copertura}
 \begin{definition}[Copertura]
-	Dato un grafo simmetrico \(G = \rnd{V, E}\), un qualunque sottoinsieme \(T\) di vertici (\(F\) di archi) tale che ogni arco di \(E\) (vertice di \(V\)) incide su almeno un elemento di \(T\) (di \(F\)) si dice \textbf{copertura}. In particolare, l'insieme \(T\) è detto \textbf{trasversale} o \textbf{vertex cover} mentre l'insieme \(F\) è detto \textbf{edge cover}.
+	Dato un grafo simmetrico \(G = \rnd{V, E}\), un qualunque sottoinsieme \(T\) di vertici \textit{(\(F\) di archi)} tale che ogni arco di \(E\) \textit{(vertice di \(V\))} incide su almeno un elemento di \(T\) \textit{(di \(F\))} si dice \textbf{copertura}. In particolare, l'insieme \(T\) è detto \textbf{insieme trasversale} o \textbf{vertex cover} mentre l'insieme \(F\) è detto \textbf{edge cover}.
 \end{definition}
 \begin{definition}[Copertura minima]
-	Una copertura \(X^*\) si dice \textbf{minima} se \(\abs{X^*} \leq \abs{X}\), per ogni insieme copertura \(X\) di \(G\).
+	Una copertura \(X^*\) si dice \textbf{minima} se:
+	\[abs{X^*} \leq \abs{X} \quad \forall X \in G\]
+	Dove \(X\) sono gli insiemi di copertura del grafo \(G\).
 \end{definition}
 \begin{definition}[Copertura minimale]
 	Una copertura \(X\) si dice \textbf{minimale} se \(X \setminus \crl{x}\) non è una copertura per ogni \(x \in X\).
@@ -52,7 +60,14 @@
 
 \section{Disuguaglianze duali deboli}
 \begin{theorem}[Disuguaglianze duali deboli]
-	Indichiamo con \(\a(G)\) l'\textbf{insieme stabile massimo} di \(G\), con \(\mu(G)\) il \textbf{matching massimo} di \(G\), con \(\rho(G)\) l'\textbf{edge cover minimo} di \(G\) e \(\tau(G)\) \textbf{trasversale minimo} di \(G\).
+	Definiamo per un grafo \(G\):
+	\begin{description}
+		\item[\(\a(G)\)] Insieme stabile massimo del grafo \(G\).
+		\item[\(\mu(G)\)] Matching massimo del grafo \(G\).
+		\item[\(\rho(G)\)] Edge cover minimo di \(G\).
+		\item[\(\tau(G)\)] Insieme trasversale minimo di \(G\).
+	\end{description}
+
 	Per un grafo \(G\) valgono le seguenti due disuguaglianze:
 	\begin{align*}
 		\a(G)  & \leq \rho(G) \\
@@ -63,11 +78,11 @@
 \begin{proof}[Disuguaglianze duali deboli]
 	Siano \(X\) l'\textbf{insieme stabile} di \(G\) e \(Y\) l'\textbf{edge cover} di \(G\).
 
-	Poiché \(Y\) copre \(V\), ogni elemento di \(X\) incide su almeno un elemento di \(Y\).
+	Siccome \(Y\) copre \(V\), ogni elemento di \(X\) incide su almeno un elemento di \(Y\).
 
-	D'altra parte, nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X \) altrimenti i due elementi sarebbero adiacenti e quindi non potrebbero appartenere all'insieme stabile \(X\).
+	Nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X \) altrimenti i due elementi sarebbero adiacenti e quindi non potrebbero appartenere all'insieme stabile \(X\).
 
-	Pertanto, per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\).
+	Per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\).
 
 	Riscrivendo la precedente relazione per gli insiemi massimi \(X^*\) e \(Y^*\) si ottiene:
 	\[
@@ -86,37 +101,28 @@
 	\[
 		\mu(G) + \rho(G) = n
 	\]
+	Cioè la somma della cardinalità di \textbf{insieme stabile massimo} e \textbf{insieme trasversale minimo} di un grafo \(G\) sono pari al numero dei suoi nodi.
+
+	Se non esistono nodi isolati, la stessa relazione vale anche per la somma della cardinalità del \textbf{matching massimo} e dell'\textbf{edge cover minimo} di un grafo \(G\).
 \end{theorem}
 \begin{proof}[Teorema di Gallai]
-	\textbf{Iniziamo ottenendo la prima equazione:}
-	Sia \(S\) un insieme stabile di \(G\). Allora \(V\setminus S\) è un insieme trasversale. In particolare, \(\abs{V\setminus S} \geq \tau(G)\).
+	\textbf{Iniziamo ottenendo la prima equazione:} sia \(S\) un insieme stabile di \(G\). Allora \(V\setminus S\) è un insieme trasversale. In particolare, \(\abs{V\setminus S} \geq \tau(G)\).
+
 	Se consideriamo l'insieme stabile massimo \(S^*\), otteniamo:
 	\[
-		\tau(G) \geq \abs{V\setminus S^*} = n - \alpha(G)
+		\tau(G) \geq \abs{V\setminus S^*} = n - \a(G) \quad \Rightarrow \quad \a(G) + \tau(G) \leq n
 	\]
-	da cui ricaviamo:
-	\[
-		\alpha(G) + \tau(G) \leq n
-	\]
-
-	Viceversa, sia \(T\) un insieme trasversale di \(G\). Allora \(V\setminus T\) è un insieme stabile.
-
-	In particolare, \(\abs{V-T} \leq \alpha(G)\).
+	Viceversa, sia \(T\) un insieme trasversale di \(G\). Allora \(V\setminus T\) è un insieme stabile. In particolare, \(\abs{V-T} \leq \a(G)\).
 
 	Se consideriamo l'insieme trasversale minimo \(T^*\), otteniamo:
 	\[
-		\a(G) \geq \abs{V\setminus T^*} = n - \tau(G)
+		\a(G) \geq \abs{V\setminus T^*} = n - \tau(G) \quad \Rightarrow \quad \a(G) + \tau(G) \geq n
 	\]
-	da cui ricaviamo
+	Per le due disequazioni ottenute possiamo affermare che:
 	\[
-		\a(G) + \tau(G) \geq n
+		\a(G) + \tau(G) \leq n \quad \land \quad \a(G) + \tau(G) \geq n \quad \Rightarrow \quad \a(G) + \tau(G) = n
 	\]
-	Considerando la condizione ottenuta precedentemente possiamo concludere che:
-	\[
-		\a(G) + \tau(G) = n
-	\]
-	\textbf{Procediamo a dimostrare la seconda equazione}
-	Sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il matching massimo di \(G\). Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
+	\textbf{Procediamo a dimostrare la seconda equazione:} sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il matching massimo di \(G\). Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
 
 	Sia \(H\) un insieme minimale di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\).
 
@@ -124,15 +130,9 @@
 	\[
 		\abs{H} = \abs{V\setminus V_{M^*}} = n - 2\abs{M^*}
 	\]
-	Osserviamo che l'insieme \(C=H\cup M^*\) è un edge-cover di \(G\).
-
-	Sicuramente, \(\abs{C} \geq \rho(G)\), quindi:
+	Osserviamo che l'insieme \(C=H\cup M^*\) è un edge-cover di \(G\). Sicuramente, \(\abs{C} \geq \rho(G)\), quindi:
 	\[
-		\rho(G) \leq \abs{C} = \abs{M^*} + \abs{H} = \abs{M^*} + n - 2\abs{M^*} = n - \abs{M^*} = n - \mu(G)
-	\]
-	da cui ricaviamo:
-	\[
-		\rho(G) + \mu(G) \leq n
+		\rho(G) \leq \abs{C} = \abs{M^*} + \abs{H} = \abs{M^*} + n - 2\abs{M^*} = n - \abs{M^*} = n - \mu(G) \quad \Rightarrow \quad \rho(G) + \mu(G) \leq n
 	\]
 	Sia \(C\) il minimo edge-cover su \(G\), cioè tale che \(\abs{C} = \rho(G)\) e sia \(H = (V, C)\) il sottografo indotto da C. Valgono quindi le seguenti proprietà:
 
@@ -178,7 +178,7 @@
 	\end{definition}
 \end{multicols}
 
-\begin{theorem}
+\begin{theorem}[Estensione di un Matching]
 	Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). La differenza simmetrica:
 	\[
 		M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}
@@ -186,7 +186,7 @@
 	È un matching di cardinalità \(\abs{M} + 1\).
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Estensione di un Matching]
 	Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). L'insieme \(M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}\) gode delle seguenti proprietà:
 	\begin{enumerate}
 		\item \(M'\) è un matching:
@@ -389,6 +389,10 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 	\[
 		E\rnd{T} = E\rnd{T} \cup \crl{\rnd{v, w}, \rnd{w, z}}
 	\]
+	\begin{figure}
+		\includegraphics[width=0.5\textwidth]{extending}
+		\caption{Extending}
+	\end{figure}
 \end{definition}
 \begin{definition}[Aumentare un Matching]
 	\textbf{Input:} Un matching \(M'\) di un grafo \(G'\), un albero \(M'\)-alternante \(T\) di \(G'\) con radice \(r\), un lato \(\rnd{v, w}\) di \(G'\) tale che \(v \in B\rnd{T}\), \(v \not\in V(T)\) e \(w\) sia \(M'\)-coperto.
@@ -403,10 +407,14 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 
 	\textbf{Azione:} Sia \(C\) il circuito formato da \(\rnd{v, w}\) insieme con il cammino in \(T\) da \(v\) a \(w\). Aggiorniamo albero e matching come segue:
 	\begin{align*}
-		G'       & = G' X C \textbf{TODO: SCOPRI COSA È LA X!!!} \\
-		M'       & = M\setminus E\rnd{C}                         \\
+		G'       & = G' \times C                 \\
+		M'       & = M\setminus E\rnd{C}         \\
 		E\rnd{T} & = E\rnd{T} \setminus E\rnd{C}
 	\end{align*}
+	\begin{figure}
+		\includegraphics[width=0.5\textwidth]{schrinking}
+		\caption{Shrinking}
+	\end{figure}
 \end{definition}
 \begin{definition}[Albero alternante frustrato]
 	Un albero alternante in un grafo \(\Gr \) si dice frustrato se ogni lato di \(G\) avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\).
@@ -442,7 +450,7 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 	\]
 	Ne Segue che \(G\) non possiede un matching perfetto.
 \end{proof}
-
+\clearpage
 \section{Algoritmo Blossom}
 L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se riesce ad identificare un matching perfetto in un grafo derivato allora è noto che esiste un matching perfetto in \(G\) e se riusciamo ad identificare un certo tipo di AAF all'interno di un grafo derivato possiamo concludere che \(G\) non possiede un matching perfetto. I grafi derivati \(G'\) vengono ottenuti identificando circuiti dispari all'interno dell'albero alternante \(T\) ottenuto da \(G\) e rimuovendoli attraverso un procedimento detto di ``shrinking'' (questo tipo di circuito veniva chiamato blossom, da cui il nome dell'algoritmo.)
 
@@ -450,13 +458,17 @@ L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se rie
 	L'algoritmo Blossom termina dopo \(O(n)\) passi di ``augmentations'', \(O(n^2)\) passi di ``shrinking'' e \(O(n^2)\) passi di estensione dell'albero. Inoltre, determina correttamente se il grafo \(G\) possiede un matching perfetto.
 \end{theorem}
 \begin{proof}[Algoritmo Blossom]
-	L'algoritmo inizia con un matching qualsiasi \(M=M'\) di \(G\), che non cessa di essere tale per tutto il procedimento. Siccome ad ogni passo di ``augmentation'' il numero di nodi esposti decresce, vi saranno \(O(n)\) passi di ``augmentation''. Tra questi, ogni passo di ``shrinking'' riduce il numero dei nodi in \(G'\) senza tuttavia cambiare il numero dei nodi in \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
+	L'algoritmo inizia con un \textbf{matching} qualsiasi \(M=M'\) di \(G\), che non cessa di essere tale per tutto il procedimento.
 
-	Ne segue che il numero di passi di ``shrinking'' ed estensione dell'albero tra passi di ``augmentation'' è \(O(n)\) e quindi in totale sono \(O(n^2)\).
+	Siccome ad ogni passo di ``\textbf{augmentation}'' il numero di nodi esposti decresce, vi saranno \(O(n)\) passi di ``\textbf{augmentation}''.
 
-	Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) non possiede un matching perfetto.
+	Tra questi, ogni passo di ``\textbf{shrinking}'' riduce il numero dei nodi in \(G'\) senza tuttavia cambiare il numero dei nodi in \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
+
+	Ne segue che il numero di passi di ``\textbf{shrinking}'' ed estensione dell'albero tra passi di ``\textbf{augmentation}'' è \(O(n)\) e quindi in totale sono \(O(n^2)\).
+
+	Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) \textbf{non possiede un matching perfetto}.
 \end{proof}
-
+\clearpage
 \section{Il postino cinese (Chinese postman problem, CPP)}
 Sia \(\Gr \) un grafo connesso e sia \(w: E \rightarrow \R^+_0\) una lunghezza definita su \(G\). Vogliamo trovare un percorso chiuso \(C\) di lunghezza minima \(w(C)\) che contiene ogni lato di \(G\) almeno una volta.
 \begin{definition}[Grafo e cammino euleriano]
