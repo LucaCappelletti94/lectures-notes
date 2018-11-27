@@ -63,7 +63,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
   \]
   Quindi \(u \in A\) e \(v \not\in A\), pertanto \(A \neq \emptyset \) e \(A \subset V\).
 
-  Per dimostrare che \(\delta(A) = \emptyset \) procediamo per assurdo: supponiamo che \(p \in A\), \(q \not\in A\) e che \(e = pq \in E\). Aggiungendo \(e\) a qualsiasi cammino da \(u\) a \(p\) si ottiene un cammino da \(u\) a \(q\), contraddicendo il fatto che \(q \not\in A\).
+  Per dimostrare che \(\delta(A) = \emptyset \) procediamo per assurdo: supponiamo che \(p \in A\), \(q \not\in A\) e che \(e = \rnd{p,q} \in E\). Aggiungendo \(e\) a qualsiasi cammino da \(u\) a \(p\) si ottiene un cammino da \(u\) a \(q\), contraddicendo il fatto che \(q \not\in A\).
 \end{proof}
 \begin{definition}[Sottografo estensibile a MST]
   Un sottoinsieme di lati di \(\Gr \) \(A \subseteq E\) è estensibile a un MST se \(A\) è contenuto in un insieme di lati di qualche MST di \(G\).
@@ -72,7 +72,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
   Dato un grafo \(\Gr \), sia \(B \subseteq E\) un sottoinsieme estendibile a MST e \(e\) sia un lato a costo minimo di qualche taglio \(D\) tale che \(D \cap B = \emptyset \). Allora \(B \cup \crl{e}\) è estendibile ad un MST.
 \end{theorem}
 \begin{lemma}[Alberi ricoprenti]
-  Sia \(H = \rnd{V, T}\) un albero ricoprente di \(G\), \(e = vw\) un lato di \(G\) ma non di \(H\) e sia \(f\) un lato di un cammino semplice in \(T\) da \(v\) a \(w\). Allora il sottografo:
+  Sia \(H = \rnd{V, T}\) un albero ricoprente di \(G\), \(e = \rnd{v,w}\) un lato di \(G\) ma non di \(H\) e sia \(f\) un lato di un cammino semplice in \(T\) da \(v\) a \(w\). Allora il sottografo:
   \[
     H' = \rnd{V, \rnd{T \cup \crl{e}}\setminus \crl{f}}
   \]
@@ -81,7 +81,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
 \begin{proof}[Estensione a MST]
   Sia \(H = \rnd{V, T}\) un MST tale che \(B \subseteq T\). Se \(e \in T\), allora abbiamo terminato il procedimento.
 
-  Altrimenti, sia \(P\) un cammino semplice appartenente a \(H\) da \(v\) a \(w\), dove \(vw = e\). Siccome non esiste nessun cammino in \(G\setminus D\) da \(v\) a \(w\), esiste un lato \(f \in P\) tale che \(f \in D\).
+  Altrimenti, sia \(P\) un cammino semplice appartenente a \(H\) da \(v\) a \(w\), dove \(e = \rnd{v, w}\). Siccome non esiste nessun cammino in \(G\setminus D\) da \(v\) a \(w\), esiste un lato \(f \in P\) tale che \(f \in D\).
 
   Quindi \(c_f \geq c_e\), e per il lemma sugli alberi ricoprenti anche \(\rnd{V, \rnd{T \cup \crl{e}} \setminus \crl{f}}\) è un MST.
 
@@ -90,7 +90,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
 \clearpage
 \section{MST e programmazione lineare}
 \begin{theorem}[Legame tra MST e PL]
-  Sia \(x^o\) il vettore caratteristico di un MST in rispetto ai costi \(\bmc \). ALlora \(x^o\) è una soluzione ottima del problema di programmazione lineare:
+  Sia \(\bmxo\) il vettore caratteristico di un MST in rispetto ai costi \(\bmc \). ALlora \(\bmxo\) è una soluzione ottima del problema di programmazione lineare:
   \begin{align*}
     \min \bmct\bmx                                                                 \\
     x\rnd{\gamma(S)} \leq \abs{S} -1 & \quad \forall S \neq \emptyset, S \subset V \\
@@ -110,9 +110,9 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
   \[
     x(A) \leq \sum_{i=1}^k x\rnd{\gamma\rnd{S_i}} \leq \sum_{i=1}^k \rnd{\abs{S_i}-1} = \abs{V} - k
   \]
-  Procediamo ora a mostrare che \(x^o\) è la soluzione ottima del problema semplificato proposto e che è sufficiente perché ciò sia vero che essa è il vettore caratteristico di un albero ricoprente \(T\) generato dall'algoritmo di Kruskal.
+  Procediamo ora a mostrare che \(\bmxo\) è la soluzione ottima del problema semplificato proposto e che è sufficiente perché ciò sia vero che essa è il vettore caratteristico di un albero ricoprente \(T\) generato dall'algoritmo di Kruskal.
 
-  Mostriamo che \(x^o\) è ottimale mostrando che l'algoritmo di Kruskal può essere utilizzato per calcolare una soluzione ammissibile al problema PL duale che soddisfa gli scarti complementari con \(x^o\). Riscrivendo la funzione obbiettivo del problema primale come \(\max -\bmct\bmx \), il duale risulta:
+  Mostriamo che \(\bmxo\) è ottimale mostrando che l'algoritmo di Kruskal può essere utilizzato per calcolare una soluzione ammissibile al problema PL duale che soddisfa gli scarti complementari con \(\bmxo\). Riscrivendo la funzione obbiettivo del problema primale come \(\max -\bmct\bmx \), il duale risulta:
   \begin{align*}
     \min \sum_{A \subseteq W} \rnd{\abs{V} - k(A)}\bmy_A           \\
     \sum \rnd{\bmy_a: e \in A} & \geq -c_e, \quad \forall e \in E  \\
@@ -128,10 +128,10 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
   \]
   In altre parole, tutte le disuguaglianze considerate valgono come uguaglianze, pertanto la soluzione \(\bmy^o\) è ammissibile e rispetta le condizioni degli scarti complementari: rimane solo una condizione da verificare, cioè se:
   \[
-    \bmy^o_A > 0 \Rightarrow \bmx^o \text{ soddisfa le condizioni degli scarti complementari.}
+    \bmy^o_A > 0 \Rightarrow \bm\bmxo \text{ soddisfa le condizioni degli scarti complementari.}
   \]
   Per verificare questo, sappiamo che \(\exists i: A = R_i\). Se i vincoli del problema primale non soddisfano le condizioni degli scarti complementari per \(R_i\), allora esiste qualche lato di \(R_i\) la cui aggiunta a \(T\cap R_i\) porterebbe a ridurre il numero di componenti di \(\rnd{V, T \cap R_i}\). Ma un tale lato avrebbe termini in due componenti diverse di \(\rnd{V, R_i \cup T}\), e quindi sarebbe stato aggiunto a \(T\) dall'algoritmo di Kruskal.
 
-  Per cui, \(\bmx^o\) e \(\bmy^o\) soddisfano le condizioni degli scarti complementari. Ne segue che \(\bmx^o\) è la soluzione ottima del problema di PL.
+  Per cui, \(\bm\bmxo\) e \(\bmy^o\) soddisfano le condizioni degli scarti complementari. Ne segue che \(\bm\bmxo\) è la soluzione ottima del problema di PL.
 \end{proof}
 \end{document}

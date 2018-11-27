@@ -147,7 +147,7 @@
 
 	Dalle proprietà precedenti concludiamo che il grafo \(H = (V, C^*)\) ha \(\abs{V} = n\) vertici e \(\abs{C^*} = \rho(G)\) archi. Può infine essere decomposto in \(N\) componenti connesse aventi la forma di stella.
 
-	Consideriamo l'\(i\)-esima componente connessa di \(H\). Indichiamo con \(s_i\) il numero di nodi della componente connessa e con \(s_i-1\) il numero di archi della componente connessa. Pertanto:
+	Consideriamo l'\(i\)-esima componente connessa di \(H\) e ne indichiamo con \(s_i\) il numero di nodi mentre con \(s_i-1\) il numero di archi:
 	\[
 		n = \sum_{i=1}^N s_i \quad \text{e} \quad \rho(G) = \sum_{i=1}^N (s_i -1) = n - N \Rightarrow N = n - \rho(G)
 	\]
@@ -187,7 +187,7 @@
 
 	La \textbf{differenza simmetrica}:
 	\[
-		M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}
+		M' = \rnd{M\setminus P} \cup \rnd{P\setminus M} = M \oplus P = M \Delta P
 	\]
 	È un \textbf{matching} di \textbf{cardinalità} \(\abs{M} + 1\).
 \end{theorem}
@@ -196,11 +196,11 @@
 	Dimostriamo che l'insieme \(M'\) definito tramite \textbf{diiffenza simmetrica} gode delle due proprietà descritte:
 	\begin{description}
 		\item \textbf{\(M'\) è un matching:}
-		      \begin{enumerate}
-			      \item Per i nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
-			      \item Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
-			      \item I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
-		      \end{enumerate}
+		      \begin{description}
+			      \item[\(\forall v \in \rnd{M \setminus P}\)] Per i nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
+			      \item[\(\forall v \in \rnd{P \setminus M}: v\neq v_s \land v \neq v_t\)] Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
+			      \item[\(\forall v \in \rnd{P \setminus M}: v= v_s \lor v = v_t\)] I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
+		      \end{description}
 		\item \textbf{\(M'\) ha un elemento in più di \(M\):}
 		      \begin{enumerate}
 			      \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \abs{M \setminus P}\) ed \(m_2 = \text{numero di archi del matching appartenenti al cammino.}\)
@@ -339,6 +339,7 @@
 	\[
 		\abs{\Gamma(J)} \geq \abs{J} \quad \forall J \subset V_2
 	\]
+	Cioè in un \textbf{grafo bipartito} esiste un \textbf{matching massimo} se e solo se ogni vertice della componente minore ha almeno un vertice incidente distinto della componente maggiore.
 \end{theorem}
 
 \begin{proof}[Teorema di Hall]
@@ -365,9 +366,9 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 
 \subsection{Teorema di Tutte}
 \begin{theorem}[Teorema di Tutte]
-	Un grafo \(\Gr \) contiene un matching perfetto se e solo se per ogni sottoinsieme di nodi \(A\) vale che:
+	Un grafo \(\Gr \) contiene un matching perfetto se e solo vale che:
 	\[
-		\text{odd}\rnd{G\setminus A} \leq \abs{A}
+		\text{odd}\rnd{G\setminus A} \leq \abs{A} \quad \forall A \subseteq V
 	\]
 \end{theorem}
 \clearpage
@@ -444,7 +445,7 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 	Di conseguenza \(T\) è frustrato e quindi per la prima proposizione su AAF (5.6), il grafo \(G\) non possiede un matching perfetto.
 \end{proof}
 \begin{definition}[Pseudonodo]
-	In riferimento ad un grafo \(G'\) ottenuto da \(G\), vengono detti \textbf{pseudonodi} qui nodi che sono parte di \(G'\) ma non di \(G\).
+	In riferimento ad un grafo \(G'\) ottenuto da \(G\), vengono detti \textbf{pseudonodi} quei nodi che sono parte di \(G'\) ma non di \(G\).
 \end{definition}
 \begin{proposition}[Terza proposizione su AAF (5.8)]
 	Sia \(G'\) un grafo derivato da \(G\), sia \(M'\) un matching di \(G'\) e sia \(T\) un albero \(M'\)-alternante frustrato di \(G'\) tale che nessun elemento di \(A(T)\) è uno pseudonodo.
@@ -452,7 +453,7 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 	Se \(T\) è frustrato, allora \(G\) non possiede un matching perfetto.
 \end{proposition}
 \begin{proof}[Terza proposizione su AAF (5.8)]
-	Se eliminiamo \(A(T)\) da \(G\) otteniamo una componente con un insieme di nodi \(S(v)\) per ogni nodo \(v \in B(T)\). Utilizzando quindi la regola di Tutte-Berge si ha che:
+	Se eliminassimo \(A(T)\) da \(G\) andremmo a ottenere una componente con un insieme di nodi \(S(v)\) per ogni nodo \(v \in B(T)\). Utilizzando quindi la formula di Tutte-Berge si ha che:
 	\[
 		\text{odd}\rnd{G \setminus A(T)} > \abs{A(T)}
 	\]

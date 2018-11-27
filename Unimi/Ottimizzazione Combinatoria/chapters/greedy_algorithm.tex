@@ -24,9 +24,9 @@ Se l'insieme \(I \cup \crl{e^*}\) risulta essere indipendente, allora il nuovo e
 \end{definition}
 \clearpage
 \section{I teoremi di Rado}
-I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un matroide''.
+I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``GREEDSUM fornisce l'ottimo se e solo se il SI è un \textbf{matroide}''.
 \begin{theorem}[Primo teorema di Rado]
-  Sia \(\rnd{E, F}\) un Sistema di Indipendenza (SI). Se per due qualunque indipendenti \(I\) e \(J\) tali che \(\abs{I} = \abs{J} + 1\) vale la proprietà:
+  Sia \(\rnd{E, F}\) un Sistema di Indipendenza (SI). Se per due insiemi indipendenti \(I\) e \(J\) qualunquetali che \(\abs{I} = \abs{J} + 1\) vale la proprietà:
   \[
     \exists e \in I: J \cup \crl{e} \in F
   \]
@@ -34,25 +34,26 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
   \label{primo_rado}
 \end{theorem}
 \begin{proof}[Primo teorema di Rado]
-  La proprietà del teorema implica che se \(A \subseteq E\) e \(I, I' \subseteq A\) sono insiemi indipendenti massimali, allora \(\abs{I} = \abs{I'}\).
+  \textbf{Iniziamo dimostrando che gli insiemi sono indipendenti massimali di pari cardinalità:} la proprietà del teorema implica che se \(A \subseteq E\) e \(I, I' \subseteq A\) sono insiemi indipendenti massimali, allora \(\abs{I} = \abs{I'}\).
 
-  Infatti se \textbf{per assurdo} \(\abs{I} < \abs{I'}\), si può trovare \(I'' \subseteq I'\) tale che \(\abs{I''} = \abs{I} + 1\) eliminando da \(I'\) un numero di elementi pari a \(\abs{I'} - \abs{I} - 1\).
+  Infatti se \textbf{per assurdo} \(\abs{I} < \abs{I'}\), si potrebbe trovare un \(I'' \subseteq I'\) tale che \(\abs{I''} = \abs{I} + 1\) eliminando da \(I'\) un numero di elementi pari a \(\abs{I'} - \abs{I} - 1\), ma per la proprietà del teorema esiste \(e \in I'' \setminus I\) tale che \(I \cup \crl{e} \in F\) e \(I\) non sarebbe massimale.
 
-  Per la proprietà del teorema esiste \(e \in I'' \setminus I\) tale che \(I \cup \crl{e} \in F\) e \(I\) non sarebbe massimale.
-
-  Supponiamo adesso ancora per assurdo che \textbf{GREEDSUM} non dia un risultato ottimo, cioè che per una certa funzione di valutazione \(c: E \rightarrow \R^+\) l'algoritmo fornisce un insieme indipendente \(I = \crl{e_1, \ldots, e_i}\) mentre ne esiste un altro \(J = \crl{e'_1, \ldots, e'_j}\) tale che \(c(j) > c(i)\).
+  \textbf{Quindi dimostriamo che GREEDSUM dia il risultato ottimo:} supponiamo adesso ancora per assurdo che \textbf{GREEDSUM} non dia un risultato ottimo, cioè che per una certa funzione di valutazione \(c: E \rightarrow \R^+\) l'algoritmo fornisce un insieme indipendente \(I = \crl{e_1, \ldots, e_i}\) mentre ne esiste un altro \(J = \crl{e'_1, \ldots, e'_j}\) tale che \(c(j) > c(i)\).
 
   Supponiamo senza perdita di generalità di aver ordinato gli elementi di \(I\) e \(J\) in ordine di valore non crescente.
 
   Per costruzione \(I\) è massimale e quindi anche \(J\) per quanto visto sopra, per cui \(i=j\). Vedremo che per \(m=1, 2, \ldots, i\) vale che \(c(e_m) \geq c(e'_m)\), contraddicendo l'ipotesi per cui \(c(J) > c(I)\).
 
-  Procediamo quindi per induzione: quando \(m=1\), la proprietà è vera per come \textbf{GREEDSUM} sceglie il primo elemento.
+  Procediamo quindi per \textbf{induzione}:
 
-  Supponiamo allora che per qualche \(m>1\) si abbia \(c(e_m) < c(e'_m)\) mentre \(c(e_s) \geq c(e'_s)\) per \(s = 1, \ldots, m-1\). Si \(A = \crl{e \in E: c(e) \geq c(e'_m)}\).
+  \textbf{Caso base:} quando \(m=1\), la proprietà è vera per come \textbf{GREEDSUM} sceglie il primo elemento.
+
+  \textbf{Passo induttivo:} Supponiamo allora che per qualche \(m>1\) si abbia \(c(e_m) < c(e'_m)\) mentre \(c(e_s) \geq c(e'_s)\) per \(s = 1, \ldots, m-1\):
+  \[A = \crl{e \in E: c(e) \geq c(e'_m)}\]
 
   Allora l'insieme \(\crl{e_1, \ldots, e_{m-1}}\) è un indipendente massimale di \(A\) dato che se \(\crl{e_1, \ldots, e_{m-1}, e} \in I\) e \(c(e) \geq c(e'_m) > c(e_m)\), \textbf{GREEDSUM} avrebbe scelto \(e\) invece di \(e_m\) come successivo elemento da aggiungere.
 
-  Ciò contraddice quanto dimostrato all'inizio dato che \(\crl{e'_1, \ldots, e'_m}\) è un altro insieme indipendente di \(A\) ed avrebbe cardinalità maggiore.
+  Ciò contraddice quanto dimostrato nella prima parte dato che \(\crl{e'_1, \ldots, e'_m}\) è un altro insieme indipendente di \(A\) ed avrebbe cardinalità maggiore.
 \end{proof}
 \begin{theorem}[Secondo teorema di Rado]
   Sia \(\rnd{E, F}\) un Sistema di Indipendenza (SI). Se per qualunque funzione di valutazione non negativa \(c: E \rightarrow \R^+\) degli elementi di \(E\), \textbf{GREEDSUM} fornisce sempre un membro di \(F\) di valore massimo, allora il SI gode della proprietà del primo teorema di Rado \ref{primo_rado}.
