@@ -76,19 +76,17 @@
 	L'\textbf{insieme stabile minimo di un grafo} è sempre di cardinalità minore dell'\textbf{edge cover minimo}. Inoltre, l'\textbf{insieme stabile massimo} è sempre minore o uguale dell'\textbf{insieme trasversale minimo}.
 \end{theorem}
 \begin{proof}[Disuguaglianze duali deboli]
-	Siano \(X\) l'\textbf{insieme stabile} di \(G\) e \(Y\) l'\textbf{edge cover} di \(G\).
+	Dato un grafo \(G=\rnd{V,E}\), ne definiamo un \textbf{insieme stabile} \(X\)  ed un \textbf{edge cover} \(Y\).
 
-	Siccome \(Y\) copre \(V\), ogni elemento di \(X\) incide su almeno un elemento di \(Y\).
+	Siccome \(Y\) copre \(V\), ogni \(x \in X\) incide su almeno un \(y \in Y\).
 
-	Nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X \) altrimenti i due elementi sarebbero adiacenti e quindi non potrebbero appartenere all'insieme stabile \(X\).
+	Nessun \(y \in Y\) copre contemporaneamente \(x_i, x_j \in X: x_i \neq x_j \) altrimenti i due elementi \(x_i\) ed \(x_j\) risulterebbero adiacenti e quindi \textbf{non potrebbero appartenere} in primo luogo a \(X\), che è un \textbf{isieme stabile}.
 
-	Per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\).
-
-	Riscrivendo la precedente relazione per gli insiemi massimi \(X^*\) e \(Y^*\) si ottiene:
+	Per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\), che per gli insiemi ottimi \(X^*\) e \(Y^*\) risulta:
 	\[
 		\a(G) \leq \rho(G)
 	\]
-	Scambiando il ruolo di \(V\) ed \(E\), si ottiene \(\mu(G) \leq \tau(G)\).
+	Scambiando il ruolo di \(V\) ed \(E\), si ottiene anche la seconda disequazione \(\mu(G) \leq \tau(G)\).
 \end{proof}
 \clearpage
 \section{Teorema di Gallai}
@@ -106,13 +104,17 @@
 	Se non esistono nodi isolati, la stessa relazione vale anche per la somma della cardinalità del \textbf{matching massimo} e dell'\textbf{edge cover minimo} di un grafo \(G\).
 \end{theorem}
 \begin{proof}[Teorema di Gallai]
-	\textbf{Iniziamo ottenendo la prima equazione:} sia \(S\) un insieme stabile di \(G\). Allora \(V\setminus S\) è un insieme trasversale. In particolare, \(\abs{V\setminus S} \geq \tau(G)\).
+	\textit{Iniziamo ottenendo la prima equazione:} sia \(S\) un \textbf{insieme stabile} di \(G\). Allora \(V\setminus S\) è un \textbf{insieme trasversale}.
+
+	In particolare, vale che \(\abs{V\setminus S} \geq \tau(G)\).
 
 	Se consideriamo l'insieme stabile massimo \(S^*\), otteniamo:
 	\[
-		\tau(G) \geq \abs{V\setminus S^*} = n - \a(G) \quad \Rightarrow \quad \a(G) + \tau(G) \leq n
+		\tau(G) \leq \abs{V\setminus S^*} = n - \a(G) \quad \Rightarrow \quad \a(G) + \tau(G) \leq n
 	\]
-	Viceversa, sia \(T\) un insieme trasversale di \(G\). Allora \(V\setminus T\) è un insieme stabile. In particolare, \(\abs{V-T} \leq \a(G)\).
+	Analogamente, sia \(T\) un \textbf{insieme trasversale} di \(G\). Allora \(V\setminus T\) è un \textbf{insieme stabile}.
+
+	In particolare, \(\abs{V-T} \leq \a(G)\).
 
 	Se consideriamo l'insieme trasversale minimo \(T^*\), otteniamo:
 	\[
@@ -122,9 +124,11 @@
 	\[
 		\a(G) + \tau(G) \leq n \quad \land \quad \a(G) + \tau(G) \geq n \quad \Rightarrow \quad \a(G) + \tau(G) = n
 	\]
-	\textbf{Procediamo a dimostrare la seconda equazione:} sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il matching massimo di \(G\). Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
+	\textit{Procediamo a dimostrare la seconda equazione:} sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il \textbf{matching massimo} di \(G\).
 
-	Sia \(H\) un insieme minimale di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\).
+	Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
+
+	Sia \(H\) un \textbf{insieme minimale} di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\).
 
 	Segue che:
 	\[
@@ -134,14 +138,14 @@
 	\[
 		\rho(G) \leq \abs{C} = \abs{M^*} + \abs{H} = \abs{M^*} + n - 2\abs{M^*} = n - \abs{M^*} = n - \mu(G) \quad \Rightarrow \quad \rho(G) + \mu(G) \leq n
 	\]
-	Sia \(C\) il minimo edge-cover su \(G\), cioè tale che \(\abs{C} = \rho(G)\) e sia \(H = (V, C)\) il sottografo indotto da C. Valgono quindi le seguenti proprietà:
+	Sia \(C^*\) il \textbf{minimo edge-cover} su \(G\), cioè tale che \(\abs{C^*} = \rho(G)\) e sia \(H = (V, C^*)\) il sottografo indotto da \(C^*\). Valgono quindi le seguenti proprietà:
 
 	\begin{enumerate}
 		\item \(H\) è un grafo aciclico.
 		\item Ogni cammino di \(H\) è composto al più da due archi.
 	\end{enumerate}
 
-	Dalle proprietà precedenti concludiamo che il grafo \(H = (V, C)\) ha \(\abs{V} = n\) vertici e \(\abs{C} = \rho(G)\) archi. Può infine essere decomposto in \(N\) componenti connesse aventi la forma di stella.
+	Dalle proprietà precedenti concludiamo che il grafo \(H = (V, C^*)\) ha \(\abs{V} = n\) vertici e \(\abs{C^*} = \rho(G)\) archi. Può infine essere decomposto in \(N\) componenti connesse aventi la forma di stella.
 
 	Consideriamo l'\(i\)-esima componente connessa di \(H\). Indichiamo con \(s_i\) il numero di nodi della componente connessa e con \(s_i-1\) il numero di archi della componente connessa. Pertanto:
 	\[
@@ -179,49 +183,53 @@
 \end{multicols}
 
 \begin{theorem}[Estensione di un Matching]
-	Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). La differenza simmetrica:
+	Sia \(M\) un matching definito sul grafo \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\).
+
+	La \textbf{differenza simmetrica}:
 	\[
 		M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}
 	\]
-	È un matching di cardinalità \(\abs{M} + 1\).
+	È un \textbf{matching} di \textbf{cardinalità} \(\abs{M} + 1\).
 \end{theorem}
 
 \begin{proof}[Estensione di un Matching]
-	Sia \(M\) un matching di \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\). L'insieme \(M' = \rnd{M\setminus P} \cup \rnd{P\setminus M}\) gode delle seguenti proprietà:
-	\begin{enumerate}
-		\item \(M'\) è un matching:
+	Dimostriamo che l'insieme \(M'\) definito tramite \textbf{diiffenza simmetrica} gode delle due proprietà descritte:
+	\begin{description}
+		\item \textbf{\(M'\) è un matching:}
 		      \begin{enumerate}
-			      \item I nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
+			      \item Per i nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
 			      \item Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
 			      \item I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
 		      \end{enumerate}
-		\item \(M'\) ha un elemento in più di \(M\):
+		\item \textbf{\(M'\) ha un elemento in più di \(M\):}
 		      \begin{enumerate}
 			      \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \abs{M \setminus P}\) ed \(m_2 = \text{numero di archi del matching appartenenti al cammino.}\)
 			      \item Poiché \(P\) è aumentante, \(\abs{P} = m_2 + \rnd{m_2 + 1}\) dove \(m_2 + 1 = \abs{P\setminus M}\).
 			      \item \(\abs{M'} = \abs{M \setminus P} + \abs{P \setminus M} = m_1 + m_2 + 1 = \abs{M} +1\)
 		      \end{enumerate}
-	\end{enumerate}
+	\end{description}
 \end{proof}
 \clearpage
 \begin{theorem}[Teorema di Berge]
 	Un matching \(M\) di \(G\) è massimo \textbf{se e solo se} \(G\) non ammette cammini aumentanti rispetto a \(M\).
 \end{theorem}
 \begin{proof}[Teorema di Berge]
-	La condizione sufficiente segue dal teorema precedente. Per la condizione necessaria, facciamo vedere che, se non esistono cammini aumentanti rispetto a un certo matching \(M\), allora quel matching \(M\) è massimo:
+	La condizione sufficiente segue dal teorema precedente. Procediamo quindi a dimostrare la condizione necessaria:
 
-	Supponiamo che \(G\) ammetta un matching \(M'\) con un elemento in più di \(M\). Vogliamo dimostrare che allora esiste un cammino aumentante per \(M\).
+	Supponiamo che \(G\) ammetta un matching \(M'\) con un elemento in più di \(M\). Mostriamo che allora esiste un cammino aumentante per \(M\).
 
 	Consideriamo l'insieme di archi:
 	\[
-		F = \crl{M'\cup M}\setminus\crl{M' \cap M}
+		F = \rnd{M'\cup M}\setminus\rnd{M' \cap M}
 	\]
-	e sia \(G'\) il sottografo di \(G\) avente gli stessi nodi di \(G\) ma contenente solo l'insieme di archi di \(F\). Analizziamo il grado di ciascun nodo di \(G'\), considerando tutti i casi possibili:
+	e sia \(G' \subseteq G\) con \(E' = F\).
+
+	Analizziamo il grado di ciascun \(v \in V'\), considerando tutti i casi possibili:
 	\begin{enumerate}
-		\item Un nodo su cui incide lo stesso arco appartenente sia ad \(M\) che ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
+		\item Un nodo su cui incide lo stesso arco appartenente sia ad \(M\) che ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado \(0\).
 		\item Un nodo su cui incide sia un arco di \(M\) sia un arco di \(M'\) è un nodo che ha grado \(2\) su \(G'\).
 		\item Un nodo su cui incide un arco di \(M\) e nessun arco di \(M'\) o viceversa è un nodo che ha grado \(1\) su \(G'\).
-		\item Un nodo esposto sia rispetto ad \(M\) che rispetto ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado 0.
+		\item Un nodo esposto sia rispetto ad \(M\) che rispetto ad \(M'\) è un nodo isolato su \(G'\) e quindi ha grado \(0\).
 	\end{enumerate}
 	Pertanto in \(G'\) nessun nodo ha un grado superiore a 2 e possiamo concludere che le componenti connesse di \(G'\) sono o nodi isolati o percorsi o cicli.
 
@@ -233,7 +241,7 @@
 
 	Quindi, senza perdita di generalità, possiamo assumere che esista un percorso dispari che inizia e termina con un arco di \(M'\).
 
-	Questo percorso è aumentante per \(M\).
+	\textbf{Questo percorso è aumentante per \(M\).}
 \end{proof}
 \clearpage
 \section{Teorema del cammino aumentante}
@@ -243,11 +251,11 @@
 \end{theorem}
 
 \begin{proof}[Teorema del cammino aumentante]
-	Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\crl{M^*\cup M}\setminus\crl{M^* \cap M}\): questo insieme non può contenere un cammino alternante con i vertici degli archi di \(M\) esposti, altrimenti sarebbe aumentante per esso.
+	Sia \(M^*\) un matching massimo in cui \(v\) è accoppiato. Consideriamo \(\rnd{M^*\cup M}\setminus\rnd{M^* \cap M}\): questo insieme non può contenere un cammino alternante con i vertici degli archi di \(M\) esposti, altrimenti sarebbe aumentante per esso.
 
-	Però deve contenere un cammino composto dallo stesso numero di archi dei due insiemi, \(M\) e \(M^*\): un cammino con un solo arco di un insieme, infatti, sarebbe aumentante per l'altro e viceversa.
+	Deve però contenere un cammino composto dallo stesso numero di archi dei due insiemi, \(M\) e \(M^*\): un cammino con un solo arco di un insieme, infatti, sarebbe aumentante per l'altro e viceversa.
 
-	Consideriamo quindi un cammino \(P\) composto da un ugual numero di archi dai due insiemi e consideriamo un nuovo matching \(M' = \crl{M^*\cup P}\setminus\crl{M^* \cap P}\). Vanno osservate due proprietà:
+	Consideriamo quindi un cammino \(P\) composto da un ugual numero di archi dai due insiemi e consideriamo un nuovo matching \(M' = \rnd{M^*\cup P}\setminus\rnd{M^* \cap P}\). Vanno osservate due proprietà:
 
 	\begin{enumerate}
 		\item La cardinalità del nuovo insieme e del matching massimo sono uguali:

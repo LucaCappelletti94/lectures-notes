@@ -12,7 +12,7 @@ Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo}
 \begin{definition}[Cammino incrementante]
   Un cammino \(P\) da \(s\) a \(v\) tale che \(v \neq t\) e per ogni arco \(\rnd{i,j} \in P\) forward ha capacità \(x_{ij} < u_{ij}\) e per ogni arco \(\rnd{i,j} \in P\) reverse ha capacità \(x_{ji}>0\) si dice \textbf{cammino incrementante}.
 \end{definition}
-
+\clearpage
 \section{Algoritmo di Edmonds-Karp}
 \begin{lemma}[Primo lemma di Edmonds-Karp]\label{first_lemma_karp}
   Sia \(d_x(v,w)\) la lunghezza del cammino da \(v\) a \(w\) avente il minor numero di archi e siano \(x\) e \(x'\) il flusso alla iterazione \(i\) ed \(i+1\).
