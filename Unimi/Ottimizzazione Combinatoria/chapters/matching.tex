@@ -299,7 +299,7 @@
 
 	Nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X\), che altrimenti non sarebbe un \textit{insieme stabile}.
 
-	Per ogni elemento di \(X\) esiste un distinto \(Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\), che per gli insiemi ottimi \(X^*\) e \(Y^*\) risulta:
+	Per ogni elemento di \(X\) esiste un distinto elemento di \(Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\), che per gli insiemi ottimi \(X^*\) e \(Y^*\) risulta:
 	\[
 		\a(G) \leq \rho(G)
 	\]
@@ -341,13 +341,9 @@
 	\[
 		\a(G) + \tau(G) \leq n \quad \land \quad \a(G) + \tau(G) \geq n \quad \Rightarrow \quad \a(G) + \tau(G) = n
 	\]
-	\textit{Procediamo a dimostrare la seconda equazione:} sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il \textbf{matching massimo} di \(G\).
+	\textit{Procediamo a dimostrare la seconda equazione:} sia \(G\) un grafo privo di nodi isolati e sia \(M^*\) il \textbf{matching massimo} di \(G\). Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
 
-	Indichiamo con \(V_{M^*}\) i nodi che sono estremi degli archi in \(M^*\).
-
-	Sia \(H\) un \textbf{insieme minimale} di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\).
-
-	Segue che:
+	Sia \(H\) un \textbf{insieme minimale} di archi tale che ogni nodo in \(V\setminus V_{M^*}\) è estremo di qualche arco in \(H\). Segue che:
 	\[
 		\abs{H} = \abs{V\setminus V_{M^*}} = n - 2\abs{M^*}
 	\]
@@ -355,26 +351,27 @@
 	\[
 		\rho(G) \leq \abs{C} = \abs{M^*} + \abs{H} = \abs{M^*} + n - 2\abs{M^*} = n - \abs{M^*} = n - \mu(G) \quad \Rightarrow \quad \rho(G) + \mu(G) \leq n
 	\]
-	Sia \(C^*\) il \textbf{minimo edge-cover} su \(G\), cioè tale che \(\abs{C^*} = \rho(G)\) e sia \(H = (V, C^*)\) il sottografo indotto da \(C^*\). Valgono quindi le seguenti proprietà:
+	Sia \(C^*\) il \textbf{minimo edge-cover} su \(G\), cioè tale che \(\abs{C^*} = \rho(G)\) e sia \(K = (V, C^*)\) il sottografo indotto da \(C^*\). Valgono quindi le seguenti proprietà:
 
 	\begin{enumerate}
-		\item \(H\) è un grafo aciclico.
-		\item Ogni cammino di \(H\) è composto al più da due archi.
+		\item \(K\) è un grafo aciclico.
+		\item Ogni cammino di \(K\) è composto al più da due archi.
+		\item \(K\) possiede \(\abs{V} = n\) vertici.
+		\item \(K\) possiede \(\abs{C^*} = \rho(G)\) lati.
+		\item \(K\) può essere decomposto in \(N\) componenti connesse aventi la forma di stella.
 	\end{enumerate}
 
-	Dalle proprietà precedenti concludiamo che il grafo \(H = (V, C^*)\) ha \(\abs{V} = n\) vertici e \(\abs{C^*} = \rho(G)\) archi. Può infine essere decomposto in \(N\) componenti connesse aventi la forma di stella.
-
-	Consideriamo l'\(i\)-esima componente connessa di \(H\) e ne indichiamo con \(s_i\) il numero di nodi mentre con \(s_i-1\) il numero di archi:
+	Consideriamo l'\(i\)-esima componente connessa di \(K\) e ne indichiamo con \(s_i\) il numero di nodi mentre con \(s_i-1\) il numero di archi:
 	\[
 		n = \sum_{i=1}^N s_i \quad \text{e} \quad \rho(G) = \sum_{i=1}^N (s_i -1) = n - N \Rightarrow N = n - \rho(G)
 	\]
-	Sia \(M\) un matching con un arco per ogni componente di \(H\). Si ottiene:
+	Sia \(M\) un matching con un arco per ogni componente di \(K\). Si ottiene:
 	\[
 		\mu(G) \geq \abs{M} = n - \rho(G) \Rightarrow \rho(G) + \mu(G) \geq n
 	\]
-	Considerando la condizione ottenuta precedentemente, possiamo concludere che:
+	Possiamo quindi concludere che:
 	\[
-		\rho(G) + \mu(G) = n
+		\rho(G) + \mu(G) \leq n \quad \land \quad \rho(G) + \mu(G) \geq n\quad \Rightarrow \quad\rho(G) + \mu(G) = n
 	\]
 
 \end{proof}
@@ -399,7 +396,7 @@
 	\end{definition}
 \end{multicols}
 
-\begin{theorem}[Estensione di un Matching]
+\begin{theorem}[Estensione di un Matching tramite un cammino aumentante]
 	Sia \(M\) un matching definito sul grafo \(G\) e sia \(P\) un cammino aumentante rispetto a \(M\).
 
 	La \textbf{differenza simmetrica}:
@@ -409,18 +406,18 @@
 	È un \textbf{matching} di \textbf{cardinalità} \(\abs{M} + 1\).
 \end{theorem}
 
-\begin{proof}[Estensione di un Matching]
+\begin{proof}[Estensione di un Matching tramite un cammino aumentante]
 	Dimostriamo che l'insieme \(M'\) definito tramite \textbf{diiffenza simmetrica} gode delle due proprietà descritte:
 	\begin{description}
 		\item \textbf{\(M'\) è un matching:}
 		      \begin{description}
 			      \item[\(\forall v \in \rnd{M \setminus P}\)] Per i nodi che non sono toccati da \(P\) non è cambiato nulla: su di essi incide un solo arco di \(M\) che ora appartiene anche ad \(M'\).
 			      \item[\(\forall v \in \rnd{P \setminus M}: v\neq v_s \land v \neq v_t\)] Sui nodi intermedi di \(P\) incide soltanto un arco di \(P\setminus M\), e quindi di \(M'\).
-			      \item[\(\forall v \in \rnd{P \setminus M}: v= v_s \lor v = v_t\)] I nodi estremi di \(P\) prima erano esposti e adesso sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
+			      \item[\(\forall v \in \rnd{P \setminus M}: v= v_s \lor v = v_t\)] I nodi estremi di \(P\) prima erano esposti mentre ora sono accoppiati e su di essi incide soltanto un arco di \(P\setminus M\).
 		      \end{description}
 		\item \textbf{\(M'\) ha un elemento in più di \(M\):}
 		      \begin{enumerate}
-			      \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \abs{M \setminus P}\) ed \(m_2 = \text{numero di archi del matching appartenenti al cammino.}\)
+			      \item Sia \(\abs{M} = m_1 + m_2\) con \(m_1 = \text{``Archi unicamente di \(M\)''}\) ed \(m_2 = \text{Archi condivisi tra il matching \(M\) ed il cammino \(P\)}\).
 			      \item Poiché \(P\) è aumentante, \(\abs{P} = m_2 + \rnd{m_2 + 1}\) dove \(m_2 + 1 = \abs{P\setminus M}\).
 			      \item \(\abs{M'} = \abs{M \setminus P} + \abs{P \setminus M} = m_1 + m_2 + 1 = \abs{M} +1\)
 		      \end{enumerate}
