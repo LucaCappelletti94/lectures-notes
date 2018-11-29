@@ -28,7 +28,7 @@ L'algoritmo di Dijkstra viene utilizzato per trovare il cammino più breve tra d
 
   Il caso base è quando esiste solo un nodo visitato, cioè il nodo sorgente, in tal caso l'ipotesi è banale.
 
-  Altrimenti, assumiamo l'ipotesi per \(n-1\) nodi visitati. In tal caso, scegliamo un lato \(vu\) dove \(u\) possiede la distanza minima di ogni nodo non visitato ed il lato \(vu\) è tale che:
+  Altrimenti, assumiamo l'ipotesi per \(n-1\) nodi visitati. In tal caso, scegliamo un lato \(\rnd{v,u}\) dove \(u\) possiede la distanza minima di ogni nodo non visitato ed il lato \(\rnd{v,u}\) è tale che:
   \[
     d(u) = d(v) + \text{lunghezza}(v, u)
   \]
