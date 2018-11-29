@@ -93,18 +93,18 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
   Sia \(\bmxo\) il vettore caratteristico di un MST in rispetto ai costi \(\bmc \). ALlora \(\bmxo\) è una soluzione ottima del problema di programmazione lineare:
   \begin{align*}
     \min \bmct\bmx                                                                 \\
-    x\rnd{\gamma(S)} \leq \abs{S} -1 & \quad \forall S \neq \emptyset, S \subset V \\
-    x(E) = \abs{V} -1                                                              \\
-    x_e \geq 0                       & \quad \forall e \in E
+    x\rnd{\gamma(S)} & \leq \abs{S} -1 \quad \forall S \neq \emptyset, S \subset V \\
+    x(E)             & = \abs{V} -1                                                \\
+    x_e              & \geq 0                       \quad \forall e \in E
   \end{align*}
 \end{theorem}
 \begin{proof}[Legame tra MST e PL]
   Per un sottoinsieme di lati \(A\), sia \(k(A)\) il numero di componenti del sottografo \(\rnd{V, A}\) di \(G\). Prendiamo in considerazione una versione equivalente del problema proposto nel teorema:
   \begin{align*}
-    \min \bmct\bmx                                                                   \\
-    x\rnd{A} & \leq \abs{V} - k(A) \quad \forall A \subset E                         \\
-    x(E)     & = \abs{V} -1                                                          \\
-    x_e      & \geq 0                                        & \quad \forall e \in E
+    \min \bmct\bmx                                           \\
+    x\rnd{A} & \leq \abs{V} - k(A) \quad \forall A \subset E \\
+    x(E)     & = \abs{V} -1                                  \\
+    x_e      & \geq 0 \quad \forall e \in E
   \end{align*}
   Sia \(A \subseteq E\) e siano \(S_1, \ldots, S_k\) gli insiemi di vertici delle componenti del sottografo \(\rnd{V, A}\). Allora:
   \[

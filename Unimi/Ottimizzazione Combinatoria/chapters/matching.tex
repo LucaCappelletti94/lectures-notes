@@ -689,16 +689,16 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se riesce ad identificare un matching perfetto in un grafo derivato allora è noto che esiste un matching perfetto in \(G\) e se riusciamo ad identificare un certo tipo di AAF all'interno di un grafo derivato possiamo concludere che \(G\) non possiede un matching perfetto. I grafi derivati \(G'\) vengono ottenuti identificando circuiti dispari all'interno dell'albero alternante \(T\) ottenuto da \(G\) e rimuovendoli attraverso un procedimento detto di ``shrinking'' (questo tipo di circuito veniva chiamato blossom, da cui il nome dell'algoritmo.)
 
 \begin{theorem}[Algoritmo Blossom]
-	L'algoritmo Blossom termina dopo \(O(n)\) passi di ``augmentations'', \(O(n^2)\) passi di ``shrinking'' e \(O(n^2)\) passi di estensione dell'albero. Inoltre, determina correttamente se il grafo \(G\) possiede un matching perfetto.
+	L'algoritmo Blossom termina dopo \(\mathcal{O}(n)\) passi di ``augmentations'', \(\mathcal{O}(n^2)\) passi di ``shrinking'' e \(\mathcal{O}(n^2)\) passi di estensione dell'albero. Inoltre, determina correttamente se il grafo \(G\) possiede un matching perfetto.
 \end{theorem}
 \begin{proof}[Algoritmo Blossom]
 	L'algoritmo inizia con un \textbf{matching} qualsiasi \(M=M'\) di \(G\), che non cessa di essere tale per tutto il procedimento.
 
-	Siccome ad ogni passo di ``\textbf{augmentation}'' il numero di nodi esposti decresce, vi saranno \(O(n)\) passi di ``\textbf{augmentation}''.
+	Siccome ad ogni passo di ``\textbf{augmentation}'' il numero di nodi esposti decresce, vi saranno \(\mathcal{O}(n)\) passi di ``\textbf{augmentation}''.
 
-	Tra questi, ogni passo di ``\textbf{shrinking}'' riduce il numero dei nodi in \(G'\) senza tuttavia cambiare il numero dei nodi in \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
+	Tra questi, ogni passo di ``\textbf{shrinking}'' riduce il numero dei nodi nel \textbf{grafo} \(G'\) senza tuttavia cambiare il numero dei nodi nell'\textbf{albero} \(T\) ed ogni passo di estensione dell'albero riduce il numero di nodi non in \(T\) non modificando il numero di nodi in \(G'\).
 
-	Ne segue che il numero di passi di ``\textbf{shrinking}'' ed estensione dell'albero tra passi di ``\textbf{augmentation}'' è \(O(n)\) e quindi in totale sono \(O(n^2)\).
+	Ne segue che il numero di passi di ``\textbf{shrinking}'' ed estensione dell'albero tra passi di ``\textbf{augmentation}'' è \(\mathcal{O}(n)\) e quindi in totale sono \(\mathcal{O}(n^2)\).
 
 	Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) \textbf{non possiede un matching perfetto}.
 \end{proof}
@@ -708,7 +708,7 @@ Sia \(\Gr \) un grafo connesso e sia \(w: E \rightarrow \R^+_0\) una lunghezza d
 \begin{definition}[Grafo e cammino euleriano]
 	Un grafo è detto \textbf{euleriano} se è possibile tracciare un cammino che passa una sola volta per tutti gli archi del grafo. Un tale cammino è detto a sua volta euleriano.
 
-	Equivalentemente, un grafo \(G\) è euleriano se e solo se ogni vertice ha grado pari e un cammino euleriano può essere costruiti con complessità \(O(\abs{E})\).
+	Equivalentemente, un grafo \(G\) è euleriano se e solo se ogni vertice ha grado pari e un cammino euleriano può essere costruiti con complessità \(\mathcal{O}(\abs{E})\).
 \end{definition}
 Se il grafo \(G\) risulta euleriano allora la soluzione del CPP è banale: qualsiasi cammino euleriano andrebbe bene.
 
