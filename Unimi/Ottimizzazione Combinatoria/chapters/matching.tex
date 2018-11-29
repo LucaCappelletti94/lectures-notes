@@ -3,69 +3,286 @@
 \begin{document}
 \chapter{Matching Covers}
 
+
+
 \section{Matching}
 \setlength\columnsep{25pt}
 \begin{multicols}{2}
 	\begin{definition}[Matching o Accoppiamento]
 		Dato un grafo \(G=\rnd{V, E}\), un \textbf{matching} è un sottoinsieme \(M\subseteq E\) di archi \textit{a due a due non adiacenti}.
+		\begin{figure}
+			\NewAdigraph{MatchingDefinition}{
+				1:2;
+				2:2;
+				3:2;
+				4:2;
+				5:2;
+				6:2;
+			}{
+				1,2,red;
+				3,4,red;
+				5,+,gray;
+			}
+			\MatchingDefinition{}
+			\caption{Un esempio di matching, in rosso.}
+		\end{figure}
 	\end{definition}
 	\begin{definition}[Matching massimo]
 		Matching \(M^*\) di cardinalità massima.
+		\begin{figure}
+			\NewAdigraph{MatchingDefinition}{
+				1:2;
+				2:2;
+				3:2;
+				4:2;
+				5:2;
+				6:2;
+				7:2;
+			}{
+				1,2,red;
+				3,4,red;
+				5,6,red;
+				5,+,gray;
+			}
+			\MatchingDefinition{}
+			\caption{Un esempio di matching massimo, in rosso.}
+		\end{figure}
 	\end{definition}
 	\begin{definition}[Matching bipartito]
 		Se il grafo \(G\) è \textbf{bipartito}, allora anche \(M\) si dice \textbf{bipartito}.
+		\begin{figure}
+			\NewAdigraph{MatchingDefinition}{
+				1:2;
+				a:2;
+				2:2;
+				b:2;
+				3:2;
+				c:2;
+			}{
+				1,a,red;
+				3,a,gray;
+				2,b,red;
+				2,c,gray;
+				2,a,gray;
+				3,c,gray;
+			}
+			\MatchingDefinition{}
+			\caption{Un esempio di matching bipartito, in rosso.}
+		\end{figure}
 	\end{definition}
 	\begin{definition}[Matching perfetto]
 		Se la cardinalità del matching è pari a metà del numero di vertici, allora si dice \textbf{perfetto}:
 		\[
 			\abs{M} = \frac{\abs{V}}{2}
 		\]
-	\end{definition}
-	\begin{definition}[Matching massimale]
-		Un matching \(M\) si dice \textbf{massimale} se ogni elemento di \(E\setminus M\) è adiacente ad almeno un elemento di \(M\).
-
-		Un matching massimale \textbf{non} necessariamente è massimo, mentre un matching massimo è sempre massimale.
+		\begin{figure}
+			\NewAdigraph{MatchingDefinition}{
+				1:2;
+				2:2;
+				3:2;
+				4:2;
+				5:2;
+				6:2;
+			}{
+				1,2,red;
+				3,4,red;
+				5,6,red;
+				5,+,gray;
+			}
+			\MatchingDefinition{}
+			\caption{Un esempio di matching perfetto.}
+		\end{figure}
 	\end{definition}
 \end{multicols}
+\clearpage
+\begin{definition}[Matching massimale]
+	Un matching \(M\) si dice \textbf{massimale} se ogni elemento di \(E\setminus M\) è adiacente ad almeno un elemento di \(M\).
 
+	Un matching massimale \textbf{non} necessariamente è massimo, mentre un matching massimo è sempre massimale.
+	\begin{figure}
+		\NewAdigraph{MaximalMatching}{
+			5:0,0;
+			1:2,2;
+			3:2,-2;
+			2:6,2;
+			4:6,-2;
+			6:8,0;
+		}{
+			5,1,gray;
+			6,3,gray;
+			3,4,gray;
+			1,2,gray;
+			2,6,gray;
+			4,6,gray;
+			3,1,red;
+			4,2,red;
+			2,3,gray;
+			4,1,gray;
+		}
+		\MaximalMatching{}
+		\caption{Esempio di matching massimale}
+	\end{figure}
+\end{definition}
+\clearpage
 \section{Insieme stabile}
 \begin{definition}[Insieme stabile o indipendente]
 	Dato un grafo simmetrico \(G=\rnd{V, E}\), un qualunque sottoinsieme \(S\) di vertici si dice \textbf{indipendente} o \textbf{stabile} se esso è costituito da elementi \textit{a due a due non adiacenti}.
-
-	Si tratta dell'insieme dei vertici a cui sono connessi i lati di un matching.
+	\begin{figure}
+		\NewAdigraph{InsiemeStabile}{
+			1,red:0,4;
+			2:4,4;
+			3:0,0;
+			4,red:4,0;
+			5:1,3;
+			6,red:3,3;
+			7,red:1,1;
+			8:3,1;
+		}{
+			1,2;
+			1,3;
+			1,5;
+			2,6;
+			2,4;
+			4,8;
+			4,3;
+			3,7;
+			5,6;
+			5,7;
+			6,8;
+			7,8;
+		}
+		\InsiemeStabile{}
+		\caption{Esempio di insieme stabile}
+	\end{figure}
 \end{definition}
 \begin{definition}[Insieme stabile massimo]
 	Un insieme stabile \(S^*\) si dice \textbf{massimo} se \(\abs{S^*} \geq \abs{S}\), per ogni insieme stabile \(S\) di G.
 
-	Si tratta dell'insieme dei vertici a cui sono connessi i lati di un matching massimo.
+	\begin{figure}
+		\NewAdigraph{InsiemeStabile}{
+			1:0,4;
+			2,red:4,4;
+			3,red:0,0;
+			4:4,0;
+			5,red:1,3;
+			6:3,3;
+			7:1,1;
+			8,red:3,1;
+		}{
+			1,2;
+			1,3;
+			1,5;
+			2,6;
+			2,4;
+			4,8;
+			4,3;
+			3,7;
+			5,6;
+			5,7;
+			6,8;
+			7,8;
+		}
+		\InsiemeStabile{}
+		\caption{Esempio di insieme stabile}
+	\end{figure}
 \end{definition}
 \begin{definition}[Insieme stabile massimale]
 	Un insieme stabile \(S\) si dice \textbf{massimale} se ogni elemento di \(V\setminus S\) è adiacente ad almeno un elemento di \(S\).
 
-	Si tratta dell'insieme dei vertici a cui sono connessi i lati di un matching massimale.
+	\begin{figure}
+		\NewAdigraph{InsiemeStabile}{
+			1:0,4;
+			2,red:4,4;
+			3:0,0;
+			4:4,0;
+			5:1,3;
+			6:3,3;
+			7,red:1,1;
+			8:3,1;
+		}{
+			1,2;
+			1,3;
+			1,5;
+			2,6;
+			2,4;
+			4,8;
+			4,3;
+			3,7;
+			5,6;
+			5,7;
+			6,8;
+			7,8;
+		}
+		\InsiemeStabile{}
+		\caption{Esempio di insieme stabile}
+	\end{figure}
 \end{definition}
-
+\clearpage
 \section{Copertura}
 \begin{definition}[Copertura]
-	Dato un grafo simmetrico \(G = \rnd{V, E}\), un qualunque sottoinsieme \(T\) di vertici \textit{(\(F\) di archi)} tale che ogni arco di \(E\) \textit{(vertice di \(V\))} incide su almeno un elemento di \(T\) \textit{(di \(F\))} si dice \textbf{copertura}. In particolare, l'insieme \(T\) è detto \textbf{insieme trasversale} o \textbf{vertex cover} mentre l'insieme \(F\) è detto \textbf{edge cover}.
+	Dato un grafo simmetrico \(G = \rnd{V, E}\), un qualunque sottoinsieme \(T\) di vertici \textit{(\(F\) di archi)} tale che ogni arco di \(E\) \textit{(vertice di \(V\))} incide su almeno un elemento di \(T\) \textit{(di \(F\))} si dice \textbf{copertura}.
+
+	In particolare, l'insieme \(T\) è detto \textbf{insieme trasversale} o \textbf{vertex cover} mentre l'insieme \(F\) è detto \textbf{edge cover}.
+	\begin{figure}
+		\begin{subfigure}{0.49\textwidth}
+			\NewAdigraph{VertexCover}{
+				1,blue:2;
+				2:2;
+				3,blue:2;
+				4:2;
+				5,blue:2;
+				6:2;
+				7:2;
+			}{
+				1,2,gray;
+				3,4,gray;
+				5,6,gray;
+				5,4,gray;
+				5,7,gray;
+				5,+,gray;
+			}
+			\VertexCover{}
+			\caption{Vertex cover, in blu}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\NewAdigraph{EdgeCover}{
+				1:2;
+				2:2;
+				3:2;
+				4:2;
+				5:2;
+				6:2;
+				7:2;
+			}{
+				1,2,red;
+				3,4,red;
+				5,6,red;
+				5,7,red;
+				5,+,gray;
+			}
+			\EdgeCover{}
+			\caption{Edge cover, in rosso}
+		\end{subfigure}
+		\caption{Esempi di edge e vertex cover}
+	\end{figure}
 \end{definition}
 \begin{definition}[Copertura minima]
 	Una copertura \(X^*\) si dice \textbf{minima} se:
-	\[abs{X^*} \leq \abs{X} \quad \forall X \in G\]
+	\[\abs{X^*} \leq \abs{X} \quad \forall X \in G\]
 	Dove \(X\) sono gli insiemi di copertura del grafo \(G\).
 \end{definition}
 \begin{definition}[Copertura minimale]
 	Una copertura \(X\) si dice \textbf{minimale} se \(X \setminus \crl{x}\) non è una copertura per ogni \(x \in X\).
 \end{definition}
-
+\clearpage
 \section{Disuguaglianze duali deboli}
 \begin{theorem}[Disuguaglianze duali deboli]
 	Definiamo per un grafo \(G\):
 	\begin{description}
-		\item[\(\a(G)\)] Insieme stabile massimo del grafo \(G\).
-		\item[\(\mu(G)\)] Matching massimo del grafo \(G\).
-		\item[\(\rho(G)\)] Edge cover minimo di \(G\).
-		\item[\(\tau(G)\)] Insieme trasversale minimo di \(G\).
+		\item[\(\a(G)\)] la cardinalità dell'\textbf{insieme stabile massimo} del grafo \(G\).
+		\item[\(\mu(G)\)] la cardinalità del \textbf{matching massimo} del grafo \(G\).
+		\item[\(\rho(G)\)] la cardinalità dell'\textbf{edge cover minimo} di \(G\).
+		\item[\(\tau(G)\)] la cardinalità dell'\textbf{insieme trasversale minimo} di \(G\).
 	\end{description}
 
 	Per un grafo \(G\) valgono le seguenti due disuguaglianze:
@@ -78,15 +295,15 @@
 \begin{proof}[Disuguaglianze duali deboli]
 	Dato un grafo \(G=\rnd{V,E}\), ne definiamo un \textbf{insieme stabile} \(X\)  ed un \textbf{edge cover} \(Y\).
 
-	Siccome \(Y\) copre \(V\), ogni \(x \in X\) incide su almeno un \(y \in Y\).
+	Poiché \(Y\) è una \textit{edge cover}, ogni elemento di \(X\) incide su almeno un elemento di \(y\).
 
-	Nessun \(y \in Y\) copre contemporaneamente \(x_i, x_j \in X: x_i \neq x_j \) altrimenti i due elementi \(x_i\) ed \(x_j\) risulterebbero adiacenti e quindi \textbf{non potrebbero appartenere} in primo luogo a \(X\), che è un \textbf{isieme stabile}.
+	Nessun elemento di \(Y\) copre contemporaneamente due elementi di \(X\), che altrimenti non sarebbe un \textit{insieme stabile}.
 
-	Per ogni \(x \in X\) esiste un distinto \(y \in Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\), che per gli insiemi ottimi \(X^*\) e \(Y^*\) risulta:
+	Per ogni elemento di \(X\) esiste un distinto \(Y\) che lo copre, e quindi \(\abs{X} \leq \abs{Y}\), che per gli insiemi ottimi \(X^*\) e \(Y^*\) risulta:
 	\[
 		\a(G) \leq \rho(G)
 	\]
-	Scambiando il ruolo di \(V\) ed \(E\), si ottiene anche la seconda disequazione \(\mu(G) \leq \tau(G)\).
+	Ripetendo l'operazione con gli insiemi sui lati \(E\), si ottiene anche la seconda disequazione \(\mu(G) \leq \tau(G)\).
 \end{proof}
 \clearpage
 \section{Teorema di Gallai}
