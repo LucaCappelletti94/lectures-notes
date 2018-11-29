@@ -226,11 +226,11 @@
 	\begin{figure}
 		\begin{subfigure}{0.49\textwidth}
 			\NewAdigraph{VertexCover}{
-				1,blue:2;
+				1,red:2;
 				2:2;
-				3,blue:2;
+				3,red:2;
 				4:2;
-				5,blue:2;
+				5,red:2;
 				6:2;
 				7:2;
 			}{
@@ -242,7 +242,7 @@
 				5,+,gray;
 			}
 			\VertexCover{}
-			\caption{Vertex cover, in blu}
+			\caption{Vertex cover, in rosso}
 		\end{subfigure}
 		\begin{subfigure}{0.49\textwidth}
 			\NewAdigraph{EdgeCover}{
@@ -428,7 +428,7 @@
 	Un matching \(M\) di \(G\) è massimo \textbf{se e solo se} \(G\) non ammette cammini aumentanti rispetto a \(M\).
 \end{theorem}
 \begin{proof}[Teorema di Berge]
-	La condizione sufficiente segue dal teorema precedente. Procediamo quindi a dimostrare la condizione necessaria:
+	La condizione sufficiente segue dal teorema precedente. Procediamo quindi a dimostrare la condizione necessaria.
 
 	Supponiamo che \(G\) ammetta un matching \(M'\) con un elemento in più di \(M\). Mostriamo che allora esiste un cammino aumentante per \(M\).
 
@@ -530,38 +530,49 @@
 \end{proof}
 
 \begin{proof}[Teorema di König (Rizzi, 1999)]
-	Chiamiamo \(\abs{G}_M\) la cardinalità massima di un matching di \(G\) e \(\abs{G}_C\) la cardinalità minima di una cover di \(G\). Vale che \(\abs{G}_M \leq \abs{G}_C\).
+	Dato un grafo \(B\), vale che \(\abs{M_B^*} \leq \abs{C_B^*}\).
 
 	Sia \(\Gr \) un contro esempio minimo: il più piccolo grafo \textbf{connesso} che non sia un \textbf{circuito} ne un \textbf{cammino}.
 
 	Ne segue che \(G\) ha un nodo \(u\) di grado almeno \(3\).
 
-	Sia \(v\) uno dei nodi vicini di \(u\): se \(\abs{G\setminus v}_M < \abs{G}_M\), allora per minimalità \(G \setminus v\) ha una cover \(W'\) tale che \(\abs{W'} < \abs{G}_M\).
+	Sia \(v\) uno dei nodi vicini di \(u\):
+	\[
+		\abs{M_{G\setminus v}^*} < \abs{M_G^*} \Rightarrow \text{per minimalità}\quad \abs{C_{G \setminus v}} < \abs{M_G^*}
+	\]
 
-	Ne segue che \(W' \cup \crl{v}\) è una cover di \(G\) con cardinalità al più \(\abs{G}_M\).
+	Ne segue che \(C_{G\setminus v} \cup \crl{v}\) è una cover di \(G\) con cardinalità al più \(\abs{M^*}_G\).
 
 	Possiamo assumere di conseguenza che deve esistere un matching massimo \(M\) di \(G\) privo di lati incidenti a \(v\).
 
-	Sia \(f\) un lato di \(G\setminus M\) incidente a \(u\) ma non a \(v\). Sia \(W'\) una cover di \(G\setminus f\) con \(\abs{W'} = \abs{G}_M\). Siccome nessun lato di \(M\) è incidente a \(v\), ne segue che \(W'\) non contiene \(v\).
+	Sia \(f\) un lato di \(G\setminus M\) incidente a \(u\) ma non a \(v\).
 
-	Di conseguenza, \(W'\) contiene \(u\) ed è una cover di \(G\).
+	Sia \(C_{G\setminus f}\) una cover con cardinalità \(\abs{C_{G\setminus f}} = \abs{M_G^*}\).
+
+	Siccome nessun lato di \(M\) è incidente a \(v\), ne segue che \(C_{G\setminus f}\) non contiene \(v\).
+
+	Di conseguenza, \(C_{G\setminus f}\) contiene \(u\) ed è una cover anche di \(G\).
 \end{proof}
 \clearpage
 \section{Teorema di Hall o dei matrimoni}
 \begin{theorem}[Teorema di Hall]
-	Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subset V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora il grafo \(G\) ammette un \textbf{matching massimo} se e solo se:
+	Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subseteq V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora:
 	\[
-		\abs{\Gamma(J)} \geq \abs{J} \quad \forall J \subset V_2
+		G \text{ ammette un \textbf{matching completo} } \Leftrightarrow \abs{\Gamma(J)} \geq \abs{J} \quad \forall J \subseteq V_2
 	\]
-	Cioè in un \textbf{grafo bipartito} esiste un \textbf{matching massimo} se e solo se ogni vertice della componente minore ha almeno un vertice incidente distinto della componente maggiore.
+	Cioè in un \textbf{grafo bipartito} esiste un \textbf{matching completo} se e solo se ogni vertice della componente minore ha almeno un vertice incidente distinto della componente maggiore.
 \end{theorem}
 
 \begin{proof}[Teorema di Hall]
-	Sia \(M\) un \textbf{matching massimo} di \(G\) e \(J\) un sottoinsieme qualsiasi di \(V_2\). Sia \(E(J)\) l'insieme dei lati contenuti nel matching \(M\) che sono incidenti con un vertice in \(J\). Allora, i vertici terminali dei lati in \(E(J)\) che sono contenuti in \(V_1\) formano un sottoinsieme di cardinalità \(\abs{J}\) di \(\Gamma(J)\).
+	Sia \(M^*\) un \textbf{matching massimo} di \(G\) e \(J\) un sottoinsieme qualsiasi di \(V_2\). Sia \(E(J)\) l'insieme dei lati contenuti nel matching \(M^*\) che sono incidenti con un vertice in \(J\). Allora, i vertici terminali dei lati in \(E(J)\) che sono contenuti in \(V_1\) formano un sottoinsieme di cardinalità \(\abs{J}\) di \(\Gamma(J)\).
 
-	Per assurdo, supponiamo che la condizione \(\abs{\Gamma(J)} \geq \abs{J}\) è valida e che la cardinalità massima di un matching in \(G\) è minore di \(\abs{T}\). Allora per il \textbf{Teorema di König} è possibile costruire una \textbf{vertex cover} \(X=V'_1 \cup V'_2\) dove \(V'_1 \subset V_1\) e \(V'_2 \subset V'_2\) e \(\abs{S'} + \abs{T'} < \abs{T}\) ma quindi i vertici terminali \(u\) dei lati \(\bar{uv}\), dove \(v\) è uno dei \(\abs{V_2} - \abs{V'_2}\) vertici in \(V_2\setminus V'_2\) sono tutti contenuti in \(V_1\), quindi:
+	Per assurdo, supponiamo che la condizione \(\abs{\Gamma(J)} \geq \abs{J}\) è valida e che non esista un matching completo \(\abs{M_G^*} < \abs{V_2}\). Allora per il \textbf{Teorema di König} è possibile costruire una \textbf{vertex cover} di tutti i lati con cardinalità \(\abs{X} = \abs{M_G^*} = \mu(G) < \abs{V_2}\):
 	\[
-		\abs{\Gamma(V_2\setminus V'_2)} \leq \abs{V'_1} < \abs{V_2} - \abs{V'_2} = \abs{V_2\setminus V'_2}
+		X=V'_1 \cup V'_2: V'_1 \subseteq V_1,\;V'_2 \subseteq V_2 \quad \abs{X} = \abs{V_1'} + \abs{V_2'} < \abs{V_2} \Rightarrow \abs{V'_1} < \abs{V_2} - \abs{V'_2} = \abs{V_2 \setminus V'_2}
+	\]
+	Sia ora \(v \in V_2 \setminus V'_2 \Rightarrow \Gamma(v) \subseteq V'_1\), poiché i lati incidenti a \(v\) devono esere coperti da qualche nodo \(\neq v\), quindi:
+	\[
+		\abs{\Gamma(V_2\setminus V'_2)} \geq \abs{V_2\setminus V'_2} \quad \land \quad \abs{\Gamma(V_2\setminus V'_2)} \leq \abs{V'_1} <  \abs{V_2\setminus V'_2}
 	\]
 	da cui la contraddizione.
 \end{proof}
@@ -571,7 +582,7 @@
 \begin{theorem}[Formula di Tutte-Berge]
 	La dimensione di un matching massimo in un grafo \(\Gr \) è pari a:
 	\[
-		\frac{1}{2} \min_{U \subseteq V} \crl{\abs{U} - \text{odd}\rnd{G-U} + \abs{V}}
+		\frac{1}{2} \min_{U \subseteq V} \crl{\abs{U} - \text{odd}\rnd{G\setminus U} + \abs{V}}
 	\]
 	dove \(\text{odd}(H)\) è il numero di componenti connesse del grafo \(H\) con un numero dispari di vertici.
 \end{theorem}
