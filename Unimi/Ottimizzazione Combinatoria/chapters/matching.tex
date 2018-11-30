@@ -306,6 +306,11 @@
 	Ripetendo l'operazione con gli insiemi sui lati \(E\), si ottiene anche la seconda disequazione \(\mu(G) \leq \tau(G)\).
 \end{proof}
 \clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=0.7\textwidth]{proofs/disdual}
+\end{figure}
+\clearpage
 \section{Teorema di Gallai}
 \begin{theorem}[Teorema di Gallai]
 	Per ogni grafo \(G\) con \(n\) nodi si ha:
@@ -376,6 +381,15 @@
 
 \end{proof}
 \clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=\textwidth]{proofs/Gallai1}
+\end{figure}
+\clearpage
+\begin{figure}
+	\includegraphics[width=\textwidth]{proofs/Gallai2}
+\end{figure}
+\clearpage
 \section{Cammino alternante e aumentante}
 \begin{multicols}{2}[Sia \(M\) un matching di \(G = \rnd{V, E}\).]
 	\begin{definition}[Arco accoppiato]
@@ -424,6 +438,14 @@
 	\end{description}
 \end{proof}
 \clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=\textwidth]{proofs/Estensione1}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=\textwidth]{proofs/Estensione2}
+\end{figure}
+\clearpage
 \begin{theorem}[Teorema di Berge]
 	Un matching \(M\) di \(G\) è massimo \textbf{se e solo se} \(G\) non ammette cammini aumentanti rispetto a \(M\).
 \end{theorem}
@@ -458,6 +480,11 @@
 	\textbf{Questo percorso è aumentante per \(M\).}
 \end{proof}
 \clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=0.75\textwidth]{proofs/Teorema_di_Berge}
+\end{figure}
+\clearpage
 \section{Teorema del cammino aumentante}
 
 \begin{theorem}[Teorema del cammino aumentante]
@@ -480,6 +507,11 @@
 	\end{enumerate}
 	Pertanto abbiamo individuato un nuovo matching massimo con \(v\) esposto.
 \end{proof}
+\clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=\textwidth]{proofs/Teorema_del_Cammino_Aumentante}
+\end{figure}
 \clearpage
 \section{Teorema di König}
 
@@ -554,6 +586,11 @@
 	Di conseguenza, \(C_{G\setminus f}\) contiene \(u\) ed è una cover anche di \(G\).
 \end{proof}
 \clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=0.9\textwidth]{proofs/Teorema_di_König,_Rizzi}
+\end{figure}
+\clearpage
 \section{Teorema di Hall o dei matrimoni}
 \begin{theorem}[Teorema di Hall]
 	Sia \(G = \rnd{V_1 \cup V_2, E}\) un grafo bipartito con \(\abs{V_1} \geq \abs{V_2}\). Dato un insieme di vertici \(J \subseteq V_2\), sia \(\Gamma(J) \) il set dei vertici in \(V_1\) che sono adiacenti a qualche vertice in \(J\). Allora:
@@ -576,7 +613,11 @@
 	\]
 	da cui la contraddizione.
 \end{proof}
-
+\clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=0.8\textwidth]{proofs/Teorema_di_Hall}
+\end{figure}
 \section{Formula di Tutte-Berge e Teorema di Tutte}
 \subsection{Formula di Tutte-Berge}
 \begin{theorem}[Formula di Tutte-Berge]
@@ -685,6 +726,11 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 	Ne segue che \(G\) non possiede un matching perfetto.
 \end{proof}
 \clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=\textwidth]{proofs/Proposizioni_sugli_AAF}
+\end{figure}
+\clearpage
 \section{Algoritmo Blossom}
 L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se riesce ad identificare un matching perfetto in un grafo derivato allora è noto che esiste un matching perfetto in \(G\) e se riusciamo ad identificare un certo tipo di AAF all'interno di un grafo derivato possiamo concludere che \(G\) non possiede un matching perfetto. I grafi derivati \(G'\) vengono ottenuti identificando circuiti dispari all'interno dell'albero alternante \(T\) ottenuto da \(G\) e rimuovendoli attraverso un procedimento detto di ``shrinking'' (questo tipo di circuito veniva chiamato blossom, da cui il nome dell'algoritmo.)
 
@@ -702,6 +748,11 @@ L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se rie
 
 	Infine, siccome ogni \(G'\) è un grafo derivato da \(G\), se l'algoritmo termina con la conclusione che \(G'\) non possiede un matching perfetto, allora significa che ha trovato un albero con le proprietà descritte nella terza proposizione su AAF (5.8) e quindi \(G\) \textbf{non possiede un matching perfetto}.
 \end{proof}
+\clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+	\includegraphics[width=0.7\textwidth]{proofs/Algoritmo_Blossom}
+\end{figure}
 \clearpage
 \section{Il postino cinese (Chinese postman problem, CPP)}
 Sia \(\Gr \) un grafo connesso e sia \(w: E \rightarrow \R^+_0\) una lunghezza definita su \(G\). Vogliamo trovare un percorso chiuso \(C\) di lunghezza minima \(w(C)\) che contiene ogni lato di \(G\) almeno una volta.

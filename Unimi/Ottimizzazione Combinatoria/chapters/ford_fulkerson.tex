@@ -27,7 +27,7 @@ Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo}
   \[
     \forall v \in \N, \quad \underbrace{d_{x'}\rnd{s, v} \geq d_{x}\rnd{s, v}}_{\text{Prima parte}} \quad \land \quad \underbrace{d_{x'}\rnd{v, t} \geq d_{x}\rnd{v, t}}_{\text{Seconda parte}}
   \]
-  \paragraph*{Procediamo ora a dimostrare la prima parte del lemma:} supponiamo che esista un nodo \(v\) tale che \(d_{x'}\rnd{s, v} < d_x\rnd{s, v}\) e scegliamo \(v\) in modo che \(d_{x'}\rnd{s, v}\) sia la distanza più piccola il possibile.
+  \paragraph*{Procediamo ora a dimostrare la prima parte del lemma:} \textbf{procediamo per assurdo} e supponiamo che esista un nodo \(v\) tale che \(d_{x'}\rnd{s, v} < d_x\rnd{s, v}\) e scegliamo \(v\) in modo che \(d_{x'}\rnd{s, v}\) sia la distanza più piccola il possibile.
 
   Essendo \(v \neq s\), \(d_{x'}\rnd{s, v} > 0\).
 
@@ -37,7 +37,7 @@ Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo}
   \]
   Se \(d_{x}\rnd{s, v} > d_{x}\rnd{s, w} + 1\), allora l'arco \(\rnd{w, v}\) non appartiene a \(G_x\), perché altrimenti \(d_x\rnd{s, v} = d_x\rnd{s, w}+1\).
 
-  Se l'arco \(\rnd{w, v}\), che appartiene a \(G_{x'}\) non appartiene a \(G_x\) allora esiste un indice \(i: w = v_ i e v = v_{i-1}\), pertanto:
+  Se l'arco \(\rnd{w, v}\), che appartiene a \(G_{x'}\) non appartiene a \(G_x\) allora esiste un indice \(i: w = v_ i\) e \(v = v_{i-1}\), pertanto:
   \[
     d_{x}\rnd{s, v} = i -1 > d_{x}\rnd{s, w} + 1 = i+1
   \]
@@ -59,10 +59,16 @@ Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo}
   \]
   Pertanto, nel passare del flusso \(x_f\) al flusso \(x_h\), \(d\rnd{s, u}\) è aumentata almeno di \(2\). Poiché il massimo valore che può assumere \(d\rnd{s, u}\) è \(n\), un arco può scomparire e riapparire al più \(\frac{n}{2}\) volte.
 \end{proof}
+
 \begin{lemma}[Terzo lemma di Edmonds-Karp]
-  L'algoritmo di Edmonds-Karp ha complessità \(O\rnd{nm^2}\).
+  L'algoritmo di Edmonds-Karp ha complessità \(\O{nm^2}\).
 \end{lemma}
 \begin{proof}[Terzo lemma di Edmonds-Karp]
-  Ogni arco può scomparire al più \(\frac{n}{2}\) volte durante l'esecuzione dell'algoritmo per il secondo lemma \ref{second_lemma_karp}. Ogni volta che effettuiamo un aumento di flusso, scompare almeno un arco. Pertanto, almeno un arco. Pertanto, durante l'esecuzione, si hanno al più \(\frac{mn}{2}\) ``sparizioni''. Ogni operazione di aumento richiede \(O\rnd{m}\) e, quindi, la complessità dell'algoritmo è \(O\rnd{nm^2}\).
+  Ogni arco può scomparire al più \(\frac{n}{2}\) volte durante l'esecuzione dell'algoritmo per il secondo lemma \ref{second_lemma_karp}. Ogni volta che effettuiamo un aumento di flusso, scompare almeno un arco. Pertanto, durante l'esecuzione, si hanno al più \(\frac{mn}{2}\) ``sparizioni''. Ogni operazione di aumento richiede \(\O{m}\) e, quindi, la complessità dell'algoritmo è \(\O{nm^2}\).
 \end{proof}
+\clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+  \includegraphics[width=\textwidth]{proofs/Lemmi_di_Edmonds_Karp}
+\end{figure}
 \end{document}

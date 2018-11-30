@@ -16,7 +16,7 @@ L'algoritmo riceve un insieme di elementi \(E\) ed una funzione di costo \(c\) e
 
 Successivamente itera \(\abs{E}\) volte, scegliendo ogni volta l'elemento di \(E\) che massimizza la funzione \(c\).
 
-Questo elemento \(e^* = \max_e c(E)\) viene quindi rimosso dal set degli oggetti: \(E = E - \crl{e^*}\).
+Questo elemento \(e^* = \max_e c_{E}\) viene quindi rimosso dal set degli oggetti: \(E = E - \crl{e^*}\).
 
 Se l'insieme \(I \cup \crl{e^*}\) risulta essere indipendente, allora il nuovo elemento viene aggiunto all'insieme di soluzione: \(I = I \cup \crl{e^*}\).
 \begin{definition}[Matroide]
@@ -38,43 +38,54 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
 
   Infatti se \textbf{per assurdo} \(\abs{I} < \abs{I'}\), si potrebbe trovare un \(I'' \subseteq I'\) tale che \(\abs{I''} = \abs{I} + 1\) eliminando da \(I'\) un numero di elementi pari a \(\abs{I'} - \abs{I} - 1\), ma per la proprietà del teorema esiste \(e \in I'' \setminus I\) tale che \(I \cup \crl{e} \in F\) e \(I\) non sarebbe massimale.
 
-  \textbf{Quindi dimostriamo che GREEDSUM dia il risultato ottimo:} supponiamo adesso ancora per assurdo che \textbf{GREEDSUM} non dia un risultato ottimo, cioè che per una certa funzione di valutazione \(c: E \rightarrow \R^+\) l'algoritmo fornisce un insieme indipendente \(I = \crl{e_1, \ldots, e_i}\) mentre ne esiste un altro \(J = \crl{e'_1, \ldots, e'_j}\) tale che \(c(j) > c(i)\).
+  \textbf{Quindi dimostriamo che GREEDSUM dia il risultato ottimo:} supponiamo adesso ancora per assurdo che \textbf{GREEDSUM} non dia un risultato ottimo, cioè che per una certa funzione di valutazione \(c: E \rightarrow \R^+\) l'algoritmo fornisce un insieme indipendente \(I = \crl{e_1, \ldots, e_i}\) mentre ne esiste un altro \(J = \crl{e'_1, \ldots, e'_j}\) tale che \(c_J > c_I\).
 
   Supponiamo senza perdita di generalità di aver ordinato gli elementi di \(I\) e \(J\) in ordine di valore non crescente.
 
-  Per costruzione \(I\) è massimale e quindi anche \(J\) per quanto visto sopra, per cui \(i=j\). Vedremo che per \(m=1, 2, \ldots, i\) vale che \(c(e_m) \geq c(e'_m)\), contraddicendo l'ipotesi per cui \(c(J) > c(I)\).
+  Per costruzione \(I\) è massimale e quindi anche \(J\) per quanto visto sopra, per cui \(i=j\). Vedremo che per \(m=1, 2, \ldots, i\) vale che \(c_{e_m} \geq c_{e'_m}\), contraddicendo l'ipotesi per cui \(c_J > c_I\).
 
   Procediamo quindi per \textbf{induzione}:
 
   \textbf{Caso base:} quando \(m=1\), la proprietà è vera per come \textbf{GREEDSUM} sceglie il primo elemento.
 
-  \textbf{Passo induttivo:} Supponiamo allora che per qualche \(m>1\) si abbia \(c(e_m) < c(e'_m)\) mentre \(c(e_s) \geq c(e'_s)\) per \(s = 1, \ldots, m-1\):
-  \[A = \crl{e \in E: c(e) \geq c(e'_m)}\]
+  \textbf{Passo induttivo:} Supponiamo allora che per qualche \(m>1\) si abbia \(c_{e_m} < c_{e'_m}\) mentre \(c_{e_s} \geq c_{e'_s}\) per \(s = 1, \ldots, m-1\):
+  \[A = \crl{e \in E: c_{e} \geq c_{e'_m}}\]
 
-  Allora l'insieme \(\crl{e_1, \ldots, e_{m-1}}\) è un indipendente massimale di \(A\) dato che se \(\crl{e_1, \ldots, e_{m-1}, e} \in I\) e \(c(e) \geq c(e'_m) > c(e_m)\), \textbf{GREEDSUM} avrebbe scelto \(e\) invece di \(e_m\) come successivo elemento da aggiungere.
+  Allora l'insieme \(\crl{e_1, \ldots, e_{m-1}}\) è un indipendente massimale di \(A\) dato che se \(\crl{e_1, \ldots, e_{m-1}, e} \in I\) e \(c_{e} \geq c_{e'_m} > c_{e_m}\), \textbf{GREEDSUM} avrebbe scelto \(e\) invece di \(e_m\) come successivo elemento da aggiungere.
 
   Ciò contraddice quanto dimostrato nella prima parte dato che \(\crl{e'_1, \ldots, e'_m}\) è un altro insieme indipendente di \(A\) ed avrebbe cardinalità maggiore.
 \end{proof}
+\clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+  \includegraphics[width=0.8\textwidth]{proofs/Primo_Teorema_di_Rado}
+\end{figure}
+\clearpage
 \begin{theorem}[Secondo teorema di Rado]
   Sia \(\rnd{E, F}\) un Sistema di Indipendenza (SI). Se per qualunque funzione di valutazione non negativa \(c: E \rightarrow \R^+\) degli elementi di \(E\), \textbf{GREEDSUM} fornisce sempre un membro di \(F\) di valore massimo, allora il SI gode della proprietà del primo teorema di Rado \ref{primo_rado}.
 \end{theorem}
 \begin{proof}[Secondo teorema di Rado]
   Procediamo \textbf{per assurdo} e supponiamo che la proprietà del primo teorema di Rado \ref{primo_rado} non valga.
 
-  Ciò significa che esistono due insiemi indipendente \(I\) e \(J\) con \(\abs{I} = p\) e \(\abs{J} = p+1\) tali che per nessun elemento \(e \in J \setminus I\) accade che \(I \cup \crl{e} \in I\).
+  Ciò significa che esistono due \textbf{insiemi indipendenti} \(I\) e \(J\) con \(\abs{I} = p\) e \(\abs{J} = p+1\) tali che per nessun elemento \(e \in J \setminus I\) accade che \(I \cup \crl{e} \in I\).
 
   Consideriamo allora la seguente maniera di valutare gli elementi di \(E\):
   \[
-    c(e) = \begin{cases}
+    c_{e} = \begin{cases}
       p+2 & e \in I            \\
       p+1 & e \in J\setminus I \\
       0   & e \not\in I \cup J
     \end{cases}
   \]
-  Se ne deduce che \(c(J) \geq \rnd{p+1}^2 > p(p+2) - c(I)\) e quindi \(I\) non è ottimo.
+  Se ne deduce che \(c_J \geq \rnd{p+1}^2 > p(p+2) - c_I\) e quindi \(I\) non è ottimo.
 
   \textbf{GREEDSUM} d'altra parte per sua natura inizierà a inserire nella soluzione per primi tutti gli elementi di \(I\) e non potrà poi aumentare il valore della soluzione, dato che sarà costretto a selezione solo elementi di valore nullo.
 
   Ma allora abbiamo trovato una funzione di valutazione per cui l'algoritmo non fornisce l'ottimo, contrariamente a quanto assunto.
 \end{proof}
+\clearpage
+\section{Diagramma della dimostrazione}
+\begin{figure}
+  \includegraphics[width=0.6\textwidth]{proofs/Secondo_Teorema_di_Rado}
+\end{figure}
 \end{document}
