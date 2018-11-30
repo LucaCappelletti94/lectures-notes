@@ -39,7 +39,7 @@ L'algoritmo di Dijkstra viene utilizzato per trovare il cammino più breve tra d
   Dopo aver processato il nodo \(u\), le ipotesi iniziali si manterranno vere per ogni non visitato \(w\): la distanza \(d(w)\) sarà la distanza minore dalla radice a \(w\) utilizzando solo i nodi visitati perché se esistesse un cammino più breve non passante per \(u\) lo avremmo identificato precedentemente, e se esistesse un cammino più breve passante passante per \(u\) lo avremmo aggiornato mentre il nodo \(u\) veniva processato.
 \end{proof}
 \clearpage
-\section{Diagramma della dimostrazione}
+\subsection{Diagramma della dimostrazione - Correttezza di Dijkstra}
 \begin{figure}
   \includegraphics[width=0.7\textwidth]{proofs/Dijkstra}
 \end{figure}
