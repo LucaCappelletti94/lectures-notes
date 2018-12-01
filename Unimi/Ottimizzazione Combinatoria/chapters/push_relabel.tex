@@ -1,0 +1,61 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmo Push-Relabel}
+L'idea generale è che si risolve un problema primale usando una soluzione inammissibile: il rapporto tra taglio e flusso si mantiene, mentre i vincoli di bilancio dei flussi non sono mantenuti.
+
+Vengono quindi aggiornati nella fase di relabel i vincoli del flusso e quandi il quasi-flusso diviene ammissibile questo risulta un flusso massimo, una soluzione ottima.
+
+\section{Quasi-Flusso}
+\begin{definition}[Eccesso di flusso]
+  Quando un flusso non è ammissibile perché non sono soddisfatti i vincoli di bilanciamento ai nodi (cioè vi è più flusso in entrata che in uscita) per almeno un nodo vi è un \textbf{eccesso di flusso}:
+  \[
+    e_x(i)=\text{``eccesso''}, \text{ l'eccesso di flusso nel nodo \(i\)}
+  \]
+\end{definition}
+\begin{definition}[Quasi-Flusso]
+  Un vettore \(\bmx \in \Z_+\) tale che:
+  \begin{enumerate}
+    \item \(e_x(n) \geq 0\) per ogni nodo \(n \in \N \setminus \crl{s,t}\)
+    \item \(0 \leq x_{ij} \leq u_{ij}\) per ogni arco \(\rnd{i,j} \in A\)
+  \end{enumerate}
+  si dice \textbf{quasi-flusso.}
+\end{definition}
+
+\begin{definition}[Rete residuale associata a un quasi-flusso]
+  Una rete residuale \(G(\bmx)\) associata ad un quasi flusso \(\bmx\) ha le seguenti caratteristiche:
+  \begin{enumerate}
+    \item Esiste un arco \(\rnd{i,j} \in G(\bmx) \Leftrightarrow x_{ji} > 0 \quad \lor \quad x_{ij} < u_{ij}\).
+    \item L'etichettatura dell'arco \(\rnd{i,j} \in G(\bmx)\) è pari a \(u'_{ij} = u_{ij} - x_{ij} + x_{ji}\)
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Nodo attivo]
+  Un nodo \(i\) si dice attivo se \[e_x(i) > 0\]
+\end{definition}
+\begin{definition}[Arco ammissibile]
+  Un arco \(\rnd{i,j} \in G(\bmx):  d(i) = d(j) +1\) si dice \textbf{ammissibile}.
+\end{definition}
+\begin{definition}[Etichettatura valida rispetta a quasi-flusso]
+  Un vettore \(\bmd \in \rnd{\Z_+ \cup \crl{+\infty}}\) è una etichettatura valida rispetto ad un quasi flusso \(\bmx\) se:
+  \begin{enumerate}
+    \item \(d(s) = n, d(t) = 0\)
+    \item \(\forall \rnd{i,j} \in G(\bmx), d(i) \leq d(j) +1\)
+  \end{enumerate}
+\end{definition}
+\section{Massimo flusso tramite quasi-flussi}
+Dato un grafo \(G = (N, A)\) è sempre possibile individuare un quasi-flusso ammissibile e una etichettatura valida, ponendo:
+
+\begin{enumerate}
+  \item \(x_{si}\) = \(u_si\), per ogni arco \(\rnd{s,i}\) uscente da \(s\)
+  \item \(x_{ij} = 0\) per tutti gli altri archi di \(A\)
+  \item \(d(s) = n\), \(d(i) = 0\) per tutti gli altri nodi di \(N\)
+\end{enumerate}
+
+\begin{theorem}[Massimo flusso tramite quasi-flussi]
+  Se \(\bmx\) è un quasi-flusso ammissibile e \(\bmd\) è un’etichettatura valida per \(\bmx\), allora esiste un \((s,t)\)-taglio \(\delta(R)\) tale che \(x_{ij}=u_{ij}\) per ogni \(\rnd{i,j}\in \delta\rnd{R}\) e \(x_{ij}=0\) per ogni \(\rnd{i,j} \in \delta\rnd{R}\).
+
+  Ne segue che se \(\bmx\) è un \textbf{flusso ammissibile} e \textbf{ammette un’etichettatura valida}, allora \(\bmx\) è \textbf{un massimo flusso}.
+\end{theorem}
+
+\end{document}
