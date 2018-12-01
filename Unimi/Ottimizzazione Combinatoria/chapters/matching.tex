@@ -277,6 +277,7 @@
 \clearpage
 \section{Disuguaglianze duali deboli}
 \begin{theorem}[Disuguaglianze duali deboli]
+	\label{duali_deboli}
 	Definiamo per un grafo \(G\):
 	\begin{description}
 		\item[\(\a(G)\)] la cardinalità dell'\textbf{insieme stabile massimo} del grafo \(G\).
@@ -560,35 +561,110 @@
 
 	Pertanto, \(Z\) è un insieme trasversale di cardinalità pari a \(\mu(G)\).
 \end{proof}
-
+\clearpage
 \begin{proof}[Teorema di König (Rizzi, 1999)]
-	Dato un grafo \(B\), vale che \(\abs{M_B^*} \leq \abs{C_B^*}\).
+	Dato un grafo \(G\), per le disuguaglianze duali deboli (\ref{duali_deboli}), vale che: \(\mu(G) \leq \tau(G)\). Per assurdo ipotizziamo che esistano grafi \textbf{bipartiti} per cui valga: \(\mu(G) < \tau(G)\).
 
-	Sia \(\Gr \) un contro esempio minimo: il più piccolo grafo \textbf{connesso} che non sia un \textbf{circuito} ne un \textbf{cammino}.
+	Tra tutti i possibili grafi che violano il teorema di König ne scegliamo uno come controesempio minimo:
+	\begin{enumerate}
+		\item Il grafo \(G\) ha il più piccolo numero di vertici \(n\).
+		\item Il grafo \(G\), tra tutti i possibili controesempi con \(n\) vertici, ha anche il numero mino di lati.
+	\end{enumerate}
 
-	Ne segue che \(G\) ha un nodo \(u\) di grado almeno \(3\).
+	Ne segue che:
 
-	Sia \(v\) uno dei nodi vicini di \(u\):
+	\begin{enumerate}
+		\item Il grafo \(G\) è \textbf{connesso}.
+		\item Il grafo \(G\) non è un composto da un \textbf{ciclo} o un \textbf{cammino}, poiché grafi di questo genere chiaramente rispetterebbero il teorema di König.
+	\end{enumerate}
+
+	Ne segue che \(G\) ha un nodo \(u\) di grado almeno \(3\). Sia \(v\) uno dei nodi vicini di \(u\). Sia \(M^*_G\) il matching massimo per il grafo e \(M^*_{G\setminus v}\) il matching massimo per il grafo privato del nodo \(v\).
+
+	\textit{NB: non è possibile costruire veramente il grafo G siccome stiamo procedendo per assurdo. L'immagine seguente serve per aiutare a visualizzare il procedimento, ma non è una reale rappresentazione del controesempio minimo \(G\).}
+
+	\begin{figure}
+		\begin{subfigure}{0.33\textwidth}
+			\NewAdigraph{MinimalGraph}{
+				u,red:0,0:$u$;
+				p,blue:2:$p$;
+				s,red:2:$s$;
+				q,blue:2:$q$;
+				t,red:2:$t$;
+				v,blue:2:$v$;
+				r,red:2:$r$;
+			}{
+				u,v;
+				u,q:1:$f$;
+				u,p;
+				t,v,gray;
+				r,p,gray;
+				s,q,gray;
+			}
+			\MinimalGraph{}
+			\caption{Componente a stella di \(G\).}
+		\end{subfigure}
+		\begin{subfigure}{0.33\textwidth}
+			\NewAdigraph{MinimalGraph}{
+				u,red:0,0:$u$;
+				p,blue:2:$p$;
+				s,red:2:$s$;
+				q,blue:2:$q$;
+				t,red:2:$t$;
+				v,blue:2:$v$;
+				r,red:2:$r$;
+			}{
+				u,v,gray;
+				u,q,gray:1:$f$;
+				u,p,red;
+				t,v,red;
+				r,p,gray;
+				s,q,red;
+			}
+			\MinimalGraph{}
+			\caption{Matching \(M^*_G\), in rosso.}
+		\end{subfigure}
+		\begin{subfigure}{0.33\textwidth}
+			\NewAdigraph{MinimalGraph}{
+				u,red:0,0:$u$;
+				p,blue:2:$p$;
+				s,red:2:$s$;
+				q,blue:2:$q$;
+				t,red:2:$t$;
+				v,blue:2:$\xcancel{v}$;
+				r,red:2:$r$;
+			}{
+				u,q,gray:1:$f$;
+				u,p,red;
+				r,p,gray;
+				s,q,red;
+			}
+			\MinimalGraph{}
+			\caption{Matching \(M^*_{G\setminus v}\), in rosso.}
+		\end{subfigure}
+		\caption{Matching massimi e componente a stella.}
+	\end{figure}
+	Siccome \(G\) è stato scelto come un \textbf{controesempio minimo}, il grafo \(G\setminus v\) soddisfa il teorema di König (cioè modificando il grafo togliendo elementi si deve rientrare in un grafo che riespetta il teorema): \(\mu(G\setminus v) = \tau(G\setminus v)\). Procediamo quindi \textbf{assumendo} che \(\mu(G\setminus v)<\mu(G)\).
+
+	Allora possiamo realizzare una vertex cover \(C_{G\setminus v}\) di cardinalità \(\mu(G\setminus v)\) ed estenderla ad essere una cover di \(G\) aggiungendovi il vertice \(v\): \(C_{G} = C_{G\setminus v} \cup \crl{v}\). Questo implica che:
 	\[
-		\abs{M_{G\setminus v}^*} < \abs{M_G^*} \Rightarrow \text{per minimalità}\quad \abs{C_{G \setminus v}} < \abs{M_G^*}
+		\tau(G) \leq \mu(G\setminus v) + 1 \leq \mu(G) \quad \Rightarrow \quad  \tau(G) = \mu(G)
 	\]
+	\textit{Pertanto \(G\) rispetterebbe il teorema di König, una contraddizione con l'ipotesi iniziale.} Ne segue che \(\mu(G\setminus v) = \mu(G)\): deve esistere quindi un matching massimo \(M^*_G\) di \(G\) in cui nessun lato è incidente con \(v\).
 
-	Ne segue che \(C_{G\setminus v} \cup \crl{v}\) è una cover di \(G\) con cardinalità al più \(\abs{M^*}_G\).
+	Siccome il nodo \(u\) possiede grado almeno pari a \(3\), possiamo scegliere un lato \(f=\rnd{u,q}: f \not\in M_G\). Nuovamente per \textbf{minimalità} il nuovo grafo \(G\setminus f\) soddisfa il teorema di König ed è possibile ottenere:
+	\[\mu(G) = \mu(G\setminus f) = \tau(G\setminus f)\]
+	Sia \(C_{G\setminus f}\) una \textbf{vertex cover} con cardinalità pari a \(\mu(G)\): siccome nessun lato del matching \(M^*_G\) è incidente con \(v\), allora non sarà incluso nemmeno nella cover: \(v \not\in C_{G\setminus f}\).
 
-	Possiamo assumere di conseguenza che deve esistere un matching massimo \(M\) di \(G\) privo di lati incidenti a \(v\).
+	Questo avviene perché la cardinalità della cover \(C_{G\setminus f}\) e del matching \(M^*_G\) sono uguali ed un estremo di ogni lato del matching deve essere incluso nella cover.
 
-	Sia \(f\) un lato di \(G\setminus M\) incidente a \(u\) ma non a \(v\).
+	Ne segue che la cover \(C_{G\setminus f}\), per coprire il lato \(\rnd{u,v} \neq f\), deve includere l'altro estremo \(u\), e risulta pertanto essere una vertex cover per \(G\).
 
-	Sia \(C_{G\setminus f}\) una cover con cardinalità \(\abs{C_{G\setminus f}} = \abs{M_G^*}\).
-
-	Siccome nessun lato di \(M\) è incidente a \(v\), ne segue che \(C_{G\setminus f}\) non contiene \(v\).
-
-	Di conseguenza, \(C_{G\setminus f}\) contiene \(u\) ed è una cover anche di \(G\).
+	Per cui, nuovamente, risulta che \(G\) soddisfi il teorema di König: questa ultima contraddizione conferma la validità del teorema.
 \end{proof}
 \clearpage
 \subsection{Diagramma della dimostrazione - Teorema di König (Rizzi, 1999)}
 \begin{figure}
-	\includegraphics[width=0.9\textwidth]{proofs/Teorema_di_König,_Rizzi}
+	\includegraphics[width=\textwidth]{proofs/Teorema_di_König,_Rizzi}
 \end{figure}
 \clearpage
 \section{Teorema di Hall o dei matrimoni}

@@ -100,7 +100,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
 \end{figure}
 \clearpage
 \section{MST e programmazione lineare}
-\begin{theorem}[Legame tra MST e PL]
+\begin{theorem}[Teorema di Edmonds]
   Sia \(\bmxo\) il vettore caratteristico di un MST in rispetto ai costi \(\bmc \). ALlora \(\bmxo\) è una soluzione ottima del problema di programmazione lineare:
   \begin{align*}
     \min \bmct\bmx                                                                 \\
@@ -109,7 +109,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
     x_e              & \geq 0                       \quad \forall e \in E
   \end{align*}
 \end{theorem}
-\begin{proof}[Legame tra MST e PL]
+\begin{proof}[Teorema di Edmonds]
   Per un sottoinsieme di lati \(A\), sia \(k(A)\) il numero di componenti del sottografo \(\rnd{V, A}\) di \(G\). Prendiamo in considerazione una versione equivalente del problema proposto nel teorema:
   \begin{align*}
     \min \bmct\bmx                                           \\
@@ -146,7 +146,7 @@ Il procedimento si interrompe quando \(H\) diviene un albero ricoprente.
   Per cui, \(\bm\bmxo\) e \(\bmy^o\) soddisfano le condizioni degli scarti complementari. Ne segue che \(\bm\bmxo\) è la soluzione ottima del problema di PL.
 \end{proof}
 \clearpage
-\subsection{Diagramma della dimostrazione - Legame tra MST e PL}
+\subsection{Diagramma della dimostrazione - Teorema di Edmonds}
 \begin{figure}
   \includegraphics[width=\textwidth]{proofs/H_Legame_tra_MST_e_PL}
 \end{figure}
