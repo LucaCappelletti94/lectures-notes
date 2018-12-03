@@ -36,26 +36,27 @@ Vengono quindi aggiornati nella fase di relabel i vincoli del flusso e quandi il
 \begin{definition}[Arco ammissibile]
   Un arco \(\rnd{i,j} \in G(\bmx):  d(i) = d(j) +1\) si dice \textbf{ammissibile}.
 \end{definition}
-\begin{definition}[Etichettatura valida rispetta a quasi-flusso]
+\begin{definition}[Etichettatura valida rispetto a quasi-flusso]
   Un vettore \(\bmd \in \rnd{\Z_+ \cup \crl{+\infty}}\) è una etichettatura valida rispetto ad un quasi flusso \(\bmx\) se:
   \begin{enumerate}
     \item \(d(s) = n, d(t) = 0\)
     \item \(\forall \rnd{i,j} \in G(\bmx), d(i) \leq d(j) +1\)
   \end{enumerate}
 \end{definition}
+\clearpage
 \section{Massimo flusso tramite quasi-flussi}
 Dato un grafo \(G = (N, A)\) è sempre possibile individuare un quasi-flusso ammissibile e una etichettatura valida, ponendo:
 
 \begin{enumerate}
-  \item \(x_{si}\) = \(u_si\), per ogni arco \(\rnd{s,i}\) uscente da \(s\)
+  \item \(x_{si}\) = \(u_{si}\), per ogni arco \(\rnd{s,i}\) uscente da \(s\)
   \item \(x_{ij} = 0\) per tutti gli altri archi di \(A\)
   \item \(d(s) = n\), \(d(i) = 0\) per tutti gli altri nodi di \(N\)
 \end{enumerate}
 
 \begin{theorem}[Massimo flusso tramite quasi-flussi]
-  Se \(\bmx\) è un quasi-flusso ammissibile e \(\bmd\) è un’etichettatura valida per \(\bmx\), allora esiste un \((s,t)\)-taglio \(\delta(R)\) tale che \(x_{ij}=u_{ij}\) per ogni \(\rnd{i,j}\in \delta\rnd{R}\) e \(x_{ij}=0\) per ogni \(\rnd{i,j} \in \delta\rnd{R}\).
+  Se \(\bmx\) è un quasi-flusso ammissibile e \(\bmd\) è un'etichettatura valida per \(\bmx\), allora esiste un \((s,t)\)-taglio \(\delta(R)\) tale che \(x_{ij}=u_{ij}\) per ogni \(\rnd{i,j}\in \delta\rnd{R}\) e \(x_{ij}=0\) per ogni \(\rnd{i,j} \in \delta\rnd{R}\).
 
-  Ne segue che se \(\bmx\) è un \textbf{flusso ammissibile} e \textbf{ammette un’etichettatura valida}, allora \(\bmx\) è \textbf{un massimo flusso}.
+  Ne segue che se \(\bmx\) è un \textbf{flusso ammissibile} e \textbf{ammette un'etichettatura valida}, allora \(\bmx\) è \textbf{un massimo flusso}.
 \end{theorem}
 
 \end{document}

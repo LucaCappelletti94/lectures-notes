@@ -19,12 +19,12 @@
 				5:2;
 				6:2;
 			}{
-				1,2,red;
-				3,4,red;
+				1,2,red,2;
+				3,4,red,2;
 				5,+,gray;
-			}
+			}[-]
 			\MatchingDefinition{}
-			\caption{Un esempio di matching, in rosso.}
+			\caption{Un esempio di matching, in rosso e grassetto.}
 		\end{figure}
 	\end{definition}
 	\begin{definition}[Matching massimo]
@@ -39,13 +39,13 @@
 				6:2;
 				7:2;
 			}{
-				1,2,red;
-				3,4,red;
-				5,6,red;
+				1,2,red,2;
+				3,4,red,2;
+				5,6,red,2;
 				5,+,gray;
-			}
+			}[-]
 			\MatchingDefinition{}
-			\caption{Un esempio di matching massimo, in rosso.}
+			\caption{Un esempio di matching massimo, in rosso e grassetto.}
 		\end{figure}
 	\end{definition}
 	\begin{definition}[Matching bipartito]
@@ -59,15 +59,15 @@
 				3:2;
 				c:2;
 			}{
-				1,a,red;
+				1,a,red,2;
 				3,a,gray;
-				2,b,red;
+				2,b,red,2;
 				2,c,gray;
 				2,a,gray;
 				3,c,gray;
-			}
+			}[-]
 			\MatchingDefinition{}
-			\caption{Un esempio di matching bipartito, in rosso.}
+			\caption{Un esempio di matching bipartito, in rosso e grassetto.}
 		\end{figure}
 	\end{definition}
 	\begin{definition}[Matching perfetto]
@@ -84,13 +84,13 @@
 				5:2;
 				6:2;
 			}{
-				1,2,red;
-				3,4,red;
-				5,6,red;
+				1,2,red,2;
+				3,4,red,2;
+				5,6,red,2;
 				5,+,gray;
-			}
+			}[-]
 			\MatchingDefinition{}
-			\caption{Un esempio di matching perfetto.}
+			\caption{Un esempio di matching perfetto, in rosso e grassetto}
 		\end{figure}
 	\end{definition}
 \end{multicols}
@@ -114,13 +114,13 @@
 			1,2,gray;
 			2,6,gray;
 			4,6,gray;
-			3,1,red;
-			4,2,red;
+			3,1,red,2;
+			4,2,red,2;
 			2,3,gray;
 			4,1,gray;
-		}
+		}[-]
 		\MaximalMatching{}
-		\caption{Esempio di matching massimale}
+		\caption{Esempio di matching massimale, in rosso e grassetto}
 	\end{figure}
 \end{definition}
 \clearpage
@@ -150,7 +150,7 @@
 			5,7;
 			6,8;
 			7,8;
-		}
+		}[-]
 		\InsiemeStabile{}
 		\caption{Esempio di insieme stabile}
 	\end{figure}
@@ -161,13 +161,13 @@
 	\begin{figure}
 		\NewAdigraph{InsiemeStabile}{
 			1:0,4;
-			2,red:4,4;
-			3,red:0,0;
+			2,red,2:4,4;
+			3,red,2:0,0;
 			4:4,0;
-			5,red:1,3;
+			5,red,2:1,3;
 			6:3,3;
 			7:1,1;
-			8,red:3,1;
+			8,red,2:3,1;
 		}{
 			1,2;
 			1,3;
@@ -181,9 +181,9 @@
 			5,7;
 			6,8;
 			7,8;
-		}
+		}[-]
 		\InsiemeStabile{}
-		\caption{Esempio di insieme stabile}
+		\caption{Esempio di insieme stabile, in rosso e grassetto}
 	\end{figure}
 \end{definition}
 \begin{definition}[Insieme stabile massimale]
@@ -192,12 +192,12 @@
 	\begin{figure}
 		\NewAdigraph{InsiemeStabile}{
 			1:0,4;
-			2,red:4,4;
+			2,red,2:4,4;
 			3:0,0;
 			4:4,0;
 			5:1,3;
 			6:3,3;
-			7,red:1,1;
+			7,red,2:1,1;
 			8:3,1;
 		}{
 			1,2;
@@ -212,9 +212,9 @@
 			5,7;
 			6,8;
 			7,8;
-		}
+		}[-]
 		\InsiemeStabile{}
-		\caption{Esempio di insieme stabile}
+		\caption{Esempio di insieme stabile, in rosso e grassetto}
 	\end{figure}
 \end{definition}
 \clearpage
@@ -226,11 +226,11 @@
 	\begin{figure}
 		\begin{subfigure}{0.49\textwidth}
 			\NewAdigraph{VertexCover}{
-				1,red:2;
+				1,red,2:2;
 				2:2;
-				3,red:2;
+				3,red,2:2;
 				4:2;
-				5,red:2;
+				5,red,2:2;
 				6:2;
 				7:2;
 			}{
@@ -240,7 +240,7 @@
 				5,4,gray;
 				5,7,gray;
 				5,+,gray;
-			}
+			}[-]
 			\VertexCover{}
 			\caption{Vertex cover, in rosso}
 		\end{subfigure}
@@ -254,12 +254,12 @@
 				6:2;
 				7:2;
 			}{
-				1,2,red;
-				3,4,red;
-				5,6,red;
-				5,7,red;
+				1,2,red,2;
+				3,4,red,2;
+				5,6,red,2;
+				5,7,red,2;
 				5,+,gray;
-			}
+			}[-]
 			\EdgeCover{}
 			\caption{Edge cover, in rosso}
 		\end{subfigure}
@@ -309,7 +309,7 @@
 \clearpage
 \subsection{Diagramma della dimostrazione - Disuguaglianze duali deboli}
 \begin{figure}
-	\includegraphics[width=0.7\textwidth]{proofs/disdual}
+	\includegraphics[width=0.6\textwidth]{proofs/disdual}
 \end{figure}
 \clearpage
 \section{Teorema di Gallai}
@@ -575,7 +575,7 @@
 
 	\begin{enumerate}
 		\item Il grafo \(G\) è \textbf{connesso}.
-		\item Il grafo \(G\) non è un composto da un \textbf{ciclo pari} (cicli di lunghezza dispari non sono possibili in un grafo bipartito) o un \textbf{cammino}, poiché grafi di questo genere chiaramente rispetterebbero il teorema di König.
+		\item Il grafo \(G\) non è composto da un \textbf{ciclo pari} (cicli di lunghezza dispari non sono possibili in un grafo bipartito) o un \textbf{cammino}, poiché grafi di questo genere chiaramente rispetterebbero il teorema di König.
 	\end{enumerate}
 
 	Ne segue che \(G\) ha un nodo \(u\) di grado almeno \(3\). Sia \(v\) uno dei nodi vicini di \(u\). Sia \(M^*_G\) il matching massimo per il grafo e \(M^*_{G\setminus v}\) il matching massimo per il grafo privato del nodo \(v\).
@@ -599,7 +599,7 @@
 				t,v,gray;
 				r,p,gray;
 				s,q,gray;
-			}
+			}[-]
 			\MinimalGraph{}
 			\caption{Componente a stella di \(G\).}
 		\end{subfigure}
@@ -615,11 +615,11 @@
 			}{
 				u,v,gray;
 				u,q,gray:1:$f$;
-				u,p,red;
-				t,v,red;
+				u,p,red,2;
+				t,v,red,2;
 				r,p,gray;
-				s,q,red;
-			}
+				s,q,red,2;
+			}[-]
 			\MinimalGraph{}
 			\caption{Matching \(M^*_G\), in rosso.}
 		\end{subfigure}
@@ -634,10 +634,10 @@
 				r,red:2:$r$;
 			}{
 				u,q,gray:1:$f$;
-				u,p,red;
+				u,p,red,2;
 				r,p,gray;
-				s,q,red;
-			}
+				s,q,red,2;
+			}[-]
 			\MinimalGraph{}
 			\caption{Matching \(M^*_{G\setminus v}\), in rosso.}
 		\end{subfigure}
@@ -649,7 +649,7 @@
 	\[
 		\tau(G) \leq \mu(G\setminus v) + 1 \leq \mu(G) \quad \Rightarrow \quad  \tau(G) = \mu(G)
 	\]
-	\textit{Pertanto \(G\) rispetterebbe il teorema di König, una contraddizione con l'ipotesi iniziale.} Ne segue che \(\mu(G\setminus v) = \mu(G)\): deve esistere quindi un matching massimo \(M^*_G\) di \(G\) in cui nessun lato è incidente con \(v\).
+	\textit{Pertanto \(G\) rispetterebbe il teorema di König, una contraddizione con l'ipotesi iniziale per cui \(\mu(G\setminus v)<\mu(G)\)}. Ne segue che \(\mu(G\setminus v) = \mu(G)\): deve esistere quindi un matching massimo \(M^*_G\) di \(G\) in cui nessun lato è incidente con \(v\).
 
 	Siccome il nodo \(u\) possiede grado almeno pari a \(3\), possiamo scegliere un lato \(f=\rnd{u,q}: f \not\in M_G\). Nuovamente per \textbf{minimalità} il nuovo grafo \(G\setminus f\) soddisfa il teorema di König ed è possibile ottenere:
 	\[\mu(G) = \mu(G\setminus f) = \tau(G\setminus f)\]
