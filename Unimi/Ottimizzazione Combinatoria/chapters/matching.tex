@@ -807,6 +807,51 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 	\includegraphics[width=\textwidth]{proofs/Proposizioni_sugli_AAF}
 \end{figure}
 \clearpage
+\chapter{Algoritmo per il Matching Massimo}
+Questo algoritmo identifica un cammino aumentante ed iniziando da un matching banale identifica un matching massimo in un dato grafo bipartito.
+
+\section{Immagini step by step}
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{matching/0}
+	\end{subfigure}
+	\begin{subfigure}{0.25\textwidth}
+		\includegraphics[width=\textwidth]{matching/1}
+	\end{subfigure}
+\end{figure}
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{matching/2}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{matching/3}
+	\end{subfigure}
+\end{figure}
+
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{matching/4}
+	\end{subfigure}
+	\begin{subfigure}{0.25\textwidth}
+		\includegraphics[width=\textwidth]{matching/5}
+	\end{subfigure}
+\end{figure}
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{matching/6}
+	\end{subfigure}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=\textwidth]{matching/7}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=\textwidth]{matching/8}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=0.75\textwidth]{matching/9}
+\end{figure}
+
+\clearpage
 \section{Algoritmo Blossom}
 L'algoritmo procede derivando grafi da un grafo bipartito \(G\) iniziale: se riesce ad identificare un matching perfetto in un grafo derivato allora è noto che esiste un matching perfetto in \(G\) e se riusciamo ad identificare un certo tipo di AAF all'interno di un grafo derivato possiamo concludere che \(G\) non possiede un matching perfetto. I grafi derivati \(G'\) vengono ottenuti identificando circuiti dispari all'interno dell'albero alternante \(T\) ottenuto da \(G\) e rimuovendoli attraverso un procedimento detto di ``shrinking'' (questo tipo di circuito veniva chiamato blossom, da cui il nome dell'algoritmo.)
 

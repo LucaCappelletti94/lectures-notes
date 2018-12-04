@@ -4,7 +4,17 @@
 \chapter{Algoritmo Push-Relabel}
 L'idea generale è che si risolve un problema primale usando una soluzione inammissibile: il rapporto tra taglio e flusso si mantiene, mentre i vincoli di bilancio dei flussi non sono mantenuti.
 
-Vengono quindi aggiornati nella fase di relabel i vincoli del flusso e quandi il quasi-flusso diviene ammissibile questo risulta un flusso massimo, una soluzione ottima.
+Vengono quindi aggiornati nella fase di relabel i vincoli del flusso e quando il quasi-flusso diviene ammissibile questo risulta un flusso massimo, una soluzione ottima.
+
+L'algoritmo \textbf{push-relabel} utilizza una funzione di etichettatura valida non negativa che utilizza \textbf{etichette di distanza} (dette anche altezze), su nodi per determinare quali archi dovrà andare a selezionare per l'operazione di push. Questa funzione di etichettatura viene denotata come \(d: V \rightarrow \N \).
+
+L'algoritmo inizia creando un grafo residuale, inizializzando i valori a zero e saturando tramite operazioni di push gli archi residuali all'uscita della sorgente. Quindi, le etichette sono inizializzate in modo tale che la sorgente coincide con il numero dei nodi nel grafo: \(d(s) = \abs{V}\) e tutti gli altri nodi ricevono un'etichettatura pari a \(0\). Una volta che l'inizializzazione è completa, l'algoritmo ripete l'operazione di push o relabel (da cui il nome dell'algoritmo) su i \textbf{nodi attivi}, cioè quelli con \textbf{eccesso di flusso} fintanto che nessuna operazione applicabile rimane.
+
+\paragraph*{Push} L'operazione di push si applica su un lato uscente ammissibile \(\rnd{i,j}\) di un nodo attivo \(i\). Va a spostare \(\min\crl{e_x{i}, u_{ij}}\) unità di flusso tra \(i\) a \(j\).
+
+Un'operazione di push che porta al massimo la capacità disponibile nell'arco viene detta \textbf{push di saturazione}, altrimenti tutto l'eccesso rimanente al nodo è mosso ulteriormente sfruttando i lati residuali: quest'ultima è detta \textbf{non-saturating push}.
+
+\paragraph*{Relabel} L'operazione di relabel viene applicata su un nodo attivo \(i\) privo di nodi uscenti ammissibili. Va a modificare l'etichettatura del nodo in modo tale che coincida con il minimo valore tale per cui un nodo uscente ammissibile viene creato: questo porta sempre il valore dell'etichettatura ad aumentare.
 
 \section{Quasi-Flusso}
 \begin{definition}[Eccesso di flusso]
@@ -38,10 +48,11 @@ Vengono quindi aggiornati nella fase di relabel i vincoli del flusso e quandi il
 \end{definition}
 \begin{definition}[Etichettatura valida rispetto a quasi-flusso]
   Un vettore \(\bmd \in \rnd{\Z_+ \cup \crl{+\infty}}\) è una etichettatura valida rispetto ad un quasi flusso \(\bmx\) se:
-  \begin{enumerate}
-    \item \(d(s) = n, d(t) = 0\)
-    \item \(\forall \rnd{i,j} \in G(\bmx), d(i) \leq d(j) +1\)
-  \end{enumerate}
+  \begin{description}
+    \item[Source condition] \(d(s) = n\)
+    \item[Sink conservation] \(d(t) = 0\)
+    \item[Etichettatura valida]\(\forall \rnd{i,j} \in G(\bmx), d(i) \leq d(j) +1\)
+  \end{description}
 \end{definition}
 \clearpage
 \section{Massimo flusso tramite quasi-flussi}
