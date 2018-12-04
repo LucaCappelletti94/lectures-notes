@@ -34,7 +34,8 @@
 *.mtc1
 *.out
 *.synctex.gz
-*.xml
+*.run.xml
+#*.xml
 *.bcf
 *.xdy
 *.pdf
