@@ -745,14 +745,6 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 		\caption{Extending}
 	\end{figure}
 \end{definition}
-\begin{definition}[Aumentare un Matching]
-	\textbf{Input:} Un matching \(M'\) di un grafo \(G'\), un albero \(M'\)-alternante \(T\) di \(G'\) con radice \(r\), un lato \(\rnd{v, w}\) di \(G'\) tale che \(v \in B\rnd{T}\), \(v \not\in V(T)\) e \(w\) sia \(M'\)-coperto.
-
-	\textbf{Azione:} Sia \(P\) un cammino ottenuto appendendo \(\rnd{v, w}\) al cammino da \(r\) a \(v\) in \(T\). Il matching viene aggiornato come:
-	\[
-		M' = \crl{M'\cup E\rnd{P}}\setminus\crl{M' \cap E\rnd{P}}
-	\]
-\end{definition}
 \begin{definition}[Ridurre e aggiornare un matching ed albero alternante]
 	\textbf{Input:} Un matching \(M'\) del grafo \(G'\), un albero \(M'\)-alternante \(T\), ed un lato \(\rnd{v, w}\) di \(G'\) tale che \(v, w \in B\rnd{T}\).
 
@@ -766,6 +758,15 @@ Questa formula implica immediatamente una condizione per l'esistenza di un match
 		\includegraphics[width=0.5\textwidth]{schrinking}
 		\caption{Shrinking}
 	\end{figure}
+\end{definition}
+\clearpage
+\begin{definition}[Aumentare un Matching]
+	\textbf{Input:} Un matching \(M'\) di un grafo \(G'\), un albero \(M'\)-alternante \(T\) di \(G'\) con radice \(r\), un lato \(\rnd{v, w}\) di \(G'\) tale che \(v \in B\rnd{T}\), \(v \not\in V(T)\) e \(w\) sia \(M'\)-coperto.
+
+	\textbf{Azione:} Sia \(P\) un cammino ottenuto appendendo \(\rnd{v, w}\) al cammino da \(r\) a \(v\) in \(T\). Il matching viene aggiornato come:
+	\[
+		M' = \crl{M'\cup E\rnd{P}}\setminus\crl{M' \cap E\rnd{P}}
+	\]
 \end{definition}
 \begin{definition}[Albero alternante frustrato]
 	Un albero alternante in un grafo \(\Gr \) si dice frustrato se ogni lato di \(G\) avente un termine in \(B(T)\) possiede l'altro termine in \(A(T)\).
