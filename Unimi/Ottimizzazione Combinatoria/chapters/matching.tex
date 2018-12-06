@@ -906,5 +906,83 @@ Come conseguenza la somma delle etichette \(d^{(i)}\) dei vertici in \(S\) coinc
 Costruisco una istanza di un problema di trasporto con gli insiemi \(S\) e \(T\), dove le quantità prodotte dai vertici in \(S\) e da trasportare a quelli in \(T\) sono le etichette \(d^{+(i)}\) mentre la domanda dei vertici in \(T\) sono i valori \(d^{-(i)}\), ed il costo per unità di merce trasportata lungo l'arco \((i,j)\) è \(C_{ij}\). La soluzione del problema di trasporto indica gli archi da aggiungere.
 
 Se la soluzione dice di trasportare \(k\) unità di merda da \(i\) a \(j\) allora aggiungiamo \(k\) archi paralleli ad ogni arco nel cammino di costo minimo da \(i\) a \(j\).
+\clearpage
+\section{Algoritmi primali-duali}
+Un algoritmo primale duale risolve problemi di programmazione lineare sfruttando la teoria della dualità e in particolare le condizioni di slackness complementare (o complementary slackness conditions, CSCs). L'algoritmo è inizializzato con una soluzione ammissibile nel problema duale e la corrispondente, in generale inammissibile, soluzione primale che soddisfino le CSCs.
+
+Dopo ogni iterazione l'algoritmo mantiene una coppia della soluzione primale (inammissibile) e della soluzione duale (ammissibile), che soddisfino le CSCs.
+
+L'algoritmo alterna le due iterazioni e riduce monotonamente l'inammissibilità primale fintanto che non raggiunge l'ammissibilità.
+
+\paragraph*{Iterazione primale:} mantenendo la soluzione duale corrente fissata, si procede ad identificare una soluzione primale minimizzando l'inammissibilità primale tra le soluzioni ammissibili per le CSCs.
+\paragraph*{Iterazione duale:} mantenendo fissata la soluzione primale corrente, si va a modificare la soluzione duale, mantenendola ammissibile e continuando a rispettare le CSCs.
+
+\begin{definition}[Assegnamento parziale]
+	Un \textbf{assegnamento parziale} è un assegnamento che rispetta i seguenti vincoli:
+	\begin{align*}
+		\sum_{j \in V_2} x_{ij} & \leq 1 \quad \forall i \in V_1 \\
+		\sum_{i \in V_1} x_{ij} & \leq 1 \quad \forall j \in V_2
+	\end{align*}
+\end{definition}
+
+\begin{definition}[Metrica di inammissibilità primale]
+	Il valore dell'inammissibilità primale è determinato dal numero di assegnamenti mancanti.
+\end{definition}
+
+\begin{definition}[Cella ammissibile]
+	Chiamiamo \textbf{cella ammissibile} della matrice ammissibile quelle per cui vale che:
+	\[
+		\bar{c}_{ij} = 0
+	\]
+\end{definition}
+
+\clearpage
+\section{Algoritmo Ungherese}
+L'algoritmo ungherese (così chiamato perché basato sul lavoro di due matematici ungheresi), è un algoritmo primale-duale che serve ad identificare il matching di cardinalità massima e costo minimo in un grafo bipartito con matrice di incidenza pesata.
+
+\subsection{Preprocessing}
+\subsubsection{Bilanciamento del grafo}
+Se il dato grafo bipartito non risultasse bilanciato, cioè \(\abs{V_1} \neq \abs{V_2}\), si procede a inserire vertici nella partizione di cardinalità minore fino che esse risultano bilanciate. Non aggiungendo lati, non vengono modificati i matching.
+
+\subsubsection{Completare il grafo}
+Se il grafo dato non fosse completo, cioè alcuni lati fossero assenti tra le due partizioni, si procede ad aggiungere lati con un costo molto alto in modo tale che essi non siano scelti, ma che in ogni caso il grafo risulti completo.
+
+Questi nuovi lati portano alla creazione di matching nuovi, ma di costo estremamente alto.
+
+\subsection{Il problema dell'assegnamento riformulato}
+Possiamo quindi riformulare il problema come quello di trovare il matching completo tra due set di vertici in un dato grafo bipartito pesato: ogni soluzione è rappresentata da una \textbf{matrice di assegnamento}, una matrice quadrata dove un set rappresenta le righe e l'altro le colonne.
+
+\subsection{Iterazione primale-duale}
+\begin{figure}
+	\begin{subfigure}{0.49\textwidth}
+		\begin{align*}
+			\min z = \sum_{i \in V_1} \sum_{j \in V_2} c_{ij}x_{ij}                    \\
+			\sum_{j \in V_2}x_{ij} & = 1 \quad \forall i \in V_1                       \\
+			\sum_{i \in V_1}x_{ij} & = 1 \quad \forall j \in V_2                       \\
+			x_{ij}                 & \geq 0 \quad \forall i \in V_1, \forall j \in V_2
+		\end{align*}
+		\caption{Problema primale}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\begin{align*}
+			\max w = \sum_{i\in V_1} u_i + \sum_{j \in V_2} v_j             \\
+			u_i + v_j & \leq c_ij\quad \forall i \in V_1, \forall j \in V_2
+		\end{align*}
+		\caption{Problema duale}
+	\end{subfigure}
+\end{figure}
+Le variabili duali \(\bmu \) e \(\bmv \) non sono vincolate in segno.
+
+Le variabili di scarto complementare duale sono:
+\[
+	\bar{c} = c_{ij} - u_i - v_j
+\]
+Per garantire l'ottimalità della soluzione, le CSCs impongono che:
+\[
+	\bar{c}_{ij}x_{ij} = 0 \quad \forall i \in V_1, \forall j \in V_2
+\]
+
+\paragraph*{Iterazione primale} Mantenendo fissati \(\bmu \) e \(\bmv \) e mantenendo pertanto fissato anche \(\bbmc \) si procede a determinare una soluzione \(\bmx \) massimizzando il numero di assegnamenti (cioè di variabili unitarie) utilizzando solamente celle ammissibili.
+\paragraph*{Iterazione duale} Si procede ad aggiornare \(\bmu \) e \(\bmv \), mantenendo \(\bar{c}_{ij}\) dove \(x_{ij} = 1\)e rendendo alcune celle ammissibili inammissibili.
 
 \end{document}

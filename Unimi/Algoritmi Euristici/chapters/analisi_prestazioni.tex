@@ -1,0 +1,25 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\chapter{Analisi teorica di prestazioni}
+Chiamiamo la soluzione euristica \(f_A(l)\) e quella ottima \(f^*(l)\)
+\begin{definition}[Differenza assoluta]
+  \[
+    \tilde{\delta}_A(l) = \abs{f_A(l) - f^*(l)} \geq 0
+  \]
+\end{definition}
+
+\begin{definition}[Differenza relativa]
+  \[
+    \delta_A(l) = \frac{\abs{f_A(l) - f^*(l)}}{f^*(l)} \geq 0
+  \]
+\end{definition}
+
+\begin{definition}[Rapporto di approssimazione]
+  \[
+    \rho_A(l) = \max \sqr{\frac{f_A(l)}{f^*(l)}, \frac{f^*(l)}{f_A(l)}} \geq 1
+  \]
+\end{definition}
+
+\end{document}

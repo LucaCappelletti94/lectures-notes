@@ -1,0 +1,17 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{FPTAS}
+\subsection{Napsack per problema di decisione}
+\begin{description}
+  \item[Items] oggetti \(t_0, \ldots, t_{m-1}\) di peso \(p_0, \ldots, p_{m-1}\) e valore \(v_c, \ldots, v_{m-1}\).
+  \item[Peso massimo] \(P\) rappresenta il peso massimo dello zaino.
+  \item[Valore minimo] \(V\) rappresenta il valore che si desidera trasportare.
+\end{description}
+Il problema viene formulato come:
+\begin{align*}
+  \max \bmv\bmx               \\
+  \sum_{i \in I} p_i & \leq P
+\end{align*}
+
+\end{document}
