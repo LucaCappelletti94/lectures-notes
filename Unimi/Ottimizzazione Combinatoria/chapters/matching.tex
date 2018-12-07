@@ -937,22 +937,22 @@ L'algoritmo alterna le due iterazioni e riduce monotonamente l'inammissibilità 
 \end{definition}
 
 \clearpage
-\section{Algoritmo Ungherese}
+\chapter{Algoritmo Ungherese}
 L'algoritmo ungherese (così chiamato perché basato sul lavoro di due matematici ungheresi), è un algoritmo primale-duale che serve ad identificare il matching di cardinalità massima e costo minimo in un grafo bipartito con matrice di incidenza pesata.
 
-\subsection{Preprocessing}
-\subsubsection{Bilanciamento del grafo}
+\section{Preprocessing}
+\subsection{Bilanciamento del grafo}
 Se il dato grafo bipartito non risultasse bilanciato, cioè \(\abs{V_1} \neq \abs{V_2}\), si procede a inserire vertici nella partizione di cardinalità minore fino che esse risultano bilanciate. Non aggiungendo lati, non vengono modificati i matching.
 
-\subsubsection{Completare il grafo}
+\subsection{Completare il grafo}
 Se il grafo dato non fosse completo, cioè alcuni lati fossero assenti tra le due partizioni, si procede ad aggiungere lati con un costo molto alto in modo tale che essi non siano scelti, ma che in ogni caso il grafo risulti completo.
 
 Questi nuovi lati portano alla creazione di matching nuovi, ma di costo estremamente alto.
 
-\subsection{Il problema dell'assegnamento riformulato}
+\section{Il problema dell'assegnamento riformulato}
 Possiamo quindi riformulare il problema come quello di trovare il matching completo tra due set di vertici in un dato grafo bipartito pesato: ogni soluzione è rappresentata da una \textbf{matrice di assegnamento}, una matrice quadrata dove un set rappresenta le righe e l'altro le colonne.
 
-\subsection{Iterazione primale-duale}
+\section{Iterazione primale-duale}
 \begin{figure}
 	\begin{subfigure}{0.49\textwidth}
 		\begin{align*}
@@ -985,7 +985,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 \paragraph*{Iterazione primale} Mantenendo fissati \(\bmu \) e \(\bmv \) e mantenendo pertanto fissato anche \(\bbmc \) si procede a determinare una soluzione \(\bmx \) massimizzando il numero di assegnamenti (cioè di variabili unitarie) utilizzando solamente celle ammissibili.
 \paragraph*{Iterazione duale} Si procede ad aggiornare \(\bmu \) e \(\bmv \), mantenendo \(\bar{c}_{ij}\) dove \(x_{ij} = 1\) e rendendo alcune celle ammissibili inammissibili.
 
-\subsection{Pseudo codice}
+\section{Pseudo codice}
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
@@ -1008,7 +1008,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	\end{algorithm}
 \end{figure}
 
-\subsection{Visualizzazione}
+\section{Visualizzazione}
 
 \begin{figure}
 	\NewAdigraph{Hungarian}{
@@ -1036,7 +1036,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	\caption{}
 \end{figure}
 
-\subsubsection{Primo step: Inizializzazione duale}
+\subsection{Primo step: Inizializzazione duale}
 
 \begin{figure}
 	\NewAdigraph{Hungarian}{
@@ -1129,7 +1129,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	\caption{}
 \end{figure}
 
-\subsubsection{Secondo step: Inizializzazione primale}
+\subsection{Secondo step: Inizializzazione primale}
 
 \begin{figure}
 	\DualInizializationLastStep{}
@@ -1169,34 +1169,46 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	\caption{}
 \end{figure}
 
+\NewAdigraph{PrimalInitializationLastStep}{
+	s:0,0:\(s\);
+	s1:2,2:\(s_1\);
+	s2:2,0.75:\(s_2\);
+	s3:2,-0.75:\(s_3\);
+	s4:2,-2:\(s_4\);
+	t1:5,2:\(t_1\);
+	t2:5,0.75:\(t_2\);
+	t3:5,-0.75:\(t_3\);
+	t4:5,-2:\(t_4\);
+	t:7,0:\(t\);
+}{
+	s,s2;
+	s,s3;
+	s1,t4,red, 1;
+	s2,t4;
+	s3,t4;
+	s4,t4;
+	s4,t1,red,1;
+	s4,t2;
+	s4,t3;
+	t2,t;
+	t3,t;
+}
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
+	\PrimalInitializationLastStep{}
 	\caption{}
 \end{figure}
+
+\subsection{Terzo step: Ricerca di un cammino aumentante}
+
+\subsubsection{Step 3.1: Inizializzazione del cammino}
+
+\begin{figure}
+	\PrimalInitializationLastStep{}
+	\caption{}
+\end{figure}
+
+\subsubsection{Step 3.2: Procedura di etichettatura}
+
 
 \begin{figure}
 	\NewAdigraph{Hungarian}{
@@ -1313,6 +1325,8 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	\Hungarian{}
 	\caption{}
 \end{figure}
+
+\subsection{Step 4: Iterazione duale}
 
 \begin{figure}
 	\NewAdigraph{Hungarian}{
@@ -1459,6 +1473,8 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	\Hungarian{}
 	\caption{}
 \end{figure}
+
+\subsection{Step 5: Iterazione primale}
 
 \begin{figure}
 	\NewAdigraph{Hungarian}{
