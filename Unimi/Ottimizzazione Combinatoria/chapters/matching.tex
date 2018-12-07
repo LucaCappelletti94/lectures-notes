@@ -940,6 +940,13 @@ L'algoritmo alterna le due iterazioni e riduce monotonamente l'inammissibilità 
 \chapter{Algoritmo Ungherese}
 L'algoritmo ungherese (così chiamato perché basato sul lavoro di due matematici ungheresi), è un algoritmo primale-duale che serve ad identificare il matching di cardinalità massima e costo minimo in un grafo bipartito con matrice di incidenza pesata.
 
+\begin{complexity}[Algoritmo Ungherese]
+	La complessità dell'algoritmo ungherese è pari a:
+	\[
+		\O{n^3}
+	\]
+\end{complexity}
+
 \section{Preprocessing}
 \subsection{Bilanciamento del grafo}
 Se il dato grafo bipartito non risultasse bilanciato, cioè \(\abs{V_1} \neq \abs{V_2}\), si procede a inserire vertici nella partizione di cardinalità minore fino che esse risultano bilanciate. Non aggiungendo lati, non vengono modificati i matching.
@@ -996,7 +1003,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 			\(Path \leftarrow nil\)\;
 			\While{\(\rnd{Path = nil}\)}{
 				\While{\(\rnd{Path = nil} \land \rnd{L \neq \emptyset}\)}{
-					Step 3.2: Procedura di etichettatura\;
+					Step 3.2: Propagazione delle etichette\;
 				}
 				\If{\(Path = nil\)}{
 					Step 4: Iterazione duale, modifica di \(\bmu \) e \(\bmv \)\;
@@ -1007,104 +1014,162 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 		\caption{Algoritmo Ungherese}
 	\end{algorithm}
 \end{figure}
-
 \section{Visualizzazione}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s1;
-		s,s2;
-		s,s3;
-		s,s4;
-		t1,t;
-		t2,t;
-		t3,t;
-		t4,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s1;
+			s,s2;
+			s,s3;
+			s,s4;
+			t1,t;
+			t2,t;
+			t3,t;
+			t4,t;
+		}
+		\Hungarian{}
+		\caption{Grafo}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1       & t_2       & t_3       & t_4       & \text{Mate}      \\
+			\hline
+			s_1         & 15        & 22        & 13        & 4         & \red{nil}        \\
+			s_2         & 12        & 21        & 15        & 7         & \red{nil}        \\
+			s_3         & 16        & 20        & 22        & 6         & \red{nil}        \\
+			s_4         & 6         & 11        & 8         & 5         & \red{nil}        \\
+			\hline
+			\text{Mate} & \red{nil} & \red{nil} & \red{nil} & \red{nil} & \textbf{\red{0}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}       \\
+			\hline
+			s_1          & 15       & 22       & 13       & 4        & \blue{0}          \\
+			s_2          & 12       & 21       & 15       & 7        & \blue{0}          \\
+			s_3          & 16       & 20       & 22       & 6        & \blue{0}          \\
+			s_4          & 6        & 11       & 8        & 5        & \blue{0}          \\
+			\hline
+			\blue{\bmv}  & \blue{0} & \blue{0} & \blue{0} & \blue{0} & \textbf{\blue{0}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Valori iniziali}
 \end{figure}
 
+I valori in fondo a destra delle tabelle sono rispettivamente:
+\[
+	\red{\min z} = \sum_{i \in V_1} \sum_{j \in V_2} c_{ij}x_{ij} \qquad \blue{\max w} = \sum_{i\in V_1} u_i + \sum_{j \in V_2} v_j
+\]
+\clearpage
 \subsection{Primo step: Inizializzazione duale}
-
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s1;
-		s,s2;
-		s,s3;
-		s,s4;
-		t1,t;
-		t2,t;
-		t3,t;
-		t4,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\For{\(i \in V_1 \)}{
+			\(u_i \leftarrow \min_{j \in V_1}\crl{c_{ij}}\)
+		}
+		\For{\(j \in V_2 \)}{
+			\(v_i \leftarrow \min_{i \in V_2}\crl{c_{ij} - u_i}\)
+		}
+		\caption{Inizializzazione duale}
+	\end{algorithm}
 \end{figure}
-
+\begin{complexity}[Inizializzazione duale]
+	Durante l'inizializzazione duale le variabili duali sono sottratte al valore minimo della propria riga che rende il vincolo duale attivo. Questo garantisce che la soluzione duale rimanga \textbf{ammissibile}.
+	\[\O{n^2}\]
+\end{complexity}
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s1;
-		s,s2;
-		s,s3;
-		s,s4;
-		s1,t4;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		t1,t;
-		t2,t;
-		t3,t;
-		t4,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s1;
+			s,s2;
+			s,s3;
+			s,s4;
+			s1,t4;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			t1,t;
+			t2,t;
+			t3,t;
+			t4,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1       & t_2       & t_3       & t_4       & \text{Mate}      \\
+			\hline
+			s_1         & 15        & 22        & 13        & 4         & \red{nil}        \\
+			s_2         & 12        & 21        & 15        & 7         & \red{nil}        \\
+			s_3         & 16        & 20        & 22        & 6         & \red{nil}        \\
+			s_4         & 6         & 11        & 8         & 5         & \red{nil}        \\
+			\hline
+			\text{Mate} & \red{nil} & \red{nil} & \red{nil} & \red{nil} & \textbf{\red{0}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 11       & 18       & 9        & 0        & \blue{4}           \\
+			s_1          & 5        & 14       & 8        & 0        & \blue{7}           \\
+			s_2          & 10       & 14       & 16       & 0        & \blue{6}           \\
+			s_3          & 1        & 6        & 3        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{0} & \blue{0} & \blue{0} & \blue{0} & \textbf{\blue{22}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Operazione sulle righe}
 \end{figure}
 
 \NewAdigraph{DualInizializationLastStep}{
 	s:0,0:\(s\);
-	s1:2,2:\(s_1\);
-	s2:2,0.75:\(s_2\);
-	s3:2,-0.75:\(s_3\);
-	s4:2,-2:\(s_4\);
-	t1:5,2:\(t_1\);
-	t2:5,0.75:\(t_2\);
-	t3:5,-0.75:\(t_3\);
-	t4:5,-2:\(t_4\);
-	t:7,0:\(t\);
+	s1:1.5,2:\(s_1\);
+	s2:1.5,0.75:\(s_2\);
+	s3:1.5,-0.75:\(s_3\);
+	s4:1.5,-2:\(s_4\);
+	t1:3.5,2:\(t_1\);
+	t2:3.5,0.75:\(t_2\);
+	t3:3.5,-0.75:\(t_3\);
+	t4:3.5,-2:\(t_4\);
+	t:5,0:\(t\);
 }{
 	s,s1;
 	s,s2;
@@ -1125,61 +1190,141 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 
 
 \begin{figure}
-	\DualInizializationLastStep{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\DualInizializationLastStep{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1       & t_2       & t_3       & t_4       & \text{Mate}      \\
+			\hline
+			s_1         & 15        & 22        & 13        & 4         & \red{nil}        \\
+			s_2         & 12        & 21        & 15        & 7         & \red{nil}        \\
+			s_3         & 16        & 20        & 22        & 6         & \red{nil}        \\
+			s_4         & 6         & 11        & 8         & 5         & \red{nil}        \\
+			\hline
+			\text{Mate} & \red{nil} & \red{nil} & \red{nil} & \red{nil} & \textbf{\red{0}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Operazione sulle colonne}
 \end{figure}
-
+\clearpage
 \subsection{Secondo step: Inizializzazione primale}
+\begin{figure}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\For{\(v \in V_1 \cup V_2 \)}{
+			\(\text{Mate}_v = nil\)\;
+		}
+		\(\text{Card} \leftarrow 0\)
+		\While{\(\rnd{\exists i,j: \rnd{c_{ij} - u_i - v_j = 0}\land\rnd{\text{Mate}_i = nil}\land\rnd{\text{Mate}_j = nil}}\)}{
+			\(x_{ij} \leftarrow 1\)\;
+			\(\text{Card} \leftarrow \text{Card} + 1\)\;
+			\(\text{Mate}_i \leftarrow j\)\;
+			\(\text{Mate}_j \leftarrow i\)\;
+		}
+		\caption{Inizializzazione primale}
+	\end{algorithm}
+\end{figure}
+\begin{complexity}[Inizializzazione primale]
+	Viene calcolato un \textbf{matching parziale massimale}, utilizzando unicamente le celle ammissibili. Questo richiede una scansione completa della matrice \(n\times n\), per cui la complessità risulta:
+	\[
+		\O{n^2}
+	\]
+\end{complexity}
+Nel caso in esempio vi sono \(7\) celle ammissibili, cioè quelle che rendono attivi i vincoli (le celle a valore zero). Procedendo con la scelta in ordine lessicografico, viene scelta la prima e quarta colonna: \(\rnd{1, 4}\).
 
 \begin{figure}
-	\DualInizializationLastStep{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s,s4;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+			t4,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1       & t_2       & t_3       & t_4     & \text{Mate}      \\
+			\hline
+			s_1         & 15        & 22        & 13        & \red{4} & \red{4}          \\
+			s_2         & 12        & 21        & 15        & 7       & \red{nil}        \\
+			s_3         & 16        & 20        & 22        & 6       & \red{nil}        \\
+			s_4         & 6         & 11        & 8         & 5       & \red{nil}        \\
+			\hline
+			\text{Mate} & \red{nil} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{4}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Primo aggiornamento}
 \end{figure}
-
-
-
-\begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s,s4;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-		t4,t;
-	}
-	\Hungarian{}
-	\caption{}
-\end{figure}
-
+A questo punto abbiamo ancora tre celle ammissibili, pertanto la cella \(\rnd{4,1}\) è scelta successivamente.
 \NewAdigraph{PrimalInitializationLastStep}{
 	s:0,0:\(s\);
-	s1:2,2:\(s_1\);
-	s2:2,0.75:\(s_2\);
-	s3:2,-0.75:\(s_3\);
-	s4:2,-2:\(s_4\);
-	t1:5,2:\(t_1\);
-	t2:5,0.75:\(t_2\);
-	t3:5,-0.75:\(t_3\);
-	t4:5,-2:\(t_4\);
-	t:7,0:\(t\);
+	s1:1.5,2:\(s_1\);
+	s2:1.5,0.75:\(s_2\);
+	s3:1.5,-0.75:\(s_3\);
+	s4:1.5,-2:\(s_4\);
+	t1:3.5,2:\(t_1\);
+	t2:3.5,0.75:\(t_2\);
+	t3:3.5,-0.75:\(t_3\);
+	t4:3.5,-2:\(t_4\);
+	t:5,0:\(t\);
 }{
 	s,s2;
 	s,s3;
@@ -1194,404 +1339,1056 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 	t3,t;
 }
 \begin{figure}
-	\PrimalInitializationLastStep{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\PrimalInitializationLastStep{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Secondo aggiornamento}
 \end{figure}
 
+Non vi sono più celle ammissibili su colonne o righe accoppiate ed il matching parziale corrente è massimale. Il valore di Card è pari a \(2\).
+
+\subsection{Test di ammissibilità primale}
+Consiste semplicemente nel verificare quanti lati sono stati inseriti nella soluzione primale: l'obbiettivo è \(\text{Card} = n\), mentre ora siamo ancora a \(2\).
+\clearpage
 \subsection{Terzo step: Ricerca di un cammino aumentante}
+Si procede ora a identificare un cammino aumentante, che coincide anche con un cammino alternante siccome il grafo è bipartito. Questo cammino deve attraverso cui una unità di flusso può andare dalla sorgente \(s\) al termine \(t\).
+
+Ogni volta che un cammino \(s\rightarrow t\) viene identificato, la cardinalità del matching parziale corrente può essere aumentata di \(1\) attraverso una \textbf{iterazione primale}. Per identificare un cammino può essere necessario eseguire al più \(\O{n}\) \textbf{iterazioni duali}, poiché ognuna di esse consente di raggiungere un nuovo nodo in \(V_2\).
+
+Il cammino parte da \(s\): ogni nodo in \(V_1\) e \(V_2\) che può essere raggiunto è quindi etichettato: l'etichetta di un nodo è il suo predecessore. \(L\) è l'insieme delle etichette usate per generare gli altri.
+
+Il vettore \(\bmp \) mantiene il valore minimo del costo ridotto per ogni colonna priva di etichetta tra le righe etichettate. Il vettore \(\bm{\pi} \) mantiene invece la riga corrispondente.
 
 \subsubsection{Step 3.1: Inizializzazione del cammino}
-
 \begin{figure}
-	\PrimalInitializationLastStep{}
-	\caption{}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\(L\leftarrow \emptyset\)\;
+		\For{\(v \in V_1 \cup V_2 \)}{
+			\(\text{Label}_v = nil\)\;
+		}
+		\For{\(j \in  V_2 \)}{
+			\(p_j \leftarrow \infty\)\;
+			\(\pi_j \leftarrow nil\)\;
+		}
+		\For{\(i \in V_1: \text{ Mate}_i = nil\)}{
+			\(\text{Label}_i \leftarrow s\)\;
+			\(L \leftarrow L \cup \crl{i} \)\;
+			\For{\(j \in V_2: \text{ Label}_j = nil\)}{
+				\If{\(c_{ij} - u_i - v_i < p_j\)}{
+					\(p_j \leftarrow c_{ij} - u_i - v_i\)\;
+					\(\pi_j \leftarrow i\)\;
+				}
+			}
+		}
+		\caption{Inizializzazione del cammino}
+	\end{algorithm}
+\end{figure}
+Vi sono due nodi non assegnati in \(V_1\): \(L = \crl{s_2, s_3}\)
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2,,1:1.5,0.75:\(s\);
+			s3,,1:1.5,-0.75:\(s\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Identificazione dei nodi non marcati}
+\end{figure}
+\clearpage
+\subsubsection{Step 3.2: Propagazione delle etichette}
+\begin{figure}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\(v \leftarrow L.pop\rnd{}\)\;
+		\uIf{\(v \in V_1\)}{
+			Step 3.2.A: Propagazione da \(v \in V_1\) a \(V_2\)\;
+		}
+		\uElseIf{\(\text{Mate}_v \neq nil\)}{
+			Step 3.2.B: Propagazione da \(v \in V_2\) a \(V_1\)\;
+		}
+		\Else{
+			\(\text{Path} \leftarrow v\)
+		}
+		\caption{Propagazione delle etichette}
+	\end{algorithm}
 \end{figure}
 
-\subsubsection{Step 3.2: Procedura di etichettatura}
+La propagazione termina quando un nodo non assegnato \(v \in V_2\) viene etichettato. Ogni nodo viene inserito o estratto da \(L\) al più una volta.
 
-
+\paragraph*{Step 3.2.A: Propagazione delle etichette da \(V_1\) a \(V_2\)}
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2,blue,1:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4,red,1:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\For{\(j \in V_2: \rnd{Label_j = nil} \land \rnd{c_{vj} - u_v - v_v = 0}\)}{
+			\(\text{Label}_j \leftarrow k\)\;
+			\(L \leftarrow L \cup \crl{j}\)\;
+		}
+		\caption{Propagazione delle etichette da \(V_1\) a \(V_2\)}
+	\end{algorithm}
+\end{figure}
+La propagazione da \(v \in V_1\) a \(V_2\) avviene lungo i lati tali che:
+\begin{enumerate}
+	\item Corrispondono a celle ammissibili.
+	\item Non appartengono al matching parziale corrente.
+\end{enumerate}
+
+\paragraph*{Step 3.2.B: Propagazione delle etichette da \(V_2\) a \(V_1\)}
+\begin{figure}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\If{\(\text{Label}_{\text{Mate}_v} = nil\)}{
+		\(\text{Label}_{\text{Mate}_v} \leftarrow v\)\;
+		\(L \leftarrow L \cup \crl{Mate_v}\)\;
+		\For{\(j \in V_2: \text{Label}_j = nil\)}{
+			\If{\(c_{\text{Mate}_v j} - u_{\text{Mate}_v} - v_j < p_j\)}{
+				\(p_j \leftarrow c_{\text{Mate}_v j} - u_{\text{Mate}_v} - v_j\)\;
+				\(\pi_j \leftarrow \text{Mate}_v\)\;
+			}
+		}
+		}
+		\caption{Propagazione delle etichette da \(V_2\) a \(V_1\)}
+	\end{algorithm}
+\end{figure}
+La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching parziale corrente.
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2,blue,1:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4,red,1:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{s_2}, s_3}\) ed inseriamo \(L=\crl{s_3, \red{t_4}}\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3,blue,1:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3,blue,1:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{s_3}, t_4}\) ed inseriamo \(L=\crl{t_4}\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1,red,1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4,blue,1:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1,red,1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4,blue,1:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{t_4}}\) ed inseriamo \(L=\crl{\red{s_1}}\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1,blue,1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1,blue,1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{s_1}}\) ed inseriamo \(L=\crl{}\)}
 \end{figure}
 
+\paragraph*{Riassumendo:}
+Nessun cammino da sorgente \(s\) a destinazione \(t\) è stato identificato. I nodi \(s_1, s_2, s_3\) e \(t_4\) sono stati etichettati, mentre i nodi \(s_4, t_1, t_2\) e \(t_3\) non lo sono.
+
+\clearpage
 \subsection{Step 4: Iterazione duale}
+\begin{figure}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\(\delta \leftarrow \min_{j \in V_2}\crl{p_j: \text{Label}_j ) nil}\)\;
+		\For{\(i \in V_1: \text{Label}_i \neq nil\)}{
+			\(u_i \leftarrow  u_i + \delta\)\;
+		}
+		\For{\(j \in V_2: \text{Label}_j \neq nil\)}{
+			\(v_j \leftarrow  v_j - \delta\)\;
+		}
+		\For{\(j \in V_2: \text{Label}_j = nil\)}{
+			\(p_j \leftarrow  p_j - \delta\)\;
+		}
+		\For{\(j \in V_2: \rnd{\text{Label}_j = nil} \land \rnd{p_j = 0}\)}{
+			\(\text{Label}_j \leftarrow \rnd{\pi_j, +}\)\;
+			\(L \leftarrow L \cup \crl{j}\)\;
+		}
+		\caption{Iterazione duale}
+	\end{algorithm}
+\end{figure}
+Il valore \(\delta \) è il costo minimo ridotto nella sotto-matrice di righe etichettate e colonne non etichettate. Almeno una nuova cella diviene ammissibile ed è utilizzata per etichettare un nodo in più in \(V_2\).
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s3,t4;
-		s4,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+\end{figure}
+
+Consideriamo i lati che uniscono i nodi etichettati in \(V_1\) con i nodi non etichettati in \(V_2\). Si identifica \(\delta = 4\).
+
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1,red,1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1,blue,1;
+			s3,t4;
+			s4,t4,gray,0.2;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+\end{figure}
+
+Si va ad incrementare \(u_1, u_2\) ed \(u_3\) di \(\delta \), mentre si decrementa \(v_4\) di \(\delta \).
+
+La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}\) diviene ammissibile e si etichetta \(t_1\) da \(s_2\).
+
+\subsection{Step 3.2: Nuova propagazione delle etichette}
+
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4,red,1:1.5,-2:\(s_4\);
+			t1,blue,1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1;
+			s3,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{t_1}}\) ed inseriamo \(L=\crl{\red{s_4}}\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1,red,1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1,blue,1;
-		s3,t4;
-		s4,t4,gray,0.2;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4,blue,1:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2,red,1:3.5,0.75:\(t_2\);
+			t3,red,1:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1;
+			s3,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{s_4}}\) ed inseriamo \(L=\crl{\red{t_2}, \red{t_3}}\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4,red,1:2,-2:\(s_4\);
-		t1,blue,1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1;
-		s3,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2,blue,1:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2,,2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1,,2;
+			s3,t4;
+			s4,t1,red,2;
+			s4,t2,,2;
+			s4,t3;
+			t2,t,,2;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Estraiamo \(L=\crl{\blue{t_2}, t_3}\)}
 \end{figure}
+Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stato identificato.
 
-\begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4,blue,1:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2,red,1:5,0.75:\(t_2\);
-		t3,red,1:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1;
-		s3,t4;
-		s4,t1,red,1;
-		s4,t2;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
-\end{figure}
-
-\begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2,blue,1:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2,,2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1,,2;
-		s3,t4;
-		s4,t1,red,2;
-		s4,t2,,2;
-		s4,t3;
-		t2,t,,2;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
-\end{figure}
-
+\clearpage
 \subsection{Step 5: Iterazione primale}
-
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4,red,1:2,-2:\(s_4\);
-		t1:5,2:\(t_1\);
-		t2,blue,1:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1;
-		s3,t4;
-		s4,t1,red,1;
-		s4,t2,red,1;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		\(j\leftarrow \text{Path}\)\;
+		\While{\(j = s\)}{
+			\(i \leftarrow \text{Label}_j\)\;
+			\(\text{Mate}_j \leftarrow i\)\;
+			\(\text{Mate}_i \leftarrow j\)\;
+			\(x_{ij} \leftarrow 1\)\;
+			\(z \leftarrow z + c_{ij}\)\;
+			\(\text{Card} \leftarrow \text{Card} + 1\)\;
+			\(j \leftarrow \text{Label}_i\)\;
+			\If{\(\text{Label}_i \neq s\)}{
+				\(x_{ij} \leftarrow 0\)\;
+				\(z \leftarrow z - c_{ij}\)\;
+				\(\text{Card} \leftarrow \text{Card} - 1\)\;
+			}
+		}
+		\caption{Iterazione primale}
+	\end{algorithm}
+\end{figure}
+\begin{complexity}[Iterazione primale]
+	Il cammino è ricostruito a ritroso da \(t\) a \(s\) e contiene \(\O{n}\) lati, pertanto l'\textbf{iterazione primale} ha complessità:
+	\[
+		\O{n}
+	\]
+\end{complexity}
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4,red,1:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2,blue,1:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1;
+			s3,t4;
+			s4,t1,red,1;
+			s4,t2,red,1;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2      & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22       & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21       & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20       & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & \red{11} & 8         & 5       & \red{2}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{4}  & \red{nil} & \red{1} & \textbf{\red{21}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Il predecessore di \(t_2\) è \(s_4\), \(\text{Card} = 3\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4,blue,1:2,-2:\(s_4\);
-		t1,red,1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1;
-		s3,t4;
-		s4,t1;
-		s4,t2,red,1;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4,blue,1:1.5,-2:\(s_4\);
+			t1,red,1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1;
+			s3,t4;
+			s4,t1;
+			s4,t2,red,1;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1       & t_2      & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15        & 22       & 13        & \red{4} & \red{4}           \\
+			s_2         & 12        & 21       & 15        & 7       & \red{nil}         \\
+			s_3         & 16        & 20       & 22        & 6       & \red{nil}         \\
+			s_4         & 6         & \red{11} & 8         & 5       & \red{2}           \\
+			\hline
+			\text{Mate} & \red{nil} & \red{4}  & \red{nil} & \red{1} & \textbf{\red{15}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Il predecessore di \(s_4\) è \(t_1\), \(\text{Card} = 2\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2,red,1:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1,blue,1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1;
-		s3,t4;
-		s4,t1;
-		s4,t2,red,1;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2,red,1:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1,blue,1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1;
+			s3,t4;
+			s4,t1;
+			s4,t2,red,1;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1      & t_2      & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15       & 22       & 13        & \red{4} & \red{4}           \\
+			s_2         & \red{12} & 21       & 15        & 7       & \red{1}           \\
+			s_3         & 16       & 20       & 22        & 6       & \red{nil}         \\
+			s_4         & 6        & \red{11} & 8         & 5       & \red{2}           \\
+			\hline
+			\text{Mate} & \red{2}  & \red{4}  & \red{nil} & \red{1} & \textbf{\red{15}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Il predecessore di \(t_1\) è \(s_2\), \(\text{Card} = 3\)}
 \end{figure}
 
 \begin{figure}
-	\NewAdigraph{Hungarian}{
-		s,red,1:0,0:\(s\);
-		s1:2,2:\(s_1\);
-		s2,blue,1:2,0.75:\(s_2\);
-		s3:2,-0.75:\(s_3\);
-		s4:2,-2:\(s_4\);
-		t1,blue,1:5,2:\(t_1\);
-		t2:5,0.75:\(t_2\);
-		t3:5,-0.75:\(t_3\);
-		t4:5,-2:\(t_4\);
-		t:7,0:\(t\);
-	}{
-		s,s2,gray,0.2;
-		s,s3;
-		s1,t4,red, 1;
-		s2,t4;
-		s2,t1;
-		s3,t4;
-		s4,t1;
-		s4,t2,red,1;
-		s4,t3;
-		t2,t;
-		t3,t;
-	}
-	\Hungarian{}
-	\caption{}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s,red,1:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2,blue,1:1.5,0.75:\(s_2\);
+			s3:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1,blue,1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2,gray,0.2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s2,t1;
+			s3,t4;
+			s4,t1;
+			s4,t2,red,1;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1      & t_2      & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15       & 22       & 13        & \red{4} & \red{4}           \\
+			s_2         & \red{12} & 21       & 15        & 7       & \red{1}           \\
+			s_3         & 16       & 20       & 22        & 6       & \red{nil}         \\
+			s_4         & 6        & \red{11} & 8         & 5       & \red{2}           \\
+			\hline
+			\text{Mate} & \red{2}  & \red{4}  & \red{nil} & \red{1} & \textbf{\red{27}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
+			\hline
+			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			\hline
+			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Il predecessore di \(s_2\) è \(s\), \(\text{Card} = 3\)}
 \end{figure}
 
+Siccome \(\text{Card} < n\) è necessaria una nuova iterazione.
 
 
 \end{document}
