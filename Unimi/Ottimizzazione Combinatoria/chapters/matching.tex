@@ -983,6 +983,599 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 \]
 
 \paragraph*{Iterazione primale} Mantenendo fissati \(\bmu \) e \(\bmv \) e mantenendo pertanto fissato anche \(\bbmc \) si procede a determinare una soluzione \(\bmx \) massimizzando il numero di assegnamenti (cioè di variabili unitarie) utilizzando solamente celle ammissibili.
-\paragraph*{Iterazione duale} Si procede ad aggiornare \(\bmu \) e \(\bmv \), mantenendo \(\bar{c}_{ij}\) dove \(x_{ij} = 1\)e rendendo alcune celle ammissibili inammissibili.
+\paragraph*{Iterazione duale} Si procede ad aggiornare \(\bmu \) e \(\bmv \), mantenendo \(\bar{c}_{ij}\) dove \(x_{ij} = 1\) e rendendo alcune celle ammissibili inammissibili.
+
+\subsection{Pseudo codice}
+\begin{figure}
+	\begin{algorithm}[H]
+		\SetAlgoLined
+		Step 1: Inizializzazione duale di \(\bmu \) e \(\bmv \)\;
+		Step 2: Inizializzazione primale di \(\bmx \)\;
+		\While{\(\bmx \) è inammissibile}{
+			Step 3.1: Inizializzazione del cammino\;
+			\(Path \leftarrow nil\)\;
+			\While{\(\rnd{Path = nil}\)}{
+				\While{\(\rnd{Path = nil} \land \rnd{L \neq \emptyset}\)}{
+					Step 3.2: Procedura di etichettatura\;
+				}
+				\If{\(Path = nil\)}{
+					Step 4: Iterazione duale, modifica di \(\bmu \) e \(\bmv \)\;
+				}
+			}
+			Step 5: Iterazione primale, modifica di \(\bmx \)\;
+		}
+		\caption{Algoritmo Ungherese}
+	\end{algorithm}
+\end{figure}
+
+\subsection{Visualizzazione}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s1;
+		s,s2;
+		s,s3;
+		s,s4;
+		t1,t;
+		t2,t;
+		t3,t;
+		t4,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\subsubsection{Primo step: Inizializzazione duale}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s1;
+		s,s2;
+		s,s3;
+		s,s4;
+		t1,t;
+		t2,t;
+		t3,t;
+		t4,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s1;
+		s,s2;
+		s,s3;
+		s,s4;
+		s1,t4;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		t1,t;
+		t2,t;
+		t3,t;
+		t4,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\NewAdigraph{DualInizializationLastStep}{
+	s:0,0:\(s\);
+	s1:2,2:\(s_1\);
+	s2:2,0.75:\(s_2\);
+	s3:2,-0.75:\(s_3\);
+	s4:2,-2:\(s_4\);
+	t1:5,2:\(t_1\);
+	t2:5,0.75:\(t_2\);
+	t3:5,-0.75:\(t_3\);
+	t4:5,-2:\(t_4\);
+	t:7,0:\(t\);
+}{
+	s,s1;
+	s,s2;
+	s,s3;
+	s,s4;
+	s1,t4;
+	s2,t4;
+	s3,t4;
+	s4,t4;
+	s4,t1;
+	s4,t2;
+	s4,t3;
+	t1,t;
+	t2,t;
+	t3,t;
+	t4,t;
+}
+
+
+\begin{figure}
+	\DualInizializationLastStep{}
+	\caption{}
+\end{figure}
+
+\subsubsection{Secondo step: Inizializzazione primale}
+
+\begin{figure}
+	\DualInizializationLastStep{}
+	\caption{}
+\end{figure}
+
+
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s,s4;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+		t4,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2,blue,1:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4,red,1:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3,blue,1:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1,red,1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4,blue,1:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1,blue,1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s3,t4;
+		s4,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1,red,1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1,blue,1;
+		s3,t4;
+		s4,t4,gray,0.2;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4,red,1:2,-2:\(s_4\);
+		t1,blue,1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1;
+		s3,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4,blue,1:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2,red,1:5,0.75:\(t_2\);
+		t3,red,1:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1;
+		s3,t4;
+		s4,t1,red,1;
+		s4,t2;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2,blue,1:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2,,2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1,,2;
+		s3,t4;
+		s4,t1,red,2;
+		s4,t2,,2;
+		s4,t3;
+		t2,t,,2;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4,red,1:2,-2:\(s_4\);
+		t1:5,2:\(t_1\);
+		t2,blue,1:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1;
+		s3,t4;
+		s4,t1,red,1;
+		s4,t2,red,1;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4,blue,1:2,-2:\(s_4\);
+		t1,red,1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1;
+		s3,t4;
+		s4,t1;
+		s4,t2,red,1;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2,red,1:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1,blue,1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1;
+		s3,t4;
+		s4,t1;
+		s4,t2,red,1;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+\begin{figure}
+	\NewAdigraph{Hungarian}{
+		s,red,1:0,0:\(s\);
+		s1:2,2:\(s_1\);
+		s2,blue,1:2,0.75:\(s_2\);
+		s3:2,-0.75:\(s_3\);
+		s4:2,-2:\(s_4\);
+		t1,blue,1:5,2:\(t_1\);
+		t2:5,0.75:\(t_2\);
+		t3:5,-0.75:\(t_3\);
+		t4:5,-2:\(t_4\);
+		t:7,0:\(t\);
+	}{
+		s,s2,gray,0.2;
+		s,s3;
+		s1,t4,red, 1;
+		s2,t4;
+		s2,t1;
+		s3,t4;
+		s4,t1;
+		s4,t2,red,1;
+		s4,t3;
+		t2,t;
+		t3,t;
+	}
+	\Hungarian{}
+	\caption{}
+\end{figure}
+
+
 
 \end{document}
