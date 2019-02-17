@@ -35,29 +35,7 @@ Feel absolutely **FREE** to correct my errors.
 If you feel like sharing your work, helping us to offer everyone better notes, feel free to either ask to be added as contributor or to go for a pull request!
 
 ### Telegram groups
-There are already Telegram groups, so PLEASE do not spawn others! If the group doesn't already exist and you create one, add it to this list!
-
-Here are links:
-
-- [Bioinformatica](https://t.me/joinchat/CcGyMEoTknxR1GwqK2GNAQ)
-- [Sistemi Intelligenti](https://t.me/joinchat/CcGyMEaSvFfhWdzdcg3Fsg)
-- [Algoritmica per il web](https://t.me/joinchat/CcGyME-oQIakCN4_NV28Pw)
-- [Analisi di dati su larga scala](https://t.me/joinchat/AC9fAkdkzlIKm256WUWbfw)
-- [Algoritmi e complessità](https://t.me/joinchat/CcGyMBI8xD8ayp5n0UqeZg)
-- [Interazione naturale](https://t.me/joinchat/AC9fAkdjyBYfi7YJvN-tuw)
-- [Algoritmi euristici](https://t.me/joinchat/CcGyME1odjfI1awnbHjI2A)
-- [Sviluppo software in gruppi di lavoro complessi](https://t.me/joinchat/AC9fAkkXZlug2l3lWO3T2Q)
-- [Gestione dell'Informazione Geospaziale](https://t.me/joinchat/CcGyMFJtJSBxg5YU8P0atw)
-- [Metodi probabilistici per l'informatica](https://t.me/joinchat/CcGyMA3VsILmCrO-UeIJoQ)
-- [Metodi e modelli per le decisioni](https://t.me/joinchat/CcGyMEO57MVHmVWwbI-D2g)
-- [Ottimizzazione combinatoria](https://t.me/joinchat/CcGyMEz8DnWayaymiAlapQ)
-- [Sicurezza Informatica](https://t.me/joinchat/CcGyMEv6Cz1h1BouUUD0Cw)
-- [Game and Level Design](https://t.me/joinchat/CcGyMFIDiYskCI0XgW7b4Q)
-- [Progetto di Sistemi a Sensore](https://t.me/joinchat/CcGyMES907s5-asRK2tgCw)
-- [Programmazione Avanzata](https://t.me/joinchat/CcGyMEiBJialWeVvRLz7Lw)
-- [Tecniche Speciali di Programmazione](https://t.me/joinchat/CcGyMFLe9jEqpOMhUW319w)
-- [Esami](https://t.me/joinchat/CcGyMA18VRpan3MGcePkkA)
-- [UNIMI](https://t.me/joinchat/GSagP0_5XewVzN-gZ-0pIQ)
+There are a number of telegram groups, but we no longer show links here as bots used them to spam.
 
 ### Setup for macOs users
 Luca wrote a set of small tutorials just for you:
