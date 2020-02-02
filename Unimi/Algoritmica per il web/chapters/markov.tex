@@ -1,0 +1,90 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Matrici non-negative e catene di Markov}
+\begin{multicols}{2}
+\begin{definition}[Catena di Markov]
+    Sia \(S\) un insieme finito di \textbf{stati}. Una successione di variabili aleatorie \(\rnd{X_k}_{k \in \N}\) a valori in \(S\) è detta \textbf{catena di Markov} se e solo se per tutti i \(k>0\) e \(i_0, i_1, \ldots, i_k\) in \(S\):
+    \begin{align*}
+        \operatorname{Pr}\left\{X_{k}=i_{0} | X_{k-1}=i_{1}, X_{k-2}=i_{2}, \ldots, X_{0}=i_{k}\right\}\\
+        =\operatorname{Pr}\left\{X_{k}=i_{0} | X_{k-1}=i_{1}\right\}
+    \end{align*}
+    e il lato destro non dipende da \(k\) (ogni qual volta il lato sinistro è definito). Il vettore \(\bm{p}\) definito da \(p_i = \prob{X_0 = 1}\) è la \textbf{distribuzione iniziale} e la matrice \(P\) definita da \(P_{ij} = \prob{X_k = j}{X_{k-1}=i}\) è la \textbf{matrice di transizione} della catena di Markov. Per ogni \(k \geq 0\), sia \(\bm{p}_{\rnd{k}}\) il vettore della distribuzione di probabilità marginale di \(X_k\):
+    \[
+        \left(\boldsymbol{p}_{(k)}\right)_{i}=\operatorname{Pr}\left\{X_{k}=i\right\}
+    \]
+    e in particolare \(\bm{p}_{\rnd{0}} = \bm{p}\). Vale che \(\boldsymbol{p}_{(k)}^{T}=\boldsymbol{p}^{T} P^{k}\), per cui la catena dipende solo dalla distribuzione iniziale e dalla matrice di transizione.
+\end{definition}
+\begin{definition}[Matrice Stocastica]
+    In una matrice stocastica tutte le righe sono distribuzioni, cioè ogni riga ha somma unitaria. Una matrice stocastica definisce in maniera naturale un grafo con insieme di nodi \(S\) e con archi colorati su \((0 \ldots 1]\) che corrispondono a transizioni non nulle.
+    
+    La matrice di transizione \(P\) di una catena di Markov è stocastica. Il grafo associato a una matrice stocastica è detto stocastico.
+\end{definition}
+\begin{definition}[Matrice non-negativa]
+    Ogni matrice non-negativa \(M\) definisce un grafo \(G\) colorato su \(R_{>0}\). \(N_G\) è l'insieme degli indici di \(M\), \(A_{G}=\left\{\langle i, j\rangle | M_{i j}>0\right\}, s(\langle i, j\rangle)=i, t(\langle i, j\rangle)=j\) e il colore di \(\ngle{i,j}\) è \(M_{ij}\).
+    
+    Analogamente, dato un grafo colorato su \(R_{>0}\), si può costruire la matrice \(M\) che ha \(N_G\) come insieme di indici e \(
+        M_{i j}=\sum_{a \in G(i, j)} c_{G}(a)
+    \)
+\end{definition}
+\begin{definition}[Periodo]
+    Il \textbf{periodo} di un indice \(i\) è definito da:
+    \[
+        \operatorname{gcd}\left\{k>0 |\left(M^{k}\right)_{i i}>0\right\}
+    \]
+    Un indice è detto \textbf{aperiodico} se ha periodo \(1\).
+\end{definition}
+\begin{definition}[Matrice primitiva]
+    Data una matrice non-negativa \(M\), diciamo che \(M\) è \textbf{primitiva} se esiste \(k>0\) tale che tutti gli elementi di \(M^k\) sono positivi, e che \(M\) è \textbf{irriducibile} se, per ogni \(i\) e \(j\), esiste un intero \(k>0\) tale che \(\rnd{M^k}_{ij}>0\).
+    
+    In particolare, \(M\) è irriducibile se e solo se il grafo associato è fortemente connesso. Una matrice è primitiva se e solo se è irriducibile e aperiodica.
+\end{definition}
+\begin{observation}[Quando una componente fortemente connessa è aperiodica?]
+    Una componente fortemente connessa è aperiodica se esiste un cappio su un nodo \(i\) contenuto nella componente, cioè \(M_{ii} > 0\). 
+\end{observation}
+\begin{definition}[Distribuzione invariante]
+    Una distribuzione \(\bm{p}\) è \textbf{invariante} per \(P\) se \(\bm{p}^{T} P=\bm{p}^{T}\), cioè \(\bm{p}\) è un autovettore sinistro di \(P\). Inoltre, data una distribuzione \(\bm{p}\), quando \(
+        \lim _{k \rightarrow \infty} \boldsymbol{p}^{T} P^{k}
+    \) è definito, è detto \textbf{distribuzione limite} di \(\bm{p}\) sotto \(P\).
+\end{definition}
+\begin{definition}[Limite di Cesàro]
+    Un modo di comprendere il comportamento al limite di una catena è considerare il suo \textbf{limite di Cesàro}:
+    \[
+        P^{*}=\lim _{n \rightarrow \infty} \frac{1}{n} \sum_{k=0}^{n-1} P^{k}
+    \]
+    Esso è sempre definito e uguale a \(\lim _{k \rightarrow \infty} P^{k}\) quando quest'ultimo è definito. In particolare, vale che:
+    \[
+        P^{*} P=P P^{*}=\left(P^{*}\right)^{2}=P^{*}
+    \]
+\end{definition}
+\begin{proposition}[Prima proposizione sulle matrici stocastiche]
+    Sia \(P\) una matrice stocastica. Una distribuzione \(\bm{p}\) è invariante per \(P\) se e solo se:
+    \[
+        p^{T}=\boldsymbol{q}^{T} P^{*}
+    \]
+    per qualche \(\bm{q}\). Inoltre, \(\bm{p}\) è la dimostrazione limite di un dato \(\bm{q}\) sotto \(P\) se e solo se:
+    \[
+        p^{T}=\boldsymbol{q}^{T} P^{*}
+    \]
+    Infine il limite \(
+        \lim _{k \rightarrow \infty} \boldsymbol{q}^{T} P^{k}
+    \) è definito per ogni distribuzione \(\bm{q}\) se e solo se anche \(
+        \lim _{k \rightarrow \infty} P^{k}
+    \) è definito.
+\end{proposition}
+\begin{observation}[Conseguenza della prima proposizione sulle matrici stocastiche]
+    Una semplice conseguenza della prima proposizione sulle matrici stocastiche è che c'è sempre almeno una distribuzione invariante.
+\end{observation}
+\begin{proposition}[Seconda proposizione sulle matrici stocastiche]
+    Se \(P\) è una matrice stocastica unicatenaria i cui indici sono aperiodici, allora
+    \[
+        \lim _{k \rightarrow \infty} P^{k}=\mathbf{1} p^{T}
+    \]
+    dove \(\bm{p}\) è l'unica distribuzione invariante di \(P\), e:
+    \[
+        \lim _{k \rightarrow \infty} \boldsymbol{q}^{T} P^{k}=\boldsymbol{p}
+    \]
+    per ogni distribuzione \(\bm{q}\).
+\end{proposition}
+\end{multicols}
+\end{document}

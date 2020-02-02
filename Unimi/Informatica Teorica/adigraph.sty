@@ -1,0 +1,852 @@
+%
+% Copyright 2018 Luca Cappelletti
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%
+\def\AdigraphVersionNumber{v1.7.1}
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{adigraph}
+[2018/03/27 \AdigraphVersionNumber LaTeX package for creating augmenting directed graphs]
+
+\RequirePackage{etoolbox}
+\RequirePackage{fp}
+\RequirePackage{xparse}
+\RequirePackage{xstring}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+
+\def\AdigraphZero{0}
+\def\AdigraphTextualZero{zero}
+\def\AdigraphDefaultColor{black}
+\def\AdigraphDefaultWidth{0.4}
+\def\AdigraphRed{red!90}
+\def\AdigraphCyan{cyan!90}
+\providebool{AdigraphDrawGraphs}
+\booltrue{AdigraphDrawGraphs}
+
+\makeatletter
+\newcommand{\AdigraphRom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\newcounter{AdigraphTotalNodeCounter}
+\newcounter{AdigraphCurrentNodeCounter}
+\newcounter{AdigraphNumberOfPaths}
+\newcounter{AdigraphCurrentPathNumber}
+\newcounter{AdigraphAdjacentNodes}
+
+\NewDocumentCommand{\AdigraphDrawNode}{m}{%
+	%
+	% #1 is node normalized id
+	%
+	\letcs{\nodeX}{adigraphNode#1X}
+	\letcs{\nodeY}{adigraphNode#1Y}
+	\letcs{\nodeLabel}{adigraphNode#1Label}
+	\letcs{\nodeColor}{adigraphNode#1Color}
+	\letcs{\nodeWidth}{adigraphNode#1Width}
+	%
+	\node[vertex,color=\nodeColor,line width=\nodeWidth pt] (#1) at (\nodeX,\nodeY) {\nodeLabel};
+}
+
+\NewDocumentCommand{\sumOfOrientations}{m}{}
+
+\NewDocumentCommand{\AdigraphDrawEdge}{m m}{%
+	%
+	% #1 is first node normalized id
+	% #2 is second node normalized id
+	%
+	\ifbool{adigraphEdge#1v#2Drawn}{%
+		% This edge was already drawn
+	}{%
+		\booltrue{adigraphEdge#1v#2Drawn}
+		\letcs{\edgeLabelPosition}{adigraphEdge#1v#2LabelPosition}
+		\letcs{\edgeWeight}{adigraphEdge#1v#2Weight}
+		\letcs{\edgeWidth}{adigraphEdge#1v#2Width}
+		\ifcsdef{adigraphEdge#2v#1Weight}{%
+			\letcs{\AdigraphTwinEdgeWeight}{adigraphEdge#2v#1Weight}
+		}{%
+			\let\AdigraphTwinEdgeWeight\AdigraphZero
+		}
+		\providebool{firstWeight}
+		\FPifeq{\edgeWeight}{0}
+		\booltrue{firstWeight}
+		\else
+		\boolfalse{firstWeight}
+		\fi
+
+		\providebool{secondWeight}
+		\FPifeq{\AdigraphTwinEdgeWeight}{0}
+		\booltrue{secondWeight}
+		\else
+		\boolfalse{secondWeight}
+		\fi
+
+		\letcs{\edgeColor}{adigraphEdge#1v#2Color}
+		\ifbool{adigraphEdge#1v#2HasLabel}{%
+			\letcs{\edgeLabel}{adigraphEdge#1v#2Label}
+		}{%
+			\letcs{\edgeLabel}{adigraphEdge#1v#2Weight}
+		}
+		\ifbool{firstWeight}{%
+			% We don't draw edges with weight 0
+		}{%
+			\ifbool{secondWeight}{%
+				% The twin edge won't be drawn
+				% This edge will be a straight line
+				\ifbool{adigraphEdge#1v#2HasEmptyLabel}{
+					\draw[edge,color=\edgeColor,line width=\edgeWidth pt] (#1) to (#2);
+				}{
+					\draw[edge,color=\edgeColor,line width=\edgeWidth pt] (#1) to node[\edgeLabelPosition, fill=white] {\edgeLabel}(#2);
+				}
+			}{%
+				\IfEq{#1}{#2}{
+					% This is a self loop
+					\def\mySinSum{0}
+					\def\myCosSum{0}
+					\setcounter{AdigraphAdjacentNodes}{0}
+					\RenewDocumentCommand{\sumOfOrientations}{m}{
+						%
+						% #1 is name of node
+						%
+						\IfEq{#1}{##1}{
+							% This is the autoloop
+						}{
+							\newcount\myedgecounter
+							\myedgecounter 0\relax
+							\ifcsdef{adigraphEdge#1v##1Weight}{
+								\advance\myedgecounter 1\relax
+							}{}
+							\ifcsdef{adigraphEdge##1v#1Weight}{
+								\advance\myedgecounter 1\relax
+							}{}
+							\ifnumgreater{\the\myedgecounter}{0}{
+								\stepcounter{AdigraphAdjacentNodes}
+								\letcs{\firstX}{adigraphNode#1X}
+								\letcs{\firstY}{adigraphNode#1Y}
+								\letcs{\secondX}{adigraphNode##1X}
+								\letcs{\secondY}{adigraphNode##1Y}
+								\pgfmathsetmacro{\mySinSum}{\mySinSum+sin(atan2(\secondY-\firstY,\secondX-\firstX))}
+								\pgfmathsetmacro{\myCosSum}{\myCosSum+cos(atan2(\secondY-\firstY,\secondX-\firstX))}
+							}{}
+						}
+					}
+					\forlistloop{\sumOfOrientations}{\AdigraphNodeList}
+					\newcount\nodesNumber
+					\nodesNumber \value{AdigraphAdjacentNodes}\relax
+					\IfEq{\the\nodesNumber}{0}{
+						%No elements
+						\pgfmathsetmacro{\centralAngle}{0}
+					}{
+						\newcount\nodesNumber
+						\nodesNumber \value{AdigraphAdjacentNodes}\relax
+						\pgfmathsetmacro{\meanAngle}{atan2(\mySinSum/\the\nodesNumber,\myCosSum/\the\nodesNumber)}
+						\pgfmathsetmacro{\centralAngle}{180+360-max(\meanAngle,360-(\meanAngle))}
+					}
+					\pgfmathsetmacro{\leftAngle}{\centralAngle-35}
+					\pgfmathsetmacro{\rightAngle}{\centralAngle+35}
+					\ifbool{adigraphEdge#1v#2HasEmptyLabel}{
+						\draw[edge,color=\edgeColor,line width=\edgeWidth pt] (#1) to [out=\leftAngle,in=\rightAngle,looseness=8](#1);
+					}{
+						\draw[edge,color=\edgeColor,line width=\edgeWidth pt] (#1) to [out=\leftAngle,in=\rightAngle,looseness=8] node[\edgeLabelPosition, fill=white] {\edgeLabel}(#1);
+					}
+				}{
+					% Both edges have to be drawn, they will be curly
+					\ifbool{adigraphEdge#1v#2HasEmptyLabel}{
+						\draw[edge,color=\edgeColor,line width=\edgeWidth pt] (#1) to [bend right=20] (#2);
+					}{
+						\draw[edge,color=\edgeColor,line width=\edgeWidth pt] (#1) to [bend right=20] node[\edgeLabelPosition, fill=white] {\edgeLabel}(#2);
+					}
+				}
+			}%
+		}%
+	}
+}
+
+\NewDocumentCommand{\AdigraphGenerateNodeName}{m G{\AdigraphDefaultColor} G{\AdigraphDefaultWidth}}{}
+\NewDocumentCommand{\AdigraphMemorizeNode}{m G{}}{}
+
+\NewDocumentCommand{\AdigraphBuildNode}{> { \SplitArgument{ 2 } {,} } m > { \SplitArgument{ 1 } {,} } m m}{%
+	%
+	% #1 -> given node name, not normalized, color and width
+	% #2 -> list of coordinates
+	% #3 -> optional label
+	%
+	\RenewDocumentCommand{\AdigraphGenerateNodeName}{m G{\AdigraphDefaultColor} G{\AdigraphDefaultWidth}}{%
+		%
+		% ##1 -> node name, not normalized
+		% ##2 -> color
+		% ##3 -> width
+		%
+		\IfInteger{##1}{%
+			\IfEq{##1}{\AdigraphZero}{
+				\def\AdigraphNodeName{\AdigraphTextualZero}%
+			}{
+				\def\AdigraphNodeName{\AdigraphRom{##1}}%
+			}
+		}{%
+			\def\AdigraphNodeName{##1}%
+		}%
+		\listxadd{\AdigraphNodeList}{\AdigraphNodeName}
+		\ifblank{##2}{
+			\csdef{adigraphNode\AdigraphNodeName Color}{\AdigraphDefaultColor}%
+		}{
+			\csdef{adigraphNode\AdigraphNodeName Color}{##2}%
+		}
+		\ifblank{##3}{
+			\csdef{adigraphNode\AdigraphNodeName Width}{\AdigraphDefaultWidth}%
+		}{
+			\csdef{adigraphNode\AdigraphNodeName Width}{##3}%
+		}
+
+		\ifblank{#3}{
+			\csdef{adigraphNode\AdigraphNodeName Label}{##1}%
+		}{
+			\csdef{adigraphNode\AdigraphNodeName Label}{#3}%
+		}
+	}
+	\RenewDocumentCommand{\AdigraphMemorizeNode}{m G{}}{%
+		\ifblank{##2}{
+			\newcount\radius
+			\newcount\myi
+			\newcount\myn
+			\newcount\mydpi
+			\radius ##1\relax
+			\myi \value{AdigraphCurrentNodeCounter}\relax
+			\myn \value{AdigraphTotalNodeCounter}\relax
+			\FPset{\mydpi}{6.283185307179586476}
+			\FPmul{\numerator}{\the\myi}{\mydpi}
+			\FPdiv{\anomaly}{\numerator}{\the\myn}
+			\FPcos{\nodeX}{\anomaly}
+			\FPsin{\nodeY}{\anomaly}
+			\FPmul{\nodeX}{\nodeX}{\the\radius}
+			\FPmul{\nodeY}{\nodeY}{\the\radius}
+			\csedef{adigraphNode\AdigraphNodeName X}{\nodeX}%
+			\csedef{adigraphNode\AdigraphNodeName Y}{\nodeY}%
+			\stepcounter{AdigraphCurrentNodeCounter}
+		}{
+			\csdef{adigraphNode\AdigraphNodeName X}{##1}%
+			\csdef{adigraphNode\AdigraphNodeName Y}{##2}%
+		}
+	}%
+	\AdigraphGenerateNodeName#1
+	\AdigraphMemorizeNode#2
+}
+
+\NewDocumentCommand{\AdigraphMemorizeEdge}{m m G{\AdigraphDefaultColor} G{\AdigraphDefaultWidth}}{}
+
+\NewDocumentCommand{\AdigraphBuildEdge}{> {\SplitArgument{3}{,}} m m m m}{%
+	%
+	% #1 -> List of edge nodes, its color and width
+	% #2 -> Weight
+	% #3 -> Label, defaults to weight
+	% #4 -> Label position, defaults to midway
+	%
+	\RenewDocumentCommand{\AdigraphMemorizeEdge}{m m G{\AdigraphDefaultColor} G{\AdigraphDefaultWidth}}{%
+		%
+		% ##1 -> first edge
+		% ##2 -> second edge
+		% ##3 -> color
+		% ##4 -> width
+		%
+		\IfInteger{##1}{%
+			\IfEq{##1}{\AdigraphZero}{
+				\csedef{AdigraphFirstNode}{\AdigraphTextualZero}%
+			}{
+				\csedef{AdigraphFirstNode}{\AdigraphRom{##1}}%
+			}
+		}{%
+			\csedef{AdigraphFirstNode}{##1}%
+		}%
+		\IfInteger{##2}{%
+			\IfEq{##2}{\AdigraphZero}{
+				\csedef{AdigraphSecondNode}{\AdigraphTextualZero}%
+			}{
+				\csedef{AdigraphSecondNode}{\AdigraphRom{##2}}%
+			}
+		}{%
+			\csedef{AdigraphSecondNode}{##2}%
+		}%
+
+		\xifinlist{\AdigraphFirstNode,\AdigraphSecondNode}{\AdigraphEdgeList}{
+			%This edge was previously added
+		}{
+			\xifinlist{\AdigraphFirstNode}{\AdigraphNodeList}{
+				\xifinlist{\AdigraphSecondNode}{\AdigraphNodeList}{
+					%This edge is new
+					\csedef{AdigraphEdgeName}{\AdigraphFirstNode v\AdigraphSecondNode}
+					\listxadd{\AdigraphEdgeList}{\AdigraphFirstNode,\AdigraphSecondNode}
+
+					\newbool{adigraphEdge\AdigraphEdgeName HasLabel}
+					\newbool{adigraphEdge\AdigraphEdgeName HasEmptyLabel}
+					\newbool{adigraphEdge\AdigraphEdgeName Drawn}
+					\ifblank{#3}{%
+						\boolfalse{adigraphEdge\AdigraphEdgeName HasLabel}
+					}{%
+						\booltrue{adigraphEdge\AdigraphEdgeName HasLabel}
+					}%
+					\ifblank{#2}{%
+						\booltrue{adigraphEdge\AdigraphEdgeName HasLabel}
+						\booltrue{adigraphEdge\AdigraphEdgeName HasEmptyLabel}
+						\csdef{adigraphEdge\AdigraphEdgeName Weight}{1}%
+					}{%
+						\csdef{adigraphEdge\AdigraphEdgeName Weight}{#2}%
+					}%
+					\csdef{adigraphEdge\AdigraphEdgeName Label}{#3}%
+					\ifblank{##3}{
+						\csdef{adigraphEdge\AdigraphEdgeName Color}{\AdigraphDefaultColor}%
+					}{
+						\csdef{adigraphEdge\AdigraphEdgeName Color}{##3}%
+					}
+					\ifblank{##4}{
+						\csdef{adigraphEdge\AdigraphEdgeName Width}{\AdigraphDefaultWidth}%
+					}{
+						\csdef{adigraphEdge\AdigraphEdgeName Width}{##4}%
+					}
+					\csdef{adigraphEdge\AdigraphEdgeName LabelPosition}{#4}%
+				}{
+					\PackageError{adigraph}{%
+						The given edge ends in the node ##2, that does not exist.
+					}{%
+						You have to create the node ##2.
+					}
+				}
+			}{
+				\PackageError{adigraph}{%
+					The given edge starts from the node ##1, that does not exist.
+				}{%
+					You have to create the node ##1.
+				}
+			}
+		}
+	}
+	\AdigraphMemorizeEdge#1
+}
+
+\NewDocumentCommand{\AdigraphBuildEdgeWrapper}{m G{} G{} G{midway}}{%
+	%
+	% #1 -> List of edge nodes and its color
+	% #2 -> Weight
+	% #3 -> Label
+	% #4 -> Label position
+	%
+	\ifblank{#1}{%
+		%Do nothing, this is the tail of the list
+	}{%
+		\AdigraphBuildEdge{#1}{#2}{#3}{#4}
+	}
+}
+
+\NewDocumentCommand{\AdigraphElaboratePath}{m m G{\AdigraphDefaultColor}}{}
+
+\NewDocumentCommand{\AdigraphSimpleSum}{m m m}{%
+	%
+	% #1 -> First addendum
+	% #2 -> Second addendum
+	% #3 -> Variable to store sum
+	%
+	\pgfmathsetmacro{\sat}{#1+#2}
+	\pgfmathfrac{\sat}
+	\IfEq{\pgfmathresult}{0.0}{
+		\pgfmathint{\sat}
+		\FPset{#3}{\pgfmathresult}
+	}{
+		\FPset{#3}{\sat}
+	}
+}
+
+\NewDocumentCommand{\AdigraphPathBuilder}{m m m m m m m}{%
+	%
+	% #1 -> first node
+	% #2 -> second node
+	% #3 -> units
+	% #4 -> forward color
+	% #5 -> backward color
+	% #6 -> forward width
+	% #7 -> backward width
+	%
+	\ifcsdef{adigraphEdge#1v#2Weight}{%
+		\letcs{\AdigraphWeightA}{adigraphEdge#1v#2Weight}
+	}{%
+		\def\AdigraphWeightA{0}
+		\newbool{adigraphEdge#1v#2HasLabel}
+		\newbool{adigraphEdge#1v#2HasEmptyLabel}
+		\ifcsdef{adigraphEdge#2v#1LabelPosition}{%
+			\csdef{adigraphEdge#1v#2LabelPosition}{\csuse{adigraphEdge#2v#1LabelPosition}}
+		}{%
+			\csdef{adigraphEdge#1v#2LabelPosition}{midway}
+		}
+		\csdef{adigraphEdge#1v#2LabelPosition}{midway}
+		\newbool{adigraphEdge#1v#2Drawn}
+		\listgadd{\AdigraphEdgeList}{#1,#2}
+	}
+	\ifcsdef{adigraphEdge#2v#1Weight}{%
+		\letcs{\AdigraphWeightB}{adigraphEdge#2v#1Weight}
+	}{%
+		\def\AdigraphWeightB{0}
+		\newbool{adigraphEdge#2v#1HasLabel}
+		\newbool{adigraphEdge#2v#1HasEmptyLabel}
+		\ifcsdef{adigraphEdge#1v#2LabelPosition}{%
+			\csdef{adigraphEdge#2v#1LabelPosition}{\csuse{adigraphEdge#1v#2LabelPosition}}
+		}{%
+			\csdef{adigraphEdge#2v#1LabelPosition}{midway}
+		}
+		\newbool{adigraphEdge#2v#1Drawn}
+		\listgadd{\AdigraphEdgeList}{#2,#1}
+	}
+
+	\ifblank{#4}{
+		\cslet{adigraphEdge#1v#2Color}{\AdigraphDefaultColor}%
+	}{
+		\cslet{adigraphEdge#1v#2Color}{#4}%
+	}
+	\ifblank{#5}{
+		\cslet{adigraphEdge#2v#1Color}{\AdigraphDefaultColor}%
+	}{
+		\cslet{adigraphEdge#2v#1Color}{#5}%
+	}
+	\ifblank{#6}{
+		\cslet{adigraphEdge#1v#2Width}{\AdigraphDefaultWidth}%
+	}{
+		\cslet{adigraphEdge#1v#2Width}{#6}%
+	}
+	\ifblank{#7}{
+		\cslet{adigraphEdge#2v#1Width}{\AdigraphDefaultWidth}%
+	}{
+		\cslet{adigraphEdge#2v#1Width}{#7}%
+	}
+
+	\expandafter\AdigraphSimpleSum\expandafter{\AdigraphWeightA}{-#3}{\resultA}
+	\expandafter\AdigraphSimpleSum\expandafter{\AdigraphWeightB}{#3}{\resultB}
+	\cslet{adigraphEdge#1v#2Weight}{\resultA}%
+	\cslet{adigraphEdge#2v#1Weight}{\resultB}%
+}
+
+\NewDocumentCommand{\AdigraphElaboratePathColors}{G{} G{\AdigraphDefaultColor}}{}
+\NewDocumentCommand{\AdigraphElaboratePathWidth}{G{\AdigraphDefaultWidth} G{}}{}
+
+\NewDocumentCommand{\AdigraphBuildPath}{> { \SplitList{,} } m G{} > { \SplitArgument{ 1 } {,} } G{} G{}}{%
+	%
+	% #1 -> List of nodes
+	% #2 -> Units to send over path
+	% #3 -> Colors list
+	% #4 -> Width list
+	%
+	\ifblank{#2}{%
+		\FPset{\units}{0}
+	}{
+		\FPset{\units}{#2}
+	}
+
+	\RenewDocumentCommand{\AdigraphElaboratePathColors}{G{} G{\AdigraphDefaultColor}}{%
+		\ifblank{##1}{
+			\ifnum\value{AdigraphNumberOfPaths}=\value{AdigraphCurrentPathNumber}
+				\def\AdigraphForwardPathColor{\AdigraphRed}
+				\def\AdigraphBackwardPathColor{\AdigraphCyan}
+			\else
+				\def\AdigraphForwardPathColor{\AdigraphDefaultColor}
+				\def\AdigraphBackwardPathColor{\AdigraphDefaultColor}
+			\fi
+		}{
+			\def\AdigraphForwardPathColor{##1}
+			\ifblank{##2}{
+				\def\AdigraphBackwardPathColor{\AdigraphDefaultColor}
+			}{
+				\def\AdigraphBackwardPathColor{##2}
+			}
+		}
+	}
+
+	\AdigraphElaboratePathColors#3
+
+	\RenewDocumentCommand{\AdigraphElaboratePathWidth}{G{\AdigraphDefaultWidth} G{##1}}{%
+		\ifblank{##1}{
+			\def\AdigraphForwardPathWidth{\AdigraphDefaultWidth}
+		}{
+			\def\AdigraphForwardPathWidth{##1}
+		}
+		\ifblank{##2}{
+			\def\AdigraphBackwardPathWidth{\AdigraphDefaultWidth}
+		}{
+			\def\AdigraphBackwardPathWidth{##2}
+		}
+	}
+
+	\AdigraphElaboratePathWidth#4
+
+	\RenewDocumentCommand{\AdigraphElaboratePath}{m}{%
+		\IfInteger{##1}{%
+			\IfEq{##1}{\AdigraphZero}{
+				\def\AdigraphCurrentNode{\AdigraphTextualZero}%
+			}{
+				\def\AdigraphCurrentNode{\AdigraphRom{##1}}%
+			}
+		}{%
+			\def\AdigraphCurrentNode{##1}%
+		}%
+		\ifdef{\AdigraphLastParsedNode}{%
+			\expandafter\expandafter\expandafter\AdigraphPathBuilder\expandafter\expandafter\expandafter{\expandafter\AdigraphLastParsedNode\expandafter}\expandafter{\AdigraphCurrentNode}{\units}{\AdigraphForwardPathColor}{\AdigraphBackwardPathColor}{\AdigraphBackwardPathWidth}{\AdigraphBackwardPathWidth}
+		}{%
+			% This is the first iteration
+		}
+		\IfInteger{##1}{%
+			\IfEq{##1}{\AdigraphZero}{
+				\def\AdigraphLastParsedNode{\AdigraphTextualZero}%
+			}{
+				\def\AdigraphLastParsedNode{\AdigraphRom{##1}}%
+			}
+		}{%
+			\def\AdigraphLastParsedNode{##1}%
+		}%
+	}
+	\ProcessList{#1}{\AdigraphElaboratePath}
+	\undef{\AdigraphLastParsedNode}
+}
+
+\NewDocumentCommand{\AdigraphBuildNodeWrapper}{m m G{}}{
+	% #1 -> given node name, not normalized, color and width
+	% #2 -> list of coordinates
+	% #3 -> optional label
+	\ifblank{#1}{
+		%end of list
+	}{
+		\AdigraphBuildNode{#1}{#2}{#3}
+	}
+}
+
+\NewDocumentCommand{\AdigraphNodeBuilder}{ > { \SplitArgument{ 2 } {:} } m }{%
+	\AdigraphBuildNodeWrapper#1
+}
+
+\NewDocumentCommand{\AdigraphEdgeBuilder}{ > { \SplitArgument{ 3 } {:} } m }{%
+	\AdigraphBuildEdgeWrapper#1
+}
+
+
+
+\NewDocumentCommand{\AdigraphApplyKleenePlusEdgeBuilder}{m}{%
+	%
+	% #1 -> element
+	%
+	\ifblank{#1}{
+		%end of list
+	}{
+		\IfSubStr{\AdigraphCurrentElaboratingEdge}{,#1,}{
+			%The node is already contained
+		}{
+			\IfSubStr{\AdigraphCurrentElaboratingEdge}{,#1}{
+				%The node is already contained
+			}{
+				\IfSubStr{\AdigraphCurrentElaboratingEdge}{#1,}{
+					\StrPosition{\AdigraphCurrentElaboratingEdge}{#1,}[\stringPosition]
+					\ifnumequal{\stringPosition}{1}{
+						%This is at the beginning of the list
+					}{
+						\StrSubstitute[1]{\AdigraphCurrentElaboratingEdge}{+}{#1}[\temp]%
+						\expandafter\AdigraphFirstEdgeRenormalizer\expandafter{\temp}
+					}
+				}{
+					\StrSubstitute[1]{\AdigraphCurrentElaboratingEdge}{+}{#1}[\temp]%
+					\expandafter\AdigraphFirstEdgeRenormalizer\expandafter{\temp}
+				}
+			}
+		}
+	}
+}
+
+\NewDocumentCommand{\AdigraphKleenePlusEdgeBuilder}{m}{%
+	\ifrmnum{#1}{
+		\def\AdigraphTempList{}
+		\listeadd{\AdigraphTempList}{\rmntonum{#1}}
+		\forlistloop{\AdigraphApplyKleenePlusEdgeBuilder}{\AdigraphTempList}
+	}{
+		\AdigraphApplyKleenePlusEdgeBuilder{#1}
+	}
+}
+
+\NewDocumentCommand{\AdigraphSecondEdgeRenormalizer}{m}{%
+	\xifinlist{+}{\AdigraphNodeList}{
+		%The plus is not a kleene sign, but a symbol for a node
+		\AdigraphEdgeBuilder{#1}
+	}{
+		\IfSubStr{#1}{+}{
+			\def\AdigraphCurrentElaboratingEdge{#1}
+			\forlistloop{\AdigraphKleenePlusEdgeBuilder}{\AdigraphNodeList}
+		}{
+			\AdigraphEdgeBuilder{#1}
+		}
+	}
+}
+
+\NewDocumentCommand{\AdigraphKleeneStarEdgeBuilder}{m}{%
+	\StrSubstitute[1]{\AdigraphCurrentElaboratingEdge}{*}{#1}[\temp]%
+	\expandafter\AdigraphFirstEdgeRenormalizer\expandafter{\temp}
+}
+
+\NewDocumentCommand{\AdigraphFirstEdgeRenormalizer}{m}{%
+	\xifinlist{*}{\AdigraphNodeList}{
+		%The asterisk is not a kleene sign, but a symbol for a node
+		\AdigraphSecondEdgeRenormalizer{#1}
+	}{
+		\IfSubStr{#1}{*}{
+			\def\AdigraphCurrentElaboratingEdge{#1}
+			\forlistloop{\AdigraphKleeneStarEdgeBuilder}{\AdigraphNodeList}
+		}{
+			\AdigraphSecondEdgeRenormalizer{#1}
+		}
+	}
+}
+
+\NewDocumentCommand{\AdigraphEdgeDrawer}{ > { \SplitArgument{ 1 } {,} } m }{%
+	\AdigraphDrawEdge#1
+}
+
+\NewDocumentCommand{\AdigraphNodeCounter}{m G{}}{%
+	\ifblank{#2}{
+		\stepcounter{AdigraphTotalNodeCounter}
+	}{}
+}
+
+\NewDocumentCommand{\AdigraphNodeCounterWrapper}{m > { \SplitArgument{ 1 } {,} } m m m }{%
+	\ifblank{#1}{}{
+		\AdigraphNodeCounter#2
+	}
+}
+
+\NewDocumentCommand{\AdigraphNodeCounterSecondWrapper}{ > { \SplitArgument{ 3 } {:} } m }{%
+	\AdigraphNodeCounterWrapper#1
+}
+
+\NewDocumentCommand{\AdigraphNodesCounter}{> { \SplitList{;} } m}{%
+	\ProcessList{#1}{\AdigraphNodeCounterSecondWrapper}
+}
+
+\NewDocumentCommand{\AdigraphProcessNodes}{> { \SplitList{;} } m}{%
+	\ProcessList{#1}{\AdigraphNodeBuilder}
+	\forlistloop{\AdigraphDrawNode}{\AdigraphNodeList}
+}
+
+\NewDocumentCommand{\AdigraphProcessEdges}{> { \SplitList{;} } m}{%
+	\ProcessList{#1}{\AdigraphFirstEdgeRenormalizer}
+}
+
+\NewDocumentCommand{\AdigraphProcessPaths}{> { \SplitArgument{ 3 } {:} } m}{%
+	% #1 -> List of nodes
+	% #2 -> Units to send over path
+	% #3 -> Colors list
+	% #4 -> Width list
+	\stepcounter{AdigraphCurrentPathNumber}
+	\AdigraphBuildPath#1
+}
+
+\NewDocumentCommand{\AdigraphCountPaths}{m}{%
+	\stepcounter{AdigraphNumberOfPaths}
+}
+
+\NewDocumentCommand{\AdigraphCalculateInclination}{m m m}{}
+
+\NewDocumentCommand{\AdigraphCalculateOrientation}{m m m}{%
+	\letcs{\firstX}{adigraphNode#2X}
+	\letcs{\firstY}{adigraphNode#2Y}
+	\letcs{\secondX}{adigraphNode#3X}
+	\letcs{\secondY}{adigraphNode#3Y}
+
+	\providebool{equalX}
+	\pgfmathsetmacro{\deltaX}{\secondX-\firstX}
+	\FPifeq{\deltaX}{0}
+	\booltrue{equalX}
+	\else
+	\boolfalse{equalX}
+	\fi
+
+
+	\ifbool{equalX}{%
+		\FPset{#1}{90}
+	}{%
+		\pgfmathsetmacro{#1}{57.2958*atan((\secondY-\firstY)/(\deltaX))}
+	}
+}
+
+\NewDocumentCommand{\AdigraphExecuteCutBuilder}{m m G{\AdigraphDefaultColor}}{%
+\ifblank{#1}{%
+% Reached end of list
+}{%
+\IfInteger{#1}{%
+	\IfEq{#1}{\AdigraphZero}{
+		\def\AdigraphFirstNode{\AdigraphTextualZero}%
+	}{
+		\def\AdigraphFirstNode{\AdigraphRom{#1}}%
+	}
+}{%
+	\def\AdigraphFirstNode{#1}%
+}%
+\IfInteger{#2}{%
+	\IfEq{#2}{\AdigraphZero}{
+		\def\AdigraphSecondNode{\AdigraphTextualZero}%
+	}{
+		\def\AdigraphSecondNode{\AdigraphRom{#2}}%
+	}
+}{%
+	\def\AdigraphSecondNode{#2}%
+}%
+\AdigraphCalculateOrientation{\orientation}{\AdigraphFirstNode}{\AdigraphSecondNode}
+\draw[dashed,#3,rotate=\orientation] ([yshift=10pt]$(\AdigraphFirstNode)!0.7!(\AdigraphSecondNode)$) -- ([yshift=-10pt]$(\AdigraphFirstNode)!0.7!(\AdigraphSecondNode)$);
+}
+}
+
+\NewDocumentCommand{\AdigraphCutBuilder}{> { \SplitArgument { 2 } { , } } m}{%
+	\AdigraphExecuteCutBuilder #1
+}
+
+\NewDocumentCommand{\AdigraphProcessCuts}{> { \SplitList{;} } m}{%
+	\ProcessList{#1}{\AdigraphCutBuilder}
+}
+
+\NewDocumentCommand{\Adigraph}{m m m m m m}{%
+	%
+	% #1 -> Vertices
+	% #2 -> Edges
+	% #3 -> Augmenting paths
+	% #4 -> Cuts
+	% #5 -> Current augmenting paths
+	% #6 -> Style
+	%
+	\ifbool{AdigraphDrawGraphs}{%
+		\def\AdigraphNodeList{}
+		\def\AdigraphEdgeList{}
+		\letcs{\AdigraphAugmentingPaths}{#3}
+		\begin{tikzpicture}
+			\tikzset{%
+				vertex/.style={circle,draw,minimum size=2em},
+				edge/.style={#6}
+			}
+
+			% vertices
+			\ifblank{#1}{%
+				% List is empty
+			}{%
+				\AdigraphNodesCounter{#1}
+				\AdigraphProcessNodes{#1}
+			}
+
+			\ifblank{#2}{%
+				% List is empty
+			}{%
+				\AdigraphProcessEdges{#2}
+			}
+
+			\ifblank{\AdigraphAugmentingPaths}{%
+				% List is empty
+			}{%
+				\ifblank{#5}{%
+					\defcounter{AdigraphNumberOfPaths}{100000}
+				}{%
+				}
+				\forlistloop{\AdigraphCountPaths}{\AdigraphAugmentingPaths}
+				\forlistloop{\AdigraphProcessPaths}{\AdigraphAugmentingPaths}
+			}
+
+			\ifblank{#2}{%
+				% List is empty
+			}{%
+				\forlistloop{\AdigraphEdgeDrawer}{\AdigraphEdgeList}
+			}
+
+			% %cuts
+			\ifblank{#4}{%
+				% List is empty
+			}{%
+				\AdigraphProcessCuts{#4}
+			}
+		\end{tikzpicture}
+	}{}
+}
+
+\NewDocumentCommand{\AdigraphProcessAugmentingPaths}{m}{}
+\NewDocumentCommand{\AdigraphProcessAugmentingPathsList}{m}{}
+
+\NewDocumentCommand{\NewAdigraph}{m m G{} O{->,> = latex}}{%
+	%
+	% #1 -> Variable to assign to as command
+	% #2 -> Nodes
+	% #3 -> Edges
+	% #4 -> Style
+	%
+	\ifcsdef{#1}{
+		\PackageError{adigraph}{%
+			You have already define an adigraph called #1.
+		}{%
+			Identify the duplicate and change its name, e.g. Second#1
+		}
+	}{
+		\csdef{Adigraph#1AugmentingPaths}{}%
+		\RenewDocumentCommand{\AdigraphProcessAugmentingPaths}{m}{%
+			\listcsgadd{Adigraph#1AugmentingPaths}{##1}
+		}
+		\RenewDocumentCommand{\AdigraphProcessAugmentingPathsList}{> { \SplitList{;} } m}{%
+			\ProcessList{##1}{\AdigraphProcessAugmentingPaths}
+		}
+		\expandafter\NewDocumentCommand\expandafter{\csname #1\endcsname}{m G{}}{%
+			%
+			% ##1 -> Augmenting path
+			%
+			\setcounter{AdigraphCurrentNodeCounter}{0}
+			\setcounter{AdigraphTotalNodeCounter}{0}
+			\setcounter{AdigraphNumberOfPaths}{0}
+			\setcounter{AdigraphCurrentPathNumber}{0}
+			\AdigraphProcessAugmentingPathsList{##1}
+			\Adigraph{#2}{#3}{Adigraph#1AugmentingPaths}{##2}{##1}{#4}
+		}%
+	}
+}
+
+\NewDocumentCommand{\RenewAdigraph}{m m G{} O{->,> = latex}}{%
+	%
+	% #1 -> Variable to assign to as command
+	% #2 -> Nodes
+	% #3 -> Edges
+	% #4 -> Style
+	%
+	\ifcsdef{#1}{
+		\csdef{Adigraph#1AugmentingPaths}{}%
+		\RenewDocumentCommand{\AdigraphProcessAugmentingPaths}{m}{%
+			\listcsgadd{Adigraph#1AugmentingPaths}{##1}
+		}
+		\RenewDocumentCommand{\AdigraphProcessAugmentingPathsList}{> { \SplitList{;} } m}{%
+			\AdigraphProcessAugmentingPaths##1
+		}
+		\expandafter\RenewDocumentCommand\expandafter{\csname #1\endcsname}{m G{}}{%
+			%
+			% ##1 -> Augmenting path
+			%
+			\setcounter{AdigraphCurrentNodeCounter}{0}
+			\setcounter{AdigraphTotalNodeCounter}{0}
+			\setcounter{AdigraphNumberOfPaths}{0}
+			\setcounter{AdigraphCurrentPathNumber}{0}
+			\AdigraphProcessAugmentingPathsList{##1}
+			\Adigraph{#2}{#3}{Adigraph#1AugmentingPaths}{##2}{##1}{#4}
+		}%
+	}{
+		\PackageError{adigraph}{%
+			You cannot renew a graph called #1 without having it defined first.
+		}{%
+			Create the first graph using \textbackslash NewAdigraph
+		}
+	}
+}
+
+\NewDocumentCommand{\DisableAdigraphs}{}{%
+	\boolfalse{AdigraphDrawGraphs}
+}
+
+\NewDocumentCommand{\EnableAdigraphs}{}{%
+	\booltrue{AdigraphDrawGraphs}
+}
+
+
+\endinput
+%%
+%% End of file `adigraph.sty'.

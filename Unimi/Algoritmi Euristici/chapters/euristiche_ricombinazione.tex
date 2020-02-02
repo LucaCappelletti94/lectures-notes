@@ -1,0 +1,107 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Euristiche di ricombinazione}
+\begin{multicols}{2}
+\begin{definition}[Euristiche di ricombinazione]
+    Le euristiche di ricombinazione, a differenza delle euristiche costruttive e di scambio (almeno tipicamente), gestiscono molte soluzioni in parallelo.
+    
+    Esse partono da un insieme, detto \textbf{popolazione}, di soluzioni, detti \textbf{individui}, e ricombinano questi individui producendo una nuova popolazione.
+\end{definition}
+\begin{observation}[Quale è l'aspetto originale delle euristiche di ricombinazione?]
+    Il loro aspetto originale è l'uso di operazioni che lavorano su più soluzioni.
+\end{observation}
+\begin{observation}[Qual'è l'idea generale delle euristiche di ricombinazione?]
+    L'idea di fondo è che:
+    \begin{enumerate}
+        \item Soluzioni buone condividono componenti con l'ottimo globale.
+        \item Soluzioni diverse possono condividere componenti diverse.
+        \item Combinando soluzioni diverse è possibile fondere componenti ottime più facilmente che costruendole un passo per volta.
+    \end{enumerate}
+\end{observation}
+\begin{observation}[Come procedono le euristiche di ricombinazione?]
+    Tipicamente le euristiche di ricombinazione procedono nelle modalità seguenti:
+    \begin{enumerate}
+        \item Costruire una popolazione iniziale di soluzioni.
+        \item Finché non si verifica un'opportuna condizione di termine produrre popolazioni successive, dette \textbf{generazioni}.
+        \item Per ogni generazione:
+        \begin{enumerate}
+            \item Estrarre sotto-insiemi di individui.
+            \item Applicare operazioni di scambio agli individui singoli.
+            \item Applicare operazioni di ricombinazione ai sotto-insiemi.
+            \item Raccogliere gli individui generati dalle operazioni.
+            \item Scegliere se accettare o no ogni nuovo individuo (e in quante copie) producendo così una nuova popolazione.
+        \end{enumerate}
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Scatter Search]
+    La Scatter Search è una euristica di ricombinazione che genera una popolazione iniziale di scambio e quindi la migliora iterativamente con una procedura di scambio.
+    \begin{enumerate}
+        \item Costruisce un insieme di riferimento (reference set \(\rnd{R = R_B \cup R_D}\)).
+        \begin{itemize}
+            \item Il sottoinsieme \(R_B\) contiene le migliori soluzioni note.
+            \item Il sottoinsieme \(R_D\) contiene le soluzioni più distanti tra loro e da \(R_B\).
+        \end{itemize}
+        \item Per ogni coppia di soluzioni \(x, y \in R_B \times \rnd{R_B \cup R_D}\):
+        \begin{itemize}
+            \item Si procede a ricombinare \(x\) e \(y\), generando \(z\).
+            \item Migliora \(z\) ottenenendo \(z'\) con una procedura di scambio
+            \item Se \(z' \not\in R_B\) e in \(R_B\) c'è una soluzione peggiore, la sostituisce con \(z'\).
+            \item Se \(z' \not\in R_D\) e in \(R_D\) c'è una soluzione più vicina, la sostituisce con \(z'\).
+        \end{itemize}
+        \item La procedura termina quando \(R\) rimane invariato.
+    \end{enumerate}
+    La logica è che le ricombinazioni \(R_B \times R_B\) \textbf{intensificano} la ricerca, mentre le ricombinazioni \(R_B \times R_D\) \textbf{diversificano} la ricerca.
+\end{definition}
+\begin{definition}[Procedura di ricombinazione]
+    La procedura di ricombinazione spesso dipende dalla natura del problema. Spesso ci si limita a trattare \(x\) e \(y\) come sotto-insiemi:
+    \begin{enumerate}
+        \item Prima \(z\) include tutti gli elementi condivisi da \(x\) e \(y\): \(z = x \cap y\).
+        \item Poi si procede ad aggiungere a \(z\) elementi estratti a caso alternativamente da \(x \setminus y\) e da \(y \setminus x\) fino a ottenere una soluzione ammissibile.
+    \end{enumerate}
+    
+    Se il sottoinsieme \(z\) ottenuto è inammissibile, un'euristica di scambio ausiliaria, detta \textbf{procedura di riparazione}, riporta \(z\) all'ammissibilità.
+\end{definition}
+\end{multicols}
+\clearpage
+\begin{definition}[Path relinking]
+    L'algoritmo di Path Relinking usato generalmente come procedura finale di intensificazione più che come metodo a sé. Dato un intorno \(N\) su cui si basa un'euristica ausiliaria di scambio:
+    \begin{enumerate}
+        \item Raccoglie in un insieme di riferimento \(R\) le migliori soluzioni generate dall'euristica ausiliaria, dette \textbf{soluzioni di élite}.
+        \item Per ogni coppia di soluzioni \(x, y \in R\):
+        \begin{itemize}
+            \item Costruisce un cammino da \(x\) a \(y\) nello spazio di ricerca dell'intorno \(N\) applicando a \(z^{\rnd{0}} = x\) l'euristica ausiliaria di scambio, ma scegliendo a ogni passo la soluzione più vicina alla destinazione \(y\):
+            \[
+                z^{z+1} = \argmin_{z \in N\rnd{z^{\rnd{k}}}} D\rnd{z, y}
+            \]
+            dove \(R_D\) è un'opportuna funzione metrica sulle soluzioni. A pari distanza, ottimizza la funzione obbiettivo \(f\) del problema.
+            \item Trova la miglior soluzione \(z^*_{xy}\) lungo il cammino:
+            \[
+                z_{xy}^* = \argmin_k f\rnd{z^{\rnd{k}}}
+            \]
+            \item Se \(z_{xy}^* \not\in R\) ed è migliore di una di quelle di \(R\), la inserisce in R.
+        \end{itemize}
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Cammini di Relinking]
+    I cammini di relinking esplorati in questo modo:
+    \begin{itemize}
+        \item Intensificano la ricerca, perché collegano soluzioni buone.
+        \item Diversificano la ricerca, perché in genere sono diversi da quelli seguiti dall'euristica di scambio, soprattutto se gli estremi sono lontani.
+        \item Poiché la distanza di \(z^{\rnd{k}}\) da \(y\) cala via via, si possono esplorare:
+        \begin{itemize}
+            \item Soluzioni peggioranti senza il rischio di comportamenti ciclici.
+            \item Sotto-insiemi inammissibili senza il rischio di non riuscire a riottenere soluzioni ammissibili.
+        \end{itemize}
+    \end{itemize}
+\end{definition}
+\begin{observation}[Quali varianti del Path relinking esistono?]
+    Esistono diverse varianti al Path Relinking, tra cui:
+    \begin{description}
+    \item[Backward path relinking] costruisce il cammino all'indietro da \(y\) a \(x\).
+    \item[Back-and-forward path relinking] costruisce entrambi i cammini.
+    \item[Mixed path relinking] costruisce un cammino facendo un passo per volta alternativamente da ogni estremo (aggiornando la destinazione).
+    \item[Truncated path relinking] costruisce solo il principo del cammino.
+    \end{description}    
+\end{observation}
+\end{document}

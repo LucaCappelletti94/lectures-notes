@@ -1,0 +1,77 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Rischio nell'algoritmo Nearest Neighbour}
+\begin{multicols}{2}
+    \begin{definition}[Predittore \(1\)-NN]
+        Dato un training set \(S = \examples{m}\) estratto da un modello statistico \(\rnd{D, \mu}\) definiamo la mappa \(\funcdef{\pi_S}{\R^d}{\crl{1, \ldots, m}}\) come:
+        \[
+            \pi_{S}(\boldsymbol{x})=\underset{t=1, \ldots, m}{\operatorname{argmin}}\left\|\boldsymbol{x}-\boldsymbol{X}_{t}\right\|
+        \]
+        Il predittore \(1\)-NN su input \(S\) è quindi definito da \(\hat{h}_S\rnd{\bmx} = y_{\pi_S}\rnd{\bmx}\).
+    \end{definition}
+    \begin{theorem}[Rischio nell'algoritmo Nearest Neighbour]
+        Una maggiorazione del rischio statistico del classificatore prodotto da \(1\)-NN rispetto all'estrazione del training set valida é:
+        \[
+            \mathbb{E}\left[\operatorname{er}\left(\widehat{h}_{S}\right)\right] \leq 2 \operatorname{er}\left(f^{*}\right)+\varepsilon_{m}
+        \]
+        dove \(\hat{h}_S\) indica il classificatore \(1\)-NN prodotto sul training set \(S\) di taglia \(m\), \(\er\rnd{f^*}\) è il rischio del classificatore Bayesiano ottimo e \(\varepsilon_m\) è una quantità che dipende da \(m\)
+    \end{theorem}
+    \begin{observation}[Differenze tra classificatore ERM e 1-NN]
+        Le differenze sono principalmente di due tipi:
+        \begin{enumerate}
+            \item Il maggiorante del rischio del classificatore \(1-NN\) in termini assoluti (cioè si confronta direttamente col Bayes risk), mentre il maggiorante dell'ERM lo maggiora relativamente al rischio del miglior classificatore in \(\mathbb{H}\), che potrebbe essere arbitrariamente peggiore del Bayes risk.
+            \item Il maggiorante ERM descrive una proprietà della distribuzione del rischio dei classificatori ERM al variare di \(\varepsilon>0\), mentre l'altro limita semplicemente il rischio di un tipico classificatore \(1-NN\).
+        \end{enumerate}
+    \end{observation}
+\end{multicols}
+\clearpage
+\begin{proof}[Rischio nell'algoritmo Nearest Neighbour]
+        Assumiamo che i dati \(\bmx\) generati dalla sorgente siano tali che \(\max_i \abs{x_i} \leq 1\) con probabilità \(1\): vale a dire che le componenti \(x_i\) delle istanze \(\bmx = \rnd{x_1, \ldots, x_d}\) generate dalla sorgente hanno sempre valori compresi fra \(-1\) e \(+1\). Sia \(\mathbb{X} \subset \R^d\) il sottoinsieme delle istanze \(\bmx\) con questa proprietà. 
+        
+        Esprimeremo il maggiorante sul valore atteso del rischio di \(1\)-NN in termini di una quantità che caratterizza il modello statistico \(\rnd{D, \mu}\), ovvero il più piccolo \(c>0\) tale che:
+        \[
+            \left|\eta(\boldsymbol{x})-\eta\left(\boldsymbol{x}^{\prime}\right)\right| \leq c\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\| \quad \text { per ogni } \boldsymbol{x}, \boldsymbol{x}^{\prime} \in \mathcal{X}
+        \]
+        Si noti che \(c<\infty\) implica che \(\mu\) è una funzione continua. Possiamo quindi scrivere:
+        \begin{align*}
+            \eta\left(\boldsymbol{x}^{\prime}\right) & \leq \eta(\boldsymbol{x})+c\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\| \\ 1-\eta\left(\boldsymbol{x}^{\prime}\right) & \leq 1-\eta(\boldsymbol{x})+c\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\|
+        \end{align*}
+        Siccome i dati sono estratti in modo indipendente, per ogni \(\rnd{\bmx, y}\) e \(\rnd{\bmx', y'}\) vale che:
+        \[
+            \mathbb{P}\left(Y=y, Y^{\prime}=y^{\prime} | \boldsymbol{X}=\boldsymbol{x}, \boldsymbol{X}^{\prime}=\boldsymbol{x}^{\prime}\right)=\mathbb{P}(Y=y | \boldsymbol{X}=\boldsymbol{x}) \mathbb{P}\left(Y^{\prime}=y^{\prime} | \boldsymbol{X}^{\prime}=\boldsymbol{x}^{\prime}\right)
+        \]
+        Ricordando che \(\hat{h}_S\rnd{\bmx} = y_{\pi_S\rnd{\bmx}}\), notiamo che, per ogni coppia di istanze \(\bmx, \bmx'\) vale che:
+        \begin{align*}
+            \mathbb{P}\left(Y \neq Y^{\prime} | \boldsymbol{X}=\boldsymbol{x}, \boldsymbol{X}^{\prime}=\boldsymbol{x}^{\prime}\right) &=\mathbb{P}(Y=1 | \boldsymbol{X}=\boldsymbol{x}) \mathbb{P}\left(Y^{\prime}=-1 | \boldsymbol{X}^{\prime}=\boldsymbol{x}^{\prime}\right) \\ &+\mathbb{P}(Y=-1 | \boldsymbol{X}=\boldsymbol{x}) \mathbb{P}\left(Y^{\prime}=1 | \boldsymbol{X}^{\prime}=\boldsymbol{x}^{\prime}\right) \\ &=\eta(\boldsymbol{x})\left(1-\eta\left(\boldsymbol{x}^{\prime}\right)\right)+(1-\eta(\boldsymbol{x})) \eta\left(\boldsymbol{x}^{\prime}\right)
+        \end{align*}
+        dove la probabilità è rispetto all'estrazione di \(S\) e \(\rnd{\bm{X}, Y}\) e abbiamo usato l'equazione delle probabilità precedente. Applicando le due disuguaglianze, possiamo allora scrivere:
+        \begin{align*} \mathbb{E} &\left[\operatorname{er}\left(\widehat{h}_{S}\right)\right]=\mathbb{E}\left[\mathbb{I}\left\{\widehat{h}_{S}(\boldsymbol{X}) \neq Y\right\}\right] \\ &=\mathbb{P}\left(\widehat{h}_{S}(\boldsymbol{X}) \neq Y\right) \\ &=\mathbb{P}\left(Y_{\pi_{S}(\boldsymbol{X})} \neq Y\right) \\ &=\mathbb{E}\left[\mathbb{I}\left\{Y_{\pi_{S}(\boldsymbol{X})} \neq Y\right\}\right]\\
+        &=\mathbb{E}\left[\mathbb{E}\left[\mathbb{I}\left\{Y^{\prime} \neq Y\right\} | \boldsymbol{X}=\boldsymbol{x}, \boldsymbol{X}_{\pi_{S}(\boldsymbol{X})}=\boldsymbol{x}^{\prime}\right]\right] \\ &=\mathbb{E}\left[\eta(\boldsymbol{X})\left(1-\eta\left(\boldsymbol{X}^{\prime}\right)\right)+(1-\eta(\boldsymbol{X})) \eta\left(\boldsymbol{X}^{\prime}\right)\right]\\
+        &\leq \mathbb{E}\left[\eta(\boldsymbol{X})(1-\eta(\boldsymbol{X}))+\eta(\boldsymbol{X}) c\left\|\boldsymbol{X}-\boldsymbol{X}^{\prime}\right\|+(1-\eta(\boldsymbol{X})) \eta(\boldsymbol{X})+(1-\eta(\boldsymbol{X})) c\left\|\boldsymbol{X}-\boldsymbol{X}^{\prime}\right\|\right]\\
+        &\leq 2 \mathbb{E}[\eta(\boldsymbol{X})(1-\eta(\boldsymbol{X}))]+c \mathbb{E}\left[\left\|\boldsymbol{X}-\boldsymbol{X}_{\pi_{S}(\boldsymbol{X})}\right\|\right]
+        \end{align*}
+        dove i valori attesi e le probabilità sono rispetto alle estrazioni indipendenti di \(S\) e di \(\rnd{\bm{X}, Y}\). Ora ricordando che il rischio del classificatore Bayesiano ottimo \(f^*\) soddisfa:
+        \[
+            \operatorname{er}\left(f^{*}\right)=\mathbb{E}[\min \{\eta(\boldsymbol{X}), 1-\eta(\boldsymbol{X})\}] \geq \mathbb{E}[\eta(\boldsymbol{X})(1-\eta(\boldsymbol{X}))]
+        \]
+        Quindi vale che:
+        \[
+            \mathbb{E}\left[\operatorname{er}\left(\widehat{h}_{S}\right)\right] \leq 2 \operatorname{er}\left(f^{*}\right)+c \mathbb{E}\left[\left\|\boldsymbol{X}-\boldsymbol{X}_{\pi_{S}(\boldsymbol{X})}\right\|\right]
+        \]
+        TO BE CONTINUED...
+    \end{proof}
+    \begin{conclusion}
+        Da questa analisi è possibile trarre due conclusioni:
+        \begin{enumerate}
+            \item Per \(m\rightarrow \infty\), \(\er\rnd{f^*} \leq \mathbb{E}\left[\operatorname{er}\left(\widehat{h}_{S}\right)\right] \leq 2 \operatorname{er}\left(f^{*}\right)\): vale a dire che il rischio del 1-NN è compreso fra il Bayes error e due volte il Bayes error.
+            \item Perché \(\mean{\er\rnd{\hat{h}_S}}\) sia al più \(2\er\rnd{f^*} + \varepsilon\) il training set dev'essere almeno di taglia \(m\geq \left(\frac{4 c}{\varepsilon} \sqrt{d}\right)^{d+1}\), cioè esponenziale nel numero di \(d\) attributi. Questo mostra che \(1\)-NN paga un prezzo alto in termini di overfitting per potersi confrontare direttamente con il Bayes risk.
+        \end{enumerate}
+    \end{conclusion}
+    \begin{generalization}[Da \(1\)-NN a \(k\)-NN]
+        La dimostrazione può essere generalizzata per studiare sotto le medesime assunzioni il rischio del classificatore \(\hat{h}_S\) prodotto da \(k\)-NN, che risulta essere maggiorato come segue:
+        \[
+            \mathbb{E}\left[\operatorname{er}\left(\widehat{h}_{S}\right)\right] \leq\left(1+\sqrt{\frac{8}{k}}\right) \operatorname{er}\left(f^{*}\right)+\mathcal{O}\left(k m^{-1 /(d+1)}\right)
+        \]
+    \end{generalization}
+\end{document}

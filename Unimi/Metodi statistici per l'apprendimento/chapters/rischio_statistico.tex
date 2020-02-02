@@ -1,0 +1,207 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Rischio statistico e sua analisi}
+\begin{multicols}{2}
+    \begin{observation}[Esempio come estrazione indipendente]
+        Nel modello statistico di apprendimento assumiamo che ogni esempio \(\rnd{\bmx, y}\) sia ottenuto tramite un'estrazione indipendente da una distribuzione di probabilità su \(\mathbb{X}\times\mathbb{Y}\) fissata ma ignota. Per evidenziare che \(\bmx\) e \(y\) sono variabili casuali spesso scriveremo \(\rnd{\bm{\mathbb{X}}}\).
+    \end{observation}
+    \begin{observation}[Esempio come campione casuale]
+        Dato che nel modello statistico ogni esempio \(\rnd{\bm{\mathbb{X}}, Y}\) è ottenuto tramite un'estrazione indipendente dalla stessa distribuzione di probabilità congiunta, ogni dataset sarà un \textbf{campione casuale} nel senso statistico del termine.
+    \end{observation}
+    \begin{observation}[Assunzione di indipendenza]
+        In generale, l'assunzione di indipendenza è comoda dal punto di vista della trattabilità analitica del problema ma risulta poco plausibile in realtà.
+    \end{observation}
+    \begin{definition}[Funzione indicatrice]
+        La \textbf{funzione indicatrice} \(\indi{A} \in \crl{0,1}\) di un evento \(A\) è definita pari a \(1\) se \(A\) è vero, \(0\) altrimenti.
+    \end{definition}
+    \begin{definition}[Rischio statistico]
+        Le prestazioni di un predittore \(\funcdef{h}{\mathbb{X}}{\mathbb{Y}}\) rispetto ad un modello statistico dato ed a una funzione di perdita \(\funcdef{\ell}{\mathbb{Y}\times\mathbb{Y}}{\R}\) dato vengono valutate con il \textbf{rischio statistico}, definito da:
+        \[
+            \text{er}\rnd{h} = \mean{\loss{Y}{h\rnd{\bm{X}}}}
+        \]
+        % 
+        ovvero, il valore atteso della funzione di perdita rispetto ad un esempio \(\rnd{\bm{X}, Y}\) generato dal modello statistico.
+    \end{definition}
+    \begin{definition}[Bayes Error]
+        Il rischio \(\text{er}\rnd{f^*}\) del predittore Bayesiano ottimo è detto \textbf{Bayes error}. In generale il \textbf{Bayes error} è maggiore di zero in quanto i predittori sono deterministici mentre le etichette sono probabilistiche.
+    \end{definition}
+    \begin{definition}[Predittore Bayesiano ottimo]
+        Ipotizzando di conoscere il modello statistico, possiamo costruire il \textbf{predittore Bayesiano ottimo} \(\funcdef{\bayesf{\bmx}}{\mathbb{X}}{\mathbb{Y}}\). Esso è definito come:
+        \[
+            \bayesf{\bmx} = \argmin_{\hat{y} \in \mathbb{Y}}\mean{\loss{Y}{ \hat{y}}}{\bm{X} = \bmx}
+        \]
+        ovvero la predizione \(\hat{y}\) che minimizza il rischio condizionato, cioè la perdita attesa rispetto alla distribuzione di \(Y\) condizionata su \(\bm{X} = \bmx\). Si noti che, per definizione di \(f^*\), vale:
+        \[
+            \mean{\loss{Y}{\bayesf{x}}}{\bm{X} = \bmx} \leq \mean{\loss{Y}{h\rnd{x}}}{\bm{X} = \bmx} 
+        \]
+        per ogni classificatore \(\funcdef{h}{\mathbb{X}}{\mathbb{Y}}\).
+        
+        Dato che la disuguaglianza sopra vale per ogni \(\bmx \in \mathbb{X}\), vale anche in media rispetto all'estrazione di \(\bm{X}\). Ma siccome la media del rischio condizionato coincide col rischio, abbiamo che \(\text{er}\rnd{f^*} \leq \text{er}\rnd{h}\).
+    \end{definition}
+    \begin{example}[Bayesiano ottimo con loss quadratica]
+        Iniziamo ora a calcolare il predittore Bayesiano ottimo per la funzione di perdita quadratica \(\loss{y}{\hat{y}} = \rnd{y-\hat{y}}^2\) nel caso \(\mathbb{Y} \equiv \R\):
+        \begin{align*}
+            \bayesf{\bmx} &= \argmin_{\hat{y} \in \R} \mean{\rnd{Y-\hat{y}}^2}{\bm{X} = \bmx}\\
+            &= \argmin_{\hat{y} \in \R} \rnd{\mean{Y^2}{\bm{X} = \bmx} + \hat{y^2} - 2\hat{y}\mean{Y}{\bm{X} = \bmx}}\\
+            &= \argmin_{\hat{y} \in \R} \rnd{\hat{y^2} - 2\hat{y}\mean{Y}{\bm{X} = \bmx}}\\
+            &= \mean{Y}{\bm{X} = \bmx}
+        \end{align*}
+        Ovvero, il predittore Bayesiano ottimo per la funzione di perdita quadratica è il valore atteso dell'etichetta condizionato sull'istanza.
+    \end{example}
+    \begin{example}[Rischio con loss quadratica]
+        Sostituendo nella formula del rischio condizionato \(\mean{\rnd{Y-\bayesf{\bm{X}}}^2}{\bm{X} = \bmx}\) il predittore ottimo \(\bayesf{\bmx} = \mean{Y}{\bm{X} = \bmx}\) otteniamo:
+        \begin{align*}
+            \mean{\rnd{Y-\bayesf{\bm{X}}}^2}{\bm{X} = \bmx} &=  \mean{\rnd{Y-\mean{Y}{\bm{X} = \bmx}}^2}{\bm{X} = \bmx}\\
+            &= \Var{Y}{\bm{X} = \bmx}
+        \end{align*}
+        Ovvero il rischio condizionato del predittore Bayesiano ottimo per la perdita quadrata è la varianza dell'etichetta condizionata sull'istanza.
+    \end{example}
+    \begin{definition}[Distribuzione congiunta]
+        In probabilità, date due variabili aleatorie \(X\) e \(Y\), definite sullo stesso spazio di probabilità, si definisce la loro \textbf{distribuzione congiunta} come la distribuzione di probabilità associata al vettore \(\rnd{X,Y}\). Nel caso di due sole variabili, si parla di distribuzione \textbf{bivariata}, mentre nel caso di più variabili si parla di distribuzione \textbf{multivariata}.
+        \[
+            F\rnd{x_1, \ldots, x_m} = \prob{X_1 \leq x_1, \ldots, X_m \leq x_m}
+        \]
+    \end{definition}
+    \begin{definition}[Distribuzione marginale]
+        La \textbf{distribuzione marginale} di un sottoinsieme di una collezione di variabili casuali è la distribuzione di probabilità delle variabili contenute nel sottoinsieme. Il termine \textbf{variabile marginale} è usato per riferirsi a quelle variabili nel sottoinsieme delle variabili che vengono trattenute ovvero utilizzate.
+        
+        Questo termine, marginale, è attribuito ai valori ottenuti ad esempio sommando in una tabella di valori lungo le righe oppure lungo le colonne, trascrivendo il risultato appunto a margine rispettivamente della riga o colonna sommata.
+    \end{definition}
+    \begin{observation}[Distribuzione congiunta degli esempi nel caso di classificazione binaria]
+        Nel caso di classificazione binaria, con \(\mathbb{Y} = \binaryImage\), è conveniente specificare una distribuzione congiunta sugli esempi \(\rnd{\bm{X}, Y}\) con la coppia \(\rnd{D, \mu}\), dove \(D\) è la \textbf{distribuzione marginale} su \(\mathbb{X}\) e \(\mu\) rappresenta la distribuzione su \(\binaryImage\) condizionata su \(\mathbb{X}\).
+        
+        Dato che \(\mu\) è una distribuzione concentrata su due valori, possiamo rappresentarla con la funzione \(\funcdef{\mu}{\mathbb{X}}{\sqr{0,1}}\) dove \(\mu\rnd{\bmx} = \prob{Y= +1}{\bm{X} = \bmx}\) è la probabilità che \(\bmx\) assuma l'etichetta \(+1\).
+    \end{observation}
+    \begin{observation}[Esempi come estrazioni indipendenti nella marginale]
+        Per interpretare il modello statistico, possiamo pensare che ogni esempio \(\rnd{\bmx, y}\) disponibile sia ottenuto attraverso un'estrazione indipendente di \(\bmx \in \mathbb{X}\) secondo la distribuzione \(D\) seguito dall'attribuzione dell'etichetta \(y\in\binaryImage\) secondo la distribuzione \(\crl{1-q\rnd{\bmx}, q\rnd{\bmx}}\).
+    \end{observation}
+    \begin{example}[Rischio statistico con loss zero-uno]
+        Il rischio statistico rispetto alla funzione di perdita zero-uno \(\loss{y}{\hat{y}} = \indi{\hat{y} \neq y}\) risulta quindi essere:
+        \begin{align*}
+            \text{er}\rnd{h} &= \mean{\loss{Y}{h\rnd{\bm{X}}}}\\
+            &= \mean{\indi{h\rnd{\bm{X}} \neq Y}}\\
+            &= \prob{h\rnd{\bm{X}} \neq Y}
+        \end{align*}
+        In altre parole, il rischio di \(h\) è la probabilità che \(h\) sbagli a classificare un \(\bm{X}\) estratto dalla distribuzione \(D\) su \(\mathbb{X}\) e avente etichetta \(Y\) estratta a caso dalla distribuzione \(\crl{1-\mu\rnd{\bm{X}}, \mu\rnd{\bm{X}}}\) su \(\binaryImage\).
+    \end{example}
+
+    \begin{observation}[È possibile calcolare direttamente il rischio rispetto a un modello statistico?]
+        Non possiamo calcolare direttamente il rischio \(\text{er}\rnd{h}\) di un qualunque classificatore \(h\) rispetto ad un modello statistico \(\rnd{D, \mu}\): per calcolarlo infatti è richiesto di conoscere esattamente \(\rnd{D, \mu}\). Ma se conoscessimo \(\mu\) potremmo direttamente trovare il classificatore Bayesiano ottimo per il problema.
+    \end{observation}
+    \begin{example}[Rischio per la classificazione binaria]
+        Per stimare il rischio di un dato classificatore \(h\) si usa un \textbf{test set}, ovvero un insieme \(\testexamples{n}\) di dati etichettati: il rischio viene approssimato usando il \textbf{test error}, ovvero la frazione degli esempi del test set classificati scorrettamente da \(h\):
+        \[
+            \text{er}_{D, \mu}\rnd{h} \approx \tilde{\text{er}}\rnd{h} = \frac{1}{n}\sum_{t=1}^n \loss{y'_t}{h\rnd{\bmx'_t}}
+        \]
+        Sotto l'ipotesi che il test sia stato generato mediante estrazioni indipendenti dal modello statistico \(\rnd{D, \mu}\), il test error altro non è che la media campionaria del rischio in quanto, per ogni \(t=1, \ldots, n\) abbiamo che \(\rnd{\bm{X}'_t, Y'_t}\) è un'estrazione indipendente da \(\rnd{D, \mu}\). Quindi:
+        \[
+            \mean{\loss{Y'_t}{h\rnd{\bm{X}'_t}}} = \prob{h\rnd{\bm{X}'_t} \neq Y'_t} = \text{er}\rnd{h}
+        \]
+    \end{example}
+\end{multicols}
+\begin{example}[Classificatore Bayesiano ottimo per classificazione binaria]
+    Ipotizzando di conoscere il modello statistico \(\rnd{D, \mu}\), possiamo costruire il classificatore Bayesiano ottimo \(\funcdef{f^*}{\mathbb{X}}{\crl{-1, +1}}\). Allora:
+    \begin{align*}
+        f^*\rnd{\bmx} &= \argmin_{\hat{y} \in \crl{-1, +1}} \mean{\loss{Y}{\hat{y}}}{\bm{X} = \bmx}\\
+        &= \argmin_{\hat{y} \in \crl{-1, +1}} \mean{\indi{Y = +1}\indi{\hat{y} = -1} + \indi{Y = -1}\indi{\hat{y} = +1}}{\bm{X} = \bmx}\\
+        &= \argmin_{\hat{y} \in \crl{-1, +1}} \rnd{\prob{Y=+1}{\bm{X} = \bmx}\indi{\hat{y} = -1} + \prob{Y=-1}{\bm{X} = \bmx}\indi{\hat{y} = +1}}\\
+        &= \argmin_{\hat{y} \in \crl{-1, +1}} \rnd{\mu\rnd{\bmx}\indi{\hat{y} = -1} + \rnd{1-\mu\rnd{\bmx}}\indi{\hat{y} = +1}}\\
+        &= \begin{cases}
+            -1 & \text{se }\mu\rnd{\bmx} < \frac{1}{2}\\
+            +1 & \text{se }\mu\rnd{\bmx} \geq \frac{1}{2}
+        \end{cases}
+    \end{align*}
+    Quindi il classificatore Bayesiano ottimo predice l'etichetta che massimizza la probabilità condizionata sull'istanza. Non è difficile verificare che il \textbf{Bayes error} è pari a:
+    \[
+        \text{er}\rnd{f^*} = \mean{\min\rnd{\mu\rnd{\bm{X}}, 1-\mu\rnd{\bm{X}}}}
+    \]
+\end{example}
+\begin{lemma}[Lemma di Chernoff-Hoeffding]
+    Siano \(Z_1, \ldots, Z_n\) variabili casuali indipendenti, identicamente distribuite con media \(\mu\), e tali che \(0\leq Z_t \leq 1\), per ogni \(t = 1, \ldots, n\). Allora, per ogni \(\varepsilon > 0\) fissato, vale che:
+    \[
+        \prob{\frac{1}{n}\sum_{t=1}^n Z_t > \mu + \varepsilon} \leq e^{-2\varepsilon^2 n} \quad \text{e} \quad \prob{\frac{1}{n}\sum_{t=1}^n Z_t < \mu - \varepsilon} \leq e^{-2\varepsilon^2 n} 
+    \]
+\end{lemma}
+\begin{observation}[Precisione della stima del rischio utilizzando il maggiorante di Chernoff-Hoeffding]
+    \begin{multicols}{2}
+        Ponendo \(Z_t = \loss{y_t}{h\rnd{x_t}}\) dove \(\ell\) è la funzione di perdita per la classificazione binaria, possiamo valutare la precisione della nostra stima come:
+        \begin{align*}
+            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} > \varepsilon} &\leq 2e^{-2\varepsilon^2 n}\\
+            \prob{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h} > \varepsilon} + \prob{\tilde{\text{er}}\rnd{h} - \text{er}\rnd{h} > \varepsilon} &\leq 2e^{-2\varepsilon^2 n}
+        \end{align*}
+        dove la probabilità è calcolata rispetto all'estrazione del test set. Questa disuguaglianza ci dice che la misura (secondo \(D\) e \(\mu\)) dei test set che producono stime \(\tilde{\text{er}}\rnd{h}\) che differiscono dal valor medio \(\text{er}\rnd{h}\) per più di \(\varepsilon\) decresce rapidamente con l'aumentare di \(n\), cioè del numero di esempi nel test set.
+        
+        In particolare, ponendo \( e^{-2\varepsilon^2 n} = \delta\), per un qualunque \(\delta \in \rnd{0,1}\) fissato e risolvendo la disequazione per \(\varepsilon\) otteniamo: \[\varepsilon = \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}\]
+        Sostituendo il valore ottenuto nella formula si ottiene:
+        \begin{align*}
+            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} > \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}} &= \delta\\
+            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} \leq \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}} &= 1-\delta
+        \end{align*}
+        La disuguaglianza ottenuta ci indica come stimare il rischio di un'ipotesi prodotta da un qualche algoritmo di apprendimento mediante un test set. Viceversa, la stessa disuguaglianza ci mostra come il test set, che è il modo con cui in pratica misuriamo le prestazioni di un classificatore su dati ignoti, sia ben correlato col rischio nel modello di apprendimento statistico.
+    \end{multicols}
+\end{observation}
+\begin{observation}[Compare Overfitting nel modello statistico delineato?]
+    \begin{multicols}{2}
+        Procediamo a studiare un algoritmo di apprendimento nel modello statistico che abbiamo appena delineato e verifichiamo se compare l'overfitting.
+        Come di consueto, assumiamo che l'algoritmo riceva in ingresso un training set \(\examples{m}\), dove \(\rnd{\bmx_t, y_t} \in \mathbb{X} \times \crl{-1, +1}\), e generi un classificatore \(\funcdef{h}{\mathbb{X}}{\crl{-1, +1}}\) appartenente a un dato spazio di modelli \(\mathbb{H}\). 
+    
+        Sotto queste ipotesi la cosa migliore che l'algoritmo può fare è scegliere il miglior classificatore possibile \(h\in\mathbb{H}\), ovvero il classificatore \(h^*\) tale che:
+        \[
+            \text{er}\rnd{h^*} = \min_{h\in\mathbb{H}}\text{er}\rnd{h}
+        \]
+        Grazie alla legge dei grandi numeri, sappiamo che il training error \(\hat{\text{er}}\rnd{h^*}\) è vicino a \(\text{er}\rnd{h^*}\) con alta probabilità rispetto all'estrazione del training set su cui \(\hat{\text{er}}\rnd{h^*}\) viene calcolato. Consideriamo quindi l'algoritmo che sceglie \(\hat{h} \in \mathbb{H}\) in modo da minimizzare il training error, ovvero:
+        \[
+            \hat{h} = \argmin_{h\in\mathbb{H}}\hat{\text{er}}\rnd{h}
+        \]
+        Purtroppo non possiamo applicare direttamente a \(\hat{h}\) il maggiorante di Chernoff-Hoeffding al fine di dimostrare che \(\text{er}\rnd{\hat{h}}\) è vicino \(\hat{\text{er}}\rnd{\hat{h}}\), per poi concludere che \(\text{er}\rnd{\hat{h}}\) è vicino a \(\text{er}\rnd{h^*}\). Il motivo è che \(\hat{h}\) è una funzione del training set e quindi una variabile casuale. Chernoff-Hoeffding dice che \(\hat{\text{er}}\rnd{h}\) è vicino a \(\text{er}\rnd{h}\) per ogni \(h\) fissato, mentre \(\hat{h}\) non è fissato, ma dipende dal campione rispetto al quale calcoliamo la probabilità.
+
+        Per analizzare il rischio di \(\hat{h}\) procediamo allora come segue:
+        \[
+            \text{er}\rnd{\hat{h}} = \underbrace{\er\rnd{\hat{h}} - \er\rnd{h^*}}_{\text{Errore di varianza}} + \underbrace{\er\rnd{h^*} - \er\rnd{f^*}}_{\text{Errore di bias}} + \underbrace{\er\rnd{f^*}}_{\text{Bayes error}}
+        \]
+        dove \(f^*\) è il classificatore Bayesiano ottimo per il modello statistico \(\rnd{D, \mu}\) soggiacente.
+        
+        \textbf{Il Bayes error non è controllabile}, dato che dipende unicamente dal modello \(\rnd{D, \mu}\). \textbf{L'errore di bias} dipende dal fatto che \(\mathbb{H}\) può non contenere il classificatore Bayesiano ottimo. \textbf{L'errore di varianza} dipende dal fatto che \(\er\rnd{\hat{h}}\) è generalmente diverso dall'errore di \(\hat{h}\) sul training set.
+        
+        Di conseguenza, scegliere \(\hat{h}\) comporta un errore dovuto al fatto che la frazione di esempi classificati scorrettamente nel training set da un classificatore \(h\) è soltanto una stima, possibilmente imprecisa, del rischio \(\er\rnd{h}\).
+        
+        Procediamo quindi a controllare l'errore di varianza: per ogni training set fissato abbiamo che:
+        \begin{align*}
+        \operatorname{er}(\widehat{h})-\operatorname{er}\left(h^{*}\right) &=\operatorname{er}(\widehat{h})-\widehat{\operatorname{er}}(\widehat{h})+\widehat{\operatorname{er}}(\widehat{h})-\operatorname{er}\left(h^{*}\right) \\ & \leq \operatorname{er}(\widehat{h})-\widehat{\operatorname{er}}(\widehat{h})+\widehat{\operatorname{er}}\left(h^{*}\right)-\operatorname{er}\left(h^{*}\right) \\ & \leq|\operatorname{er}(\widehat{h})-\widehat{\operatorname{er}}(\widehat{h})|+\left|\widehat{\operatorname{er}}\left(h^{*}\right)-\operatorname{er}\left(h^{*}\right)\right| \\ & \leq 2 \max _{h \in \mathcal{H}}|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|  \end{align*}
+        Dove abbiamo usato l'ipotesi che \(\hat{h}\) minimizza \(\hat{\er}\) in \(\mathbb{H}\). Quindi, \(\forall \varepsilon >0\) vale che:
+        \begin{align*}
+            \operatorname{er}(\widehat{h})-\operatorname{er}\left(h^{*}\right)>\varepsilon \quad &\Rightarrow \quad \max _{h \in \mathcal{H}}|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}\\
+            &\Rightarrow \quad \exists h \in \mathcal{H} :|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}
+        \end{align*}
+        Dato che la catena di implicazioni qui sopra vale per qualsiasi realizzazione del training set, possiamo scrivere:
+        \[
+            \prob{\er\rnd{\hat{h}} - \er\rnd{h^*}> \varepsilon} \leq \prob{\exists h \in \mathbb{H}: \abs{\hat{\er}\rnd{h}} - \er\rnd{h} > \frac{\varepsilon}{2}}
+        \]
+        Studiamo il caso in cui lo spazio dei modelli contiene un numero finito di classificatori, cioè \(\abs{\mathbb{H}}<\infty\). Dato che l'evento:
+        \(
+            \exists h \in \mathbb{H}: \abs{\hat{\er}\rnd{h} - \er\rnd{h}} > \frac{\varepsilon}{2}
+        \)
+        è l'unione su ogni \(h\in\mathbb{H}\) degli eventi, non necessariamente disgiunti \(\abs{\hat{\er}\rnd{h} - \er\rnd{h}} > \frac{\varepsilon}{2}\) ed usando la regola della somma
+        \(
+            \mathbb{P}\left(A_{1} \cup \cdots \cup A_{n}\right) \leq \sum_{i=1}^{n} \mathbb{P}\left(A_{i}\right)
+        \)
+        che vale per qualsiasi collezione di eventi otteniamo che:
+        \begin{align*}
+            \mathbb{P}\left(\exists h \in \mathcal{H} :|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}\right) &=\mathbb{P}\left(\bigcup_{h \in \mathcal{H}}\left(|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}\right)\right) \\ & \leq \sum_{h \in \mathcal{H}} \mathbb{P}\left(|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}\right) \\ & \leq|\mathcal{H}| \max _{h \in \mathcal{H}} \mathbb{P}\left(|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}\right) \\ & \leq|\mathcal{H}| 2 e^{-m \varepsilon^{2} / 2}
+        \end{align*}
+        dove nell'ultimo passaggio abbiamo usato il maggiorante di Chernoff Hoeffding. In conclusione otteniamo che:
+        \begin{align*}
+            \mathbb{P}\left(\operatorname{er}(\widehat{h})-\operatorname{er}\left(h^{*}\right)>\varepsilon\right) &\leq \mathbb{P}\left(\exists h \in \mathcal{H} :|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\frac{\varepsilon}{2}\right)\\ &\leq 2|\mathcal{H}| e^{-m \varepsilon^{2} / 2}
+        \end{align*}
+        Ponendo quindi il membro di destra uguale a \(\delta\) e risolviamo rispetto a \(\varepsilon\), otteniamo che
+        \(
+            \operatorname{er}(\widehat{h}) \leq \operatorname{er}\left(h^{*}\right)+\sqrt{\frac{2}{m} \ln \frac{2|\mathcal{H}|}{\delta}}
+        \)
+        vale con probabilità almeno \(1-\delta\) rispetto all'estrazione casuale di un training set di cardinalità \(m\).
+        
+        Vediamo quindi che il rischio di \(\hat{h}\) si scompone in due attributi: \(\er\rnd{h^*}\) e \(\sqrt{\frac{2}{m} \ln \frac{2|\mathcal{H}|}{\delta}}\). In mancanza di informazioni su \(\rnd{D, \mu}\), e per una fissata cardinalità \(m\) del training set, per ridurre \(\sqrt{\frac{2}{m} \ln \frac{2|\mathcal{H}|}{\delta}}\), ovvero il maggiorante sull'errore di varianza, dobbiamo ridurre \(\mathbb{H}\). Ma questo fa potenzialmente aumentare \(\er\rnd{h^*}\) e quindi l'errore di bias. La necessità di bilanciare l'errore di varianza e l'errore di bias per controllare il rischio di \(\hat{h}\) è il materializzarsi nella teoria del fenomeno dell'overfitting. Nella dimostrazione del maggiorante sull'errore di varianza abbiamo anche dimostrato che \(\forall h \in \mathcal{H} \quad|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)| \leq \sqrt{\frac{1}{2 m} \ln \frac{2|\mathcal{H}|}{\delta}}\) con probabilità almeno \(1-\delta\) rispetto all'estrazione del training set. Questo significa che quando la cardinalità \(m\) del training set è abbastanza grande rispetto a \(\ln\abs{\mathbb{H}}\), allora il training error \(\hat{\er}\rnd{h}\) diventa una buona stima del rischio \(\er\rnd{h}\) \textbf{simultaneamente} per tutti i classificatori \(h\in\mathbb{H}\). In queste condizioni, cioè quando la legge dei grandi numeri vale uniformemente rispetto alla scelta \(h\in\mathbb{H}\), è chiaro che qualsiasi algoritmo che sceglie classificatori da \(\mathbb{H}\) è protetto dall'overfitting.
+    \end{multicols}
+\end{observation}
+% Qui puoi mangiare due biscotti perché porco dio
+\end{document}

@@ -1,0 +1,104 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{Codice di Huffman}
+\begin{multicols}{2}
+\begin{definition}[Codice di Huffman]
+    Dato un insieme di messaggi con probabilità \(p_1 \leq p_2 \leq \ldots \leq p_n\), l'albero del codice di Huffman è costruito ricombinando ricorsivamente sotto-alberi:
+    \begin{enumerate}
+        \item Iniziando con \(n\) alberi, ognuno consistente di un solo nodo corrispondente con una parola di un messaggio con un peso \(p_i\).
+        \item Reitero le seguenti istruzioni fino a che non rimane un solo albero:
+        \begin{enumerate}
+            \item Si prendano i due sotto-alberi con i pesi minori.
+            \item Combiniamo i sotto alberi aggiungendo un nuovo nodo come radice, e rendendo i due sotto-alberi come figli. Il peso del nuovo albero è la somma dei due sotto-alberi.
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+\begin{complexity}[Codice di Huffman]
+    Utilizzando una pila, ogni passaggio di combinazione dei sotto alberi necessità un tempo \(O\rnd{\log n}\) ed il tempo totale è \(O\rnd{n \log n}\).
+\end{complexity}
+\begin{lemma}[Primo lemma sul codice di Huffman]
+    Sia \(C\) il codice ottimale per \(S\), \(p_1, p_2\) e \(l_1, l_2\) rispettivamente le probabilità e le lunghezze del codice dei messaggi \(s_1\) e \(s_2\). Allora \(p_1 > p_2 \Rightarrow l_1 \leq l_2\).
+\end{lemma}
+\begin{proof}[Primo lemma sul codice di Huffman]
+    Sia \(p_1 > p_2\) e \(l_1>l_2\), invertiamo le parole del codice per \(s_1\) e \(s_2\), e otteniamo un nuovo codice \(C''\). La lunghezza di \(C'\) è:
+    \begin{align*}
+        l_{a}\left(C^{\prime}\right)&=l_{a}(C)+p_{1}\left(l_{2}-l_{1}\right)+p_{2}\left(l_{1}-l_{2}\right)\\
+        &=l_{a}(C)+\left(p_{1}-p_{2}\right)\left(l_{2}-l_{1}\right)<l_{a}(C)
+    \end{align*}
+    Ma questo contraddice che \(C\) sarebbe un codice ottimale.
+\end{proof}
+\begin{lemma}[Secondo lemma sul codice di Huffman]
+    Senza perdita di generalità, i due messaggi a probabilità minima occorrono come figli nell'albero del codice per un codice ottimale.
+\end{lemma}
+\begin{proof}[Secondo lemma sul codice di Huffman]
+    Dato l'albero del codice per un codice ottimale, andiamo a mostrare che è sempre possibile modificarlo senza aumentare la lunghezza media del codice in modo tale che i due nodi con probabilità minore sono figli dello stesso nodo.
+    
+    Dal primo lemma segue che il nodo con probabilità minore deve essere alla profondità massima dell'albero del codice e quindi anche il nodo fratello deve essere alla stessa profondità. Il fratello può essere scambiato con il secondo nodo con probabilità più bassa per ottenere un albero del codice con la struttura desiderata. Questa trasformazione non aumenta la lunghezza media del codice. 
+\end{proof}
+\begin{lemma}[Terzo lemma sul codice di Huffman]
+    Il codice di Huffman è un codice dei prefissi ottimale.
+\end{lemma}
+\begin{proof}[Terzo lemma sul codice di Huffman]
+    La dimostrazione procede per induzione su \(n\), il numero di messaggi.
+    
+    Supponiamo che il codice di Huffman sia ottimale per tutti gli insiemi di dimensione \(n\) di probabilità \(\left\{p_{1} \leq p_{2} \leq \ldots \leq p_{n}\right\}\). Consideriamo ora il caso \(\left\{p_{1} \leq p_{2} \leq \ldots \leq p_{n} \leq p_{n+1}\right\}\) e costruiamo l'albero di Huffman combinando prima \(p_1\) e \(p_2\). Quindi guardiamo i nuovi nodi di \(\left\{p_{1}+p_{2}, p_{3}, \dots, p_{n+1}\right\}\).
+    
+    Sappiamo che esiste un albero di Huffman ottimale \(T'\) per esso. Ipotizziamo che la profondità del nodo per \(p_1 + p_2\) in \(T'\) sia \(d\).
+    
+    Pertanto la lunghezza del codice di \(T\) è determinabile come:
+    \begin{align*}
+        l_{a}(T)&=l_{a}\left(T^{\prime}\right)+(d+1)\left(p_{1}+p_{2}\right)-d\left(p_{1}+p_{2}\right)\\
+        &=l_{a}\left(T^{\prime}\right)+p_{1}+p_{2}
+    \end{align*}
+    Dal secondo lemma sappiamo che esiste un albero ottimale con \(p_1\) e \(p_2\) come nodi fratelli. Per l'ipotesi induttiva, \(T'\) è ottimale per l'insieme di \(n\) probabilità ottenute combinando \(p_1\) e \(p_2\). Quindi l'albero ottimale deve avere almeno lunghezza \(l_{a}\left(T^{\prime}\right)+p_{1}+p_{2}\) e ne segue che \(T\) è l'albero del codice ottimale.
+\end{proof}
+\begin{observation}[Quali problemi esistono con la codice di Huffman?]
+    Siccome il codice di Huffman ha la proprietà che \(H(S) \leq l_{a}(C) \leq H(S)+1\), per cui fino a un bit per carattere potrebbe essere sprecato.
+\end{observation}
+\begin{observation}[Come si possono risolvere i problemi del codice di Huffman?]
+    Una possibile soluzione è combinare \(k\) messaggi consecutivi in un'unica parola messaggio. Così facendo l'entropia diventa \(k H\rnd{S}\), mentre la lunghezza media del codice di Huffman diviene \(k H\rnd{S} + 1\), sprecando al massimo \(\sfrac{1}{k}\) bit per messaggio. 
+    
+    Bisogna prestare però attenzione al fatto che se il numero iniziale di messaggi era \(m\), così facendo diventano \(m^k\).
+
+    Un'altra soluzione è tramite la codifica aritmetica.
+\end{observation}
+\end{multicols}
+\section{Codifica aritmetica}
+\begin{multicols}{2}
+\begin{definition}[Codifica aritmetica]
+    Per l'insieme di messaggi \(\rnd{m_1, m_2, \ldots, m_k}\) con probabilità \(\rnd{p_1, p_2, \ldots, p_k}\) (con somma a uno) dividiamo l'intervallo \(\sqr{0,1}\) in \(k\) intervalli. L'intervallo \(i\)-esimo corrispondente a \(p_i\) va da \(\sum_{j<i} p_{j}\) a \(\sum_{j\leq i} p_{j}\). Denotiamo il valore \(\sum_{j<i} p_{j}\) come \(d_i\).
+    
+    Il codice per la sequenza di \(x\) messaggi \(m_{k_1}, m_{k_2}, \ldots, m_{k_x}\) è calcolata costruendo la sequenza di intervalli \(\left[l_{i}, l_{i}+s_{i}\right]\), dove:
+    \[
+        \begin{array}{l}{l_{0}=0, s_{0}=1} \\ {l_{1}=d_{k_{1}}, s_{1}=p_{k_{1}}} \\ {\dot{l}_{i+1}=l_{i}+s_{i} * d_{k_{i+1}}, s_{i+1}=s_{i} * p_{k_{i+1}}}\end{array}
+    \]
+    La codifica finale per la sequenza \(\left\{m_{k_{1}}, m_{k_{2}}, \ldots, m_{k_{x}}\right\}\) è l'intervallo \(\left[l_{x}, l_{x}+s_{x}\right]\).
+\end{definition}
+\begin{theorem}[Intervalli come codici binari]
+    L'intervallo \(\sqr{l, l+s}\) può essere rappresentato da al più \(\left\lceil\log _{2} \frac{1}{s}\right\rceil+ 1\) bits.
+\end{theorem}
+\begin{proof}[Intervalli come codici binari]
+    Per rappresentare \(\sqr{l, l+s}\), consideriamo il punto medio \(l+\sfrac{s}{2}\), ne prendiamo la rappresentazione frazionale binaria e la tronchiamo a \(\left\lceil\log _{2} \frac{1}{s}\right\rceil+ 1\) bits. Assumiamo che l'intervallo associato con il numero così ottenuto sia completamente contenuto in \([l, l+s]\).
+    
+    Osserviamo innanzitutto che il valore risultante è ancora nell'intervallo originale, dato che troncando il numero ne riduce il valore di al più \(2-\left(\left\lceil\log _{2} \frac{1}{s}\right\rceil+ 1\right) \leq s / 2\). Inoltre, l'intervallo associato con il numero troncato ha lunghezza al più \(\sfrac{s}{2}\), per cui risulta completamente nell'intervallo \([l, l+s]\).
+\end{proof}
+\begin{theorem}
+    Per una sequenza di \(n\) messaggi con \textit{self informations} \(s_1, s_2, \ldots, s_n\), la lunghezza del codice prodotto dalla codifica aritmetica è al più \(2+\sum_{i=1}^{n} s_{i}\).
+\end{theorem}
+\begin{proof}
+    Sia \(p_i\) la probabilità di un messaggio \(m_i\). Allora la lunghezza di un codice aritmetico è al più \(\left\lceil\log _{2} \frac{1}{s}\right\rceil+ 1\), dove \(s=\prod_{i=1}^{n} p_{i}\).
+    
+    Ne segue che:
+    \[
+        \left\lceil\log _{2} \frac{1}{s}\right\rceil+ 1=\left\lceil\sum \log _{2} \frac{1}{p_{i}}\right\rceil+ 1 \leq \sum \log _{2} \frac{1}{p_{i}}+2
+    \]
+\end{proof}
+\begin{observation}[Quali sono i limiti della codifica aritmetica?]
+    \begin{enumerate}
+        \item Sequenze di messaggi lunghe necessitano aritmetiche con precisione arbitrariamente alta.
+        \item Nel caso pessimo, potrebbe essere necessario leggere l'intera sequenza di messaggi per produrre il primo bit del codice.
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+\end{document}

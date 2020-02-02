@@ -1,0 +1,65 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Metodi computazionali}
+\section{Metodo della potenza}
+\begin{multicols}{2}
+\begin{observation}[Cosa è necessario per usare il metodo della potenza?]
+    È necessario che il primo autovalore sia \textbf{separato} dal secondo cioè che l'autovalore dominante abbia molteplicità uno. Questo condizione è necessaria perché un qualunque vettore \(\bm{v}\) con componente non nulla lungo l'autovettore associato all'autovalore dominante, l'iterazione \(M^k\bmv\) produce un vettore in direzione sempre più vicina all'autovettore dominante.
+\end{observation}
+\begin{definition}[Metodo della potenza]
+    Si tratta di un metodo per identificare l'autovettore dominante di una matrice. Partiamo da un vettore \(\bm{v}_0\) e ad ogni passaggio otteniamo il vettore successivo \(\bmv_{k+1}\) moltiplicando il vettore corrente per \(M\) e normalizziamo il risultato: \(
+        \boldsymbol{v}_{k+1}=\frac{M \boldsymbol{v}_{k}}{\left\|M \boldsymbol{v}_{k}\right\|}
+    \). Se \(\bm{e}_0, \bm{e}_1, \ldots, \bm{e}_{n-1}\) è una base normalizzata di autovettori e \(\boldsymbol{v}_{0}=\sum \alpha_{i} \boldsymbol{e}_{i}\) abbiamo che:
+    \[
+        \boldsymbol{v}_{k+1}=M^{k} \boldsymbol{v}_{0}=\sum \alpha_{i} M^{k} \boldsymbol{e}_{i}=\alpha_{0} \lambda_{0}^{k}\left(e_{0}+\sum_{i>0} \frac{\alpha_{i}}{\alpha_{0}}\left(\frac{\lambda_{i}}{\lambda_{0}}\right)^{k} \boldsymbol{e}_{i}\right)
+    \]
+    Per le assunzioni di separazione, l'espressione tra parentesi equivale a \(\bm{e}_0\).
+\end{definition}
+\begin{observation}[Come converge il metodo della potenza?]
+    Dato che dividiamo a ogni passo per la norma, \(\bmv_k\) converge proprio a \(\bm{e}_0\). Il resto è controllato da \(
+        \left(\lambda_{1} / \lambda_{0}\right)^{k}
+    \)
+    Il metodo della potenza converge \textbf{geometricamente} con ragione tanto più più piccola quanto più grande è la separazione tra il primo ed il secondo autovalore.
+\end{observation}
+\begin{observation}[Cosa cambia nel metodo della potenza applicato a PageRank?]
+    \begin{enumerate}
+        \item Partendo da un vettore normalizzato da una matrice stocastica si ottengono sempre vettori normalizzati, quindi si itera semplicemente la matrice.
+        \item La matrice che descrive la transizione è la \textbf{trasposta} di quella di cui vogliamo calcolare gli autovalori, o equivalentemente ne vogliamo calcolare gli autovalori \textbf{sinistri} e non quelli destri.
+        \item Il calcolo effettivo non viene eseguito in maniera matriciale perché genererebbe un numero di moltiplicazioni ingestibile, dato che per via del \textbf{fattore di attenuazione} ogni nodo risulta connesso a ogni altro nodo.
+    \end{enumerate}
+\end{observation}
+\begin{observation}[Come si risolve il problema delle moltiplicazioni nel metodo della potenza applicato a PageRank?]
+    Denotiamo con \(\bm{d}\) il vettore caratteristico dei pozzi, e assumiamo di spostarci da un pozzo a un altro nodo scelto mediante il vettore di preferenza \(\bm{v}\). La matrice che stiamo effettivamente usando è ora:
+    \[
+        \alpha G+\alpha \bm{d} \bm{v}^{T}+(1-\alpha) \bm{1} \bm{v}^{T}
+    \]
+    Se assumiamo che l'approssimazione corrente sia \(\bm{x}\), la prossima sarà:
+    \[
+        \alpha \boldsymbol{x}^{T} G+\alpha \boldsymbol{x}^{T} \boldsymbol{d} \boldsymbol{v}^{T}+(1-\alpha) \boldsymbol{v}^{T}=\alpha \boldsymbol{x}^{T} G+\alpha \kappa \boldsymbol{v}^{T}+(1-\alpha) \boldsymbol{v}^{T}
+    \]
+    dove \(\kappa\) è la somma dell'approssimazione corrente è la somma dell'approssimazione corrente su tutti i pozzi. La coordinata \(i\)-esima del vettore precedente dipende però dalle singole coordinate di \(\bm{x}\) per mezzo dell'addendo \(\boldsymbol{x}^{T} G\): il valore \(\kappa\) può essere calcolato a partire da \(\bm{x}\) separatamente.
+    
+    La coordinata \(i\)-esima della nuova approssimazione è data da una certa quantità di \textbf{ranking} che proviene da altri nodi che non sono pozzi, distribuita secondo \(G\), e da due addendi addizionali, uno legato al teletrasporto e uno dovuto al ranking diffuso dai pozzi. Questi ultimi dipendono solo da \(\bm{v}\) e \(\kappa\). Questo fa sì che il metodo della potenza possa essere implementato \textbf{iterando unicamente sui lati di \(G\)}.
+\end{observation}
+\begin{observation}[Quando termina la convergenza per il metodo della potenza applicato a PageRank?]
+    Le coordinate della nuova approssimazione sono definite sulla base di quella vecchia e questo fa sì che il metodo della potenza richiesta due vettori: uno contenente l'approssimazione corrente e uno la successiva. Quando la differenza tra i due vettori è sufficientemente piccola in una norma scelta opportunamente, l'iterazione viene terminata. Il secondo autovalore della matrice che utilizziamo è \(\alpha\) o meno e quindi la convergenza è garantita e risulta particolarmente veloce se \(\alpha\) non è vicino a \(1\).
+\end{observation}
+\end{multicols}
+\clearpage
+\section{Metodo di Gauss-Seidel}
+\begin{multicols}{2}
+\begin{definition}[Metodo di Gauss-Seidel]
+    L'algoritmo di Gauss-Seidel fornisce approssimazioni per le soluzioni di un'equazione della forma \(M\bmx = \bmb\) partendo da un vettore \(\bmx^{\rnd{0}}\) e calcolando:
+    \[
+        x_{i}^{(t+1)}=\left(b_{i}-\sum_{j<i} m_{i j} x_{j}^{(t+1)}-\sum_{j>i} m_{i j} x_{j}^{(t)}\right) / m_{i i}
+    \]
+\end{definition}
+\begin{observation}[Come converge il metodo di Gauss-Seidel?]
+    L'algoritmo di Gauss-Seidel utilizza sempre il valore più recente calcolato per una certa componente, il che ci permette di utilizzare un solo vettore. L'algoritmo utilizzando in maniera aggressiva valori più precisi rende la sua convergenza molto più rapida.
+\end{observation}
+\begin{observation}[Applicare il metodo di Gauss-Seidel a PageRank]
+    Le sommatorie non sono indicizzate dalla prima ma dalla seconda componente della matrice. Nel caso di PageRank abbiamo bisogno dei \textbf{predecessori} e non dei successori di un nodo per aggiornare il suo valore e quindi dobbiamo scandire il grafo trasposto ma al tempo stesso conoscere il grafo positivo di ogni nodo per poter calcolare correttamente il suo contributo ai suoi successori. La conoscenza dei gradi positivi richiede quindi un'ulteriore vettore di interi.
+\end{observation}
+\end{multicols}
+\end{document}

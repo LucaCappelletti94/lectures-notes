@@ -1,0 +1,201 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Intorni di dimensione esponenziale}
+\begin{multicols}{2}
+\begin{definition}[Very Large Scale Neighbourhood (VLSN) Search]
+    Con Very Large Scale Neighbourhood (VLSN) Search si intende un insieme di approcci utilizzati per esplorare intorni esponenziali in \(\abs{B}\) che vengono visitati in tempo polinomiale: esistono due strategie principali, o si esplora euristicamente l'intorno, restituendo una soluzione candidata anziché la migliore dell'intorno stesso, o si sceglie un intorno nel quale l'obbiettivo possa essere ottimizzato in tempo polinomiale, anche se il numero di soluzioni è esponenziale.    
+\end{definition}
+\begin{definition}[Variable Depth Search (VDS)]
+    Intorni basati su operazioni sono facilmente parametrizzabili, e in questi casi l'idea è di:
+    \begin{enumerate}
+        \item Definire una \textbf{mossa composta} come sequenza di mosse elementari.
+        \item Costruire la sequenza ottimizzando ogni passo elementare.
+        \item Accettare la soluzione finale solo se migliora quella iniziale.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Schema del Variable Deapth Search]
+Data una \(x^{(t)}\), per ogni \(x' \in N\rnd{x^{\rnd{t}}}\), anziché limitarsi a valutare \(f\rnd{x'}\):
+\begin{enumerate}
+    \item Si sceglie la miglior soluzione \(x''\) in un intorno \(\bar{N}\rnd{x'} \subseteq N\rnd{x'}\)
+    \item Se \(x''\) migliora rispetto alla soluzione iniziale \(x\), esegue la mossa e torna al punto \(1\), altrimenti termina.
+    \item Restituisce quindi la miglior soluzione trovata durante l'intero procedimento.
+\end{enumerate}    
+\end{definition}
+\begin{observation}[Differenze tra Variable Depth Search e steepest descent]
+    Il Variable Depth Search, rispetto allo steepest descent:
+    \begin{enumerate}
+    \item Trova un ottimo locale per ogni soluzione dell'intorno come se eseguisse una specie di look-ahead a un passo.
+    \item Ammette peggioramenti lungo la sequenza di mosse elementari.
+    \item Deve evitare che le mosse elementari della sequenza si elidano a vicenda creando un ciclo.
+    \item Spesso usa strategie di modulazione fine per migliorare l'efficienza.
+\end{enumerate}
+\end{observation}
+\begin{definition}[Algoritmo di Lin-Kernighan per il TSP]
+    L'algoritmo di Lin-Kernighan applica la VDS a sequenze di scambi \(2\)-opt, cioè ogni scambio \(k\)-opt equivale a una sequenza di \(\rnd{k-1}\) scambi \(2\)-opt, ognuno dei quali cancella uno dei due archi aggiunti dal precedente.
+\end{definition}
+\begin{observation}[Dettagli implementativi dell'algoritmo di Lin-Kernighan per il TSP]
+    Per evitare di distruggere le mosse già fatte, il secondo arco che viene cancellato ogni volta deve appartenere alla soluzione iniziale, e questo implica un limite superiore alla lunghezza della sequenza. Si dimostra che interrompere la sequenza appena gli scambi non migliorano più la soluzione iniziale non va a danneggiare il risultato.
+    
+    La variazione complessiva dell'obbiettivo è la somma delle variazioni dovute ai singoli scambi. Ogni sequenza di numeri con somma negativa ammette una permutazione ciclica le cui somme parziali sono tutte negative.
+    
+    Quindi, esiste una permutazione ciclica della sequenza di mosse che sia vantaggiosa ad ogni passo.
+\end{observation}
+\begin{definition}[Metodi destroy-and-repair]
+    Aggiunte ed eliminazioni combinate producono scambi, ma i sottoinsiemi ottenuti tramite scambi di elementi simili potrebbero essere inammissibili o di pessima qualità. Inoltre allargare l'intorno a scambi di più elementi può essere inefficiente ed in molti problemi la cardinalità delle soluzioni non è uniforme.
+
+    Un'alternativa è pertanto:
+    \begin{enumerate}
+        \item Cancellare un sotto-insieme \(D \subset x\) di cardinalità \(\leq k\) e completarla con un'euristica costruttiva.
+        \item Aggiungere un insieme \(A \subset B \setminus x\) di cardinalità \(\leq k\) e sfrondarla con un'euristica distruttiva.
+    \end{enumerate}    
+\end{definition}
+\begin{observation}[Quali algoritmi esistono per eseguire una visita efficiente di intorni esponenziali?]
+    Un'altra famiglia di metodi si basa su intorni la cui soluzione ottima si possa trovare risolvendo un problema su un'opportuna matrice o grafo che vengono in genere definiti di miglioramento.
+    \begin{enumerate}
+        \item Packing: Dynasearch.
+        \item Ciclo di costo negativo: scambi ciclici.
+        \item Cammino minimo: ejection chains, order-and-split
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+\subsection{Dynasearch}
+\begin{definition}[Mossa composta]
+    La mossa composta è un insieme di mosse elementari come nella \(VDS\), però le mosse elementari devono avere effetti mutualmente indipendenti sull'ammissibilità e sull'obbiettivo.
+\end{definition}
+\begin{observation}[Quale è l'idea di base del Dynasearch?]
+    L'idea di base del Dynasearch è che la variazione \(\delta f^{(o)}(x)\) della funzione obbiettivo a seguito di una mossa elementare \(o \in \mathcal{O}\) spesso dipende solo da una parte della soluzione.
+
+    Operazioni \(o'\) che agiscono su altre parti della soluzione hanno un effetto indipendente: non importa l'ordine con cui si eseguono. Se  \(f\) risulta additiva, l'effetto dei due scambi semplicemente si somma.
+\end{observation}
+\begin{observation}[Come si modella la situazione del Dynasearch?]
+    La situazione del Dynasearch si può modellare con una matrice di miglioramento \(A\) in cui:
+    \begin{enumerate}
+        \item Le righe rappresentano le componenti della soluzione.
+        \item Le colonne rappresentano le mosse elementari: ogni colonna ha un valore pari al miglioramento \(-\delta f\) dell'obbiettivo.
+        \item Se la mossa \(j\) impatta sulla componente \(i\), \(a_{ij} = 1\), altrimenti \(a_{ij} = 0\).
+    \end{enumerate}
+    
+    Si vuole determinare l'\textbf{impaccamento ottimo delle colonne}, cioè il sotto-insieme di colonne di valore massimo che non coprano la stessa riga.
+\end{observation}
+
+\begin{observation}[Sotto quali condizioni il problema di accoppiamento massimo è polinomiale?]
+    Il \textit{Set Packing Problem} è in genere \textit{NP}-difficile, ma:
+    \begin{enumerate}
+        \item Su particolari matrici è polinomiale.
+        \item Se ogni mossa tocca al massimo due componenti allora:
+        \begin{enumerate}
+            \item Le righe diventano nodi
+            \item Le colonne diventano lati
+            \item Ogni impaccamento di colonne diventa un accoppiamento
+        \end{enumerate}
+        dunque un problema di accoppiamento massimo, che è polinomiale.
+    \end{enumerate}
+\end{observation}
+\clearpage
+\subsection{Scambi ciclici}
+\begin{multicols}{2}
+\begin{observation}[Quando servono gli scambi ciclici?]
+    In molti problemi le soluzioni ammissibili partizionano gli elementi in componenti \(S_{\ell}\) (per esempio i vertici o lati in rami per il CMSTP, i nodi o gli archi in cammini per il VRP o gli oggetti fra i contenitori del BPP), a cui è associata l'ammissibilità.
+
+    Inoltre la funzione obbiettivo è additiva rispetto alle componenti:
+    \[
+        f(x)=\sum_{\ell=1}^{r} f\left(S_{\ell}\right)
+    \]
+\end{observation}
+\begin{observation}[Quale è l'obbiettivo degli scambi ciclici?]
+    È naturale definire per problemi caratterizzati dalla partizione in componenti l'insieme di operazioni \(T_k\) che contiene i trasferimenti di \(k\) elementi dalla propria componente a un'altra.
+
+    Da \(T_k\) deriva il relativo intorno \(N_{T_k}\):
+    \begin{enumerate}
+        \item Spesso i vincoli di ammissibilità ostacolano i trasferimenti semplici.
+        \item Ma il numero dei trasferimenti multipli cresce rapidamente con \(k\).
+    \end{enumerate}
+    
+    Vogliamo trovare un sottoinsieme di \(N_{T_k}\) efficientemente esplorabile.
+\end{observation}
+\begin{definition}[Grafo di miglioramento per scambi ciclici]
+    Il grafo di miglioramento permette di descrivere sequenze di trasferimenti:
+    \begin{enumerate}
+        \item Un \textbf{nodo} \(i\) corrisponde a un elemento \(i\) dell'insieme base \(B\).
+        \item Un \textbf{arco} \(\rnd{i,j}\) corrisponde al:
+        \begin{enumerate}
+            \item Trasferimento dell'elemento \(i\) dalla sua componente attuale \(S_i\) alla componente attuale \(S_j\) dell'elemento \(j\).
+            \item Eliminazione dell'elemento \(j\).
+        \end{enumerate}
+        \item Il \textbf{costo dell'arco} \(c_{ij}\) corrisponde alla variazione della componente dell'obbiettivo associata a \(S_j\).
+        \[
+            c_{ij} = f\rnd{S_j \cup \crl{i} \setminus \crl{j}} - f\rnd{S_j}
+        \]
+        con \(c_{ij} = +\infty\) se è inammissibile trasferire \(i\) eliminando \(j\)
+    \end{enumerate}
+    Un ciclo di tale grafo corrisponde a una sequenza chiusa di trasferimenti ed il costo del ciclo corrisponde al costo della sequenza, ma solo se ogni nodo sta in una diversa componente.
+\end{definition}
+\begin{observation}[Cosa semplifica il problema della ricerca del ciclo di costo minimo?]
+    Il problema della ricerca del ciclo di costo minimo è \textit{NP-difficile} ma:
+    \begin{enumerate}
+        \item Il vincolo di dover toccare una volta sola ogni componente permette algoritmi di programmazione dinamica abbastanza efficienti.
+        \item Una sequenza di numeri con somma negativa ammette sempre una permutazione ciclica con somme parziali tutte negative e quindi si possono scartare tutti i percorsi parziali di costo \(\geq 0\).
+    \end{enumerate}
+\end{observation}
+\begin{observation}[A cosa serve calcolare i cicli negativi e a costo medio minimo? È polinomiale?]
+    Esistono algoritmi polinomiali per calcolare cicli negativi qualsiasi (Floyd-Warshall) ed i cicli di costo medio minimo (costo totale diviso il numero degli archi).
+
+    Questi cicli (quelli di costo medio minimo?), pur non rispettando il vincolo sulle componenti, forniscono:
+    \begin{enumerate}
+        \item Una stima per difetto che può dimostrare l'inesistenza di cicli negativi.
+        \item Un ciclo negativo che può rispettare il vincolo per fortuna oppure essere modificato fino ad ottenerne uno.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Ejection chains]
+    È possibile creare catene di trasferimenti non cicliche (dette Ejection chains), ma aperte, in modo che la cardinalità delle componenti possa variare, cioè:
+    \begin{enumerate}
+        \item una componente perde un elemento.
+        \item zero o più componenti perdono un elemento e ne acquistano un altro.
+        \item una componente acquista un elemento
+    \end{enumerate}
+    Per ottenerle basta aggiungere al \textbf{grafo di miglioramento}:
+    \begin{enumerate}
+        \item Un nodo sorgente.
+        \item Un nodo per ogni componente.
+        \item Archi del nodo sorgente ai nodi associati agli elementi.
+        \item Archi dai nodi associati agli elementi ai nodi associati alle componenti.
+    \end{enumerate}
+    
+    A questo punto si cerca il cammino di \textbf{costo minimo} che vada dal nodo sorgente al nodo componente, toccando un solo nodo componente e che non tocchi mai più di un nodo associato ad ogni componente.
+\end{definition}
+\end{multicols}
+\clearpage
+\begin{definition}[Order-first split-second]
+    Il metodo Order-first split-second per i problemi di partizione:
+    \begin{enumerate}
+        \item Costruisce una permutazione iniziale degli elementi.
+        \item Partiziona gli elementi in componenti in modo ottimo sotto il vincolo aggiuntivo che elementi della stessa componente siano consecutivi nella permutazione iniziale.
+    \end{enumerate}
+    La soluzione ottenuta  dipende dalla permutazione iniziale: si procede quindi a ripetere la soluzione per diverse permutazioni creando un metodo a due livelli:
+\begin{enumerate}
+    \item Al livello superiore, si modificano la permutazione.
+    \item Al livello inferiore, si ottimizza la partizione data la permutazione.
+\end{enumerate}
+\end{definition}
+\begin{observation}[Come viene utilizzato il grafo ausiliario dell'order-first split-second?]
+    Data la permutazione \(\rnd{s_1, \ldots, s_n}\) degli elementi dell'insieme base \(E\):
+    \begin{enumerate}
+        \item Ogni nodo \(s_i\) corrisponde a un elemento \(s_i\) dell'insieme base \(E\), più un nodo \(s_0\) fittizio.
+        \item Ogni arco \(s_i, s_j\) con \(i < j\) corrisponde a una componente potenziale \(S_l = \rnd{s_{i+1}, \ldots, s_j}\) formata dagli elementi della permutazione:
+        \begin{enumerate}
+            \item da \(s_i\) escluso
+            \item a \(s_j\) compreso
+        \end{enumerate}
+        \item Il costo \(c_{s_i, s_j}\) corrisponde al costo della componente \(f\rnd{S_l}\).
+        \item L'arco non esiste se la componente è inammissibile.
+    \end{enumerate}
+    
+    Di conseguenza:
+    \begin{enumerate}
+        \item Ogni cammino da \(s_1\) a \(s_n\) rappresenta una partizione di \(B\).
+        \item Il costo del cammino coincide con il costo della partizione.
+        \item Il grafo è aciclico: trovare il cammino ottimo costa \(\mathcal{O}\rnd{m}\) dove \(m \leq \frac{n\rnd{n-1}}{2}\) è il numero degli archi.
+    \end{enumerate}
+\end{observation}
+\end{document}

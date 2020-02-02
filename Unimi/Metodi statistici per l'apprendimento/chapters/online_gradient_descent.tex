@@ -1,0 +1,186 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Online Gradient Descent}
+\begin{multicols}{2}
+\begin{definition}[Protocollo di predizione sequenziale]
+    Dato un algoritmo di apprendimento \(A\) per classificazione binaria e data una sequenza arbitraria \(\rnd{\bmx_1, y_1}, \rnd{\bmx_2, y_2}, \ldots\) di dati, l'algoritmo genera un modello di partenza \(\bmw_1\) e per \(t=1,2,\ldots\) procede come segue:
+    \begin{enumerate}
+        \item Il modello corrente \(\bmw_t\) viene testato sul prossimo esempio \(\rnd{\bmx_t, y_t}\).
+        \item L'algoritmo \(A\) aggiorna il modello \(\bmw_t\) generando un nuovo modello \(\bmw_{t+1}\).
+    \end{enumerate}
+    In questo protocollo di predizione sequenziale, l'algoritmo genera una sequenza \(\bmw_1, \bmw_2, \ldots\) di modelli.
+\end{definition}
+\begin{definition}[Rischio sequenziale]
+    Nel \textbf{protocollo di predizione sequenziale} le prestazioni vengono valutate misurando il rischio sequenziale, ovvero la quantità:
+    \[\frac{1}{T} \sum_{t=1}^{T} \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}\]
+    che conta, al variare di \(T\) la frazione di errori di classificazione compiuta dalla sequenza di modelli sui primi \(T\) esempi.
+    
+    Il rischio sequenziale sostituisce la nozione di rischio statistico.
+\end{definition}
+\begin{observation}[A cosa serve il rischio sequenziale?]
+    Come nell'apprendimento statistico siamo interessati a studiare quanto velocemente decresce il rischio all'aumentare della taglia del training set, così nell'apprendimento online siamo interessati a studiare quanto velocemente decresce il rischio sequenziale all'aumentare di \(T\).
+\end{observation}
+\begin{observation}[Differenze tra apprendimento sequenziale e statistico]
+    Il modello di apprendimento sequenziale si distingue da quello statistico perché nel primo gli algoritmi apprendono in modo incrementale, ovvero tramite ottimizzazioni progressive di un modello predittivo iniziale.
+    
+    Queste ottimizzazioni sono locali, cioè definite rispetto a singoli esempi della sequenza osservata.
+    
+    Al contrario, gli algoritmi sviluppati all'interno del modello statistico operano tipicamente risolvendo un problema di ottimizzazione globale, cioè definito sull'intero training set.
+    
+    Il modello sequenziale è vantaggioso rispetto a quello statistico in tutte quelle situazioni dove non è possibile o non è pratico apprendere tramite ottimizzazione globale.
+\end{observation}
+\begin{definition}[Online gradient descent]
+    L'algoritmo della discesa del gradiente o \textbf{online gradient descent} lavora con qualunque funzione di perdita convessa e differenziabile \(\ell: \R^d\rightarrow \R\).
+    
+    A partire da un punto arbitrario \(\bmw_1\), la discesa del gradiente applica ripetutamente:
+    \[
+        \bmw_{t+1} = \bmw_t - \eta_t\nabla\ell\rnd{\bmw_t} \quad \text{con }\eta_t>0
+    \]
+    Se il punto corrente non è un minimo della funzione, allora \(\nabla\ell\rnd{\bmw_t} > 0\) e pertanto \(\bmw_{t+1}\) si sposterà in direzione del minimo della funzione.
+\end{definition}
+\begin{definition}[Algoritmo di discesa del gradiente con proiezione]
+    Assumiamo che \(\ell_1, \ell_2, \ldots\) sia una sequenza di funzioni di perdita convesse e due volte differenziabili. Ricevono due parametri: una costante \(\eta\) che rappresenta lo step di discesa ed il raggio. Il vettore \(\bmw_1\) viene inizializzato con degli zeri, quindi per \(t=1,2\ldots\) si procede:
+    \begin{enumerate}
+        \item \(\boldsymbol{w}_{t+1}^{\prime}=\boldsymbol{w}_{t}-\frac{\eta}{\sqrt{t}} \nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)\)
+        \item \(\boldsymbol{w}_{t+1}=\underset{\boldsymbol{w} :\|\boldsymbol{w}\| \leq U}{\operatorname{argmin}}\left\|\boldsymbol{w}-\boldsymbol{w}_{t+1}^{\prime}\right\|\)
+    \end{enumerate}
+\end{definition}
+\begin{goal}[Analisi del rischio sequenziale di OGD]
+    Scopo dell'analisi è limitare la differenza fra il rischio sequenziale dell'algoritmo e quello di un qualsiasi modelli \(\bmu\) tale che \(\norm{\bmu}\leq U\). Vogliamo controllare la differenza:
+    \[\frac{1}{T} \sum_{t=1}^{T}\left(\ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})\right)\]
+    Sia \(\boldsymbol{u}_{T}^{*}=\underset{\boldsymbol{u} :\|\boldsymbol{u}\| \leq U}{\operatorname{argmin}} \frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{u})\) il miglior predittore per i primi \(T\) passi: vogliamo dimostrare che:
+    \[\frac{1}{T} \sum_{t=1}^{T} \ell_{t}\left(\boldsymbol{w}_{t}\right)-\frac{1}{T} \sum_{t=1}^{T} \ell_{t}\left(\boldsymbol{u}_{T}^{*}\right)=o(1)\]
+    ovvero che il rischio sequenziale di OGD converge alla perdita media del predittore ottimo \(\bmuo_T\) per \(T\rightarrow \infty\).
+\end{goal}
+\begin{lemma}[Formula di Taylor per funzioni multivariate]
+    Sia \(\funcdef{f}{\R^d}{\R}\) una funzione due volte differenziabile. Allora, per ogni \(\bmw, \bmu \in \R^d\) vale:
+    \[f(\boldsymbol{u})=f(\boldsymbol{w})+\nabla f(\boldsymbol{w})^{\top}(\boldsymbol{u}-\boldsymbol{w})+\frac{1}{2}(\boldsymbol{u}-\boldsymbol{w})^{\top} \nabla^{2} f(\boldsymbol{\xi})(\boldsymbol{u}-\boldsymbol{w})\]
+    dove \(\nabla^2f\rnd{\xi}\) è la matrice Hessiana di \(f\) calcolata in un punto \(\xi\) sulla retta che congiunge \(\bmu\) a \(\bmw\).
+\end{lemma}
+\end{multicols}
+\begin{analysis}[Analisi del rischio sequenziale di OGD]
+    Fissiamo un \(\bmu\) arbitrario con norma limitata da \(U\) e notiamo che ad ogni istante \(t\), il teorema di Taylor implica:
+    \begin{align*}
+        \ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})&=\nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right)-\frac{1}{2}\left(\boldsymbol{u}-\boldsymbol{w}_{t}\right)^{\top} \nabla^{2} \ell_{t}(\boldsymbol{\xi})\left(\boldsymbol{u}-\boldsymbol{w}_{t}\right)\\&\leq \nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right)
+    \end{align*}
+    La disuguaglianza vale perché stiamo assumendo che \(\ell_t\) sia due volte differenziabile e convessa, il che implica che la matrice \(\nabla^{2} \ell_{t}(\xi)\) sia positiva semidefinita, quindi \(z^{\top} \nabla^{2} \ell_{t}(\xi) z \geq 0\) per ogni \(z \in \mathbb{R}^{d}\).
+    
+    Possiamo quindi procedere maggiorando la quantità \(\nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right)\):
+    \begin{align*}
+    \nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right) &=-\frac{1}{\eta_{t}}\left(\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right) \\ &=\frac{1}{\eta_{t}}\left(\frac{1}{2}\left\|\boldsymbol{w}_{t}-\boldsymbol{u}\right\|^{2}-\frac{1}{2}\left\|\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{u}\right\|^{2}+\frac{1}{2}\left\|\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}\right\|^{2}\right) \\ & \leq \frac{1}{\eta_{t}}\left(\frac{1}{2}\left\|\boldsymbol{w}_{t}-\boldsymbol{u}\right\|^{2}-\frac{1}{2}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}+\frac{1}{2}\left\|\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}\right\|^{2}\right)
+    \end{align*}
+    I passaggi sono motivati come segue:
+    \begin{description}
+        \item[Prima uguaglianza:] usa il fatto che \(\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}=\eta_{t} \nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)\).
+        \item[Seconda uguaglianza:] si tratta di un'identità algebrica.
+        \item[Disuguaglianza:] vale perché \(\bmu\) appartiene alla sfera di raggio \(U\) centrata sull'origine, e quindi proiettando \(\bmw'_{t+1}\) su questa sfera la distanza con \(\bmu\) non può aumentare.
+    \end{description}
+    Procediamo ad aggiungere e togliere lo stesso termine \(\frac{1}{2 \eta_{t+1}}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}\) all'ultimo membro della catena di disuguaglianze e raggruppiamo:
+    \[\frac{1}{2 \eta_{t}}\left\|\boldsymbol{w}_{t}-\boldsymbol{u}\right\|^{2}-\frac{1}{2 \eta_{t+1}}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}-\frac{1}{2 \eta_{t}}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}+\frac{1}{2 \eta_{t+1}}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}+\frac{1}{2 \eta_{t}}\left\|\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}\right\|\]
+    Sommando su \(t=1,\ldots,T\) notiamo che i primi due termini sono una somma telescopica, mentre i secondi due hanno un fattore comune:
+    \[
+        \sum_{t=1}^{T}\left(\ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})\right) \leq \frac{1}{2 \eta}\left\|\boldsymbol{w}_{1}-\boldsymbol{u}\right\|^{2}-\frac{1}{2 \eta_{T+1}} \left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2} +\frac{1}{2} \sum_{t=1}^{T}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}\left(\frac{1}{\eta_{t+1}}-\frac{1}{\eta_{t}}\right)+\frac{1}{2} \sum_{t=1}^{T} \frac{1}{\eta_{t}}\left\|\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}\right\|^{2}
+    \]
+    Semplifichiamo la disequazione utilizzando i seguenti fatti:
+    \begin{description}
+        \item[\(\boldsymbol{w}_{1}=\mathbf{0}\)] Per definizione di OGD.
+        \item[\(\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2} \leq 4 U^{2}\)] Dato che sia \(\bmw_{t+1}\) che \(\bmu\) appartengono alla sfera di raggio \(U\).
+        \item[\(\left\|\boldsymbol{w}_{t+1}^{\prime}-\boldsymbol{w}_{t}\right\|^{2}=\eta_{t}^{2}\left\|\nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)\right\|^{2}\)] Per definizione di OGD.
+    \end{description}
+    Sostituendo queste relazioni nell'ultima disuguaglianza e scegliendo \(G\) tale che \(\left\|\nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)\right\| \leq G\) per ogni \(t\), otteniamo:
+    \[
+        \sum_{t=1}^{T}\left(\ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})\right) \leq \frac{U^{2}}{2 \eta}-\frac{1}{2 \eta_{T+1}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2} +2 U^{2} \sum_{t=1}^{T-1}\left(\frac{1}{\eta_{t+1}}-\frac{1}{\eta_{t}}\right)+\frac{1}{2 \eta_{T+1}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}-\frac{1}{2 \eta_{T}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}+\frac{G^{2}}{2} \sum_{t=1}^{T} \eta_{t}
+    \]
+    \vspace{0.5em}
+    \begin{multicols}{2}
+        Semplifichiamo la somma telescopica, cancellando i termini con segno opposto e maggioriamo omettendo il termine \(-\frac{1}{2 \eta_{T}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}\):
+        \begin{align*} \sum_{t=1}^{T}\left(\ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})\right) & \leq \frac{U^{2}}{2 \eta}+\frac{2 U^{2}}{\eta_{T}}-\frac{2 U^{2}}{\eta}+\frac{G^{2}}{\eta} \sum_{t=1}^{T} \eta_{t}\\&\leq \frac{2 U^{2} \sqrt{T}}{\eta}+\frac{G^{2} \eta}{\eta} \sum_{t=1}^{T} \frac{1}{\sqrt{t}} \\ & \leq \frac{2 U^{2} \sqrt{T}}{\eta}+G^{2} \eta \sqrt{T} \end{align*}
+        dove abbiamo usato la maggiorazione:
+        \[\sum_{t=1}^{T} \frac{1}{\sqrt{t}} \leq 2 \sqrt{T}\]
+        Scegliendo \(\eta = \rnd{\frac{U}{G}}\sqrt{2}\) e dividendo tutto per \(T\) otteniamo il risultato finale:
+        \[\frac{1}{T} \sum_{t=1}^{T} \ell_{t}\left(\boldsymbol{w}_{t}\right) \leq \min _{\boldsymbol{u} :\|\boldsymbol{u}\| \leq U} \frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{u})+U G \sqrt{\frac{8}{T}}\]
+    \end{multicols}
+\end{analysis}
+\begin{multicols}{2}
+    \begin{definition}[Hinge Loss]
+        Si tratta di una particolare funzione di loss, che possiamo vedere come regola di aggiornamento del Perceptrone visto come discesa del gradiente:
+        \[h_{t}(\boldsymbol{w})=\left[1-y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}\right]_{+}\]
+        dove \([z]_{+}=\max \{0, z\}\).
+        
+        La funzione è convessa e maggiore la funzione indicatrice di errore, ovvero \(\mathbb{I}\{z \leq 0\} \leq[1-z]_{+}\) per ogni \(z \in \R\).
+    \end{definition}
+    \begin{observation}[Gradiente della Hinge Loss]
+        Il gradiente della Hinge Loss è calcolato come:
+        \[
+            \nabla h_{t}(\boldsymbol{w})=\left\{\begin{array}{cc}{-y_{t} \boldsymbol{x}_{t}} & {\text { se } y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t} \leq 1} \\ {0} & {\text { otherwise }}\end{array}\right.
+        \]
+    \end{observation}
+\end{multicols}
+\begin{analysis}[Perceptrone come istanza di OGD]
+    Per definire il Perceptrone come istanza di OGD dobbiamo aggiungere la condizione che l'aggiornamento venga fatto solo quando il modello corrente \(\bmw_t\) sbaglia a classificare \(\rnd{\bmx_t, y_t}\):
+    \begin{align*}
+        \boldsymbol{w}_{t+1}&=\boldsymbol{w}_{t}-\eta_{t} \nabla h_{t}\left(\boldsymbol{w}_{t}\right) \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}\\&=\boldsymbol{w}_{t}+\eta_{t} \boldsymbol{x}_{t} \mathbb{x}_{t} \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}
+    \end{align*}
+    Dato che \(\bmw_t\) cambia solo quando \(y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\), possiamo applicare l'analisi di OGD ai soli passi \(t\) dove \(\bmw_t\) sbaglia.
+    
+    Scegliendo \(\eta_t = \eta\) per ogni \(t\) e omettiamo la proiezione di \(\bmw'_{t+1}\) nella sfera di raggio \(U\), cioè ponendo \(\bmw_{t+1} = \bmw'_{t+1}\). La disuguaglianza dell'OGD diviene, omettendo il termine negativo \(-\frac{1}{2 \eta_{1}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}\), ci dà:
+    \[
+        \sum_{t=1}^{T}\left(h_{t}\left(\boldsymbol{w}_{t}\right)-h_{t}(\boldsymbol{u})\right) \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\} \leq \frac{1}{2 \eta}\|\boldsymbol{u}\|^{2} +\frac{1}{2} \sum_{t=1}^{T}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}\left(\frac{1}{\eta}-\frac{1}{\eta}\right) \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}+\frac{\eta G^{2}}{2} \sum_{t=1}^{T} \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}
+    \]
+    per un qualunque \(\bmu \in \R^d\).
+    
+    Quindi, dato che \(y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\) implica \(h_{t}\left(\boldsymbol{w}_{t}\right) \geq 1\), e ponendo \(X=\max _{t}\left\|\boldsymbol{x}_{t}\right\|=\max _{t}\left\|\nabla h_{t}\left(\boldsymbol{w}_{t}\right)\right\|\) così da avere \(X = G\), otteniamo:
+    \[
+        \sum_{t=1}^{T} \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\} \leq \sum_{t=1}^{T} h_{t}(\boldsymbol{u})+\frac{1}{2 \eta}\|\boldsymbol{u}\|^{2}+\frac{\eta X^{2}}{2} \sum_{t=1}^{T} \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}
+    \]
+    Sia \(M_{T}=\sum_{t=1}^{T} \mathbb{I}\left\{y_{t} \boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t} \leq 0\right\}\) il numero di errori compiuti dal Perceptrone nei primi \(T\) passi.
+    
+    Scegliendo \(\eta=\|\boldsymbol{u}\| /\left(X \sqrt{M_{T}}\right)\), risolvendo per \(M_T\) e maggiorando otteniamo:
+    \[
+        M_{T} \leq \sum_{t=1}^{T} h_{t}(\boldsymbol{u})+(\|\boldsymbol{u}\| X)^{2}+\|\boldsymbol{u}\| X \sqrt{\sum_{t=1}^{T} h_{t}(\boldsymbol{u})}
+    \]
+    Questo è il maggiorante al numero di errori del Perceptrone nel caso generale, cioè con sequenze non linearmente separabili. Si noti che quando la sequenza è \textbf{linearmente separabile}, allora esiste \(\bmu \in \R^d\) tale che \(y_{t} \boldsymbol{u}^{\top} \boldsymbol{x}_{t} \geq 1\) per ogni \(t\), il che implica \(h_{t}(\boldsymbol{u})=0\) per ogni \(t\). Quindi il maggiorante si riduce a:
+    \[M_{T} \leq(\|\boldsymbol{u}\| X)^{2}\]
+    che corrisponde al teorema di convergenza del Perceptrone.
+\end{analysis}
+\begin{multicols}{2}
+    \begin{definition}[Convessità forte]
+        Una funzione differenziabile \(\ell\) è \(\sigma\)-fortemente convessa, per un dato \(\sigma>0\), se:
+        \[\ell(\boldsymbol{w})-\ell(\boldsymbol{u}) \leq \nabla \ell(\boldsymbol{w})^{\top}(\boldsymbol{w}-\boldsymbol{u})-\frac{\sigma}{2}\|\boldsymbol{u}-\boldsymbol{w}\|^{2}\]
+        Equivalentemente, possiamo dire che la matrice Hessiana di \(\ell\) ha rango pieno, oppure che ha gli autovalori tutti strettamente maggiori di zero.
+    \end{definition}
+    \begin{example}[Funzione fortemente convessa]
+        Un semplice esempio di funzione fortemente convessa è \(\ell(\boldsymbol{w})=\frac{1}{2}\|\boldsymbol{w}\|^{2}\), infatti:
+        \[\frac{1}{2}\|\boldsymbol{w}\|^{2}-\frac{1}{2}\|\boldsymbol{u}\|^{2}=\boldsymbol{w}^{\top}(\boldsymbol{w}-\boldsymbol{u})-\frac{1}{2}\|\boldsymbol{w}-\boldsymbol{u}\|^{2}\]
+        Quindi la funzione è fortemente convessa per \(\sigma = 1\).
+    \end{example}
+    \begin{observation}[Algoritmo OGD su funzioni fortemente convesse]
+        L'algoritmo OGD per funzioni fortemente convesse non ha bisogno del passo di proiezione ed è quindi completamente privo di parametri.
+    \end{observation}
+    \begin{definition}[Algoritmo OGD senza proiezione per funzioni fortemente convesse]
+        Il vettore \(\bmw_1\) viene inizializzato con degli zeri, quindi per \(t=1,2\ldots\) si procede:
+        \begin{enumerate}
+            \item \(\boldsymbol{w}_{t+1}^{\prime}=\boldsymbol{w}_{t}-\eta_t \nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)\)
+        \end{enumerate}
+    \end{definition}
+\end{multicols}
+\begin{analysis}[Analisi del rischio sequenziale di OGD per funzioni \(\sigma\)-fortemente convesse]
+    Ripetiamo il passo iniziale dell'analisi dell'OGD sfruttando ora l'assunzione che \(\ell_1, \ell_2, \ldots\) sono tutte funzioni \(\sigma\)-fortemente convesse:
+    \begin{align*} \ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u}) & \leq \nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right)-\frac{\sigma}{2}\left\|\boldsymbol{u}-\boldsymbol{w}_{t}\right\|^{2} \\ &=-\frac{1}{\eta_{t}}\left(\boldsymbol{w}_{t+1}-\boldsymbol{w}_{t}\right)^{\top}\left(\boldsymbol{w}_{t}-\boldsymbol{u}\right)-\frac{\sigma}{2}\left\|\boldsymbol{u}-\boldsymbol{w}_{t}\right\|^{2} \\ & \leq \frac{1}{\eta_{t}}\left(\frac{1}{2}\left\|\boldsymbol{w}_{t}-\boldsymbol{u}\right\|^{2}-\frac{1}{2}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}+\frac{1}{2}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{w}_{t}\right\|^{2}\right)-\frac{\sigma}{2}\left\|\boldsymbol{u}-\boldsymbol{w}_{t}\right\|^{2} \end{align*}
+    Procedendo in modo completamente analogo al caso di OGD con proiezione, ma sfruttando la presenza dei termini aggiuntivi \(-\frac{\sigma}{2}\left\|\boldsymbol{u}-\boldsymbol{w}_{t}\right\|^{2}\) otteniamo:
+    \begin{align*}
+        \sum_{t=1}^{T}\left(\ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})\right) &\leq\left(\frac{1}{\eta}-\sigma\right) \frac{1}{2}\left\|\boldsymbol{w}_{1}-\boldsymbol{u}\right\|^{2}-\frac{1}{2 \eta_{T+1}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}\\&+\frac{1}{2} \sum_{t=1}^{T-1}\left\|\boldsymbol{w}_{t+1}-\boldsymbol{u}\right\|^{2}\left(\frac{1}{\eta_{t+1}}-\frac{1}{\eta_{t}}-\sigma\right)+\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2} \frac{1}{2}\left(\frac{1}{\eta_{T+1}}-\frac{1}{\eta_{T}}\right)+\frac{G^{2}}{2} \sum_{t=1}^{T} \eta_{t}
+    \end{align*}
+    dove, analogamente a prima, \(G \geq \max _{t}\left\|\nabla \ell_{t}\left(\boldsymbol{w}_{t}\right)\right\|\).
+    
+    Omettendo il termine negativo \(-\frac{1}{2 \eta_{T}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}\), semplificando il termine \(\frac{1}{2 \eta_{T+1}}\left\|\boldsymbol{w}_{T+1}-\boldsymbol{u}\right\|^{2}\) che appare con segni opposti e utilizzando la scelta \(\eta_{t}=\frac{1}{\sigma t}\), osserviamo alcune ulteriori sorprendenti semplificazioni che ci conducono a:
+    \[
+        \sum_{t=1}^{T}\left(\ell_{t}\left(\boldsymbol{w}_{t}\right)-\ell_{t}(\boldsymbol{u})\right) \leq \frac{G^{2}}{2 \sigma} \sum_{t=1}^{T} \frac{1}{t} \leq \frac{G^{2}}{2 \sigma} \ln (T+1)
+    \]
+    dove abbiamo usato un semplice maggiorante logaritmo alla somma armonica \(1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{T}\).
+    
+    Questo implica il risultato finale
+    \[\frac{1}{T} \sum_{t=1}^{T} \ell_{t}\left(\boldsymbol{w}_{t}\right) \leq \min _{\boldsymbol{u} \in \mathbb{R}^{d}} \frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{u})+\frac{G^{2}}{2 \sigma} \frac{\ln (T+1)}{T}\]
+\end{analysis}
+\end{document}

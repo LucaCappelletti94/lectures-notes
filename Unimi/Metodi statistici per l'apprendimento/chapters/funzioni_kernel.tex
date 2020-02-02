@@ -1,0 +1,72 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Funzioni kernel}
+\begin{multicols}{2}
+\begin{observation}[Limiti dei predittori lineari]
+    I predittori lineari possono soffrire di un errore di bias molto elevato in quanto il predittore Bayesiano ottimo \(f^*\) è spesso molto lontano dall'essere lineare. Questo crea un potenziale rischio di underfitting tutte le volte che utilizziamo un algoritmo di apprendimento che genra predittori lineari.
+\end{observation}
+\begin{observation}[Applicazione a predittori di mappe non lineari]
+    Utilizzando una mappa non lineare per trasformare le istanze di un problema di apprendimento diventa possibile utilizzare predittori lineari per rappresentare predittori non lineari, alleviando il problema dell'underfitting.
+    
+    Consideriamo infatti una funzione non lineari \(\funcdef{\phi}{\R^d}{\mathbb{V}}\) che mappa le istanze \(\bmx \in \R^d\) in un nuovo spazio \(\mathbb{V}\) con un numero molto maggiore, anche infinito, di dimensioni.
+    
+    Costruendo la funzione \(\phi\) opportunamente, abbiamo che superfici non lineari in \(\R^d\) vengono mappate in superfici lineari in \(\mathbb{V}\).
+\end{observation}
+\begin{observation}
+    La tecnica delle funzioni kernel ci dice come scegliere \(\phi\) in modo tale che esista una funzione \(\funcdef{K}{\R^d\times \R^d}{\R}\) tale che:
+    \[
+        K\rnd{\bmx, \bmx'} = \phi\rnd{\bmx}^T\phi\rnd{\bmx'} \quad \text{per ogni }\bmx,\bmx' \in \R^d
+    \]
+\end{observation}
+\begin{definition}[Perceptrone con kernel]
+    L'algoritmo perceptrone con kernel inizializza \(S\) con l'insieme vuoto e quindi per ogni \(t=1,2,\ldots\):
+    \begin{enumerate}
+        \item Leggi il prossimo esempio \(\rnd{\bmx_t, y_t}\)
+        \item Calcola \(\hat{y_t} = \operatorname{sgn}\left(\sum_{s \in S} y_{s} K\left(\boldsymbol{x}_{s}, \boldsymbol{x}_{t}\right)\right)\)
+        \item Se \(\hat{y_t} = y_t\) aggiungi \(t\) a \(S\)
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Kernel Polinomiale]
+    Un kernel polinomiale è una funzione kernel del tipo:
+    \[
+        K_n\rnd{\bmx,\bmx'} = \rnd{1+\bmxt\bmx'}^n \text{con }\bmx,\bmx' \in \R
+    \]
+    Questo kernel permette di apprendere classificatori di grado \(n\) in \(\R^d\) rappresentandoli come iperpiani in uno spazio \(\R^N\).    
+\end{definition}
+\begin{definition}[Mappa per il Kernel Polinomiale]
+    Possiamo esplicitare la funzione \(\phi_n\) tale che, nel kernel polinomiale \(K_n\):
+    \[K_{n}\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)=\boldsymbol{\phi}_{n}(\boldsymbol{x})^{\top} \boldsymbol{\phi}_{n}\left(\boldsymbol{x}^{\prime}\right)\]
+    usando il teorema del binomio di Newton:
+    \[\left(1+\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)^{n}=\sum_{k=0}^{n} \left( \begin{array}{l}{n} \\ {k}\end{array}\right)\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)^{k}\]
+    Osservando che vale:
+    \[\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)^{k}=\left(\sum_{i=1}^{d} x_{i} x_{i}^{\prime}\right)^{k}=\sum_{\boldsymbol{v} \in\{1, \ldots, d\}^{k}}\left(\prod_{s=1}^{k} x_{v_{s}} x_{v_{s}}^{\prime}\right)\]
+    E quindi si ottiene:
+    \[\boldsymbol{\phi}_{n}(\boldsymbol{x})=\left(\sqrt{\left( \begin{array}{c}{n} \\ {k}\end{array}\right)} \prod_{s=1}^{k} x_{v_{s}}\right)_{k=0, \ldots, n, \boldsymbol{v} \in\{1, \ldots, d\}^{k}}\]
+    In altre parole, il mapping \(\funcdef{\phi_n}{\R^d}{\R^N}\) associato al kernel polinomiale \(K_n\) è un vettore le cui componenti sono indicizzate da tutti i monomi \(\prod_{s=1}^{k} x_{v_{s}}\) di grado al più \(n\) pesati dalle radici dei coefficienti binomiali.
+    
+    Nel caso del kernel polinomiale di grado \(n\), la dimensione \(N\) del codominio di \(\phi\) è:
+    \[\sum_{k=0}^{n}\left|\{1, \ldots, d\}^{k}\right|=\sum_{k=0}^{n} d^{k}=\frac{d^{n+1}-1}{d-1}\]
+    ovvero \(N=\Theta\left(d^{n}\right)\), esponenziale nel grado del polinomio.
+\end{definition}
+\begin{definition}[Kernel Gaussiano]
+    Un utile kernel è il kernel gaussiano:
+    \[K_{\gamma}\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)=\exp \left(-\frac{1}{2 \gamma}\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\|^{2}\right) \quad \gamma>0\]
+\end{definition}
+\begin{definition}[Mappa per Kernel Gaussiano]
+    Per identificare la mappa associata ad un kernel gaussiano \(K_{\gamma}\) procediamo come segue:
+    \begin{align*} e^{\left(-\frac{1}{2 \gamma}\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\|^{2}\right)} &=e^{ \left(-\frac{1}{2 \gamma}\left(\|\boldsymbol{x}\|^{2}+\left\|\boldsymbol{x}^{\prime}\right\|^{2}\right)\right)} e^{\left(\frac{1}{\gamma}\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)\right)}s \\ &=e^{ \left(-\frac{\|\boldsymbol{x}\|^{2}}{2 \gamma}\right)} e^{ \left(-\frac{\left\|\boldsymbol{x}^{\prime}\right\|^{2}}{2 \gamma}\right)} \sum_{n=0}^{\infty} \frac{1}{n !} \frac{\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)^{n}}{\gamma^{n}} \end{align*}
+    dove utilizziamo l'espansione in serie di Taylor \(e^{x}=1+x+\frac{x^{2}}{2 !}+\cdots\).
+    
+    È possibile notare che il kernel Gaussiano è una combinazione lineare di infiniti kernel polinomiali di grado crescente, ciascuno pesato dal reciproco del fattoriale del suo grado.
+    
+    Il parametro \(\gamma\) svolge il ruolo di fattore di scala per i prodotti \(\bmxt\bmx'\). Infine i fattori \(e^{-\|\boldsymbol{x}\|^{2} /(2 \gamma)} e^{-\left\|\boldsymbol{x}^{\prime}\right\|^{2} /(2 \gamma)}\) normalizzano rispetto a \(\bmx\) e \(\bmx'\). Infatti, \(K_{\gamma}\rnd{\bmx, \bmx} = 1\) per ogni \(\bmx \in \R^d\).
+\end{definition}
+\begin{observation}[Il kernel Gaussiano è universale]
+    Il kernel Gaussiano è universale, per ogni \(\gamma > 0\), per ogni funzione continua \(\funcdef{f}{\R^d}{\R}\), e per ogni \(\e>0\), esiste \(g\in \mathbb{H}_{\gamma}\), con:
+    \[\mathcal{H}_{\gamma}=\left\{\sum_{i=1}^{N} \alpha_{i} K_{\gamma}\left(\boldsymbol{x}_{i}, \cdot\right) : \boldsymbol{x}_{1}, \ldots, \boldsymbol{x}_{N} \in \mathbb{R}^{d}, \alpha_{1}, \ldots, \alpha_{N} \in \mathbb{R}, N \in \mathbb{N}\right\}\]
+    tale che \(h\) approssima \(f\) con errore al più \(\e\).
+\end{observation}
+TO BE CONTINUED...
+\end{multicols}
+\end{document}

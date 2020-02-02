@@ -1,0 +1,489 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Problemi}
+\begin{multicols}{2}
+    \begin{problem}[Problema di Ottimizzazione Combinatoria]
+        Un problema di ottimizzazione combinatoria si può formulare come:
+        \begin{align*}
+            \text{opt} f\rnd{x}&\\
+            x &\in X
+        \end{align*}
+        con \(X \subseteq 2^B\) e \(B\) finito.
+    \end{problem}
+    \begin{problem}[Il problema dello zaino o Knapsack]
+        Si vuole scegliere da un insieme di oggetti voluminosi un sottoinsieme di valore massimo che si possa racchiudere in uno zaino di capacità limitata.
+        
+        Viene definito da 4 elementi significativi: 
+        \begin{enumerate}
+            \item Un insieme \(O\) di oggetti elementari.
+            \item Una funzione \(v: O \rightarrow \N \) che descrive il volume di ogni oggetto.
+            \item Un numero \(V \in \N \) che descrive la capacità di uno zaino.
+            \item Una funzione \(\phi: O \rightarrow \N\) che descrive il valore di ogni oggetto.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del Knapsack]
+        Il suo insieme base è banalmente il set degli oggetti:
+        \[
+            B = O
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del Knapsack]
+        La sua regione ammissibile contiene i sottoinsiemi di oggetti di volume totale non superiore alla capacità dello zaino:
+        \[
+            X = \crl{x \subseteq B: \sum_{j\in x} v_{j} \leq V}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del Knapsack]
+        L'obbiettivo è massimizzare il valore complessivo degli oggetti scelti.
+        \[
+            \max_{x \in X} f(x) = \sum_{j \in x} \phi_{j}
+        \]
+    \end{definition}
+    \begin{problem}[Maximum Diversity Problem (MDP)]
+        Si desidera scegliere da un insieme di punti un sottoinsieme di \(k\) punti con la massima somma delle distanze reciproche. 
+        
+        Viene definito da 3 elementi significativi:
+        \begin{enumerate}
+            \item Un insieme \(P\) di punti.
+            \item Una funzione \(d: P\times P \rightarrow \N\) che dà la distanza fra coppie di punti.
+            \item Un numero \(k \in \crl{1, \ldots, \abs{P}}\) che dà il numero di punti da scegliere.
+        \end{enumerate}    
+    \end{problem}
+    \begin{definition}[Insieme base dell'MDP]
+        L'insieme coincide con l'insieme dei punti:
+        \[
+            B = P
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile dell'MDP]
+        La regione ammissibile contiene i sottoinsiemi di \(k\) punti:
+        \[
+            X = \crl{x \subseteq B: \abs{x} = k}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo dell'MDP]
+         L'obbiettivo è massimizzare la distanza totale reciproca fra i punti scelti.
+        \[
+            \max_{x \in X} f(x) = \sum_{i, j \in x} d_{ij} 
+        \]
+    \end{definition}
+    \begin{problem}[Bin Packing Problem (BPP)]
+        Si vuole dividere un insieme di oggetti voluminosi nel minimo numero di contenitori di capacità data.
+    
+        Viene definito da 4 elementi significativi:
+        \begin{enumerate}
+            \item Un insieme \(O\) di oggetti elementari.
+            \item Una funzione \(v: O \rightarrow \N \) che descrive il volume di ogni oggetto.
+            \item Un insieme \(C\) di contenitori.
+            \item Un numero \(V \in \N\) che dà il volume dei contenitori.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del BPP]
+        L'insieme base contiene le coppie di oggetti e contenitori:
+        \[
+            B = O \times C
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del BPP]
+        La regione ammissibile contiene le partizioni degli oggetti tra i contenitori tali da non eccedere le capacità di alcun contenitore:
+        \[
+            X = \crl{x \subseteq B: \abs{x \cap B_o} = 1 \forall o \in O, \sum_{\rnd{o, c} \in B^c} v_o \leq V \forall c \in C}
+        \]
+        con \(B_o = \crl{\rnd{i,j} \in B: i=o}, B^c = \crl{\rnd{i,j} \in B: j=c}\).
+    \end{definition}
+    \begin{definition}[Obbiettivo del BPP]
+        L'obbiettivo è minimizzare il numero di contenitori usati.
+        \[
+            \min_{x \in X} f(x) = \abs{\crl{c \in C; x \cap B^c \neq \emptyset}}
+        \]
+    \end{definition}
+    \begin{problem}[Parallel Machine Scheduling Problem (PMSP)]
+        Si vuole dividere un insieme di lavorazioni fra un dato insieme di macchine minimizzando il tempo di completamento.
+    
+        Viene definito da 3 elementi significativi:
+        \begin{enumerate}
+            \item Un insieme \(L\) di lavorazioni.
+            \item Una funzione \(d: L\rightarrow \N\) che descrive la durata di ogni lavorazione.
+            \item Un insieme \(M\) di macchine.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del PMSP]
+        L'insieme base contiene le coppie tra lavorazioni e macchine:
+        \[
+            B = L \times M
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del PMSP]
+        La regione ammissibile contiene le partizioni delle lavorazioni tra le macchine:
+        \[
+            X = \crl{x \subseteq B: \abs{x \cap B_l} = 1 \forall l \in L}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del PMSP]
+        L'obbiettivo è minimizzare la massima durata totale per ogni macchina:
+        \[
+            \min_{x \in X} f(x) = \max_{m \in M} \sum_{l:\rnd{l, m} \in x} d_l
+        \]
+    \end{definition}
+    \begin{observation}[Che caratteristiche ha la funzione obbiettivo del BPP e PMSP?]
+        La funzione obbiettivo del bin packing problem e del parallel machine scheduling problem non è facile da calcolare e non è additiva: piccole modifiche nella soluzione hanno impatto variabile sull'obbiettivo.
+        
+        L'impatto di una modifica alla soluzione dipende sia dagli elementi modificati sia da quelli non modificati.
+        
+        La funzione obbiettivo risulta quindi \textbf{piatta}, cioè molte soluzioni hanno lo stesso valore.
+    \end{observation}
+\end{multicols}
+\clearpage
+\begin{problem}[Max-SAT]
+    Data una CNF (Conjunctive normal form) si cerca l'assegnamento di verità alle variabili logiche che soddisfi l'insieme di formule di peso e cardinalità massima.
+
+    Viene definito su 3 elementi significativi:
+    \begin{enumerate}
+        \item Un insieme \(V\) di variabili logiche \(x_{j}\)
+        \item Una forma congiuntiva normale (CNF) definita su tali variabili.
+        \item Una funzione peso \(w\) associata alle formule che compongono la CNF.
+    \end{enumerate}
+\end{problem}
+\begin{multicols}{2}
+    \begin{property}[Variabile logica]
+        La variabile logica \(x_{j}\) è una variabile che assume valore in \(B = \crl{0, 1}\).
+    \end{property}
+    \begin{property}[Letterale]
+        Il letterale \(l_{j}\) è una funzione ridotta a una variabile affermata o negata:
+        \[
+            l_{j} \in \crl{x_{j}, \bar{x}_{j}}
+        \]
+    \end{property}
+    \begin{property}[Formula logica]
+        La formula logica è una disgiunzione o somma logica (OR) di letterali:
+        \[
+            C_i(x) = l_{i, 1} \lor \ldots \lor l_{i, n_i}
+        \]
+    \end{property}
+    \begin{property}[CNF]
+        La CNF è una congiunzione o prodotto logico (AND) di formule logiche:
+        \[
+            CNF(x) = C_1 \land \ldots \land C_n
+        \]
+    \end{property}
+    \begin{property}[Soddisfare una funzione logica]
+        Soddisfare una funzione logica significa farle assumere valore 1.
+    \end{property}
+    \begin{definition}[Insieme base del Max-SAT]
+        L'insieme base è l'insieme degli assegnamenti di verità:
+        \[
+            B = V \times B = \crl{\rnd{x_1, 0}, \rnd{x_1, 1}, \ldots, \rnd{x_n, 0}, \rnd{x_n, 1}}
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del Max-SAT]
+        La regione ammissibile contiene i sottoinsiemi di assegnamenti:
+        \begin{description}
+            \item[Assegnamenti completi] Per ogni variabile compare almeno un letterale.
+            \item[Assegnamenti coerenti] Per ogni variabile compare un solo letterale.
+        \end{description}
+        \[
+            X = \crl{x \subseteq B: \abs{x \cup B_v} = 1 \quad \forall v \in V}
+        \]
+        con \(B_{x_j} = \crl{\rnd{x_j, 0}, \rnd{x_j, 1}}\).
+    \end{definition}
+    \begin{definition}[Obbiettivo del Max-SAT]
+        L'obbiettivo è massimizzare il peso totale delle formule soddisfatte:
+        \[
+            \max_{x \in X} f(x) = \sum_{i: C_i (x) = 1} w_i
+        \]
+    \end{definition}
+\end{multicols}
+\clearpage
+\begin{multicols}{2}
+    \begin{problem}[Set Covering]
+        Data una matrice binaria e un vettore di costi associati alle colonne, si cerca il sottoinsieme di colonne di costo minimo che copra tutte le righe. Dire che "la colonna \(j \in C\) copre la riga \(i \in R\)" significa che \(a_{ij} = 1\).
+    
+        Viene definito da 2 elementi:
+        \begin{enumerate}
+            \item Una matrice binaria \(A \in B^{m, n}\) costituita da un insieme di righe \(R\) e un insieme di colonne \(C\).
+            \item Una funzione \(c: C \rightarrow \N\) che indica il costo di ogni colonna.
+        \end{enumerate}
+    \end{problem}
+    \begin{observation}[Cosa si intende con test di ammissibilità?]
+        Con test di ammissibilità si intende una domanda del tipo: dato un sottoinsieme \(x\), si indichi se è ammissibile o no, cioè: \(x\in X\)?
+        
+        Esso può richiedere di verificare un singolo valore, come nel problema dello zaino, scorrere un insieme di attributi come nel Max-SAT o calcolare e verificare un insieme di valori come nel Bin packing problem.
+        
+        Il tempo richiesto per eseguire la verifica può cambiare secondo che il test sia eseguito su un sottoinsieme generico \(x\) o su un sottoinsieme \(x'\) ottenuto applicando una modifica a una soluzione ammissibile precedente: talvolta si può prefiltrare le modifiche lecite, mentre in altri casi è possibile solo valutarle a posteriori.
+    \end{observation}
+    \begin{definition}[Insieme base del Set Covering]
+        L'insieme base è l'insieme delle colonne:
+        \[
+            B = C
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del Set Covering]
+        La regione ammissibile contiene i sottoinsiemi di colonne che coprono tutte le righe:
+        \[
+            X = \crl{x \subseteq B: \sum_{j \in x} a_{ij} \geq 1 \quad \forall i \in R}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del Set Covering]
+        L'obbiettivo è minimizzare il costo totale delle colonne scelte:
+        \[
+            \min_{x \in X} f(x) = \sum:{j \in x} c_{j}
+        \]
+    \end{definition}
+    \begin{problem}[Set Packing]
+        Data una matrice binaria ed un vettore di valori associati alle colonne, si cerca il sottoinsieme di colonne di valore massimo che non confliggano. Dire che "Le colonne \(j'\) e \(j''\) confliggono" significa che \(a_{ij'} = a_{ij''} = 1\).
+        
+        Viene definito da 2 elementi:
+        \begin{enumerate}
+            \item Una matrice binaria \(A \in B^{m,n}\) costituita da un insieme di righe \(R\) e un insieme di colonne \(C\).
+            \item Una funzione \(\phi : C \rightarrow \N\) che indica il valore di ogni colonna,
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del Set Packing]
+        L'insieme base è l'insieme delle colonne:
+        \[
+            B = C
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del Set Packing]
+        La regione ammissibile contiene i sottoinsiemi di colonne che non confliggono:
+        \[
+            X = \crl{x \subseteq B: \sum_{j \in x} a_{ij} \leq 1 \quad \forall i \in R}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del Set Packing]
+        L'obbiettivo è massimizzare il valore totale delle colonne scelte:
+        \[
+            \max_{x \in X} f(x) = \sum_{j \in x} \phi_{j}
+        \]
+    \end{definition}
+\end{multicols}
+\clearpage
+\begin{multicols}{2}
+    \begin{problem}[Set partitioning]
+        Data una matrice binaria e un vettore di costi associati alle colonne, si cerca il sottoinsieme di colonne di costo minimo che copra tutte le righe senza conflitti.
+        
+        Viene definito da 2 elementi:
+        \begin{enumerate}
+            \item Una matrice binaria \(A \in B^{m,n}\) costituita da un insieme di righe \(R\) e un insieme di colonne \(C\).
+            \item Una funzione \(c: C \rightarrow \N\) che indica il costo di ogni colonna.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del Set Partitioning]
+        L'insieme base è l'insieme delle colonne:
+        \[
+            B = C
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del Set Partitioning]
+        La regione ammissibile contiene i sottoinsiemi di colonne che coprono tutte le righe e non confliggono:
+        \[
+            X = \crl{x \subseteq C: \sum_{j \in x} a_{ij} = 1 \quad \forall i \in R}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del Set Partitioning]
+        L'obbiettivo è minimizzare il costo totale delle colonne scelte:
+        \[
+            \min_{x \in X} f(x) = \sum_{j \in x} c_j
+        \]
+    \end{definition}
+    \begin{observation}[Ricerca di soluzioni ammissibili]
+        In un algoritmo euristico può capitare di dover risolvere il problema di trovare una soluzione ammissibile \(x \in X\). Esso è un problema di ricerca e spesso la soluzione banale, per esempio un insieme vuoto è una soluzione ammissibile nel problema dello zaino.
+        
+        Per alcuni problemi la ricerca di una soluzione è difficile: nel bin packing problem occorre che ci siano abbastanza contenitori, mentre nel set packing problem non esistono algoritmi polinomiali per rispondere.
+        
+        Un approccio è allargare la regione ammissibile (\textbf{rilassamento}), ma spesso le soluzioni introdotte risultano migliori.
+    \end{observation}
+    \begin{problem}[Vertex Cover]
+        Dato un grafo non orientato \(G = \rnd{V, E}\) si cerca il sottoinsieme di vertici di cardinalità minima tale che ogni lato del grafo vi incida.
+    \end{problem}
+    \begin{definition}[Insieme base del Vertex Cover]
+        L'insieme base è dato dall'insieme dei vertici:
+        \[
+            B = V
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del Vertex Cover]
+        La regione ammissibile contiene i sottoinsiemi di vertici tali che tutti i lati del grafo vi incidono:
+        \[
+            X = \crl{x \subseteq B: x \cap \rnd{i,j} \neq \emptyset \quad \forall \rnd{i,j} \in E}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del Vertex Cover]
+        L'obbiettivo consiste nel minimizzare il numero di vertici scelti.
+        \[
+            \min_{x \in X} f(x) = \abs{x}
+        \]
+    \end{definition}
+    \begin{problem}[Maximum Clique Problem (MCP)]
+        Dato un grafo non orientato e una funzione di peso definita sui vertici, si cerca il sottoinsieme di vertici fra loro adiacenti di peso massimo.
+        
+        Viene caratterizzato da 2 elementi:
+        \begin{enumerate}
+            \item Un grafo non orientato \(G = \rnd{V, E}\).
+            \item Una funzione \(w: V \rightarrow \N\) che indica il peso di ogni vertice.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del MCP]
+        L'insieme base è l'insieme dei vertici.
+        \[
+            B = V
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del MCP]
+        La regione ammissibile contiene i sottoinsiemi di vertici reciprocamente adiacenti.
+        \[
+            X = \crl{x \subseteq B: \rnd{i,j} \in E \quad \forall i \in x, \quad \forall j \in x \setminus {i}}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del MCP]
+        L'obbiettivo è massimizzare il peso dei vertici scelti:
+        \[
+            \max_{x \in X} f(x) 0 \sum_{j \in x} w_j
+        \]
+    \end{definition}
+\end{multicols}
+\begin{multicols}{2}
+    \begin{problem}[Maximum Indipendent Set Problem (MISP)]
+        Dato un grafo non orientato e una funzione peso definita sui vertici, si cerca il sottoinsieme di vertici fra loro non adiacenti di peso massimo.
+        
+        Viene caratterizzato da 2 elementi:
+        \begin{enumerate}
+            \item Un grafo non orientato \(G = \rnd{V, E}\).
+            \item Una funzione \(w: V \rightarrow \N\) che indica il peso di ogni vertice.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del MISP]
+        L'insieme base è l'insieme dei vertici:
+        \[
+            B = V
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del MISP]
+        La regione ammissibile contiene i sottoinsiemi di vertici reciprocamente non adiacenti:
+        \[
+            X = \crl{x \subseteq B: \rnd{i,j} \not\in E \quad \forall i \in x, \quad \forall j \in x \setminus \crl{i}}
+        \]
+    \end{definition}
+    \begin{definition}[Obbiettivo del MISP]
+        L'obbiettivo è massimizzare il peso dei vertici scelti:
+        \[
+            \max_{x \in X} f(x) = \sum_{j \in x} w_j
+        \]
+    \end{definition}
+    \begin{problem}[Travelling Salesman Problem]
+        Dato un grafo orientato e una funzione costo definita sugli archi, si cerca il ciclo di costo minimo che ricopra tutti i nodi del grafo.
+    
+        Viene caratterizzato da 2 elementi:
+        \begin{enumerate}
+            \item Un grafo orientato \(G = \rnd{N, A}\).
+            \item Una funzione \(c: A \rightarrow \N\) che indica il costo di ogni lato.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del TSP]
+        L'insieme base è l'insieme degli archi:
+        \[
+            B = A
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del TSP]
+        La regione ammissibile contiene i cicli che coprono tutti i nodi del grafo, cioè i cicli hamiltoniani.
+    \end{definition}
+    \begin{definition}[Obbiettivo del TSP]
+        L'obbiettivo è minimizzare il costo degli archi scelti.
+        \[
+            \min_{x \in X} f(x) = \sum_{j \in x} c_j
+        \]
+    \end{definition}
+    \begin{problem}[Capacitated Spanning Tree Problem (CSTP)]
+        Dato un grafo non orientato, un vertice radice, una funzione costo definita sui lati, una definita sui vertici ed una capacità massima, si cerca l'albero ricoprente di costo minimo tale che ogni sotto-albero appeso alla radice abbia peso non superiore alla capacità data.
+        
+        Viene caratterizzato da 4 elementi:
+        \begin{enumerate}
+            \item Un grafo non orientato \(G = \rnd{V, E}\) con un vertice radice \(r \in V\).
+            \item Una funzione \(c: E \rightarrow \N \) che indica il costo di ogni lato.
+            \item Una funzione \(w: V \rightarrow \N\) che indica il peso di ogni vertice.
+            \item Un numero \(W \in \N\) che indica la capacità di ogni sotto-albero.
+        \end{enumerate}    
+    \end{problem}
+    \begin{definition}[Insieme base del CSTP]
+        L'insieme base è l'insieme dei lati:
+        \[
+            B = E
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile del CSTP]
+        La regione ammissibile contiene gli alberi ricoprenti tali che il peso dei vertici ricoperti da ogni sotto-albero appeso alla radice non superi \(W\). È importante tenere a mente che il test di ammissibilità richiede la visita del grafo.
+    \end{definition}
+    \begin{definition}[Obbiettivo del CSTP]
+        L'obbiettivo è di minimizzare il costo dei lati scelti.
+        \[
+            \min_{x \in X} f(x) = \sum_{j \in x} c_j
+        \]
+    \end{definition}
+    \begin{observation}[Capacitated Spanning Tree Problem (descrizione alternativa)]
+        Se si procede ad aggiungere un insieme di sotto-alberi \(T\) di cardinalità \(\abs{V} - 1\), alcuni anche vuoti, si possono ridefinire insieme base, regione ammissibile e obbiettivo.
+    \end{observation}
+    \begin{definition}[Insieme base alt. del CSTP]
+        L'insieme base è l'insieme di coppie \(\rnd{\text{vertice}, \text{sotto-albero}}\):
+        \[
+            B = V \times T
+        \]
+    \end{definition}
+    \begin{definition}[Regione ammissibile alt. del CSTP]
+        La regione ammissibile contiene le partizioni dei vertici in sottoinsiemi di peso \(\leq W\) connessi (richiede chiaramente la visita su grafo completo).
+    \end{definition}
+    \begin{definition}[Obbiettivo alt. del CSTP]
+        L'obbiettivo consiste nel minimizzare la somma dei costi degli alberi che ricoprono ciascun sotto-insieme di vertici più i lati che li collegano alla radice.
+    \end{definition}
+    \begin{problem}[Vehicle Routing Problem (VRP)]
+        Dato un grafo orientato, un nodo deposito, una funzione costo definita sugli archi, una definita sui nodi ed una capacità, si cerca l'insieme di cicli di costo minimo che passano per il deposito e hanno ciascuno peso totale non superiore alla capacità.
+        
+        Viene caratterizzato da 4 elementi:
+        \begin{enumerate}
+            \item Un grafo orientato \(G = \rnd{N, A}\) con un nodo deposito \(d \in N\).
+            \item Una funzione \(c: A \rightarrow \N \) che indica il costo di ogni arco.
+            \item Una funzione \(w: N \rightarrow \N\) che indica il peso di ogni nodo.
+            \item Un numero \(W \in \N\) che indica la capacità di ogni ciclo.
+        \end{enumerate}
+    \end{problem}
+    \begin{definition}[Insieme base del VRP]
+        L'insieme base potrebbe essere:
+        \begin{description}
+            \item[Insieme degli archi] \(B = A\)
+            \item[Insieme delle coppie] \(B = N \times C\)
+        \end{description}
+    \end{definition}
+    \begin{definition}[Regione ammissibile del VRP]
+        La regione ammissibile potrebbe contenere:
+        \begin{enumerate}
+            \item Gli insiemi di archi che coprono tutti i nodi con cicli passanti per il deposito e di peso non superiore a \(W\), che richiede ancora la visita del grafo.
+            \item Le partizioni dei nodi in sottoinsiemi di peso ciascuno non superiore a \(W\) e copribile con un ciclo.
+        \end{enumerate}
+    \end{definition}
+    \begin{definition}[Obbiettivo del VSP]
+        L'obbiettivo è minimizzare il costo degli archi scelti:
+        \[
+            \min_{x \in X} f(x) = \sum_{j \in x} c_j
+        \]
+    \end{definition}
+    \begin{observation}[Relazione tra Maximum Clique Problem e Maximum Indipendent Set Problem]
+        Dato un grafo \(G = \rnd{V, E}\) si costruisce il grafo complementare \(\bar{G} = \rnd{V, \rnd{V \times V} \setminus E}\). Si trova quindi la soluzione ottima del MISP su \(\bar{G}\). I vertici corrispondenti danno una soluzione ottima del MCP su \(G\).
+    \end{observation}
+    \begin{observation}[Relazione tra Vertex Cover e Set Partitioning]
+        Ogni istanza di Vertex Cover può essere tradotta in un'istanza di Set Partitioning: ogni lato \(i\) corrisponde a una riga della matrice di copertura \(A\), ogni vertice \(j\) corrisponde a una colonna di \(A\).
+        
+        Se il lato \(i\) incide nel vertice \(j\), si pone \(a_{ij} = 1\), altrimenti \(a_{ij}=0\). 
+        
+        La soluzione ottima del Set Partitioning dà la soluzione ottima nel Vertex Cover.
+    \end{observation}
+    \begin{observation}[Relazione tra Bin Packing Problem e Parallel Machine Scheduling Problem]
+        I due problemi sono equivalenti: le lavorazioni corrispondono agli oggetti e le macchine ai contenitori, ma vi sono due differenze importanti da tenere a mente:
+        \begin{enumerate}
+            \item Nel Bin Packing è data la capacità e si minimizza il numero di contenitori.
+            \item Nel Parallel Machine Scheduling è dato il numero di macchine, e si minimizza il tempo di completamento.
+        \end{enumerate}
+        Per minimizzare il numero di contenitori del Bin Packing con una data capacità si procedere facendo un'ipotesi sul valore ottimo, quindi si costruisce il Parallel Machine Scheduling corrispondente e si valuta il tempo di completamento ottimo. Se questo eccede la capacità si va ad aumentare l'ipotesi iniziale e se non la eccede si prova a ridurla.
+    \end{observation}
+\end{multicols}
+\end{document}

@@ -1,0 +1,30 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{BM25}
+\begin{definition}[Modello a due Poisson]
+    Il modello delle due Poisson ipotizza che la distribuzione delle frequenze dei termini in un documento è il risultato di una combinazione di due distribuzioni Poisson, una per i termini frequenti e una per i termini rari.
+\end{definition}
+\begin{definition}[BM25]
+    Con BM25 si intende una funzione \(w_{j}(d, C)\) di pesatura dei termini che utilizza informazioni quali la frequenza dei termini \(df_{j}\), la lunghezza del documento \(dl\), la lunghezza media dei documenti della collezione \(avdl\) e la frequenza del termine considerato nel documento \(d_j\):
+    \[
+        w_{j}(d, C) =\frac{\left(k_{1}+1\right) d_{j}}{k_{1}\left((1-b)+b \frac{d l}{a v d l}\right)+d_{j}} \underbrace{\log \frac{N-d f_{j}+0.5}{d f_{j}+0.5}}_{IDF}
+    \]
+    I pesi \(k_1\) e \(b\) sono parametri liberi, tipicamente rispettivamente \(\sqr{1.2, 2.0}\) e \(0.75\).
+    
+    Il punteggio del documento per una data query si ottiene quindi sommando i termini dei pesi corrispondenti ai termini della query:
+    \[
+        W(\overline{d}, q, C)=\sum_{j} w_{j}(\overline{d}, C) \cdot q_{j}
+    \]
+    Più termini risultano comuni con la query più il peso sarà maggiore.
+    
+    Può essere visto come un'approssimazione del modello a due Poisson.
+    
+    BM25 tende a fallire quando i documenti sono molto lunghi.
+\end{definition}
+\begin{analysis}[Che significato hanno le varie parti di BM25?]
+    Innanzitutto, il membro di destra funge da \textbf{inverse document frequency (IDF)}, cioè le parole comuni risultano meno importanti. Guardando invece il termine di sinistra, iniziamo dal nominatore: qui troviamo il termine \(d_j\), che nei casi in cui viene sommato coincide con la frequenza del termine della query nel documento. Se esso aumenta di valore, allora lo score aumenta.
+    
+    Guardando invece il denominatore, questo rende la frequenza del termine meno importante che non diverse parole della query, ma più importante (con la parte frazionaria \(\sfrac{d l}{a v d l}\)) se il documento è particolarmente lungo rispetto alla media.
+\end{analysis}
+\end{document}

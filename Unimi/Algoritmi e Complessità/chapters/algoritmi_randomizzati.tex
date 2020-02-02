@@ -1,0 +1,418 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmi probabilistici e randomizzati}
+\section{Probabilistically Checkable Proofs}
+\begin{multicols}{2}
+\begin{theorem}[Teorema di Cook]
+    \textbf{SAT} è \textbf{NP-completo}.
+\end{theorem}
+\begin{definition}[Probabilistically checkable proof (PCP)]
+    Una \textbf{probabilistically checkable proof (PCP)} è un tipo di dimostrazione che può essere verificata da un algoritmo randomizzato utilizzando una quantità limitata di casualità e leggendo un numero limitato di bit della dimostrazione. L'algoritmo quindi deve procedere ad accettare dimostrazioni corrette e rifiutare dimostrazioni sbagliate con una probabilità molto alta.
+\end{definition}
+\begin{observation}[Perché le PCP sono interessanti?]
+    Le PCP sono interessanti perché esistono alcune PCP che possono essere verificate leggendo solo alcuni bit della dimostrazione, utilizzando la casualità in un modo fondamentale.
+\end{observation}
+\begin{definition}[Dimostratore (Prover)]
+    Dato una possibile soluzione \(x\) con lunghezza \(n\) a un problema \(L\) che potrebbe essere false, un \textbf{dimostratore} (prover) produce una dimostrazione \(\pi\) in cui si afferma che \(x\) risolve il problema \(L\), cioè \(x \in L\).
+\end{definition}
+\begin{observation}[Cosa è una dimostrazione per un problema \(L\)?]
+    Dato un problema di decisione o linguaggio \(L\) con un alfabeto \(\Sigma\), la dimostrazione realizzata da un dimostratore (prover) è una stringa di caratteri appartenenti all'insieme dato dalla chiusura di Kleene dell'alfabeto \(\Sigma^*\).
+\end{observation}
+\begin{definition}[Verificatore (Verifier)]
+    Un \textbf{verificatore} (verifier) è una macchine di Turing \(V\) che svolge il ruolo di oracolo randomizzato: essa verifica la dimostrazione \(\pi\) prodotta da un \textbf{dimostratore} (prover) e decide se accettare l'affermazione connessa alla dimostrazione, che la soluzione \(x\) risolve il problema \(L\) (o equivalentemente \(x \in L\)). 
+    
+    Il verificatore è un algoritmo probabilistico che riceve in input \(x\), una stringa \(w\) detta testimone (witness) e una sequenza di bit casuali \(R\): \(V\) esegue quindi una computazione deterministica basata sull'input.
+\end{definition}
+\begin{property}[Verificatore non-adattativo]
+    Un verificatore è detto non-adattativo se esegue tutte le sue query prima di ricevere la risposta di una qualsiasi query precedente.
+\end{property}
+\begin{property}[Verificatore \(\rnd{r\rnd{n}, q\rnd{n}}\)-ristretto]
+    Un verificatore è detto \textbf{\(\rnd{r\rnd{n}, q\rnd{n}}\)-ristretto} se, per ogni input \(x\) di lunghezza \(n\) e ogni \(w\), \(V^w\rnd{x}\) esegue al più \(q\rnd{n}\) query su \(w\) e usa al più \(r\rnd{n}\) bit casuali.
+\end{property}
+\begin{definition}[Sistema PCP]
+    Dato un problema di decisione \(L\) (o un linguaggio \(L\) con un alfabeto \(\Sigma\)), un sistema PCP per \(L\) con completezza \(c\rnd{n}\) e correttezza (soundness) \(s\rnd{n}\), dove \(0 \leq s\rnd{n} \leq c\rnd{n} \leq 1\), è composto da un \textbf{dimostratore} (prover) e un \textbf{verificatore} (verifier).
+\end{definition}
+\begin{property}[Completezza]
+    Per ogni \(x \in L\), data la dimostrazione \(\pi\) prodotta dal \textbf{dimostratore} (prover) associato al sistema PCP, il \textbf{verificatore} (verifier) associato accetta l'affermazione prodotta dal \textbf{dimostratore} con probabilità almeno \(c\rnd{n}\).
+\end{property}
+\begin{property}[Correttezza (Soundness)]
+    Per ogni \(x \not\in L\), per ogni dimostrazione \(\pi\) prodotta dal \textbf{dimostratore} (prover) associato al sistema PCP, il \textbf{verificatore} (verifier) associato accetta erroneamente (falso positivo) l'affermazione prodotta dal \textbf{dimostratore} con probabilità al più \(s\rnd{n}\).
+\end{property}
+\begin{definition}[Classe \(\operatorname{PCPc}(n)\)]
+    La classe di complessità \(\operatorname{PCPc}(n),\; s\rnd{n}[r\rnd{n}, q\rnd{n}]\) è la classe composta da tutti i problemi di decisione che hanno sistemi di dimostrazioni verificabili probabilisticamente (PCP) dopo il \textbf{verificatore è non-adattativo}, viene eseguito in \textbf{tempo polinomiale} e ha una complessità della casualità \(r\rnd{n}\) e una complessità delle query \(q\rnd{n}\): vale a dire il verificatore associato alla classe è \(\rnd{r\rnd{n}, q\rnd{n}}\)-ristretto.
+\end{definition}
+\end{multicols}
+\begin{definition}[Classe \(\operatorname{PCP}\)]
+    La classe di complessità \(\operatorname{PCP}[r\rnd{n}, q\rnd{n}]\) indica l'insieme dei problemi di decisione che hanno dimostrazioni verificabili probabilisticamente (PCP) che possono essere verificate in tempo polinomiale usando al più \(r\rnd{n}\) bit casuali e leggendo al più \(q\rnd{n}\) bit dalla dimostrazione. Tipicamente, le dimostrazioni corrette dovrebbero sempre essere accettate e quelle sbagliate dovrebbero essere rifiutate con probabilità maggiore di \(\frac{1}{2}\).
+    
+    È una notazione compatta per \(\operatorname{PCP}(1), \frac{1}{2}[r\rnd{n}, q\rnd{n}]\).
+\end{definition}
+\begin{definition}[Classe PCP]
+    La classe di complessità PCP è definita come \(\operatorname{PCP}(1), \frac{1}{2}[O\log{n}, O\rnd{1}]\).
+\end{definition}
+\begin{observation}[P come sottoclasse di \(\operatorname{PCP}\)]
+    Possiamo scrivere la classe \(\operatorname{P}\) come vari sottoclassi di complessità di \(\operatorname{PCP}[r\rnd{n}, q\rnd{n}]\), per esempio:
+    \begin{enumerate}
+        \item \(\operatorname{PCP}[0, 0]\): La sottoclasse definita come priva di casualità e senza accesso a una dimostrazione.
+        \item \(\operatorname{PCP}[O\rnd{\log{n}}, 0]\): La sottoclasse che utilizza un numero logaritmico di bit casuali (che non aiuta il \textbf{prover} comunque un algoritmo polinomiale può provare tutte le stringhe di lunghezza logaritmica in tempo polinomiale) e senza accesso a una dimostrazione.
+        \item \(\operatorname{PCP}[0, O\rnd{\log{n}}]\): La sottoclasse definita come priva di casualità che produce dimostrazioni di lunghezza logaritmica, che essendo prive di casualità sono stringhe fisse di lunghezza logaritmica. Un algoritmo polinomiale può verificare tutte le stringhe di lunghezza logaritmica.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Derandomizzazione]
+    Se \(r\rnd{n} = O\rnd{\log\rnd{n}}\), allora il processo di verifica della dimostrazione può essere \textbf{derandomizzato}, cioè il verificatore \(V\) può essere simulato in tempo polinomiale da un verificato deterministico che simula la computazione di \(V\) su ognuno dei \(2^{r(n)}=n^{O(1)}\) possibili input e quindi computa la probabilità che \(V^{w}(x)\) accetti l'esito della computazione. Il verificatore simulante accetta se e solo se la probabilità ottenuta è pari a \(1\).
+\end{definition}
+\begin{theorem}[Teorema del PCP]
+    \[
+        \mathrm{NP}=\mathrm{PCP}[O(\log n), O(1)]
+    \]
+    La classe di complessità dei problemi non polinomiali coincide con la classe di problemi che utilizzano un numero logaritmico di bit casuali e produce dimostrazioni di lunghezza costante.
+\end{theorem}
+
+\clearpage
+\begin{theorem}[Max3SAT è inapprossimabile]
+    Il teorema del PCP implica che non esiste un \(\epsilon_1 > 0\) tale che non esiste un algoritmo \(1+\epsilon_1\)-approssimato in tempo polinomiale per \textbf{Max3SAT}, a meno che \(\mathrm{P}=\mathrm{NP}\).
+\end{theorem}
+\begin{proof}[Max3SAT è inapprossimabile]
+    Sia \(L \in \mathrm{PCP}[O(\log n), q]\) un problema \(\mathrm{NP}\)-completo, dove \(q\) è una costante e sia \(V\) un verificatore per \(L\) \(\rnd{O(\log n), q}\)-ristretto. Procediamo a descrivere una riduzione da \(L\) a \(Max3SAT\).
+    
+    Data un'istanza \(x\) di \(L\), per dimostrare la tesi del teorema procediamo a costruire una formula 3CNF (forma normale congiunta) \(\varphi_x\) con \(m\) clausole tale che per un qualche \(\varepsilon_1 > 0\) da determinare vale:
+    \begin{align*}
+        \begin{array}{l}
+            {x \in L \quad \Rightarrow \quad \varphi_{x} \text { è soddisfacibile.}} \\
+            {x \notin L \quad \Rightarrow \quad \text {nessun assegnamento soddisfa più di }\left(1-\varepsilon_{1}\right) m \text { clausole di } \varphi_{x}}
+        \end{array}
+    \end{align*}
+    Procediamo a enumerare tutti gli input casuali \(R\) per il verificatore \(V\). La lunghezza di ogni stringa è \(r(|x|)=O(\log |x|)\), per cui il numero di queste stringhe è polinomiale in \(\abs{x}\). Per ogni \(R\), il verificatore \(V\) sceglie \(q\) posizioni \(i_{1}^{R}, \ldots, i_{q}^{R}\) e una funzione booleana \(f_{R} :\{0,1\}^{q} \rightarrow\{0,1\}\) e accetta se e solo se \(f_{R}\left(w_{i_{1}^{R}}, \ldots, w_{i_{q}^{R}}\right)=1\).
+    
+    Vogliamo simulare la possibile computazione del verificatore (per valori differenti di bit casuali di input \(R\) e diversi testimoni \(w\)).
+    
+    Per ogni \(R\) aggiungiamo le clausole che rappresentano il vincolo \(f_{R}\left(x_{i_{1}^{R}}, \ldots, x_{i_{q}^{R}}\right)=1\). Questo può essere fatto con una forma normale congiunta di dimensione \(\leq 2^q\): vale a dire che dovremmo aggiungere al più \(2^q\) clausole se dovessimo scrivere una espressione in forma normale congiunta di \(q\) termini. Dobbiamo però anche convertire le clausole di lunghezza \(q\) a clausole di lunghezza \(3\), cosa che può essere realizzata introducendo delle variabili addizionali come nella riduzione standard da \(k\)SAT a \(3\)SAT. Tutto considerato, questa trasformazione crea una formula \(\varphi_x\) con al più \(q 2^{q}\) clausole \(3\)CNF.
+    
+    Consideriamo la relazione tra l'ottimo di \(\varphi_z\) come un'istanza di \textbf{MaxE3SAT} e la domanda se \(z \in L\). Consideriamo i due casi:
+    \begin{description}
+        \item[Se \(z \in L\)] Allora deve esiste un testimone \(w\) tale che \(V^{w}(z)\) accetta per ogni \(R\). Poniamo \(x_i = w_i\) e le variabili ausiliarie di conseguenza, quindi l'assegnamento soddisfa tutte le clausole e \(\varphi_z\) è soddisfacibile. 
+        \item[Se \(z \not\in L\)] Allora consideriamo un assegnamento arbitrario alla variabile \(x_i\) e le variabili ausiliare. Consideriamo la stringa \(w\) dove \(w_i\) è posta uguale a \(x_i\). Il testimone \(w\) fa rifiutare al verificatore metà dei possibili \(R \in \{0,1\}^{r(|z|)}\) e per ogni dato \(R\), una delle clausole rappresentanti \(f_R\) fallisce. Tutto considerato, almeno una frazione \(\varepsilon_{1}=\frac{1}{2} \frac{1}{q 2^{q}}\) delle clausole fallisce.
+    \end{description}
+\end{proof}
+\begin{theorem}[Riduzione verso PCP]
+    Se esiste una riduzione verso \textbf{MaxE3SAT} per un problema \(L \in \mathrm{NP}\), allora \(L \in \mathrm{PCP}[O(\log n), O(1)]\). In particolare, se \(L\) è \(\mathrm{NP}\)-completo allora vale il teorema del PCP.
+\end{theorem}
+\begin{proof}[Riduzione verso PCP]
+    Descriviamo come costruire un verificatore per \(L\). Il verificatore \(V\) su input \(z\) si aspetta un testimone \(w\) per soddisfare l'assegnamento per \(\varphi_z\). Il verificatore sceglie \(O\left(\frac{1}{\varepsilon_{1}}\right)\) clausole a di \(\varphi_z\) a caso, e verifica che \(w\) le soddisfi tutte. Il numero di bit casuali usato dal verificatore è \(O\left(\frac{1}{\varepsilon_{1}} \log m\right)=O(\log |z|)\). Il numero di bit del testimone che sono letti dal verificatore sono \(O\left(\frac{1}{\varepsilon_{1}}\right)=O(1)\), per cui:
+    \begin{enumerate}
+         \item Se \(z \in L\) allora \(\varphi_z\) è soddisfacibile e ne segue che esiste un testimone \(w\) tale che \(V^{w}(z)\) accetti sempre.
+         \item Se \(z \not\in L\) allora per ogni testimone \(w\), una frazione delle clausole di \(\varphi\) rimangono insoddisfatte da \(w\), e quindi per ogni testimone \(w\) il verificatore \(V^{w}(z)\) rifiuta l'affermazione con probabilità \(\geq \frac{1}{2}\).
+    \end{enumerate}
+\end{proof}
+\clearpage
+\section{Da PCP a Indipendent Set}
+\begin{multicols}{2}
+\begin{definition}[Configurazione]
+    Sia \(L\) un problema \(\mathrm{NP}\)-completo, \(V\) un verificatore che mostra che \(L \in \mathrm{PCP}_{c, s}[q(n), r(n)]\). Per un input \(x\), consideriamo tutte le possibili computazioni di \(V^{w}(x)\) su tutte le possibili dimostrazioni \(w\). Una descrizione completa delle computazioni di \(V\) è data dalla specifica della casualità usata da \(V\), la lista delle query fatta da \(V\) nella dimostrazione e la lista delle risposte.
+    
+    Per ogni input \(x\) fissato, ogni query è determinata da \(x\), dalla casualità e dalle risposte precedenti: pertanto è sufficiente specificare la casualità e le risposte per poter completamente specificare una computazione.
+    
+    Una tale descrizione è detta \textbf{configurazione}.
+\end{definition}
+\begin{observation}[Massimo numero di configurazioni]
+    Il numero totali di \textbf{configurazioni} è al più pari a:
+    \[
+        2^{r(n)} \cdot 2^{q(n)}
+    \]
+    dove \(n\) è la lunghezza di \(x\).
+\end{observation}
+\begin{property}[Configurazione accettante]
+    Una configurazione accettante è una configurazione il cui verificatore accetta l'affermazione \(x \in L\).
+\end{property}
+\begin{property}[Configurazioni inconsistente]
+    Due configurazioni \(c, c'\) sono dette \textbf{inconsistenti} se sia \(c\) che \(c'\) specificano una query nella stessa posizione e ricevono due risposte differenti alla stessa query.
+\end{property}
+\begin{definition}[Grafo di configurazioni]
+    Per ogni input \(x\) definiamo un \textbf{grafo di configurazioni} \(G_x\) come un grafo che ha un vertice per ogni \textbf{configurazione accettante} di \(x\) e ha un lato tra due configurazioni se esse sono \textbf{inconsistenti}.
+\end{definition}
+\begin{claim}[13]
+    Se \(x \in L\), allora il grafo delle configurazioni associato \(G_x\) ha un \textbf{insieme indipendente} di dimensione \(\geq c \cdot 2^{r(n)}\).
+\end{claim}
+\begin{proof}[13]
+    Se \(x \in L\), allora esiste un testimone \(w\) tale che \(V^{w}(x)\) accetta l'affermazione con probabilità almeno \(c\). Cioè esiste un testimone \(w\) tale che esistono almeno \(c \cdot 2^{r(n)}\) input casuali tali che \(V^{w}(x)\) accetti. Questo implica che esistono almeno \(c \cdot 2^{r}(n)\) configurazioni mutualmente consistenti nel grafo associato \(G_x\) e queste formano un insieme indipendente.
+\end{proof}
+\begin{claim}[14]
+    Se \(x \not\in L\), allora ogni \textbf{insieme indipendente} del grafo delle configurazioni associato \(G_x\) ha dimensione \(\geq s \cdot 2^{r(n)}\).
+\end{claim}
+\begin{proof}[14]
+    Procediamo per assurdo: assumiamo che esista un insieme indipendente nel grafo delle configurazioni associato \(G_x\) di dimensione \(\geq s \cdot 2^{r(n)}\), e mostriamo che questo implichi che \(x \in L\).
+    
+    Iniziamo definendo un testimone \(w\): per ogni configurazione nell'insieme indipendente, aggiorniamo i bit di \(w\) su cui è stata eseguita una query nella configurazione in base alle risposte nelle configurazioni. Andiamo a porre a zero i bit del testimone \(w\) su cui non è stata eseguita una query in nessuna configurazione dell'insieme indipendente.
+    
+    Le \(s \cdot 2^{r(n)}\) configurazione dell'insieme indipendente corrispondono ad un numero equivalente di stringhe casuali. Quando \(V^{w}(x)\) sceglie una di queste stringhe casuali la accetta, e pertanto \(V^{w}(x)\) accetta l'affermazione con probabilità almeno \(s\), implicando che \(x \in L\), da cui l'assurdo.
+\end{proof}
+\end{multicols}
+\clearpage
+\section{Approssimazione di MaxE3SAT}
+\begin{multicols}{2}
+\begin{problem}[MaxSAT]
+    \textbf{MaxSAT} chiede di soddisfare il massimo numero di clausole di una formula in forma normale congiunta.
+\end{problem}
+\begin{problem}[MaxE3SAT]
+    \textbf{MaxE3SAT} chiede di soddisfare il massimo numero di clausole booleane contenenti \textbf{esattamente} tre letterali.
+\end{problem}
+\begin{problem}[MaxE\(k\)SAT]
+    \textbf{MaxE\(k\)SAT} chiede di soddisfare il massimo numero di clausole booleane contenenti \textbf{esattamente} \(k\) letterali. Si tratta di una generalizzazione di MaxSAT.
+\end{problem}
+\begin{observation}[Quante clausole sono soddisfacibili dall'approssimazione di MaxE3SAT?]
+    L'approssimazione di \textbf{MaxE3SAT} consente di soddisfare in tempo polinomiale almeno \(\frac{7}{8}\) delle clausole di un'istanza di \textbf{MaxE3SAT}, o più in generale soddisfare \(\left(2^{k}-1\right) / 2^{k}\) clausole di \textbf{MaxE\(k\)SAT}. Con la stessa tecnica si possono soddisfare \(\frac{1}{2}\) delle clausole di un'istanza di \textbf{MaxSAT}.
+\end{observation}
+\begin{observation}[Quale è l'idea di base dell'approssimazione di MaxE3SAT?]
+    Si procede a \textbf{derandomizzare} un algoritmo randomizzato: l'algoritmo estrae semplicemente un assegnamento a caso.
+\end{observation}
+\end{multicols}
+
+\begin{proof}[Approssimazione di MaxE3SAT]
+    Se le clausole sono composte da \(3\) letterali, una sola combinazione di letterali su \(2^3\) può rendere la clausola falsa, quindi estraendo un assegnamento a caso uniformemente, la probabilità che una specifica clausola sia vera è \(\frac{7}{8}\). Se denotiamo con \(f_i: 2^3 \rightarrow 2\) la funzione di verità a tre argomento della clausola \(i\), dove \(i \in \crl{0, \ldots, n}\) ed \(n\) è il numero delle clausole, possiamo esprimere il numero di clausole soddisfatte da un certo assegnamento alle variabili della formula come la somma delle \(f_i\), valutate sui valori assegnati alle variabili della clausola \(i\).
+    
+    La somma delle \(f_i\) è quindi una funzione \(C: 2^k \rightarrow \N\), dove \(k\) è il numero delle variabili, che associa a ogni possibile assegnamento il numero di clausole soddisfatte. Se denotiamo con \(X_i\) una variabile aleatoria che assume valore \(0\) o \(1\) equiprobabilmente, \(C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right)\) è una variabile aleatoria che ha come valore, per ogni assegnamento possibile, il numero di clausole soddisfate.
+    
+    Possiamo facilmente calcolare il valore atteso di \(C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right)\), che \textbf{per linearità} coincide con la somma dei valori attesi delle \(f_i\). Ogni \(f_i\) assume valore \(0\) con probabilità \(\frac{1}{8}\) e valore \(1\) con probabilità \(\frac{7}{8}\): il valore atteso di \(C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right)\) risulta pertanto \(\frac{7}{8}n\). Il risultato ottenuti ci fornisce un algoritmo randomizzato che ha come valore atteso del risultato l'approssimazione richiesta.
+    
+    Per \textbf{derandomizzare} l'algoritmo utilizziamo il \textbf{metodo delle probabilità condizionate}. Supponiamo di aver dimostrato che:
+    \[
+        \mathbf{E}\left[C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right) | X_{0}=b_{0}, X_{1}=b_{1}, \ldots X_{j-1}=b_{j-1}\right] \geq \frac{7}{8} n
+    \]
+    per un \(0 \leq j < k\) e \(b_i \in \crl{1,2}\). Per \(j=0\) non c'è condizionamento e l'asserto è quello che abbiamo dimostrato. Per definizione di valore atteso condizionato abbiamo che:
+    \begin{align*}
+        \begin{array}{c}
+            {\frac{7}{8} n \leq \mathbf{E}\left[C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right) | X_{0}=b_{0}, X_{1}=b_{1}, \ldots X_{j-1}=b_{j-1}\right]}\\
+            {=\frac{1}{2} \mathbf{E}\left[C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right) | X_{0}=b_{0}, X_{1}=b_{1}, \ldots X_{j-1}=b_{j-1}, X_{j}=0\right]}\\
+            {+\frac{1}{2} \mathbf{E}\left[C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right) | X_{0}=b_{0}, X_{1}=b_{1}, \ldots X_{j-1}=b_{j-1}, X_{j}=1\right]}
+        \end{array}
+    \end{align*}
+    Deve esserci quindi un \(b_j \in \crl{1,2}\) tale che:
+    \[
+        \mathbf{E}\left[C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right) | X_{0}=b_{0}, X_{1}=b_{1}, \ldots X_{j-1}=b_{j-1}, X_{j}=b_{j}\right] \geq \frac{7}{8} n
+    \]
+    Per ogni clausola, valutiamo i letterali già assegnati. Avremo alcune clausole con valore costante (che avranno valore atteso zero o uno), altre clausole con un letterale rimasto (quindi valore atteso \(\frac{1}{2}\)), clausole con due letterali rimasti (valore atteso \(\frac{3}{4}\)) e clausole con tre letterali rimasti (Con valore atteso \(\frac{7}{8}\)). Sommando i valori attesi, otteniamo il valore atteso condizionato di \(C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right)\) che ci permette di scegliere \(b_j\). 
+    
+    Quando \(j=k-1\) otteniamo un assegnamento \(b_0, b_1, \ldots, b_{k-1}\) che soddisfa almeno \(\frac{7}{8}\) delle clausole. Nel caso di \textbf{MaxSAT} possiamo solo garantire la soddisfacibilità di metà delle clausole perché le funzioni di verità delle clausole formate da un solo letterale hanno valore atteso \(\frac{1}{2}\) e quindi possiamo solo dire che il valore atteso \(C\left(X_{0}, X_{1}, \ldots, X_{k-1}\right)\) è maggiore o uguale a \(\frac{n}{2}\).
+\end{proof}
+\clearpage
+\section{Arrotondamento aleatorio per Set Cover}
+\begin{observation}[A cosa serve l'arrotondamento aleatorio?]
+    L'\textbf{arrotondamento aleatorio} (randomized rounding) è una tecnica che può essere utilizzata per ottenere soluzioni discrete a partire da un rilassamento lineare.
+\end{observation}
+\begin{definition}[Arrotondamento aleatorio per Set Cover]
+    Utilizziamo la seguente \textbf{procedura di scelta}: per ogni \(i\), inseriamo l'indice \(i\) nella soluzione \(I\) con probabilità \(\bar{x}_i\), dove \(\bar{x}_i\) sono indicatori binari dell'appartenenza dell'insieme \(S_i\) alla soluzione.
+    
+    La procedura di scelta così descritta lascerà molto probabilmente degli elementi di \(U\) scoperti: possiamo però controllare la probabilità che uno specifico elemento \(v\) rimanga scoperto:
+    \[
+        \prod_{v \in S_{i}}\left(1-x_{i}\right) \leq \prod_{v \in S_{i}} e^{-x_{i}} \leq e^{-\sum_{v \in S_{i}} x_{i}} \leq e^{-1}
+    \]
+    Ne consegue che se ripetiamo la procedura \(k+\ln n\) volte e consideriamo l'unione degli insieme soluzione così generati, la probabilità che un elemento non sia coperto è controllata da:
+    \[
+        \left(\frac{1}{e}\right)^{k+\ln n}=\frac{1}{n} e^{-k}
+    \]
+    e utilizzando il limite per l'unione, la probabilità che ci sia un qualche elemento scoperto è meno di \(e^{-k}\).
+    
+    Inoltre, se iteriamo la procedura di scelta \(k+\ln n\) volte, il valore atteso della funzione obiettivo sull'insieme unione di tutte le \(k+\ln n\) scelte generate è minore o uguale a \((k+\ln n) \overline{c}\) per \textbf{linearità}, e per la disuguaglianza di Markov sarà maggiore o uguale a \(q(k+\ln n) \overline{c}\) con probabilità al più \(\frac{1}{q}\) per ogni \(q>1\).
+    
+    Rimane quindi solo da tarare il valore di \(k\). Se scegliamo per esempio \(k=3\), la probabilità che non copriamo tutti gli elementi è meno di \(e^{-3} \leq 0.05\), mentre la probabilità di ottenere una soluzione maggiore di \(2(3+\ln n) \overline{c}\) è minore di \(\frac{1}{2}\). Messi insieme i due eventi, abbiamo probabilità \(\geq 0.45\) che l'algoritmo copra tutti gli elementi con un rapporto di prestazioni al più \(6+2\ln n\).
+\end{definition}
+\clearpage
+\section{Algoritmo di Miller-Rabin}
+\begin{multicols}{2}
+\begin{observation}[A cosa serve l'algoritmo di Miller-Rabin?]
+    L'algoritmo di Miller-Rabin utilizza dei bit aleatori per stabilire se un numero è composto. Se la risposta è positiva questa è sempre corretta, se la risposta è negative (cioè il numero sarebbe considerato primo) c'è una probabilità di errore inferiore a \(\frac{1}{2}\).
+    
+    La probabilità d'errore è sui bit aleatori, non sull'input.
+\end{observation}
+\begin{definition}[Anello delle classi di resto modulo \(n\)]
+    Denotiamo con \(\Z_n\) l'\textbf{anello delle classi di resto modulo \(n\)}, una struttura algebrica composta dall'insieme di numeri congrui in modulo \(n\) su cui sono definite due operazioni binarie, chiamate somma e prodotto.
+\end{definition}
+\begin{definition}[Gruppo delle unità]
+    Denotiamo con \(\mathbb{U}_n\) il \textbf{gruppo delle unità} di un \textbf{anello delle classi di resto modulo \(n\)} \(\Z_n\), cioè il suo gruppo moltiplicativo formato dagli elementi diversi da zero e invertibili.
+\end{definition}
+\begin{definition}[Testimone di composizione]
+    Sia \(n\) un numero dispari, e \(n-1 = 2^a b\), con \(b\) dispari. Dato \(t \in \Z_n \setminus \crl{0,1}\) consideriamo la sequenza degli \(a\) quadrati successivi a partire da \(b\):
+    \[
+        t^{b}, t^{2 b}, t^{2^{2} b}, t^{2^{3} b}, \ldots, t^{n-1}
+    \]
+    Diciamo che \(t\) è un \textbf{testimone di composizione di \(n\)} se \(t \not\bot n\), se \(t^{n-1} \neq 1\) o se esiste un \(i\) tale per cui \(t^{2 i b} \neq \pm 1\) e \(t^{2^{i+1} b}=1\).
+    
+    Si tratta di un elemento di \(\Z_n\) che ci mostra che \(n\) ha un divisore proprio, che \(n-1\) non è un multiplo dell'ordine di \(\mathbb{U}_n\) o che esistono radici quadrate dell'unità diverse da \(\pm 1\). In tutti e tre i casi \(n\) non può essere primo.
+\end{definition}
+\vfill\null
+\columnbreak
+\begin{theorem}[Teorema cinese del resto]
+    Se \(c \bot d\), allora:
+    \[\mathbf{Z}_{c d} \cong \mathbf{Z}_{c} \times \mathbf{Z}_{d}\]
+\end{theorem}
+\begin{comment}
+\begin{lemma}Es[]
+    Sia \(n\) un numero composto dispari che non è potenza di primo, e sia \(m = n-1 = 2^a b\) con \(b\) dispari e \(a>0\). Allora, per almeno la metà degli elementi \(x\) di \(\mathbb{U}_n\) tali che \(x^m=1\), la sequenza:
+    \[
+        x^{b}, x^{2 b}, x^{2 b}, x^{2^{3} b}, \ldots, x^{2^{a-1} b}, x^{m}=1
+    \]
+    contiene una radice quadrata dell'unità diversa da \(\pm 1\).
+\end{lemma}
+\end{comment}
+\begin{theorem}[Teorema di Miller]
+    Se \(n\) è primo, non ha testimoni. Se \(n\) è un numero dispari composto che non è una potenza di primo, almeno metà dei \(t \in \Z_n \setminus \crl{0}\) sono testimoni.
+\end{theorem}
+\begin{definition}[Algoritmo di Miller-Rabin]
+    Dato un numero intero \(n\):
+    \begin{enumerate}
+        \item Se \(n\) è pari è composto.
+        \item Altrimenti, per bisezione controlliamo se \(n\) è una potenza (basta controllare gli esponenti da \(2\) a \(\log n\), dobbiamo quindi operare \(\log n\) ricerche da \(\log n\) passi, e ogni passo richiede solo un'esponenziazione), e in caso positivo concludiamo che \(n\) è composto.
+        \item Estraiamo in maniera uniforme un numero casuale \(t \in \Z_n \setminus \crl{0}\)
+        \item Se \(t \not\bot n\) concludiamo che \(n\) è composto.
+        \item Se \(t^{n-1} \neq 1\) concludiamo che \(n\) è composto.
+        \item Infine, calcoliamo \(a\) e \(b\) tali che \(n-1=2^{a} b\) con \(b\) dispari e costruiamo la sequenza \(t^{b}, t^{2 b}, t^{2^{2} b}, \ldots, t^{n-1}\). Se nella sequenza compare una radice dell'unità diversa da \(\pm 1\) concludiamo che \(n\) è composto.
+        \item Se \(n\) passa tutti i test precedenti concludiamo che è primo.
+    \end{enumerate}
+    Ripetendo l'algoritmo \(k\) volte con esito negativo, la possibilità di errore nello stabilire che \(n\) è primo è al più \(2^{-k}\).
+\end{definition}
+\end{multicols}
+
+\section{Inapprossimabilità del TSP}
+\begin{proof}[Il problema del commesso viaggiatore è NP-completo]
+    Partiamo dal fatto che stabilire se un grafo non orientato \(G = \ngle{V, E}\) possiede un ciclo Hamiltoniano è NP-completo. Mostriamo ora come assumere l'esistenza di un algoritmo polinomiale \(r\)-approssimante per il commesso viaggiatore permetterebbe di riconoscere in tempo polinomiale l'esistenza di un ciclo Hamiltoniano.
+    
+    A partire da \(G\), costruiamo un'istanza \(G'\) del commesso viaggiatore con insieme di vertici \(V\) in cui:
+    \[
+        d(x, y)=\left\{\begin{array}{ll}{1} & {\text { se }\langle x, y\rangle \in E} \\ {\lceil n r\rceil+ 1} & {\text { se }\langle x, y\rangle \notin E}\end{array}\right.
+    \]
+    dove \(n = \abs{V}\). Ne segue che \(G\) ha un ciclo Hamiltoniano se e solo se \(G'\) ha un ciclo Hamiltoniano di peso \(n\). Solo tale ciclo, infatti, usa solo lati di \(G\). Qualunque ciclo Hamiltoniano di \(G'\) che utilizza un lato non in \(G\) ha peso almeno \(\lceil n r\rceil+ 1\).
+    
+    Se potessimo approssimare il commesso viaggiatore meglio di \((\lceil n r\rceil+ 1) / n>r\) potremmo decidere se il grafo \(G\) possiede un ciclo Hamiltoniano in tempo polinomiale.
+\end{proof}
+\clearpage
+\section{NP-optimization problem (NPO)}
+\begin{multicols}{2}
+\begin{definition}[Classe di problemi NPO]
+    \textbf{NPO} è la classe dei problemi di ottimizzazione i cui associati problemi decisione, per qualunque costante, sono in \textbf{NP}. La soluzione di un problema in \textbf{NPO} è un algoritmo che a fronte di un'istanza \(x\) trova una soluzione \(y\) ottima, cioè con costo:
+    \[
+        c_{A}(x, y)=t\left\{c_{A}(x, z) | z \text { soluzione di } x\right\}
+    \]
+    Scriveremo \(\text{opt}_A\rnd{x}\) il costo di una soluzione ottima per l'istanza \(x\) di \(A\).
+\end{definition}
+\begin{definition}[NP-optimization problem (NPO)]
+    Un problema \(A\) di ottimizzazione in NPO è dato da:
+    \begin{enumerate}
+        \item Un insieme di \textbf{istanze} riconoscibili in tempo polinomiale.
+        \item Per ogni istanza \(x\), un insieme di soluzioni (accettabili), che devono essere corte (esiste un polinomio \(p\) tale che \(\abs{y} \leq p\rnd{\abs{x}}\) per ogni istanza \(x\) e per ogni soluzione \(y\) di \(x\)) e riconoscibili in tempo polinomiale.
+        \item Una funzione \(c_A\), calcolabile in tempo polinomiale, che data un'istanza \(x\) e una sua soluzione \(y\) restituisce il \textbf{costo} (intero) di \(y\). 
+        \item Un tipo \(t \in \crl{\max, \min}\)
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Rapporto di prestazioni NPO]
+    Per ogni soluzione \(y\) di un'istanza \(x\) di un problema \(A\) in \textbf{NPO} esiste un \textbf{rapporto di prestazioni}:
+    \[
+        R_{A}(x, y)=\max \left\{\frac{c_{A}(x, y)}{\operatorname{opt}_{A}(x)}, \frac{\operatorname{opt}_{A}(x)}{c_{A}(x, y)}\right\}
+    \]
+    che esprime la bontà della soluzione come un numero nell'intervallo \([1 \ldots \infty)\) \textbf{indipendentemente} dal tipo di problema (minimizzazione / massimizzazione).
+\end{definition}
+\begin{definition}[APX]
+    \textbf{APX} è la sottoclasse di problemi \textbf{NPO} che ammettono un algoritmo di approssimazione con rapporto di prestazioni controllato da una costante. Esiste cioè una costante \(r\), indipendente dall'istanza \(x\) e dalla soluzione \(y\), tale che \(R_A\rnd{x,y}<r\).
+\end{definition}
+\begin{observation}[APX \(\neq\) NPO]
+    \textbf{MaxE3SAT} è un problema della classe APX, dato che il suo rapporto di prestazioni è minore o uguale a \(\frac{8}{7}\), mentre \textbf{MaxDisjointPaths} non lo è (dato che ci sono istanze le cui soluzioni hanno rapporto di prestazioni \(\Omega(\sqrt{m})\)).
+\end{observation}
+\begin{definition}[PTAS]
+    \textbf{PTAS} è la sottoclasse di problemi di \textbf{APX} che ammettono uno schema di approssimazione polinomiale: esiste cioè un algoritmo che dato \(r\) e un'istanza \(x\) calcola in tempo polinomiale in \(\abs{x}\) (ma non necessariamente in \(r\)) una soluzione.
+\end{definition}
+\begin{observation}[PTAS \(\neq\) APX]
+    Il problema dello zaino è in \textbf{PTAS}, mentre il problema della \textbf{Center selection} è in \textbf{APX} ma non in \textbf{PTAS} (dato che non esistono algoritmi polinomiali con rapporto di prestazione inferiore a \(2\)).
+\end{observation}
+\end{multicols}
+\clearpage
+\section{Problemi di gap con promessa}
+\begin{multicols}{2}
+\begin{definition}[Problema di decisione con promessa]
+    Un \textbf{problema di decisione con promessa} \(L\) è specificato da due insiemi \(L_{\text{yes}}, L_{\text{no}} \subseteq 2^*\) che soddisfano \(L_{\text{yes}} \cap L_{\text{no}} = \emptyset\). La differenza fondamentale con un normale problema di decisone è che non necessariamente tutte le stringhe in \(2^*\) sono istanze si o istanze no: possono esistere in generale stringhe che non appartengono né a \(L_{\text{yes}}\), né a \(L_{\text{no}}\), e nella definizione delle classi noi teniamo conto solo delle stringhe \(L_{\text{yes}} \cup L_{\text{no}}\).
+    
+    Intuitivamente \textbf{promettiamo} alla macchina di Turing che deve riconoscere \(L\) di dare in input solo stringhe che sono istanze. Ogni problema di decisione standard è semplicemente un problema con promessa vuota.
+\end{definition}
+\begin{observation}[A cosa servono i problemi con promessa?]
+    I problemi con promessa permettono di codificare in maniera naturale i risultati di inapprossimabilità tramite gap. 
+\end{observation}
+\begin{example}[Problema con promessa applicato a Center Selection]
+    Sappiamo che non è possibile distinguere certe istanze di \textbf{Center Selection} che hanno soluzione ottima \(1\) o \(2\), a meno che \(\mathrm{P}=\mathrm{NP}\). Questo è traducibile nel fatto che il problema con promessa che ha come istanze-sì le istanze con soluzione ottima \(1\) e ha come istanze-no le istanze con soluzione \(2\) è NP-difficile.
+\end{example}
+\begin{definition}[Riduzione]
+    Dati due problemi con promessa \(L\) e \(M\), una \textbf{riduzione} da \(L\) a \(M\) è una funzione \(f : 2^{*} \rightarrow 2^{*}\), calcolabile in tempo polinomiale, tale che:
+    \begin{align*}
+        \begin{aligned}
+            x \in L_{\mathrm{yes}} & \Longrightarrow f(x) \in M_{\mathrm{yes}} \\
+            x \in L_{\mathrm{no}} & \Longrightarrow f(x) \in M_{\mathrm{no}}
+        \end{aligned}
+    \end{align*}
+    La funzione \(f\) mappa istanze-si di \(L\) a istanze-si di \(M\) e istanze-no di \(L\) a istanze-no di \(M\).
+\end{definition}
+\begin{observation}[A cosa servono le riduzioni?]
+    Se la riduzione \(M\) è trattabile anche \(L\) è trattabile, quindi se \(L\) è difficile anche la riduzione \(M\) è difficile. Possiamo quindi propagare risultati di difficoltà di approssimazione verso nuovi problemi costruendo un problema di gap con promessa opportuno, e una riduzione opportuna.
+\end{observation}
+\begin{example}[Ridurre MaxE3SAT a Maximum Indipendent Set]
+    Un problema di gap con promessa di \textbf{MaxE3SAT} si può ridurre a un problema di gap con promessa equivalente di \textbf{Maximum Indipendent Set}.
+    
+    Utilizzando la riduzione da \textbf{3SAT} a \textbf{Indipendent Set}, che associa a ogni clausola con \(k\) letterali una \(k\)-cricca i cui vertici sono decorati con i rispettivi letterali, e connette vertici di cricche diverse associati a letterali opposti, è possibile vedere che il numero di clausole soddisfatte di un'istanza di \textbf{MaxE3SAT} è esattamente la dimensione del massimo insieme indipendente del grafo associato. Dato che le clausole di \textbf{MaxE3SAT} contengono esattamente tre letterali, il grafo associato a una formula con \(n\) clausole ha esattamente \(3n\) vertici.
+    
+    Se consideriamo un problema di gap con promessa che chiede di distinguere formule di \textbf{MaxE3SAT} soddisfacibili da formule con al più \(1-\epsilon\) clausole soddisfacibili (cioè dove esiste un gap \(\frac{1}{\rnd{1-\epsilon}}\)), vediamo subito che le formule vengono mappate in grafi con \(3n\) vertici, dove \(n\) è il numero di vertici della formula.
+    
+    Nel caso soddisfacibile, il grafo ha un insieme indipendente di dimensione esattamente \(n\), mentre nel secondo caso non può esistere un insieme indipendente di dimensione superiore a \(\rnd{1-\epsilon}n\). Il gap associato a questa promessa è quindi di nuovo \(\frac{1}{1-\epsilon}\), e non è quindi possibile approssimare meglio \textbf{Maximum Indipendent Set}. Utilizzando il risultato ottimo di Håstad \(\varepsilon=\frac{1}{8}\) abbiamo che il \textbf{Maximum Indipendent Set} non è approssimabile meglio di \(\frac{8}{7}\), esattamente come \textbf{MaxE3SAT}.
+\end{example}
+\begin{example}[Ridurre Maximum Indipendent Set a Minimum Vertex Cover]
+    Il problema di gap con promessa di \textbf{Maximum Indipendent Set} appena descritto può essere ridotto a un problema di gap con promessa per \textbf{Minimum Vertex Cover}.
+    
+    Dato che il complemento di un insieme indipendente è esattamente un insieme di vertici di copertura, la promessa diventa la seguente: si considerano grafi di dimensione \(3n\) per qualche \(n\geq 1\), e si sa che esiste un insieme di vertici di copertura più piccolo di \(3n -n=2n\), oppure uno maggiore di \(3 n-(1-\varepsilon) n= 2 n+\varepsilon n\). Il gap associato è quindi \((2+\varepsilon) n / 2 n=1+\varepsilon / 2\). Dato che \(\epsilon < 1\) vale che:
+    \[
+        1+\frac{\varepsilon}{2}<1+\frac{\varepsilon}{1-\varepsilon}=\frac{1}{1-\varepsilon}
+    \]
+    Utilizzando il risultato ottimo di Håstad \(\epsilon = \frac{1}{8}\) vale che \textbf{Minimum Vertex Cover} non è approssimabile meglio di \(1+\frac{1}{16} \approx 1.06\).
+\end{example}
+\end{multicols}
+\clearpage
+\section{Taglio minimo}
+\begin{multicols}{2}
+\begin{problem}[Taglio minimo]
+    Il \textbf{taglio minimo} di un grafo è una partizione dei vertici di un grafo in due sottoinsiemi disgiunti che risulta minimale in qualche senso: nel caso di grafi pesati può essere il totale del peso degli archi tagliati, e in questo caso può essere risolto in tempo polinomiale dall'algoritmo di Stoer-Wagner. Nel caso in cui i lati non sono pesati, l'algoritmo di Karger fornisce un'approssimazione efficiente per identificare il taglio minimo.
+\end{problem}
+\begin{definition}[Algoritmo di Karger]
+    L'algoritmo di Karger iterativamente sceglie un lato a caso e contrae i nodi connessi in un solo nodo: i lati connessi a uno qualsiasi dei due nodi vengono ora considerati connessi al nuovo nodo. L'algoritmo itera fino a che non rimangono solo due nodi: questi rappresentano un taglio del grafo originale.
+    
+    L'algoritmo viene iterato un numero sufficiente di volte tale che un taglio minimo può essere identificato con alta probabilità.
+\end{definition}
+\begin{analysis}[Analisi dell'algoritmo di Karger]
+    In un grafo \(G = \rnd{V,E}\), con \(n = \abs{V}\) vertici, l'algoritmi di Karger ritorna un taglio minimo con probabilità \(\left(\begin{array}{l}{n} \\ {2}\end{array}\right)^{-1}\). Ogni grafo ha \(2^{n-1}-1\) tagli, tra i quali al più \(\left(\begin{array}{l}{n} \\ {2}\end{array}\right)\) sono minimi. La probabilità di successo di questo algoritmo è molto migliore della probabilità di identificare un taglio minimo a caso, che è:
+    \[
+        \left(\begin{array}{l}{n} \\ {2}\end{array}\right) /\left(2^{n-1}-1\right)
+    \]
+\end{analysis}
+\vfill\null
+\columnbreak
+\begin{observation}[Quante volte va ripetuto l'algoritmo di Karger?]
+    Ripetendo l'algoritmo di Karger per \(T=\left(\begin{array}{l}{n} \\ {2}\end{array}\right) \ln n\) volte con scelte indipendenti randomiche e ritornando il taglio minimo trovato, la probabilità di non trovare il taglio minimo è:
+    \[
+        \left[1-\left(\begin{array}{c}{n} \\ {2}\end{array}\right)^{-1}\right]^{T} \leq \frac{1}{e^{\ln n}}=\frac{1}{n}
+    \]
+\end{observation}
+\begin{complexity}[Complessità di Karger]
+    Il tempo totale per eseguire \(T\) ripetizioni per un grafo con \(n\) vertici e \(m\) lati è:
+    \[
+        O(T m)=O\left(n^{2} m \log n\right)
+    \]
+\end{complexity}
+\begin{analysis}[Applicazione dell'algoritmo di Karger a un grafo ciclico]
+    In un grafo ciclico di \(n\) vertici ha esattamente \(\left(\begin{array}{l}{n} \\ {2}\end{array}\right)\) tagli minimi. L'algoritmo di Karger identifica ognuno di questi tagli con pari probabilità.
+    
+    Per determinare un massimale della probabilità di successo in generale, sia \(C\) l'insieme degli archi di un taglio di dimensione \(k\). Alla prima contrazione, la probabilità che non venga coinvolto un lato appartenente a \(C\) è \(1- \frac{k}{\abs{E}}\). Il grado minimo di \(G\) è almeno \(k\), per cui \(|E| \geq \frac{nk}{2}\). La probabilità che l'algoritmo, ad ogni data iterazione, scelga un nodo da \(C\) è:
+    \[
+        \frac{k}{|E|} \leq \frac{k}{n k / 2}=\frac{2}{n}
+    \]
+    La probabilità \(p_n\) che l'algoritmo su un grafo con \(n\) vertici ritorni \(C\) vale:
+    \begin{align*}
+        p_{n} &\geq \prod_{i=0}^{n-3}\left(1-\frac{2}{n-i}\right)=\prod_{i=0}^{n-3} \frac{n-i-2}{n-i}\\
+        &=\frac{n-2}{n} \cdot \frac{n-3}{n-1} \cdot \frac{n-4}{n-2} \cdots \frac{2}{4} \cdot \frac{1}{3}=\left(\begin{array}{l}{n} \\ {2}\end{array}\right)^{-1}        
+    \end{align*}
+\end{analysis}
+\end{multicols}
+\end{document}

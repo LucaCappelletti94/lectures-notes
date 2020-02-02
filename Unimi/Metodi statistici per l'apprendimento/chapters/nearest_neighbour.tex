@@ -1,0 +1,46 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmo Nearest Neighbour}
+\begin{multicols}{2}
+    \begin{definition}[Algoritmo Nearest Neighbour]
+        Dato un training set \(S\) contenente gli esempi \(\examples{m}\), l'algoritmo \textbf{nearest neighbour} (NN) genera un classificatore \(\funcdef{h_{NN}}{\R^d}{\binaryImage}\) definito come:
+        \[
+            \hNN{\bmx} = \parbox{0.5\textwidth}{etichetta \(y_t\) del punto \(\bmx \in S\) più vicino a \(\bmx\).}
+        \]
+        Se esiste più di un punto in \(S\) a distanza minima da \(\bmx\), allora prediciamo con la maggioranza delle etichette di questi punti più vicini. Se c'è un uguale numero di punti più vicini ad \(\bmx\) con etichette positive e negative, prediciamo un valore di default in \(\binaryImage\).
+
+        In particolare, il classificatore è costruito in modo tale che \(\hNN{\bmx_t} = y_t\) per ogni esempio \(\rnd{\bmx_t, y_t}\) del training set. La distanza fra \(\bmx\) e \(\bmx_t\), denotata con \(\norm{\bmx - \bmx_t}\), viene misurata con la formula della distanza euclidea fra due vettori.
+    \end{definition}
+    \begin{definition}[Distanza euclidea]
+        Dati due vettori \(\bmx\) e \(\bmx_t\), la distanza euclidea tra di essi è definita come:
+        \[
+            \norm{\bmx - \bmx_t} = \sqrt{\sum_{i=1}^d\rnd{x_i - x_{i,t}}^2}
+        \]
+    \end{definition}
+    \begin{definition}[Celle di Voronoi]
+        Il classificatore generato dall'algoritmo Nearest Neighbour induce una partizione di \(X = \R^n\) in \textbf{celle di voronoi}, dove ogni istanza \(\bmx_t\) del training set è il centro di una stella e il confine tra due celle è costituito dai punti \(\bmx\) equidistanti dai due centri.
+    \end{definition}
+    \begin{observation}[I limiti del classificatore Nearest Neighbour]
+        L'algoritmo Nearest Neighbour ha diverse controindicazioni, tra cui:
+        \begin{enumerate}
+            \item Esso deve memorizzare l'intero training set, quindi l'algoritmo non è pratico per dataset di grandi dimensioni.
+            \item Dato un qualunque punto \(\bmx\) di test, il calcolo dell'etichetta \(\hNN{\bmx}\) è computazionalmente oneroso in quanto richiede, in generale, il calcolo delle istanze fra \(\bmx\) e ogni \(\bmx_t\) del training set.
+            \item L'algoritmo realizza sempre un classificatore tale che \(\testerror{h_NN} = 0\), cosa non sorprendente dato che esso memorizza tutto il training set.
+        \end{enumerate}
+    \end{observation}
+    \begin{definition}[Algoritmi \(k\)-NN]
+        Dai predittori NN è possibile ottenere la famiglia di algoritmi \(k\)-NN: dato un training set \(S = \examples{m}\), \(k\)-NN genera un classificatore \(h_{k-\text{NN}}\) tale che \(\hkNN{\bmx}\) è l'etichetta \(y_t \in \binaryImage\) che appare nella maggioranza dei \(k\) punti \(\bmx_t \in S\) più vicini a \(\bmx\). Per valutare \(\hkNN{\bmx}\), si compiono le seguenti operazioni:
+        \begin{enumerate}
+            \item Trovo i \(k\) punti \(\bmx_{t_1}, \ldots, \bmx_{t_k}\) del training set più vicini a \(\bmx\) e siano \(y_{t_1}, \ldots, y_{t_k}\) le etichette di questi punti.
+            \item Se la maggioranza delle etichette \(y_{t_1}, \ldots, y_{t_k}\) è pari a \(+1\), allora \(\hkNN{\bmx} = +1\), altrimenti se è pari a \(-1\) allora \(\hkNN{\bmx} = +1\). Nel caso in cui non vi sia una maggioranza, allora predico un valore di default in \(\binaryImage\).
+        \end{enumerate}
+    \end{definition}
+    \begin{observation}[Applicazioni di algoritmi \(k\)-NN]
+        Gli algoritmi \(k\)-NN si prestano bene a risolvere problemi di classificazione multiclasse (dove l'immagine contiene più di due simboli) e di regressione.
+    \end{observation}
+    \begin{observation}[Test error nell'algoritmo \(k\)-NN]
+        Nell'algoritmo \(k\)-NN avremo in generale \(\testerror{h_{k-\text{NN}}}>0\).
+    \end{observation}
+\end{multicols}
+\end{document}

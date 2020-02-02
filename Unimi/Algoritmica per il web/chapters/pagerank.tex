@@ -1,0 +1,44 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Ranking}
+\begin{multicols}{2}
+\begin{definition}[Sistema di reperimento di informazioni]
+    Un sistema di reperimento di informazioni è dato da una collezione documentale \(D\) di dimensione \(N\), da un insieme \(Q\) di interrogazioni, e da una funzione di \textbf{ranking} \(r: Q \times D \rightarrow \R\) che assegna a ogni coppia data da un'interrogazione e un documento un numero reale.
+    
+    I documenti sono tanto più rilevanti quanto il punteggio è alto.
+\end{definition}
+\begin{definition}[Ranking endogeno]
+    Un tipo di algoritmo di ranking che utilizza il contenuto del documento.
+\end{definition}
+\begin{definition}[Ranking esogeno]
+    Un tipo di algoritmo di ranking che utilizzano la struttura esterna.
+\end{definition}
+\begin{definition}[Ranking statico]
+    Un criterio di ranking statico è indipendente dall'interrogazione. Il punteggio assegnato a ciascun documento è fisso e indipendente da \(q\).
+\end{definition}
+\begin{definition}[Ranking dinamico]
+    Un criterio di ranking dinamico è dipendente dall'interrogazione.
+\end{definition}
+\end{multicols}
+\section{Pagerank}
+\begin{multicols}{2}
+\begin{definition}[PageRank]
+    \textbf{PageRank} è un criterio di ranking statico esogeno basato sulla passeggiata naturale del grafo del web \(G\). Fissato un parametro \(\alpha\) tra \(0\) e \(1\), a ogni passo con probabilità \(\alpha\) si segue un arco uscente e con probabilità \(1-\alpha\) si sceglie un qualunque altro nodo del grafo utilizzando una qualche distribuzione \(\bm{v}\), detta \textbf{vettore di preferenza}. Assumendo che non esistano pozzi, la catena è quindi rappresentata dalla combinazione lineare:
+    \[
+        \alpha G+(1-\alpha) \mathbf{1} v^{T}
+    \]
+    dove \(G\) è la matrice della passeggiata naturale su \(G\). Un valore tipico scelto per \(\alpha\) è \(0.85\).
+    
+    Il grafo associato è unicatenario: tutti i nodi hanno archi entranti da ogni altro nodo e sono pertanto tutti essenziali e siccome hanno anche un loop sono tutti aperiodici. Tutti i nodi essenziali stanno nella stessa unica componente terminale e la matrice associata risulta unicatenaria e aperiodica, e ha quindi sempre un'unica distribuzione limite, detta \textbf{PageRank}.
+\end{definition}
+\begin{definition}[Fattore di attenuazione (damping factor)]
+    In effetti è possibile pensare a PageRank come una funzione di \(\alpha\): per \(\alpha\approx 0\) PageRank è pari al vettore di preferenza o per \(\alpha\approx 1\) risulta concentrato nelle componenti terminali.
+    
+    Esso è essenziale per rendere la matrice aperiodica e unicatenaria e riduce il numero di cifre significative necessario per il calcolo della distribuzione limite e rende inoltre il calcolo stesso molto più rapido.
+\end{definition}
+\begin{observation}[Come si risolvono i pozzi in PageRank?]
+    Solitamente per risolvere i pozzi si aggiunge un arco verso ogni altro nodo, di fatto redistribuendo il ranking dei pozzi in maniera uniforme: giunti a un pozzo si salta in un altro nodo a caso. Altrimenti si può saltare a un altro nodo usando per esempio il vettore di preferenza.
+\end{observation}
+\end{multicols}
+\end{document}

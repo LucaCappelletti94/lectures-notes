@@ -1,0 +1,227 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Simulated Annealing e Tabù Search}
+\begin{multicols}{2}
+\begin{observation}[Cosa comporta proseguire la ricerca locale? Quali strategie esistono?]
+    Anziché ripetere la ricerca locale è possibile proseguirla peggiorando, ma se non cambiano intorno e obbiettivo, bisogna accettare soluzioni non minime:
+    \[
+        x' = \argmin_{x \in N(x)} f(x)
+    \]
+    ed eventualmente anche non miglioranti.
+    
+    Il problema principale è il rischio di visitare ciclicamente soluzioni uguali.
+    
+    Esistono principalmente due strategie che consentono di controllarlo: il Simulated Annealing, che usa passi causali, ed il Tabu Search, che usa memoria.
+\end{observation}
+\begin{definition}[Simulated Annealing]
+    Deriva dall'algoritmo di Metropolis, che intende simulare il processo di ricottura dei metalli, e possiede varie analogie con l'Ottimizzazione Combinatoria: questo suggerisce la possibilità di usarlo per l'ottimizzazione.
+
+    L'algoritmo di Metropolis genera una sequenza casuale di stati:
+    \begin{enumerate}
+        \item Lo stato corrente \(i\) ha energia \(E_i\).
+        \item L'algoritmo perturba \(i\), generando uno stato \(j\) con energia \(E_j\).
+        \item Lo stato corrente passa da \(i\) a \(j\) con probabilità:
+        \[
+            \pi_{T}\rnd{i,j} = \begin{cases}
+                1 & E_j < E_i\\
+                e^{\frac{E_i - E_j}{kT}} & E_j \geq E_i
+            \end{cases}
+        \]
+    \end{enumerate}
+    Vale a dire che lo spostamento è deterministico se migliora, basato sulla probabilità condizionata se peggiora.
+\end{definition}
+\begin{definition}[Criterio di accettazione per Simulated Annealing]
+\[
+    \pi_T \rnd{x, x'} = \begin{cases}
+        1 & f\rnd{x'} < f\rnd{x}\\
+        e^{\frac{f\rnd{x} - f\rnd{x'}}{T}} & f\rnd{x'} \geq f\rnd{x} 
+    \end{cases}
+\]
+La temperatura \(T\) regola la probabilità di accettare peggioramenti:
+\begin{enumerate}
+    \item Con \(T >> 0\) vengono accettati quasi sempre: si tende a diversificare al limite come in una random walk.
+    \item Con \(T \approx 0\) vengono rifiutati quasi sempre: si tende ad intensificare, al limite come in una steepest descent.
+\end{enumerate}
+\end{definition}
+\begin{analysis}[Convergenza all'ottimo di Simulated Annealing]
+La probabilità che la soluzione corrente sia \(x'\) è la somma su tutti i possibili predecessori \(x\) delle probabilità di:
+\begin{itemize}
+    \item Estrarre la mossa \(\rnd{x, x'}\), che è uniforme.
+    \item Accettare la mossa è:
+    \[
+        \pi_T \rnd{x, x'} = \begin{cases}
+            1 & f\rnd{x'} < f\rnd{x}\\
+            e^{\frac{f\rnd{x} - f\rnd{x'}}{T}} & f\rnd{x'} \geq f\rnd{x} 
+        \end{cases}
+    \]
+\end{itemize}
+dunque, ad ogni passo dipende solo dalla probabilità al passo prima: la variabile aleatoria \(x\) forma nel tempo una \textbf{catena di Markov}.
+
+Ad ogni temperatura fissata, le probabilità di transizione sono uniformi: si ha una catena di Markov omogenea. Se lo spazio di ricerca è connesso rispetto all'intorno \(N\), la probabilità di raggiungere ogni stato è \(> 0\) e si ha una catena di Markov irriducibile. Sotto queste ipotesi, la probabilità tende a una distribuzione stazionaria indipendente dalla soluzione iniziale.
+
+La distribuzione stazionaria è quella indicata dalla termodinamica per l'equilibrio termico dei sistemi fisici che privilegia le soluzioni "buone", con \(X\) insieme delle soluzioni ammissibili e \(T\) parametro "temperatura":
+\[
+    \pi_T \rnd{x} = \frac{e^{\frac{-f(x)}{T}}}{\sum_{x \in X} e^{\frac{-f(x)}{T}}} \quad \forall x \in X
+\]
+
+Se \(T \rightarrow 0\) la distribuzione tende a una distribuzione limite:
+\[
+    \pi(x) = \lim_{T\rightarrow 0} \pi_T(x) = \begin{cases}
+        \frac{1}{\abs{X^*}} & x \in X^*\\
+        0 & x \in X \setminus X^*
+    \end{cases}
+\]
+che corrisponde a una convergenza certa a una soluzione ottima globale.
+
+Il risultato però vale all'equilibrio, e valori bassi di \(T\) implicano un'alta probabilità di visitare un ottimo globale e una convergenza lenta all'ottimo.
+
+In un tempo finito, non sempre usare \(T\) più basso migliora il risultato.
+
+D'altra parte, non è necessario visitare spesso le soluzioni ottime: basta aver visitato almeno una volta una soluzione ottima. In pratica, la temperatura \(T\) viene aggiornata: parte alta e va calando.
+
+La temperatura \(T^{\sqr{0}}\) iniziale viene scelta abbastanza alta da consentire di accettare molte mosse ed abbastanza basso da rifiutare le mosse peggiori: un metodo classico è campionare l'intorno iniziale e fissare una temperatura tale da accettare una data frazione delle mosse nell'intorno (per esempio il \(90\%\)).
+\end{analysis}
+\begin{observation}[Come funziona l'aggiornamento della temperatura nel Simulated Annealing?]
+Si procede per fasi successive \(\rnd{r=0, \ldots, m}\):
+\begin{enumerate}
+    \item Ogni fase applica un valore \(T^{\sqr{r}}\) costante per \(\mathcal{L}^{\sqr{r}}\) iterazioni.
+    \item \(T^{\sqr{r}}\) viene via via aggiornata con un profilo esponenziale
+    \[
+        T^{\sqr{r}} = \a^r T^{\sqr{0}}
+    \]
+    \item \(\mathcal{L}^{\sqr{r}}\) viene aggiornato
+    \begin{itemize}
+        \item crescendo da una fase all'altra, spesso linearmente.
+        \item con valori legati al diametro del grafo di ricerca, quindi alla dimensione dell'istanza.
+    \end{itemize}
+\end{enumerate}
+Siccome \(T\) è variabile, la catena di Markov \(x\) non è omogenea ma se \(T\) cala abbastanza lentamente converge all'ottimo globale ed i parametri per definire il calo dipendono dall'istanza, in particolare da \(f\rnd{\bar{x}} - f\rnd{x^*}\), dove \(\bar{x}\) è il miglior ottimo locale non globale.
+\end{observation}
+\begin{observation}[Che efficienza computazionale possiede il simulated annealing?]
+    Calcolare la probabilità con un'esponenziale può essere pesante: conviene pre-calcolare una tavola dei valori di 
+    \[
+    e^\frac{\delta f}{T} \quad \forall \delta f = f\rnd{x} - f\rnd{f'}
+    \]
+\end{observation}
+\begin{observation}[Quali varianti del simulated annealing esistono?]
+    Se la temperatura \(T\) dipende dai risultati ottenuti, si parla di SA adattativo. \(T\) è tarato in modo che una data frazione di \(N\rnd{x}\) sia lecita, e cresce se la soluzione non migliora da molto, altrimenti cala.
+\end{observation}
+\end{multicols}
+
+\clearpage
+\section{Tabu Search}
+\begin{multicols}{2}
+\begin{observation}[Quale è l'idea di base del Tabu Search?]
+    L'idea è vietare le soluzione già visitate, imponendo alla ricerca un tabu: il punto fondamentale è come rendere efficiente l'imposizione del divieto.
+\end{observation}
+\begin{definition}[Ricerca locale con tabù]
+    Un'euristica di scambio basata sull'esplorazione esaustiva dell'intorno con un tabù sulle soluzioni visitate richiede i seguenti passi:
+    \begin{enumerate}
+        \item Valutare l'ammissibilità di ogni sotto-insieme prodotto dagli scambi.
+        \item Valutare il costo di ogni soluzione ammissibile.
+        \item Valutare la condizione tabù di ogni soluzione ammissibile promettente.
+        \item Scegliere la miglior soluzione ammissibile non tabù.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Approccio elementare per i tabù]
+    Un modo elementare per realizzare la valutazione del tabù è salvare le soluzioni visitate in una struttura opportuna e confrontare ogni soluzione esplorata con quelle tabù.
+\end{definition}
+\begin{observation}[Problemi nella valutazione elementare dei tabù]
+    La valutazione elementare del tabù però è molto inefficiente:
+    \begin{itemize}
+        \item Il confronto delle soluzioni al passo \(t\) richiede tempo \(O(t)\).
+        \item Il numero di soluzioni visitate cresce indefinitamente nel tempo.
+        \item La memoria occupata cresce indefinitamente nel tempo
+    \end{itemize}
+\end{observation}
+\begin{observation}[Come vengono risolti i problemi della valutazione dei tabù?]
+    Il \textit{Cancellation Sequence Method} ed il \textit{Reverse Elimination Method} affrtontano questi problemi, sfruttando il fatto che in generale:
+    \begin{itemize}
+        \item Le soluzioni visitate formano una catena con piccole variazioni.
+        \item Poche soluzioni visitate cadono nell'intorno di quella corrente.
+    \end{itemize}
+    
+    \textbf{L'idea è concentrarsi sulle variazioni.}
+\end{observation}
+\begin{observation}[Quali effetti negativi può portare vietare le soluzioni?]
+    Vietare le soluzioni visitate può avere due effetti negativi diversi:
+    \begin{itemize}
+        \item Può sconnettere il grafo di ricerca, creando delle "cortine di ferro" invalicabili che bloccano la ricerca: quindi sarebbe meglio evitare divieti assoluti.
+        \item Può rallentare l'uscita dai bacini di attrazione, creando un effetto di riempimento graduale, che rallenta la ricerca: quindi sarebbe meglio allargare il divieto ad altre soluzioni.
+    \end{itemize}
+    I due fenomeni suggeriscono rimedi opposti.
+\end{observation}
+\begin{definition}[Tabù basati su attributi]
+    Consiste nel vietare le soluzioni con "attributi" comuni con le soluzioni visitate, anziché limitarsi a vietare le soluzioni visitate.
+
+    Come si procede:
+    \begin{itemize}
+        \item Si definisce un insieme \(A\) di attributi.
+        \item Si gestisce un sotto-insieme \(\bar{A}\) di attributi vietati.
+        \item Sia \(A_y \subseteq A\) il sottoinsieme di attributi posseduto dalla soluzione \(y \in X\).
+        \item Si vietano tutte le soluzioni dotate di attributi vietati:
+        \[
+            A_y \cap \bar{A} \neq \emptyset \Longleftrightarrow y \text{ è tabù}
+        \]
+        \item Se si esegue una mossa che trasforma la soluzione corrente da \(x\) a \(y\) si aggiungono ad \(\bar{A}\) gli attributi che \(x\) aveva e \(y\) non ha:
+        \[
+            \bar{A} = \bar{A} \cup \rnd{A_x \setminus A_y}
+        \]
+    \end{itemize}
+    
+    Questo significa che si evitano soluzioni simili a quelle già visitate e ci si allontana più in fretta dagli ottimi locali visitati.
+\end{definition}
+\begin{definition}[Tabù temporanei e criteri di aspirazione]
+    Siccome il tabù crea zone difficili o impossibili da raggiungere, è possibile fissare una \textbf{durata limitata} \(L\), detta \textbf{tabù tenure}, con cui le soluzioni vietate tornano accessibili dopo un po' e si possono rivisitare le stesse soluzioni.
+
+    Siccome il tabù potrebbe vietare ottimi globali per semplice somiglianza si introduce un \textbf{criterio di aspirazione}: una soluzione tabù che sia migliore della miglior soluzione nota viene comunque accettata.
+    
+    Nel caso estremo in cui tutte le soluzioni dell'intorno sono tabù, si accetta quella con tabù più vecchio.
+\end{definition}
+\begin{definition}[Attributi tabù]
+    Il concetto di attributo è volutamente generico, alcuni esempi sono:
+    \begin{enumerate}
+        \item Appartenenza di un elemento alla soluzione: quando la mossa da \(x\) a \(y\) fa uscire un elemento \(i\) dalla soluzione, il tabù proibisce il reinserimento di \(i\) in soluzione.
+        \item Non appartenenza di un elemento alla soluzione: quando la mossa da \(x\) a \(y\) fa entrare un elemento \(i\) dalla soluzione, il tabù proibisce l'eliminazione di \(i\) dalla soluzione. Spesso vengono utilizzati più attributi insieme, ognuno con la sua tenure e lista.
+        \item Valore della funzione obbiettivo: si vietano soluzioni di un dato valore già assunto in precedenza dall'obbiettivo.
+        \item Valore di una funzione ausiliaria: per esempio la distanza dalla miglior soluzione nota.
+        \item Valutazione efficiente del tabù: si può valutare il tabù in tempo costante con una struttura che associa ad ogni attributo l'iterazione di inizio del tabù.
+    \end{enumerate}
+\end{definition}
+\begin{observation}[Come si possono vietare gli inserimenti?]
+    Per vietare gli inserimenti \(\rnd{A = x}\), ad ogni iterazione \(t\):
+    \begin{itemize}
+        \item valutando le mosse, è tabù inserire \(i \in B\setminus x \quad \forall t \leq T_i^{\text{in}} + L^{\text{in}}\).
+        \item eseguita la mossa, si pone \(T^{\text{in}}_i = t \quad \forall i \text{ eliminato da } x\)
+    \end{itemize}
+\end{observation}
+\begin{observation}[Come si possono vietare le eliminazioni?]
+    Per vietare le eliminazioni \(\rnd{A = B \setminus x}\):
+    \begin{itemize}
+        \item valutando le mosse, è tabù eliminare \(i \in x \quad \forall t \leq T_i^{\text{out}} + L^{\text{out}}\)
+        \item eseguita la mossa, si pone \(T_{i}^{\text{out}} = t \quad \forall i \text{ inserito in } x\)
+    \end{itemize}
+\end{observation}
+\begin{observation}[Come avviene la taratura della tabù tenure?]
+    Il valore più efficace di \(L\) è tipicamente legato alla dimensione della dimensione dell'istanza, spesso cresce lentamente (per esempio con la radice di \(n\)) e valori quasi costanti funzionano bene su ampi intervalli di dimensione.
+
+    Estrarre \(L\) a caso da un intervallo \(\sqr{L_{\min}, L_{\max}}\) rompe gli andamenti ciclici.
+    
+    Le \textbf{tabu tenure adattive} reagiscono ai risultati della ricerca aggiornando \(L\) entro un prefissato intervallo \(\sqr{L_{\min}, L_{\max}}\):
+    \begin{description}
+    \item[\(L\) diminuisce quando la soluzione corrente \(x\) migliora:] si pensa di avvicinarsi a un ottimo locale nuovo e si vuole favorire la ricerca (intensificazione).
+    \item[\(L\) aumenta quando la soluzione corrente \(x\) peggiora] si pensa di allontanarsi da un ottimo locale visitato e non si vuole rallentare (diversificazione).
+    \end{description}
+\end{observation}
+\begin{observation}[Quali varianti del Tabu search esistono?]
+    Sul lungo periodo, anche i metodi adattati perdono di efficacia. Si adottano allora strategie di lungo termine:
+    \begin{description}
+        \item[Tabu Search reattivo:] usa hash table per conservare le soluzioni visitate.
+        \item[Frequency-based Tabu Search:] conserva la frequenza di ogni attributo in soluzione in strutture analoghe a quelle usate per la recentezza.
+        \item[Exploring Tabu Search:] reinizializza la ricerca da soluzioni di buona qualità esplorate, ma mai assunte come soluzione corrente.
+        \item[Granular Tabu Search:] modifica l'intorno allargandolo via via.
+    \end{description}
+\end{observation}
+\end{multicols}
+\end{document}

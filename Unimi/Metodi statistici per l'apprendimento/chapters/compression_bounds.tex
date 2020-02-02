@@ -1,0 +1,74 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Compression bounds}
+\begin{definition}[sotto-sequenza]
+    Per ogni \(K \subseteq \crl{1, \ldots, m}\) indichiamo con \(S_K\) la sotto-sequenza del training set che contiene soltanto gli elementi indicizzati da \(K\) e indichiamo con \(S_{\bar{K}}\) la sotto-sequenza che contiene soltanto gli elementi indicizzati da \(\crl{1, \ldots, m} \setminus K\).
+\end{definition}
+\begin{definition}[Sketch]
+    Data una sequenza di esempi \(S = \rnd{\examples{m}}\), chiamiamo \textbf{sketch} per un algoritmo di classificazione \(A\) una qualsiasi sotto-sequenza \(S_K\) di \(S\) tale che \(A\rnd{S'} = A\rnd{S}\) per ogni sotto-sequenza \(S_K \subseteq S' \subset S\).
+    
+    Quindi \(A\) con input \(S_K\) genera lo stesso classificatore di \(A\) con input \(S\): una sotto-sequenza con questa proprietà esiste sempre dato che \(S_K\) può essere anche uguale ad \(S\). 
+\end{definition}
+\begin{goal}
+    Denotando:
+    \[
+        \widehat{h}=A(S)=A\left(S_{K}\right)
+    \]
+    vogliamo \textbf{limitare il rischio} \(\er\rnd{\hat{h}}\) in termini di \(\tilde{\er}\rnd{\hat{h}}\), dove:
+    \[
+        \widetilde{\operatorname{er}}(\widehat{h})=\frac{1}{\left|S_{\overline{K}}\right|} \sum_{\left(\boldsymbol{x}_{t}, y_{t}\right) \in S_{\overline{K}}} \mathbb{I}\left\{\widehat{h}\left(\boldsymbol{x}_{t}\right) \neq y_{t}\right\}
+    \]
+    è la frazione di errori commessi da \(\hat{h}\) sulla sotto-sequenza di training set \(S_{\bar{K}}\) che non include gli esempi dello sketch.
+\end{goal}
+\begin{analysis}
+    Per comodità consideriamo solo algoritmi che ammettano sempre uno sketch di cardinalità al più metà di quella del training set di partenza.
+    
+    Fissiamo quindi un algoritmo \(A\), un training set \(S\) di cardinalità \(m\) e uno sketch \(S_K\) per \(A\) di cardinalità \(\abs{K} \leq \frac{m}{2}\). È importante notare a questo punto che, per \(A\) fissato, \(K\) è una funzione del campione casuale \(S\). Introducendo le costanti \(\varepsilon_j >0\) da determinare in seguito, notiamo che:
+    \[
+        \operatorname{er}(A(S))>\widetilde{\operatorname{er}}(A(S))+\varepsilon_{|K|} \quad \Rightarrow \quad \exists \text { sketch } J,|J| \leq \frac{m}{2}, \operatorname{er}\left(A\left(S_{J}\right)\right)>\widetilde{\operatorname{er}}\left(A\left(S_{J}\right)\right)+\varepsilon_{|J|}
+    \]
+    La precedente implicazione permette di spezzare la variabile casuale \(\abs{K}\) nell'unione dei suoi possibili valori \(\abs{J}\), ottenendo:
+    \begin{align*}
+        \mathbb{P}\left(\operatorname{er}(A(S))>\widetilde{\operatorname{er}}(A(S))+\varepsilon_{|K|}\right) &\leq \mathbb{P}\left(\exists \operatorname{sketch} J,|J| \leq \frac{m}{2}, \operatorname{er}\left(A\left(S_{J}\right)\right)>\widetilde{\operatorname{er}}\left(A\left(S_{J}\right)\right)+\varepsilon_{|J|}\right)\\
+        &\leq \sum_{j=0}^{m / 2} \sum_{J \text { sketch: }} \mathbb{P}\left(\operatorname{er}\left(A\left(S_{J}\right)\right)>\widetilde{\operatorname{er}}\left(A\left(S_{J}\right)\right)+\varepsilon_{j}\right)
+    \end{align*}
+    dove abbiamo usato la regola della somma \(\mathbb{P}(A \cup B) \leq \mathbb{P}(A)+\mathbb{P}(B)\) ed ora le \(\varepsilon_j\) sono quantità deterministiche. Si noti che \(\widetilde{\operatorname{er}}\left(A\left(S_{J}\right)\right)\) denota la frazione di errori di \(A\rnd{S_J}\) sugli esempi \(\rnd{\bmx_t, y_t}\) del training set tali che \(t \not\in J\). Ora, in ciascuna probabilità
+    \[
+        \mathbb{P}\left(\operatorname{er}\left(A\left(S_{J}\right)\right)>\widetilde{\operatorname{er}}\left(A\left(S_{J}\right)\right)+\varepsilon_{j}\right)
+    \]
+    il classificatore \(A\rnd{S_J}\) per definizione è indipendente da tutti gli \(m-j\) esempi \(\rnd{\bmx_t, y_t}\) di training tali che \(t\not\in J\). Quindi \(\tilde{\er}\rnd{A\rnd{S_J}}\), che è proprio determinato da questi \(m-j\) esempi, è una media campionaria di un classificatore fissato ed ha valore atteso \(\er\rnd{A\rnd{S_J}}\).
+    \begin{multicols}{2}
+        Possiamo dunque applicare il maggiorante di Chernoff-Hoeffding ottenendo:
+        \[
+            \mathbb{P}\left(\operatorname{er}(A(S))>\widetilde{\operatorname{er}}(A(S))+\varepsilon_{|K|}\right) \leq \sum_{j=0}^{m / 2} \sum_{J :|J|=j} e^{-2(m-j) \varepsilon_{j}^{2}}
+        \]
+        Ora, scegliendo come \(\varepsilon_j\):
+        \[
+            \varepsilon_{j}=\sqrt{\frac{1}{m}\left(\ln \frac{1}{w_{j}}+\ln \frac{1}{\delta}\right)}
+        \]
+        dove i pesi \(w_j \geq 0\), che determineremo in seguito, soddisfano
+        \[
+            \sum_{j=0}^{m / 2} \sum_{J :|J|=j} w_{j} \leq 1
+        \]
+        otteniamo
+        \begin{align*} \sum_{j=0}^{m / 2} \sum_{J :|J|=j} e^{-2(m-j) \varepsilon_{j}^{2}} & \leq \sum_{j=0}^{m / 2} \sum_{J : J|=j} e^{-m \varepsilon_{j}^{2}} \\ & \leq \sum_{j=0}^{m / 2} \sum_{J |=j} \delta w_{j} \\ & \leq \delta \end{align*}
+        Quindi, con probabilità almeno \(1-\delta\) rispetto all'estrazione del training set abbiamo:
+        \[
+            \operatorname{er}(A(S)) \leq \widetilde{\operatorname{er}}(A(S))+\sqrt{\frac{1}{m}\left(\ln \frac{1}{w_{|K|}}+\ln \frac{1}{\delta}\right)}
+        \]
+        Si noti ora che per soddisfare \(\sum_{j=0}^{m / 2} \sum_{J :|J|=j} w_{j} \leq 1\) è sufficiente definire il peso \(w_j\) come:
+        \[
+            w_{j}=\frac{1}{m \left( \begin{array}{c}{m} \\ {j}\end{array}\right)}
+        \]
+        Utilizzando il maggiorante \(\left( \begin{array}{c}{m} \\ {j}\end{array}\right) \leq\left(\frac{e m}{j}\right)^{j}\) vediamo che:
+        \[
+            \ln \frac{1}{w_{j}}=\ln m+\ln \left( \begin{array}{c}{m} \\ {j}\end{array}\right) \leq \ln m+j \ln \frac{e m}{j} \leq j+(j+1) \ln m
+        \]
+        Quindi, con probabilità almeno \(1-\delta\) rispetto all'estrazione del training set abbiamo infine
+        \[
+            \operatorname{er}(A(S)) \leq \widetilde{\operatorname{er}}(A(S))+\sqrt{\frac{1}{m}\left(|K|+(|K|+1) \ln m+\ln \frac{1}{\delta}\right)}
+        \]
+    \end{multicols}
+\end{analysis}
+\end{document}

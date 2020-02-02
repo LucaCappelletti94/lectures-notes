@@ -1,0 +1,292 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmi genetici ed evoluzionistici}
+\begin{multicols}{2}
+\begin{definition}[Codifica tramite vettore di incidenza]
+La codifica più diretta per problemi di Ottimizzazione Combinatoria è il \textbf{vettore binario di incidenza} \(\xi \in \mathbb{B}^{\abs{B}}\):
+\[
+    \begin{cases}
+        \xi_i = 1 & i \in x\\
+        \xi_i = 0 & i \not\in x\\
+    \end{cases}
+\]
+\end{definition}
+\begin{observation}[Cosa si intende per algoritmi operanti su codifiche?]
+    Molte euristiche di ricombinazione lavorano su \textbf{codifiche} delle soluzioni, dette \textbf{rappresentazioni compatte}, anziché sulle soluzioni stesse. Gli operatori di scambio e ricombinazione sono definiti sulle codifiche.
+\end{observation}
+\begin{observation}[Per quali motivi gli algoritmi operanti su codifiche sono utilizzati?]
+    Gli algoritmi operanti su codifiche vengono usati per vari motivi:
+    \begin{description}
+    \item[Astrazione] Distinguere concettualmente il metodo dal problema cui viene applicato.
+    \item[Generalità] Costruire operatori di scambio e ricombinazione validi per ogni problema con un dato insieme di codifiche.
+    \end{description}
+\end{observation}
+\begin{observation}[Quali sono le caratteristiche di una buona codifica?]
+    Le prestazioni di un algoritmo genetico dipendono dalla codifica scelta, e buone codifiche dovrebbero avere le seguenti proprietà, con importanza decrescente:
+    \begin{enumerate}
+        \item Ogni soluzione deve avere una codifica, altrimenti vi sarebbero \textbf{soluzioni non ottenibili}.
+        \item Ogni codifica deve essere traducibile in una soluzione, altrimenti la popolazione conterrebbe \textbf{individui inutili}.
+        \item Ogni soluzione dovrebbe corrispondere a un pari numero di codifiche, altrimenti vi sarebbero \textbf{soluzioni indebitamente avvantaggiate}.
+        \item Le operazioni di codifica e decodifica dovrebbero essere efficienti, altrimenti si avrebbe un \textbf{algoritmo altamente inefficiente}.
+        \item Località: modifiche piccole alla codifica dovrebbero produrre modifiche piccole nella decodifica, altrimenti \textbf{non può intensificare}.
+    \end{enumerate}
+    
+    Queste condizioni dipendono moltissimo dai vincoli del problema.
+\end{observation}
+\begin{definition}[Algoritmo genetico]
+    Un algoritmo genetico prevede la costruzione di una popolazione \(X^{\rnd{0}}\) seguita ripetutamente da:
+    \begin{enumerate}
+        \item \textbf{Selezione:} genera una nuova popolazione a partire da quella corrente.
+        \item \textbf{Cross-over:} ricombina sotto-insiemi di due o più individui.
+        \item \textbf{Mutazione:} modifica singoli individui.
+    \end{enumerate}
+\end{definition}
+\begin{observation}[Cosa produce spesso soluzioni non ammissibili?]
+    Operatori mutazione e cross-over generici producono facilmente sottoinsiemi non ammissibili.
+\end{observation}
+\begin{example}[Codifica in stringhe di simboli]
+    Se l'insieme base è partizionabile in componenti:
+    \[
+        B = \bigcup_{c \in C} B_c \quad\text{con } B_c \cap B_{c'} = \emptyset \quad \forall c \neq c' 
+    \]
+    in modo che le soluzioni contengano un elemento di ogni componente:
+    \[
+        \abs{x \cap B_c} = 1 \quad \forall c
+    \]
+    \begin{enumerate}
+        \item Definire per ogni componente \(c\) un alfabeto di simboli che descrive \(B_c\).
+        \item Codificare la soluzione con una stringa di simboli \(\xi \in B_1 \times \ldots B_{\abs{C}}\):
+        \[
+            \xi_c = \alpha \text{ indica che } x \cap B_c = \rnd{c, \alpha}
+        \]
+    \end{enumerate}
+\end{example}
+\begin{definition}[Permutazioni di un insieme]
+    Una codifica di uso comune è data dalle \textbf{permutazioni di un insieme}:
+    \begin{itemize}
+        \item Le soluzioni sono permutazioni, è la codifica naturale (per esempio nel TSP i nodi).
+        \item Se le soluzioni sono partizioni e l'obbiettivo è additivo sui sottoinsiemi, il metodo \textit{order-first split-second} trasforma permutazioni in partizioni.
+        \item Se il problema ha un algoritmo costruttivo che ad ogni passo esegue:
+        \begin{itemize}
+            \item Scelta di un elemento.
+            \item Scelta del modo di inserirlo in soluzione.
+        \end{itemize}
+        È possibile scegliere gli elementi nell'ordine dato dalla permutazione.
+    \end{itemize}
+\end{definition}
+\begin{definition}[Selezione]
+    Ad ogni generazione \(g\) si costruisce una nuova popolazione \(X^{\crl{g}}\):
+    \[
+        X^{\rnd{g}} = \text{Selezione}\rnd{X^{g-1}}
+    \]
+    estraendo \(n_p = \abs{X^{\rnd{g}}}\) individui dalla popolazione corrente \(X^{\rnd{g-1}}\).
+    
+    L'estrazione segue due criteri fondamentali:
+    \begin{enumerate}
+        \item È lecito estrarre più volte lo stesso individuo.
+        \item La probabilità di estrazione è più alta per gli individui migliori.
+        \[
+            \phi\rnd{\xi} > \phi\rnd{\xi'} \Longrightarrow \pi_{\xi} \geq \pi_{\xi'}
+        \]
+        Dove la \textbf{fitness} \(\phi\) è una misura di qualità dell'individuo \(\xi\), legata al valore dell'obbiettivo per la corrispondente soluzione.
+    \end{enumerate}
+    
+    Esistono diversi schemi di selezione.
+\end{definition}
+\begin{definition}[Selezione proporzionale]
+    La selezione proporzionale assegna una probabilità proporzionale alla fitness:
+    \[
+        \pi_{\xi} = \frac{\phi\rnd{\xi}}{\sum_{\xi\in X^{\rnd{g-1}}} \phi\rnd{\xi}}
+    \]    
+\end{definition}
+\begin{definition}[Roulette-wheel selection]
+Si parla di \textbf{roulette-wheel selection} o \textbf{spinning wheel selection}:
+\begin{enumerate}
+    \item Data la popolazione \(X^{\rnd{g}=\crl{\xi_1, \ldots, \xi_{n_p}}}\)
+    \item Si costruiscono gli intervalli \(\Gamma_i = \left(\sum_{k=1}^{i-1} \pi_{\xi_i}; \sum_{k=1}^{1} \pi_{\xi_i}\right]\)
+    \item Si estrae un numero casuale \(r \in U\left(0;1\right]\)
+    \item L'individuo \(i^*\) scelto è quelle tale che \(r \in \Gamma_{i^*}\)
+\end{enumerate}
+\end{definition}
+\begin{observation}[Di quali problemi soffre la selezione proporzionale?]
+    La selezione proporzionale soffre di:
+    \begin{description}
+        \item[Convergenza prematura:] se i migliori individui sono cattivi e gli altri sono pessimi, la selezione produce rapidamente una popolazione cattiva.
+        \item[Stagnazione:] a lungo termine, tutti gli individui tendono ad avere una buona fitness, dunque uguale probabilità di selezione.
+    \end{description}
+    Per ovviare a questi difetti occorre allo stesso tempo sia limitare la differenza di probabilità tra individui diversi che differenziare la probabilità tra individui simili.
+\end{observation}
+\begin{definition}[Selezione per rango]
+    La selezione per rango ordina gli individui per fitness non decrescente ed assegna all'individuo \(k\)-esimo una probabilità:
+    \[
+        \pi_{\xi_k} = \frac{2k}{n\rnd{n-1}}
+    \]    
+\end{definition}
+\begin{observation}[Quali problemi soffre la selezione per rango?]
+    La selezione per rango risulta computazionalmente più gravoso che usare direttamente la fitness.
+\end{observation}
+\begin{definition}[Selezione per torneo]
+    La selezione per torneo è un compromesso che non richiede l'ordinamento completo delle fitness:
+    \begin{itemize}
+        \item Estrae \(n_p\) sotto-insiemi \(\bar{X}_1, \ldots, \bar{X}_{n_p}\) di dimensione \(\alpha\)
+        \item Seleziona in ciascuno l'individuo di fitness massima:
+        \[
+            \xi_k = \argmax_{\xi \in \bar{X}_k} \phi\rnd{\xi}
+        \]
+    \end{itemize}
+    
+    Il parametro \(\a\) modula la forza della selezione:
+    \begin{description}
+        \item[\(\a\approx n_p\)] favorisce gli individui migliori.
+        \item[\(\a\approx 2\)] lascia buone probabilità anche agli individui cattivi.
+    \end{description}
+\end{definition}
+\begin{observation}[Variante elitista]
+    Tutte le procedure di selezione ammettono la variante elitista, che include nella nuova popolazione l'individuo migliore di quella corrente.
+\end{observation}
+\begin{definition}[Crossover]
+L'operatore di crossover combina due individui procedendone altri due.
+\end{definition}
+    \begin{definition}[Crossover semplice]
+        Crossover con un singolo split.
+        \begin{enumerate}
+            \item Si estrae una posizione a caso con probabilità uniforme.
+            \item Si spezza la codifica in due parti in corrispondenza a tale posizione
+            \item Si scambiano le parti finali delle codifiche dei due individui.
+        \end{enumerate}
+    \end{definition}
+    \begin{definition}[Crossover doppio]
+        Crossover con un doppio split.
+        \begin{enumerate}
+            \item Si estraggono due posizioni a caso con probabilità uniforme.
+            \item Si spezza la codifica in tre parti in corrispondenza a tali posizioni.
+            \item Si scambiano le parti estreme delle codifiche dei due individui.
+        \end{enumerate}
+    \end{definition}
+    \begin{definition}[Crossover ad \(\alpha\) punti]
+        Si tratta di una versione generalizzata dei precedenti:
+        \begin{enumerate}
+            \item Si estraggono \(\alpha\) posizioni a caso con probabilità uniforme.
+            \item Si spessa la codifica in \(\alpha+1\) parti in corrispondenza a tale posizione.
+            \item Si scambiano le parti dispari delle codifiche dei due individui.
+        \end{enumerate}
+        Per valori di \(\a\) bassi si ha una \textbf{polarizzazione posizionale}, o \textbf{positional bias}: simboli vicini nella codifica tendono a rimanere insieme.
+    \end{definition}
+    \begin{definition}[Crossover uniforme]
+        È una versione di crossover che evita completamente il problema della \textbf{polarizzazione posizionale}:
+        \begin{enumerate}
+            \item Si costruisce un vettore binario casuale \(m \in U\rnd{\mathbb{B}^m}\), chiamato \textit{maschera}.
+            \item Si procede quindi a scambiare gli elementi seguendo la regola seguente:
+            \[
+                \begin{cases}
+                    \text{I simboli in posizione \(i\) restano invariati} &m_i=1\\
+                    \text{I simboli in posizione \(i\) vengono scambiati} &m_i=0
+                \end{cases}
+            \]
+        \end{enumerate}
+    \end{definition}
+\begin{definition}[Mutazione]
+    L'operatore di \textbf{mutazione} modifica un individuo per generarne uno simile. Tipicamente procede scorrendo la codifica \(\xi\) simbolo per simbolo e decide quindi con probabilità \(\pi_m\) se modificarlo o meno.
+\end{definition}
+\begin{observation}[Ammissibilità delle soluzioni]
+    Mutazione e crossover possono creare alcune codifiche, quando la relazione tra codifiche e soluzioni non è completa, che non sono realmente ammissibili.
+\end{observation}
+\begin{observation}[Quali approcci esistono per contrastare il problema della inammissibilità delle soluzioni?]
+    Esistono 3 approcci principali per contrastare questo problema:
+    \begin{enumerate}
+        \item Rappresentazione e operatori speciali
+        \item Procedure di riparazione
+        \item Funzioni di penalità
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Rappresentazione e operatori speciali]
+    Si cerca di creare solo rappresentazioni che producono (o quasi) codifiche ammissibili o alternativamente creare operatori che conservano l'ammissibilità, ma questi metodo abbandonano l'idea dell'astrazione dal problema specifico e tendono ad avvicinarsi parecchio a dei metodi di scambio e ricombinazione.
+\end{definition}
+\begin{definition}[Procedure di riparazione]
+    Come è intuibile, modifica la soluzione sino a che essa diviene ammissibile, ma questo porta a una forte polarizzazione verso le codifiche ammissibili ed introduce uno sbilanciamento verso le soluzioni ammissibili più facili da ottenere utilizzando la procedura di "sanitizzazione" che si ha realizzato.
+\end{definition}
+\begin{definition}[Funzioni di penalità]
+    Il metodo delle funzioni di penalità si basa su una \textbf{metrica di inammissibilità} \(\psi\) del tipo:
+    \[
+    \psi\rnd{x} = \begin{cases}
+        0 & x \in X\\
+        > 0 & x \not\in X
+    \end{cases}
+    \]
+    
+    Se i vincoli del problema sono espressi da uguaglianze o disuguglianze, si può definire \(\psi\rnd{x}\) come la somma pesata delle loro violazioni.
+    
+    La fitness \(\phi\) tipicamente è un'opportuna combinazione della funzione obbiettivo e della misura di inammissibilità.
+\end{definition}
+\begin{definition}[Codifiche ammissibili]
+    Chiamiamo codifiche ammissibili le codifiche che corrispondono a soluzioni ammissibili.
+\end{definition}
+\begin{definition}[Penalità assoluta]
+    Date due codifiche \(\xi\) e \(\xi'\):
+    \begin{itemize}
+        \item Se entrambe sono ammissibili, è meglio quella con \(f\) minore.
+        \item Se una sola è ammissibile, quella ammissibile è meglio dell'altra.
+        \item Se entrambe sono inammissibili, è meglio quella con \(\psi\) minore.
+    \end{itemize}
+\end{definition}
+\begin{definition}[Penalità legata al costo di riparazione]
+Data una procedura che, applicata a \(x\), produce una soluzione \(x' = r\rnd{x}\) ammissibile:
+\[
+    \phi\rnd{\xi} = \frac{1}{f\rnd{x'}} = \frac{1}{f\rnd{r\rnd{x\rnd{\xi}}}}
+\]
+cioè si usa il valore della funzione obbiettivo nella soluzione "riparata".
+\end{definition}
+\begin{definition}[Penalità uniforme]
+Le codifiche inammissibili hanno una penalità fissa:
+\[
+\phi\rnd{\xi} = \begin{cases}
+    \frac{1}{f\rnd{x\rnd{\xi}}} & \text{Per le codifiche ammissibili}\\
+    \frac{1}{f\rnd{x\rnd{\xi}} + \alpha} & \text{Per le codifiche inammissibili}
+\end{cases}
+\]
+\end{definition}
+\begin{definition}[Penalità proporzionale]
+La penalità cresce con la violazione:
+\[
+    \phi\rnd{\xi} = \frac{1}{f\rnd{x\rnd{\xi}} + \alpha\psi\rnd{x\rnd{\xi}}}
+\]
+\end{definition}
+\begin{observation}[Come si può tarare la penalità?]
+    Sperimentalmente si deduce che conviene usare la penalità minima efficace: se essa è troppo bassa non si trovano soluzioni ammissibili, e se è troppo alta si rimane confinati in una regione ammissibile.
+    
+    Sono stati proposti un numero di metodi per tarare il parametro \(\a\):
+    \begin{description}
+        \item[Metodi dinamici:] \(\alpha\) cresce nel tempo.
+        \item[Metodi adattativi:] \(\alpha\) cresce se nella popolazione prevalgono le codifiche inammissibili, cala se prevalgono quelle ammissibili.
+        \item[Metodi evoluzionistici:] ogni individuo codifica anche \(\a\), che viene selezionata e raffinata dall'euristica insieme alla soluzione.
+    \end{description}
+\end{observation}
+\begin{definition}[Meme]
+    Unità base di informazione culturale riproducibile
+\end{definition}
+\begin{definition}[Algoritmi memetici]
+    Gli algoritmi memetici si ispirano al concetto di meme e combinano:
+    \begin{enumerate}
+        \item Gli operatori genotipici che manipolano le codifiche.
+        \item Gli operatori fenotipici che manipolano le soluzioni.
+    \end{enumerate}
+    
+    Le soluzioni vengono migliorate con scambi prima di essere ricodificate.
+\end{definition}
+\begin{definition}[Strategie evoluzionistiche]
+    Sono molto simili agli algoritmi genetici, le principali differenze sono che:
+    \begin{enumerate}
+        \item Le soluzioni sono codificate in vettori di numeri reali.
+        \item La popolazione è ridotta a un singolo individuo che ne produce \(\lambda\) (si preferisce spesso usarne un piccolo numero \(\mu\)).
+        \item Esistono due varianti fondamentali:
+        \begin{enumerate}
+            \item Nella strategia \(\rnd{1+\lambda}\) i nuovi individui competono col progenitore e il migliore di tutti sopravvive.
+            \item Nella strategia \(\rnd{1, \lambda}\) i nuovi individui competono e il migliore fra loro sostituisce il progenitore, anche se quello lo domina.
+        \end{enumerate}
+        \item L'operatore di mutazione somma un disturbo casuale con distribuzione normale a media nulla.
+        \item Non esisteva in origine l'operatore di crossover, ma attualmente viene utilizzato anche in questi algoritmi.
+    \end{enumerate}
+\end{definition}
+\end{multicols}
+\end{document}

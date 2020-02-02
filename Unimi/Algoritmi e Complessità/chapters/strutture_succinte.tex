@@ -1,0 +1,348 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Strutture succinte}
+\section{Rango e selezione}
+\begin{definition}[Strutture sistematiche]
+    Le strutture succinte si basano su una ser
+    ie di primitive di base che forniscono informazioni relative a un vettore \(\bm{b}\) di \(n\) bit utilizzando spazio addizionale \(o\rnd{n}\).
+    
+    Tali strutture vengono chiamate \textbf{sistematiche}, per distinguerle da quelle \textbf{non sistematiche} che invece rappresentano internamente il vettore.
+\end{definition}
+\begin{definition}[Rango]
+    L'operatore di \textbf{rango} (\textbf{rank}) è definito come segue:
+    \[
+        \operatorname{rank}_{b}(p)=\left|\left\{i \in p | b_{i}=1\right\}\right|=\sum_{0 \leq i<p} b_{i}
+    \]
+    Il rango alla posizione \(p\) è il numero di \(1\) che precedono la posizione \(p\). Se \(\bm{b}\) è pensato come la rappresentazione di un sottoinsieme \(X\) di \(n\), \(\operatorname{rank}_{b}(p)\) è semplicemente la cardinalità del sottoinsieme di \(X\) formato dagli elementi minori di \(p\). Inoltre, \(\operatorname{rank}_{b}(n)\) è semplicemente il numero di bit a uno nel vettore.
+\end{definition}
+\begin{definition}[Selezione]
+    L'operazione duale al \textit{rango} è la \textbf{selezione} (\textbf{select}), definita da:
+    \[
+        \operatorname{select}_{b}(k)=\max \left\{p | \operatorname{rank}_{b}(p) \leq k\right\}
+    \]
+    dove \(0 \leq k<\operatorname{rank}_{b}(n)\). Detto altrimenti \(\operatorname{select}_{b}(k)\) è la posizione del \(k\)-esimo bit a uno nel vettore (dove il primo uno ha indice zero). Se \(\bm{b}\) è pensato come la rappresentazione di un sottoinsieme \(X\) di \(n\), \(\operatorname{select}_{b}(k)\) è semplicemente il \(k\)-esimo elemento di \(X\).
+\end{definition}
+\begin{observation}[Cosa succede concatenando rank e select?]
+    Concatenando le operazioni di \textbf{rango} e \textbf{selezione} si ottiene:
+    \begin{align*}
+        \begin{array}{l}
+            {\operatorname{rank}_{b}\left(\operatorname{select}_{b}(k)\right)=k} \\
+            {\operatorname{select}_{b}\left(\operatorname{rank}_{b}(p)\right)>p \text { se } b_{p}=0} \\
+            {\operatorname{select}_{b}\left(\operatorname{rank}_{b}(p)\right)=p \text { se } b_{p}=1}
+        \end{array}
+    \end{align*}
+    In generale applicare il rango seguito dalla selezione ha l'effetto di calcolare il \textbf{successore} di un elemento, dove il successore in \(X \subseteq n\) di un elemento \(x \in n\) è il minimo \(y \in X \) tale che \(y\geq x\).
+\end{observation}
+\clearpage
+\begin{definition}[Metodo dei quattro russi]
+    Il metodo dei quattro russi, in generale, prevede di memorizzare in una tabella i risultati per piccoli blocchi dell'input (per esempio le risposte per sotto-matrici più piccole di un problema matriciale).
+\end{definition}
+\begin{definition}[Struttura per rango di Jacobson]
+    La struttura per rango di Jacobson consente di determinare il rango in tempo costante ed utilizza il \textbf{metodo dei quattro russi}. La struttura prevede di dividere gli \(n\) bit del vettore in blocchi di lunghezza \(\frac{1}{2} \log n\) e in \textbf{superblocchi} di lunghezza \((\log n)^{2}\). Si noti che una tabella che contiene tutte le risposte possibili per i blocchi è formata da \(
+        2^{\frac{1}{2} \log n} \cdot \frac{1}{2} \log n \cdot \log \log n=O(\sqrt{n} \log n \log \log n)=o(n) \text { bit }
+    \) bit
+    Per ogni superblocco, memorizziamo il rango alla posizione iniziale del superblocco stesso e qesto richiede \(\log n \cdot n /(\log n)^{2}=n / \log n=o(n)\) bit. Infine, per ogni blocco memorizziamo il delta di rango rispetto al superblocco, cioè rango alla posizione iniziale del blocco meno il rango alla posizione iniziale del superblocco che lo contiene (il numero di \(1\) che intercorrono tra l'inizio del superblocco e l'inizio del blocco). Questo numero è minore di \((\log n)^{2}\), e quindi ha bisogno di \(2 \log \log n\) bit per essere scritto. Ma i blocchi sono \(O(n / \log n)\), per cui i dati dei blocchi usano \(O(n \log \log n / \log n)=o(n)\) bit.
+\end{definition}
+\begin{definition}[Operazione di rango sulle struttura di Jacobson]
+    Per calcolare il rango in posizione \(p\), recuperiamo il rango all'inizio del superblocco in cui si trova \(p\), sommando il delta di rango del blocco in cui si trova \(p\) abbiamo il numero di \(1\) che precedono l'inizio del blocco che contiene \(p\). A questo punto estraiamo in tempo costante dalla tabella il numero di \(1\) tra l'inizio del blocco e \(p\), lo sommiamo al numero di \(1\) fino all'inizio del blocco e restituiamo il valore così calcolato. Abbiamo effettuato un numero costante di operazioni.
+\end{definition}
+\begin{observation}[Le tabelle precalcolate possono essere pesanti!]
+    Sebbene l'occupazione in spazio della struttura sia in teoria asintoticamente evanescente, per valori anche significativi di \(n\) è molto grande: per esempio se \(n=10^6\):
+    \[
+        2^{\frac{1}{2} \log n} \cdot \frac{1}{2} \log n \cdot \log \log n \approx 10^{3} \frac{1}{2} \cdot 20 \cdot 5=50000
+    \]
+    e quindi le tabelle precalcolate richiedono il \(5\%\) di spazio in più. Se aggiungiamo anche i contatori dei blocchi, abbiamo bisogno di altri \(2 \log \log n \cdot n / \log n \approx 2 \cdot 5 \cdot 10^{6} / 20=500000\) bit, cioè il \(50\%\) di spazio in più.
+\end{observation}
+\clearpage
+\section{Alberi binari}
+\begin{definition}[Alberi binari]
+    Un \textbf{albero binario} è o un albero vuoto o una coppia \(\ngle{S, D}\) di alberi binari, nel qual caso \(S\) è detto sotto-albero \textbf{sinistro} e \(D\) sottoalbero \textbf{destro}.
+    
+    I nodi di un albero binario hanno o \(0\) o \(2\) figli.
+\end{definition}
+\begin{definition}[Alberi binari a livelli]
+    Un albero binario a livelli è un albero binario rappresentato da un vettore \(\bm{b}\) di bit per \textbf{livelli}: si parte dalla radice, si visita l'albero per livelli e si scrive un \(1\) per ogni nodo interno e uno \(0\) per ogni nodo esterno. In tutto scriviamo \(2n +1\) bit. Il numero di alberi binari con \(n\) nodi interni è il \textbf{numero di Catalan}:
+    \[
+        C_{n}=\frac{1}{n+1}\left(\begin{array}{l}{2 n} \\ {n}\end{array}\right)
+    \]
+    definito da \(C_0 = 1\) e:
+    \[
+        C_{n}=\sum_{i=0}^{n-1} C_{i} C_{n-1-i}
+    \]
+    relazione da cui si ricava il rapporto con il conteggio degli alberi binari. Si noti che utilizzando l'approssimazione di Stirling:
+    \[
+        C_{n}=\frac{1}{n+1}\left(\begin{array}{l}{2 n} \\ {n}\end{array}\right)=\frac{1}{n+1} \frac{(2 n) !}{(n !)^{2}} \sim \frac{1}{n+1} \frac{\left(\frac{2 n}{e}\right)^{2 n} \sqrt{2 \pi 2 n}}{\left(\frac{n}{e}\right)^{2 n} 2 \pi n} \sim \frac{4^{n}}{\sqrt{\pi n^{3}}}
+    \]
+    da cui segue che \(C_{n}=2 n-O(\log n)\). Quindi, se con \(o\rnd{n}\) bit addizionali siamo in grado di calcolare il genitore e il figlio di ogni nodo avremo ottenuto una struttura dati succinta.
+    
+    Dato un nodo in posizione \(p\), è possibile determinare se è interno o esterno guardando se \(b_p\) risulta pari a uno o zero.
+    
+    Se il nodo è interno, il suo primo figlio deve comparire dopo tutti i nodi interni che lo precedono, che sono esattamente \(\operatorname{rank}_{b}(p)\), e dopo tutti i loro figli, che sono \(\operatorname{rank}_{b}(p)+1\): il figlio sinistro ha dunque indice \(2 \operatorname{rank}_{b}(p)+1\) (mentre quello destro è una posizione dopo).
+    
+    Se vogliamo calcolare il genitore di un nodo in posizione \(p\), questo è il nodo interno di rango \(\lfloor(p-1) / 2\rfloor\). Supponiamo che il nodo in posizione \(p\) sia un figlio sinistro. Il padre è il nodo in posizione \(q\) tale che \(2 \operatorname{rank}_{b}(q)+1=p\), cioè \(\operatorname{rank}_{b}(q)=(p-1) / 2\).
+    
+    Ma dato che \(b_{q}=1, q=\operatorname{select}_{b}\left(\operatorname{rank}_{b}(q)\right)=\operatorname{select}_{b}((p-1) / 2)\).
+    
+    Un calcolo analogo per il figlio desro mostra che, alla fine, il padre del nodo in posizione \(p\) ha posizione \(\operatorname{select}_{b}(\lfloor(p-1) / 2\rfloor)\).
+    
+    Si noti che se è necessario associare dati ancillari a ogni nodo (interno ed esterno), questo è possibile utilizzando semplicemente un vettore di lunghezza \(2n+1\). Se invece si desidera associare dati a nodi interni, basta un vettore di lunghezza \(n\) che verrà indicizzato da \(\operatorname{rank}_{b}(p)\), dove \(p\) è l'indice di un nodo interno.
+\end{definition}
+\clearpage
+\section{Rappresentazione di Elias-Fano}
+\begin{definition}[Rappresentazione di Elias-Fano]
+    Data una sequenza monotona di numeri non negativi:
+    \[
+        0 \leq x_{0} \leq x_{1} \leq \cdots \leq x_{n-2} \leq x_{n-1}<u
+    \]
+    dove \(u > 0\) è un qualunque limite superiore per l'ultimo valore. La scelta \(u=x_{n-1}+1\) è naturalmente possibile (e ottima) ma può essere costoso e un valore ragionevole per \(u\) può essere disponibile tramite informazioni esterne.
+    
+    Rappresenteremo la sequenza in due vettori di bit:
+    \begin{enumerate}
+        \item Gli \(\ell=\max \{0,\lfloor\log (u / n)\rfloor\}\) bit inferiori di ogni \(x_i\) sono memorizzati esplicitamente in maniera contigua nel \textbf{vettore dei bit inferiori}.
+        \item I bit superiori sono memorizzati nel \textbf{vettore dei bit superiori} come sequenza di scarti codificati in unario.
+    \end{enumerate}
+\end{definition}
+\begin{property}[Bit per elemento della rappresentazione di Elias-Fano]
+    La rappresentazione di Elias-Fano utilizza al più \(2+\lceil\log (u / n)\rceil\) bit per elemento: si può facilmente vedere dal fatto che ogni codice unario usa un bit di stop e per ogni altro bit scritto aumenta il valore dei bit superiori di \(2^\ell\): questo non può succedere più di \(\left\lfloor x_{n-1} / 2^{\ell}\right\rfloor\) volte. Inoltre:
+    \[
+        \left\lfloor\frac{x_{n-1}}{2^{\ell}}\right\rfloor \leq\left\lfloor\frac{u}{2^{\ell}}\right\rfloor \leq \frac{u}{2^{\ell}}=\frac{u}{2^{\max \{0,\lfloor\log (u / n)\rfloor\}}} \leq 2 n
+    \]
+    quindi, scriviamo al più \(n\) \(1\) e \(2n\) zeri, il che implica quanto affermato, dato che \(\lceil\log (u / n)\rceil = \lfloor\log (u / n)\rfloor+ 1\) a meno che \(\frac{u}{n}\) sia una potenza di due, ma in quel caso la disequazione finirebbe con \(\leq n\), e quindi l'affermazione sarebbe ancora vera.
+\end{property}
+\begin{proof}[La rappresentazione di Elias-Fano è quasi succinta]
+    Il numero di successioni monotone di \(n\) elementi in un universo di \(u\) elementi è:
+    \[
+        \left(\begin{array}{c}{u+n-1} \\ {u-1}\end{array}\right)=\left(\begin{array}{c}{u+n-1} \\ {n}\end{array}\right)
+    \]
+    Una tale successione monotona è equivalente a un multi-insieme di cardinalità \(n\) su \(u\) elementi. Tali insiemi sono in biiezione con le soluzioni non-negative dell'equazione:
+    \[
+        x_{0}+x_{1}+\cdots+x_{u-1}=n
+    \]
+    Le soluzioni possono essere espresse come la composizione di \(u-1\) segni \(+\) in mezzo a \(n\) segni \(\bullet\). Con l'assunzione \(n \leq \sqrt{u}\) abbiamo allora che:
+    \begin{align*}
+        \left\lceil\log \left(\begin{array}{c}{u+n-1} \\ {n}\end{array}\right)\right\rceil &\approx n \log \left(\frac{u+n-1}{n}\right) \\
+        &=n \log \left(\frac{u}{n}\left(1+\frac{n}{u}-\frac{1}{u}\right)\right)\\
+        &=n \log \left(\frac{u}{n}\right)+n \log \left(1+\frac{n}{u}-\frac{1}{u}\right)\\
+        &\approx n \log \left(\frac{u}{n}\right)+\frac{n^{2}}{u}
+    \end{align*}
+    La rappresentazione è molto vicina a essere succinta quando il vettore è sufficientemente sparso siccome il secondo termine tende a \(0\).
+\end{proof}
+\clearpage
+\begin{definition}[Selezione su rappresentazione di Elias-Fano]
+    Per ottenere \(x_i\), effettuiamo una selezione dell'\(i\)-esimo bit sul vettore dei bit superiori, ottenendo la posizione \(p\): il valore dei bit superiori di \(x_i\) è allora esattamente \(p-i\). Gli \(\ell\) bit inferiori possono essere estratti con un accesso diretto, dal momento che sono memorizzati in posizione \(i\ell\) nel vettore dei bit inferiori.
+\end{definition}
+\begin{observation}[Elias-Fano come struttura non sistematica]
+    La struttura di Elias-Fano può essere vista come una struttura di selezione su vettori di bit \textbf{non sistematica}, e cioè che rimpiazza interamente il vettore di bit originale con una rappresentazione \textbf{opportunistica} che è funzionale ai vettori sparsi.
+\end{observation}
+\begin{definition}[Rango su rappresentazione di Elias-Fano]
+    Il rango, nella rappresentazione di Elias-Fano, non è un'operazione in tempo costante e corrisponde a contare quanti \(x_i\) sono minori strettamente di un dato \(p\). Occorre costruire una struttura di selezione di \(0\) sul vettore dei bit superiori, e dato \(p\) trovare il bit di rango \(\left\lfloor p / 2^{\ell}\right\rfloor\), perché il primo \(x_i\) minore di \(p\) è associato a un \(1\) che sta tra la posizione \(\operatorname{select}_{0}\left(\left\lfloor p / 2^{\ell}\right\rfloor- 1\right)\) e la posizione \(\operatorname{select}_{0}\left(\left\lfloor p / 2^{\ell}\right\rfloor\right)\).
+    
+    Scorriamo quindi il vettore all'indietro, cercando gli \(1\) (che corrispondono a elementi della lista) e estraendo il corrispondente valore finché non è minore o uguale a \(p\). L'indice dell'\(1\) raggiunto è il grado di \(p\).
+\end{definition}
+\clearpage
+\section{Parentesi bilanciate}
+\begin{multicols}{2}
+\begin{definition}[Parentesi bilanciate]
+    Sequenze di parentesi bilanciate possono essere utilizzate nella costruzione di strutture succinte. Una sequenza di parentesi può essere rappresentata come un vettore di \(n\) bit \(\bm{b}\) scrivendo un \(1\) per ogni parentesi aperta e uno \(0\) per ogni parentesi chiusa.
+\end{definition}
+\begin{definition}[Funzione di eccesso]
+    Definiamo \textbf{funzione di eccesso} (aperta):
+    \[
+        E_{b}(i)=\left|\left\{b_{j} | j<i \wedge b_{j}=1\right\}\right|-\left|\left\{b_{j} | j<i \wedge b_{j}=0\right\}\right|
+    \]
+    che rappresenta l'eccesso di parentesi aperte rispetto a quelle chiuse in posizione \(i\) (esclusa).
+\end{definition}
+\begin{property}[Vettore debolmente bilanciato]
+    Il vettore \(\bm{b}\) è \textbf{debolmente bilanciato} se la funzione di eccesso è sempre non-negativa, e vale \(0\) in \(0\) e in \(n\).
+\end{property}
+\begin{property}[Vettore fortemente bilanciato]
+    Il vettore \(\bm{b}\) è \textbf{fortemente bilanciato} se la funzione di eccesso è sempre strettamente positiva, tranne in \(0\) e in \(n\), in cui vale 0.
+\end{property}
+\begin{definition}[Parentesi lontane e vicine]
+    Per calcolare le primitive in tempo costante la sequenza di parentesi vengono divise in blocchi: una parentesi è detta \textbf{lontana} se la sua corrispondente è al di fuori del blocco, \textbf{vicina} altrimenti.
+\end{definition}
+\begin{definition}[Pioniere]
+    Una parentesi lontana aperta \(p\) è un \textbf{pioniere} se la sua parentesi corrispondente giace in un blocco diverso da quello della parentesi corrispondente a quella lontana aperta immediatamente precedente a \(p\).
+\end{definition}
+\begin{lemma}[Numero dei pionieri]
+    Se esistono \(k\) blocchi, ci sono al più \(2k-3\) pionieri.
+\end{lemma}
+\begin{proof}[Numero dei pionieri]
+    Se consideriamo il grafo \(G = \ngle{V, E}\) in cui \(V\) contiene tutti i blocchi e \(\rnd{i,j} \in E\) se il blocco \(i\) contiene un pionieri e il blocco \(j\) la sua parentesi corrispondente, \(G\) è \textbf{planare esterno}, e tali grafi hanno al più \(2k-3\) lati.
+\end{proof}
+\begin{definition}[Findclose]
+    La primitiva \(\operatorname{findclose}(p)\) trova la parentesi chiusa corrispondente a quella arteta in posizione \(p\).
+    
+    Per implementarla svolgiamo i seguenti passi:
+    \begin{enumerate}
+        \item Controlliamo se la parentesi in posizione \(p\) è vicina, scansionando il blocco, e nel caso restituiamo la posizione della parentesi corrispondente.
+        \item Altrimenti troviamo il pioniere associato (tramite un'operazione di predecessore che possiamo implementare tramite rango e selezione), e se il pioniere stesso è la parentesi restituiamo la parentesi corrispondente. 
+        \item Altrimenti contiamo le parentesi aperte lontane tra il pioniere e \(p\): è facile perché basta misurare la differenza in eccesso aperto al pioniere e in \(p\). A ogni parentesi aperta deve corrispondere una parentesi chiusa lontana nel blocco di arrivo, e sappiamo per definizione che tutte le parentesi chiuse che dovremo contare saranno nello stesso blocco (per definizione di pioniere). Possiamo quindi concludere il calcolo con la scansione di un blocco.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Endclose]
+     La primitiva \(\operatorname{endclose}(p)\) trova la parentesi più vicina \(q\), posto che esista, tale che \(p\) sta tra la parentesi aperta in \(q\) e la sua parentesi chiusa corrispondente.
+     
+     Per implementarla teniamo conto in una tabella, per ogni blocco, della prima parentesi aperta avente eccesso aperto di uno inferiore al minimo nel blocco. Data una parentesi aperta in posizione \(p\), con parentesi chiusa associata in posizione \(q\), la parentesi aperta che corrisponde alla coppia che racchiude la coppia \(\ngle{p, q}\) è la prima che precede \(p\) con eccesso inferiore di uno a quello di \(p\). Se questa parentesi si trova nel blocco, la possiamo trovare con una scansione. Altrimenti, andiamo a vedere se \(p\) è lontana o vicina:
+     \begin{description}
+        \item[Primo caso (lontana):] la funzione di eccesso aperto tra \(p\) e \(q\) non è mai inferiore al valore che ha in \(p\), e quindi il valore in \(p\) è il minimo del blocco a cui \(p\) appartiene: possiamo trovare la parentesi che racchiude \(\ngle{p, q}\).
+        \item[Secondo caso (vicina):] scandiamo le parentesi che seguono \(q\) nel blocco. Se troviamo una parentesi chiusa di eccesso aperto uguale a \(p\), la corrispondente aperta è quella che cerchiamo, e la possiamo recuperare con una \textbf{findopen}. Altrimenti, tutte le parentesi aperte rimanenti nel blocco hanno eccesso aperto maggiore o uguale a \(p\), e ricadiamo nel caso precedente.
+     \end{description}
+\end{definition}
+\end{multicols}
+\begin{definition}[Isomorfismo Left Child - Right Sibling (LC-RS)]
+    L'\textbf{isomorfismo Left Child - Right Sibling} è un isomorfismo tra le foreste ordinate (cioè insiemi ordinati di alberi ordinati) e gli alberi binari. Le foreste si possono costruire in modo induttivo:
+    \begin{enumerate}
+        \item La foresta vuota è una foresta.
+        \item Date due foreste \(F\) e \(G\), possiamo costruire una nuova foresta collegando un nuovo nodo alle radici degli alberi di \(F\), ottenendo così un albero, e concateniamo a questo albero la foresta \(G\).
+    \end{enumerate}
+    Specifichiamo l'isomorfismo come segue:
+    \begin{enumerate}
+        \item All'albero binario vuoto corrisponde la foresta vuota.
+        \item Dato un albero binario \(\ngle{S, D}\), la foresta corrispondente si ottiene applicando la seconda regola alla foresta associata a \(S\) e a quella associata a \(D\)
+    \end{enumerate}
+    Specifichiamo l'isomorfismo inverso come segue:
+    \begin{enumerate}
+        \item Alla foresta vuota corrisponde l'albero binario vuoto.
+        \item Data una foresta generata da \(F\) e \(G\) usando la seconda regola, se \(S\) è l'albero binario associato a \(F\) e \(D\) l'albero binario associato a \(G\) associamo alla foresta l'albero binario \(\ngle{S, D}\).
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Rappresentare foreste tramite parentesi debolmente bilanciate]
+    Una foresta può essere rappresentata scrivendo una serie di parentesi debolmente bilanciate durante una visita in profondità effettuata partendo dalla radice di ogni albero della foresta, nell'ordine naturale.
+    \begin{enumerate}
+        \item Alla foresta vuota corrisponde l'espressione ben parentesizzata vuota.
+        \item Data una foresta generata da \(F\) e \(G\) usando la seconda regola, se \(f\) è l'espressione associata a \(F\) e \(g\) quella associata a \(G\) associamo alla foresta l'espressione \((f)g\).
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Rappresentare alberi binari tramite parentesi debolmente bilanciate]
+    Per rappresentare un albero binario lo trasformiamo nella foresta corrispondente e utilizziamo una rappresentazione a parentesi bilanciate. Volendo esplicitare induttivamente:
+    \begin{enumerate}
+        \item All'albero binario vuoto corrisponde l'espressione ben parentesizzata vuota.
+        \item Dato un albero \(\ngle{S, D}\), se \(s\) è l'espressione associata a \(S\) e \(d\) quella associata a \(D\), associamo all'albero binario l'espressione \(\rnd{s}d\).
+    \end{enumerate}
+\end{definition}
+
+\section{Funzioni succinte}
+\begin{example}[Memorizzare hash tramite funzione succinta]
+    Un problema interessante da risolvere in maniera succinta è la memorizzazione di una funzione \(f:X\rightarrow 2^r\), dove \(X\) è un sottoinsieme di \(n\) elementi da un universo \(U\) di cardinalità \(u\). Il numero di bit necessari a memorizzare una tale funzione è almeno \(rn\).
+    
+    Prendiamo due funzioni di hash, \(h, g: U \rightarrow m\) con uno spazio dei valori \(m\) un po' più ampio della cardinalità \(n\) di \(X\), e consideriamo un vettore \(\bm{w}\) di variabili di dimensione \(m\) con valori in \(2^r\). Scriviamo ora il sistema di \(n\) equazioni:
+    \[
+        w_{h(x)}+w_{g(x)}=f(x) \quad \bmod 2^{r}
+    \]
+    Per rappresentare i vincoli imposti dal sistema costruiamo un grafo \(G\) non orientato con \(m\) vertici e \(n\) lati, in cui per ogni \(x \in X\) abbiamo che \(h\rnd{x}\) è adiacente a \(g\rnd{x}\) tramite un lato etichettato da \(f\rnd{x}\). Consideriamo una sequenza di \textbf{pelature} del grafo \(G\). La prima pelatura, \(F_0 \subseteq m\), è data dall'insieme dei vertici che sono una foglia (hanno grado \(0\) o \(1\)) nel grafo \(G_0 = G\). La seconda, \(F_1\), dall'insieme dei vertici che sono una foglia nel grafo \(G_1\) ottenuto cancellando i vertici in \(F_0\) dal grafo. Continuiamo così finché non arriviamo a una pelatura \(F_k\) in cui non ci sono più foglie: \(G_k\) è l'insieme vuoto se e solo se il grafo è \textbf{aciclico}.
+    
+    Se \(G_k\) è vuoto, possiamo risolvere ora il sistema nel seguente modo: partiamo da \(F_{k-1}\), e per tutti i vertici \(x\) che sono di grado \(0\) in \(G_{k-1}\), assegniamo \(w_x = 0\). I vertici \(x\) di grado \(1\) sono invece adiacenti esattamente a un altro vertice \(y\). In genere, \(w_y\) è già stato assegnato, dal momento che \(y\) fa parte di una pelatura successiva: fanno eccezione i vertici agli estremi di un lato isolato, che possono essere entrambi non assegnati, nel qual caso poniamo \(w_y = 0\). Se \(v\) è il valore assegnato al lato che collega \(x\) e \(y\), poniamo allora:
+    \[
+        w_{x}=v-w_{y} \quad \bmod 2^{r}
+    \]
+    Possiamo sempre effettuare l'assegnamento perché gli \(F_i\) sono partizioni dei vertici del grafo, e quindi non incontreremo mai un vertice già assegnato.
+\end{example}
+\begin{observation}[Quali grafi consentono di risolvere il problema di memorizzare hash tramite funzione succinta?]
+    Assumendo che le funzioni di hash \(h\) e \(g\) siano casuali e indipendenti, il grafo che andiamo a costruire è un grafo casuale di \(m\) vertici con \(n\) archi, e un risultato importante di teoria dei grafi casuali dice che per \(n\) sufficientemente grande quando \(m > 2.09 n\) il grafo è \textbf{quasi sempre} privo d cicli. In sostanza, scegliendo bene \(h\) e \(g\), e posto che il grafo non risulti degenere, quasi tutti i grafi che otterremo permetteranno di risolvere il sistema.
+\end{observation}
+\begin{observation}[Il caso proposto per risolvere il problema di memorizzare hash tramite funzione succinta è ottimo?]
+    Il caso ora descritto non è ottimo: utilizzando dei 3-ipergrafi causali e generalizzando il processo di pelatura, utilizzando \(3\) funzioni di hash, portiamo il limite che garantisce l'aciclicità a \(m > 1.23n\).
+\end{observation}
+\clearpage
+\section{Hash minimali perfetti}
+\begin{multicols}{2}
+\begin{definition}[Hash]
+    Una funzione di \textbf{hash} per un insieme di chiavi \(X \subseteq U\), dove \(U\) è l'universo di tutte le chiavi possibili, è una funzione \(f: X \rightarrow m\).
+\end{definition}
+\begin{definition}[Hash perfetto]
+    Quando la funzione è \textbf{iniettiva}, lo \textbf{hash} è detto \textbf{perfetto}.
+\end{definition}
+\begin{definition}[Hash minimale]
+    Quando \(\abs{X} = m\), lo \textbf{hash} è detto \textbf{minimale}. 
+\end{definition}
+\begin{definition}[Fibra]
+    La \textbf{fibra} di un elemento \(y\) del codominio di una funzione è l'insieme degli elementi del dominio mappati in \(y\).
+\end{definition}
+\begin{definition}[Volume di una partizione]
+    Chiamiamo \textbf{volume} di una partizione il numero di insiemi che separa.
+\end{definition}
+\begin{lemma}[Bit per memorizzare una funzione di hash minimale perfetto]
+    Per memorizzare una funzione di hash minimale perfetto occorrono quindi, se \(n\) non è troppo grande, almeno
+    \[
+        \log e+O(\log n / n) \approx 1,44
+    \]
+    bit per elemento.
+\end{lemma}
+\vfill\null
+\columnbreak
+\begin{proof}[Bit per memorizzare una funzione di hash minimale perfetto]
+    Una funzione di hash con \(n\) valori su \(U\) corrisponde a una partizione \(P\) di \(U\) con \(n\) parti non vuote: ogni parte è la fibra di un \(x \in n\). Una tale funzione è minimale perfetta per un insieme \(X \subseteq U\) se \(P\) \textbf{separa} \(X\), cioè se in ogni parte di \(P\) c'è esattamente un elemento di \(X\). Diremo che un insieme di partizioni di \(U\) è un \textbf{n-sistema} se per ogni \(X \subseteq U\) di cardinalità \(n\) esiste una partizione dell'insieme che separa \(X\). Per stimare quanti bit sono necessari per scrivere una funzione di hash dobbiamo quindi studiare la minima dimensione \(H_U\rnd{n}\) di un \(n\)-sistema per \(U\). Se avessimo un limite superiore \(v\) al volume di una partizione, avremmo immediatamente che:
+    \[
+        H_{U}(n) \geq \frac{\left(\begin{array}{l}{u} \\ {n}\end{array}\right)}{v}
+    \]
+    dato che dobbiamo separare \(\left(\begin{array}{l}{u} \\ {n}\end{array}\right)\) insiemi, e al massimo una partizione ne può separare \(v\). Una partizione ha volume massimo quando le sue parti sono approssimativamente uguali:
+    \[
+        v \approx\left(\frac{u}{n}\right)^{n}
+    \]
+    Pertanto:
+    \[
+        H_{U}(n) \geq \frac{\left(\begin{array}{c}{u} \\ {n}\end{array}\right)}{\left(\frac{u}{n}\right)^{n}}=\frac{\frac{u !}{n !(u-n) !}}{\frac{u^{n}}{n^{n}}}=\frac{n^{n}}{n !} \cdot \frac{u !}{u^{n}(u-n) !}
+    \]
+    Assumendo che \(n\) non sia troppo grande (\(n \leq \sqrt[2+\varepsilon]{u}\)), si ha:
+    \begin{align*}
+        \frac{u !}{u^{n}(u-n) !}&=\frac{u(u-1) \cdots(u-n+1)}{u^{n}}\\
+        &\geq\left(\frac{u-n}{n}\right)^{n}\\
+        &\geq\left(1-\frac{\sqrt[2+\varepsilon]{u}}{u}\right)^{2+\xi / u}=\left(1-\frac{1}{u^{\frac{1+\varepsilon}{2+\varepsilon}}}\right)^{u^{\frac{1}{2+\varepsilon}}}\\
+        &=\left(1-\frac{1}{u^{\frac{1+\varepsilon}{2+\varepsilon}}}\right)^{\frac{1+\varepsilon}{2+\varepsilon}-\frac{1+\varepsilon}{2+\varepsilon}+\frac{1}{2+\varepsilon}}\sim\left(e^{-1}\right)^{u^{\frac{-\varepsilon}{2+\varepsilon}}} \sim 1
+    \end{align*}
+    e quindi:
+    \[
+        H_{U}(n) \geq \frac{n^{n}}{n !} \cdot \frac{u !}{u^{n}(u-n) !}=\Omega\left(\frac{n^{n}}{n !}\right)
+    \]
+    Prendendo i logaritmi naturali abbiamo che:
+    \[
+        \ln H_{U}(n) \geq n \ln n-(n \ln n-n+O(\ln n))=n+O(\ln n)
+    \]
+    e cambiando base si ottiene: \(
+        \log H_{U}(n) \geq n \log e+O(\log n)
+    \)
+\end{proof}
+\end{multicols}
+
+\section{Firme}
+\begin{observation}[A cosa serve una firma?]
+    Uno \textbf{hash minimale perfetto} non permette di riconoscere se un elemento fa parte di un insieme \(X\) o no, dato che è definita solo sugli elementi di \(X\) per definizione. Utilizziamo un insieme di \textbf{firme}, quindi, associato all'insieme \(X\) delle chiavi.
+\end{observation}
+\begin{observation}[Come vengono usate le firme?]
+    Data una funzione \(s:U\rightarrow 2^r\) che associ a ogni chiave possibile una sequenza di \(r\) bit "casuali", nel senso che la probabilità che \(s\rnd{x} = s\rnd{y}\) se \(x\) e \(y\) sono presi uniformemente a caso da \(U\) è \(\frac{1}{2^r}\). Oltre a \(f\), memorizziamo una tabella di \(n\) firme a \(r\) bit \(S\) e mettiamo la firma \(s\rnd{x}\) di \(x \in X\) in \(S\) nella posizione \(f\rnd{x}\).
+    
+    Per interrogare la struttura risultante su input \(x \in U\), agiamo come segue:
+    \begin{enumerate}
+        \item Calcoliamo \(f\rnd{x}\) (che è un numero naturale).
+        \item Recuperiamo \(S_{f\rnd{x}}\).
+        \item Se \(S_{f\rnd{x}} = s\rnd{x}\) restituiamo \(f\rnd{x}\), \(-1\) altrimenti.
+    \end{enumerate}
+    
+    La collisione tra firme avverrà con probabilità \(\frac{1}{2^r}\).
+\end{observation}
+\begin{observation}[Come si può ridurre lo spazio occupato?]
+    Quando \(r\) non è troppo piccolo è possibile utilizzare un \textbf{vettore compatto} per memorizzare i valori della soluzione del sistema. 
+    
+    Per come abbiamo descritto il processo di soluzione non è possibile che vengano poste a valori diversi da zero più di \(n\) delle variabili.
+    
+    Se potessimo memorizzare con una piccola perdita di spazio \textbf{solo i valori diversi da zero} potremmo ridurre l'occupazione di memoria di \(nr\) bit.
+    
+    Per farlo, consideriamo un vettore di bit \(\bm{b}\) che contiene in posizione \(i\) un \(1\) se la variabile corrispondente \(w_i\) è diversa da zero, e zero altrimenti. Se mettiamo in un vettore \(C\) i valori delle variabili \(w_i\) diversi da zero abbiamo:
+    \[
+        w_{i}=\left\{\begin{array}{ll}{0} & {\text { se } b_{i}=0} \\ {C\left[\operatorname{rank}_{b}(i)\right]} & {\text { se } b_{i} \neq 0}\end{array}\right.
+    \]
+    La funzione occuperà \(nr + 1.23n\) bit, più il necessario per la struttura di rango.
+\end{observation}
+\begin{definition}[Autofirma]
+    Un \textbf{autofirma} è uno strumento per mantenere efficientemente un dizionario statico in maniera approssimata. Consideriamo un insime \(X \subseteq U\) che vogliamo rappresentare e una funzione di firma \(s: U \rightarrow 2^r\).
+    
+    Andiamo a realizzare una funzione \(f: X \rightarrow 2^r\) data da \(f\rnd{x} = s\rnd{x}\) che utilizza \(nr+1.23n\) bit. La funzione \(f\) mappa ogni chiave nella propria firma. Il dizionaria viene a questo punto interrogato come segue:
+    \begin{enumerate}
+        \item Calcoliamo \(f\rnd{x}\).
+        \item Se \(f\rnd{x} = s\rnd{x}\) appartiene a \(X\), altrimenti no.
+    \end{enumerate}
+    Come detto precedentemente, falsi positivi avveranno con probabilità \(\frac{1}{2^r}\).
+\end{definition}
+\end{document}

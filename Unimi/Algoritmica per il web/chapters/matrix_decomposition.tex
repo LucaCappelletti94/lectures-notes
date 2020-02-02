@@ -1,0 +1,84 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Matrix decompositions and latent semantic indexing}
+\begin{multicols}{2}
+\begin{definition}[Decomposizione di matrici]
+    Una matrice quadrata può essere fattorizzata nel prodotto di matrici derivate dai suoi auto-vettori.
+\end{definition}
+\begin{theorem}[Diagonalizzazione di matrici]
+    Sia \(S\) una matrice \(M\times M\) a valori reali, con \(M\) autovettori indipendenti. Allora esiste una decomposizione spettrale \(
+        S=U \Lambda U^{-1}
+    \) dove i valori delle colonne di \(U\) sono gli autovettori di \(S\) e \(\Lambda\) è una matrice diagonale i cui valori sono gli autovalori di \(S\) in valore decrescente.
+    \[
+        \left(\begin{array}{cccc}{\lambda_{1}} & {} & {} & {} \\ {} & {\lambda_{2}} & {} & {} \\ {} & {} & {\cdots} & {} \\ {} & {} & {} & {\lambda_{M}}\end{array}\right), \lambda_{i} \geq \lambda_{i+1}
+    \]
+    In particolare, se gli autovalori sono distinti, la decomposizione risulta unica.
+\end{theorem}
+\begin{theorem}[Diagonalizzazione simmetrica]
+    Sia \(S\) una matrice simmetrica quadrata \(M\times M\) a valori reali con \(M\) autovettori linearmente indipendenti. Allora esiste una decomposizione simmetrica diagonale
+    \[
+        S=Q \Lambda Q^{T}
+    \]
+    dove le colonne di \(Q\) sono autovettori di \(S\) ortogonali e normalizzati e \(\Lambda\) è la matrice diagonale i cui valori sono gli autovalori di \(S\). Inoltre, tutti i valori di \(Q\) sono reali e vale che \(Q^{-1} = Q^T\).
+\end{theorem}
+\begin{observation}[Ma come sono fatte le matrici reali?]
+    Le matrici \(C\) a cui siamo interessati son generalmente \(M \times N\) dove molto raramente \(M = N\) e ancora meno simmetriche.
+\end{observation}
+\begin{definition}[Decomposizione a valori singolari (Singular value decomposition)]
+    Sia \(r\) il rango della matrice \(C\) di dimensione \(M\times N\). Esiste una \textbf{decomposizione a valori singolari} (SVD) di \(C\) della forma \(
+        C=U \Sigma V^{T}
+    \) dove:
+    \begin{enumerate}
+        \item Gli autovalori \(\lambda_1, \ldots, \lambda_r\) di \(CC^T\) sono gli stessi degli autovalori di \(C^T C\).
+        \item Per \(1 \leq i \leq r\), sia \(\sigma_i = \sqrt{\lambda_i}\), con \(\lambda_i \geq \lambda_{i+1}\). Allora la matrice \(\Sigma\) \(M \times N\) è composta da \(\Sigma_{ii} = \sigma_i\) per \(1\leq i \leq r\) e zero altrimenti.
+    \end{enumerate}
+    I valori \(\sigma_i\) sono chiamati \textbf{valori singolari} di \(C\).
+\end{definition}
+\begin{definition}[SVD ridotta o troncata]
+    Convenzionalmente per scrivere i valori della SVD, si scrive \(\Sigma\) come una matrice \(r \times r\) con i valori singolari sulla diagonale dato che tutti gli altri valori sono zero.
+    
+    È convenzione omettere le \(M-r\) colonne più a destra di \(U\) corrispondenti alle righe omesse di \(\Sigma\). Analogamente si omettono le \(N - r\) colonne più a destra di \(V\).
+\end{definition}
+\begin{definition}[Norma di Frobenius]
+    Data una matrice \(X\) di dimensioni \(M \times N\), la norma di Frobenius:
+    \[
+        \|X\|_{F}=\sqrt{\sum_{i=1}^{M} \sum_{j=1}^{N} X_{i j}^{2}}
+    \]
+\end{definition}
+\begin{problem}[Low-Rank approximation]
+    Data una matrice \(C\) di dimensioni \(M \times N\) ed un intero positivo \(k\), il problema consiste nel trovare la matrice \(M \times N\) di rango al più \(C_k\) tale da minimizzare la norma di Frobenius della differenza delle matrici \(X = C - C_k\). Tipicamente, \(k\) è molto più piccolo del rango \(r\) della matrice \(C\).
+\end{problem}
+\begin{analysis}[Risolvere il problema di Low-Rank approximation usando le SVD]
+    Le \textbf{singular values decompositions} (SVD) possono essere usate per risolvere il problema delle approssimazioni di Low-Rank:
+    \begin{enumerate}
+        \item Data \(C\), determiniamo la sua SVD: \(C=U\Sigma V^T\).
+        \item Determiniamo da \(\Sigma\) la matrice \(\Sigma\) formata sostituendo con zero gli \(r-k\) valori singolari più piccoli sulla diagonale di \(\Sigma\).
+        \item Calcoliamo \(C_k = U \Sigma_k V^T\) come l'approssimazione a rango \(k\) di \(C\).
+    \end{enumerate}
+\end{analysis}
+\begin{theorem}[Teorema di Eckart and Young]
+    La matrice \(C_k\) di rango \(k\) ottenuta ha il valore di norma di Frobenius più basso possibile.
+    \[
+        \min _{Z | r a n k(Z)=k}\|C-Z\|_{F}=\left\|C-C_{k}\right\|_{F}=\sqrt{\sum_{i=k+1}^{r} \sigma_{i}^{2}}
+    \]
+\end{theorem}
+\end{multicols}
+
+\section{Indicizzamento semantico latente}
+\begin{multicols}{2}
+\begin{definition}[Indicizzamento semantico latente (Latent semantic indexing)]
+    Si tratta di un processo per generare un'approssimazione di matrice dei termini \(C\) di rango minore rispetto all'originale utilizzando le SVD.
+\end{definition}
+\begin{observation}[Come viene eseguita una query su una rappresentazione LSI?]
+    Un vettore query \(\bm{q}\) deve essere mappato nella sua rappresentazione LSI utilizzando la trasformazione:
+    \[
+        \bm{q}_{k}=\Sigma_{k}^{-1} U_{k}^{T} \bm{q}
+    \]
+    Analogamente si possono trasformare ed inserire nuovi documenti.
+\end{observation}
+\begin{observation}[LSI come Soft clustering]
+    LSI può essere visto come una forma di \textbf{soft clustering} interpretando ogni dimensione dello spazio ridosso come un cluster e il valore che un documento ha in quella dimensione come un'appartenenza parziale a quel cluster.
+\end{observation}
+\end{multicols}
+\end{document}

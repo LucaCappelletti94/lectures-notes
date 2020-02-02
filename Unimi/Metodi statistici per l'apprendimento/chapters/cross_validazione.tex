@@ -1,0 +1,44 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Cross-validazione}
+\begin{multicols}{2}
+    \begin{observation}[Scelta del parametro tramite validation set]
+        Per determinare il valore di un parametro (per esempio \(k\) nel \(k\)-NN) isoliamo una porzione del training set che chiameremo \textbf{validation set}.
+        
+        Per scegliere il valore del parametro possiamo allora eseguire più volte, con valori del parametro diversi, l'algoritmo di apprendimento sul training set a cui è stato sottratto il validation set. L'insieme di predittori risultante viene quindi testato sul validation set per individuare quello con \textbf{validation error} minore.
+        
+        Viene quindi rieseguito l'algoritmo di apprendimento sull'intero training set, compreso il \textit{validation set}, utilizzando il valore del parametro che ha prodotto il predittore con validation error minimo. 
+        
+        Il predittore risultante viene infine testato sul test set per determinarne l'accuratezza.
+    \end{observation}
+    \begin{observation}[Cross-validazione esterna e test error]
+        Mentre il test error permette di valutare l'errore di un predittore, la cross-validazione esterna è una tecnica che permette di valutare l'errore di un algoritmo di apprendimento stimando l'errore medio dei predittori prodotti dall'algoritmo.
+    \end{observation}
+    \begin{observation}[Valutazione di un algoritmo tramite cross-validazione esterna]
+        Supponiamo che \(S \equiv \crl{\examples{m}}\) siano tutti i dati in nostro possesso. Partizioniamo \(S\) in \(N\) sotto-insiemi \(D_1, \ldots, D_N\), ciascuno di cardinalità \(\frac{m}{N}\). Denotiamo con \(S^{\rnd{k}}\) l'insieme \(S\) a cui abbiamo tolto tutti gli elementi di \(D_k\).
+        
+        Per stimare le prestazioni tipiche di un algoritmo \(A\) eseguiamo l'algoritmo su ciascun \(S^{\rnd{k}}\), con \(K = 1, \ldots, N\). Siano \(h^{\rnd{1}}, \ldots, h^{\rnd{N}}\) i predittori così prodotti. La stima dell'accuratezza di \(A\) mediante cross-validazione di grado \(N\) è allora formulata come:
+        \[
+            \frac{1}{N}\sum_{k=1}^N \tilde{\text{er}}_k \rnd{h^{\rnd{k}}}
+        \]
+        dove l'errore \(\tilde{\text{er}}_k \rnd{h^{\rnd{k}}}\) è pari a:
+        \[
+            \tilde{\text{er}}_k \rnd{h^{\rnd{k}}} = \frac{N}{m} \sum_{\rnd{\bmx, y} \in D_k} \ell\rnd{y, h^{\rnd{k}}\rnd{\bmx}}
+        \]
+        è l'errore di \(h^{\rnd{k}}\), rispetto ad una data funzione di perdita \(\ell\), misurato su \(D_k\), ovvero sulla parte di dati che non è stata utilizzata per il training di \(h^{\rnd{k}}\).
+    \end{observation}
+    \begin{definition}[Cross-validazione leave-one-out]
+        Con cross-validazione leave-one-out si intende quando si sceglie \(N=m\).
+    \end{definition}
+    \begin{observation}[Scelta del parametro tramite cross-validazione interna]
+        Il procedimento di cross-validazione interna sul training set è equivalente a quello di cross-validazione esterna sull'intero insieme di dati. Ovvero, il training set viene suddiviso in \(N\) blocchi di uguale grandezza e l'algoritmo \(A\) viene eseguito \(N\) volte con un valore fissato \(i\) del parametro utilizzando ciascun blocco a turno come \textbf{validation set} ed i rimanenti \(N-1\) blocchi come training set. 
+        
+        Mediando il validation error sugli \(N\) blocchi otteniamo l'errore di cross-validazione \(\text{er}_i^{\text{cv}}\) per l'algoritmo \(A\) eseguito col parametro fissato al valore \(i\).
+        
+        Questo processo viene ripetuto più volte con diversi valori del parametro finché non si trova un valore \(i^*\) che corrisponde approssimativamente a \(\argmin_i\text{er}_i^{\text{cv}}\).
+        
+        A questo punto l'algoritmo \(A\) viene nuovamente eseguito sull'intero training set col parametro fissato a \(i^*\) allo scopo di produrre un predittore che sperabilmente esibirà un basso errore sul test set.
+    \end{observation}
+\end{multicols}
+\end{document}

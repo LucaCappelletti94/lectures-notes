@@ -1,0 +1,42 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Tecniche di distribuzione del carico}
+\begin{multicols}{2}
+\begin{property}[Proprietà di Controvarianza]
+    La proprietà di Controvarianza afferma che aumentando l'insieme degli agenti, gli insiemi di URL associati agli agenti preesistenti si riducono. In particolare, se si aggiunge un agente agli agenti preesistenti non si vedono assegnare nessun nuovo URL.
+    \[
+        \delta_{B}^{-1}(a) \subseteq \delta_{A}^{-1}(a) \text { se } B \supseteq A, a \in A
+    \]
+\end{property}
+\begin{definition}[Permutazioni aleatorie]
+    Il primo approccio per realizzare una funzione bilanciata e controvariante è assumere che ci sia un universo \(P\) di possibili agenti. A ogni istante dato l'insieme di agenti effettivamente utili è un insieme \(A \subseteq P\).
+    
+    Dato un URL \(u\), inizializziamo un generatore di numeri pseudocausali utilizzando \(u\) e utilizziamolo per generare una permutazione aleatoria di \(P\) scelta in maniera uniforme. A questo punto, l'agente scelto è il primo agente in \(A\) nell'ordine indotto dalla permutazione così calcolata.
+    
+    È possibile generare una tale permutazione in tempo e spazio lineare in \(\abs{P}\): la tecnica è nota come \textbf{Knuth shuffle} o \textbf{Fisher-Yates shuffle}.
+\end{definition}
+\begin{definition}[Knuth shuffle o Fisher-Yates shuffle]
+    La tecnica consiste nell'inizializzare un vettore di \(\abs{P}\) elementi con i primi \(P\) numeri naturali. A questo punto si eseguono \(\abs{P}\) iterazioni: all'iterazione di indice \(i\) (a partire da zero) si scambia l'elemento del vettore di posto \(i\) con uno dei seguenti \(\abs{P} - i \) scelto a caso uniformemente (si noti che \(i\) stesso è una scelta possibile). Alla fine dell'algoritmo, il vettore contiene una permutazione aleatoria scelta in maniera uniforme.
+\end{definition}
+\begin{definition}[Min Hashing]
+    Questo approccio non richiede che l'universo sia pre-determinato o ordinato: fissiamo una funzione di \textbf{hash} aleatoria \(h\) che prende due argomenti: un URL ed un agente. L'agente all'interno di \(A\) responsabile dell'URL \(u\) è quello che realizza il minimo tra tutti i valori \(h\rnd{a, u}, a \in A\). Nuovamente, assumendo che \(h\) sia aleatoria, il bilanciamento è banale, ma anche la proprietà di controvarianza è elementare: se \(B \supseteq A\), gli unici URL che cambiano assegnamento sono quegli URL \(u\) per cui esiste un \(b \in B \setminus A\) tale che \(h\rnd{b, u} < h\rnd{a, b} \text{ per ogni }a \in A\).
+\end{definition}
+\begin{definition}[Hashing coerente]
+    Consideriamo idealmente una circonferenza di lunghezza unitaria e una funzione di \textbf{hash} aleatoria \(h\) che mappa gli URL nell'intervallo da zero (compreso) a uno. Fissiamo inoltre un generatore di numeri pseudocasuali.
+    
+    Per ogni agente \(a \in A\), utilizziamo \(a\) per inizializzare il generatore e scegliere \(C\) posizioni pseudoaleatorie sul cerchio: queste saranno le repliche dell'agente \(a\). A questo punto per trovare l'agente responsabile di un URL \(u\) partiamo dalla posizione \(h\rnd{u}\) e proseguiamo in senso orario finché non troviamo una replica: l'agente associato è quello responsabile per \(u\).
+    
+    In pratica, il cerchio viene diviso in segmenti massimali che non contengono repliche. Associamo a ogni segmento la replica successiva in senso orario e tutti gli URL mappati sul segmento avranno come agente responsabile quello associato alla replica. La funzione così definita è ovviamente controvariante. L'effetto di aggiungere un nuovo agente è semplicemente quello di spezzare tramite le nuove repliche i segmenti preesistenti: la prima parte verrà mappata sul nuovo agente, mentre la seconda continuerà a essere mappata sull'agente precedente.
+    
+    La parte delicata è in questo caso il bilanciamento: se \(C\) viene scelto sufficientemente grande i segmenti risultano così piccoli da poter dimostrare che la funzione è bilanciata con alta probabilità.
+    
+    La struttura può essere realizzata in maniera interamente discreta memorizzando interi che rappresentano le posizioni delle repliche in un dizionario ordinato, come un albero binario bilanciato. A questo punto dato un URL \(u\) è sufficiente generare uno hash intero e trovare il minimo maggiorante presente nel dizionario (eventualmente debordando alla fine dell'insieme e restituendo quindi il primo elemento).
+    
+    Questo metodo richiede quindi spazio lineare in \(\abs{A}\) e tempo logaritmico in \(\abs{A}\). Aggiungere o togliere un elemento ad \(A\) richiede, contrariamente ai casi precedenti, tempo logaritmico in \(\abs{A}\).
+\end{definition}
+\begin{definition}[Collisioni]
+    Sia il min-hashing sia lo hashing coerente possono presentare collisioni, situazioni in cui non sappiamo come scegliere l'output perché due minimi o due repliche coincidono. In tal caso è necessario disambiguare deterministicamente i risultato, per esempio imponendo un ordine arbitrario sugli agenti e restituendo il minimo.
+\end{definition}
+\end{multicols}
+\end{document}

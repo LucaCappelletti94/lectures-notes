@@ -1,0 +1,261 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\providecommand{\f}{\mathcal{F}}
+\providecommand{\fa}{\f_A}
+\providecommand{\Last}{\text{Last}}
+\providecommand{\Ext}{\text{Ext}_A}
+\begin{document}
+\chapter{Algoritmi costruttivi}
+\begin{multicols}{2}
+\begin{definition}[Algoritmo costruttivo puro]
+    Un algoritmo costruttivo \(A\) si definisce \textbf{puro} se la funzione di scelta \(\phi_A\) dipende solo dal nuovo elemento \(i\).
+\end{definition}
+\begin{definition}[Algoritmo costruttivo adattativo]
+    Un algoritmo costruttivo \(A\) si definisce \textbf{adattativo} se \(\phi_A\) dipende anche dalla soluzione corrente \(x\).
+\end{definition}
+\begin{definition}[Euristica costruttiva]
+    Un'euristica costruttiva aggiorna passo per passo un sotto-insieme \(x^{(t)}\):
+    \begin{enumerate}
+        \item Parte da un sotto-insieme vuoto:
+        \[
+            x^{0} = \emptyset
+        \]
+        \item Si ferma se vale una condizione di fine opportunamente definita (tipicamente che i sotto-insiemi successivi non possono contenere soluzioni ottime).
+        \item Ad ogni passo \(t\), sceglie l'elemento \(i^{(t)} \in B\) "migliore" fra quelli ammissibili in base ad un opportuno criterio di scelta.
+        \item Si aggiunge \(i^{(t)}\) al sottoinsieme corrente:
+        \[
+            x^{(t+1)} = x^{(t)} \cup \crl{i^{(t)}}
+        \]
+        E non si torna più indietro sulla scelta fatta.
+        \item Si torna al punto 2.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Spazio di ricerca di un algoritmo costruttivo]
+    Lo spazio di ricerca \(\fa\) di un algoritmo costruttivo \(A\) è la collezione dei sottoinsiemi che l'algoritmo considera validi e include:
+    \begin{enumerate}
+        \item Il sotto-insieme vuoto: \(\emptyset \in \fa\)
+        \item Alcune soluzioni parziali, sottoinsiemi di soluzioni ammissibili.
+        \item Le soluzioni ammissibili promettenti, cioè quelle che non sono ancora dominate.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Grafo di costruzione di un algoritmo costruttivo]
+Il grafo di costruzione di un algoritmo costruttivo \(A\) ammette:
+\begin{enumerate}
+    \item Come nodi i sottoinsiemi validi \(x \in \fa\).
+    \item Come archi le coppie di sotto-insiemi validi in cui il secondo ha un elemento in più del primo:
+    \[
+        \rnd{x, x \cup \crl{i}}: x \in \fa, \; i \in B \setminus x \quad \text{e} \quad x \cup \crl{i} \in \fa
+    \]
+\end{enumerate}
+
+Si tratta di un grafo \textbf{aciclico} in cui ogni cammino massimale descrive una possibile esecuzione dell'algoritmo
+\end{definition}
+\begin{observation}[Cosa indica un algoritmo euristico?]
+    L'algoritmo \(A\) indica un insieme di estensioni ammissibili:
+    \[
+        \text{Ext}_A(x) = \crl{i \in B \setminus x: x \cup \crl{i} \in \fa} \quad \forall x \in \fa 
+    \]
+\end{observation}
+\begin{definition}[Test di appartenenza]
+    Occorre definire \(\fa\) in modo che:
+    \begin{enumerate}
+        \item Il test di appartenenza \(x^{(t)} \in \fa\) sia efficiente.
+        \item \(\fa\) includa (per quanto possibile) solo sottoinsiemi di soluzioni ammissibili, e magari ottime.
+    \end{enumerate}
+\end{definition}
+\begin{observation}[Quando un algoritmo costruttivo termina?]
+    Un'euristica costruttiva \(A\) termina quando aggiungere qualsiasi elemento \(i\) al sotto-insieme corrente \(x^{(t)}\) lo fa uscire dallo spazio di ricerca \(\fa\):
+    \[
+        x^{(t)} \cup \crl{i} \not\in \fa \quad \forall i \in B \setminus x^{(t)} \Rightarrow \text{STOP}
+    \]
+    
+    Dato che \(\text{Ext}_A(x) = \crl{i \in B\setminus x: x \cup \crl{i} \in \fa}\), la condizione diventa:
+    \[
+        \text{Ext}_A\rnd{x^{(t)}} = \emptyset \Rightarrow STOP
+    \]
+\end{observation}
+\begin{observation}[Quando un algoritmo costruttivo trova l'ottimo?]
+    Un algoritmo costruttivo \(A\) trova l'ottimo quando ad ogni passo \(t\) il sotto-insieme corrente \(x^{(t)}\) è contenuto in almeno una soluzione ottima. Questa proprietà vale al primo passo, ma spesso si perde in qualche passo \(t\).
+\end{observation}
+\begin{observation}[Quanti passi esegue al massimo un'euristica costruttiva?]
+    Un'euristica costruttiva esegue al massimo \(n = \abs{B}\) passi.
+\end{observation}
+\end{multicols}
+\begin{complexity}[Complessità dell'euristiche costruttive]
+    La complessità di ogni passo è data da:
+    \begin{enumerate}
+        \item La costruzione di \(\text{Etx}_A(x)\), in tempo \(T_{\text{Ext}_A}(n)\).
+        \item La valutazione di \(\phi_A(i, x) \quad \forall i \in \text{Ext}_A(x)\), in tempo \(T_{\phi_A}(n)\).
+        \item L'estrazione del valore minimo e del corrispondente \(i\).
+        \item L'aggiornamento di \(x\).
+    \end{enumerate}
+    In generale, è una complessità polinomiale di ordine piuttosto basso, in cui prevalgono le prime due componenti:
+    \[
+        T_A(n) \in O\rnd{n\rnd{T_{\text{Ext}_A}(n) + T_{\phi_A}(n)}}
+    \]
+\end{complexity}
+\begin{definition}[Matroide]
+Un matroide è un sistema di insiemi \(\rnd{B, \f}\) con \(\f \subseteq 2^{B}\) tale che:
+\begin{description}
+    \item[Assioma banale:] \(\emptyset \in \f\)
+    \item[Assioma di ereditarietà:] se \(x \in \f\) e \(y \subset x\) allora \(y \in \f\): vale a dire che ogni sottoinsieme valido si può costruire aggiungendo gli elementi in un ordine qualsiasi.
+    \item[Assioma di scambio:] \( \forall x, y \in \f: \abs{x} = \abs{y} + 1, \; \exists i \in x \setminus y: y \cup \crl{i} \in \f \), vale a dire che ogni sottoinsieme valido si può estendere con un opportuno elemento di qualsiasi altro sottoinsieme di cardinalità superiore.
+\end{description}
+\end{definition}
+\begin{definition}[Greedoide]
+Un greedoide è un sistema di insiemi \(\rnd{B, \f}: \f \subseteq 2^B\) che rispetta l'assioma \textbf{banale} e \textbf{di scambio} dei matroidi ed una versione più debole dell'assioma di \textbf{ereditarietà} detto \textbf{assioma di accessibilità}:
+\[
+    x \in \f \; \land \; x \neq \emptyset \Rightarrow \exists i \in x: x \setminus \crl{i} \in \f
+\]
+Vale a dire che ogni sottoinsieme valido si può costruire aggiungendo gli elementi in un ordine opportuno.
+\end{definition}
+\clearpage
+\begin{multicols}{2}
+\begin{definition}[Algoritmo First-Fit]
+    Si parte con un sotto-insieme vuoto \(x^{(0)} = \emptyset\) e si prende un oggetto \(i\) qualsiasi, quindi si sceglie il contenitore \(j\)  in modo da minimizzare il numero di contenitori usati, scelta che dipende da \(x\) e non solamente da \(i\).
+    
+    Per fare questo, si prende il primo contenitore usato con capacità residua sufficiente e se nessuno ha capacità residua sufficiente se ne usa uno nuovo.
+    
+    Si aggiunge quindi alla soluzione il nuovo assegnamento:
+    \[
+        x^{(t+1)} = x^{(t)} \cup \crl{\rnd{i,j}}
+    \]
+\end{definition}
+\begin{analysis}[L'algoritmo first-fit è approssimato]
+    La soluzione così ottenuta \textbf{non è ottima}, ma è \textbf{approssimata}:
+    \begin{enumerate}
+        \item Occorrono almeno \(f^*\geq \sum_{i \in O} \frac{v_i}{V}\) contenitori.
+        \item I contenitori usati, tranne al più l'ultimo, hanno contenuto maggiore di \(\frac{V}{2}\): gli oggetti del secondo semi-vuoto sarebbero finiti nel primo.
+        \item Il volume totale supera quello degli \(f_A -1 \) contenitori pieni.
+        \[
+            \sum_{i \in O} v_i > \rnd{f_a - 1} \frac{V}{2}
+        \]
+        \item Ne segue che: \(f_A \leq 2f^* + 1\)
+    \end{enumerate}
+\end{analysis}
+\begin{observation}[Come si può migliorare l'approssimazione dell'algoritmo First-Fit?]
+    Il fattore \(\a = 2\) vale prendendo gli oggetti in qualsiasi ordine, ma è possibile migliorare l'approssimazione:
+    
+    Se si prendono gli oggetti in ordine di volume \textbf{decrescente} il fattore migliora: \(f_A \leq \frac{11}{9}f^* + 1\).
+\end{observation}
+\begin{definition}[Set covering approssimato]
+    Data una matrice binaria e un vettore di costi associati alle colonne, si cerca il sottoinsieme di colonne di costo minimo che copra tutte le righe.
+    
+    Si procede a includere nel set \(\Ext(x)\) solo le colonne che coprono righe aggiuntive e viene utilizzata come funzione di scelta:
+    \[
+        \phi_A(i, x) = \frac{c_i}{a_i(x)}
+    \]
+    dove \(a_i(x)\) è il numero di righe coperte da \(i\) ma non da \(x\).
+\end{definition}
+\begin{observation}[Coefficiente di approssimazione del set covering approssimato]
+    Anche questo algoritmo costruttivo è approssimato, ma con approssimazione logaritmica:
+    \[
+        f_A \leq \rnd{\ln\abs{R}+1} f^*
+    \]
+\end{observation}
+\begin{definition}[Nearest Neighbour per TSP]
+    Si costruisce il set \(\Ext(x)\) con gli archi uscenti dall'ultimo nodo del cammino \(x\) che non chiudono sotto-cicli.
+    \[
+        \Ext(X) = \crl{\rnd{h,k} \in A: h = \Last(x), k \not\in N_x \lor k=1  \land  N_x = N}
+    \]
+    dove \(N_x\) è l'insieme dei nodi visitati da \(x\) e \(\Last(x)\) è l'ultimo nodo visitato.
+    
+    Si parte con l'insieme degli archi vuoto (un cammino degenere che parte da una radice scelta) e si cerca l'arco di costo minimo uscente dall'ultimo nodo (allo step \(0\) è la radice). Questo procedimento si ripete sino a che non si crea un ciclo che torna alla radice.
+    
+    \textbf{NB: è il set \(\Ext(x)\) che impone che la radice sia raggiunta per ultima.}
+\end{definition}
+\begin{definition}[Cheapest Insertion per TSP]
+    Parte con un insieme di archi vuoto, rappresentante un ciclo degenere centrato sulla nota radice e procede ad espanderlo scegliendo l'arco \(\rnd{s_i, s_{i+1}} \in x\) ed il nodo \(k \not\in N_x\) tali che \(\rnd{c_{s_i, k} + c_{k, s_{i+1}} - c_{s_i, s_{i+1}}}\) sia minimo. Se il nuovo ciclo ottenuto tocca tutti i nodi l'algoritmo termina, altrimenti continua ad espandere la soluzione parziale.
+\end{definition}
+\begin{observation}[Coefficiente di approssimazione del Cheapest Insertion per TSP]
+    Anche l'algoritmo Cheapest Insertion per TSP non è esatto ma \(2\)-approssimato sotto condizione di disuguaglianza triangolare.
+\end{observation}
+\begin{complexity}[Cheapest Insertion per il TSP]
+    L'algoritmo esegue \(n\) passi: ad ogni passo valuta \(t\rnd{n-t}\) coppie arco-nodo, ogni valutazione richiede tempo costante ed eventualmente aggiorna la mossa migliore. La complessità totale risultante è:
+    \[
+        \Theta(n^3)
+    \]
+    
+    È possibile ridurla a \(\Theta\rnd{n^2\log n}\) conservando gli inserimenti possibili per ogni nodo esterno in un min-heap. 
+\end{complexity}
+\begin{definition}[Nearest Insertion per TSP]
+    L'algoritmo parte, come il cheapest insertion, con un insieme di archi vuoto che rappresenta un ciclo degenere centrato sulla radice, quindi procede con due criteri:
+    \begin{description}
+        \item[Criterio di selezione:] Sceglie il nodo \(k\) più vicino al ciclo \(x\):
+        \[
+            k = \argmin_{l \not\in N_x} \rnd{\min_{s_i \in x } c_{s_i, l}}
+        \]
+        \item[Criterio di inserimento:] Sceglie l'arco \(\rnd{s_i, s_{i+1}}\) che minimizza \(f\):
+        \[
+            \rnd{s_i, s_{i+1}} = \argmin_{s_i\in x} \rnd{c_{s_i, k} + c_{k, s_{i+1}} - c_{s_i, s_{i+1}}}
+        \]
+    \end{description}
+\end{definition}
+\begin{observation}[Quando il Nearest Insertion per TSP termina?]
+    L'algoritmo continua fino a che non viene realizzato un ciclo che tocca tutti i nodi.
+\end{observation}
+\begin{observation}[Coefficiente di approssimazione del Nearest Insertion per TSP]
+    Pure l'algoritmo Nearest Insertion per TSP non è esatto ma \(2\)-approssimato sotto condizione di disuguaglianza triangolare.
+\end{observation}
+\begin{complexity}[Nearest Insertion per TSP]
+    Ad ogni passo valuta:
+    \begin{enumerate}
+        \item \(\rnd{n-t}\) nodi e trova il più vicino al ciclo.
+        \item \(t\) archi e trova il più conveniente da togliere.
+    \end{enumerate}
+    
+    La complessità totale è \(\Theta\rnd{n^3}\). Si può ridurre a \(\Theta\rnd{n^2}\) conservando per ogni nodo esterno il nodo interno più vicino.
+\end{complexity}
+\begin{definition}[Farthest Insertion per TSP]
+    La scelta del nodo più vicino al ciclo é naturale, ma ingannevole, dato che tutti i nodi vanno raggiunti prima o poi: conviene servire al meglio i nodi più fastidiosi, cioè lontani.
+
+    Pure questo algoritmo parte con un insieme di archi vuoto che rappresenta un ciclo degenere centrato sulla radice, quindi procede con due criteri:
+    \begin{description}
+        \item[Criterio di selezione:] sceglie il nodo \(k\) più lontano dal ciclo \(x\):
+        \[
+            k = \argmax_{l \not\in N_x}\rnd{\min_{s_i \in x} c_{s_i, l}}
+        \]
+        \item[Criterio di inserimento:] sceglie l'arco \(\rnd{s_i, s_{i+1}}\) che minimizza:
+        \[
+            \rnd{s_i, s_{i+1}} = \argmin_{s_i \in x} \rnd{c_{s_i, k} + c_{k, s_{i+1}} - c_{s_i, s_{i+1}}}
+        \]
+    \end{description}
+\end{definition}
+\begin{observation}[Quando termina il Farthest Insertion per TSP?]
+    L'algoritmo nuovamente si interrompe quando tocca tutti i nodi.
+\end{observation}
+\begin{observation}[Coefficiente di approssimazione del Farthest Insertion per TSP]
+    Si tratta di un algoritmo \(\log n\)-approssimato sotto ipotesi di disuguaglianza triangolare.
+\end{observation}
+\begin{complexity}[Farthest Insertion per TSP]
+    A ogni passo valuta:
+    \begin{enumerate}
+        \item \(\rnd{n-t}\) nodi e trova il più lontano dal ciclo.
+        \item \(t\) archi e trova il più conveniente da togliere.
+    \end{enumerate}
+    
+    La complessità totale è \(\Theta\rnd{n^3}\), ma si può ridurre a \(\Theta\rnd{n^2}\) conservando il nodo del ciclo più vicino ad ogni nodo esterno.
+\end{complexity}
+
+\begin{definition}[Distance Heuristic per Steiner Tree Problem]
+    Dato un grafo non orientato \(G\), con costi sui lati interi e un sottoinsieme di vertici speciali \(U \subset V\), si cerca un albero di costo minimo che connetta i vertici speciali. 
+
+    L'idea è di aggiungere un vertice speciale per volta e fermarsi quando tutti i vertici speciali sono connessi. Per poter mantenere la connessione, occorre aggiungere all'albero non un solo lato, ma un intero cammino. Inoltre trovare il cammino minimo da un vertice speciale all'albero \(x\) è facile.
+    
+    Ogni volta si può determinare efficientemente l'insieme \(B^+\) dei nuovi lati.
+\end{definition}
+
+\begin{definition}[Algoritmi euristici distruttivi]
+    Si tratta dell'approccio complementare, con cui si parte dall'intero insieme base \(B\) e si elimina un elemento per volta, che viene scelto in modo da non uscire dallo spazio di ricerca \(\fa\) ed ottimizzando un opportuno criterio.
+\end{definition}
+\begin{observation}[Quando termina un algoritmico euristico distruttivo?]
+    Questa categoria di algoritmo euristico termina quando non c'è più modo di rimanere nello spazio di ricerca.
+\end{observation}
+\begin{observation}[Come mai le euristiche distruttive sono meno usate?]
+    Tipicamente sono meno usate perché spesso richiedono un numero di passi superiore, hanno maggiori probabilità di commettere passi sbagliati e la valutazione dei criteri è tipicamente più costosa.
+\end{observation}
+\begin{observation}[Quando può essere utile combinare euristiche costruttive e distruttive?]
+    Combinare euristiche costruttive con euristiche distruttive può essere utile quando l'euristica costruttiva produce soluzioni ridondanti e la soluzione migliore generata dall'euristica costruttiva non è l'ultima.
+\end{observation}
+\end{multicols}
+\end{document}

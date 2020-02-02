@@ -1,0 +1,80 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Scoring, term weighting, and the vector space model}
+\begin{multicols}{2}
+\begin{definition}[Term Frequency]
+    Con \textbf{term frequency}, la frequenza di un termine, si intende uno degli approcci più semplici per assegnare un punteggio tra un termine \(t\) ed un documento \(d\). Viene denotato come \(\text{tf}_{t,d}\).
+\end{definition}
+\begin{definition}[Bag of words]
+    Rappresentazione di un documento in cui viene considerata unicamente per ogni termine il numero di volte in cui appare, senza considerare l'ordine di apparizione. 
+    
+    Spesso, da questo insieme di parole vengono eliminate le stop-words.
+\end{definition}
+\begin{observation}[Di quale problema soffrono l'approccio a term frequency?]
+    Nell'approccio a \textbf{term frequency} tutti i termini sono considerati equamente importanti quando si procede ad assegnare la rilevanza di essi in una query.
+\end{observation}
+\begin{definition}[Collection frequency]
+    Un approccio immediato per scalare l'importanza di un termine \(t\) è di normalizzarla per il numero di volte che appare nella collezione: essa viene rappresentata con \(\text{cf}_t\) e rappresenta il numero di volte che un termine appare nella collezione.
+\end{definition}
+\begin{definition}[Document Frequency]
+    La \textbf{document frequency} \(\text{df}_t\) è definita come il numero di documenti nella collezione che contiene un termine \(t\).
+\end{definition}
+\begin{definition}[Inverse Document Frequency]
+    Chiamando il numero totale di documenti nella collezione come \(N\), definiamo la \textbf{inverse document frequency} (idf) di un termine \(t\) come:
+    \[
+        \mathrm{idf}_{t}=\log \sfrac{N}{\mathrm{df}_{t}}
+    \]
+    Il valore di \textit{idf} di un termine raro è alto, mentre di un termine frequente è basso.
+\end{definition}
+\begin{definition}[TF-IDF]
+    Combinando la \textbf{term frequency} e la \textbf{inverse document frequency} otteniamo lo schema di pesatura \textbf{tf-idf}, che assegna a un termine \(t\) in un documento \(d\) il valore:
+    \[
+        \mathrm{tf}-\mathrm{idf}_{t, d}=\mathrm{tf}_{t, d} \times \mathrm{idf}_{t}
+    \]
+    In altre parole, \(\mathrm{tf}-\mathrm{idf}_{t, d}\) assegna ad un termine \(d\) un peso in un documento \(d\) che è:
+    \begin{enumerate}
+        \item Massimo quando \(t\) occorre spesso all'interno di pochi documenti.
+        \item Più basso quando il termine appare poche volte in un documento, o appare in molti documenti.
+        \item Minimo quando appare quasi ovunque.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Overlap score measure]
+    Il punteggio di un documento \(d\) è la somma, su tutti i termini della query, del numero di volte che ogni termine appare in \(d\). Possiamo raffinare questo punteggio utilizzando invece il peso \(tf-idf\) di ogni termine della query nel documento:
+    \[
+        \operatorname{Score}(q, d)=\sum_{t \in q} \mathrm{tf}-\mathrm{idf}_{t, d}
+    \]
+\end{definition}
+\begin{observation}[Cosine similarity applicata al TF-IDF]
+    Un modo standard per quantificare la similarità di due documenti \(d_1\) e \(d_2\) è il calcolo della \textbf{cosine similarity} dei vettori di rappresentazione dei documenti:
+    \[
+        \operatorname{sim}\left(d_{1}, d_{2}\right)=\frac{\vec{V}\left(d_{1}\right) \cdot \vec{V}\left(d_{2}\right)}{\left|\vec{V}\left(d_{1}\right)\right|\left|\vec{V}\left(d_{2}\right)\right|^{\prime}}
+    \]
+\end{observation}
+\begin{definition}[Sublinear tf scaling]
+    Siccome è improbabile che 20 o più occorrenze di un termine in un documento possano davvero avere 20 o più volte l'importanza di una singola occorrenza, una modifica tipica è di utilizzare un logaritmo della term frequency:
+    \[
+        \mathrm{wf}_{t, d}=\left\{\begin{array}{ll}{1+\log \mathrm{tf}_{t, d}} & {\text { if } \mathrm{tf}_{t, d}>0} \\ {0} & {\text { otherwise }}\end{array}\right.
+    \]
+    e quindi successivamente:
+    \[
+        \mathrm{wf}-\mathrm{idf}_{t, d}=\mathrm{wf}_{t, d} \times \mathrm{idf}_{t}
+    \]
+\end{definition}
+\begin{definition}[Maximum tf normalization]
+    Un altro approccio è quello di normalizzare i pesi di term frequency di tutti i termini che appaiono in un documento per il termine massimo del documento (normalizzazione max-min). Viene inoltro svolto uno \textbf{smoothing} con un termine \(a\), generalmente pari a \(0.4\).
+    \[
+        \mathrm{ntf}_{t, d}=a+(1-a) \frac{\mathrm{tf}_{t, d}}{\mathrm{tf}_{\max }(d)}
+    \]
+\end{definition}
+\begin{observation}[Di quali problemi soffre la maximum normalization?]
+    La \textbf{maximum tf normalization} soffre dei seguenti problemi:
+    \begin{enumerate}
+        \item Il metodo risulta instabile perché un cambio nella lista delle stop word può cambiare drasticamente i risultati, e pertanto risulta difficile da regolare.
+        \item Un documento potrebbe contenere un termine outlier con una frequenza sorprendentemente alta, non rappresentativa del contenuto di quel documento.
+        \item Più generalmente, un documento in cui il termine più frequente appare circa quanto gli altri termini dovrebbe essere trattato diversamente da quelli con una distribuzione più particolare.
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+
+\end{document}

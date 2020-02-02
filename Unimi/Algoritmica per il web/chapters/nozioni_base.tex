@@ -1,0 +1,241 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Notazioni e definizioni di base}
+\begin{multicols}{2}
+    \begin{definition}[Prodotto cartesiano e proiezioni]
+        Il prodotto cartesiano degli insiemi \(X\) e \(Y\) è l'insieme:
+        \[
+            X \times Y = \crl{\ngle{x, y}: x \in X \land y \in Y}
+        \]
+        delle coppie ordinate degli elementi di \(X\) e \(Y\).
+        
+        La definizione si estende per ricorsione a \(n\) insiemi: al prodotto cartesiano \(X_1 \times X_2 \times \ldots X_n\) sono naturalmente associate le proiezioni \(\pi_1, \pi_2, \ldots, \pi_n\) definite da:
+        \[
+            \pi_{i}\left(\left\langle x_{1}, x_{2}, \ldots, x_{n}\right\rangle\right)=x_{i}
+        \]
+    \end{definition}
+    \begin{definition}[Insieme con un solo elemento]
+        La notazione per un insieme qualunque con un solo elemento è \(
+            X^0 = \crl{*}
+        \).
+    \end{definition}
+    \begin{definition}[Potenza di insiemi]
+        Definiamo la potenza \(n\)-esima di un insieme come:
+        \[
+            X^{n}=\overbrace{X \times X \times \cdots \times X}^{n \text { volte }}
+        \]
+    \end{definition}
+    \begin{definition}[Somma disgiunta]
+        La \textbf{somma disgiunta} degli insiemi \(X\) e \(Y\) è un'unione d \(X\) e \(Y\) che però tiene separati gli insiemi comuni:
+        \[
+            X+Y=X \times\{0\} \cup Y \times\{1\}
+        \]
+    \end{definition}
+    \begin{definition}[Relazione tra insiemi]
+        Una \textbf{relazione} tra gli insiemi \(X_1, X_2, \ldots, X_n\) è un sottoinsieme \(R\) del prodotto cartesiano \(X_1 \times X_2 \times \ldots \times X_n\). 
+    \end{definition}
+    \begin{definition}[Relazione binaria]
+        Una relazione tra due insiemi \(X\) e \(Y\) è detta binaria e si scrive come:
+        \[
+            x\;R\;y \text{ per } \ngle{x, y} \in R
+        \]
+        \(X\) è detto il \textbf{dominio} di \(R\) ed è denotato come \(\text{dom }R\) mentre \(Y\) è detto \textbf{codominio} di \(R\), ed è denotato da \(\text{cod} R\). 
+    \end{definition}
+    \begin{definition}[Rango o Insieme di Definizione di una Relazione]
+        Il \textbf{rango} o \textbf{insieme di definizione} di \(R\) è l'insieme \(\text{ran} R = \crl{x \in X: \exists y \in Y, x R y}\), e in generale può non coincidere col il dominio di \(R\).
+    \end{definition}
+    \begin{definition}[Immagine di una Relazione]
+        L'\textbf{immagine} di \(R\) è l'insieme \(\text{imm} R = \crl{y \in Y: \exists x \in X x R y}\), e in generale può non coincidere con il codominio di \(R\).
+    \end{definition}
+    \begin{definition}[Relazione binaria monodroma]
+        Una relazione binaria \(R\) tra \(X\) e \(Y\) è \textbf{monodroma} se per ogni \(x \in X\) esiste al più un \(y \in Y\) tale che \(x R y\).
+    \end{definition}
+    \begin{definition}[Relazione binaria totale]
+        Una relazione binaria \(R\) tra \(X\) e \(Y\) è \textbf{totale} se per ogni \(x \in X\) esiste un \(y \in Y\) tale che \(x R y\), cioè se \(\text{ran} R == \text{dom} R\).
+    \end{definition}
+    \begin{definition}[Relazione binaria iniettiva]
+        Una relazione binaria \(R\) tra \(X\) e \(Y\) è \textbf{iniettiva} se per ogni \(y \in Y\) esiste al più un \(x \in X\) tale che \(x R y\).
+    \end{definition}
+    \begin{definition}[Relazione binaria suriettiva]
+        Una relazione binaria \(R\) tra \(X\) e \(Y\) è \textbf{suriettiva} se per ogni \(y \in Y\) esiste un \(x \in X\) tale che \(x R y\), cioè se \(\text{imm} R == \text{cod} R\).
+    \end{definition}
+    \begin{definition}[Relazione binaria biiettiva]
+        Una relazione binaria \(R\) tra \(X\) e \(Y\) è \textbf{biiettiva} se risulta sia \textbf{iniettiva} che \textbf{suriettiva}.
+    \end{definition}
+    \begin{definition}[Funzione tra insiemi]
+        Una \textbf{funzione} da \(X\) e \(Y\) è una relazione \textbf{monodroma} e \textbf{totale} tra \(X\) e \(Y\).
+    \end{definition}
+    \begin{definition}[Monoide libero]
+        Dato un insieme \(X\), il \textbf{monoide libero} su \(X\) denotato da \(X^*\), è l'insieme di tutte le sequenze finite di elementi di \(X\), dette \textbf{parole} su \(X\), dotate dell'operazione di concatenazione, di cui la parola vuota è l'elemento neutro. 
+        
+        Denoteremo con \(\abs{w}\) il numero di elementi di \(X\) della parola \(w \in X\).
+    \end{definition}
+    \begin{definition}[Funzione caratteristica]
+        Dato un sotto-insieme \(A\) di \(X\), possiamo associargli la sua \textbf{funzione caratteristica} \(\chi_A: X \rightarrow 2\), definita da:
+        \[
+            \chi_{A}(x)=\left\{\begin{array}{ll}{0} & {\text { se } x \notin A} \\ {1} & {\text { se } x \in A}\end{array}\right.
+        \]
+    \end{definition}
+    \begin{definition}[Funzioni di ordine superiore e inferiore]
+        Date due funzioni \(f,g: \N \rightarrow \R \), diremo che \(f\) è di ordine non superiore a \(g\) e scriveremo \(f \in O\rnd{g}\) se esiste una costante \(\alpha \in \R\) tale che \(\abs{f(n)} \leq \abs{\alpha g(n)}\) definitivamente. Diremo che \(f\) è di ordine non inferiore a \(g\), e scriveremo \(f \in \Omega\rnd{g}\) se \(g \in O(f)\). Diremo che \(f\) è dello stesso ordine di \(g\), e scriveremo \(f \in \Theta\rnd{g}\), se \(f \in O\rnd{g}\) e \(g \in O\rnd{f}\). 
+    \end{definition}
+    \begin{definition}[Cricca (Clique)]
+        Una \textbf{cricca} di un grafo \(G\) è un insieme di vertici \(C \subseteq V_G\) mutuamente adiacenti. Il suo duale è un \textbf{insieme indipendente}.
+    \end{definition}
+    \begin{definition}[Insieme indipendente]
+        Un \textbf{insieme indipendente} di un grafo \(G\) è un insieme di vertici \(I \subseteq V_G\) mutuamente non adiacenti.
+    \end{definition}
+    \begin{definition}[Cammino]
+        Un \textbf{cammino} in un grafo \(G\) è una sequenza di vertici \(x_0, x_1, \ldots, x_n\) tale che \(x_i\) è adiacente a \(x_{i+1}\). Diremo che i cammino va da \(x_0\) a \(x_n\).
+    \end{definition}
+    \begin{definition}[Archi paralleli]
+        Due archi \(a\) e \(b\) di un grafo \(G\) tali che \(s_G\rnd{a} = s_G\rnd{b}\) e \(t_G\rnd{a} = t_G\rnd{b}\) sono detti \textbf{paralleli.}
+    \end{definition}
+    \begin{definition}[Grafo separato]
+        Un grafo senza archi paralleli è detto \textbf{separato}.
+    \end{definition}
+    \begin{definition}[Grado positivo (outdegree)]
+        Il \textbf{grado positivo} \(d^+\rnd{x}\) di un nodo \(x\) è il numero di archi che partono da \(x\).
+    \end{definition}
+    \begin{definition}[Grado negativo (indegree)]
+        Il \textbf{grado negativo} \(d^-\rnd{x}\) di un nodo \(x\) è il numero di archi che arrivano in \(x\).
+    \end{definition}
+\begin{observation}[Quali grafi consideriamo?]
+    Consideriamo grafi diretti definiti da un insieme \(N\) di \(n\) nodi ed un insieme \(A \subseteq N \times N\) di archi.
+\end{observation}
+\begin{definition}[Grafo trasposto]
+    Un grafo trasposto è ottenuto invertendo le direzioni di tutti gli archi.
+\end{definition}
+\begin{definition}[Grafo simmetrico]
+    Un grafo simmetrico è un grafo tale che se \(x \rightarrow y\) allora \(y \rightarrow x\): risulta invariante alla trasposizione e può essere identificato con un grafo indiretto.
+\end{definition}
+\begin{definition}[Successore]
+    Un successore di un nodo \(x \in A\) è un nodo \(y \in A\) tale che \(x \rightarrow y\).
+\end{definition}
+\begin{definition}[Predecessore]
+    Un predecessore di un nodo \(y \in A\) è un nodo \(x \in A\) tale che \(x \rightarrow y\).
+\end{definition}
+\begin{definition}[Grado uscente (outdegree)]
+    Il grado uscente \(d^+\rnd{x}\) di un nodo \(x \in A\) è il numero dei suoi successori.
+\end{definition}
+\begin{definition}[Grado entrante (indegree)]
+    Il grado entrante \(d^-\rnd{y}\) di un nodo \(y \in A\) è il numero dei suoi predecessori.
+\end{definition}
+\begin{definition}[Percorso (path)]
+    Un percorso di lunghezza \(k\) è una sequenza \(x_0, x_1, \ldots, x_{k-1}\) dove \(x_j \rightarrow x_{j+1}\)
+\end{definition}
+\begin{definition}[Cammino (walk)]
+    Un cammino di lunghezza \(k\) è una sequenza \(x_0, x_1, \ldots, x_{k-1}\) dove \(x_j \rightarrow x_{j+1}\) o \(x_{j+1} \rightarrow x_{j}\).
+\end{definition}
+\begin{definition}[Componente connessa]
+    Una componente connessa di un grafo è un sottoinsieme massimale di nodi in cui ogni coppia di nodi è connessa da un cammino. Le componenti formano una partizione dei nodi di un grafo.
+\end{definition}
+\begin{definition}[Componente fortemente connessa]
+    Una componente fortemente connessa di un grafo è un sottoinsieme massimale di nodi in cui ogni coppia di nodi è connessa da un percorso.
+\end{definition}
+\begin{definition}[Componente fortemente connessa terminale]
+    Una componente fortemente connessa è \textbf{terminale} se i suoi nodi non hanno archi verso altre componenti.
+\end{definition}
+\begin{definition}[Grafo connesso]
+    Un grafo è connesso se esiste una sola componente connessa, cioè per ogni possibile coppia di nodi \(x, y \in A\) esiste un cammino da \(x\) ad \(y\).
+\end{definition}
+\begin{definition}[Grafo fortemente connesso]
+    Un grafo è fortemente connesso se esiste una sola componente connessa, cioè per ogni possibile coppia di nodi \(x, y \in A\) esiste un percorso da \(x\) ad \(y\).
+\end{definition}
+\begin{definition}[Distanza tra nodi]
+    La distanza \(d\rnd{x,y}\) da \(x\) a \(y\) è il percorso di lunghezza minima da \(x\) a \(y\). Se non esiste un percorso del genere, la distanza è \(\infty\).
+\end{definition}
+\begin{definition}[Nodi raggiungibili]
+    I nodi \textbf{raggiungibili} da un nodo \(x\) sono i nodi \(y\) tali che \(d\rnd{x,y} < \infty\).
+\end{definition}
+\begin{definition}[Nodi coraggiungibili]
+    I nodi \textbf{coraggiungibili} da un nodo \(y\) sono i nodi \(x\) tali che \(d\rnd{y,x} < \infty\).
+\end{definition}
+\begin{definition}[Matrice associata stocastica]
+    Data una matrice non-negativa associata a un grafo \(A\), indichiamo con \(\bar{A}\) la matrice normalizzata in norma \(\ell_1\) lungo le righe dividendo ogni elemento di una riga per la somma della riga. Se non vi sono righe nulle, la matrice \(\bar{A}\) ottenuta è \textbf{stocastica}.
+\end{definition}
+\begin{definition}[Notazione di Iverson]
+    Se \(P\) è un predicato, \(\sqr{P}\) vale \(0\) se \(P\) è falso e vale \(1\) se \(P\) è vero.
+\end{definition}
+\begin{definition}[\(i\)-esimo numero armonico]
+    Denotiamo con \(H_i\) l'\(i\)-esimo numero armonico:
+    \[
+        H_i = \sum_{1 \leq k \leq i} \frac{1}{k}
+    \]
+\end{definition}
+\begin{definition}[Vettore caratteristico di \(i\)]
+    Indichiamo il vettore caratteristico di \(i\) con \(
+        \chi_{i}(j)=[j=i]
+    \).
+\end{definition}
+\end{multicols}
+\clearpage
+\section{Misure geometriche}
+\begin{multicols}{2}
+\begin{definition}[Misure geometriche]
+    Chiamiamo \textbf{misure geometriche} quelle misure che assumano che l'importanza sia una funzione della distanza e che una centralità geometrica dipenda unicamente da quanti nodi esistono ad ogni data distanza.
+\end{definition}
+\begin{definition}[Grado entrante (indegree) come metrica]
+    Il numero di archi entranti \(d^-\rnd{x}\) può essere considerata una misura geometrica: si tratta semplicemente del numero di nodi a distanza uno.
+\end{definition}
+\begin{definition}[Vicinanza (closeness) di Bavelas]
+    La vicinanza è definita come:
+    \[
+        \frac{1}{\sum_{y} d(y, x)}
+    \]
+    L'idea è che i nodi più centrali hanno distanze minori, ma richiede che il grafo sia fortemente connesso. Senza questa condizione alcuni denominatori saranno \(\infty\), ottenendo quindi un valore nullo per tutti i nodi che non coraggiungono tutto il grafo.
+    Una possibile soluzione, che però introduce un forte bias verso l'insieme dei nodi raggiungibili, è ottenibile rimuovendo le distanze infinite.
+    \[
+        \frac{1}{\sum_{d(y, x)<\infty} d(y, x)}
+    \]
+\end{definition}
+\begin{definition}[Indice di Lin]
+    Si tratta di un tentativo per migliorare la definizione di vicinanza pesando la distanza corretta di Bavelas per il quadrato del numero dei nodi coraggiungibili.
+    \[
+        \frac{|\{y | d(y, x)<\infty\}|^{2}}{\sum_{d(y, x)<\infty} d(y, x)}
+    \]
+    Questa modifica normalizza la vicinanza per ogni nodo del grafo.
+\end{definition}
+\begin{observation}[Quale è il problema principale nel determinare la vicinanza?]
+    Il problema principale nell'individuare una metrica di vicinanza è la presenza di coppie di nodi che non sono raggiungibili l'uno dall'altro.
+\end{observation}
+\begin{definition}[Centralità armonica]
+    Definiamo la \textbf{centralità armonica} di un nodo \(x\) come:
+    \[
+        \sum_{y \neq x} \frac{1}{d(y, x)}=\sum_{d(y, x)<\infty, y \neq x} \frac{1}{d(y, x)}
+    \]
+    La centralità armonica è fortemente correlata alla vicinanza in reti semplici, ma inoltre supporta anche le coppie di nodi non raggiungibili. Pertanto è possibile applicarla con successo anche a grafi che non sono fortemente connessi.
+\end{definition}
+\end{multicols}
+\clearpage
+\section{Misure spettrali}
+\begin{multicols}{2}
+\begin{definition}[Misure spettrali]
+    Le \textbf{misure spettrali} calcolano l'autovettore sinistro dominante di qualche matrice derivata dal grafo e in base a come la matrice è modificata prima del calcolo possiamo ottenere misure diverse.
+\end{definition}
+\begin{definition}[Autovettore dominante sinistro]
+    L'autovettore sinistro dominante può essere pensato come il punto fisso di una computazione iterata in cui ogni nodo inizia con lo stesso punteggio, e quindi aggiorna il proprio valore con la somma dei punteggi dei suoi predecessori. Il vettore è quindi normalizzato ed il processo si ripete sino alla convergenza.
+    
+    Gli autovettori dominanti non si comportano come atteso su grafi che non sono fortemente connessi: in base all'autovettore dominante della componente fortemente connessa, l'autovettore dominante del grafo potrebbe (o non) essere non-zero sulle componenti non terminali.
+\end{definition}
+\vfill\null
+\columnbreak
+\begin{definition}[Quale è l'idea dell'indice di Seeley?]
+    L'idea alla base dell'autovettore dominante può essere leggermente corretta osservando che la regola di aggiornamento che abbiamo descritto può essere vista come se ogni nodo desse via il proprio punteggio, come una reputazione, ai propri successori.
+    
+    Sembra più sensato dividere equamente la reputazione attraverso tutti i nodi successori: questo coincide con normalizzare ogni riga della matrice di incidenza in norma \(\ell_1\).
+    
+    La matrice ottenuta è stocastica, quindi il punteggio può essere interpretato come lo stato stazionario di una catena di Markov.
+\end{definition}
+\begin{observation}[Indice di Katz]
+    L'indice di Katz è una sommatoria pesata su tutti i cammini che giungono a un nodo, in modo tale che la sommatoria di ogni nodo risulti finita.
+    \[
+        \boldsymbol{k}=\mathbf{1} \sum_{i=0}^{\infty} \beta^{i} A^{i}
+    \]
+    Perché la sommatoria sia finita, il \textbf{fattore di attenuazione} \(\beta\) deve risultare più piccolo di \(\sfrac{1}{\lambda}\), dove \(\lambda\) è un autovettore dominante di \(A\).
+    
+    Il limite normalizzato dell'indice di Katz per \(\beta \rightarrow \sfrac{1}{\lambda}\) è un autovettore dominante. Se quest'ultimo non fosse unico, il limite dipende dal vettore di preferenze \(\bmv\), che va a sostituire \(\mathbf{1}\).
+\end{observation}
+\end{multicols}
+\end{document}

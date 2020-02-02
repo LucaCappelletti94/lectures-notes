@@ -1,0 +1,48 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Introduzione}
+\begin{multicols}{2}
+\begin{definition}[Funzione di perdita]
+    Si tratta di una funzione \textit{non negativa} \(\loss{y}{\hat{y}}\) che misura la discrepanza fra un etichetta predetta ed una etichetta vera.
+    \[
+        \loss{y}{\hat{y}}
+    \]
+\end{definition}
+\begin{definition}[Esempio]
+    Un esempio è una coppia \(\rnd{\bmx, y}\) composta da un dato \(\bmx\) e dalla sua etichetta \(y\), che è quella che riteniamo corretta per quel dato.
+\end{definition}
+\begin{definition}[Training set]
+    Si tratta di un insieme \(\examples{m}\) di esempi.
+\end{definition}
+\begin{definition}[Test set]
+    Un test set è un insieme \(\rnd{\bmx'_1, y'_1}, \ldots, \rnd{\bmx'_n, y'_n}\) di esempi a cui l'algoritmo di apprendimento non ha accesso.
+    
+    Viene tipicamente costruito assieme al training set.
+\end{definition}
+\begin{definition}[Test error]
+    Dato un classificatore o regressore \(f\), stimiamo la capacità predittiva di \(f\) attraverso il \textbf{test error}:
+    \[
+        \testerror{f} = \frac{1}{n}\sum_{t=1}^n \loss{y'_t}{f\rnd{\bmx'_t}}
+    \]
+\end{definition}
+\begin{observation}[A cosa serve il Test Error?]
+    Il \textbf{test error} serve a stimare il comportamento del predittore "sul campo", ovvero su dati non precedentemente osservati. Il nostro scopo é quindi formulare una teoria che ci permetta di sviluppare algoritmi di apprendimento in grado di generare predittori con basso test error.
+\end{observation}
+\begin{definition}[Metodo di minimizzazione del rischio empirico (ERM)]
+    Sia \(\clsset\) un insieme dato di classificatori o regressori. Il metodo di \textbf{minimizzazione del rischio empirico} (o ERM, da \textit{empirical risk minimization}) indica l'algoritmo di apprendimento che sceglie la funzione in \(\clsset\) che minimizza il training error:
+    \[
+        \hat{f} = \argmin_{f \in \clsset} \testerror{f}
+    \]
+\end{definition}
+\begin{definition}[Overfitting]
+    Il fenomeno per il quale un algoritmo di apprendimento tende a generare predittori con basso training error e alto test error prende il nome di \textbf{overfitting}. Si verifica soprattutto quando i dati sono affetti da rumore.
+    
+    Il predittore "impara" molto bene i dati di esempio e riconosce esattamente quelli.
+\end{definition}
+\begin{definition}[Rumore]
+    Diremo che un dataset è affetto da \textbf{rumore} quando un'istanza \(\bmx\) può comparire a volte con un'etichetta e a volte con un'altra.
+\end{definition}
+\end{multicols}
+
+\end{document}

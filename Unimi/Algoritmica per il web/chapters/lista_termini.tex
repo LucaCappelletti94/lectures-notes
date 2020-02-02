@@ -1,0 +1,66 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Gestione della lista dei termini}
+\begin{multicols}{2}
+\begin{observation}[Qual'è il vantaggio di usare un order-preserving minimal perfect hash?]
+    Data una lista di stringhe la tecnica dell'hash minimale perfetto che preserva l'ordine è in grado di restituire il numero ordinale di qualunque elemento della lista ma di \textbf{non memorizzare la lista stessa}. L'occupazione di memoria sarà di circa \(5\) byte per stringa, indipendentemente dalla lunghezza delle stringhe.
+\end{observation}
+\begin{definition}[Hash]
+    Una funzione di \textbf{hash} per un insieme di chiavi \(X \subseteq U\), dove \(U\) è l'universo di tutte le chiavi possibili, è una funzione da \(f: X \rightarrow m\).
+\end{definition}
+\begin{definition}[Hash perfetto]
+    Quando la funzione è iniettiva (cioè non esistono \textbf{collisioni}) l'\textbf{hash} è detto \textbf{perfetto}.
+\end{definition}
+\begin{definition}[Hash minimale]
+    Se \(\abs{X} = m\), l'\textbf{hash} è detto \textbf{minimale}
+\end{definition}
+\begin{definition}[Funzione che preserva l'ordine]
+    Se esiste un ordine lineare su \(X\) e si ha che \(x \leq y\) se e solo se \(f\rnd{x} \leq f\rnd{y}\) diremo che \(f\) \textbf{preserva l'ordine}.
+\end{definition}
+\begin{definition}[Order-preserving minimal perfect hash]
+    Si tratta di una funzione di hash che, per un insieme di stringhe arbitrario, sia \textbf{minimale}, \textbf{perfetta} e che preservi l'ordine.
+\end{definition}
+\end{multicols}
+\begin{definition}[Firma]
+    Una firma è una funzione che consente di riconoscere se un elemento fa parte di un insieme \(X\) o no: essa viene definita come una funzione \(s: U \rightarrow 2^r\), che associ a ogni chiave possibile una sequenza di \(r\) bit casuali, nel senso che la probabilità che \(s\rnd{x} = s\rnd{y}\) se \(x\) e \(y\) sono presi uniformemente a caso da \(U\) è \(\frac{1}{2}^2\). Consideriamo l'enumerazione ordinata \(x_0 \leq x_1 \leq \ldots \leq x_{n-1}\) degli elementi di \(X\) e, oltre a \(f\), memorizziamo ora una tabella di \(n\) firme a \(r\) bit \(S = \ngle{s\rnd{x_0}, s\rnd{x_1}, \ldots, s\rnd{x_{n-1}}}\).
+    
+    Per interrogare la struttura risultante su input \(x \in U\), agiamo come segue:
+    \begin{enumerate}
+        \item calcoliamo \(f\rnd{x}\)
+        \item recuperiamo \(S_{f\rnd{x}}\)
+        \item se \(S_{f\rnd{x}} = s\rnd{x}\) restituiamo \(f\rnd{x}\), altrimenti restituiamo \(-1\) per indicare che \(x\) non fa arte dell'insieme \(X\).
+    \end{enumerate}
+    Se \(x \in X\), il valore \(f\rnd{x}\) è il suo rango in \(X\) e quindi \(S_{f\rnd{x}}\) conterrà per definizione \(s\rnd{x}\). Se invece \(x \not\in X\), \(S_{f\rnd{x}}\) sarà una firma arbitraria, e quindi restituiremo quasi sempre \(-1\), tranne nel caso ci siano collisioni di firme, il che avviene con probabilità \(\frac{1}{2}^r\). Tarando il numero \(r\) di bit delle firme è quindi possibile bilanciare lo spazio occupato e la precisione della struttura.
+\end{definition}
+\begin{analysis}[Costruzione di un Order-preserving minimal perfect hash]
+    Scegliamo \textbf{due} funzioni \(h\) e \(g\) con uno spazio dei valori \(m\) un po' più ampio della cardinalità \(n\) di \(X\), e di creare un vettore \(\bm{w}\) di interi di dimensione \(m\). Cercheremo quindi di fare in modo che:
+    \[
+        w_{h(x)}+w_{g(x)} \quad \bmod n
+    \]
+    sia esattamente il valore che cerchiamo (cioè l'hash minimale perfetto che preserva l'ordine). Avendo due funzioni tali che \(m>n\) e il vettore \(\bm{w}\) abbiamo un po' di margine.
+    
+    Vogliamo un \textbf{hash} che preserva l'ordine, quindi denotiamo con \(r\rnd{x}\) il \textbf{rango} di \(x\) in \(X\), cioè la posizione ordinale di \(x\) nell'ordine di \(X\). La condizione che ci interessa imporre è:
+    \[
+        w_{h(x)}+w_{g(x)} \bmod n=r(x)
+    \]
+    Si tratta quindi di un sistema di \(n\) equazioni modulari nelle variabili \(w_i\), che potrebbe non avere soluzione. Possiamo però rappresentare i vincoli imposti dal sistema come segue: costruiamo un grafo \(G\) non orientato con \(m\) vertici e \(n\) lati in cui per cui per ogni \(x \in X\) abbiamo che \(h\rnd{x}\) è adiacente a \(g\rnd{x}\) tramite un lato etichettato da \(r\rnd{x}\).
+    
+    Consideriamo una sequenza di \textbf{pelature} del grafo \(G\). La prima pelatura, \(F_0 \subseteq m\), è data dall'insieme dei vertici che sono una foglia (cioè che hanno grado \(0\) o \(1\)) nel grafo \(G_0 = G\). La seconda, \(F_1\), dall'insieme dei vertici che sono una foglia nel grafo \(G_1\) ottenuto cancellando i vertici in \(F_0\) (e i lati loro adiacenti) dal grafo. Continuiamo così finché non arriviamo a una pelatura \(F_k\) in cui non ci sono più foglie: \(F_k\) è l'insieme vuoto se e solo se il grafo è aciclico.
+    
+    Se \(F_k\) è vuoto, possiamo risolvere ora il sistema nel seguente modo: partiamo da \(F_{k-1}\), e per tutti i vertici \(x\) che sono di grado \(0\) in \(G_{k-1}\) assegniamo \(w_x = 0\). I vertici \(x\) di grado \(1\) sono invece adiacenti esattamente a un altro vertice \(y\). In genere, \(w_y\) è già stato assegnato, dal momento \(y\) che fa parte di una pelatura successiva: fanno eccezione i vertici agli estremi di un lato isolato, che possono essere entrambi non assegnati, nel qual caso poniamo \(w_y = 0\). Se \(v\) è il valore assegnato al lato che collega \(x\) e \(y\), poniamo allora:
+    \[
+        w_{x}=v-w_{y} \quad \bmod n
+    \]
+    Possiamo sempre effettuare l'assegnamento perché gli \(F_i\) sono una partizione dei vertici del grafo, e quindi non incontreremo mai un vertice già assegnato.
+    
+    Ora, assumendo che \(h\) e \(g\) siano casuali e indipendenti, il grafo che andiamo a costruire è un grafo casuale di \(m\) vertici con \(n\) archi, e un risultato importante di teoria dei grafi casuali dice che per \(n\) sufficientemente grande quando \(m > 2.09\cdot n\) il grafo è \textbf{quasi sempre} privo di cicli.
+    
+    Scegliendo bene \(h\) e \(g\) quindi, e posto che il grafo non risulti degenere, quasi tutti i grafi che otterremo permetteranno di risolvere il sistema.
+    
+    La teoria degli ipergrafi casuali ci dice che utilizzando \(3\)-ipergrafi (cioè un insieme di sottoinsiemi di ordine \(3\) dell'insieme dei vertici) è possibile dare una nozione di aciclicità che permette di risolvere i sistemi nel caso di \(3\) funzioni di \textbf{hash}, ma in questo caso il limite che garantisce l'aciclicità è \(m > 1.23 \cdot n\), che rappresenta un miglioramento netto rispetto al caso di ordine due.
+    
+    Per memorizzare lo \textbf{hash} dovremo utilizzare solo \(1.23 \log n\) bit.
+\end{analysis}
+
+\end{document}

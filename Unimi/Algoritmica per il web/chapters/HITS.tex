@@ -1,0 +1,36 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\section{HITS}
+\begin{multicols}{2}
+\begin{definition}[HITS (Hyperlink-Induced Topic Distillation)]
+    HITS è un algoritmo di Ranking sia esogeno che endogeno. Parte infatti da un sottografo del web ottenuto a partire dall'interrogazione, ma utilizza poi la decomposizione a valori singolari per assegnare un punteggio alle pagine.
+    
+    La selezione del sottografo può essere fatta in vari modi: l'originale procede prendendo un insieme di risultati \(T\) ottenuto da un motore di base e generare un sottografo sulla base di \(R\) e delle pagine che puntano a quelle in \(R\). Si ottiene una matrice rettangolare \(M\) che ha per righe i predecessori delle pagine in \(R\) e per colonne le pagine di \(R\). Si procede quindi a calcolare il primo autovettore (cioè quello associato al massimo autovalore) di \(M^T M\) e il primo autovettore di \(MM^T\) e di considerarli rispettivamente i punteggi di \textbf{autorevolezza} e di \textbf{hubbiness}. I due vettori esistono sempre dal teorema di Perron-Frobenius, ma l'unicità può essere problematica siccome non vi è nessuna garanzia di connessione.
+\end{definition}
+\begin{definition}[Pagina autorevole per HITS]
+    Una \textbf{pagina autorevole} nel contesto del ranking HITS è una pagina con contenuto pertinente a una data query ed interessante.
+\end{definition}
+\begin{definition}[Hub per HITS]
+    Un \textbf{hub} è una pagina contenente numerosi link a pagine autorevoli.
+\end{definition}
+\begin{observation}[In che modo i concetti di hub e pagina autorevole si rinforzano?]
+    I due concetti si \textbf{rinforzano mutuamente} perché una pagina autorevole è puntata da molte pagine centrali e una buona pagina centrale punta a molte pagine autorevoli.
+\end{observation}
+\begin{observation}[La matrice ottenuta in HITS è una catena di Markov?]
+    La matrice risultante \(MM^T\) contiene nella riga \(i\) e colonna \(j\) il numero di modi di passare da \(i\) a \(j\) andando da \(i\) verso una pagina del risultato e tornando indietro. La matrice però è solo \textbf{non-negativa}, ma non è \textbf{stocastica}. Le transizioni più probabili sarebbero quindi quelle tra \textbf{hub} fortemente collegati attraverso pagine del risultato.
+\end{observation}
+\begin{analysis}[Come autorevolezza e hubbiness si rinforzano]
+    Per vedere meglio come il punteggio di \textbf{autorevolezza} \(\bm{a}\) e di \textbf{hubbiness} \(\bm{h}\) si rinforzano, notiamo che per quanto detto abbiamo:
+    \[
+        a=M^{T} \boldsymbol{h} \quad \boldsymbol{h}=M \boldsymbol{a}
+    \]
+    Andiamo ad assegnare un valore di autorevolezza costante \(1\) a ogni parola in \(R\), ottenendo \(\bm{a}_0 = \bm{1}\). Calcoliamo \(M \bm{a}_0\) e lo normalizziamo, ottenendo \(\bm{h}_0\). Calcolando quindi \(M^T \bm{h}_0\) e normalizzandolo otteniamo \(\bm{a}_1\).
+    
+    Le sequenze degli \(\bm{a}_i\) e degli \(\bm{h}_i\) convergono precisamente ad \(\bm{a}\) e \(\bm{h}\) ed ad ogni step di aggiornamenti di \(\bm{a}_i\) l'autorevolezza di una pagina viene calcolata sommando i punteggi di \textbf{hubbiness} degli \textbf{hub} che puntano alla pagina stessa mentre a ogni step di aggiornamenti di \(\bm{h}_i\) la \textbf{hubbiness} di una pagina viene calcolata sommando l'autorevolezza delle pagine da essa puntata.
+    
+    Se il vettore iniziale \(\bm{a}_0\) non è \textbf{ortogonale} al vettore singolare principale di \(M\), il processo converge. Per garantire questa proprietà basta prendere un vettore interamente positivo.
+\end{analysis}
+\end{multicols}
+
+\end{document}

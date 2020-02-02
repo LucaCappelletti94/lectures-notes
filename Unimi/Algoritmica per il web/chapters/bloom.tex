@@ -1,0 +1,51 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Filtri di Bloom}
+\begin{multicols}{2}
+\begin{definition}[Filtro di Bloom]
+    Un filtro di Bloom è una struttura dati probabilistica che rappresenta un insieme: permette di aggiungervi elementi e chiedere se un elemento vi appartenga o no, con il \textbf{rischio di ottenere falsi positivi}.
+\end{definition}
+\begin{observation}[Cosa compone un filtro di Bloom?]
+    Un filtro di Bloom per un insieme \(X\) è rappresentato da un vettore \(\bmb\) di \(m\) bit e da \(d\) funzioni di \textbf{hash} \(f_0, f_1, \ldots, f_{d-1}\) da \(X\) in \(m\).
+\end{observation}
+\begin{observation}[Come si aggiunge un elemento a un filtro di Bloom?]
+    Per aggiungere un elemento di \(x \in X\) a un filtro di Bloom, vengono posti a uno i bit \(b_{f_{k}\rnd{x}}, \rnd{0 \leq k < d}\).
+\end{observation}
+\begin{observation}[Come si verifica se un elemento appartiene al filtro?]
+    Per sapere se un elemento appartiene al filtro si controlla se tutti i bit \(b_{f_{k}\rnd{x}}, \rnd{0 \leq k < d}\) sono a uno, e solo in questo caso si risponde positivamente.
+\end{observation}
+\begin{observation}[Come mai "filtri" di Bloom?]
+    Il nome "filtro" deriva dall'idea che la struttura dovrebbe venire usata per filtrare le richieste a una secondaria soggiacente più lenta. Quando si prevede che la maggior parte delle richieste avrà risposta negativa, un filtro di Bloom può ridurre significativamente gli accessi alla struttura soggiacente.
+\end{observation}
+\vfill\null
+\columnbreak
+\begin{analysis}[Probabilità di un falso positivo in un filtro di Bloom dopo \(n\) inserimenti.]
+    La probabilità che dopo \(n\) inserimenti uno specifico bit sia zero è:
+    \[
+        \left(1-\frac{1}{m}\right)^{d n}
+    \]
+    dato che la probabilità che un singolo bit sia zero (se ne imposto uno a caso) è \(1-\frac{1}{m}\) e assumiamo che le funzioni di hash siano uniformemente distributive e perfettamente aleatorie. Per ottenere un positivo, dobbiamo trovare uno in tutti i punti del vettore che controlliamo e questo avviene con probabilità:
+    \[
+        \varphi=\left(1-\left(1-\frac{1}{m}\right)^{d n}\right)^{d} \approx\left(1-e^{-\frac{d n}{m}}\right)^{d}
+    \]
+    dove abbiamo utilizzato il fatto che \((1+\frac{\alpha}{n})^{n} \rightarrow e^{\alpha} \text { per } n \rightarrow \infty\).
+    
+    Poniamo ora \(p=e^{-\frac{n d}{m}}\), sicché \(d=-(\frac{m}{n}) \ln p\). Il nostro scopo è quindi quello di minimizzare:
+    \[
+        (1-p)^{-(m / n) \ln p}=e^{-(m / n) \ln p \ln (1-p)}
+    \]
+    La derivata prima è dunque:
+    \[
+        -\frac{m}{n} e^{-(m / n) \ln p \ln (1-p)}\left(\frac{\ln (1-p)}{p}-\frac{\ln p}{1-p}\right)
+    \]
+    e si azzera quando:
+    \[
+        (1-p) \ln (1-p)=p \ln p
+    \]
+    Dato che sia a sinistra che a destra abbiamo la stessa funzione \(x \ln x\), una soluzione è certamente data da \(1-p = p\), cioè \(p = \frac{1}{2}\).  
+
+Concludiamo che la probabilità di (falsi) positivi è minimizzata da \(d \equiv \frac{m}{n} \ln 2\) e in tal caso la probabilità di un (falso) positivo è \(2^{-d}\). Vale a dire, possiamo migliorare esponenzialmente la probabilità di errore aumentando linearmente il numero di funzioni di \textbf{hash} e il numero di bit a \(m \equiv \frac{dn}{\ln 2} \approx 1.44 dn\).
+\end{analysis}
+\end{multicols}
+\end{document}

@@ -1,0 +1,164 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Variable Neighbourhood Descent e Dynamic Local Search}
+\section{Variable Neighbourhood Descent (VND)}
+\begin{multicols}{2}
+\begin{observation}[Cosa sfrutta la VND?]
+    La \textbf{Variable NeighbourHood Descent} sfrutta il fatto che gli ottimi locali sono relativi all'intorno scelto: cambiando intorno, in genere un ottimo locale non è più tale.
+\end{observation}
+\begin{observation}[Come procede la VND?]
+    Nella VND, una volta definito un insieme di intorni \(N_1, \ldots, N_{k_{\max}}\):
+    \begin{enumerate}
+        \item Si parte con \(k=1\)
+        \item Si trova un ottimo locale \(\bar{x}\) rispetto a \(N_k\) con un'euristica \textbf{steepest descent}
+        \item Si aggiorna \(k\)
+        \item Se \(\bar{x}\) è un ottimo locale per tutti gli \(N_k\) si termina, altrimenti si torna al punto 2.
+    \end{enumerate}
+\end{observation}
+\begin{observation}[Quali sono le differenze tra VND e VNS?]
+    Vi è una stretta relazione fra algoritmi VND e VNS: le differenze fondamentali sono che nella VND:
+    \begin{enumerate}
+        \item Ad ogni passo la soluzione corrente è la migliore nota.
+        \item Gli intorno sono esplorati anziché usati per estrarre soluzioni casuali, quindi non sono mai enormi.
+        \item Gli intorni non formano necessariamente una gerarchia, quindi l'aggiornamento di \(k\) può non essere un incremento.
+        \item Quando si raggiunge un ottimo locale per ogni \(N_k\), si termina.
+    \end{enumerate}
+\end{observation}
+\begin{observation}[Quali strategie per lo scorrimento di intorno esistono nella VND?]
+    Ci sono due categorie principali di metodi VND: i metodi ad \textbf{intorno gerarchico} ed i metodi con \textbf{intorno eterogeneo}. 
+\end{observation}
+\begin{definition}[Metodi ad intorno gerarchico]
+    Nei metodi con \textbf{intorno gerarchico} si vuole:
+    \begin{enumerate}
+        \item Sfruttare a fondo gli intorni piccoli e rapidi.
+        \item Ricorrere a quelli grandi e lenti solo per uscire dagli ottimi locali
+    \end{enumerate}
+    Di conseguenza l'aggiornamento di \(k\) funziona come nella VNS:
+    \begin{enumerate}
+        \item quando non si trovano miglioramenti in \(N_k\), si incrementa \(k\).
+        \item quando si trovano miglioramenti in \(N_k\), \(k\) torna a \(1\).
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Metodi a intorno eterogeneo]
+    Nei metodi a \textbf{intorno eterogeneo} si vuole sfruttare la potenzialità di intorni topologicamente diversi tra loro, di conseguenza \(k\) scorre progressivamente i valori da \(1\) a \(k_{\max}\).
+\end{definition}
+\begin{observation}[Quando termina lo scorrimento degli intorni nella VND?]
+    Si termina quando la soluzione corrente è ottimo locale per tutti gli \(N_k\):
+    \begin{enumerate}
+        \item Nel caso gerarchico, si termina quando fallisce \(N_{k_{\max}}\).
+        \item Nel caso eterogeneo, occorre un segnalatore di miglioramento (flag).
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+
+\clearpage
+\section{Dynamic Local Search (DLS)}
+\begin{multicols}{2}
+\begin{observation}[Come si relaziona la DLS rispetto alla VND?]
+    La \textbf{Dynamic Local Search} è un approccio complementare alla VND, conserva l'intorno iniziale e modifica la funzione obiettivo.
+\end{observation}
+\begin{observation}
+    Il Dynamic Local Search (DLS) si usa spesso nei problemi in cui l'obbiettivo è poco utile (per esempio nel caso di ampi \textit{plateau}).
+\end{observation}
+\begin{observation}[Quale è l'idea fondamentale del Dynamic Local Search (DLS)?]
+    L'idea fondamentale del Dynamic Local Search (DLS) è di:
+    \begin{itemize}
+        \item Associare all'insieme una funzione di penalità \(w: B \rightarrow \N\).
+        \item Costruire una funzione ausiliaria \(\bar{f}\rnd{f\rnd{x}, w\rnd{x}}\) che combina la funzione obbiettivo \(f\) con la penalità \(w\).
+        \item Applicare un'euristica di scambio \textbf{steepest descent} che ottimizza \(\bar{f}\).
+        \item Aggiornare la penalità \(w\) in base ai risultati e riapplicare l'euristica.
+    \end{itemize}
+\end{observation}
+\begin{definition}[DLS con penalità additiva]
+    L'idea fondamentale del Dynamic Local Search possiede molte varianti, un esempio è utilizzare una \textbf{penalità additiva}:
+     \[
+        \bar{f}\rnd{x} = f\rnd{x} + \sum_{i \in x} w_i
+    \]
+\end{definition}
+\begin{definition}[DLS con penalità moltiplicativa]
+    L'idea fondamentale del Dynamic Local Search possiede molte varianti, un esempio è utilizzare una \textbf{penalità moltiplicative}:
+     \[
+       \bar{f}\rnd{x} = \sum_{i \in x} w_i \phi_i
+    \]
+\end{definition}
+\begin{observation}[Nella DLS le penalità possono subire quale tipo di aggiornamento?]
+    Le penalità possono subire:
+    \begin{enumerate}
+        \item Un aggiornamento casuale: perturbazione "rumorosa" dei costi
+        \item Un aggiornamento basato sulla memoria, che favorisca gli elementi più frequenti (intensificazione) o rari (diversificazione).
+    \end{enumerate}
+\end{observation}
+\begin{observation}[Nella DLS le penalità quando possono subire un aggiornamento?]
+    L'aggiornamento delle penalità nella DLS può avvenire:
+    \begin{enumerate}
+        \item Ad ogni singola esplorazione di intorno.
+        \item Quando si arriva a un ottimo locale per \(\bar{f}\).
+        \item Quando la miglior soluzione nota \(x^*\) non cambia per parecchio.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Come si applica il DLS al MCP?]
+    Dato un grafo non orientato, si cerca una clique di cardinalità massima:
+    \begin{itemize}
+        \item L'euristica di scambio è una VND che usa gli intorni.
+        \begin{description}
+            \item[\(N_{A_1}\) aggiunta di un vertice] La soluzione migliora sempre, ma l'intorno è molto piccolo e spesso vuoto.
+            \item[\(N_{S_1}\) scambio di un vertice interno con un esterno] L'intorno è più grande, ma forma un \textit{plateau}.
+        \end{description}
+        \item L'obbiettivo non fornisce una direzione utile in nessuno dei due intorni.
+        \item Si associa a ogni vertice \(i\) una penalità \(w_i\), inizialmente nulla.
+        \item L'euristica di scambio minimizza la penalità totale, all'interno dell'intorno.
+        \item Si aggiorna la penalità:
+        \begin{itemize}
+            \item Quando termina l'esplorazione di \(N_{S_1}\): la penalità dei vertici della clique corrente aumenta di \(1\).
+            \item Dopo un dato numero di esplorazioni: tutte le penalità non nulle diminuiscono di \(1\).
+        \end{itemize}
+    \end{itemize}
+    La logica del metodo consiste nel tendere a:
+    \begin{itemize}
+        \item espellere i vertici interni.
+        \item in particolare, quelli rimasti interni più a lungo.
+    \end{itemize}
+\end{definition}
+\end{multicols}
+\clearpage
+\begin{multicols}{2}
+\begin{definition}[DLS per il MAX-SAT]
+    Date \(m\) disgiunzioni logiche dipendenti da \(n\) variabili logiche, si cerca un assegnamento di verità che soddisfi il massimo numero di formule.
+    \begin{itemize}
+        \item L'intorno \(N_{F_1}\) è generato invertendo il valore di una variabile.
+        \item Si associa a ogni formula logica una penalità \(w_j\) inizialmente pari a \(1\).
+        \item L'euristica di scambio massimizza il numero di formule soddisfatte.
+        \item La funzione modificata massimizza il numero più la penalità totale.
+        \item Si aggiorna la penalità:
+        \begin{itemize}
+            \item Quando si raggiunge un ottimo locale:
+            \[
+                w_j = \a_{\text{us}}w_j \quad \forall j \in U\rnd{x}, \text{ le formule insoddisfatte}
+            \]
+            con \(\a_{\text{us}}>1\) per favorire le formule attualmente insoddisfatte.
+            \item Con una certa probabilità o dopo un certo numero di aggiornamenti:
+            \[
+                w_j = \rnd{1-\rho} w_j + \rho \quad \forall j
+            \]
+            per riuniformare le penalità al valore minimo unitario.
+        \end{itemize}
+    \end{itemize}
+\end{definition}
+\begin{observation}[Logica del DLS per il MAX-SAT]
+    La logica del metodo consiste nel tendere a:
+    \begin{itemize}
+        \item Soddisfare le formule attualmente insoddisfatte (diversificazione).
+        \item In particolare, quelle rimaste insoddisfatte più a lungo e più di recente (memoria).
+        \item Valori bassi di \(\rho\), il parametro dell'oblio, conservano le penalità (intensificazione), valori alti le cancellano (diversificazione).
+    \end{itemize}
+\end{observation}
+\begin{observation}[Taratura dei parametri del DLS per il MAX-SAT]
+    La taratura dei parametri può essere reattiva:
+    \begin{itemize}
+        \item Applicare per lo stesso tempo diverse configurazioni.
+        \item Replicare il procedimento dando più tempo alle configurazioni sperimentalmente migliori.
+    \end{itemize}
+\end{observation}
+\end{multicols}
+\end{document}

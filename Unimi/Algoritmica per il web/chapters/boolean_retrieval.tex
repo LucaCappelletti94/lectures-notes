@@ -1,0 +1,68 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Boolean Retrieval}
+\begin{multicols}{2}
+\begin{definition}[Dati non strutturati]
+    Con dati non strutturati ci si riferisce a documenti che non possiedono una struttura semanticamente esplicita, semplice da comprendere per un computer.
+\end{definition}
+\begin{definition}[Information retrieval]
+    \textbf{Information retrieval} (IR) consiste nel trovare materiale, tipicamente documenti, di tipo non strutturato, tipicamente testi, che soddisfi una informazione richiesta da una collezione più grande.
+\end{definition}
+\begin{definition}[Modello di boolean retrieval]
+    Il modello di \textbf{boolean retrieval} è un modello di IR cui possiamo porre qualsiasi query sotto forma di espressione booleana dei termini, dove i termini sono combinati tramite le espressioni booleane and, or e not.
+    
+    Questi modelli vedono ogni documento semplicemente come insiemi di parole.
+\end{definition}
+\begin{definition}[Precisione]
+    Quale frazione dei risultati identificati dal sistema IR sono rilevanti rispetto alle informazioni richieste?
+\end{definition}
+\begin{definition}[Recall]
+    Quale frazione dei documenti rilevanti nella collezione sono stati identificati dal sistema IR?
+\end{definition}
+\begin{definition}[Efficacia di un sistema IR]
+    Per valutare l'efficacia di un sistema IR, cioè la qualità dei suoi risultati di ricerca, si utilizzano due metriche statistiche sui risultati che il sistema ritorna per una data query: la \textbf{precisione} e \textbf{recall}.
+\end{definition}
+\begin{definition}[Indice inverso]
+    Per realizzare un \textbf{indice inverso} andiamo a realizzare un dizionario di termini e ad ogni termine associamo una lista (posting list o lista inversa) dei record (posting) dei documenti dove appare.
+    
+    Si tratta di una struttura dati per rappresentare la matrice sparsa dei termini e documenti.
+\end{definition}
+\begin{observation}[Come viene costruito un indice inverso?]
+    Ad alto livello, per costruire un indice inverso:
+    \begin{enumerate}
+        \item Si raccolgono i documenti che devono essere indicizzati.
+        \item Si tokenizza il testo.
+        \item Si procede ad eseguire una fase di preprocessing linguistico dei token realizzati.
+        \item Si indicizzano i documenti in cui appare ogni termine.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Proximity operator]
+    Un \textbf{proximity operator} è un modo per specificare che due termini in una query devono occorrere vicino uno all'altro in un documento.
+\end{definition}
+\begin{definition}[Stemming]
+    Il processo di \textbf{stemming} tipicamente si riferisce a un'euristica piuttosto semplice in cui si va a tagliare la fine delle parole in modo tale da cercare di normalizzarle.
+\end{definition}
+\begin{definition}[Lemmatization]
+    Il processo di \textbf{lemmatization} tipicamente si riferisce ad un processo di stemming più preciso, in cui le parole vengono normalizzate utilizzando un dizionario con una forma base delle parole, chiamata \textbf{lemma}.
+\end{definition}
+\end{multicols}
+\clearpage
+\section{Rappresentazione di Elias-Fano}
+\begin{multicols}{2}
+\begin{definition}[Rappresentazione di Elias-Fano]
+    Si tratta di una struttura quasi-succinta per sequenze monotone. Dati due termini \(n\) e \(u\), consideriamo la sequenza \(0 \leq x_0, x_1, x_2, \ldots, x_{n-1} \leq u\). Andiamo a salvare gli \(\ell = \log\rnd{\sfrac{u}{n}}\) bit minori esplicitamente. Salviamo i bit maggiori come una sequenza di intervalli unari codificati (dove \(0^k 1\) rappresenta \(k\)).
+    
+    Utilizziamo al più \(2+\log\rnd{\frac{u}{n}}\) bit per elemento. Siccome è prossimo al limite di una struttura succinta, per cui la struttura è detta quasi-succinta.
+\end{definition}
+\begin{observation}[Perché la rappresentazione di Elias-Fano è utile?]
+    Lo spazio utilizzato è quasi ottimale e non assume nessuna particolare distribuzione dei dati. Inoltre, per essere letta in modo sequenziale richiede pochi operatori logici e restringe il problema di rank/selection ad un array di circa \(2n\) bits con metà zero e metà uno.
+\end{observation}
+\begin{definition}[Selezione su una rappresentazione Elias-Fano]
+    Supponiamo di voler selezionare il \(k\)-esimo elemento rapidamente. Leggiamo i bit superiori (quelli in unario) uno alla volta, contando gli elementi a uno. Quando si arriva alla parola corretta, ne completiamo la sequenza e prendiamo i bit inferiori.
+\end{definition}
+\begin{definition}[Ranking su una rappresentazione Elias-Fano]
+    Si procede analogamente alla selezione ma si contano gli zero, numero che indica quanto i bit superiori stanno aumentando. Saltiamo i primi \(b >> \ell\) zero superiori e completiamo la sequenza.
+\end{definition}
+\end{multicols}
+\end{document}

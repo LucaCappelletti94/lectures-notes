@@ -1,0 +1,166 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Reti neurali e deep learning}
+\begin{multicols}{2}
+\begin{definition}[Sigmoide]
+    La funzione non lineare \(\funcdef{\sigma}{\R}{\R}\) è chiamata sigmoide ed è utilizzata come funzione di attivazione:
+    \[\sigma(z)=\frac{1-e^{-z}}{1+e^{-z}} \in[-1,+1]\]
+\end{definition}
+\begin{definition}[Rete neurale feedforward]
+    Una rete neurale feedforward è la tipologia di rete neurale più semplice, ottenuta combinando predittori della forma \(g(\boldsymbol{x})=\sigma\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right)\).
+    
+    Una rete neurale feedforward calcola una funzione \(\funcdef{\bm{f}}{\R^d}{\R^n}\) rappresenta come un grafo diretto aciclico \(G = \rnd{V,E}\).
+    
+    Ad ogni arco \(\rnd{i,j} \in E\) è associato un parametro, chiamato peso, \(w_{ij} \in \R\). Indichiamo con \(W\) la matrice \(\abs{V} \times \abs{V}\) dei pesi, dove \(w_{ij} = 0\) se \(\rnd{i,j} \not\in E\).
+    
+    Il grafo \(G\), la matrice dei pesi \(W\) e la funzione di attivazione \(\sigma\) definiscono la funzione \(\bm{f} = \bm{f}_{G,W,\sigma}\) calcolata dalla rete.
+    
+    In generale possiamo partizionare i nodi in tre sotto-insiemi: \(V=V_{\mathrm{in}} \cup V_{\mathrm{hid}} \cup V_{\mathrm{out}}\), dove:
+    \begin{description}
+        \item[\(V_{\text{in}}\)] con \(\abs{V_{\text{in}}} = d\) sono i nodi dello strato di input, cioè i nodi che non ricevono nessun arco in ingresso.
+        \item[\(V_{\text{out}}\)] con \(\abs{V_{\text{out}}} = n\) sono i nodi nello strato di output, ovvero i nodi che non emettono nessun arco in uscita.
+        \item[\(V_{\text{hid}}\)] sono i nodi nello strato nascosto.
+    \end{description}
+\end{definition}
+\begin{observation}[Come viene calcolata la funzione della rete?]
+    Per calcolare la funzione della rete , ad ogni nodo \(i\in V\) è associato un valore \(v_i\in\R\) nel modo spiegato in seguito:
+    
+    Dato \(j \in V \setminus V_{\text{in}}\) indichiamo con:
+    \begin{enumerate}
+        \item \(\bmw\rnd{j}\) il vettore le cui componenti sono i pesi \(w_{ij}\) per ogni \((i, j) \in E\)
+        \item \(\bmv\rnd{j}\) il vettore le cui componenti sono i valori \(v_i\) per ogni \((i, j) \in E\)
+    \end{enumerate}
+    
+    Il valore \(\boldsymbol{f}(\boldsymbol{x})=\left(f_{1}, \ldots, f_{n}\right)\) viene calcolato come segue:
+    \begin{enumerate}
+        \item Ogni nodo \(i \in V_{\text{in}}\) assume valore \(v_i = x_i\)
+        \item Ogni nodo \(j \in V \setminus V_{\text{in}}\) assume valore \(v_{j}=\sigma\left(\boldsymbol{w}(j)^{\top} \boldsymbol{v}(j)\right)\)
+        \item \(f_k = v_k\), dove \(k\) è il \(k\)-esimo nodo di output.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[\(\mathcal{F}_{G, \sigma}\)]
+    Fissati \(d\), la dimensionalità dell'input, e \(n\), la dimensionalità la classe \(\mathcal{F}_{G, \sigma}\) dei predittori \(\boldsymbol{f} : \mathbb{R}^{d} \rightarrow \mathbb{R}^{n}\) tali che \(\boldsymbol{f}=\boldsymbol{f}_{G, W, \sigma}\) per una qualche matrice dei pesi \(W\), ovvero predittori rappresentabili da una rete neurale feedforward con grafo \(G\), matrice dei pesi \(W\) e funzione di attivazione \(\sigma\).
+\end{definition}
+\begin{theorem}[Rete come funzione universale]
+    Per ogni \(d\), esiste una rete neurale \(G=\rnd{V,E}\) con \(d+1\) nodi di input, uno strato di nodi nascosti e un nodo di output, tale che \(\mathcal{F}_{G, \mathrm{sgn}}\) contiene tutte le funzioni della forma \(\funcdef{f}{\crl{-1,+1}^d}{\crl{-1,+1}}\).
+\end{theorem}
+\begin{proof}[Rete come funzione universale]
+    Fissiamo una rete con \(2^d+1\) nodi nascosti e connettività completa dello strato di input con lo strato nascosto e dello strato nascosto con lo strato di output.
+    
+    Numeriamo i nodi come segue: \(0\) è il nodo di output, \(1, \ldots, 2^d+1\) sono i \(2^d+1\) nodi nascosti e i seguenti sono i \(d+1\) nodi di input.
+    
+    Dato una qualunque funzione \(\funcdef{f}{\binaryImage^d}{\binaryImage}\) dimostriamo che esiste una matrice dei pesi \(W\) tale che \(f_{G, W, \mathrm{sgn}}=f\). Siano \(\boldsymbol{x}_{1}, \dots, \boldsymbol{x}_{N}\), con \(N \leq 2^d\), tutte e sole le istanze \(\boldsymbol{x}_{i} \in\{-1,+1\}^{d}\) tali che \(f\rnd{\bmx_i} = 1\).
+    
+    Si osservi che per ogni \(\boldsymbol{x} \in\{-1,+1\}^{d}\) e per ogni \(i=1, \ldots, N\):
+    \begin{align*}
+        \boldsymbol{x}^{\top} \boldsymbol{x}_{i} \leq d-2 & \text { se } \boldsymbol{x} \neq \boldsymbol{x}_{i} \\
+        \boldsymbol{x}^{\top} \boldsymbol{x}_{i}=d & {\text { altrimenti. }}
+    \end{align*}
+    Quindi \(g_{i}(\boldsymbol{x})=\operatorname{sgn}\left(\boldsymbol{x}^{\top} \boldsymbol{x}_{i}-d+1\right)=1\) se e solo se \(\bmx = \bmx_i\). Ogni funzione \(g_i\) può essere implementata dal nodo nascosto \(i\) nel modo seguente:
+    
+    Si trasforma ogni istanza \(\boldsymbol{x}=\left(x_{1}, \dots, x_{d}\right)\) nell'istanza \(\tilde{\bmx} = (\boldsymbol{x}, 1)=\left(x_{1}, \dots, x_{d}, 1\right)\) e si assegnano i pesi \(\boldsymbol{w}(i)=\left(\boldsymbol{x}_{i},-d+1\right)\). Questo implica che:
+    \(\operatorname{sgn}\left(\boldsymbol{w}(i)^{\top} \widetilde{\boldsymbol{x}}\right)=g_{i}(\boldsymbol{x})\)
+    Poi assegnamo \(\boldsymbol{w}(N+1)=(0, \dots, 0,1)\) in modo che \(\operatorname{sgn}\left(\boldsymbol{w}(i)^{\top} \widetilde{\boldsymbol{x}}\right)=1\) per ogni \(\bmx\).
+    
+    I rimanenti \(\bmw\rnd{i}\) per \(i=N+2, \ldots, 2^{d}+1\) possono essere assegnati arbitrariamente.
+    
+    Infine \(f\) può essere rappresentata come \(f(\boldsymbol{x})=g_{1}(\boldsymbol{x}) \vee \cdots \vee g_{N}(\boldsymbol{x})\) il che corrisponde ad assegnare i pesi:
+    \[\boldsymbol{w}(0)=\left(\underbrace{1, \ldots, 1}_{N \text { volte }}, N-1, \underbrace{0, \ldots, 0}_{2^{d}-N \text { volte }}\right)\]
+    dove \(0\) è il nodo di output.
+\end{proof}
+\begin{observation}
+    La dimostrazione del teorema precedente utilizza una rete con un singolo strato nascosto di dimensione almeno pari al numero massimo di istanze positive per le funzioni \(f\) da apprendere. Questo numero è tipicamente esponenziale nella dimensione \(d\).
+\end{observation}
+\begin{theorem}[Nodi di una rete universale]
+    Per ogni intero \(d\) sia \(s\rnd{d}\) il più piccolo intero tale che esiste \(G=(V, E)\) con \(\abs{V} = s\rnd{d}\) per cui \(\mathcal{F}_{G, \mathrm{sgn}}\) contiene tutte le funzioni della forma \(\funcdef{f}{\binaryImage^d}{\binaryImage}\). Allora \[|V|=\Omega\left(2^{d / 3}\right)\]
+    
+    Un risultato analogo vale quando \(\mathrm{sgn}\) è rimpiazzata dalla funzione sigmoidale.
+
+    Il teorema stabilisce che se vogliamo una rete in grado di apprendere tutte le funzioni da \(\binaryImage^d\) a \(\binaryImage\), allora tale rete deve avere un numero complessivo di nodi esponenziale in \(d\).
+\end{theorem}
+\begin{definition}[Funzione Lipshitziana]
+    Una funzione \(f :[-1,+1]^{d} \rightarrow[-1,+1]\) è Lipshitziana se \(f\) è tale che esiste \(L < \infty\) che soddisfa:
+    \[\left|f(\boldsymbol{x})-f\left(\boldsymbol{x}^{\prime}\right)\right| \leq L\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\|\]
+    per ogni \(\boldsymbol{x}, \boldsymbol{x}^{\prime} \in[-1,+1]^{d}\)
+\end{definition}
+\begin{definition}[Regola di derivazione delle funzioni composte]
+    \[\frac{d f(g(x))}{d x}=\frac{d f(g)}{d g} \frac{d g(x)}{d x}\]
+\end{definition}
+\begin{observation}[Approssimazione di funzioni Lipshitziana]
+    Le reti feedforward con un singolo strato nascosto non solo implementano qualsiasi funzione booleana, ma sono anche in grado di approssimare qualsiasi funzione \(f :[-1,+1]^{d} \rightarrow[-1,+1]\) che sia Lipshitziana quando la funzione di attivazione utilizzata è la sigmoidale.
+    
+    Ovvero per ogni \(\e>0\) e per ogni \(f :[-1,+1]^{d} \rightarrow[-1,+1]\) Lipshitziana esistono \(G\) (con un singolo strato nascosto) e \(W\) tali che \(\left|f_{G, W, \sigma}(\boldsymbol{x})-f(\boldsymbol{x})\right| \leq \varepsilon\) per ogni \(\boldsymbol{x} \in[-1,+1]^{d}\).
+    
+    Come nel caso delle funzioni booleane, il numero di nodi nello strato nascosto necessario per rappresentare la funzione \(f\) con un grado di approssimazione fissato \(\varepsilon > 0\) può essere esponenziale in \(d\).
+\end{observation}
+\begin{observation}[Reti profonde vanno meglio di reti larghe]
+    Il teorema appena presentato ci dice che se vogliamo imparare un numero elevato di funzioni con una rete \(G\), allora \(G\) deve avere un numero esponenziale di nodi comunque esso venga scelto.
+    
+    L'esperienza sembra però indicare che una rete con un grande numero di strati nascosti ciascuno contenente relativamente pochi nodi, una \textbf{deep neural network}, è in grado di rappresentare più funzioni rispetto ad una rete con pochi strati nascosti ciascuno contenente tanti nodi.
+    
+    In altre parole, aggiungere a \(G\) uno strato nascosto con pochi nodi aumenta \(\mathcal{F}_{G, \sigma}\) tanto quanto aumenterebbe aggiungendo un gran numero di nodi ad uno strato esistente.
+    
+    \textit{I dettagli precisi di questo fenomeno sono ancora un tema attivo di ricerca.}
+\end{observation}
+\begin{definition}[Algoritmo di discesa del gradiente stocastico]
+    Le reti feedforward vengono tipicamente addestrate usando l'algoritmo di discesa del gradiente stocastico:
+    \[w_{i, j} \leftarrow w_{i, j}-\eta_{t} \frac{\partial \ell_{Z_{t}}(W)}{\partial w_{i, j}}\]
+    dove \(Z_t\) è l'indice di un esempio estratto a caso dal training set e \(\ell_{t}(W)=\ell\left(f_{G, W, \sigma}\left(\boldsymbol{x}_{t}\right), y_{t}\right)\) è una funzione di perdita tale che \(\loss{\cdot}{y}\) è convessa.
+\end{definition}
+\begin{definition}[Mini-batched stochastic gradient]
+    Per accelerare la convergenza, viene usata spesso la versione \textbf{mini-batched} del gradiente stocastico:
+    \[w_{i, j} \leftarrow w_{i, j}-\eta_{t} \frac{1}{\left|S_{t}\right|} \sum_{s \in S_{t}} \frac{\partial \ell_{s}(W)}{\partial w_{i, j}}\]
+    dove \(S_t\) è un sottoinsieme di cardinalità fissata estratto a caso dal training set.
+\end{definition}
+\begin{observation}[\(\ell_t\rnd{W}\) non è convessa]
+    È importante osservare che \(\ell_t\rnd{W}\) è una funzione non convessa dei pesi \(W\) anche quando \(\loss{\cdot}{y}\) è convessa per ogni \(y\). Questo ha due conseguenze importanti:
+    \begin{enumerate}
+        \item Il problema di determinare i pesi \(W\) che minimizzano, anche in modo approssimato, l'errore sul training set è considerato computazionalmente intrattabile.
+        \item Il metodo della discesa del gradiente converge tipicamente a un minimo locale del training error.
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+\begin{definition}[Algoritmo di retropropagazione del gradiente]
+    \begin{multicols}{2}
+        L'applicazione della discesa del gradiente per l'addestramento di una rete neuronale feedforward prende il nome di algoritmo di retropropagazione del gradiente.
+        
+        Per comodità, supponiamo che \(0\) sia l'indice del nodo di output. Quindi \(f_{G, W, \sigma}\left(\boldsymbol{x}_{t}\right)=v_{0}=\sigma\left(s_{0}\right)\), dove \(s_{0}=\boldsymbol{w}(0)^{\top} \boldsymbol{v}(0)\) Per un qualunque \(i\) nel primo strato nascosto, ovvero tale che \((i, 0) \in E\), applicando due volte la regola di derivazione delle funzioni composte:
+        \begin{align*}
+            \frac{\partial \ell_{t}(W)}{\partial w_{i, 0}}&=\frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial w_{i, 0}}\\&=\frac{d \ell\left(v_{0}, y_{t}\right)}{d v_{0}} \frac{d v_{0}}{d s_{0}} \frac{\partial s_{0}}{\partial w_{i, 0}}\\&=\ell^{\prime}\left(v_{0}\right) \frac{d \sigma\left(s_{0}\right)}{d s_{0}} \frac{\partial s_{0}}{\partial w_{i, 0}}
+        \end{align*}
+        La derivata \(\ell^{\prime}\left(v_{0}\right)=\frac{d \ell\left(v_{0}, y_{t}\right)}{d v_{0}}\) è calcolabile direttamente a partire dalla definizione della funzione di perdita.
+        
+        In modo simile, la derivata \(\frac{d \sigma\left(s_{0}\right)}{d s_{0}}=\sigma^{\prime}\left(s_{0}\right)\) è calcolabile direttamente a partire dalla funzione di attivazione.
+        
+        Infine, ricordando che \(s_{0}=\boldsymbol{w}(0)^{\top} \boldsymbol{v}(0)\), abbiamo:
+        \[\frac{\partial s_{0}}{\partial w_{i, 0}}=v_{i}=\sigma\left(\boldsymbol{w}(i)^{\top} \boldsymbol{v}(i)\right)\]
+        Possiamo quindi scrivere:
+        \[\frac{\partial \ell_{t}(W)}{\partial w_{i, 0}}=\ell^{\prime}\left(v_{0}\right) \sigma^{\prime}\left(s_{0}\right) v_{i}\]
+        Calcoliamo ora \(\frac{\partial \ell_{t}(W)}{\partial w_{i, j}}\) per i nodi \(i\) nel secondo strato nascosto. Si noti che:
+        \begin{align*}
+            v_{0}&=\sigma\left(\boldsymbol{w}(0)^{\top} \boldsymbol{v}(0)\right)\\
+            &=\sigma\left(\sum_{j :(j, 0) \in E} w_{j, 0} \sigma\left(\boldsymbol{w}(j)^{\top} \boldsymbol{v}(j)\right)\right)\\
+            &=\sigma\left(\sum_{j :(j, 0) \in E} w_{j, 0} \sigma\left(\sum_{i :(i, j) \in E} w_{i, j} v_{i}\right)\right)
+        \end{align*}
+        Quindi, per ogni nodo \(i\) nel secondo strato nascosto, denotando \(s_{i}=\boldsymbol{w}(i)^{\top} \boldsymbol{v}(i)\) possiamo scrivere:
+        \begin{align*}
+            \frac{\partial \ell_{t}(W)}{\partial w_{i, j}}&=\underbrace{\frac{d \ell\left(v_{0}, y_{t}\right)}{d s_{0}}}_{\ell^{\prime}\left(v_{0}\right) \sigma^{\prime}\left(s_{0}\right)} \underbrace{\frac{\partial s_{0}}{\partial v_{j}}}_{w_{j, 0}} \underbrace{\frac{d v_{j}}{d s_{j}}}_{\sigma^{\prime}\left(s_{j}\right)} \underbrace{\frac{\partial s_{j}}{\partial w_{i, j}}}_{v_{i}}\\&=\ell^{\prime}\left(v_{0}\right) \sigma^{\prime}\left(s_{0}\right) w_{j, 0} \sigma^{\prime}\left(s_{j}\right) v_{i}
+        \end{align*}
+        A partire dai nodi \(i\) del terzo strato nascosto, il calcolo di \(\frac{\partial \ell_{t}(W)}{\partial s_{i}}=\frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{i}}\) è un po' più complesso in quanto \(v_0\) dipende da \(s_i\) attraverso tutti i nodi del secondo strato nascosto che sono connessi ad \(i\). 
+        
+        Ovvero \(v_0 = g\left(s_{j_{1}}, \ldots, s_{j_{r}}\right)\), dove \(g\) è la funzione che calcola l'output \(v_0\) a partire dai valori \(s_{jk}\) dei nodi \(j_1, \ldots, j_r\) del secondo strato nascosto connessi a \(i\) e \(s_{j_{k}}=h_{k}\left(s_{i}\right)\) dove \(h_k\) è la funzione che descrive come \(s_{jk}\) dipende da \(s_i\). La regola per la derivazione delle funzioni multidimensionali composte ci dice che se \(v_{0}=g\left(h_{1}\left(s_{i}\right), \ldots, h_{r}\left(s_{i}\right)\right)\) allora:
+        \[\frac{d g}{d s_{i}}=\sum_{j=1}^{r} \frac{\partial g}{\partial h_{j}} \frac{d h_{j}}{d s_{i}}\]
+        Nel nostro caso abbiamo quindi:
+        \begin{align*}
+            \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{i}}&=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} \frac{\partial s_{j}}{\partial s_{i}}\\
+            &=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} \frac{\partial s_{j}}{\partial v_{i}} \frac{d v_{i}}{s_{i}}\\
+            &=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} w_{i, j} \sigma^{\prime}\left(s_{i}\right)
+        \end{align*}
+        Quindi, introducendo la definizione ricorsiva:
+        \[\delta_{i}=\frac{\partial \ell_{t}(W)}{\partial s_{i}}=\left\{\begin{array}{cc}{\ell^{\prime}\left(v_{0}\right) \sigma^{\prime}\left(s_{0}\right)} & {\text { se } i=0} \\ {\sigma^{\prime}\left(s_{i}\right) \sum_{j :(i, j) \in E} \delta_{j} w_{i, j}} & {\text { altrimenti }}\end{array}\right.\]
+        possiamo infine scrivere la derivata parziale per un qualunque \(\rnd{i,j} \in E\) come:
+        \[\frac{\partial \ell_{t}(W)}{\partial w_{i, j}}=\frac{\partial \ell_{t}(W)}{\partial s_{j}} \frac{\partial s_{j}}{\partial w_{i, j}}=\delta_{j} v_{i}\]
+    \end{multicols}
+\end{definition}
+\end{document}

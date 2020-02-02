@@ -1,0 +1,60 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Consistenza e algoritmi nonparametrici}
+\begin{multicols}{2}
+\begin{definition}[Algoritmo consistente]
+    L'algoritmo \(A\) è detto consistente rispetto a un modello statistico \(\rnd{D, \mu}\) quando:
+    \[
+        \lim _{m \rightarrow \infty} \mathbb{E}\left[\operatorname{er}\left(A\left(S_{m}\right)\right)\right]=\operatorname{er}\left(f^{*}\right)
+    \]
+    dove il valore atteso è rispetto all'estrazione del training set \(S_m\) da \(\rnd{D, \mu}\). Quindi la \textbf{consistenza} è una proprietà asintotica che certifica la capacità dell'algoritmo di raggiugere in media le prestazioni del Bayesiano ottimo al crescere del training set.
+\end{definition}
+\begin{theorem}[No Free Lunch]
+    Sia \(a_1, a_2, \ldots\) una successione convergente a zero di numeri positivi tali che \(\frac{1}{16} \geq a_1 \geq a_2 \geq \ldots\).
+    
+    Per ogni algoritmo di apprendimento \(A\) esiste un modello statistico \(\rnd{D,\mu}\) tale che \(\er\rnd{f^*}=0\) e simultaneamente \(\mean{\er\rnd{A\rnd{S_m}}} \geq a_m\) per ogni \(m\geq 1\).
+\end{theorem}
+\begin{observation}[Significato del No Free Lunch]
+    Una domanda che ci si può porre nel campo nel ML è "Quale è l'algoritmo di ML migliore?": la risposta del "No-Free Lunch" è "non ne esiste uno". Dati due algoritmi di ML, le loro performance medie sull'intero set dei problemi di ML che loro devono risolvere risulterebbe che nessuno dei due è migliore dell'altro.
+\end{observation}
+\begin{observation}[Cosa implica il No Free Lunch?]
+    Un algoritmo consistente può risultare in pratica peggiore di uno non consistente per la sua \textbf{velocità di convergenza}: infatti, la consistenza per ogni modello \(\rnd{D, \mu}\) può essere pagata con una velocità di convergenza \textit{arbitrariamente lenta} al Bayes error.
+    
+    Il teorema non impedisce a un algoritmo consistente di convergere rapidamente per specifiche distribuzioni \(\rnd{D, \mu}\) ed analogamente un algoritmo non consistente può convergere rapidamente a specifici valori di rischio a patto che siano superiori al Bayes error. Il teorema afferma solo che se \(A\) arriva al Bayes error, allora non è possibile che ci arrivi in fretta per tutte le distribuzioni.
+\end{observation}
+\begin{definition}[Algoritmi non-parametrici]
+    Gli algoritmi consistenti vengono anche detti algoritmi \textbf{non-parametrici}:  i classificatori prodotti da questi algoritmi non sono rappresentabili con un numero predeterminato di parametri. La struttura di un classificatore nonparametrico non è fissata, ma viene determinata dai dati di training.
+\end{definition}
+\begin{example}[Consistenza dell'algoritmo \(k\)-NN]
+    Per ogni \(\rnd{D, \mu}\) vale che:
+    \[
+        \lim _{m \rightarrow \infty} \mathbb{E}\left[\operatorname{er}\left(k-\mathrm{NN}\left(S_{m}\right)\right)\right] \leq \operatorname{er}\left(f^{*}\right)+2 \sqrt{\frac{\operatorname{er}\left(f^{*}\right)}{k}}
+    \]
+    Perciò per ogni \(k\) fissato, \(k\)-NN non è consistente. Tuttavia, se rendiamo \(k\) dipendente da \(m\) in modo che non cresca troppo velocemente, cioè se \(k = k_m\), tale che \(k_m \rightarrow \infty\) e \(k_m = o\rnd{m}\), allora è possibile dimostrare che \(k\)-NN diventa consistente. Possiamo confrontare il risultato con quello ottenuto tramite l'analisi di rischio:
+    \[
+        \mathbb{E}\left[\operatorname{er}\left(k-\mathrm{NN}\left(S_{m}\right)\right)\right] \leq\left(1+\sqrt{\frac{8}{k}}\right) \operatorname{er}\left(f^{*}\right)+\mathcal{O}\left(k m^{-1 /(d+1)}\right)
+    \]
+    che era stato ottenuto sotto l'assunzione che ci si trova nella condizione seguente:
+    \[
+        \left|\eta(\boldsymbol{x})-\eta\left(\boldsymbol{x}^{\prime}\right)\right| \leq c\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\| \quad \text { per ogni } \boldsymbol{x}, \boldsymbol{x}^{\prime} \in \mathcal{X}
+    \]
+    Si noti che se \(\er\rnd{f^*} = 0\) (prima condizione del no free lunch theorem) allora dev'essere \(\mu\rnd{\bmx} \in \crl{0,1}\) per ogni \(\bmx\). Ovvero \(\mu\) è discontinua e la condizione non può essere rispettata.
+\end{example}
+\begin{example}[Consistenza dell'algoritmo greedy di costruzione di classificatori ad albero]
+    Sotto determinate assunzioni sul modello statistico \(\rnd{D, \mu}\) è possibile mostrare che anche l'algoritmo greedy di costrizione di classificatori ad albero diventa consistente quando ogni foglia è finale per un numero sufficiente di punti del training set.
+\end{example}
+\begin{observation}[Parametrico o nonparametrico?]
+    In generale:
+    \begin{enumerate}
+        \item Se il training set è piccolo conviene utilizzare un algoritmo parametrico.
+        \item Se \(d\) è grande conviene usare un algoritmo parametrico perché anche quando \(\mu\) soddisfa la condizione:
+        \[
+            \left|\eta(\boldsymbol{x})-\eta\left(\boldsymbol{x}^{\prime}\right)\right| \leq c\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\| \quad \text { per ogni } \boldsymbol{x}, \boldsymbol{x}^{\prime} \in \mathcal{X}
+        \]
+        la convergenza \textbf{non parametrica} è comunque dell'ordine \(\mathcal{O}\left(m^{-1} /(d+1)\right)\) mentre quella parametrica è dell'ordine \(\mathcal{O}\left(m^{-1 / 2}\right)\).
+        \item Negli altri casi, con dataset grandi con pochi attributi, possiamo provare ad usare un algoritmo nonparametrico.
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+\end{document}

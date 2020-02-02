@@ -1,0 +1,128 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Rischio nei predittori ad albero}
+\begin{multicols}{2}
+    \begin{observation}[Analisi di rischio in classi molto grandi]
+        L'analisi di rischio ci dice che per un training set di taglia \(m\), con probabilità almeno \(1-\delta\) si ha che:
+        \[
+            \operatorname{er}(\widehat{h}) \leq \min _{h \in \mathcal{H}} \operatorname{er}(h)+\sqrt{\frac{2}{m} \ln \frac{2|\mathcal{H}|}{\delta}}
+        \]
+        Se la classe \(\mathbb{H}\) è molto grande questo risultato è debole.
+    \end{observation}
+    \begin{fact}[Predittori ad albero e funzioni su vettori binari]
+        Sia \(\mathbb{H}\) l'insieme di tutti i classificatori calcolati da predittori ad albero su \(\crl{0,1}^d\). Allora \(\mathbb{H}\) contiene tutte le funzioni  della forma \(\funcdef{h}{\crl{0,1}^d}{\binaryImage}\).
+    \end{fact}
+    \begin{proof}[Predittori ad albero e funzioni su vettori binari]
+        Questo è una conseguenza del fatto che ogni funzione booleana su \(\crl{0,1}^d\) è rappresentabile con un albero di decisione con \(N = \Theta\rnd{2^d}\) nodi.
+    \end{proof}
+    \begin{observation}[Overfitting nei predittori ad albero]
+        Dato che ci sono \(2^{2^d}\) funzioni della forma \(\funcdef{h}{\crl{0,1}^d}{\binaryImage}\), con \(\abs{\mathbb{H}} = 2^{2^d}\) il maggiorante diviene:
+        \[
+            \operatorname{er}(\widehat{h}) \leq \min _{h \in \mathcal{H}} \operatorname{er}(h)+\sqrt{\frac{2}{m}\left(2^{d} \ln 2+\ln \frac{2}{\delta}\right)}
+        \]
+        Quindi, perché il rischio di \(\hat{h}\) sia piccolo, il training set deve contenere un numero \(m\) di esempi dell'ordine di \(2^d\), ma dato che \(\abs{\crl{0,1}^d} = 2^d\) ciò equivale a dire che il training set deve contenere tutte le istanze possibili: \textbf{si tratta di un tipico esempio di overfitting}.
+    \end{observation}
+    \begin{observation}[Controllare l'overfitting nei predittori ad albero]
+        Per controllare l'overfitting possiamo minimizzare il training error focalizzandoci sulla classe \(\mathbb{H}_N\) dei predittori ad albero con \(N\) nodi su \(\crl{0,1}^d\), dove \(N \ll 2^d\).
+    \end{observation}
+    \begin{definition}[Disuguaglianza di Kraft]
+        Ogni codice binario univocamente decodificabile per i simboli \(\alpha \in A = \alpha_1, \ldots, \alpha_N\) deve soddisfare la disuguaglianza:
+        \[
+            \sum_{i=1}^{N} 2^{-l\left(\alpha_{i}\right)} \leq 1
+        \]
+        Dove \(l\rnd{\alpha_i}\) è la lunghezza della stringa binaria corrispondente ad \(\alpha_i\). Dati invece gli interi \(l\rnd{\alpha_i}\), con \(i = 1, \ldots, N\) soddisfacenti la disuguaglianza precedente, esiste un codice binario per l'alfabeto \(A\) tale per cui la parola \(C\rnd{\alpha_i}\) ha lunghezza \(l\rnd{\alpha_i}\) e non esiste alcuna parola uguale ad un suo prefisso.
+    \end{definition}
+    \begin{fact}[Limite alla dimensione dei predittori ad albero]
+        Si \(\mathbb{H}_N\) la classe di predittori ad albero con \(N\) nodi. Allora vale che:
+        \[
+            \abs{\mathbb{H}_N} \leq \rnd{2de}^N
+        \]
+    \end{fact}
+    \begin{proof}[Limite alla dimensione dei predittori ad albero]
+        \(\abs{\mathbb{H}_N}\) è esprimibile come il prodotto fra: 
+        \begin{enumerate}
+            \item Il numero di alberi binari con \(N\) nodi.
+            \item Il numero di modi di assegnare test binari su attributi ai nodi interni.
+            \item Il numero di modi di assegnare etichette binarie alle foglie.
+        \end{enumerate}
+        Assegnando convenzionalmente il figlio sinistro al risultato negativo di un test e il figlio destro al risultato positivo, un test è definito solamente dall'indice \(i\) dell'attributo testato.
+        
+        Quindi, se l'albero ha \(M\) nodi interni, ci sono \(d^M\) modi per assegnare i test ai nodi interni. Inoltre, dato che le foglie sono \(N-M\), ci sono \(2^{N-M}\) modi per assegnare etichette binarie alle foglie.
+        
+        Quindi, ogni albero di \(N\) nodi può implementare fino a \(d^M2^{N-M} \leq d^N\) (dato che \(d \geq 2\)) classificatori.
+        
+        Infine, il numero di alberi binari con \(N\) nodi è dato dall'\(\rnd{N-1}\)-esimo \textbf{numero di Catalano}: \(C_{N-1}=\frac{1}{N} \left( \begin{array}{c}{2 N-2} \\ {N-1}\end{array}\right)\). Quindi, utilizzando la maggiorazione \(\left( \begin{array}{l}{n} \\ {k}\end{array}\right) \leq\left(\frac{e n}{k}\right)^{k}\) derivata dall'approssimazione di Stirling per i coefficienti binomiali, otteniamo:
+        \[
+            \left|\mathcal{H}_{N}\right| \leq \frac{1}{N}\left(\frac{2 e(N-1)}{N-1}\right)^{N-1} d^{N} \leq(2 e d)^{N}
+        \]
+    \end{proof}
+\end{multicols}
+\begin{observation}[Dimensione del training set per controllare il rischio]
+    Se \(\hat{h} = \argmin_{\mathbb{H}_N}\hat{\er}\rnd{h}\) per un \(N\) fissato, il maggiorante diviene:
+    \[
+        \operatorname{er}(\widehat{h}) \leq \min _{h \in \mathcal{H}_{N}} \operatorname{er}(h)+\sqrt{\frac{2}{m}\left(N(1+\ln (2 d))+\ln \frac{2}{\delta}\right)}
+    \]
+    Da ciò si deduce che in questo caso un training set la cui taglia è dell'ordine di \(N\ln d\) è sufficiente per controllare il rischio di \(\hat{h}\) in \(\mathbb{H}_N\).
+\end{observation}
+\begin{observation}[Generalizzazione]
+    Il risultato appena dimostrato vale per un predittore specifico, quello che minimizza il training error in \(\mathbb{H}_N\) per un dato \(N\) fissato. In pratica, non è chiaro come scegliere \(N\), che dovrebbe dipendere dalle caratteristiche del training set. Per aggirare questo problema, invece di limitare l'errore di varianza del predittore che minimizza il training error, come abbiamo fatto finora, mostriamo un risultato diverso. Cioè, maggioriamo simultaneamente il rischio di tutti i predittori ad albero, dove il maggiorante del rischio di ogni albero dipende dal training error e dal numero di nodi dell'albero.
+    \begin{multicols}{2}
+    A questo scopo introduciamo una funzione \(\funcdef{w}{\mathbb{H}}{\sqr{0,1}}\) e chiamiamo \(w\rnd{h}\) il peso del predittore \(h\). Assumiamo che valga:
+    \[
+        \sum_{h \in \mathbb{H}} w\rnd{h} \leq 1
+    \]
+    Possiamo allora scrivere la seguente catena di disuguaglianze, dove \(\varepsilon_h > 0\) è scelto alla fine:
+    \begin{align*}
+    \mathbb{P}\left(\exists h \in \mathcal{H} :|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\varepsilon_{h}\right) &\leq \sum_{h \in \mathcal{H}} \mathbb{P}\left(|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\varepsilon_{h}\right)\\ &\leq \sum_{h \in \mathcal{H}} 2 e^{-2 m \varepsilon_{h}^{2}}    
+    \end{align*}
+    Si noti che abbiamo usato il maggiorante di Chernoff-Hoeffding all’ultimo passo. Scegliendo ora:
+    \[
+        \varepsilon_{h}=\sqrt{\frac{1}{2 m}\left(\ln \frac{1}{w(h)}+\ln \frac{2}{\delta}\right)}
+    \]
+    abbiamo che:
+    \[
+        \mathbb{P}\left(\exists h \in \mathcal{H} :|\widehat{\operatorname{er}}(h)-\operatorname{er}(h)|>\varepsilon_{h}\right) \leq \sum_{h \in \mathcal{H}} \delta w(h) \leq \delta
+    \]
+    dove abbiamo sfruttando la proprietà della funzione \(w\) definita precedentemente.
+    
+    Una conseguenza di questa analisi è che, con probabilità almeno \(1-\delta\) rispetto all'estrazione del training set abbiamo che
+    \[
+        \operatorname{er}(h) \leq \widehat{\operatorname{er}}(h)+\sqrt{\frac{1}{2 m}\left(\ln \frac{1}{w(h)}+\ln \frac{2}{\delta}\right)}
+    \]
+    simultaneamente per ogni \(h \in \mathbb{H}\). Questo suggerisce un algoritmo alternativo alla minimizzazione del training error. Infatti, mentre ERM suggerisce di usare \(\widehat{h}=\underset{h \in \mathcal{H}_{N}}{\argmin} \widehat{\operatorname{er}}(h)\) per un dato \(N\) fissato, l'approccio suggerito dalla nuova analisi propone di usare:
+    \[
+        \widehat{h}=\underset{h \in \mathcal{H}}{\operatorname{argmin}}\left(\widehat{\operatorname{er}}(h)+\sqrt{\frac{1}{2 m}\left(\ln \frac{1}{w(h)}+\ln \frac{2}{\delta}\right)}\right)
+    \]
+    \end{multicols}
+\end{observation}
+\begin{observation}[Una nuova prospettiva sull'overfitting]
+    La funzione \(w\) può essere naturalmente vista come una misura di complessità del classificatore \(h\). Si noti che questa analisi offre una nuova prospettiva sull'\textbf{overfitting}: \(\hat{\er}\rnd{h}\) diventa una buona stima di \(\er\rnd{h}\) quando viene penalizzato dal termine:
+    \[
+        \sqrt{\frac{1}{2 m}\left(\ln \frac{1}{w(h)}+\ln \frac{2}{\delta}\right)}
+    \]
+    che rende conto del fatto che abbiamo usato gli \(m\) esempi del training set per scegliere un predittore \(h\) di complessità \(w\rnd{h}\).
+\end{observation}
+\begin{example}[Esempio sui predittori ad albero]
+    Sia \(\mathbb{H}\) l'insieme dei \(2^{2^d}\) predittori ad albero che codificano tutti i classificatori \(\funcdef{h}{\crl{0,1}^d}{\binaryImage}\).
+    \begin{multicols}{2}
+        Usando tecniche di teoria dei codici, possiamo codificare ogni predittore ad albero \(h\) con \(N_h\) nodi usando una stringa binaria \(\sigma\rnd{h}\) di lunghezza \(|\sigma(h)|=\left(N_{h}+1\right)\left\lceil\log _{2}(d+3)\right\rceil+ 2\left\lfloor\log _{2} N_{h}\right\rfloor+ 1=\mathcal{O}\left(N_{h} \log d\right)\) in modo che non ci siano due predittori \(h\) e \(h'\) tali che \(\sigma\rnd{h}\) è prefisso di \(\sigma\rnd{h'}\). Codici di questo tipo si chiamano \textbf{istantanei} e soddisfano la \textbf{disuguaglianza di Kraft}.
+    
+        Grazie alla disuguaglianza di Kraft possiamo assegnare il peso \(w(h)=2^{-|\sigma(h)|}\) ad un classificatore \(h\) da un predittore ad albero con \(N_h\) nodi.
+        
+        Applicando il maggiorante otteniamo che, con probabilità almeno \(1-\delta\) rispetto all'estrazione del training set,
+        \[
+            \operatorname{er}(h) \leq \widehat{\operatorname{er}}(h)+\sqrt{\frac{1}{2 m}\left(|\sigma(h)|+\ln \frac{2}{\delta}\right)} \quad \operatorname{con}|\sigma(h)|=\mathcal{O}\left(N_{h} \log d\right)
+        \]
+        simultaneamente per ogni \(h \in \mathbb{H}\). Quindi, un algoritmo di apprendimento con alberi può controllare l'overfitting generando predittori \(\hat{h}\) definiti come:
+        \[
+            \widehat{h}=\underset{h \in \mathcal{H}}{\operatorname{argmin}}\left(\widehat{\operatorname{er}}(h)+\sqrt{\frac{1}{2 m}\left(|\sigma(h)|+\ln \frac{2}{\delta}\right)}\right)
+        \]
+        Questo tipo di analisi giustifica l'osservazione empirica che, a parità d training error risulta generalmente più affidabile il classificatore ad albero con minor numero di nodi. D'altra parte, esiste un'arbitrarietà nella scelta della funzione di complessità \(w\). In particolare, non è detto che \(w\) debba necessariamente essere inversamente proporzionale al numero di nodi dell'albero: possiamo scegliere una qualsiasi altra \(w\) a patto che soddisfi la proprietà \(\rnd{\sum_{h \in \mathbb{H}} w\rnd{h} \leq 1}\). 
+        
+        È quindi corretto interpretare \(w\) come un bias che orienta la nostra preferenza verso certi tipi di alberi rispetto ad altri.
+        
+        La scelta del bias che, a parità di training error, privilegia alberi più piccoli è conforme al principio del Rasoio di Occam: una regola euristica secondo la quale fra due spiegazioni alternative di uno stesso fenomeno, la più corta è anche quella più affidabile.
+    \end{multicols}
+\end{example}
+\end{document}

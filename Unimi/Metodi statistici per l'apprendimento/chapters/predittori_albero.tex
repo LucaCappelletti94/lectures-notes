@@ -1,0 +1,58 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Algoritmo Nearest Neighbour}
+\begin{multicols}{2}
+\begin{definition}[Albero ordinato]
+    Un albero ordinato è un albero dove i figli di ogni nodo sono numerati progressivamente. Se il nodo interno \(v\) ha \(k\) figli, distingueremo il figlio \(1, \ldots, k\).
+\end{definition}
+\begin{definition}[Struttura di un predittore ad albero]
+    La struttura di un predittore ad albero è quella di un albero ordinato con radice. 
+\end{definition}
+\begin{definition}[Predittore ad albero]
+    Fissiamo \(\mathbb{X} = \mathbb{X}_1 \times \ldots \times \mathbb{X}_d\), dove \(\mathbb{X}_i\) è l'insieme di valori che può assumere l'\(i\)-esimo attributo \(x_i\). Un \textbf{predittore ad albero} \(\funcdef{h_T}{\mathbb{X}}{\mathbb{Y}}\) è un predittore associato ad un albero ordinato \(T\), i cui nodi interni sono etichettati da \textit{test} e le cui foglie sono etichettate da elementi di \(\mathbb{Y}\).
+    
+    Un test per un nodo interno con \(k\) figli è una funzione \(\funcdef{f}{\mathbb{X}_i}{\crl{1, \ldots, k}}\) dove \(i\) è l'indice di un attributo. Quindi \(f\) mappa ciascun valore dell'\(i\)-esimo attributo in un figlio del nodo.
+    
+    Il valore \(h_T\rnd{\bmx}\) viene calcolato iniziando assegnando \(v \leftarrow r\), dove \(r\) è la radice di \(T\):
+    \begin{enumerate}
+        \item Se \(v\) è una foglia \(\ell\), allora mi fermo assegnando a \(h_T\rnd{\bmx}\) l'etichetta \(y \in \mathbb{Y}\) associata a \(\ell\).
+        \item Altrimenti, se \(\funcdef{f}{\mathbb{X}_i}{\crl{1, \ldots, k}}\) è il test associato a \(v\) eseguo l'assegnamento \(v \leftarrow v_j\) dove \(j = f\rnd{x_i}\) e \(v_j\) indica il \(j\)-esimo figlio di \(v\).
+        \item Ritorno al passo \(1\)
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Foglia finale]
+    Diciamo che \(\ell\) è la foglia finale di \(\bmx\) se terminiamo il calcolo di \(h_T\rnd{\bmx}\) nella foglia \(\ell\).
+\end{definition}
+\begin{definition}[Costruzione di albero generale]
+    Descriviamo ora un metodo generico di costruzione dell'albero a partire dal training set \(S\).
+    \begin{enumerate}
+        \item \textbf{Inizializzazione:} creo \(T\) con la sola radice \(\ell\). Associo alla radice l'insieme \(S_{\ell} = S\). Come etichetta della radice scelgo la maggioranza delle etichette degli esempi in \(S_{\ell}\).
+        \item \textbf{Loop principale:} scelgo una foglia \(\ell\) e la trasformo in nodo intorno creando due figli \(\ell'\) (primo figlio) e \(\ell''\) (secondo figlio). Scelgo un attributo \(i\) e un test \(\funcdef{f}{\mathbb{X}_i}{\crl{1,2}}\). Associo il test \(f\) alla ex-foglia \(\ell\) e partiziono l'insieme \(S_{\ell}\) nei due sottoinsiemi:
+        \begin{align*}
+            S_{\ell'} &= \crl{\rnd{\bmx_t, y_t} \in S_{\ell}: f\rnd{x_{t,i}}=1}\\
+            S_{\ell''}&=\crl{\rnd{\bmx_t, y_t} \in S_{\ell}: f\rnd{x_{t,i}}=2}
+        \end{align*}
+        Come etichetta di \(\ell'\) scelgo la maggioranza delle etichette degli esempi in \(S_{\ell'}\) e come etichetta di \(\ell''\) scelgo la maggioranza delle etichette degli esempi in \(S_{\ell''}\).
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Funzione di Gini]
+    La funzione di Gini viene definita come:
+    \[
+        \psi_2\rnd{p} = 2p\rnd{1-p}
+    \]
+\end{definition}
+\begin{definition}[Funzione di entropia scalata]
+    La funzione di entropia scalata viene definita come:
+    \[
+        \psi_3\rnd{p} = -\frac{p}{2}\ln{p} - \frac{1-p}{2}\ln{1-p}
+    \]
+\end{definition}
+\begin{observation}[Overfitting negli alberi di decisione]
+    Gli alberi di decisione possono subire il fenomeno dell'overfitting: il parametro rilevante risulta essere il numero di nodi nell'albero. Consideriamo un training set affetto da rumore, se l'albero viene fatto crescere fino ad azzerare il training error, il classificatore tenderà a mostrare un test error più elevato di un altro albero la cui crescita venga arrestata prima.
+\end{observation}
+\begin{observation}[Alberi di decisione e forma normale disgiuntiva]
+    Una caratteristica interessante dei classificatori basati su alberi di decisione è che possiamo rappresentarli come una formula di logica proposizionale in forma disgiuntiva: questa si ottiene facendo la disgiunzione delle clausole ottenute dai cammini che dalla radice conducono a tutte le foglie etichettate con \(+1\).
+\end{observation}
+\end{multicols}
+\end{document}

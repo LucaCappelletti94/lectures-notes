@@ -1,0 +1,25 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Modelli locali}
+\begin{observation}[Cosa cambia tra modelli globali e locali?]
+    Nei modelli globali ogni \textbf{inverted file entry} è compresso in un unico modello, e questo funziona bene assumendo una distribuzione uniforme degli intervalli (gap). La distribuzione degli intervalli, però, dipende da come viene ordinata la lista: se ordiniamo alfabeticamente una lista di URL quelli dello stesso sito saranno raggruppati e avremo una tendenza di clustering della distribuzione. 
+    
+    Per poter sfruttare questa proprietà vengono usati i modelli locali, dove ogni documento utilizza un proprio modello. In generale i modelli locali risultano migliori di quelli globali, ma sono più complessi da implementare.
+\end{observation}
+\begin{definition}[Modello locale iperbolico]
+    Il \textbf{modello locale iperbolico} assume che la probabilità di un intervallo di dimensione \(i\) è proporzionale a \(\sfrac{1}{i}\):
+    \[
+        \operatorname{Pr}(i) \sim \frac{1}{i}, \text { for } i=1,2, \ldots, m
+    \]
+    Sia \(m\) il punto troncato della dimensione dell'intervallo:
+    \[
+        \operatorname{Pr}(i)=\frac{1}{i \sum_{j=1}^{m} \frac{1}{j}} \approx \frac{1}{i \times \log _{e}^{m}}
+    \]
+    Possiamo determinare il valore di \(m\) come:
+    \[
+        \begin{aligned} E[\text { gap size }] &=\sum i \times \operatorname{Pr}(i) \\ & \approx \sum i \times \frac{1}{i \times \log _{e}^{m}} \\ \frac{m}{\log _{e}^{m}} &=\frac{N}{f_{t}} \end{aligned}
+    \]
+    dove \(N\) è il numero dei documenti mentre \(f_t\) è la frequenza dei termini.
+\end{definition}
+\end{document}

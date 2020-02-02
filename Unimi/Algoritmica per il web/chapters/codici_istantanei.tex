@@ -1,0 +1,238 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Codici Istantanei}
+\begin{multicols}{2}
+\begin{definition}[Codice]
+    Un \textbf{codice} è un insieme \(c \subseteq 2^*\), cioè un insieme di parole binarie. 
+\end{definition}
+\begin{definition}[Ordinamento per prefissi]
+    L'\textbf{ordinamento per prefissi} delle sequenze in \(2^*\) come segue:
+    \[
+        x \preceq y \Longleftrightarrow \exists z \quad y=x z
+    \]
+    Vale a dire, \(x \preceq y\) se e solo se un prefisso di \(y\) coincide con \(x\).
+\end{definition}
+\begin{observation}[Elementi inconfrontabili]
+    In un ordine parziale due elementi \(x\) e \(y\) sono \textbf{inconfrontabili} se nessuno dei due è minore o uguale all'altro.
+\end{observation}
+\begin{definition}[Codice istantaneo]
+    Un codice è \textbf{istantaneo} o \textbf{a decodifica istantanea} o \textbf{non ambiguo} o \textbf{privo di prefissi} se ogni coppia di parole distinte del codice è inconfrontabile.
+\end{definition}
+\begin{observation}[Codici istantanei nella pratica]
+    L'effetto pratico di questa proprietà è che a fronte di una parola \(w\) formata da una concatenazione di parole nel codice non esiste una diversa concatenazione che dà \(w\). 
+    
+    In particolare, leggendo uno a uno i bit di \(w\) è possibile ottenere in maniera istantanea le parole del codice che lo compongono.
+\end{observation}
+\begin{definition}[Codice completo]
+    Un codice \textbf{completo} o \textbf{non ridondante} se per ogni parola \(w \in 2^*\) è confrontabile con qualche parola del codice. 
+    
+    Quando un codice istantaneo è completo, non è possibile più aggiungere parole al codice senza violare l'istantaneità. Inoltre, qualunque parola \textbf{infinita} è decomponibile in maniera unica come sequenza di parole del codice e qualunque parola \textbf{finita} è decomponibile in maniera unica come sequenza di parole del codice più prefisso di qualche parola del codice.
+\end{definition}
+\begin{definition}[Diadico]
+    Un \textbf{diadico} è un razionale della forma \(k2^{-h}\).
+\end{definition}
+\end{multicols}
+\clearpage
+\section{Disuguaglianza di Kraft-McMillan}
+\begin{theorem}[Disuguaglianza di Kraft-McMillan]
+    Sia \(C \subseteq 2^*\) un codice. Se \(C\) è istantaneo, allora:
+    \[
+        \sum_{w \in C} 2^{-|w|} \leq 1
+    \]
+    e \(C\) è completo se e solo se vale l'uguaglianza. Inoltre, data una sequenza (eventualmente infinita) \(t_{0}, t_{1}, \ldots, t_{n-1}, \dots\) che soddisfa:
+    \[
+        \sum_{n} 2^{-t_{n}} \leq 1
+    \]
+    esiste un codice istantaneo formato da parole \(w_{0}, w_{1}, \ldots, w_{n-1}, \ldots\) tali che \(\abs{w_i} = t_i\).
+\end{theorem}
+\begin{proof}[Disuguaglianza di Kraft-McMillan]
+    A ogni parola \(w \in 2^*\) associamo un intervallo con estremi diadici:
+    \begin{enumerate}
+        \item se \(w\) è la parola vuota, l'intervallo è \([0 \ldots 1)\)
+        \item altrimenti, ricorsivamente, consideriamo l'intervallo della sottostringa \(s = w_1 \ldots w_{\abs{w}-1}\) pari a \(\left[x \ldots y\right)\). Allora l'intervallo associato a \(w\) risulta pari a:
+        \[
+            \begin{cases}
+                \left[x \ldots \frac{x+y}{2}\right) & \text{ se } w_{\abs{w}} = 0\\
+                \left[\frac{x+y}{2} \ldots y\right) & \text{ se } w_{\abs{w}} = 1\\
+            \end{cases}
+        \]
+    \end{enumerate}
+    In particolare vale che:
+    \begin{enumerate}
+        \item L'intervallo associato a una parola di lunghezza \(n\) ha lunghezza \(2^{-n}\).
+        \item Se \(s\) è una sotto-stringa di \(w\) l'intervallo associato a \(s\) contiene quello associato a \(w\).
+        \item Due parole sono inconfrontabili se e solo se i corrispondenti intervalli sono disgiunti (e pertanto non sono sotto-stringhe l'una dell'altra).
+        \item Per ogni parola \(w\) esiste solo e soltanto un intervallo diadico tale che \(\left[k2^{-\abs{w}} \ldots \rnd{k+1}2^{-\abs{w}}\right)\).
+    \end{enumerate}
+    Sia ora \(C\) un codice istantaneo: gli intervalli associati alle parole (inconfrontabili) \(w \in C\), sono disgiunti e per costruzione la sommatoria delle loro lunghezze è minore di uno.
+    
+    Se la \textbf{sommatoria è strettamente minore di uno}, deve esserci un intervallo scoperto, diciamo \([x\ldots y)\). Questo intervallo contiene necessariamente un sotto-intervallo della forma \([k2^{-h} \ldots \rnd{k+1}2^{-h})\) per qualche \(h\) e \(k\). Ma allora la parola associata a quest'ultimo potrebbe essere aggiunta al codice (essendo inconfrontabile con tutte le altre), che quindi risulta incompleto. 
+    
+    D'altra parte, se il codice è \textbf{incompleto} l'intervallo corrispondente ad una parola inconfrontabile con quelle del codice è necessariamente scoperto, e questo rende la somma strettamente minore di \(1\).
+    
+    Assumendo senza perdite di generalità che la sequenza \(t_0, t_1, \ldots, t_{n-1}, \ldots\) sia monotona non decrescente, possiamo sempre generare un codice istantaneo corrispondente: partendo dall'estremo sinistro \(d\) dell'intervallo, inizialmente \(d=0\).
+    
+    A ogni iterazione \(i\)-esima generiamo la parola che ha associato l'intervallo di lunghezza \(t_i\) con estremo sinistro \(d\): dato che l'intervallo associato è disgiunto dai precedenti le parole saranno inconfrontabili. Quindi aggiorniamo il valore di di \(d\) sommando \(2^{-t_i}\).
+\end{proof}
+\clearpage
+\section{Codici istantanei per gli interi}
+\begin{multicols}{2}
+\begin{definition}[Rappresentazione binaria ridotta]
+    Con \textbf{rappresentazione binaria ridotta} di \(x\) si intende la rappresentazione binaria di \(x+1\) privata del bit più significativo.
+\end{definition}
+\begin{definition}[Codici binari minimali]
+    I \textbf{codici binari minimali} sono codici istantanei per i primi \(k\) interi che utilizzano un numero variabile di bit.
+\end{definition}
+\begin{definition}[Codice unario]
+    Il \textbf{codice unario} rappresenta il naturale \(x\) tramite \(x\) zeri seguiti da un uno. Il codice unario è \textbf{istantaneo} e \textbf{completo}. Le prime parole del codice sono \(1\), \(01\), \(001\) e \(0001\).
+\end{definition}
+\begin{definition}[Codice Gamma]
+    Il codice Gamma, o \(\gamma\), descrive un intero \(x\) scrivendo il numero di bit della rappresentazione binaria ridotta di \(x\) in unario, seguito dalla rappresentazione binaria ridotta di \(x\). Il fatto che il codice sia istantaneo e completo si ottiene immediatamente dal fatto che lo è il codice unario. Le prime parole del codice sono \(1\), \(010\), \(011\), \(00100\), \(00110\) e \(00111\).
+\end{definition}
+\begin{definition}[Codice Delta]
+    Il codice Delta, o \(\delta\), descrive un intero \(x\) scrivendo il numero di bit della rappresentazione binaria ridotta di \(x\) in \(\gamma\), seguito dalla rappresentazione binaria ridotta \(x\). Il fatto che il codice sia istantaneo e completo deriva dal fatto che lo è il codice \(\gamma\). Le prime parole del codice sono \(1\), \(0100\), \(0101\), \(01100\), \(01110\), \(01111\), \(00100000\) e \(00100001\).
+\end{definition}
+\begin{definition}[Codice di Golonb di modulo \(b\)]
+    Il \textbf{Codice di Golomb di modulo \(b\)} descrive un intero \(x\) scrivendo il quoziente \(q\) della divisione di \(x\) per \(b\) in unario, seguito dal resto \(r\) in binario.
+    \[
+    \begin{aligned} q &=\frac{x}{b} \\ r &=x-q \cdot b \end{aligned}
+    \]
+    Il fatto che il codice sia istantaneo e completo si ottiene immediatamente dal fatto che lo sono il codice unario e il binario minimale. Per \(b=3\) le prime parole del codice sono \(10\), \(110\), \(111\), \(010\), \(0110\), \(0111\).
+\end{definition}
+\begin{analysis}[Determinare \(b\) per il codice di Golomb]
+    Per quanto il codice di Golomb è definito per qualsiasi intero \(b\), i valori migliori risultano essere quelli che risultato in albero dei prefissi bilanciato. Procediamo ora a derivare il valore di \(b\) dalla probabilità \(p\).
+    
+    Dato un numero di estrazioni \(\ell\):
+    \[\begin{aligned} \sum_{x \geq \ell} \operatorname{prob}[x] &=\sum_{x \geq \ell} p(1-p)^{x}-1 \\ &=p(1-p)^{\ell-1} \sum_{x \geq 0}(1-p)^{x} \\ &=p(1-p)^{\ell-1}(1 / p) \\ &=(1-p)^{\ell-1} \end{aligned}\]
+    Il parametro \(b\) è scelto in modo tale che la probabilità che meno di \(b\) estrazioni siano necessarie per essere il più vicino possibile all'evento tale per cui più di \(b\) estrazioni son necessarie.
+    
+    Il parametro \(b\) deve essere l'intero che soddisfa quindi la seguente disuguaglianza:
+    \[(1-p)^{b}+(1-p)^{b+1} \leq 1<(1-p)^{b-1}+(1-p)^{b}\]
+    Possiamo approssimare il valore come segue:
+    \[
+        \begin{aligned}(1-p)^{b} & \approx \frac{1}{2} \\ b \log \frac{1}{1-p} & \approx \log 2 \\ b & \approx \frac{\log 2}{\log \frac{1}{1-p}} \end{aligned}
+    \]
+    In particolare, per valori molto bassi di \(p\), il parametro \(b\) può essere approssimato da \(\sfrac{\log 2}{p}\)
+\end{analysis}
+\begin{definition}[Codici a blocchi a lunghezza variabile (codice a nibble o a byte)]
+    Nel codice variabile a nibble o a byte l'idea è che ogni parola è formata da un numero variabile di blocchi di \(k\) bit. Il primo bit, detto di \textbf{continuazione}, non fa parte dell'intero codificato, e serve a specificare (se diverso da zero) che il codice non termina in quel blocco. Un intero \(x\) viene scritto in notazione binaria, allineato a un multiplo di \(k-1\) bit, diviso in blocchi di \(k-1\) bit, e rappresentato tramite la sequenza dei suddetti blocchi, ciascuno preceduto da un bit di continuazione uguale \(1\), tranne nell'ultimo blocco. La lunghezza della parola di codice per \(x\) è quindi \(\lceil(\log x+1) / k\rceil(k+1)\). I codici a lunghezza variabile sono \textbf{istantanei} ma \textbf{non completi}, dato che, per esempio, una lista di blocchi di lunghezza maggiore di uno che contiene solo bit a zero (eccetto quelli di continuazione) risulta inconfrontabile con tutte le parole del codice.
+\end{definition}
+\begin{property}[Codice universale]
+    Un codice è detto \textbf{universale} se per qualunque distribuzione \(p\) sugli interi monotona non crescente il valore atteso della lunghezza di una parola rispetto a \(p\) è minore o uguale all'entropia di \(p\) a meno di costanti additive e moltiplicative (indipendenti da \(p\)).
+    
+    Vale a dire, se \(\ell\rnd{x}\) è la lunghezza della parola di codice per \(x\) e \(H\rnd{p}\) denota l'entropia (nel senso di Shannon) di una distribuzione \(p\) esistono costanti \(c\) e \(d\) tali che per ogni distribuzione \(p\) monotona non crescente si ha:
+    \[
+        \sum_{x \in \mathbf{N}} \ell(x) p(x) \leq c H(p)+d
+    \]
+    Il codice unario e i codici di Golomb \textbf{non sono universali}, mentre lo sono \(\gamma\) e \(\delta\).
+\end{property}
+\begin{property}[Codice asintoticamente ottimo]
+    Il codice è detto \textbf{asintoticamente ottimo} quando a destra il limite superiore è della forma:
+    \[
+        f(H(p)) \quad \text{con} \quad \lim _{x \rightarrow \infty} f(x)=1
+    \]
+    Il codice \(\delta\) è asintoticamente ottimo, mentre \(\gamma\) non lo è.
+\end{property}
+\begin{definition}[Codici allineati ai byte]
+    I codici \textbf{allineati ai byte} o \textbf{byte-aligned codes} sono codici che costringono le lunghezze delle parole a essere multiple di un numero di base (tipicamente otto). In alcuni casi si tratta di codici per brevi sequenze di interi, che vengono memorizzate in una singola parola.
+\end{definition}
+\begin{observation}[Perché si usano i codici allineati ai byte?]
+    La ragione principale per l'utilizzo di codici allineati è che la decodifica dovrebbe essere molto più rapida. Il prezzo da pagare è una compressione decisamente peggiore, dato che i codici risultanti non sono completi.
+\end{observation}
+\begin{definition}[Codifica interpolativa]
+    La \textbf{codifica interpolativa} è una codifica non istantanea che ha risultati di compressione eccellenti. L'idea è che se devo codificare un intero nell'intervallo \([a\ldots b)\), mi basta specificare lo scarto nell'intervallo tramite un codice binario minimale. Data una sequenza di interi \(n_0, n_1, \ldots, n_{s-1}\) e un limite superiore noto \(b\) agli \(n_k\), la codifica interpolativa scrive lo scarto di \(n_{\floor{\sfrac{s}{2}}}\) in \([0, \ldots, b)\) e procede ricorsivamente scrivendo la codifica degli interi \(n_{0}, n_{1}, \ldots, n_{\lfloor s / 2\rfloor}-1\) in \(\left[0 . . n_{\lfloor s / 2\rfloor}\right)\) e degli interi \(n_{\lfloor s / 2+1\rfloor}, n_{\lfloor s / 2+2\rfloor}, \dots, n_{s-1}\) in \(\left[n_{\lfloor s / 2\rfloor}+1 . . b\right)\).
+\end{definition}
+\begin{example}[Esempio di codifica interpolativa]
+    Dovendo codificare la sequenza \(0,2,3\) e conoscendo il limite \(4\), scriveremo:
+    \begin{align*}
+        2(=2-0) \in[0 \ldots 5) \leadsto 01\\
+        0(=0-0) \in[0 \ldots 2) \leadsto 0\\
+        0(=3-3) \in[3 \ldots 4) \leadsto \varepsilon
+    \end{align*}
+\end{example}
+\begin{example}[Codifica interpolativa di intervalli vuoti]
+    Siccome l'intervallo \([3\ldots 4)\) contiene un solo intero, il codice binario minimale associato contiene solo la stringa vuota: la scrittura di \(3\) non consuma neppure un bit.
+\end{example}
+\begin{observation}[Limiti della codifica interpolativa]
+    La \textbf{codifica interpolativa} si presta però alle stesse critiche di quella aritmetica: deve essere scritta in un flusso di bit continuo. È quindi adatta solo per le posizioni, ma presenta lo stesso inconveniente della Golomb quando viene utilizzata per le posizioni, cioè occorre avere a disposizione la dimensione del documento come limite superiore.
+\end{observation}
+\begin{definition}[PFOR-DELTA]
+    Si sceglie una dimensione di blocco \(B\), per esempio \(128\) o \(256\), e per ogni blocco consecutivo di \(B\) scarti si trova l'intero \(b\) tale che il \(90\%\) degli scarti sono esprimibili in \(2^b\) bit. 
+    
+    A questo punto viene scritto un vettore di \(B\) interi di \(b\) bit, che descrive correttamente il \(90\%\) degli scarti. Il rimanente \(10\%\) degli scarti, le \textbf{eccezioni}, viene scritto separatamente in un vettore di interi (che deve essere di lunghezza sufficiente per descrivere il massimo scarto). Le posizioni del primo vettore corrispondenti alle eccezioni vengono riempite con un intero che rappresenta la distanza dalla prossima eccezione.
+    
+    Talvolta può essere necessario aggiungere delle eccezioni fittizie per far sì che la distanza dalla prossima eccezione sia sempre esprimibile in \(b\) bit.
+    
+    In fase di decodifica, si copiano i primi \(B\) valori a \(b\) bit in un vettore di interi. Quest'operazione è molto veloce, in particolare se vengono creati cicli srotolati diversi per ogni possibile valore di \(b\). A questo punto si passa attraverso la lista delle eccezioni, che vengono copiate dal secondo vettore nelle posizioni corrette.
+    
+    Questo approccio fa sì che il processore esegua dei cicli estremamente predicibili, e riesce a decodificare un numero di scarti al secondo significativamente più alto delle tecniche basate su codici.
+\end{definition}
+\begin{definition}[Distribuzione intesa]
+    Ogni codice istantaneo completo per gli indici interi definisce implicitamente una \textbf{distribuzione intesa} sugli interi che assegna a \(w\) la probabilità \(2^{-\abs{w}}\). Il codice risulta \textbf{ottimo} per la distribuzione associata.
+    
+    La scelta di un codice istantaneo può essere ricondotta a considerazioni sulla distribuzione statistica degli interi che si intendono rappresentare.
+\end{definition}
+\begin{definition}[Distribuzione intesa del codice unario]
+    Al codice unario è associata una distribuzione esponenziale negativa con decrescita estremamente rapida:
+    \[
+        \frac{1}{2^{x+1}}
+    \]
+\end{definition}
+\begin{definition}[Distribuzione intesa del codice gamma]
+    \[
+        \frac{1}{2^{2\lfloor\log (x+1)\rfloor+ 1}} \approx \frac{1}{2(x+1)^{2}}
+    \]
+\end{definition}
+\begin{definition}[Distribuzione intesa del codice delta]
+    \[
+        \frac{1}{2(x+1)(\log (x+1)+1)^{2}}
+    \]
+\end{definition}
+\begin{definition}[Distribuzione intesa del codice di Golomb]
+    Nel caso del codice di Golomb la distribuzione è dipendente dal modulo:
+    \[
+        \frac{1}{b(\sqrt[b]{2})^{x}}
+    \]
+\end{definition}
+\begin{definition}[Distribuzione intesa dei codici a lunghezza variabile]
+    Sebbene i codici di lunghezza variabile non siano completi, a meno di un fattore di normalizzazione è comunque possibile osservarne la distribuzione intesa:
+    \[
+        \frac{1}{(x+1)^{1+\frac{1}{k}}}
+    \]
+\end{definition}
+\begin{definition}[Hapax legomena]
+    Con \textbf{hapax legomena} si intende delle parole che in un set appaiono solo una volta.
+\end{definition}
+\begin{observation}[Quale codice è utilizzato per frequenze e conteggi?]
+    Nel caso di frequenze e conteggi, la presenza significativa degli \textbf{hapax legomena} rende il codice gamma quello usato più di frequente.
+\end{observation}
+\begin{observation}[Quale codice è utilizzato per scarti tra puntatori a documenti?]
+    Il \textbf{modello Bernoulliano} di distribuzione prevede che un termine con frequenza \(f\) appaia in una collezione di \(N\) documenti con probabilità \(p = \frac{f}{N}\) indipendente in ogni documento. L'assunzione di indipendenza ha l'effetto di semplificare enormemente la distribuzione degli scarti, che risulta una geometrica di ragione \(p\): lo scarto \(x > 0\) compare cioè con probabilità:
+    \[
+        p\rnd{1-p}^{\rnd{x-1}}
+    \]
+    Siccome il \textbf{codice di Golomb} ha \textbf{distribuzione intesa esponenziale negativa} e un risultato importante di teoria dei codici dice che il codice ottimo per una geometrica di ragione \(p\) è un Golomb di modulo:
+    \[
+        b=\left\lceil\frac{\log (2-p)}{\log (1-p)}\right\rceil
+    \]
+\end{observation}
+\begin{observation}[Quali controindicazioni esistono nell'usare i codici di Golomb per scarti tra puntatori a documenti?]
+    Una controindicazione può essere la \textbf{correlazione} tra documenti adiacenti: se i documenti nella collezione provengono da un \textbf{crawl} e sono nell'ordine di visita, è molto probabile che documenti vicini contengano termini simili.
+    
+    Questo sposta significativamente da una geometrica la distribuzione degli scarti e richiede quindi soluzioni diverse.
+\end{observation}
+\begin{observation}[Quali codice è utilizzato per le posizioni?]
+    Per le posizioni non esistono modelli noti e affidabili degli scarti e si utilizza quindi un codice dalle buone prestazioni generali come il \(\delta\). È possibile utilizzare anche Golomb, assumendo un modello Bernoulliano anche per le posizioni ma per calcolarlo è necessario avere la lunghezza del documento che quindi deve essere disponibile in memoria centrale.
+\end{observation}
+\begin{observation}[Quali sono i limiti di una lista compressa?]
+    Non è possibile ottenere in tempo costante un elemento arbitrario di una lista compressa per scarti: è necessario decodificare gli elementi precedenti. Più problematica è l'impossibilità di saltare rapidamente al primo elemento della lista maggiore o uguale a un limite inferiore \(b\), operazione detta comunemente \textbf{salto} o \textbf{skip}.
+\end{observation}
+\begin{definition}[Tabella di salto]
+    Una \textbf{tabella di salto} o \textbf{skip table} memorizza, dato un \textbf{quanto} \(q\), il valore degli elementi di indice \(i\cdot q\), con \(i\geq 0\), e la loro posizione (espressa in bit) nella lista di affissioni.
+    
+    Quando si vuole effettuare un salto, e più precisamente quando si vuole trovare il minimo elemento maggiore o uguale a \(b\), si cerca nella tabella il massimo elemento di posto \(i\cdot q\) minore o uguale a \(b\), e si comincia a decodificare la lista per cercare il minimo maggiorante di \(b\). Al più \(q\) elementi dovranno essere decodificati, e \(q\) deve essere scelto sperimentalmente in modo da al tempo stesso non accrescere eccessivamente la dimensione dell'indice e fornire un significativo aumento di prestazioni.
+\end{definition}
+\end{multicols}
+
+\end{document}

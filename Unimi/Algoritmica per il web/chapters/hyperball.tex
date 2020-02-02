@@ -1,0 +1,70 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{HyperBall}
+\begin{multicols}{2}
+\begin{observation}[Quando è necessario HyperBall?]
+    HyperBall è utile quando si ha a che fare con un grafo molto grande (social o web per esempio) e si vuole comprendere qualcosa della sua struttura globale. Si vuole inoltre comprendere quali nodi svolgono un qualche ruolo importante.
+\end{observation}
+\begin{observation}[A cosa serve HyperBall?]
+    HyperBall consente di poter utilizzare la centralità armonica su grafi molto grandi.
+\end{observation}
+\begin{definition}[Step intermedio di HyperBall]
+    \begin{enumerate}
+        \item Per ogni nodo calcoliamo in sequenza il numero dei nodi a distanza esattamente pari a \(t\).
+        \item Sommando tutti i nodi otteniamo la distribuzione della distanza (normalizzandola).
+        \item Le definizione di centralità, per esempio armonica, possono essere riscritte come:
+        \[
+            \sum_{t>0} \frac{1}{t}|\{y | d(y, x)=t\}|
+        \]
+    \end{enumerate}
+\end{definition}
+\begin{observation}[Come si procede a calcolare lo step intermedio di HyperBall?]
+    Esistono 3 approcci per calcolarlo:
+    \begin{enumerate}
+        \item Multiple visite breadth-first: queste hanno complessità \(O(mn)\) e richiedono accesso diretto.
+        \item Approcci tramite sampling di visite breadth-first non danno buone approssimazioni su grafi che non sono fortemente connessi e comunque richiedono accesso diretto.
+        \item Si può utilizzare il framework per stimare la dimensione di Edith Cohen: è molto potente ma non scala o parallelizza molto bene e richiede accesso diretto.
+        \item Infine è possibile utilizzare la diffusione.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Diffusione]
+    Sia \(B_t\rnd{x}\) la sfera (ball) di raggio \(t\) attorno a \(x\), l'insieme di nodi a distanza al massimo \(t\) da \(x\). Allo step iniziale \(B_{0}(x)=\{x\}\) e costruiamo la sfera iterativamente enumeando gli archi \(x\rightarrow y\) ed eseguendo unioni tra insiemi:
+    \[
+        B_{t+1}(x)=\bigcup_{x \rightarrow y} B_{t}(y) \bigcup\{x\}
+    \]
+\end{definition}
+\begin{observation}[Quali sono le problematiche della diffusione?]
+    Ogni insieme usa spazio lineare, e nel complesso è quadratico, quindi non sarebbe gestibile.
+\end{observation}
+\begin{observation}[Come si possono risolvere le problematiche della diffusione?]
+    Si possono risolvere utilizzando degli insiemi approssimati, cioè utilizzando contatori probabilistici che rappresentano insiemi ma che consentono solo di identificarne la dimensione.
+\end{observation}
+\begin{definition}[Contatori HyperLogLog]
+    Al posto di contare effettivamente un insieme di elementi andiamo a \textbf{osservarne} una caratteristica statistica: questa è il numero degli zero alla fine del valore di una funzione di hash \textbf{molto buona}. Di questi teniamo traccia del valore massimo \(m\), da cui lo spazio è \(\log\log n\) bits.
+    
+    Il numero degli elementi distinti è proporzionale a \(2^m\).
+\end{definition}
+\begin{definition}[Diffusione con set approssimati]
+    Si procede scegliendo un insieme approssimato su cui sia possibile eseguire delle unioni velocemente. Un esempio può essere ANF, che utilizza dei contatori di Martin-Flajolet (MF)  che occupano spazio \(\log n + c\). Nel contesto di HyperBall vengono utilizzati contatori HyperLogLog, che occupano spazio \(\log\log n\).
+    
+    I contatori MF possono essere combinati con degli OR.
+    
+    Per combinare i contatori HyperLogLog rapidamente viene utilizzato il \textbf{broadword programming}.
+\end{definition}
+\begin{observation}[Come si può aumentare la confidenza?]
+    Per aumentare la confidenza utilizzeremo molti contatori, tipicamente \(2^b\) con \(b\geq 4\) e calcolarne la media armonica. Ogni insieme quindi è rappresentato da una lista di piccoli contatori, comunemente di 5 bit.
+    
+    Per calcolare l'unione tra due set si procede per massimizzazione uno a uno. Purtroppo estrarre, massimizzare e inserire tramite shifts è estremamente lento.
+    
+    Nel caso dei contatori Martin-Flajolet si procede a fare un OR delle feature.
+\end{observation}
+\begin{observation}[Quali possibili miglioramenti esistono?]
+    \begin{enumerate}
+        \item Teniamo traccia delle modifiche e non massimizziamo con contatori non modificati.
+        \item Utilizziamo la computazione sistolica, dove ogni insieme modificato segnala i predecessori che qualcosa dovrà succedere.
+        \item Possiamo migliorare le performance tramite parallelizzazione con decomposizione: una task aggiorna solo un sotto-insieme di contatori il cui outdegree generale è predetto utilizzando una rappresentazione Elias-Fano della distribuzione di outdegree cumulativa.
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+\end{document}

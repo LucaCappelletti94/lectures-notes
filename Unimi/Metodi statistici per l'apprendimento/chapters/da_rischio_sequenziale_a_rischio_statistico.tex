@@ -1,0 +1,70 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Da rischio sequenziale a rischio statistico}
+\begin{goal}[Da rischio sequenziale a rischio statistico]
+    Vogliamo mettere in relazione il rischio sequenziale di un algoritmo online (come OGD) con il rischio di un predittore da esso prodotto, assumendo che i dati sui quali l'algoritmo viene eseguito siano generati da una sorgente statistica. Questo ci permette di creare un ponte fra il modello di apprendimento sequenziale e quello statistico.
+\end{goal}
+\begin{analysis}[Da rischio sequenziale a rischio statistico]
+    \begin{multicols}{2}
+        Fissiamo una funzione di perdita \(\ell\). Dato un predittore lineare \(\bmw \in \R^d\) e un esempio \(\rnd{\bmx_t, y_t} \in \R^d\times\R\), sia \(\ell_t\rnd{\bmw} = \loss{\bmwt\bmw}{y_t}\) la perdita associata. Assumiamo che la funzione \(\ell_t\) sia convessa.
+        Consideriamo il caso dell'apprendimento statistico, in cui gli esempi \(\rnd{\bmx_t, y_t}\) sono realizzazioni indipendenti di variabili casuali \(\rnd{\bm{X}_t, Y_t}\) con distribuzione comune \(\mathbb{D}\) su \(\R^d\times\R\) fissata ma ignota.
+    
+        Il rischio statistico rispetto alla funzione di perdita \(\ell\) di un predittore lineare \(\bmw\) è definito da:
+        \[\operatorname{er}_{\mathcal{D}}(\boldsymbol{w})=\mathbb{E}\left[\ell\left(\boldsymbol{w}^{\top} \boldsymbol{X}, Y\right)\right]\]
+        dove l'esempio \(\rnd{\bm{X}, Y}\) è estratto dalla distribuzione congiunta \(\mathbb{D}\) su \(\R^d\times \R\).
+        
+        Consideriamo ora un training set \(S\) composto da realizzazioni \(\examples{m}\) di variabili casuali \(\rnd{\bm{X}_1, Y_1},\ldots,\rnd{\bm{X}_m, Y_m}\) estratte da \(\mathbb{D}\). Eseguiamo un algoritmo online come OGD sul training set \(S\) con la sequenza di funzioni di perdita \(\ell_1, \ldots, \ell_m\) definite da \(\ell_{t}(\boldsymbol{w})=\ell\left(\boldsymbol{w}^{\top} \boldsymbol{x}_{t}, y_{t}\right)\). 
+        
+        Per definizione di algoritmo online, otteniamo una sequenza \(\bmw_1, \ldots, \bmw_m\) di predittori lineari. Vogliamo stabilire un maggiorante sul rischio statistico di un predittore lineare ottenuto in modo naturale dalla sequenza, ovvero il \textbf{predittore medio}:
+        \[\overline{\boldsymbol{w}}=\frac{1}{m} \sum_{t=1}^{m} \boldsymbol{w}_{t}\]
+        Dato che \(\ell\) è convessa, la disuguaglianza di Jensen ci dà che:
+        \begin{align*}
+            \operatorname{er}_{\mathcal{D}}(\overline{\boldsymbol{w}})&=\mathbb{E}\left[\ell\left(\overline{\boldsymbol{w}}^{\top} \boldsymbol{X}, Y\right)\right] \\&\leq \mathbb{E}\left[\frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}, Y\right)\right]\\&=\frac{1}{m} \sum_{t=1}^{m} \operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)
+        \end{align*}
+        dove l'ultima uguaglianza vale per linearità dell'aspettazione, quindi il rischio del predittore medio è maggiorato dal rischio medio dei predittori della sequenza \(\bmw_1, \ldots, \bmw_m\).
+        
+        Il passo cruciale sta ora nel legare il rischio statistico medio con il rischio sequenziale. Questo viene fatto osservando che, sotto l'ipotesi che \(S\) sia un campione casuale estratto da \(\mathbb{D}\), \(\bmw_t\) è determinato dai primi \(t-1\) esempi \(\rnd{\bmx_1, y_1}, \ldots, \rnd{\bmx_{t-1}, y_{t-1}}\) estratti. Quindi, applicando la definizione di rischio al valore atteso della perdita di \(\bmw_t\) sul \(t\)-esimo esempio \(\rnd{\bmx_t, y_t}\), possiamo scrivere:
+        \[\mathbb{E}\left[\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)-\ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right) |\left(\boldsymbol{X}_{1}, Y_{1}\right), \ldots,\left(\boldsymbol{X}_{t-1}, Y_{t-1}\right)\right]=0\]
+        
+        La relazione dice che se condizioniamo sui primi \(t-1\) esempi, il valore atteso di \(\ell_t\rnd{\bmw_t}\) rispetto all'estrazione del \(t\)-esimo esempio è semplicemente (per definizione) il rischio di \(\bmw_t\).
+        
+        Denotiamo con \(\mathbb{E}_{t-1}\) il valore atteso condizionato come sopra. Se sommiamo entrambi i membri per \(t=1, \ldots, m\) e dividiamo per \(m\) otteniamo:
+        \[\frac{1}{m} \sum_{t=1}^{m} \mathbb{E}_{t-1}\left[\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)-\ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)\right]=0\]
+        éPer ogni \(t=1,\ldots,m\) sia \(Z_t\) la variabile casuale \(\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)-\ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)\). Le variabili casuali \(Z_1, \ldots, Z_m\) sono tutte funzioni del medesimo campione \(S\) e sono tali che:
+        \[\frac{1}{m} \sum_{t=1}^{m} \mathbb{E}_{t-1}\left[Z_{t}\right]=0\]
+        Assumiamo che \(\ell_t \in \sqr{0,m}\), allora \(\abs{Z-t} \leq M\).
+        
+        Questo tipo di variabili casuali, o più precisamente di processo, viene definito come una sequenza di differenze di Martingale con incrementi limitati da \(2M\). Si noti che le \(Z_t\) non sono indipendenti. Da un punto di vista statistico, però, queste variabili si comportano come se lo fossero, almeno per certi aspetti.
+        
+        In particolare, vale una legge dei grandi numeri del tipo:
+        \[\frac{1}{m} \sum_{t=1}^{m} Z_{t} \leq 2 M \sqrt{\frac{1}{2 m} \ln \frac{1}{\delta}}\]
+        con probabilità almeno \(1-\delta\) rispetto all'estrazione di \(S\). Questo significa che:
+        \[\frac{1}{m} \sum_{t=1}^{m} \operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right) \leq \frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)+M \sqrt{\frac{2}{m} \ln \frac{2}{\delta}}\]
+        con probabilità almeno \(1-\frac{\delta}{2}\) rispetto all'estrazione di \(S\). Ritornando al predittore medio \(\bar{\bmw}\), il risultato che otteniamo può essere sintetizzato come:
+        \[\operatorname{er}_{\mathcal{D}}(\overline{\boldsymbol{w}}) \leq \frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t}, y_{t}\right)+\mathcal{O}\left(\frac{1}{\sqrt{m}}\right)\]
+        In altre parole, il rischio del predittore medio è limitato in probabilità del rischio sequenziale sul training set.
+    \end{multicols}
+\end{analysis}
+\begin{analysis}[Da rischio sequenziale a rischio statistico: caso della regressione con perdita quadratica]
+    Per regressione con perdita quadratica, se facciamo girare \(OGD\) con proiezione nell'insieme \(\left\{\boldsymbol{u} \in \mathbb{R}^{d} :\|\boldsymbol{u}\| \leq U\right\}\) e assumiamo che \(\left\|x_{t}\right\| \leq X\) e \(\left|y_{t}\right| \leq U X\) per ogni \(t\), otteniamo che, per ogni realizzazione \(\examples{m}\) di \(S\),
+    \[\frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{x}_{t}, y_{t}\right) \leq \min _{\boldsymbol{u} \in \mathbb{R}^{d} :\|\boldsymbol{u}\| \leq U} \frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{u}^{\top} \boldsymbol{x}_{t}, y_{t}\right)+8(U X)^{2} \sqrt{\frac{2}{m}}\]
+    Sostituendo nel risultato dell'analisi precedente e notando che \(M=4\rnd{UX}^2\) per la funzione di perdita quadratica, possiamo quindi scrivere che:
+    \[\operatorname{er}_{\mathcal{D}}(\overline{\boldsymbol{w}}) \leq \min _{\boldsymbol{u} \in \mathbb{R}^{d} :\|\boldsymbol{u}\| \leq U} \frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{u}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)+12(U X)^{2} \sqrt{\frac{2}{m} \ln \frac{2}{\delta}}\]
+    con probabilità almeno \(1-\frac{\delta}{2}\) rispetto all'estrazione di \(S\).
+    
+    Infine, possiamo notare che, detto:
+    \[\boldsymbol{u}^{*}=\underset{\boldsymbol{u} \in \mathbb{R}^{d} :\|\boldsymbol{u}\| \leq U}{\operatorname{argmin}} \operatorname{er}_{\mathcal{D}}(\boldsymbol{u})\]
+    abbiamo, ovviamente,
+    \[
+        \min _{\boldsymbol{u} \in \mathbb{R}^{d} :\|\boldsymbol{u}\| \leq U} \frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{u}^{\top} \boldsymbol{x}_{t}, y_{t}\right) \leq \frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{x}_{t}^{\top} \boldsymbol{u}^{*}, y_{t}\right)
+    \]
+    Dato che, per ogni \(t=1,\ldots,m\) si ha \(\mathbb{E}\left[\ell\left(\boldsymbol{X}_{t}^{\top} \boldsymbol{u}^{*}, Y_{t}\right)\right]=\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{u}^{*}\right)\), possiamo applicare il maggiorante di Chernoff-Hoeffding e dedurre che:
+    \[\frac{1}{m} \sum_{t=1}^{m} \ell\left(\boldsymbol{X}_{t}^{\top} \boldsymbol{u}^{*}, Y_{t}\right) \leq \operatorname{er}_{\mathcal{D}}\left(\boldsymbol{u}^{*}\right)+4(U X)^{2} \sqrt{\frac{1}{2 m} \ln \frac{2}{\delta}}\]
+    Abbiamo così ottenuto il seguente maggiorante esplicito sul rischio del predittore medio:
+    \[
+        \operatorname{er}_{\mathcal{D}}(\overline{\boldsymbol{w}}) \leq \operatorname{er}_{\mathcal{D}}\left(\boldsymbol{u}^{*}\right)+14(U X)^{2} \sqrt{\frac{2}{m} \ln \frac{2}{\delta}}
+    \]
+    con probabilità almeno \(1-\delta\) rispetto all'estrazione di \(S\).
+\end{analysis}
+\end{document}

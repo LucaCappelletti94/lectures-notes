@@ -1,0 +1,33 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Domande d'esame}
+\begin{enumerate}
+    \item Elias-Fano e limite teorico delle successioni monotone.
+    
+    [RISPOSTA] vedi dispense cap.11 sulle successione monotone. In particolare dimostrare quale è l'Information Theoretical Lower Bound, mostrare costruzione della struttura e descrivere come vengono effettuate le operazioni di recupero degli elementi e di successore. 
+    \item Algoritmo di Karger per la mincut e probabilità di ottenerere la cut ottima.
+    \item Inapprossimabilità di MaxE3Sat tramite PCP.
+    \item Approssimazione 3/2 per il problema di Load Balancing.
+    \item Riduzione diretta da PCP a Max Independent Set con dimostrazione di inapprossimabilità per ogni valore di rapporto di prestazione (in pratica dimostrare che Max Independent Set non è in APX). Questa è stata la mia domanda a scelta.
+    
+    [TRACCIA RISPOSTA] L'argomento copriva quasi una lezione intera quindi qui riporto solo la traccia della risposta.
+    
+    I punti da seguire per la dimostrazione sono:
+    
+    \begin{itemize}
+        \item definire cosa si intende per configurazione del verificatore ($r(n),q(n)$) del PCP (input, bit aleatori, bit estratti dal testimone e ripsota SI/NO) e far vedere che il numero totale è esattamente $2^{r(n)}*2^{q(n)}$
+        \item costruire grafo con nodi corrispondenti alle sole configurazioni accettanti e lati tra nodi inconsistenti (cioè che leggono bit diversi nelle stesse posizioni di un testimone).
+        \item Usando il PCP sappiamo che le istanze SI del problema di decisione scelto (qualsiasi esso sia) vengono mappate in istanze del grafo delle configurazioni che ha un indenpedent set con almeno $2^{r(n)}$ nodi. Questo perchè per definizione del PCP esiste almeno un testimone per cui per ogni stringa aleatoria il verificatore risponde SI e dato che i bit aleatori possibili sono $2^{r(n)}$ e sono consistenti..... 
+        \item Per le istanze NO invece il numero massimo di nodi di un qualsiasi independent set è $2^{r(n)-1}$. ciò si dimostra per assurdo facendo vedere che se esistesse un independent set con più di questi nodi allora il PCP avrebbe una probabilità di errore superiore al 50\% ma sappiamo per definizione che ciò non è possibile
+        \item in questo modo abbiamo costruito un gap di dimensione 2, ma dato che il gap è grande esattamente quanto l'inverso della probabilità di errore ($1/2 => 2, 1/4 => 4$ etc) allora posso ripetere la computazione del PCP diminuendo tale  probabilità e incrementando la dimensione del gap.  In particolare dato un qualunque rapporto di prestazione r posso costruire un gap grande almeno r. Ciò implica che per ogni r è impossibile esibire un algoritmo approssimato con rapporto di prestazione r ergo Max Independent Set non è in APX.
+    \end{itemize}
+    
+    \item Test di Miller-Rabin con definizione di testimone di composizione.
+    
+    [RISPOSTA] vedi Cap.5 delle dispense del prof.
+    \item Risoluzione del problema di Vertex Cover attraverso la programmazione lineare con dimostrazione r=2. In particolare mi ha chiesto di definire cosa è la PL, di scrivere il mapping del problema (la definizione dei vincoli e la funzione obiettivo) e di dimostrare che l algoritmo è 2-approssimante. 
+    
+    [RISPOSTA] Nel Cap 11.6 del Tardos è spiegato molto bene e c'è tutto quello che serve sapere.
+\end{enumerate}
+\end{document}

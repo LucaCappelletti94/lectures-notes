@@ -1,17 +1,47 @@
+\documentclass{lectures}
 \providecommand{\main}{.}
-\input{\main/../../general/packages.tex}
-
 \begin{document}
 
-\input{\main/../../general/title.tex}
-
-{\hypersetup{hidelinks}
-  \tableofcontents  % Generates the table of contents
+\maketitle{
+    Algoritmica per il Web
+}{
+    Luca Cappelletti
+}{
+    Sebastiano Vigna
+}{}{
+    2019
+}{6}{
+    Informatica Magistrale
+}{
+    Università degli studi di Milano
+}{
+    Italia
 }
 
-\subfile{\main/chapters/introduction}
-\subfile{\main/chapters/crawling}
+\tableofcontents
 
-\input{\main/../../general/footer.tex}
+\subfile{\main/chapters/nozioni_base}
+\subfile{\main/chapters/modelli_locali}
+\subfile{\main/chapters/bloom}
+\subfile{\main/chapters/distribuzione_carico}
+\subfile{\main/chapters/codici_istantanei}
+\subfile{\main/chapters/lista_termini}
+\subfile{\main/chapters/markov}
+\subfile{\main/chapters/pagerank}
+\clearpage
+\subfile{\main/chapters/HITS}
+\clearpage
+\subfile{\main/chapters/BM25}
+\subfile{\main/chapters/metodi_computazionali}
+\subfile{\main/chapters/hyperball}
 
+\subfile{\main/chapters/boolean_retrieval}
+\subfile{\main/chapters/index_compression}
+\subfile{\main/chapters/term_weighting}
+\subfile{\main/chapters/matrix_decomposition}
+
+\subfile{\main/chapters/vettori_suffissi}
+
+\appendix
+\subfile{\main/chapters/exam}
 \end{document}

@@ -1,0 +1,155 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Classificatori lineari}
+\begin{multicols}{2}
+\begin{definition}[Norma euclidea]
+    La norma euclidea di un vettore \(\bmx = \rnd{x_1, \ldots, x_d}\) è pari a:
+    \[
+        \|\boldsymbol{x}\|=\sqrt{\sum_{i=1}^{d} x_{i}^{2}}
+    \]
+\end{definition}
+\begin{definition}[Prodotto interno]
+    Si ricordi che, detto \(\theta\) l'angolo fra due vettori \(\bmv\) e \(\bmx\), la quantità \(\bmvt\bmx\), la quantità \(\bmvt\bmx = \norm{\bmv}\norm{\bmx}\cos\theta\) è la lunghezza della proiezione di \(\bmx\) su \(\bmv\) moltiplicata per \(\norm{\bmv}\) o, equivalentemente, la lunghezza della proiezione di \(\bmv\) su \(\bmx\) moltiplicata per \(\norm{\bmx}\).
+\end{definition}
+\begin{definition}[Iperpiano]
+    Algebricamente, un iperpiano è il luogo dei punti \(\bmx \in \R^d\) che soddisfano l'equazione \(v_1x_1 + \ldots + v_dx_d = c\) dove \(v_1, \ldots, v_n, c\) sono coefficienti reali. Se definiamo la notazione
+    \[
+        \boldsymbol{u}^{\top} \boldsymbol{v}=\sum_{i=1}^{d} u_{i} v_{i}
+    \]
+    per il prodotto interno, possiamo riscrivere l'iperpiano come:
+    \[
+        S(\boldsymbol{v}, c)=\left\{\boldsymbol{x} \in \mathbb{R}^{d} : \boldsymbol{v}^{\top} \boldsymbol{x}=c\right\}
+    \]
+\end{definition}
+\begin{observation}[Interpretazione geometrica di classificazione binario]
+    Possiamo rappresentare geometricamente un classificatore binario \(\funcdef{h}{\R^d}{\binaryImage}\) con la partizione \(\crl{S^+, S^-}\) di \(\R^d\) tale che:
+    \[
+        h\rnd{\bmx} = \begin{cases}
+            +1 & \text{se }\bmx \in S^+\\
+            -1 & \text{se }\bmx \in S^-
+        \end{cases}
+    \]
+\end{observation}
+\begin{definition}[Classificatore lineare per il caso \(\R^d\)]
+    I classificatori lineari sono quei classificatori \(h\) dove \(S^+\) e \(S^-\) sono i semispazi definiti da un iperpiano \(S\) in \(\R^d\).
+\end{definition}
+\begin{property}[Vettore perpendicolare ad iperpiano]
+    Dato un iperpiano \(S=S\rnd{\bmv, c}\) e considerando \(\bmvt\bmx\) come la lunghezza della proiezione di \(\bmx\) su \(\bmv\) moltiplicata per \(\norm{\bmv}\), si ha che il vettore \(\bmv\) è perpendicolare all'iperpiano \(S\) che lo taglia alla distanza \(\frac{c}{\norm{\bmv}}\) dall'origine.
+\end{property}
+\begin{definition}[Semispazi \(S^+\) ed \(S^-\)]
+    I semispazi \(S^+\) e \(S^-\) definiti da \(S = \crl{\bmx: \bmvt\bmx = c}\) sono:
+    \[
+        S^{+}=\left\{\boldsymbol{x} : \boldsymbol{v}^{\top} \boldsymbol{x}>c\right\} \quad \text { e } \quad S^{-}=\left\{\boldsymbol{x}^{\prime} : \boldsymbol{v}^{\top} \boldsymbol{x}^{\prime} \leq c\right\}
+    \]
+    ovvero l'insieme dei vettori \(\bmx\) tali che la proiezione su \(\bmv\) è almeno \(\frac{c}{\norm{\bmv}}\) e l'insieme dei vettori \(\bmx'\) tali che la proiezione su \(\bmv\) è minore di \(\frac{c}{\norm{\bmv}}\).
+\end{definition}
+\begin{definition}[Classificatore lineare associato all'iperpiano]
+    Possiamo rappresentare un classificatore lineare \(h\) associato all'iperpiano \(S\rnd{\bmv, c}\) come \(h\rnd{\bmx} = \text{sgn}\rnd{\bmvt\bmx - c}\), dove la funzione \(\text{sgm}\) è definita come:
+    \[
+        \operatorname{sgn}(x)=\left\{\begin{array}{cc}{1} & {\text { se } x>0} \\ {-1} & {\text { altrimenti }}\end{array}\right.
+    \]
+\end{definition}
+\begin{definition}[Iperpiano omogeneo]
+    Iperpiani della forma \(S\rnd{\bmv, 0} = \crl{\bmx \in \R^d: \bmvt\bmx = 0}\) passano per l'origine e vengono detti \textbf{iperpiani omogenei}.
+\end{definition}
+\begin{definition}[Equivalenza tra iperpiano omogeneo e non omogeneo]
+    Un iperpiano non omogeneo \(S\rnd{\bmv, c}\) in \(d\) dimensioni è equivalente all'iperpiano omogeneo \(S\rnd{\tilde{\bmv}, 0}\) in \(d+1\) dimensioni con \(\tilde{\bmv} = \rnd{x_1, \ldots, x_d, 1} \in \R^{d+1}\). Infatti, \(\operatorname{sgn}\left(\boldsymbol{v}^{\top} \boldsymbol{x}-c\right)=\operatorname{sgn}\left(\widetilde{\boldsymbol{v}}^{\top} \widetilde{\boldsymbol{x}}\right)\).
+\end{definition}
+\begin{definition}[Problema di apprendimento di classificatori lineari]
+    Detta \(\mathbb{H}_d\) la famiglia dei classificatori lineari \(h\rnd{\bmx} = \operatorname{sgn}\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right)\) per \(\bmw \in \R^d\), consideriamo l'algoritmo ERM che, dato un training set \(\examples{m} \in \R^d \times \binaryImage\) trova:
+    \[
+        \widehat{h}=\underset{h \in \mathcal{H}_{d}}{\operatorname{argmin}} \frac{1}{m} \sum_{t=1}^{m} \mathbb{I}\left\{h\left(\boldsymbol{x}_{t}\right) \neq y_{t}\right\}
+    \]
+    Il problema di decisione associato è NP-completo, anche quando \(\bmx_t \in \crl{0,1}^d\) per \(t=1,\ldots, m\).
+\end{definition}
+\begin{definition}[MinDisagreement]
+    Il problema di decisione MinDisagreement è definito come:
+    \begin{description}
+        \item[Istanza:] Coppie \(\examples{m} \in \crl{0, 1}^d\times\binaryImage\) ed un numero intero \(k\).
+        \item[Domanda:] Esiste un vettore \(\bmw \in \mathbb{Q}^d\) tale che \(y_t\bmwt\bmx_t \leq 0\) per al più \(k\) indici \(t=1,\ldots,m\)?
+    \end{description}
+    Il problema \textbf{MinDisagreement} è NP-completo.
+\end{definition}
+\begin{definition}[MinDisOpt]
+    Il problema di MinDisOpt è definito come:
+     \begin{description}
+        \item[Istanza:] Coppie \(\examples{m} \in \crl{0,1}^d\times\binaryImage\).
+        \item[Domanda:] Un vettore \(\bmw \in \mathbb{Q}^d\) che minimizzi il numero di indici \(t=1, \ldots, m\) tali che \(y_t\bmwt\bmx_t \leq 0\).
+    \end{description}
+    Data un'istanza \(S\) di MinDisOpt, cioè un training set, sia \(\text{Opt}\rnd{S}\) il numero di esempi di \(S\) classificati in modo errato dall'iperpiano ottimo.  
+\end{definition}
+\begin{theorem}
+    Se \(P \neq NP\), per ogni \(c>0\) non esiste un algoritmo polinomiale che risolva ogni istanza \(S\) di MinDisOpt con un numero di esempi classificati in modo errato pari ad al più
+    \[c\cdot\text{Opt}\rnd{S}\]
+    Questo significa che a meno che \(P = NP\), cosa ritenuta improbabile, non è possibile trovare un algoritmo che approssimi la soluzione di \(\widehat{h}=\underset{h \in \mathcal{H}_{d}}{\operatorname{argmin}} \frac{1}{m} \sum_{t=1}^{m} \mathbb{I}\left\{h\left(\boldsymbol{x}_{t}\right) \neq y_{t}\right\}\) a meno di un fattore costante in tempo polinomiale nella dimensione dell'input, ovvero polinomiale in \(m\) e \(d\).
+\end{theorem}
+\begin{definition}[Margine di un training set]
+    Dato un training set \(\examples{m}\), per ogni iperpiano \(\bmu\) definiamo il \textbf{margine}:
+    \[\gamma(\boldsymbol{u}) \stackrel{\mathrm{def}}{=} \min _{t=1, \ldots, m} y_{t} \boldsymbol{u}^{\top} \boldsymbol{x}_{t}\]
+\end{definition}
+\begin{definition}[Training set linearmente separabile]
+    Un training set è linearmente separabile quando esiste un iperpiano separatore \(\bmu \in \R^d\) tale che \(\gamma(\boldsymbol{u})>0\).
+    
+    Si noti che \(\frac{\gamma\rnd{\bmu}}{\abs{\bmu}}\) è la distanza dall'iperpiano separatore \(\bmu\) dell'elemento del training set ad esso più vicino. Dato che \(\gamma\rnd{\bmu}\) può essere moltiplicato per un qualunque fattore positivo riscalando \(\bmu\), convenzionalmente assumiamo che un iperpiano separatore soddisfi sempre \(\gamma\rnd{\bmu}\geq 1\).
+\end{definition}
+\begin{observation}[Problema di apprendimento su dataset linearmente separabili]
+    In caso di training set linearmente separabile, il problema \(\widehat{h}=\underset{h \in \mathcal{H}_{d}}{\operatorname{argmin}} \frac{1}{m} \sum_{t=1}^{m} \mathbb{I}\left\{h\left(\boldsymbol{x}_{t}\right) \neq y_{t}\right\}\) è equivalente al seguente problema di programmazione lineare: trova un vettore \(\bmw \in \R^d\) che soddisfi le disequazioni lineari:
+    \[y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}>0 \quad t=1, \ldots, m\]
+    Questo problema può quindi essere risolto in tempo polinomiale usando un qualsiasi algoritmo efficiente di programmazione lineare.
+\end{observation}
+\begin{definition}[Perceptrone]
+    L'algoritmo del perceptrone costruisce un classificatore lineare omogeneo esaminando gli elementi del training set in modo incrementale: l'analisi del training set avviene aggiornando il modello lineare corrente, che è rappresentato da un iperpiano omogeneo con parametri \(\bmw\), ogni volta che questa sbaglia a classificare il prossimo elemento \(\rnd{\bmx_t, y_t}\) del training set.
+    \begin{description}
+        \item[Input:] Training set \(\examples{m}\).
+        \item[Inizializza:] \(\bmw = \rnd{0,\ldots,0}\).
+        \item[Ripeti:]\~\\
+            Leggi il prossimo esempio \(\rnd{\bmx_t, y_t}\) nel training set.
+            Se \(y_t\bmwt\bmx_t\leq 0\), allora \(\bmw \leftarrow \bmw + y_t\bmx_t\)
+        \item[Fino a che:] \(y_t\bmwt\bmx_t > 0\) per ogni \(t=1,\ldots,m\)
+    \end{description}
+    L'algoritmo termina se \(\bmw\) è un iperpiano separatore. L'aggiornamento \(\bmw \leftarrow \bmw + y_t\bmx_t\) quando \(y_t\bmwt\bmx_t \leq 0\) aumenta il valore di \(y_t\bmwt\bmx_t\). Infatti:
+    \[y_{t}\left(\boldsymbol{w}+y_{t} \boldsymbol{x}_{t}\right)^{\top} \boldsymbol{x}_{t}=y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}+\left\|\boldsymbol{x}_{t}\right\|^{2}>y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}\]
+    Geometricamente, l'algoritmo sposta \(\bmw\) verso \(\bmw_t\) se \(y_t = 1\) e lo allontana da \(\bmx_t\) se \(y_t = -1\).
+\end{definition}
+\begin{corollary}
+    Sia \(S\) un training set di \(m\) esempi estratti in modo indipendenti ed identicamente distribuiti da un modello statistico \(\rnd{D,\mu}\) fissato ma ignoto. Supponiamo che l'algoritmo del \textbf{Perceptrone} con inpit \(S\) termini con output \(\bmw\) e sia \(h_{\bmw}\) il classificatore lineare definito da \(\bmw\).
+    
+    Se \(M \leq \frac{m}{2}\) è la cardinalità del sottoinsieme di \(S\) degli esempi su cui è stato effettuato almeno un aggiornamento, allora:
+    \[
+        \operatorname{er}\left(h_{\boldsymbol{w}}\right) \leq \widetilde{\operatorname{er}}\left(h_{\boldsymbol{w}}\right)+\sqrt{\frac{1}{m}\left((M+1) \ln m+\ln \frac{e}{\delta}\right)}
+    \]
+    con probabilità almeno \(1-\delta\) rispetto all'estrazione del training set \(S\), dove \(\tilde{er}\rnd{h_{\bmw}}\) denota la frazione di errori compiuti da \(h_{\bmw}\) sui \(m-M\) esempi in \(S\setminus S'\).
+\end{corollary}
+\end{multicols}
+\begin{theorem}[Convergenza del Perceptrone]
+    Per ogni training set \(\examples{m}\) linearmente separabile e per ogni iperpiano separatore \(\bmu\) con margine \(\gamma\rnd{\bmu} \geq 1\), l'algoritmo del perceptrone determina un iperpiano separatore \(\bmw\), generalmente diverso da \(\bmu\) dopo al più:
+    \[M \leq\|\boldsymbol{u}\|^{2}\left(\max _{t=1, \ldots, m}\left\|\boldsymbol{x}_{t}\right\|^{2}\right)\]
+    aggiornamenti.
+    
+    Vale a dire che l'algoritmo termina sempre nel caso in cui il training set sia linearmente separabile.
+\end{theorem}
+\begin{proof}[Convergenza del Perceptrone]
+    Sia \(\bmw_0 = \rnd{0,\ldots,0}\) l'iperpiano iniziale. Indichiamo con \(\bmw_M\) l'iperpiano dopo \(M\) aggiornamenti e indichiamo con \(t_M \in \crl{1,\ldots,m}\) l'indice dell'esempio \(\rnd{\bmx_{t_M}, y_{t_M}}\) del training set che ha causato l'\(M\)-esimo aggiornamento, ovvero \(\bmw_M = \bmw_{M-1} + y_{t_M}\bmx_{t_M}\). Ricaviamo un maggiorante di \(M\) derivando un maggiorante e un minorante a \(\norm{\bmw_M}\norm{\bmu}\) come segue
+    \begin{align*}
+        \left\|\boldsymbol{w}_{M}\right\|^{2}&=\left\|\boldsymbol{w}_{M-1}+y_{t_{M}} \boldsymbol{x}_{t_{M}}\right\|^{2}\\&=\left\|\boldsymbol{w}_{M-1}\right\|^{2}+\left\|\boldsymbol{x}_{t_{M}}\right\|^{2}+2 y_{t_{M}} \boldsymbol{w}_{M-1}^{\top} \boldsymbol{x}_{t_{M}} \leq\left\|\boldsymbol{w}_{M-1}\right\|^{2}+\left\|\boldsymbol{x}_{t_{M}}\right\|^{2}
+    \end{align*}
+    in quanto \(y_{t_{M}} \boldsymbol{w}_{M-1}^{\top} \boldsymbol{x}_{t_{M}} \leq 0\) dato che è stato eseguito l'aggiornamento \(\boldsymbol{w}_{M}=\boldsymbol{w}_{M-1}+y_{t_{M}} \boldsymbol{x}_{t_{M}}\).
+    
+    Iterando questo ragionamento per \(M\) volte, e ricordando che \(\bmw_0 = \rnd{0,\ldots,0}\), otteniamo:
+    \[\left\|\boldsymbol{w}_{M}\right\|^{2} \leq\left\|\boldsymbol{w}_{0}\right\|^{2}+\sum_{i=1}^{M}\left\|\boldsymbol{x}_{t_{i}}\right\|^{2} \leq M\left(\max _{t=1, \ldots, m}\left\|\boldsymbol{x}_{t}\right\|^{2}\right)\]
+    Quindi:
+    \[\left\|\boldsymbol{w}_{M}\right\|\|\boldsymbol{u}\| \leq\|\boldsymbol{u}\|\left(\max _{t=1, \ldots, m}\left\|\boldsymbol{x}_{t}\right\|\right) \sqrt{M}\]
+    Ora, per il minorante, consideriamo un qualunque iperpiano separatore \(\bmu\) e sia \(\theta\) l'algolo fra \(\bmu\) e \(\bmw_M\). Abbiamo:
+    \begin{align*}\left\|\boldsymbol{w}_{M}\right\|\|\boldsymbol{u}\| & \geq\left\|\boldsymbol{w}_{M}\right\|\|\boldsymbol{u}\| \cos (\theta) \\ &=\boldsymbol{w}_{M}^{\top} \boldsymbol{u} \\ &=\left(\boldsymbol{w}_{M-1}+y_{t_{M}} \boldsymbol{x}_{t_{M}}\right)^{\top} \boldsymbol{u} \\ &=\boldsymbol{w}_{M-1}^{\top} \boldsymbol{u}+y_{t_{M}} \boldsymbol{u}^{\top} \boldsymbol{x}_{t_{M}} \\ & \geq \boldsymbol{w}_{M-1}^{\top} \boldsymbol{u}+1 \end{align*}
+    in quanto \(1 \leq \gamma(\boldsymbol{u}) \leq y_{t} \boldsymbol{u}^{\top} \boldsymbol{x}_{t}\) per ogni \(t=1,\ldots,m\). Iterando per \(M\) volte otteniamo:
+    \[\left\|\boldsymbol{w}_{M}\right\|\|\boldsymbol{u}\| \geq \boldsymbol{w}_{0}^{\top} \boldsymbol{u}+M=M\]
+    dove abbiamo usato \(\bmwt_0\bmu = 0\) dato che \(\bmw_0 = \rnd{0,\ldots,0}\). Mettendo insieme maggiorante e minorante abbiamo:
+    \[M \leq\|\boldsymbol{u}\|\left(\max _{t=1, \ldots, M}\left\|\boldsymbol{x}_{t}\right\|\right) \sqrt{M}\]
+    Risolvendo rispetto a \(M\) otteniamo:
+    \[M \leq\|\boldsymbol{u}\|^{2}\left(\max _{t=1, \ldots, m}\left\|\boldsymbol{x}_{t}\right\|^{2}\right)\]
+    Da cui la tesi.
+    
+    Dato che \(\norm{\bmu}\) è costante, il perceptrone esegue un numero \(M\) di aggiornamenti maggiorato da una costante, e perciò converge ad un iperpiano separatore in un numero di aggiornamenti al  più pari a tale costante.
+\end{proof}
+\end{document}

@@ -1,0 +1,185 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Multi-start, ILS e VNS}
+\begin{definition}[Condizioni di termine]
+    Se la ricerca si ripete o prosegue anziché terminare in un ottimo locale, idealmente potrebbe avere durata anche infinita. In pratica, si usano condizioni di termine assolute:
+    \begin{enumerate}
+        \item Un dato \textbf{numero totale di ripetizioni della ricerca locale} oppure un dato numero totale di esplorazioni dell'intorno
+        \item Un dato \textbf{tempo totale di esecuzione}
+        \item Un dato \textbf{valore dell'obiettivo}
+        \item Un dato \textbf{miglioramento dell'obiettivo} rispetto alla soluzione iniziale oppure "relative".
+        \item Un dato numero di ripetizioni o esplorazioni dell'intorno dopo l’ultimo miglioramento del risultato \(f^*\)
+        \item Un dato \textbf{tempo di esecuzione dopo l’ultimo miglioramento}
+        \item Un dato \textbf{valore minimo del rapporto fra miglioramento dell'obiettivo e numero di esplorazioni o tempo di esecuzione}.
+    \end{enumerate}
+\end{definition}
+\section{Metodi multi-start}
+\begin{multicols}{2}
+    \begin{observation}[Come è possibile modificare la soluzione iniziale?]
+        Si possono creare soluzioni iniziali diverse tra loro o \textbf{generandole casualmente} o applicando diverse \textbf{euristiche costruttive} o ancora modificando \textbf{soluzioni generate dall'algoritmo di scambio}.
+    \end{observation}
+    \begin{definition}[Metodi multi-start]
+        I metodi multi-start costituiscono l'approccio classico:
+        \begin{enumerate}
+            \item Si progettano più euristiche costruttive.
+            \item Ogni euristica costruttiva genera una soluzione iniziale.
+            \item Ogni soluzione iniziale viene migliorata dall'algoritmo di scambio.
+        \end{enumerate}
+    \end{definition}
+    \begin{observation}[Quali svantaggi hanno i metodi multi-start?]
+        Gli svantaggi sono:
+        \begin{description}
+            \item[Scarso controllo:] le soluzioni generate tendono a somigliarsi.
+            \item[Impossibilità di proseguire a oltranza:] il numero di ripetizioni è fisso.
+            \item[Sforzo di progetto elevato:] bisogna inventare molti algoritmi diversi
+            \item[Nessuna garanzia di convergenza] nemmeno in tempo infinito
+        \end{description}
+    \end{observation}
+    \begin{observation}[Come possono essere superati gli svantaggi dei metodi multi-start?]
+        Per superare gli svantaggi, oggi si preferiscono meta-euristiche costruttive con memoria o passi casuali. GRASP e Ant System includono per definizione una procedura di scambio.
+    \end{observation}
+    \begin{observation}[Quando la soluzione iniziale ha influenza?]
+        Se l'euristica di scambio e il meccanismo di reinizializzazione sono buoni, la soluzione iniziale ha influenza solo nelle fasi iniziali della ricerca.
+    \end{observation}
+\begin{observation}[Cosa si intende per sfruttare le soluzioni precedenti?]
+    L'idea è sfruttare la memoria delle soluzioni già visitate:
+    \begin{enumerate}
+        \item Conservare delle soluzioni di riferimento, tipicamente l’ottimo locale migliore trovato sinora ed eventualmente altri.
+        \item Generare la nuova soluzione iniziale modificando quelle di riferimento.
+    \end{enumerate}
+\end{observation}
+\begin{definition}[Iterated Local Search (ILS)]
+    Si tratta di un algoritmo composto da \(4\) elementi principali:
+    \begin{enumerate}
+        \item Un'euristica di scambio \textbf{steepest descent} che produce ottimi locali.
+        \item Una procedura di perturbazione che genera le soluzioni iniziali.
+        \item Una condizione di accettazione che indica se cambiare la soluzione di riferimento \(x\).
+        \item Una condizione di terminazione.
+    \end{enumerate}
+    
+    L'idea è che:
+    \begin{enumerate}
+        \item L'euristica di scambio esplora rapidamente un bacino di attrazione, terminando in un ottimo locale.
+        \item La procedura di perturbazione passa a un altro bacino di attrazione.
+        \item La condizione di accettazione valuta se il nuovo ottimo locale è un punto di partenza promettente per la successiva perturbazione.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Procedura di perturbazion]
+    Sia \(\mathcal{O}\) l'insieme che definisce l'intorno \(N_{\mathcal{O}}\) dell'euristica di scambio.
+    
+    La \textbf{procedura di perturbazione} esegue un'operazione \(o \in \mathcal{O}'\) scelta a caso e deve essere \(\mathcal{O}' \not\subseteq \mathcal{O}\), altrimenti l'euristica di scambio riporterebbe la soluzione \(x'\) all'ottimo locale iniziale \(x\).
+    
+    Due tipiche definizioni di \(\mathcal{O}'\) sono sequenze di \(k>1\) operazioni di \(\mathcal{O}\) o operazioni concettualmente diverse.
+    
+    Idealmente si vuole poter entrare in ogni bacino e uscire da ogni bacino.
+\end{definition}
+\begin{observation}[Quale è la difficoltà principale della ILS?]
+    La difficoltà principale della ILS è nel graduare la perturbazione:
+    \begin{itemize}
+        \item Troppo forte, trasforma la ricerca in un restart casuale.
+        \item Troppo debole, riporta sempre la ricerca all'ottimo iniziale.
+    \end{itemize}
+\end{observation}
+\begin{definition}[Criterio di accettazione]
+    Il criterio di accettazione bilancia intensificazione e diversificazione:
+    \begin{itemize}
+        \item Accettare solo soluzioni miglioranti favorisce l'\textbf{intensificazione}:
+        \[
+            \text{Accept}\rnd{x', x} = \rnd{f\rnd{x'} < f \rnd{x^*}}
+        \]
+        La soluzione di riferimento è sempre la migliore trovata \(x = x^*\).
+        \item Accettare qualsiasi soluzione favorisce la \textbf{diversificazione}:
+        \[
+            \text{Accept}\rnd{x', x} = \text{true}
+        \]
+        La soluzione di riferimento è sempre l'ultimo ottimo trovato: \(x = x'\).
+    \end{itemize}
+\end{definition}
+\begin{definition}[Strategie intermedie di accettazione]
+    Strategie intermedie si possono definire in base a \(\delta f = f\rnd{x'} - f\rnd{x^*}\):
+    \begin{itemize}
+        \item Se \(\delta f < 0\), si accetta \(x'\) sempre.
+        \item Se \(\delta f \geq 0\), si accetta \(x'\) con probabilità \(\pi\rnd{\delta f}\), dove \(\pi\) è una funzione non crescente.
+    \end{itemize}
+    
+    I casi più tipici sono:
+    \begin{description}
+        \item[Probabilità costante]: \(\pi\rnd{\delta f} = \bar{\pi} \in \rnd{0, 1} \quad \forall \delta f \geq 0\).
+        \item[Probabilità monotona decrescente] \(\pi\rnd{0} = 1\) e \(\lim_{\delta f \rightarrow + \infty} \pi\rnd{\delta} = 0\)
+    \end{description}
+    
+    Si può usare anche la memoria, accettando \(x'\) più facilmente se molte iterazioni sono passate dall'ultimo miglioramento di \(x^*\).
+\end{definition}
+\end{multicols}
+\clearpage
+\section{Variable Neighbourhood Search (VNS)}
+\begin{multicols}{2}
+\begin{observation}[Quali sono le differenze principali tra ILS e VNS?]
+    Le differenze principali tra ILS e VNS stanno nell'usare il criterio di accettazione stretto: \(f\rnd{x'} < f\rnd{x^*}\) ed un \textbf{meccanismo di perturbazione adattativo} anziché fisso.
+
+    Nella VNS vengono spesso utilizzate anche tecniche di modifica dell'intorno, spesso basato sulla gerarchia di intorni.
+\end{observation}
+
+\begin{definition}[Gerarchia di intorni]
+    Con gerarchi di intorni si intende una famiglia di intorni d'ampiezza crescente rispetto ad un paramtro \(k\).
+    \[
+        N_1 \subset N_2 \subset \ldots \subset N_k \subset \ldots \subset N_{k_{\max}}
+    \]
+    Tipicamente si usano intorni basati su distanza di Hamming o basati su \(k\) operazioni. La soluzione iniziale viene estratta casualmente da uno di questi intorni.
+\end{definition}
+\begin{definition}[Meccanismo adattativo di perturbazione del VNS]
+    Si parla di \textbf{variable neighbourhood} perché l'intorno da cui si estrae la nuova soluzione iniziale varia in base ai risultati dell'euristica di scambio:
+    \begin{itemize}
+        \item Se trova soluzioni migliori, si usa l'intorno più piccolo, generando una soluzione iniziale molto vicina (intensificazione).
+        \item Se non trova soluzioni migliori, si usa un intorno un po' più grande, generando una soluzione iniziale un po' più lontana (diversificazione).
+    \end{itemize}
+    
+    Il metodo ha tre parametri:
+    \begin{enumerate}
+        \item \(k_{\min}\) individua l'intorno più piccolo da cui si generano nuove soluzioni.
+        \item \(k_{\max}\) individua l'intorno più grande da cui si generano nuove soluzioni.
+        \item \(\delta k\) è la variazione del parametro \(k\) fra due intorni consecutivi usati.
+    \end{enumerate}
+    L'euristica di scambio adotta per efficienza l'intorno più piccolo possibile.
+\end{definition}
+\begin{observation}[Come viene tarato l'intorno più piccolo nel VNS?]
+    Il valore di \(k_{\min}\) deve essere:
+    \begin{itemize}
+        \item abbastanza alto da far uscire dal bacino di attrazione corrente.
+        \item non così alto da far saltare i bacini di attrazione adiacenti.
+    \end{itemize}
+    In genere si parte con \(k_{\min} = 1\), e poi si modula sperimentalmente.
+\end{observation}
+\begin{observation}[Come viene tarato l'intorno più grande nel VNS?]
+    Il valore di \(k_{\max}\) deve essere:
+    \begin{itemize}
+        \item abbastanza alto da raggiungere qualsiasi bacino di attrazione utile.
+        \item non così alto da raggiungere regioni inutili dello spazio delle soluzioni.
+    \end{itemize}
+    In genere si parte col diametro dello spazio di ricerca per l'intorno base e poi si modula sperimentalmente.
+\end{observation}
+\begin{observation}[Come viene tarata la variazione nel VNS?]
+    Il valore di \(\delta k\) deve essere:
+    \begin{itemize}
+        \item abbastanza alto da raggiungere \(k_{\max}\) in tempi ragionevoli.
+        \item non così alto da impedire a ogni valore di \(k\) da svolgere il suo ruolo.
+    \end{itemize}
+    In genere si parte con \(\delta k = 1\) e poi si modula sperimentalmente.
+\end{observation}
+\begin{definition}[Skewed VNS]
+    Un criterio di accettazione più raffinato è accettare \(x'\) quando:
+    \[
+        f\rnd{x'} < f\rnd{x} + \a d_H \rnd{x', x}
+    \]
+    dove \(x\) è l'ottimo di partenza, \(d_H\) è la distanza di Hamming e \(\a>0\) è un opportuno parametro.
+    
+    Si favorisce la diversificazione accettando soluzioni peggioranti se lontane:
+    \begin{enumerate}
+        \item Con \(\a \approx 0\) si tende ad accettare solo soluzioni miglioranti.
+        \item Con \(\a >> 0\) si tende ad accettare qualsiasi soluzione.
+    \end{enumerate}
+    Ovviamente si possono anche adottare le strategie viste per il ILS.
+\end{definition}
+\end{multicols}
+\end{document}

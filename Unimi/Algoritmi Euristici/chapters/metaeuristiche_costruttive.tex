@@ -1,0 +1,244 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\providecommand{\Ext}{\text{Ext}_A}
+\providecommand{\f}{\mathcal{F}}
+\providecommand{\fa}{\f_A}
+\begin{document}
+\chapter{Meta-euristiche costruttive}
+\begin{multicols}{2}
+\begin{definition}[Meta-euristiche multi-start]
+    Si definiscono diversi criteri di scelta \(\varphi_{A}^{[l]}(i, x)\), quindi si applicano in sequenza gli algoritmi che ne derivano e si restituisce la soluzione migliore.
+
+    Spesso si usa quando \(\varphi_A(i, x)\) contiene parametri numerici \(\mu\).
+\end{definition}
+\begin{definition}[Meta-euristiche Roll-out]
+    Data un'euristica costruttiva base \(A\):
+    \begin{enumerate}
+        \item Si parte con un sottoinsieme vuoto: \(x^{(0)} = \emptyset\).
+        \item Ad ogni step:
+        \begin{enumerate}
+            \item Si estende la soluzione in ogni modo lecito:
+            \[
+                x^{(t-1)} \cup \crl{i}, \forall \Ext(x)
+            \]
+            \item Ad ogni estensione si applica l'euristica base e si calcola il valore della soluzione \(x_A\rnd{x^{(t-1)} \cup \crl{i}}\) che fa da stima del risultato.
+            \item Si usa la stima come funzione di scelta \(\varphi_A(i, x)\):
+            \[
+                i^{(t)} = \argmin_{i \in \Ext(x^{(t-1)})} f\rnd{x_A\rnd{x^{(t-1)} \cup \crl{i}}}
+            \]
+        \end{enumerate}
+        \item Si termina quando \(\Ext(x)\) è vuoto.
+    \end{enumerate}
+    
+    Si parla di euristica costruttiva \textbf{single-step look-ahead}.
+    
+    Lo schema è parametrico nell'euristica base scelta.
+\end{definition}
+\begin{observation}[Quando la meta-euristica roll-out domina quella base?]
+    Il risultato dell'euristica roll-out domina quello dell'euristica di base se opportune condizioni sono verificate.
+
+    È possibile ibridare euristiche roll-out e multi-start: date più euristiche costruttive di base \(A^{\sqr{1}}, \ldots, A^{\sqr{l}}\), si parte dal sottoinsieme vuoto e ad ogni passo \(t\):
+    \begin{enumerate}
+        \item Per ogni possibile estensione \(i \in \Ext\rnd{x^{(t-1)}}\) si esegue ogni algoritmo base \(A^{\sqr{i}}\) a partire da \(x^{\rnd{t-1}} \cup \crl{i}\).
+        \item Si ottiene una stima \(f_{A^{\sqr{l}}}\rnd{x^{\rnd{t-1}} \cup \crl{i}}\)
+        \item Si esegue la mossa che produce la stima migliore:
+        \[
+            i^{\rnd{t}} = \argmin_{l = 1,\ldots,\mathcal{L}}\min_{i \in \Ext\rnd{x^{\rnd{t-1}}}} f\rnd{x_{A^{\sqr{l}}} \cup \crl{i}}
+        \]
+        \item Si termina quando \(\Ext(x)\) è vuoto.
+    \end{enumerate}
+    
+    L'euristica roll-out ibrida domina ogni euristica di base.
+    
+    La complessità cresce fortemente rispetto all'euristica di base \(A\) ma resta polinomiale (al limite viene moltiplicata per \(\abs{B}^2\)).
+\end{observation}
+\end{multicols}
+\begin{definition}[Adaptative Research Technique (ART)]
+    Spesso nei primi passi un’euristica costruttiva include elementi apparentemente buoni che portano a soluzioni finali molto cattive: la meta-euristica ART prova a \textbf{vietare elementi} allo scopo di impedire che elementi ingannevoli guidino il sotto-insieme \(x\) sul cammino sbagliato in \(\fa\).
+    
+    Vietando elementi delle soluzioni già visitate si impedisce di ottenere soluzioni uguali o simili ad esse, proprietà detta di \textbf{diversificazione}, che consente di ripetere l'euristica quasi indefinitivamente e modulare la distanza delle nuove soluzioni dalla vecchie.
+    
+    Iniziando da una euristica costruttiva di base \(A\), si procede a creare una lista di elementi vietati, inizialmente vuota \(\rnd{l_i} = -\infty, \forall i \in B\). Quindi, ad ogni iterazione:
+    \begin{enumerate}
+        \item Applica l'euristica base \(A\) evitando gli elementi vietati \(\rnd{l - l_i \leq d}\) e si ottiene quindi una soluzione \(x^{\sqr{l}}\).
+        \item Si decide con probabilità \(\pi\) se vietare o no ogni elemento \(i \in x^{\sqr{l}}\).
+        \item Conserva per ogni elemento vietato l'iterazione \(l_i\) di inizio del divieto.
+        \item Rimuove i divieti più vecchi di \(d\) iterazioni, valore chiamato \textbf{expiration time}.
+        \item Conserva la miglior soluzione trovata e le corrispondenti \(l_i\)
+        \item Apporta eventuali modifiche ausiliarie alla lista dei divieti.
+    \end{enumerate}
+    
+    Al termine restituisce la migliore soluzione individuata.
+\end{definition}
+\begin{observation}[Come vengono tarati i parametri?]
+    Il metodo nasce con almeno \(3\) parametri:
+    
+    \begin{enumerate}
+        \item Il numero totale delle iterazioni \(\mathcal{L}\).
+        \item La durata \(d\) del divieto.
+        \item La probabilità \(\pi\) del divieto.
+    \end{enumerate}
+    
+    Valutare sperimentalmente le prestazioni con valori diversi ha alcuni svantaggi, come le lunghe fasi sperimentali causate dal numero combinatoriale di combinazioni e si può rischiare l'overfitting.
+    
+    L'eccesso di parametri è pertanto un aspetto indesiderabile, che tipicamente rivela uno studio insufficiente del problema e dell'algoritmo.
+\end{observation}
+\begin{definition}[Intensificazione]
+L'intensificazione è il meccanismo opposto alla diversificazione, cioè la concentrazione della ricerca sui sottoinsiemi più promettenti.
+\end{definition}
+\clearpage
+\section{Semigreedy e GRASP}
+\begin{multicols}{2}
+\begin{observation}[Su cosa si basa l'algoritmo semi-greedy?]
+    Un’euristica costruttiva non esatta ha almeno un passo \(t\) in cui sceglie un elemento che non porta ad alcuna soluzione ottima: l'algoritmo semi-greedy si basa sull'idea che l'elemento che mantiene la via verso l'ottimo è fra i migliori per la funzione obbiettivo, anche se non rigorosamente il migliore, per cui se non è possibile correggere la funzione obbiettivo si procede a scegliere con una distribuzione di probabilità che favorisca i migliori.
+\end{observation}
+\begin{property}[Quando l'algoritmo semi-greedy raggiunge l'ottimo?]
+    Se c'è un cammino da \(\emptyset\) a \(x^*\), l'algoritmo può raggiungere una soluzione ottima.
+\end{property}
+\begin{property}[Cosa succede ri-eseguendo l'algoritmo semi-greedy più volte?]
+    Rieseguendo l'euristica più volte, questa genera soluzioni diverse e la probabilità di raggiungere l'ottimo cresce via via.
+\end{property}
+\begin{definition}[Grafo di costruzione per GRASP]
+    Il \textbf{grafo di costruzione} consente una trattazione formale del procedimento:
+    \begin{enumerate}
+        \item I nodi sono i sottoinsiemi validi: \(x \in \fa\) %mathscr
+        \item Gli archi legano sottoinsiemi separati da una sola mossa.
+        \item L'arco \(\rnd{x, x \cup \crl{i}}\) ha peso \(\varphi_A(i, x)\).
+    \end{enumerate}
+\end{definition}
+\begin{observation}[Cosa rappresentano i cammini massimali di un grafo di costruzione?]
+I cammini massimali rappresentano l'esecuzione di un'euristica costruttiva, che partono dal sottoinsieme vuoto e terminano in un sotto-insieme non ampliabile che spesso è una soluzione ammissibile.
+\end{observation}
+\begin{observation}[Come viene usato il grafo di costruzione da un'euristica costruttiva?]
+    Un'euristica costruttiva con passi casuali associa ad ogni arco \(\rnd{x, x \cup \crl{i}}\) la probabilità \(\pi_A\rnd{i, x}\) di estendere il sotto-insieme \(x\) con l'elemento \(i\).
+    
+    Le euristiche costruttive con passi casuali favoriscono gli archi più promettenti e sfavoriscono gli altri. C'è da tenere a mente però durante la modellazione che l'introduzione di archi a probabilità zero può sbarrare la via all'ottimo.
+\end{observation}
+\begin{property}[Quando un'euristica a passi casuali può raggiungere l'ottimo?]
+    Un'euristica costruttiva con passi casuali ha probabilità non nulla di raggiungere l'ottimo se e solo se esiste almeno un cammino di probabilità non nulla da \(\emptyset\) e \(x^*\).
+    
+     La probabilità di raggiungere l'ottimo tende a \(1\) per \(l \rightarrow + \infty\).
+\end{property}
+\begin{definition}[Random Walk]
+    La \textbf{Random Walk} è un'euristica costruttiva in cui le probabilità sugli archi uscenti da ogni nodo sono uniformi: se un cammino verso l'ottimo esiste, la random walk lo trova, per quanto in un tempo lunghissimo.
+\end{definition}
+\begin{definition}[GRASP: Greedy Randomized Adaptive Search Procedure]
+    L'algoritmo GRASP si tratta di una variante sofisticata dell'euristica semi-greedy. Può utilizzare diverse distribuzioni di probabilità discrete, tra cui:
+\begin{enumerate}
+    \item Uniforme
+    \item Heuristic-Biased Stochastic Sampling (HBSS)
+    \item Restricted Candidate List (RCL)
+\end{enumerate}
+La strategia più comunemente utilizzata è RCL.
+\end{definition}
+    \begin{definition}[Probabilità uniforme]
+        Ogni arco uscente da \(x\) ha ugual probabilità di capitare in un altro stato. L'algoritmo, usando questa distribuzione, compie una random walk.
+    \end{definition}
+    \begin{definition}[Heuristic-Biased Stochastic Sampling (HBSS)]
+        Ordina gli archi uscenti da \(x\) per valori non decrescenti della funzione obbiettivo ed assegna probabilità decrescenti secondo la posizione nell'ordine, in base ad uno schema semplice: lineare, esponenziale, \(\ldots\)
+    \end{definition}
+    \begin{definition}[Restricted Candidate List (RCL)]
+        Ordina gli archi uscenti da \(x\) per valori non crescenti della funzione obbiettivo ed inserisce i primi archi in una lista. Procede quindi ad assegnare probabilità uniforme ai primi archi, ed azzera la probabilità degli altri.
+        
+        Tipicamente il numero degli archi è scelto o per \textbf{cardinalità} o per un \textbf{valore di threshold}.
+    \end{definition}
+\end{multicols}
+\begin{observation}[Come vengono tarati i parametri del GRASP?]
+    Tipicamente si procede sfruttando la memoria: cioè si cerca di apprendere dai risultati precedenti.
+    \begin{enumerate}
+        \item Si fissa \(\mathcal{L}\) e si scelgono \(m\) configurazioni di parametri \(\mu_1, \ldots, \mu_m\)
+        \item Si pone \(\mathcal{L}_r = \frac{\mathcal{L}}{m} \; \forall r = 1, \ldots, m\)
+        \item Si prova ogni configuzione \(\mu_r\) per \(\mathcal{L}_r\) iterazioni
+        \item Si valuta la media campionaria \(\bar{f}(\mu_r)\) dei risultati ottenuti con \(\mu_r\).
+        \item Si rimodula il numero di iterazioni \(\mathcal{L}_r\) per ogni \(\mu_r\) in base a \(\bar{f}(\mu_r)\):
+        \[
+            \mathcal{L}_r = \frac{\sfrac{1}{\bar{f}\rnd{\mu_r}}}{\sum_{s=1}^m \sfrac{1}{\bar{f}\rnd{\mu_s}}} \quad \forall r = 1, \ldots, m
+        \]
+        in modo che le configurazioni più efficaci facciano più iterazioni.
+        \item Si ripete l'intero procedimento, tornando al punto 3, per \(R\) volte.
+    \end{enumerate}
+\end{observation}
+\clearpage
+\section{Ant System (AS)}
+\begin{multicols}{2}
+\begin{definition}[Stigmergia]
+    Comunicazione indiretta fra agenti nella quale essi sono stimolati e guidati dai risultati delle azioni proprie e altrui.
+\end{definition}
+\begin{definition}[Agente]
+    Ogni agente é un'applicazione dell'euristica costruttiva base:
+    \begin{enumerate}
+        \item Lascia sui dati una traccia che dipende dalla soluzione prodotta.
+        \item Compie scelte influenzate dalle tracce lasciate dagli altri agenti
+    \end{enumerate}
+    Le scelte dell'agente hanno inoltre anche una componente casuale.   
+\end{definition}
+\begin{observation}[In che modo la meta-euristica Ant è diversa dalla semi-greedy?]
+    La meta-euristica Ant è diversa dall'euristica semi-greedy:
+    \begin{enumerate}
+        \item Ogni iterazione lancia \(f\) volte l'euristica \(A\).
+        \item Tutte le scelte di \(\Ext(x)\) sono considerate lecite, non vi è quindi una RCL.
+        \item La probabilità di una scelta deriva dal criterio \(\varphi_A(i, x)\) e da un'informazione ausiliaria chiamata \textbf{traccia} prodotto nelle iterazioni precedenti e talvolta dagli altri agenti nella stessa iterazione.
+    \end{enumerate}
+\end{observation}
+\begin{observation}[Come evolve la traccia dell'Ant System?]
+    La traccia è inizialmente uniforme e viene poi modulata per favorire le scelte promettenti e diminuendola per evitare le scelte troppo ripetitive.
+\end{observation}
+\begin{observation}[In cosa consiste la scelta casuale dell'Ant System?]
+    Gli elementi sono estratti da \(\Ext(x)\) con probabilità:
+    \[
+        \pi_A(i, x) = \frac{\eta_A\rnd{i, x}^{\mu_\eta} \tau_A\rnd{i, x}^{\mu_\tau}}{\sum_{j \in \Ext(x)} \eta_A\rnd{j, x}^{\mu_\eta} \tau_A\rnd{j, x}^{\mu_\tau}}
+    \]
+    Dove il denominatore normalizza la probabilità mentre la funzione ausiliaria \(\eta_A(i,x)\) è detta \textbf{visibilità}:
+    \[
+        \eta_A(i,x) = \begin{cases}
+            \varphi_A(i, x) & \text{per problemi di massimizzazione}\\
+            \frac{1}{\varphi_A(i, x)} & \text{per problemi di minimizzazione}
+        \end{cases}
+    \]
+    Gli altri parametri, \(\mu_\tau\) e \(\mu_\eta\) modulano i peso dei due termini, in particolare il peso dei dati e della memoria:
+    \begin{enumerate}
+        \item Per \(\mu_\eta \approx 0\;\land\;\mu_\tau \approx 0\) spingono verso la casualità (cioè diversificano).
+        \item Per \(\mu_\eta >> \mu_\tau\) vengono favoriti i dati e si tende a seguire di più l'euristica costruttiva di base, intensificando quindi le soluzioni più immediate.
+        \item Per \(\mu_\eta << \mu_\tau\) viene favorita la memoria e si tende a ritrovare soluzioni più vicine alle ultime trovate.
+    \end{enumerate}
+\end{observation}
+\end{multicols}
+\clearpage
+\begin{multicols}{2}
+\begin{definition}[Ant Colony System]
+    La variante detta \textbf{Ant Colony System} sceglie ad ogni passo:
+    \begin{enumerate}
+        \item Con probabilità \(q\) l'elemento che massimizza \(\eta_A\rnd{i, x} \tau_A\rnd{i, x}^{\mu_\tau}\).
+        \item Con probabilità \(1-q\) un elemento estratto uniformemente a caso.
+    \end{enumerate}
+    Questo porta a comportamenti estremi simili a quelli sovra-descritti:
+    \begin{description}
+        \item[\(q\approx 0\)] Vengono fatte scelte casuali.
+        \item[\(q\approx 1\;\land\;\mu_\tau \approx 0\)] Vengono privilegiati i dati.
+        \item[\(q\approx 1\;\land\;\mu_\tau\) alto] Vengono privilegiate le scoperte fatte via via.
+    \end{description}
+\end{definition}
+\begin{observation}[In cosa consiste l'aggiornamento della traccia?]
+    Ad ogni iterazione \(l \in \crl{1, \ldots, \mathcal{L}}\):
+    \begin{enumerate}
+        \item Si eseguono \(f\) istanze dell'euristica di base \(A\).
+        \item Si gestisce un sotto-insieme di soluzioni \(\bar{X}^{\sqr{l}}\) i cui elementi saranno favoriti nelle seguenti iterazioni.
+        \item Si aggiorna la traccia secondo la formula:
+        \[
+            \tau_A\rnd{i, x} = \rnd{1-\rho}\tau_A\rnd{i, x} + \rho \sum_{y \in \bar{X}^{\sqr{l}}: i \in y} F_A\rnd{y}
+        \]
+    \end{enumerate}
+    Dove \(\rho\) è un parametro chiamato \textbf{oblio} mentre \(F_A(y)\) è una \textbf{funzione di fitness} che esprime la qualità della soluzione \(y\) e garantisce \(F>\tau\).
+\end{observation}
+\begin{definition}[Oblio]
+    L'oblio per valori vicini a 1 la vecchia traccia tende ad essere cancellata (che comporta \textit{diversificazione}), mentre per valori prossimi a 0 viene conservata senza modifiche (che comporta \textit{intensificazione}).
+\end{definition}
+\begin{observation}[Che effetti comporta l'aggiornamento della traccia?]
+    L'aggiornamento comporta due effetti: tende ad aumentare la traccia sugli elementi inclusi nelle soluzioni di \(\bar{X}^{\sqr{l}}\) mentre diminuisce la traccia sugli elementi che non vi appartengono.
+\end{observation}
+\begin{theorem}[Convergenza di Ant System]
+    Alcune varianti di Ant System convergono all'ottimo con probabilità \(1\) per \(\mathcal{L}\rightarrow \infty\).
+\end{theorem}
+\end{multicols}
+
+\end{document}

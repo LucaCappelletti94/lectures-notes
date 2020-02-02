@@ -1,0 +1,63 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Support Vector Machines}
+\begin{multicols}{2}
+\begin{definition}[Support Vector Machine]
+    La \textbf{Support Vector Machine} (SVM) è un algoritmo di apprendimento per classificatori lineari che, fissato un training set linearmente separabile \(\examples{m} \in \R^d \times \binaryImage\), genera il classificatore lineare corrisponde all'unica soluzione \(\bmwo \in \R^d\) del seguente problema di ottimizzazione convessa con vincoli lineari:
+    \[
+        \begin{array}{cl}{\min _{\boldsymbol{w} \in \mathbb{R}^{d}}} & {\frac{1}{2}\|\boldsymbol{w}\|^{2}} \\ {\text { s.t. }} & {y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t} \geq 1 \quad t=1, \ldots, m}\end{array}
+    \]
+    Geometricamente, \(\bmwo\) rappresenta l'iperpiano separatore a margine massimo.
+\end{definition}
+\begin{theorem}[\(\bmwo\) rappresenta l'iperpiano separatore a margine massimo]
+    Per ogni \(\examples{m} \in \R^d \times \binaryImage\) linearmente separabile, il vettore \(\bmuo\) che realizza il margine massimo
+    \[\gamma^{*}=\max _{\boldsymbol{u} :\|\boldsymbol{u}\|=1} \min _{t=1, \ldots, m} y_{t} \boldsymbol{u}^{\top} \boldsymbol{x}_{t}\]
+    soddisfa \(\boldsymbol{u}^{*}=\gamma^{*} \boldsymbol{w}^{*}\), dove \(\bmwo\) è soluzione del problema di ottimizzazione convessa di una SVM.
+\end{theorem}
+\begin{proof}[\(\bmwo\) rappresenta l'iperpiano separatore a margine massimo]
+    Si noti che \(\bmuo\) è identificato dalla soluzione del seguente problema di ottimizzazione:
+    \begin{align*}
+        \max _{\gamma>0} \gamma^{2}\\
+        \|\boldsymbol{u}\|_{T}^{2}&=1 \\
+        y_{t} \boldsymbol{u}^{\top} \boldsymbol{x}_{t} &\geq \gamma \quad t=1, \ldots, m
+    \end{align*}
+    Infatti \(\bmu\) che massimizza \(\gamma\) è lo stesso \(\bmu\) che massimizza \(\gamma^2\) dato che la funzione \(f(\gamma)=\gamma^{2}\) è monotona crescente per \(\gamma > 0\). Dividendo per \(\gamma > 0\) entrambi i membri di ciascun vincolo \(y_{t} \boldsymbol{u}^{\top} \boldsymbol{x}_{t} \geq \gamma\) otteniamo il vincolo equivalente \(y_{t}\left(\boldsymbol{u}^{\top} \boldsymbol{x}_{t}\right) / \gamma \geq 1\). Eseguendo il cambio di variabile \(\bmw = \frac{\bmu}{\gamma}\) e notando che \(\norm{\bmw}^2 = \frac{1}{\gamma^2}\) a causa del vincolo \(\norm{\bmu}^2=1\), otteniamo il problema equivalente:
+    \begin{align*}
+        \min _{\boldsymbol{w} \in \mathbb{R}^{d}}\|\boldsymbol{w}\|^{2}&\\
+        \gamma^{2}\|\boldsymbol{w}\|^{2}&=1\\
+        y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t} &\geq 1 \quad t=1, \ldots, m
+    \end{align*}
+    Si noti che il vincolo \(\gamma^{2}\|\boldsymbol{w}\|^{2}=1\) è superfluo in quanto, per ogni \(\bmw \in \R^d\) posso trovare \(\gamma > 0\) tale che il vincolo è soddisfatto. Quindi lo possiamo eliminare e scalando la funzione obbiettivo per la costante \(\frac{1}{2}\) otteniamo:
+    \begin{align*}
+        \min _{\boldsymbol{w} \in \mathbb{R}^{d}} \frac{1}{2}\|\boldsymbol{w}\|^{2}&\\
+        y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t} &\geq 1 \quad t=1, \ldots, m
+    \end{align*}
+\end{proof}
+\begin{lemma}[Condizione di ottimalità di Fritz John]
+    Si consideri il problema:
+    \begin{align*}
+        \begin{array}{ll}{\min _{\boldsymbol{w} \in \mathbb{R}^{d}}} & {f(\boldsymbol{w})} \\ {\text {s.t.}} & {g_{t}(\boldsymbol{w}) \leq 0 \quad t=1, \ldots, m}\end{array}
+    \end{align*}
+    dove le funzioni \(f, g_{1}, \dots, g_{m}\) sono differenziabili. Se \(\bmw_0\) è una soluzione ottima, allora esiste un vettore \(\boldsymbol{\alpha} \in \mathbb{R}^{m}\) tale che:
+    \[\nabla f\left(\boldsymbol{w}_{0}\right)+\sum_{t \in I} \alpha_{t} \nabla g_{t}\left(\boldsymbol{w}_{0}\right)=\mathbf{0}\]
+    dove \(I=\left\{1 \leq t \leq m : g_{t}\left(\boldsymbol{w}_{0}\right)=0\right\}\)
+\end{lemma}
+\begin{observation}[Forma della soluzione ottima e vettori di supporto]
+    Applicando la condizione di Fritz John alla funzione obbiettivo SVM, con \(f(\boldsymbol{w})=\frac{1}{2}\|\boldsymbol{w}\|^{2}\) e \(g_t\rnd{\bmw} = 1-y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}\) otteniamo che:
+    \[
+        \boldsymbol{w}^{*}-\sum_{t \in I} \alpha_{t} y_{t} \boldsymbol{x}_{t}=\mathbf{0}
+    \]
+    Quindi la soluzione ha forma:
+    \[
+        \boldsymbol{w}^{*}=\sum_{t \in I} \alpha_{t} y_{t} \boldsymbol{x}_{t}
+    \]
+    dove \(I\) denota l'insieme degli esempi di training \(\left(\boldsymbol{x}_{t}, y_{t}\right)\) tali che \(y_{t}\left(\boldsymbol{w}^{*}\right)^{\top} \boldsymbol{x}_{t}=1\). Questi \(\bmx_t\) sono i cosiddetti \textbf{vettori di supporto}, ovvero quelle istanze di training sulle quali \(\bmwo\) ha margine esattamente pari a \(1\).
+    
+    Se andassi a rimuovere dal training set tutti gli esempi tranne quelli di supporto la soluzione SVM non cambierebbe.
+\end{observation}
+\begin{definition}[SVM su training set non linearmente separabile]
+    Nel caso 
+\end{definition}
+\end{multicols}
+\end{document}

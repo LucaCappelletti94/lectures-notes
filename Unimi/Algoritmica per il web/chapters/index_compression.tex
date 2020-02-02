@@ -1,0 +1,13 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+\chapter{Index compression}
+\begin{multicols}{2}
+\begin{definition}[Bit di proseguimento (continuation bit)]
+    Il bit di continuazione è tipicamente il primo bit di un byte e viene settato a \(1\) se è parte dell'ultimo byte, altrimenti a \(0\).
+\end{definition}
+\begin{definition}[Variable byte codes]
+    I \textbf{variable byte (VB) codes} usano un numero integrale di byte per codificare un gap. Gli ultimi 7 byte sono \textit{payload} e codificano parte del gap. Il primo bit dei byte funge da \textit{continuation bit}, pertanto estraiamo a concateniamo i segmenti da \(7\) bit rimanenti.
+\end{definition}
+\end{multicols}
+\end{document}

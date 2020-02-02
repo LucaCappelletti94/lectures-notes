@@ -1,0 +1,136 @@
+\providecommand{\main}{..}
+\documentclass[\main/main.tex]{subfiles}
+\providecommand{\f}{\mathcal{F}}
+\begin{document}
+\chapter{Algoritmi di ricerca locale}
+\section{Gli algoritmi di scambio}
+\begin{multicols}{2}
+\begin{definition}[Euristica di scambio]
+    In Ottimizzazione Combinatoria ogni soluzione \(x\) è un sotto-insieme di \(B\). Un'\textbf{euristica di scambio} aggiorna passo per passo un sotto-insieme \(x^{\rnd{t}}\):
+\begin{enumerate}
+    \item Parte da una soluzione ammissibile \(x^{\rnd{0}} \in X\) trovata in qualche modo.
+    \item Scambia coppie \(\rnd{A, D}\) di sotto-insiemi, \(A\) esterno e \(D\) interno a \(x^{\rnd{t}}\), generando una famiglia di soluzioni ammissibili.
+    \[
+        x'_{A, D} = x \cup A \setminus D \quad A \subseteq B \setminus X\;\land\;D \subseteq x
+    \]
+    \item Ad ogni passo \(t\), sceglie quali sotto-insiemi scambiare in base a un opportuno criterio di scelta \(\phi\rnd{x, A, D}\).
+    \[
+        \rnd{A^*, D^*} = \argmin_{A, D} \phi\rnd{x, A, D}
+    \]
+    \item Genera la nuova soluzione corrente eseguendo le modifiche scelte:
+    \[
+        x^{\rnd{t+1}} = x^{\rnd{t}}\cup A^* \setminus D^*
+    \]
+    \item Se vale una condizione di fine l'euristica termina, altrimenti ricomincia dal secondo step.
+\end{enumerate}
+
+I due elementi fondamentali di un'euristica di scambio sono le coppie di sotto-insiemi disponibili per uno scambio a partire da \(x\) ed il criterio di scelta \(\phi\).
+\end{definition}
+    \begin{definition}[Intorno]
+        \(N: X \rightarrow 2^x\) è una funzione che associa a ogni soluzione ammissibile \(x \in X\) un sotto-insieme di soluzioni ammissibile \(N(x) \subseteq X\).
+        
+        Una tipica definizione di intorno di \(x\), con un parametro intero \(k\), è l'insieme delle soluzioni con distanza di Hamming non superiore a \(k\) da \(x\).
+        \[
+            N_{H_k}\rnd{x} = \crl{x' \in X: d_H\rnd{x, x'} \leq k}
+        \]
+        
+        Un'altra definizione comune è il numero di operazioni, quali \textbf{aggiunta}, \textbf{eliminazione} e \textbf{scambio}, che separano due soluzioni.
+    \end{definition}
+    \begin{definition}[Grafo di ricerca]
+        Un grafo i cui nodi rappresentano le soluzioni ammissibili \(x \in X\) e gli archi collegano ogni soluzione \(x\) a quelle del suo intorno \(N(x)\)
+        
+        Un arco viene detto \textbf{mossa} perché trasforma una soluzione in un'altra muovendo elementi.
+    \end{definition}
+    \begin{definition}[Distanza di Hamming]
+        La distanza di Hamming tra due soluzioni \(x\) ed \(x'\) è pari al numero di elementi per cui i loro vettori di incidenza differiscono:
+        \[
+            d_H\rnd{x, x'} = \sum_{i \in B} \abs{x_i - x'_i}
+        \]
+    \end{definition}
+\begin{observation}[Quando un'euristica di scambio può trovare una soluzione ottima?]
+    Un'euristica di scambio può trovare soluzione ottima solo se almeno una soluzione ottima è raggiungibile da ogni soluzione iniziale.
+\end{observation}
+\begin{definition}[Grado connesso all'ottimo]
+Si dice che il grafo di ricerca è \textbf{connesso all'ottimo} quando contiene per ogni soluzione \(x \in X\) un cammino da \(x\) a \(X^*\)
+\end{definition}
+\begin{definition}[Grafo fortemente connesso]
+Si dice che il grafo di ricerca è fortemente connesso quando contiene per ogni coppia di soluzioni \(x, y \in X\) un cammino da \(x\) a \(y\).
+\end{definition}
+\begin{definition}[Euristica steepest descent]
+    Molto spesso il criterio di scelta \(\phi\) della nuova soluzione in \(N(x)\) è la funzione obiettivo, cioè ad ogni passo dell'euristica ci si sposta dalla soluzione corrente alla miglior soluzione del suo intorno. Per evitare comportamenti ciclici, si accettano solo soluzioni miglioranti.
+    
+    In generale l'euristica  steepest descent non trova l'ottimo globale.
+\end{definition}
+\begin{definition}[Intorno Esatto]
+    Un intorno esatto è una funzione intorno \(N: X \rightarrow 2^X\) tale che ogni ottimo locale è anche ottimo globale:
+    \[
+        \bar{X}_N = X^*
+    \]
+    
+    Sono estremamente rari. Un caso rilevante è lo scambio fra variabili di base e fuori base usato dall'\textbf{algoritmo del simplesso}.
+\end{definition}
+\begin{observation}[Fitness-Distance correlation]
+    Se la correlazione tra qualità e vicinanza agli ottimi globali è forte conviene costruire buone soluzioni iniziali perché avvicinano la ricerca locale a buoni ottimi locali, conviene quindi intensificare piuttosto che diversificare.
+
+    Al contrario, se la correlazione è debole, una buona inizializzazione è meno importante e conviene diversificare piuttosto che intensificare.
+\end{observation}
+\begin{definition}[Landscape]
+    Si definisce \textbf{landscape} la terna \(\rnd{X, N , f}\) dove:
+    \begin{description}
+        \item[\(X\)] è lo spazio di ricerca.
+        \item[\(N: X \rightarrow 2^X\)] è la funzione intorno.
+        \item[\(f: X \rightarrow \N\)] è la funzione obbiettivo.
+    \end{description}
+    
+    Si può vedere come il grafo di ricerca pesato sui nodi con l'obbiettivo.
+\end{definition}
+\begin{observation}[Come si può stimare la complessità di un landscape?]
+    La complessità di un landscape si può stimare empiricamente in vari modi:
+\begin{enumerate}
+    \item Eseguendo una random walk nel grafo di ricerca.
+    \item Determinando la sequenza di valori dell'obbiettivo.
+    \item Calcolandone il valore medio campionario.
+    \item Calcolando il \textbf{coefficiente empirico di auto-correlazione}.
+\end{enumerate}
+\end{observation}
+
+\begin{definition}[Coefficiente di autocorrelazione]
+    Il coefficiente empirico di auto-correlazione:
+    \[
+        r(i) = \frac{\frac{\sum_{t=1}^{t_{\max}-1} \rnd{f^{(t)} - \bar{f}}\rnd{f^{(t+i)} - \bar{f}}}{t_{\max}-i}}{\frac{\sum_{t=1}^{t_{\max}} \rnd{f^{(t)} - \bar{f}}^2}{t_{\max}}}
+    \]
+    Si tratta di una funzione di \(i\) che parte da \(r(0) = 1\), e in genere va calando.
+    
+    Se rimane a circa \(1\) il landscape risulta \textbf{liscio}, se varia bruscamente il landscape è \textbf{accidentato}.
+\end{definition}
+\begin{definition}[Plateau]
+    Un plateau di valore \(f\) è ciascun sottoinsieme di soluzioni di valore \(f\) che siano adiacenti nel grafo di ricerca.
+    
+    Plateau molto ampi ostacolano la scelta della soluzione dell'euristica steepest descent, perché fanno dipendere dall'ordine di visita di \(N(x)\).
+    
+    Essi sono utili siccome è possibile analizzare il grafo di ricerca dividendolo per livelli di obiettivo.
+\end{definition}
+\begin{definition}[Bacini di attrazione]
+    Un \textbf{bacino di attrazione} di una soluzione di ottimo locale \(\bar{x}\) è l'insieme delle soluzioni \(x^{\rnd{0}} \in X\) tali che l'euristica steepest descent partendo da \(x^{\rnd{0}}\) produca come risultato \(\bar{x}\).
+    
+    L'euristica ha tipicamente risultati buoni se i bacini sono pochi e ampi.
+\end{definition}
+\begin{observation}[Come si può esplorare l'intorno?]
+    Due strategie sono possibili: la \textbf{ricerca esaustiva} in cui si valutano tutte le soluzioni dell'intorno, che spesso richiede molto tempo, o l'\textbf{esplorazione efficiente dell'intorno}, in cui anziché visitare tutto l'intorno si trova la sua soluzione ottima risolvendo qualche forma di problema ausiliario.
+\end{observation}
+\begin{definition}[Conservazione parziale dell'intorno]
+    Eseguendo un'operazione \(o \in \mathcal{O}\) su due soluzioni simili \(x, x' \in X\) spesso:
+\begin{enumerate}
+    \item L'operazione è ammissibile per entrambe le soluzioni
+    \item La variazione della funzione obbiettivo è la stessa
+\end{enumerate}
+In tali casi conviene:
+\begin{enumerate}
+    \item Calcolare la variazione della funzione obbiettivo per ogni operazione ammissibile e conservare i valori a parte.
+    \item Eseguire l'operazione \(o^*\) migliore, generando la nuova soluzione \(x'\).
+    \item Calcolare la variazione della funzione obbiettivo della nuova soluzione \(x'\) solo per le operazioni valide tranne quelle utilizzate per arrivare in questa soluzione e recuperare i valori salvati per \(o \in \mathcal{O}_{xx'}\) che sono ancora validi.
+    \item tornare al punto 2.
+\end{enumerate}
+\end{definition}
+\end{multicols}
+\end{document}
