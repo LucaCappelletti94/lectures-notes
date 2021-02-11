@@ -29,6 +29,7 @@ Notes marked with the ★ symbol are considered completed, those marked with ★
     + [† Mappa degli algoritmi probabilistici 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Metodi%20probabilistici%20per%20l'informatica/images/Mappa_algoritmi_probabilistici.png?raw=true)
 - [★★ Ricerca operativa 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Ricerca%20operativa/main.pdf)
 - [★ Sistemi intelligenti 🇮🇹](https://github.com/LucaCappelletti94/various-notes/blob/master/Unimi/Sistemi%20Intelligenti/main.pdf)
+- [Sviluppo software in gruppi di lavoro complessi 🇮🇹](#)
 
 Feel absolutely **FREE** to correct my errors.
 
