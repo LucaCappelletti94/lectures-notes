@@ -1,0 +1,146 @@
+\documentclass[12pt, a4paper,titlepage]{book}
+\usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{
+  mathptmx, % use ~Times New Roman
+  wrapfig,
+  graphicx, 
+  titlesec, 
+  fancyhdr,
+  tikz, 
+  pgfplots, 
+  amsmath,
+  amssymb,
+  subcaption, 
+  multirow,
+  amsthm, 
+  bussproofs
+}
+\usepackage[italian]{babel}
+
+\newtheorem{lemn}{Lemma}
+\newtheorem*{lem}{Lemma}
+\newtheorem{ossn}{Osservazione}
+\newtheorem*{oss}{Osservazione}
+\newtheorem{defin}{Definizione}
+\newtheorem*{defi}{Definizione}
+\newtheorem{pron}{Proprietà}
+\newtheorem*{pro}{Proprietà}
+\newtheorem{prin}{Principio}
+\newtheorem*{pri}{Principio}
+\newtheorem{teon}{Teorema}
+\newtheorem*{teo}{Teorema}
+\newtheorem{corn}{Corollario}
+\newtheorem*{cor}{Corollario}
+
+
+
+
+
+\pgfplotsset{compat=1.17}
+\newcommand{\pgfenv}{
+\pgfplotsset{
+        standard/.style={%Axis format configuration
+        axis x line=middle,
+        axis y line=middle,
+        enlarge x limits=0.15,
+        enlarge y limits=0.15,
+        every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+        every axis y label/.style={at={(current axis.above origin)},anchor=north east},
+        every axis plot post/.style={mark options={fill=white}}
+        }
+    }
+  }
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
+% Chapter Titling: Chapter [0-9] LEFT, Chapter Title RIGHT
+\newcommand*{\justifyheading}{\raggedleft}
+\titleformat{\chapter}[display]
+{\normalfont\large}{\MakeUppercase\chaptertitlename \ \ \thechapter}
+{20pt}{\Huge\bfseries\justifyheading}
+
+
+\begin{document}
+% Forewords + TOC Page header Style
+% pageNumber -- Chapter Title -------- | ------- Chapter Title -- pageNumber
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\fancyhead[LE]{\thepage \ \ }
+\fancyhead[RO]{\MakeUppercase\leftmark \ \ \thepage}
+\fancyfoot[C] {\thepage}
+
+
+
+\frontmatter
+\begin{titlepage}
+  \centering
+              \vspace*{6cm}
+              \Huge{Logica Matematica}
+  
+              \vspace*{0.5cm}
+
+           \Large{Lecture Notes} 
+
+              \vspace*{0.5cm}
+
+              \Large{\textbf{Corso del Prof. Stefano Aguzzoli}}
+        
+              \vspace*{2cm}
+
+         \Large{Edoardo Marangoni}
+
+              \vspace*{2cm}
+
+              \small{University of Milan}
+
+              \small{Department of Computer Science}
+
+              \small{\today}
+              
+              \vspace*{2cm}
+\includegraphics[width=0.2\textwidth]{images/unimi.png} 
+
+\end{titlepage}
+
+\tableofcontents    
+
+
+\mainmatter
+% Corpus Header Style
+% pageNumber -- ChapterTitle ----- Chapter | Chapter ------ Section -- pageNumber
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\fancyhf{}
+\fancyhead[LE]{\thepage \ \ \MakeUppercase\leftmark}
+\fancyhead[RE, LO]{\MakeUppercase\chaptertitlename \ \ \thechapter}
+\fancyhead[RO]{\rightmark \ \ \thepage}
+\fancyfoot[C]{\thepage}
+
+
+
+\chapter*{Disclaimer}
+Questo documento contiene degli appunti presi durante il corso tenutosi 
+nell'A.A. 2020/2021. Benché i materiali si attengono a ciò che è stato 
+spiegato nel corso, queste note \textbf{non sono in alcun modo approvate 
+dal docente}, con tutte le conseguenze implicate.
+
+\chapter{Introduzione}
+\input{chapters/introduzione.tex}
+\cleardoublepage
+
+\part{Logica Proposizionale}
+\input{chapters/prop/introduzione.tex}
+\input{chapters/prop/sintassi.tex}
+\input{chapters/prop/semantica.tex}
+\input{chapters/prop/deduzione_automatica.tex}
+\cleardoublepage
+
+\part{Logica dei Predicati}
+\input{chapters/pred/sintassi.tex}
+\input{chapters/pred/semantica.tex}
+\input{chapters/pred/deduzione_automatica.tex}
+\backmatter 
+\end{document}

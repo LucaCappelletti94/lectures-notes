@@ -1,0 +1,168 @@
+% TEX root = ../main.tex
+La Logica è una materia che ha una tradizione millenaria e trae le sue 
+origini in ambito filosofico: la definizione che vedremo noi è infatti 
+presa da quell'ambito, e noi la declineremo in una forma moderna. 
+La Logica è lo studio dei meccanismi del ragionamento razionale. 
+In altre parole, si intende lo studio della capacità di trarre conseguenze 
+(corrette) da date assunzioni o premesse. Le assunzioni sono delle informazioni 
+che affermano che il mondo sta in un certo modo e sono gestibili formalizzandole 
+in un linguaggio formale. Queste informazioni codificano uno o più mondi possibili: 
+vogliamo trarne delle conclusioni a partire di esse in un modo razionale. 
+
+\section{Motivazioni}
+La Logica studia come si ragiona in maniera corretta e, per studiare come 
+si ragione, si può utilizzare come prima schematizzazione il partire da delle 
+assunzioni vere e da quelle discendere a delle conclusioni. 
+Un esempio: ogni uomo è mortale. Socrate è un uomo. 
+Dunque, Socrate è mortale. Questo è, in linguaggio naturale, un esempio di quanto 
+detto prima: a partire da due informazioni date per vere (ogni uomo è mortale e 
+Socrate è un uomo) si traggono delle conseguenze. Quanto fatto prima è un 
+\textit{sillogismo}, un punto antichissimo nella storia della Logica.
+
+Altro esempio: ogni gatto ha sette zampe. Pluto è un gatto. Dunque, Pluto 
+ha sette zampe. Anche questa è una deduzione esatta, nonostante per l'esperienza 
+comune la prima assunzione è falsa; tuttavia, la Logica si occupa di \textit{ogni}
+universo e pertanto il ragionamento è valido. 
+Ogni Blabla è glug. Sbappo è Blabla. Dunque, Sbappo è glug. Questa forma di 
+ragionamento è altrettanto corretta. 
+Per non farsi distrarre dalle stranezze irrilevanti, si utilizza un linguaggio 
+centrale per il discorso della Logica. Si formalizza quindi questo ragionamento: 
+in primo luogo si astrae, fornendo un modello matematico per ragionare.
+$$
+(\forall x P(x) \rightarrow Q(x) \land P(s)) \rightarrow Q(s)
+$$
+Ogni fiore è profumato. La Rosa è profumata. Dunque, la Rosa è un fiore. 
+Per mostrare che questo ragionamento è falso, si può anche utilizzare l'intuizione: 
+se Rosa è mia nonna, benché il senso metaforico sia valido, Rosa è un po' vecchia 
+e pertanto il ragionamento non è valido. In che modo è cambiato il ragionamento? 
+$$
+(\forall x P(x) \rightarrow Q(x) \land Q(s)) \nrightarrow P(s)
+$$
+In questo caso, si sta cercando di verificare la premessa data la conclusione, 
+al contrario di quanto accadeva per il sillogismo aristotelico; questo modo 
+di ragionare non può funzionare. 
+
+\paragraph{Matematica}
+Vi sono almeno due sensi per cui la Logica è matematica. Il primo è quello che abbiamo 
+introdotto immediatamente al discorso iniziale: la matematica è utilizzata per 
+la necessità di \textit{astrarre} solamente le informazioni rilevanti scartando 
+il resto in un contesto con molte informazioni che non ci interessano, come 
+accade per il linguaggio naturale. La trasformazione delle assunzioni e delle 
+conclusioni da una forma in linguaggio naturale alla forma astratta permette 
+di arrivare a delle \textbf{forme}. I concetti che andremo a formalizzare 
+avranno una sintassi dettata da un \textbf{linguaggio formale} e un significato 
+semantico \textbf{algebrico-insiemistico}, ottenendo un \textbf{formalismo}, un
+modo preciso, rigoroso e privo di ambiguità per esprimere ciò che si vuole 
+esprimere in Logica. 
+
+In seconda battuta, la Logica si usa per studiare le strutture matematiche, 
+ossia si usa \textit{per fare} matematica. Aprendo un testo qualsiasi di 
+Logica matematica si vedrà come gli esempi più interessanti siano basati 
+sulla matematica: gruppi, campi e teoremi vari. \newline
+
+
+\noindent
+Una terza parola chiave, che conclude la parte motivazionale, è \textbf{Informatica}, 
+intesa come \textit{Computer Science}, inteso come capire il processo dei 
+sistemi computazionali. \`E stata infatti una grande rivincita della Logica 
+durante il secolo scorso, che ha visto nascere i fondamenti della computazione 
+partendo da strumenti logici. Se esiste, la differenza tra \textit{Logica} 
+e \textit{Informatica} sono i focus diversi: la prima è più vicina ad un 
+approccio dichiarativo, concentrandosi su ciò che si può concludere da 
+determinate premesse, mentre la seconda è più vicina ad approcci 
+procedurali o imperativi.
+
+\paragraph{Esercizio}
+Se piove prendo l'ombrello. \`E lo stesso caso di dire che: 
+\begin{enumerate}
+  \setlength\itemsep{0pt}
+  \item Se non piove non prendo l'ombrello
+  \item Se non prendo l'ombrello non piove
+  \item Se prendo l'ombrello allora piove
+  \item O non piove o prendo l'ombrello 
+  \item Piove solo se prendo l'ombrello 
+  \item Se prendo l'ombrello piove 
+  \item Piove se e solo se prendo l'ombrello
+  \item Nessuna delle precedenti
+\end{enumerate}
+
+Benché non si sappia cosa voglia dire ``lo stesso caso'', tentiamo di dare le soluzioni 
+a questo problema. Nel linguaggio naturale non si può fare a meno di sentire 
+una dinamica: si vede che piove e allora si prende l'ombrello e si esce. La logica 
+proposizionale non vede questa dinamicità: per farlo si devono elaborare formule 
+che esplicitano la dinamicità. Una definizione più precisa di cosa voglia dire 
+che due ``frasi'' siano ``uguali'': esse sono ``equivalenti'' quando sono 
+vere nelle medesime circostanze. Questa è nuovamente una definizione che pecca 
+di precisione in quanto non espressa matematicamente. Cosa vuol dire ``medesime'' 
+e ``circostanze''? Un'interpretazione intuitiva che mette in luce la 
+``circostanza'' della frase ``Se piove prendo l'ombrello'' è la seguente. Vi 
+è una dipendenza tra il fatto che \textit{piove} e il fatto di \textit{prendere 
+l'ombrello}. 
+
+In tutte le circostanze possibili, vi sono delle situazioni in cui 
+è vero che piove e delle situazioni in cui non è vero e analogamente 
+accade per il fatto di prendere l'ombrello. 
+Di tutte le possibili circostanze ci interessano 
+solo quattro: quando non piove e quando non si prende l'ombrello, quando piove 
+e si prende l'ombrello, quando piove e non si prende l'ombrello e, infine, 
+quando non piove e si prende l'ombrello. 
+ 
+La frase si può dunque rappresentare nella forma 
+$$
+P \Rightarrow Q
+$$
+che rappresenta il \textit{se...allora}. L'implicazione è infatti la più 
+difficile da accettare a livello intuitivo. Senz'altro ci sono delle situazioni 
+in cui non abbiamo dubbi: per esempio, quando sia $P$ e $Q$ sono vere, cioè, 
+sapendo che piove e che si prende l'ombrello la relazione causale sembra sussistere 
+e quindi $P \Rightarrow Q$ è verificata; quando $P$ è vero e $Q$ è falso,
+risulta infine che $P \Rightarrow Q$ è falsa. Ora, potrebbe succedere che 
+la risposta non sia esattamente quella che ci aspettiamo: cominciamo assumendo 
+che non piova ma si prenda l'ombrello. Risulta che $P \Rightarrow Q$ è vera, 
+anche se l'antecedente è falso: già questa cosa può suonare strano, in quanto 
+non suona giusto che il fatto che non piova implichi il fatto che si prenda l'ombrello. 
+La questione riguarda sostanzialmente il linguaggio naturale di per sé e torneremo 
+su questo discorso in futuro: con lo stesso approccio, si arriva a dire che se 
+$P$ e $Q$ sono false allora $P \Rightarrow Q$ è vera. 
+
+Allora, per concludere il nostro esempio: si può cominciare dicendo che l'ottava 
+frase è falsa, ossia vi sono, tra le prime sette frasi, alcune frasi equivalenti. 
+La prima è sbagliata, in quanto vi è la possibilità di prendere l'ombrello 
+anche se non piove. Il rapporto di causalità si rivede anche nella terza frase, 
+che è falsa. La quarta frase necessità l'analisi della disgiunzione, l'OR, 
+che in questa situazione va interpretato come un OR inclusivo, ossia un 
+$\lor$. Analizzando la frase ``O non piove o prendo l'ombrello'' ci si accorge 
+come si possa tradurre in $\neg P \lor Q$, che ha la stessa ``immagine di 
+verità'' dell'implicazione, pertanto anche la quarta è uguale. Questo è importante 
+in quanto è una realizzazione materiale dell'implicazione! 
+La quinta frase si può nuovamente interpretare come $P\Rightarrow Q$ ed è pertanto 
+vera. 
+La sesta frase inverte il rapporto, facendo in modo che $Q \Rightarrow P$, che 
+è falso; analogamente accade per la settima. 
+
+Un'ulteriore interpretazione dell'implicazione è: Ogni qualvolta $P$ è vera, 
+anche $Q$ è vera. 
+
+\section{Programma}
+Il corso tratterà inizialmente la Logica Proposizionale, mentre la seconda 
+parte tratterà la Logica Predicativa o del Prim'ordine. Della Logica Proposizionale 
+si definirà la sintassi, quindi Alfabeto, Connettivi e Formule per poi parlare
+di valutazione, tabelle di verità e princìpi come verofunzionalità e bivalenza. 
+Si discuteranno le tautologie, le contraddizioni, le formule soddisfacibili e
+la nozione centrale di Conseguenza logica. Seguentemente si 
+tratteranno decidibilità, correttezza e completezza, ma in realtà il primo Teorema 
+che tratteremo sarà quello di Compattezza. Dopodiché si potranno affrontare 
+i metodi formali di deduzione per la Logica Proposizionale. Accenneremo ai 
+Seguenti e ai Tableau, oltre che ai calcoli alla Hilbert e i metodi assiomatici. 
+Ci concentreremo sulla metodologia più adatta alla deduzione automatica, ossia 
+i metodi refutazionali basati sul principio di risoluzione. 
+
+La seconda parte del corso tratterà la Logica dei Predicati, che per noi 
+sarà un sinonimo di Logica del Prim'ordine. Dal punto di vista sintattico, 
+si affronteranno più approfonditamente alfabeto, quantificatori, simboli 
+di predicato e i simboli di funzione. Seguirà la semantica: descriveremo la 
+semantica di Tarski, con la nozione fondamentale di L-Struttura e modelli; il 
+concetto di Conseguenza logica,completezza e correttezza nell'ambito 
+della Logica del Prim'ordine. Termineremo con i metodi di deduzione e le forme 
+normali. Assieme alla Teoria di Herbrand, quest'ultime ci permetteranno di 
+arrivare alle tecniche di deduzione automatica. 
