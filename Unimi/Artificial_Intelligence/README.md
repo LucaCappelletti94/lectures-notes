@@ -1,8 +1,8 @@
-###########################
+
 # Artificial Intelligence #
 ###      2020/2021      ###
 ##     V. Piuri - UniMi  ##
-###########################
+
 
 ## DISCLAIMER: ##
 Questi appunti NON sono stati approvati dal prof. Piuri. 
