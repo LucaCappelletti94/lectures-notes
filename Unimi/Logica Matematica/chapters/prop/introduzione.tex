@@ -1,0 +1,98 @@
+\chapter{Introduzione alla Logica Proposizionale}
+Si comincia ora l'introduzione alla Logica Proposizionale, 
+partendo tuttavia da un concetto espresso senza formalizzarlo immediatamente: 
+\begin{defi}[Enunciato]
+Con il termine \textbf{enunciato} si intende una frase o un'espressione per la 
+quale sia sensato chiedersi se sia vera o se sia falsa in ogni data 
+circostanza, ossia ha un \textbf{valore di verità} relativo ad una 
+certa circostanza. 
+\end{defi}
+``Piove'' è un enunciato, così come ``prendo l'ombrello'' 
+e ``se piove prendo l'ombrello''. Sapremmo già dire che quest'ultimo ha 
+qualcosa di diverso dai primi: quest'ultimo infatti è un \textbf{enunciato 
+composto}, mentre i primi sono \textbf{enunciati atomici}. Ci sono frasi 
+che non sono enunciati e possiamo anche limitarci all'italiano per trovarne 
+alcuni: ``Paolo corre?'' e ``Piove?'' non sono enunciati. Oltre al linguaggio naturale 
+vi sono anche altre frasi che non sono enunciati, per esempio ``2''. 
+
+\section{Senso, denotazione e connotazione di un enunciato}
+Il senso filosofico dei concetti di \textbf{denotazione} 
+e \textbf{connotazione} verrà tralasciato e verranno infatti 
+trattati in una maniera poco profonda, soprattutto per capire la distinzione
+tra denotazione e connotazione. Ecco alcune espressioni del linguaggio 
+dell'aritmetica: 
+\begin{itemize}
+  \setlength\itemsep{0pt}
+  \item $4$
+  \item $2^2$
+  \item il predecessore di $5$ 
+  \item $3+1$
+\end{itemize}
+Nessuno di questi è un enunciato, ma non è necessario che lo siano. 
+Sappiamo dire cosa significhino, in quanto matematicamente sono sempre 
+modi per esprimere \textit{il numero naturale quattro}. Questo esempio inquadra 
+a livello intuitivo cosa sia la \textbf{denotazione} (il numero naturale 
+quattro) e la \textbf{connotazione} (quattro diversi modi per ottenere quattro). 
+Anche a questo livello stiamo dicendo una cosa interessante, in quanto 
+questo implica che dobbiamo essere molto precisi riguardo cosa dovrebbe
+essere la \textit{denotazione} di qualcosa. 
+Un'espressione ha, quindi, una denotazione che è qualcosa di diverso dalla 
+sua connotazione. In un modo astratto, una espressione $E$ è un \textit{nome}
+di qualcosa, come per esempio $4$, $2^2$, il predecessore di $5$ e $3+1$, 
+il quale si riferisce in modo univoco a qualche entità. L'\textit{entità} alla 
+quale si riferisce l'espressione è 
+essa stessa la denotazione. La connotazione, in questo senso, è quanto 
+l'espressione effettivamente esprime, ossia tutto il resto dell'informazione 
+contenuta nell'espressione stessa. 
+
+La logica studia la denotazione degli enunciati (chiamati anche \textit{sentences}) e 
+non le connotazioni, in quanto esse sono troppo difficili da gestire a livello 
+iniziale. Le denotazioni godono infatti dell'importante proprietà dell'\textbf{invarianza 
+per sostituzione}, ossia se ad un'espressione si cambiano delle parti 
+sostituendole con parti denotazionalmente uguali, la denotazione globale 
+non cambia, mentre la connotazione può potenzialmente cambiare totalmente, 
+come dimostrano le quattro frasi iniziali.
+
+\subsection{Denotazione di un Enunciato}
+Si può definire ora, più formalmente, cosa sia la \textbf{denotazione} di 
+un enunciato. Si prenda, per esempio, l'enunciato
+$$
+4 = \text{pred}(5)
+$$
+e si applichi una sostituzione con espressioni denotazionalmente equivalenti: 
+$$
+4 = 4
+$$
+Il principio d'invarianza dice che questi due enunciati sono \textbf{denotazionalmente}
+equivalenti, benché l'ultimo enunciato non contiene nessuna informazione 
+ulteriore rispetto alla denotazione stessa (circa). La denotazione 
+di un enunciato è, quindi, il loro valore di verità, ossia il fatto che sono 
+una forma connotazionale di una costante \texttt{vero} o \texttt{falso}. 
+Quindi, l'oggetto della Logica Proposizionale sono le \textbf{proposizioni}, 
+ossia il contenuto denotazionale degli enunciati, che può essere 
+\texttt{vero} o \texttt{falso}. 
+
+\section{Enunciati e Connettivi}
+Alcuni enunciati semplici come ``Piove'' o ``Paolo corre'' sono definiti 
+\textbf{atomici} in quanto la loro denotazione è solamente un valore di 
+verità. Altri enunciati, definiti \textbf{composti}, sono enunciati che si possono
+``smontare'', come ``Piove e c'è vento'', che è chiaramente composto 
+dagli enunciati atomici ``Piove'' e ``c'è vento''. Il connettivo ``e'' è 
+ciò che li unisce, come potrebbe accadere anche per ``o'', ``non'' 
+e ``se...allora''. 
+
+In una maniera più formale, gli enunciati semplici 
+devono solamente rappresentare il fatto che denotano un valore di verità e 
+saranno quindi rappresentati da \textbf{simboli} appartenente all'insieme infinito
+$L$ chiamato \textbf{linguaggio proposizionale}. I simboli 
+$p, q, r, p_1, \cdots \in L$ sono chiamati \textbf{lettere proposizionali}. 
+Oltre alla sintassi, formalmente il valore semantico (quindi denotazionale) di ogni 
+lettera proposizionale è un valore di verità. 
+
+Gli enunciati composti sono formalizzabili con una simbologia che rispetta 
+i simboli per gli enunciati atomici: $p \land q$, $p \lor q$, $\neg p$ e 
+$p \rightarrow q$ sono enunciati composti. I simboli $\land, \lor, \neg$ 
+e $\rightarrow$ sono chiamati \textbf{connettivi}. Il valore denotazionale 
+di ogni enunciato composto dipenderà dai 
+valori denotazionali degli enunciati atomici e dal valore semantico dei connettivi 
+che lo compongono. 
