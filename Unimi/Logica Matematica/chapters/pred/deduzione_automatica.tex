@@ -1,0 +1,1324 @@
+% TEX root = ../../main.tex
+\chapter{Risoluzione Automatica}
+Lo scopo del nostro corso è analizzare come sia possibile capire se una certa 
+teoria $\Gamma \models A$ in modo automatico. 
+Se $\Gamma = \{\gamma_1, \cdots, \gamma_n\}$, $\Gamma \models A$ se e solo se 
+$\gamma_1 \land \gamma_2 \land \cdots \land \gamma_n \land \neg A$ è insoddisfacibile. 
+Quindi, informalmente, il nostro scopo è, dato $A$ un $L$-enunciato, stabilire se $A$ 
+è insoddisfacibile. 
+
+
+\section{Forme Normali}
+Cercheremo di seguire il più possibile ciò che è stato fatto anche per la Logica 
+Proposizionale, ossia riportare il tutto in CNF per poi applicare qualcosa 
+di simile al calcolo refutazionale - tuttavia, nella Logica dei Predicati, 
+questo passaggio è leggermente più complicato. 
+
+Prima di esaminare questa procedura, diamo delle definizioni utili. 
+\begin{defi}[Equivalenza Logica]
+Siano $A$ e  $B$ $L$-enunciati. $A$ è logicamente equivalente a $B$ ($A \equiv B$) 
+se e solo se $A$ e $B$ hanno gli stessi modelli, 
+cioè se $\mathcal{A} \models A \iff \mathcal{A} \models B$ per ogni $L$-struttura 
+$\mathcal{A}$, equivalentemente si afferma 
+$$
+\models (A \rightarrow B) \land (B \rightarrow A) 
+$$
+è una verità logica. 
+\end{defi}
+
+\begin{defi}[Equisoddisfacibilità]
+Siano $A$ e $B$ due $L$-enunciati. $A$ è equisoddisfacibile a $B$ se e solo se 
+$A$ ha un modello se e solo se $B$ ha un modello, anche se sono modelli diversi. 
+\end{defi}
+
+\begin{defi}[Forma Normale Prenessa (PNF)]
+        Un $L$-enunciato è in PNF se e solo se è nella forma 
+        \[
+        Q_1 x_1, \ldots, Q_n x_n M
+        \]
+        dove $Q_i \in \{ \forall, \exists\}$ e $M \in FBF$ è priva di quantificatori. 
+        $M$ è detta \textit{matrice}, mentre la parte restante è chiamata 
+        \textit{prefisso}.
+\end{defi}
+Ogni $L$-enunciato è logicamente equivalente ad un $L$-enunciato in PNF, 
+ossia 
+
+$$
+A \equiv A^P ~~~ A^P \in PNF
+$$
+
+$A^P$ si costruisce efficientemente da $A$ utilizzando la ripetuta riscrittura tramite 
+\textbf{equivalenze logiche notevoli}, ossia partendo da un certo 
+$A_0$, si arriva in un numero limitato di passi ad $A_N$ che è in $PNF$: 
+$$
+A := A_0 \leadsto A_1 \leadsto A_2 \ldots \leadsto A_n = A^P \in PNF
+$$
+
+\subsection{Equivalenze Notevoli}
+Sia $P$ una FBF e sia $z$ una variabile che \textbf{non occorre} (né libera 
+né vincolata) in $P$. 
+
+\subsubsection{Rinomina}
+\[
+        \begin{cases}
+                \exists x P \equiv \exists z P[z/x] \\
+                \forall x P \equiv \forall z P[z/x]
+        \end{cases}
+\]
+\subsubsection{De Morgan}
+\[
+        \begin{cases}
+                \neg \forall x P \equiv \exists x \neg P \\
+                \neg \exists x P \equiv \forall x \neg P \\
+                \forall x P \equiv \neg \exists x \neg P \\
+                \exists x P \equiv \neg \forall x \neg P
+        \end{cases}
+\]
+\begin{proof}{di (1)}
+        \begin{align*}
+                \mathcal{A} \models \neg \forall x P \iff \mathcal{A} \nvDash \forall x P & \iff \neg \forall a \in A \mathcal{A}\models P[\bar{a}/x] \\
+                                                                                          & \text{ per almeno un } a \in \mathcal{A} \mathcal{A} \nvDash P[\bar{a}/x] \\
+                                                                                          & \text{ esiste almeno un } a \in \mathcal{A} \models \neg P[\bar{a}/x] \\
+                                                                                          & \exists x \neg P 
+        \end{align*}
+\end{proof}
+
+\subsubsection{Quantificazione Ridondante}
+$$
+\begin{cases}
+        \forall x \forall y P  \equiv \forall y \forall x P \\
+        \exists x \exists y P  \equiv \exists y \exists x P
+        \forall x P \equiv P  &  x \notin FV(P)\\
+        \exists x P \equiv P  & x \notin FV(P)
+\end{cases}
+$$
+
+\`E importante notare che invece non vale, in genere, $\forall x \exists y P \equiv \exists y \forall x P$.  
+
+
+\paragraph{Quantificatore rispetto a $\land$ e $\lor$}
+$$
+\begin{cases}
+        \forall x (P_1 \land P_2) \equiv \forall x P_1 \land \forall x P_2 \\
+        \exists x (P_1 \lor P_2) \equiv \exists x P_1 \lor \exists x P_2 \\
+        \forall x (P_1 \lor P_2) \equiv \forall x P_1 \lor P_2 ~ ~ ~ x \notin FV(P_2) \\
+        \exists x (P_1 \land P_2) \equiv \exists x P_1 \land P_2 ~ ~ ~ x \notin FV(P_2)
+\end{cases}
+$$
+Si noti che, per esempio, non valgono
+$$
+\forall x (P_1 \lor P_2) \neq \forall x P_1 \lor \forall x P_2
+$$
+e 
+$$
+\exists x (P_1 \land P_2) \neq \exists x P_1 \land \exists x P_2
+$$
+Per esempio, infatti 
+$$
+\forall x (P(x) \lor D(x))
+$$
+dove $P$ è l'insieme dei numeri pari mentre $D$ è l'insieme dei numeri dispari. 
+Mentre è vero che 
+$$
+\mathbb{N} \models \forall x (P(x) \lor D(x))
+$$
+ma ovviamente non è vero che
+$$
+\mathbb{N} \nvDash \forall x P(x) \lor \forall x D(x)
+$$
+
+Analogamente, mentre non vale 
+$$
+\mathbb{V} \nvDash \exists x (P(x) \land D(x))
+$$
+vale 
+$$
+\mathbb{N} \models \exists x P(x) \land \exists x D(x)
+$$
+\subsubsection{Rinomina}
+Supponiamo di voler mettere in Forma Normale Prenessa la seguente formula: 
+$$
+\exists x P(x) \land \exists x D(x)
+$$
+utilizzando le equivalenze logiche che conosciamo. 
+\begin{align*}
+        \exists x P(x) \land \exists x D(x) &\equiv \exists x P_1 \land P_2 \text{ se } x \notin FV(P_2) \\
+                                            &\equiv \exists x (P(x) \land \exists x D(x))\\
+                                            &\equiv \exists x (P(x) \land \exists y D(y)) \text{ rinomina }\\
+                                            &\equiv \exists x \exists y (P(x) \land D(y))
+\end{align*}
+
+\subsubsection{Altre Equivalenze Notevoli}
+Dati due quantificatori $Q_1, Q_2 \in \{\forall, \exists\}$, si può affermare
+\[
+        \begin{cases}
+                Q_1 x P_1 \lor Q_2 x P_2 \equiv Q_1 x Q_2 z (P_1 \lor P_2[z/x]) \\
+                Q_1 x P_1 \land Q_2 x P_2 \equiv Q_1 x Q_2 z (P_1 \land P_2[z/x])
+        \end{cases}
+\]
+con $z \notin FV(P_1) \cup FV(P_2)$, o in generale una nuova variabile.
+Inoltre, se $x \notin FV(Q)$ (o con rinomina): 
+$$
+        \begin{cases}
+                \forall x P \rightarrow Q \equiv \exists x (P \rightarrow Q) \\
+                Q \rightarrow \forall x P \equiv \forall x (Q \rightarrow P) \\
+                Q \rightarrow \exists x P  \equiv \exists x (Q \rightarrow P)
+        \end{cases}
+$$
+
+\noindent
+Dato un $L$-enunciato $A$, c'è una sequenza
+$$
+A := A_0 \leadsto A_1 \leadsto A_2 \ldots \leadsto A_n = A^P \in PNF
+$$
+e ogni passaggio  $A_i \leadsto A_{i+1}$ è ottenuto applicando una delle equivalenze 
+notevoli elencate, dunque $A \equiv A^P$. 
+\begin{oss}
+        Il numero di equivalenze notevoli da utilizzare per la trasformazione è 
+        $$
+        n \leq p(||A||)
+        $$
+        per un qualche polinomio $p$. 
+\end{oss}
+
+\subsection{Forma Normale di Skolem}
+Sia $A$ un $L$-enunciato, e sia $A^P \in PNF$ la sua forma normale prenessa. Si 
+vuole ora eliminare un tipo di quantificatore, ossia quello esistenziale ``$\exists$'': 
+un enunciato $A \in PNF$ si dice in Forma Normale di Skolem se e solo se non 
+contiene occorrenze del quantificatore $\exists$. 
+La motivazione dietro questa necessità è che vogliamo arrivare nuovamente 
+al calcolo refutazionale, dove si va a dimostrare che una certa formula è 
+insoddisfacibile. Questa operazione porta gli enunciati in una Forma Normale 
+chiamata Forma Normale di Skolem. 
+
+\begin{defi}[Forma Normale di Skolem]
+        Un $L$-enunciato $A \in PNF$ si dice in Forma Normale di Skolem 
+        se e solo se non contiene occorrenze del quantificatore esitenziale. 
+        $$
+        A := Q_1 x_1 Q_2 x_2 \cdots Q_n x_n M 
+        $$
+        $A \in SNF \iff Q_i = \forall$
+\end{defi}
+
+Vi sono altre tradizioni di calcolo, che invece mirano alla prova diretta 
+(come i calcoli alla Hilbert per la Logica Proposizionale) in cui si vuole 
+eliminare il quantificatore universale. 
+
+\subsubsection{Skolemizzazione}
+Vi sarà dunque un procedimento, chiamato \textbf{skolemizzazione}, 
+che porta un generico $L$-enunciato $A$ in 
+Forma Normale Prenessa ad un enunciato \textbf{equisoddisfacibile} in Forma Normale 
+di Skolem.
+
+\paragraph{Esempio di Skolemizzazione}
+Riprendiamo le due formulazioni date della teoria dei gruppi: 
+$$
+        \Gamma_G := 
+                \begin{cases}
+                        \forall x \forall y \forall z  ~~ ((x * y)*z) = (x*(y*z))  & \text{ associatività}\\
+                        \forall x (x * e) = x \land (e * x) = x  & \text{ elemento neutro}\\
+                        \forall x (x * x^{-1}) = e \land (x^{-1} * x = e) & \text{ invertibilità}
+                \end{cases}
+$$
+
+$$
+        \Gamma_{G_2} := 
+                \begin{cases}
+                        \forall x \forall y \forall z  ~~ ((x * y)*z) = (x*(y*z)) & \text{ associatività}\\
+                        \forall x (x * e) = x \land (e * x) = x & \text{ elemento neutro } \\
+                        \forall x \exists y (x * y) = e \land (y * x) = e & \text{ esistenza inverso} \\
+                \end{cases}
+$$
+
+La seconda formulazione non è equivalente alla prima, tuttavia sono perlomeno 
+equisoddisfacibili. Si può notare che nella seconda formulazione vi è un assioma 
+con un quantificatore esistenziale. Si può pensare che la prima 
+formulazione sia la Forma Skolemizzata della seconda formulazione. 
+ 
+Nella seconda formulazione, il terzo assioma è descritto come 
+$$
+\forall x \exists y (x * y) = e \land (y * x) = e \text{ esistenza inverso}
+$$
+Questo sarà vero in una struttura (che sarà un gruppo) $\mathcal{A} = (A,I)$ se e 
+solo se per ogni $a \in A$ esiste $b \in A$ tale che $\bar{a} * \bar{b} = e$ 
+e $\bar{b} * \bar{a} = e$. L'idea sottesa per portare questo assioma 
+nella sua Forma Skolemizzata è che si può associare all'esistenza di $b$ una 
+certa funzione di $a$, in questo caso \textit{l'inverso} di $a$. In altre 
+parole, ad ogni $a$ si associa un elemento $f(a)$ tale che l'assioma sia verificato. 
+Nell'esempio concreto, si arriva dunque a definire una nuova $L$-struttura $\mathcal{A}'$
+in modo tale che 
+$$
+\mathcal{A}' \models \forall x (x*x^{-1} = e \land x^{-1} * x = e)
+$$
+La funzione inverso è esattamente il ``gioco'' sotteso alla Skolemizzazione: 
+ora, l'assioma legge che $\mathcal{A}'$ è un modello per l'assioma 
+se e solo se per ogni $a \in A$ si ha che $\bar{a} * \bar{a}^{-1} = e$ 
+e $\bar{a}^{-1} * \bar{a} = e$, postulando in qualche senso che  la funzione
+$f(a) = b$ esiste ed è chiamata inverso. 
+
+\`E chiaro che questo processo non può preservare l'equivalenza logica per 
+due motivi: il primo, superficiale, è che i due $L$-enunciati 
+sono scritti in due linguaggi diversi. Il secondo, più profondo, è che 
+quando si interpreta il nuovo simbolo $f$, c'è \textit{un} modo per interpretarlo 
+bene, ma esistono anche tutte le altre interpretazioni che possono 
+far fallire la formula; l'unica cosa che si sa è che c'è \textit{almeno una}
+interpretazione che possa far funzionare le cose. 
+
+\paragraph{Processo di Skolemizzazione}
+Questo discorso è assolutamente generale ed è il cuore della Skolemizzazione: 
+$$
+\mathcal{A} \models A =  \forall x_1\cdots\forall x_n \exists y B
+$$
+Senza perdità di generalità, si assume che in $A$ non occorrano quantificazioni 
+ridondanti, cioè in $B$ non occorrono cose come $\forall x$, $\exists x$, in
+altre parole ogni occorrenza di $x_1, \cdots, x_n, y \in B$ è libera.
+In secondo luogo, in $B$ possono occorre altri quantificatori, pertanto 
+$\exists y$ è solo l'occorrenza ``più esterna''. 
+
+Applicando la definizione di semantica di Tarski si legge che quanto è 
+scritto è vero se e solo se per ogni $(a_1, \cdots, a_n) \in A^n$ esiste 
+un $b \in A$ tale che 
+$$
+\mathcal{A} \models A = B[\bar{a}_1/x_1]\cdots[\bar{a}_n/x_n][\bar{b}/y]
+$$
+il concetto di esistenza (di $b$ in questo caso) viene riletto come un modo 
+per associare un immagine ad un argomento di una qualche funzione: esisterà quindi
+$$
+f(a_1, \cdots, a_n) = b
+$$
+Ciò che la Skolemizzazione ``fa'' è introdurre un simbolo di funzione $n$-ario 
+nel linguaggio $f$ interpretandolo come la funzione $f$; dunque, 
+la $L$-struttura iniziale viene modificata in una $L$-struttura estesa 
+che deve interpretare anche $f$: 
+$$
+\mathcal{A}' \models A^s = \forall x_1 \cdots \forall x_n B[f(x_1, \cdots, x_n)/y]
+$$
+creando quindi $A^s$, la Forma Skolemizzata di $A$. 
+Allo stesso modo si passa da un linguagggio 
+$$
+L \leadsto L^s = (\mathcal{P}, F \cup \{f\}, \alpha, \beta^s)
+$$
+con 
+$$
+\beta^s(f) = n
+$$
+Sia $\mathcal{A} = (U,I)$ una $L$-struttura; allora scriviamo $(\mathcal{A}, h)=(U, I_h)$ per 
+identificare la $L^s$-struttura tale che $I_h$ coincide con $I$ tranne 
+che per $I_h(f)$, quindi $h: U^n \rightarrow U$ è una funzione $n$-aria.
+
+\paragraph{Equisoddisfacibilità}
+Definiamo 
+$$
+A := \exists x P(x)
+$$
+e la sua forma Skolemizzata 
+$$
+A^s := P[c/x] = P(c)
+$$
+e la $L$-struttura 
+$$
+\mathcal{A} = (U, I)
+$$
+con 
+$$
+U=\{e_1,e_2\} ~~~~~~~~ I(P) = \{e_2\} 
+$$
+Chiaramente, si ha che 
+$$
+\mathcal{A} \models A
+$$
+e che 
+\begin{align*}
+        (\mathcal{A}, e_2) \models A &\iff (\mathcal{A}, e_2) \models \exists x P(x)\\
+                                     &\iff \text{ esiste } a \in U \text{ tale che } 
+                                             \mathcal{A} \models P(x)[\bar{a}/x] \\
+                                     &\iff \text{ esiste } a \in U \text{ tale che } \mathcal{A} \models P(a)
+\end{align*}
+il quale esiste, poiché basta scegliere $a = e_2$ per verificare il tutto. 
+Parimenti, si ha anche che 
+\begin{align*}
+        (\mathcal{A}, e_1) \models A &\iff (\mathcal{A}, e_1) \models \exists x P(x)\\
+                                     &\iff \text{ esiste } a \in U \text{ tale che } 
+                                             \mathcal{A} \models P(x)[\bar{a}/x] \\
+                                     &\iff \text{ esiste } a \in U \text{ tale che } \mathcal{A} \models P(a)
+\end{align*}
+poiché non è importante come si interpreta la costante $e_1$; l'utilizzo dell'esitenziale 
+ci ``salva'' nonostante l'interpretazione della funzione di Skolem (in questo 
+caso la costante $c$) sia erronea.
+
+Cercando di interpretare, ora 
+\begin{align*}
+        (\mathcal{A}, e_1) \nvDash A^s &\iff (\mathcal{A}, e_1) \models P(C)\\
+                                       &\iff I_{e_2}(c) \not\in I_{e_2}(P) \\
+                                        &\iff e_1 \not\in \{e_2\}
+\end{align*}
+Ossia, abbiamo dimostrato che 
+$$
+A \not\equiv A^s
+$$
+e non possono pertanto essere logicamente equivalenti, ma saranno invece 
+equisoddisfacibili. 
+Ciò che però vale è questo: 
+$$
+\models A^s \rightarrow A
+$$
+nonostante abbiamo appena dimostrato che non è vero 
+$$
+\nvDash A \rightarrow A^s
+$$
+\begin{proof}[Dimostrazione di $\models A^s \rightarrow A$]
+        Sia  data una formula in PNF
+        $$
+        A := \forall x_1 \cdots \forall x_n \exists y B
+        $$
+        Allora, si ha che la sua forma Skolemizzata è 
+        $$
+        A^s := \forall x_1 \cdots \forall x_n B[f(x_1, \cdots, x_n)/y]
+        $$
+        Si suppone che esista una $L^s$-struttura che soddisfa $A^s$, 
+        definita 
+        $$
+        (\mathcal{A}, h) ~~~ \mathcal{A} = (U,I)
+        $$
+
+        Allora, 
+       \begin{align*}
+               (\mathcal{A}, h) \models A^s &\iff \text{ per ogni } (a_1, \cdots, a_n) \in U^n (\mathcal{A}, h)\models B[f(x_1, \cdots, x_n)/y][\bar{a_1},x_1]\cdots[\bar{a_n}/x_n] \\
+                                            &\iff \text{ per ogni } (a_1 \cdots, a_n) \in U^n (\mathcal{A}, h) \models B[\bar{a_1}/x_1]\cdots[\bar{a_n}/x_n][f(x_1,\cdots,x_n)/y] \\
+                                            & ~~~~~~ \text{ si pone } b := h(a_1, \cdots, a_n) ~~~~ \text{ricordandosi che } I_h(f) = f\\
+                                            & \iff \text{ per ogni } (a_1, \cdots, a_n) \in U^n (\mathcal{A}, h) \models B[\bar{a_1}/x_1]\cdots[\bar{a}_n/x_n][\bar{b}/y] \\
+                                            &\iff (\mathcal{A}, h) \models \forall x_1 \cdots \forall x_n \exists y B\\
+                                            &\iff (\mathcal{A}, h) \models A\\
+                                            &\therefore \models A^s \rightarrow A
+       \end{align*}
+\end{proof}
+
+Questo non basta a dimostrare che siano equisoddisfacibili. Mostreremo ora 
+che $A$ e $A^s$ sono equisoddisfacibili: si deve mostrare che 
+se $(\mathcal{A}, h) \models A$ allora esiste $g:U^n\rightarrow U$ tale che 
+$(\mathcal{A}, g) \models A^s$. 
+\begin{proof}
+        Supponiamo che sia 
+        \begin{align*}
+                (\mathcal{A}, h) \models A &\iff \\
+                                           &\text{ per ogni } (a_1, \cdots, a_n) \in U^n (\mathcal{A},h) \models \text{ esiste } b\in U\\
+                                           &\text{ tale che } (\mathcal{A}, h) \models B[\bar{a_1}/x_1]\cdots[\bar{a_n}/x_n][\bar{b}/y] \\
+        \end{align*}
+
+        Si pone ora 
+        $$
+        g(a_1, \cdots, a_n) = b
+        $$
+        dato che $g$ sarà definito in questo modo per ogni $n$-pla $(a_1, \cdots, a_n) \in U^n$, 
+        allora questa definizione definisce una funzione $g: U^n \rightarrow U$.
+        Ci si chiede ora quando vale 
+        \begin{align*}
+                (\mathcal{A}, g) \models A^s &\iff \text{ per ogni } (a_1, \cdots, a_n) \in U^n (\mathcal{A}, g) \models B[f(x_1, \cdots, x_n)/y][\bar{a_1}/x_1]\cdots[\bar{a_n}/x_n] \\
+                                             &\iff \text{ per ogni } (a_1, \cdots, a_n) \in U^n (\mathcal{A}, g) \models B[\bar{a}_1/x_1]\cdots[\bar{a}_n/x_n][f(\bar{a_1}, \cdots, \bar{a_n})/y] \\
+                                             &\iff \text{ per ogni } (a_1, \cdots, a_n) \in U^n (\mathcal{A}, g) \models B[\bar{a}_1/x_1]\cdots[\bar{a}_n/x_n][\bar{b}/y]
+        \end{align*}
+        pertanto
+        $$
+                \text{ se }        (\mathcal{A}, h) \models A \rightarrow \text{ esiste } g: U^n \rightarrow U \text{ tale che } (\mathcal{A}, g) \models A^s 
+        $$
+\end{proof}
+
+\subsection{Forma Normale Congiuntiva}
+Sia $A$ un $L$-enunciato. Siamo passati da $A$ ad $A^p \in PNF$ mantenendo 
+l'equivalenza logica per poi passare a $A^s \in SNF$ mantenendo, in genere, 
+l'equisoddisfacibilità. Ciò che manca per ricalcare il lavoro fatto riguardo 
+la Logica Proposizionale, è portare il tutto in CNF: 
+$$
+A \xrightarrow{\equiv} A^p \xrightarrow{\text{equisod.}}(A^p)^s \leadsto ((A^p)^s)^c
+$$
+Quindi, $A^{p^s}$ è nella forma $\forall x_1 \cdots \forall x_n M$, dove in $M$ 
+non occorrono quantificatori. Inoltre, $A^{p^s}$ è un $L$-enunciato, pertanto 
+$FV(M) \subseteq \{x_1, \cdots, x_n\}$.
+Consideriamo ora ogni occorrenza di formula atomica $P(t_1, \cdots, t_n)$ in 
+$M$ come una lettera proposizionale; $M$ può dunque essere pensata 
+come una formula della Logica Proposizionale e il processo di trasformazione 
+verso la CNF si ottiene applicando uno degli algoritmi visti, ottenendo 
+$$
+M \xrightarrow[\text{equisod.}]{\equiv} M^C
+$$
+
+Concludendo, quindi che il processo di ``traduzione'' è 
+$$
+A \xrightarrow{\equiv} A^p \xrightarrow{\text{equisod.}}(A^p)^s \xrightarrow[\text{equisod.}]{\equiv} ((A^p)^s)^c
+$$
+ovviamente mantenendo l'equisoddisfacibilità. 
+
+\section{Risoluzione Automatica}
+\subsection{Preprocessamento}
+Siamo partiti dal chiederci se 
+$$
+\Gamma \models A \text{?} \xrightarrow[0]{} \Gamma, \neg A \text{ insod.?} \xrightarrow[1]{\text{ se } \Gamma \text{ finito}} \gamma_1 \land \cdots \land \gamma_n \land \neg A \text{ insod.?} \xrightarrow[2]{} (\gamma_1 \land \cdots \land \gamma_n \land \neg A)^{p^{s^c}} \text{ insod.?}
+$$
+manca un'ultima trasformazione. Infatti, un enunciato in forma prenessa, Skolemizzata 
+e confiuntiva è nella forma 
+$$
+F = \forall x_1 \cdots \forall x_n C_1 \land C_2 \land \cdots \land C_N
+$$
+dove ogni $C_i = (l_1 \lor l_2 \lor \cdots \lor l_u)$ è chiamata clausola
+dove ogni 
+$$
+l_{ij} = \begin{cases}
+        P(t_1, \cdots, t_n) \\
+        \neg P(t_1, \cdots, t_n)
+\end{cases}
+$$
+è chiamato letterale, per un qualche $P(\cdot)$ formula atomica.
+Se 
+$$
+F = \forall x_1 \cdots \forall x_n (C_1 \land C_2 \land \cdots \land C_N)
+$$
+con $F \in PNF \cap SNF \cap CNF$, operiamo i seguenti passaggi di notazione: 
+\begin{itemize}
+        \item Omettiamo i quantificatori. Possiamo farlo per due ragioni: 
+                \begin{enumerate}
+                        \item Scriverli esplicitamente non aggiunge nessuna informazione: 
+                                sappiamo che tutte le variabili che occorrono 
+                                sono quantificate universalmente.
+                        \item $\mathcal{A} \models F$ se e solo se $\mathcal{A} \models \forall[F]$ per ogni 
+                                $F$ formula ben formata. 
+                \end{enumerate}
+
+        \item Notazione a sequenti. Si riscrive
+                $$
+                F = C_1 \land \cdots \land C_2
+                $$
+        come 
+                $$
+                S_F = \{C_1, \cdots, C_n\}
+                $$
+        Questa riscrittura ha vari vantaggi: 
+        \begin{itemize}
+                \item Si può mettere in PNF, SNF e CNF ogni formula 
+                        in $\Gamma \cup \{\neg A\}$ indipendentemente
+                \item Se $\Gamma$ è infinito $S_{\gamma}$ sarà un insieme 
+                        infinito di clausole finite
+        \end{itemize}
+        Inoltre, si riscrive anche ogni clausola: se ora è 
+        $$
+        C_i = l_{i1} \lor \cdots \lor l_{iu}
+        $$
+        si può riscrivere 
+        $$
+        C_i = \{l_{ij} \text{ che occorrono negati}\} \cup \{l_{ij} \text{ che occorrono positivi}\}
+        $$
+        e i due insiemi si definiscono, rispettivamente, $N_i$ e $P_i$. 
+        e si riscrive, in conclusione, 
+        $$
+        C_i ~~~ N_i \implies P_i
+        $$
+        Quest'ultima notazione si chiama \textit{notazione a sequenti} della clausola 
+        $C_i$. 
+\end{itemize}
+
+\subsubsection{Esempio}
+Ci chiediamo se sia vero che
+$$
+\forall x \exists y (R(x,y) \rightarrow Q(f(x))) \models \forall x \exists y (R(x,y) \rightarrow Q(f(y)))
+$$
+Il primo passo è riportare il tutto in una domanda di insoddisfacibilità: 
+$$
+\forall x \exists y (R(x,y) \rightarrow Q(f(x))), \neg (\forall x \exists y (R(x,y) \rightarrow Q(f(y)))) \text{ insod.?}
+$$
+Si procede, ora, mettendo in PNF, SNF e CNF le due formule.
+La prima, 
+$$
+\forall x \exists y (R(x,y) \rightarrow Q(f(x)))
+$$
+è già in PNF. Si procede sostituendo a $y$ un simbolo di funzione, creando la 
+funzione di Skolem utilizzando un nuovo simbolo: 
+$$
+\forall x (R(x, s(x)) \rightarrow Q(f(x)))
+$$
+e infine in CNF (o a sequenti): 
+$$
+\forall x (\neg R(x, s(x)) \lor Q(f(x)))
+$$
+concludendo con 
+$$
+C_1 := \{\neg R(x,s(x)), Q(f(x))\}
+$$
+e scritto in forma a sequenti 
+$$
+S_1 := R(x, s(x)) \implies Q(f(x))
+$$
+
+La seconda formula 
+$$
+\neg (\forall x \exists y (R(x,y) \rightarrow Q(f(y)))) = \exists x \forall y \neg (R(x,y) \rightarrow Q(f(y)))
+$$
+è già in PNF, e per portarla in SNF si sostituisce a $x$ un simbolo di funzione
+(costante), utilizzando un nuovo simbolo:
+$$
+\forall y \neg (R(c, y) \rightarrow Q(f(y)))
+$$
+e si porta in CNF: 
+$$
+\neg (R(c,y) \rightarrow Q(f(y))) \equiv R(c,y) \land \neg Q(f(y))
+$$
+ottenendo  due clausole: 
+$$
+C_2 = \{R(c,y)\}
+$$
+$$
+C_3 = \{\neg Q(f(y))\}
+$$
+e due sequenti: 
+$$
+S_2 : \implies R(c,y)
+$$
+$$
+S_3 : Q(f(y)) \implies
+$$
+E si riscrive, infine, 
+$$
+\{ R(x,s(x)) \implies Q(f(x)), \implies R(c,y), Q(f(y)) \implies\} \text{ insod.?}
+$$
+\subsection{Teoria di Herbrand}
+Sia $S$ un insieme di clausole nella Logica dei Predicati; quindi, si immagina $S$ 
+ottenuto mettendo in PNF, SNF, CNF uno statement del tipo $\Gamma \models A$, 
+di cui vogliamo stabilire la soddisfacibilità. Questo sarà eseguito riducendo 
+$S$ insoddisfacibile a un problema di insoddisfacibilità nella Logica Proposizionale.
+
+Il primo passo è la seguente definizione: 
+\begin{defi}[Astrazione Proposizionale]
+        L'\textbf{astrazione proposizionale} è una funzione che associa iniettivamente 
+        ad ogni \textit{formula atomica} ground (quindi nella forma $P(t_1, \cdots, t_n)$
+        dove ogni $t_i$ è un termine ground, ossia non appaiono variabili) una 
+        lettera proposizionale, denotata con $p_{P(t_1, \cdots, t_n)}$. 
+\end{defi}
+
+Per esempio, se una clausola $C$ espressa in sequenti è 
+$$
+C: A_1, \cdots, A_u \implies B_1, \cdots, B_u
+$$
+la sua astrazione proposizionale è la clausola ottenuta astraendo ogni lettera: 
+$$
+C: p_{A_1}, \cdots, p_{A_u} \implies p_{B_1}, \cdots, p_{B_u}
+$$
+La \textbf{Teoria di Herbrand} ha suo culmine in quello che è ormai noto 
+come \textbf{Teorema di Herbrand}, anche se nella letteratura ci sono delle 
+perplessità riguardo il suo status di \textit{teorema}: 
+\begin{teo}[di Herbrand]
+        Un insieme di clausole $S$ della Logica dei Predicati è insoddisfacibile 
+        se e solo se esiste un insieme finito di istanze ground di clausole 
+        di $S$ la cui astrazione proposizionale è (proposizionalmente) insoddisfacibile.
+\end{teo}
+
+Per approfondire la Teoria di Herbrand, introduciamo delle nozioni. 
+
+\begin{defi}[Istanziazione Ground]
+        Sia $S$ un insieme di clausole del Primo Ordine, e sia $G$ un insieme 
+        di termini ground. Allora, con la notazione $S/G$ indichiamo l'istanziazione 
+        ground si $S$ su $G$, vale a dire l'insieme di tutte le clausole 
+        (che risulteranno ground) ottenute da ciascuna clausola $C \in S$ sostituendo 
+        in $G$ ogni sua variabile $x$ con qualche $t \in G$, in modo simultaneo, 
+        in tutti i modi possibili.
+\end{defi}
+\paragraph{Esempio}
+Sia 
+\begin{align*}
+        S &:= \{\{\implies P(x),D(x)\}, \{P(x), D(x) \implies\}\} \\
+          &= \{\{P(x), D(x)\}, \{\neg P(x), \neg D(x)\}\} \\
+          &= (P(x) \lor D(x)) \land (\neg P(x) \lor \neg D(x))
+\end{align*}
+Sia $G$ ad esempio 
+$$
+G = \{a, b, c\}
+$$
+Allora $S/G$ è 
+\begin{align*}
+S/G := &\{\{\implies P(a),D(a)\}, \{\implies P(b), D(b)\}, \{\implies P(c), D(c)\}, \\
+       &\{P(a),D(a) \implies\},\{\implies P(b),D(b)\},\{P(c),D(c) \implies\}\}
+\end{align*}
+Sia ora 
+$$
+G' = \{a, f(b,c)\}
+$$
+allora $S/G'$ è 
+\begin{align*}
+        S/G := &\{\{\implies P(a),D(a)\}, \{\implies P(f(b,c)), D(f(b,c))\}, \\
+               &\{P(a),D(a) \implies\},\{P(f(b,c)),D(f(b,c)) \implies\}\}
+\end{align*}
+
+
+\noindent 
+Siamo interessati ad istanziare $S$ su un particolare insieme $G$, ossia quello 
+che ci permette migliormente di studiare il nostro problema: questo 
+insieme è chiamato \textit{Universo di Herbrand}: 
+\begin{defi}[Universo di Herbrand]
+        L'Universo di Herbrand $H_s$ di un insieme di clausole $S$ del 
+        Primo Ordine è definito come segue. 
+        Sia $F^0_S$ l'insieme di tutti i simboli di funzione 
+                        (e quindi anche le costanti) che occorrono in $S$. 
+
+        \begin{itemize}
+                \item Se $F^0_S$ non contiene costanti, allora si 
+                        pone $F_S = F^0_S \cup \{\mathfrak{z}\}$, 
+                        dove $\mathfrak{z}$ è una costante nuova. 
+                \item Se $F^0_S$ contiente qualche costante, allora $F_S := F^0_S$. 
+        \end{itemize}
+        $H_S$ è per definizione l'insieme di tutti i termini costruibili utilizzando 
+        i simboli di $F_S$, che sono necessariamente ground. 
+\end{defi}
+
+\subsubsection{Esempi}
+\paragraph{1}
+Sia 
+$$
+S := \{\{U(x) \implies M(x)\}, \{\implies U(s)\}, \{M(s) \implies\}\}
+$$
+Allora 
+$$
+F^0_S = \{s\} ~~~~ F_S = \{s\} ~~~~ H_S = \{s\}
+$$
+\paragraph{2}
+Sia 
+$$
+S := \{\{\implies P(x),D(x)\}, \{P(x), D(x) \implies\}\}
+$$
+Allora 
+$$
+F^0_S = \emptyset ~~~~ F_S = \{\mathfrak{z}\} ~~~~ H_S = \{\mathfrak{z}\}
+$$
+\paragraph{3}
+Sia 
+$$
+S := \{\{\implies P(f(x)),D(x)\}\}
+$$
+Allora 
+$$
+F^0_S = \{f(\cdot)\} ~~~~ F_S = \{f(\cdot),\mathfrak{z}\} ~~~~ H_S = \{\mathfrak{z}, f(\mathfrak{z}), f(f(\mathfrak{z})), \cdots\}
+$$
+
+\noindent
+Argomenteremo che $S$ è insoddisfacibile se e solo se $(S/H_S)^*$, ossia 
+l'astrazione proposizionale dell'istanziazione di $S$ sul suo Universo 
+di Herbrand $H_S$, è insoddisfacibile; quest'ultimo insieme è spesso infinito, 
+in quanto - oltre ai simboli di funzione ``nativi'' del linguaggio su cui 
+è costruito $S$ - è costruito a seguito della Skolemizzazione dell'insieme $S$. 
+
+I due teoremi ``di Herbrand'' enunciati seguono entrambi piuttosto facilmente 
+dalla semantica di Herbrand, che è il vero cuore della questione. 
+
+\subsection{Semantica di Herbrand}
+La semantica di Herbrand afferma che è necessario considerare solo le 
+$L$-strutture di Herbrand. 
+
+\begin{defi}[$L$-struttura di Herbrand]
+        Una $L$-struttura di Herbrand è un tipo particolare, più vincolato, 
+        di $L$-struttura, le quali vengono chiamate, a questo punto, \textit{di Tarski}. 
+
+        Sia allora 
+        $$
+        \mathcal{A} = (U,I) 
+        $$
+        una $L$-struttura di Tarski. Deve quindi essere: 
+        \begin{itemize}
+                \item $U \neq \emptyset$, oltre a questo $U$ è arbitrariamente 
+                       scelto. 
+                \item $I(c) \in U$, arbitrariamente scelto. 
+                \item $I(f)$, con $\beta(f) = n$, è definito $I(f): U^n \rightarrow U$, 
+                        arbitrariamente scelto. 
+                \item $I(P)$, con $\alpha(P) = n$, è $I(P) \subseteq U^n$ arbitrariamente scelto. 
+        \end{itemize}
+
+        Sia ora 
+        $$
+        \mathcal{H} = (H_S, H)
+        $$
+        una $L$-struttura di Herbrand. Deve quindi essere: 
+        \begin{itemize}
+                \item $H_S$ è l'Universo di Herbrand, il quale è diverso 
+                        dall'insieme vuoto ($H_S \neq \emptyset$), ma ha 
+                        una costruzione ben precisa. 
+                \item $H(c) \in H_S$, ma ben definito: $H(c) = c$. 
+                \item $H(f)$, con $\beta(f) = n$, è definito $H(f): H_S^n \rightarrow H_S$, 
+                        con definizione fissata: 
+                        $$
+                        (H(f))(t_1, \cdots, t_n) := f(t_1, \cdots, t_n)
+                        $$
+                        con $t_1, \cdots, t_n$ termini ground.
+                \item $H(P)$, con $\alpha(P) = n$, è definito $H(P) \subseteq H_S^n$, 
+                        con interpretazione arbitrariamente scelta. 
+        \end{itemize}
+\end{defi}
+
+\begin{defi}[Teorema Fondamentale della Teoria di Herbrand]
+        Sia $S$ un insieme di clausole del Primo Ordine. Allora, 
+        $S$ ha un modello (di Tarski), ossia $S$ è soddisfacibile, 
+        ossia esiste una $L$-struttura tarskiana $\mathcal{A} = (U,I)$ tale 
+        che $\mathcal{A} \models S$ se e solo se 
+        $S$ ha un modello di Herbrand, ossia se esiste una $L$-struttura di 
+        Herbrand $\mathcal{H}=(H_s, H)$ tale che $\mathcal{H} \models S$. 
+\end{defi}
+
+Ora, ci dobbiamo chiedere quale sia la relazione tra 
+$$
+(S/H_S)^* ~~~~~~~ \text{ e } ~~~~~~~ \mathcal{H}_S \models S
+$$
+La relazione è semplice. Sia $\mathfrak{v}_{\mathcal{H}_S}: \text{Lettere Proposizionali} \rightarrow \{0,1\}$, 
+ossia è un assegnamento, tale che $\mathfrak{v}_{\mathcal{H}_S}(p_{P(t_1, \cdots, t_n)})=1$ se e solo se 
+$\mathcal{H}_S\models P(t_1, \cdots, t_n)$ e $0$ altrimenti. Viceversa, 
+data $\mathfrak{v}: \text{ Lettere Proposizionali} \rightarrow \{0,1\}$ si definisce 
+$\mathcal{H}_{\mathfrak{v}}= (H_s, H_{\mathfrak{v}})$ tale che 
+$$
+\begin{cases}
+(t_1, \cdots, t_n) \in H_{\mathfrak{v}}(P) \iff \mathfrak{v}(p_{P(t_1, \cdots, t_n)}) = 1\\
+(t_1, \cdots, t_n) \not\in H_{\mathfrak{v}}(P) \iff \mathfrak{v}(p_{P(t_1, \cdots, t_n)}) = 0
+\end{cases}
+$$
+\`E facile verificare, dunque, che $\mathcal{H}_S \models S$ se e solo se 
+$\mathfrak{v}_{\mathcal{H}_S}\models (S/H_S)^*$. 
+
+\begin{defi}[Teorema Riassuntivo (Herbrand, compattezza, completezza, calcolo Refutazionale $R^*$, DPP e DPLL)]
+        Dato un insieme $S$ di clausole della Logica del Primo Ordine, 
+        è equivalente affermare: 
+        \begin{enumerate}
+                \item $S$ è insoddisfacibile 
+                \item $S$ non ha modelli di Herbrand 
+                \item $(S/H_S)^*$ è proposizionalmente insoddisfacibile 
+                \item Esiste $S' \subseteq_{\omega} (S/H_S)^*$ tale che $S'$ è 
+                        proposizionalmente insoddisfacibile
+                \item Esiste $H'\subseteq_{\omega} H_S$ tale che $(S/H')^*$ è 
+                        proposizionalmente insoddisfacibile
+                \item Esiste $H' \subseteq_{\omega} H_S$ e $h \geq 0$ tale che 
+                        $\qed \in R^h((S/H)^*)$
+                \item  Esiste una refutazione $DPP \vdash_R (S/H')^*h$ o $DPLL \vdash_R (S/H')^*$
+        \end{enumerate}
+
+        La catena $1\cdots7$ fornisce un algoritmo per \textit{semidecidere} 
+        l'insoddisfacibilità di $S$.
+\end{defi}
+
+\subsection{Metodi Refutazionali}
+Sia
+$$
+S = \{ R(x,s(x)) \implies Q(f(x)), \implies R(c,y), Q(f(y)) \implies\}
+$$
+Si procede alla risoluzione del problema dell'insoddisfacibilità, seguendo 
+i passi definiti precedentemente: 
+$$
+F_S = \{c, s, f\} ~~~ H_S = \{c, s, f, f(c), s(c), s(s(c)), f(f(c)), s(f(c)), f(s(c)), s(s(s(c))), \cdots\}
+$$
+Pertanto, è impossibile costruire $(S/H_S)^*$ direttamente, in quanto è anch'esso 
+infinito. Si sceglie un insieme finto di $H_S$, per esempio $H = \{c\}$: 
+$$
+(S/H)^* = \{R(c,s(c)) \implies Q(f(c)), \implies R(c,c), Q(f(c)) \implies \}
+$$
+Possiamo provare ad effettuare la risoluzione 
+\begin{prooftree}
+        \AxiomC{$R(c,s(c)) \implies Q(f(c))$}
+        \AxiomC{$Q(f(c)) \implies $}
+        \BinaryInfC{$R(c,s(c))\implies$}
+\end{prooftree}
+e rimaniamo con 
+$$
+(S/H)^* = \{R(c,s(c)) \implies, \implies R(c,c)\}
+$$
+coi quali non si può fare niente, in quanto le astrazioni proposizionali sono diverse. 
+Si amplia, quindi, $H'=\{c, s(c)\}$: 
+
+\begin{align*}
+        (S/H')^* = &\{ R(c, s(c)) \implies Q(f(c)), \implies R(c,c), Q(f(c)) \implies, \\
+                  &R(s(c),s(s(c))) \implies Q(f(s(c))), \implies R(c,s(c)), Q(f(s(c))) \implies\}
+\end{align*}
+nuovamente
+\begin{prooftree}
+        \AxiomC{$R(c,s(c)) \implies Q(f(c))$}
+        \AxiomC{$Q(f(c)) \implies $}
+        \BinaryInfC{$R(c,s(c))\implies$}
+\end{prooftree}
+e 
+$$
+(S/H')^* = \{R(c,s(c)) \implies, \implies R(c,c),
+                  R(s(c),s(s(c))) \implies Q(f(s(c))), \implies R(c,s(c)), Q(f(s(c))) \implies\}
+$$
+e si può risolvere 
+\begin{prooftree}
+        \AxiomC{$R(c,s(c)) \implies$}
+        \AxiomC{$\implies R(c,s(c))$}
+        \BinaryInfC{$\implies$}
+\end{prooftree}
+pertanto $(S/H')^*$ è insoddisfacibile $\rightarrow$ $S/H_S$ è insoddisfacibile 
+$\rightarrow$ $S$ è insoddisfacibile, quindi il problema iniziale era vero.
+Tuttavia, già da questo esempio si può intuire che c'è qualche difetto sul 
+quale si potrebbe lavorare. Inizialmente, bisognerebbe trovare un modo 
+per generare un sottoinsieme finito $H \subseteq H_S$ utile dal quale si 
+generano solo le clausole che sembrano utili, senza generare clausole inutili. 
+L'idea è sviluppare un metodo che vada in questa direzione. 
+
+\paragraph{Esempio: ``paradosso'' dell'uomo col cappello}
+$$
+\models \exists x (P(x) \rightarrow \forall y P(y))
+$$
+si asserisce che sia una verità logica, ma è davvero così? Possiamo 
+utilizzare le tecnologie a nostra disposizione: 
+$$
+\neg (\exists x (P(x) \rightarrow \forall y P(y))) \text{ è insoddisfacibile}
+$$
+\begin{align*}
+&\forall x \neg (P(x)  \rightarrow \forall y P(y)) \\
+&\equiv \forall x \neg (\neg P(x) \lor \forall y P(y)) \\
+&\equiv \forall x (P(X) \land \neg (\forall y P(y))) \\
+&\equiv \forall x \exists y (P(x) \land \neg P(y))
+\end{align*}
+
+che si può Skolemizzare in 
+$$
+\forall x (P(x) \land \neg P(f(x))) \text{ insoddisfacibile?}
+$$
+Si traduce in
+$$
+C_1 := \{\implies P(x)\}, C_2 := \{P(f(x)) \implies\}
+$$
+quindi si definisce 
+$$
+S = \{\implies P(x), P(f(x)) \implies\}
+$$
+e 
+$$
+F_S = \{f(\cdot), \mathfrak{z}\} ~~~~ H_S = \{\mathfrak{z}, f(\mathfrak{z}), \cdots\}
+$$
+Inizialmente si istanzia 
+$$
+H = \{\mathfrak{z}\}
+$$
+e si ottiene 
+$$
+S = \{\implies P(z), P(f(z)) \implies\}
+$$
+ma non si può fare nulla. 
+Si istanzia 
+$$
+H = \{\mathfrak{z}, f(\mathfrak{z})\}
+$$
+e si ottiene 
+$$
+S = \{\implies P(z), P(f(z)) \implies\} \cup  \{\implies P(f(z)), P(f(f((z))) \implies\}
+$$
+A questo punto si può risolvere: 
+\begin{prooftree}
+        \AxiomC{$P(f(z)) \implies$}
+        \AxiomC{$\implies P(f(z))$}
+        \BinaryInfC{$\implies$}
+\end{prooftree}
+e pertanto $S$ è insoddisfacibile, e di contro 
+è vero che 
+$$
+\models \exists x (P(x) \rightarrow \forall y P(y))
+$$
+
+
+\subsubsection{Difetti}
+Sia 
+$$
+S = \{ \{\implies P(x,y), Q(x)\}, \{P(x,f(x)) \implies \}\}
+$$
+si costruiscono 
+$$
+F_S = \{f(\cdot), \mathfrak{z}\} ~~~~~~~ H_S=\{\mathfrak{z}, f(\mathfrak{z}), f(f(\mathfrak{z})), \cdots \}
+$$
+la risoluzione che possiamo opearare è, ad esempio, 
+\begin{prooftree}
+        \AxiomC{$\implies P(\mathfrak{z},f(\mathfrak{z})), Q(\mathfrak{z})$}
+        \AxiomC{$P(\mathfrak{z},f(\mathfrak{z})) \implies$}
+        \BinaryInfC{$\implies Q(\mathfrak{z})$}
+\end{prooftree}
+istanziando $x = \mathfrak{z}, y = f(\mathfrak{z})$; ma questa 
+è una considerazione generale e prendendo invece 
+$x = f(\mathfrak{z}), y = f(\mathfrak{z})$ si ottiene 
+\begin{prooftree}
+        \AxiomC{$\implies P(f(\mathfrak{z}),f(f(\mathfrak{z}))), Q(f(\mathfrak{z}))$}
+        \AxiomC{$P(f(\mathfrak{z}),f(f(\mathfrak{z})) \implies$}
+        \BinaryInfC{$\implies Q(f(\mathfrak{z}))$}
+\end{prooftree}
+e si possono ottenere infinite altre risoluzioni. Per il nostro 
+apparato concettuale, tutte queste risoluzioni sono equivalenti, ma noi 
+vediamo qualcosa in più: vi è infatti un \textit{pattern} che ci piacerebbe 
+catturare, e tutte le ripetizioni diventerebbero l'istanza di un'unica risoluzione; 
+il pattern è chiaro: 
+$$
+y \mapsto f(x)
+$$
+questa è una sostituzione ma non è una istanziazione, in quanto $y$ non ``diventa'' 
+un termine ground, ma possiede una variabile. Tuttavia, se si riesce a 
+disegnare un quadro in cui questo è lecito, si risolve direttamente 
+\begin{prooftree}
+        \AxiomC{$\implies P(x,f(x)), Q(x)$}
+        \AxiomC{$P(x,f(x)) \implies$}
+        \AxiomC{$:y \mapsto f(x)$}
+        \TrinaryInfC{$\implies Q(x)$}
+\end{prooftree}
+E da $\implies Q(x)$ si può ritrovare, con le istanziazioni, tutta la famiglia 
+di risoluzioni che si possono generare una per volta. 
+
+\subsection{Teoria delle Sostituzioni}
+Quali clausole del Primo Ordine generano per istanziazione la clausola vuota?
+Solo la clausola vuota stessa. L'approccio proposto poco fa, allora, 
+è promettente, poiché: 
+\begin{itemize}
+        \item Ci sono delle sosstituzioni ottime che sono ``facili'' da calcolare 
+                e trovare 
+        \item (``Lifting'') Facendo prima le risoluzioni a livello non ground si 
+                riesce a posticipare la fase d'istanziazione (ground) da non 
+                avere più bisogno di farla, poiché se l'insieme di sequenti 
+                è insoddisfacibile si troverà la clausola vuota
+\end{itemize}
+
+Abbiamo già discusso di sostituzioni riguardo la Logica Proposizionale, in cui 
+si sostituivano delle lettere proposizionali con una Formula. Nella Logica dei Predicati, 
+abbiamo discusso di sostituzione di variabili individuali con termini. Anche 
+ora discuteremo di qualcosa di simile, ma ora la notazione cambia in quanto 
+sarà proprio la sostituzione il punto focale del discorso. 
+
+\begin{defi}[Sostituzione]
+        Una \textbf{sostituzione} $\sigma$ è una mappa 
+        $$
+        \sigma: Var \rightarrow \tau_{L}
+        $$
+        con $\tau_{L}$ che indica l'insieme dei termini costruibili sul linguaggio 
+        $L$, anche non ground; $\sigma$ ha una proprietà importante che rende 
+        la computazione delle sostituzioni molto semplice: l'insieme delle variabili 
+        $x$ tali che sono ``mosse'' dalla sostituzione, ossia $x \neq \sigma(x)$, 
+        è finito. 
+        L'insieme  delle variabili ``mosse'' viene chiamato dominio di $\sigma$. 
+\end{defi}
+
+Se il dominio di $\sigma$ è 
+$$
+dom(\sigma) = \{x_1, \cdots, x_k\}
+$$
+allora si può visualizzare $\sigma$ nel seguente modo: 
+$$
+\sigma: x_1 \mapsto t_1, \cdots, x_k \mapsto t_k
+$$
+Questa notazione sostituisce la notazione $([t_i/x_i])$ utilizzata fino ad ora. 
+
+\begin{defi}[Estensione Canonica]
+Una sostituzione $\sigma$ si estende canonicamente ad una mappa 
+$$
+\hat{\sigma}: \tau_L \mapsto \tau_L
+$$
+con la solita definizione di estensione canonica definita induttivamente: 
+\begin{itemize}
+        \item{\textbf{base}}
+                $$
+                \hat{\sigma}(x)  := x ~~~~~ \text{ per ogni} x \in Var 
+                $$
+        \item{\textbf{passo induttivo}}
+                $$
+                \hat{\sigma}(f(t_1, \cdots, t_n)) := f(\hat{\sigma}(t_1), \cdots, \hat{\sigma}(t_n))
+                $$
+\end{itemize}
+
+Si può, inoltre, estendere $\sigma$ non solo ai termini ma a tutte le espressioni 
+che ci servono, in particolar modo alle espressioni atomiche: 
+Sia $P(t_1, \cdots, t_n)$ un'atomica del nostro linguaggio. Allora si definisce 
+$$
+\hat{\sigma}(P(t_1, \cdots, t_n)) := P(\hat{\sigma}(t_1), \cdots, \hat{\sigma}(t_n))
+$$
+Sia $E$ una qualsiasi espressione d'interesse: allora 
+$$
+\hat{\sigma}(E)
+$$
+è l'espressione sostituendo tramite $\sigma$ simultaneamente tutti i termini 
+che appaiono in $E$. 
+\end{defi}
+
+Scriveremo spesso $E\sigma$ per indicare $\hat{\sigma}$ applicato all'espressione $E$ 
+$\hat{\sigma}(E)$
+
+\subsubsection{Proprietà delle Sostituzioni}
+\begin{itemize}
+        \item{\textbf{Composizione}} Se $\gamma, \tau : Var \rightarrow \tau_L$
+                la sostituzione composta $\sigma\tau$ è data da 
+                $$
+                \sigma\tau(x) = \hat{\tau}(\sigma(x))
+                $$
+        Ovviamente $\hat{\sigma\tau}$ applicata su una certa espressione $E$, 
+        denotato quindi $E\sigma\tau$ si ottiene applicando $\hat{\tau}(\sigma(x_i))$ 
+        ad ogni variabile occorrente in $E$. 
+        \item{\textbf{Sostituzione Identica}} la sostituzione $id$ è definita 
+                $$
+                id(x_i) = x_i ~~~  \text{ per ogni } x_i \in Var
+                $$
+        e ha dominio vuoto ($dom(id) = \emptyset$); gode della proprietà di 
+        composizione seguente: 
+        $$
+        \sigma id = id \sigma = \sigma \text{ per ogni } \sigma:Var \rightarrow \tau_L
+        $$
+        quindi svolge il ruolo di elemento neutro. 
+
+        \item{\textbf{Rinomine}} una rinomina è una sostituzione $\rho: Var \rightarrow \tau_L$
+                che è una permutazione del suo dominio, ossia 
+                $$
+                \rho(x_i) = x_j
+                $$
+                e $\rho$ è biiettiva sul suo dominio, quindi ogni 
+                rinomina è invertibile; esiste pertanto una certa 
+                sostituzione $\rho'$ tale che $\rho'(\rho(x_i)) = x_i$, in altre 
+                parole $\rho\rho' = \rho'\rho = id$.
+        \item{\textbf{Sostituzione Generale}} $\sigma$ è detta 
+                \textit{più generale} di $\tau$ se esiste una sostituzione 
+                $\delta$ tale che $\sigma\delta = \tau$. 
+        Per esempio, se 
+        $$
+        \delta: x \mapsto f(z), y \mapsto z
+        $$
+        e 
+        $$
+        \tau : x \mapsto f(z), y \mapsto c, z \mapsto c
+        $$
+        allora $\sigma$ è più generale di $\tau$ ($\sigma \geq \tau$)
+        in quanto se definiamo 
+        $$
+        \delta: z \mapsto c
+        $$
+        si ha che $\tau = \sigma\delta$.
+        \item{\textbf{Preordine}} La relazione ``essere più generale'' $\sigma \geq \tau$ è riflessiva e 
+                transitiva, ma in generale non è antisimmetrica; 
+                esistono sostituzioni distinte (come le rinomine)
+                $\sigma \neq \tau$ tali che $\sigma$ è più generale di 
+                $\tau$ e al contempo $\tau$ è più generale di $\sigma$. 
+                Quanto la relazione è riflessiva e transitiva ma non antisimmetrica, 
+                la relazione è definita \textit{preordine} e non \textit{ordine}. 
+
+                Se $\sigma \neq \tau$ e $\sigma \geq \tau$, $\tau \geq \sigma$, 
+                allora esistono due rinomine $\rho_1$, $\rho_2$ tali che 
+                $$
+                \sigma\rho_1 = \tau ~~~~~ \tau\rho_2 = \sigma
+                $$
+        \item{\textbf{Equivalenza Sostituzionale}} Se $\sigma \geq \tau$ e $\tau \geq \sigma$, dichiariamo 
+                che $\sigma \equiv \tau$.
+
+        \item{\textbf{Ordine Parziale}} L'insieme delle sostituzioni con la relazione 
+                ``essere più generale'' quozientato rispetto a $\equiv$ è 
+                un ordine parziale, 
+                ossia 
+                $$
+                \{[\sigma]_{\equiv}: \sigma : Var \rightarrow \tau_L\} 
+                $$
+                è un ordine parziale rispetto a $\geq$.
+\end{itemize}
+
+L'ultimo concetto che ci serve per arrivare alla definizione della Risoluzione 
+Sollevata o Liftata è il seguente: 
+\begin{defi}[Unificazione]
+        Un problema di Unificazione è una lista finita di coppie di termini 
+        $$
+        t_1 \stackrel{?}{=} u_1, \cdots, t_n \stackrel{?}{=} u_n
+        $$
+\end{defi}
+La soluzione ad un problema di unificazione è una sostituzione che verifica tutte 
+le uguaglianze nella lista di coppie di termini, ossia una sostituzione 
+$$
+\sigma: Var \rightarrow \tau_L 
+$$
+tale che 
+$$
+\hat{\sigma}(t_1) = \hat{\sigma}(u_1), \cdots, \hat{\sigma}(t_n) = \hat{\sigma}(u_n)
+$$
+\begin{defi}[Unificatore]
+        Una soluzione $\mu: Var \rightarrow \tau_L$ è detta \textbf{unificatore}
+        di massima generalità (\textit{most general unifier}) se e solo se 
+        $\mu$ è più generale di ogni altra soluzione al problema di unificazione.
+\end{defi}
+
+\begin{teo}[di Unificazione]
+Ogni problema di unificazione $U$ o ammette una soluzione che è un MGU (ossia 
+esiste $\mu$ che è un most general unifier) oppure non ammette alcuna soluzione. 
+Si noti che se $mgu(U)$ esiste non è necessariamente unico, in quanto è unica 
+la classe di equivalenza di $mgu(U) = [\mu]_{\equiv}$.
+
+Esistono algoritmi che su 
+input $U$ trovano velocemente $\mu = mgu(U)$ se esiste, e si fermano 
+se $mgu(U)$ non esiste.
+
+\end{teo}
+
+Ci interesserà risolvere problemi del tipo 
+$$
+P(t_1, \cdots, t_m) \stackrel{?}{=} Q(s_1, \cdots, s_n)
+$$
+per $P$ simbolo di predicato $m$-ario e $Q$ simbolo di predicato $n$-ario. In 
+altre parole ci interessa unificare due atomiche. Si noti che il problema appena 
+esposto è unificabile se $P = Q$ e dunque $m = n$. Il problema si riduce a 
+$$
+P(t_1, \cdots, t_n) \stackrel{?}{=} P(s_1, \cdots, s_n)
+$$
+che a sua volta si riduce a 
+$$
+U: t_1 \stackrel{?}{=}s_1, \cdots, t_n \stackrel{?}{=}s_n
+$$
+
+\subsection{Calcolo R della risoluzione liftata}
+Si supponga di avere le seguenti regole scritte in forma 
+a sequenti: 
+$$
+\{\{\Gamma \implies \Delta, A\}, \{B, \Gamma' \implies \Delta'\}\}
+$$
+dove le variabili occorrenti in $\Gamma \implies \Delta, A$ sono 
+disgiunte da quelle in $B, \Gamma' \implies \Delta'$; inoltre si può 
+sempre rispettare questo vincolo attraverso le rinomine. 
+
+$A$ e $B$ sono proposizioni atomiche, mentre $\Gamma, \Delta, \Gamma', \Delta'$ 
+sono insiemi di proposizioni atomiche. 
+
+Se si riesce a calcolare un $\mu = mgu(A,B)$, allora si può risolvere
+su $R(\mu(A), \mu(B))$: 
+\begin{prooftree}
+        \AxiomC{$\Gamma \implies \Delta, A$}
+        \AxiomC{$B, \Gamma' \implies \Delta'$}
+        \BinaryInfC{$\Gamma\mu, \Gamma'\mu, \implies \Delta\mu, \Delta'\mu$}
+\end{prooftree}
+
+Questa regola incarna il calcolo R. Da sola non basta a garantire la completezza 
+refutazionale, ma è necessario aggiungere almeno una delle seguenti due 
+regole di fattorizzazione: 
+\begin{itemize}
+        \item{Fattorizzazione Destra} se si 
+                ha un sequente $\Gamma \implies \Delta, A, B$ e $\mu = mgu(A,B)$, allora 
+                si può dedurre
+                $$
+                \Gamma_{\mu} \implies \Delta_{\mu}, A_{\mu}
+                $$
+        sostanzialmente unificando $A$ e $B$ e tenendo un'unica copia dei due. 
+        \item{Fattorizzazione Sinistra}
+                se si 
+                ha un sequente $\Gamma, A, B \implies \Delta$ e $\mu = mgu(A,B)$, allora 
+                si può dedurre
+                $$
+                \Gamma_{\mu},A_{\mu} \implies \Delta_{\mu}
+                $$
+        sostanzialmente unificando $A$ e $B$ e tenendo un'unica copia dei due. 
+\end{itemize}
+
+Una refutazione di un insieme di clausole $S$ nel calcolo R è una successione 
+di clausole 
+$$
+C_1, C_2, \cdots, C_u
+$$
+tale che: 
+\begin{enumerate}
+        \item $C_u = \implies$
+        \item per ogni $C_i$ o $C_i$ è un membro di $S$ eventualmente 
+                rinominato, oppure è ottenuto da eventuali rinomine di $C_j, C_k$
+                con $(j,k < i)$ per risoluzione o fattorizzazione (destra o sinistra).
+\end{enumerate}
+Il calcolo R è refutazionalmente completo per ogni insieme di clausole $S$ e quindi 
+per la logica del Primo Ordine. Allora, 
+se si ha un probelma del tipo 
+$$
+\Gamma \stackrel{?}{\models} A
+$$
+si trasforma in un insieme di clausole del Primo Ordine $S$ e si tenta 
+di refutarlo col calcolo $R$. Se questo accade, ossia $S \vdash_R \implies$, 
+allora $S$ è insoddisfacibile e $\Gamma \models A$. Se $\Gamma \models A$, 
+allora $S$ è insoddisfacibile e pertanto deve essere $S \vdash_R \implies$. 
+
+
+\subsubsection{Considerazioni Finali}
+La completezza refutazionale di $R$ mostra che la logica del Primo Ordine è 
+(almeno) semidecidibile. Almeno, in quanto il Teorema di Church afferma che non si può 
+fare di meglio, ossia la Logica del Primo Ordine è semidecidibile ma non decidibile. 
+
+Sia $\Gamma \models A$ e $S$ l'insieme di clausole derivanti. $S$ potrebbe 
+anche essere infinito. Sia, ora, $H_S$ l'universo di Herbrand relativo. 
+Sia 
+$$
+S_1 \subseteq_{\omega} S_2 \subseteq_{\omega} \cdots \subseteq_{\omega}S
+$$
+un insieme di sottoinsiemi di $S$ tali che $\bigcup_{i \in \omega} S_i = S$ 
+e per ogni $i \in \omega$ sia $H^i$ l'universo di Herbrand di $S_i$. Chiaramente, 
+si ha anche che 
+$$
+H^1 \subseteq H^2 \subseteq \cdots \subseteq H_s
+$$
+e $\bigcup_{i \in \omega} H^i = H_s$. Per ogni $i$ si definisce 
+$$
+H_1^i \subseteq_{\omega} H_2^i \subseteq_{\omega}\cdots \subseteq_{\omega} H^i
+$$
+Per ogni $k \in \omega$ e per ogni $i,j, i+j = k$ si applica DPP o DPLL a $S_i/H_j^i$. 
+Se si trova la clausola vuota, allora $S$ è insoddisfacibile. Se non si trova, 
+allora si passa a $k=k+1$. In questo modo si riescono a perlustrare tutti i sottoinsiemi 
+finiti dello spazio di ricerca, e se $S$ è insoddisfacibile prima o poi si trova. 
+
+La morale sottesa a questa considerazione è che se $S$ è insoddisfacibile 
+prima o poi si mostra che lo è. Se $S$ è soddisfacibile non ci sono criteri generali 
+per fermare l'algoritmo. 
+
+
+\begin{defi}[Completezza Formale]
+        Una teoria $\Gamma$ si dice Formalmente Completa se e solo se per 
+        ogni enunciato $A$ o $\Gamma \vdash A$ oppure $\Gamma \vdash \neg A$. 
+        Per Completezza e Correttezza Semantica, questo equivale a dire 
+        che $\Gamma \models A$ oppure $\Gamma \models \neg A$.
+\end{defi}
+
+\begin{teo}[Teorema di Incompletezza di G\"odel]
+        Se $T$ è una teoria assiomatizzabile, consistente e che esprime 
+        l'Aritmetica di Peano, allora esiste $\phi$ tale che 
+        $$
+        T \nvdash \phi ~~~~~ T \nvdash \neg \phi
+        $$
+        e, inoltre, $\mathcal{N} = (\mathbb{N}, +, *, 0, s)$ è tale 
+        che $\mathcal{N} \models \phi$.
+\end{teo}
+
+\begin{defi}[Aritmetica di Presburger]
+        Sostanzialmente, è l'Aritmetica di Peano senza moltiplicazione. 
+        $PrA$ è formalmente completa e decidibile in tempo doppiamente esponenziale.
+\end{defi}
+
+\begin{defi}[Aritmetica di Robinson]
+        Sostanzialmente, è l'Aritmetica di Peano senza schema di induzione, 
+        più un assioma che sostituisce alcune particolarità dello 
+        schema di induzione: 
+        $$
+        \forall x (\neg (x= 0) \rightarrow \exists y (s(y) = x))
+        $$
+        Si può dimostrare che, pur senza induzione, è altrettanto formalmente 
+        incompleta, come tutte le sue estensioni consistenti e assiomatizzabili, 
+        come PA stessa. RA è semidecidibile ma non decidibile. 
+        Tuttavia, RA è finitamente assiomatizzabile.
+\end{defi}
+
+\begin{teo}[Teorema di Church]
+        Sia 
+        $$
+        RA = \{A_1, A_2, \cdots, A_7\} 
+        $$
+        e sia 
+        $$
+        C = A_1 \land \cdots \land A_7
+        $$
+        $C$ è un enunciato nell'Aritmetica di Robinson. Sia 
+        $A$ un enunciato arbitrariamente scelto. Si suppone, per assurdo, che la 
+        Logica del Primo Ordine sia decidibile. Allora 
+        $$
+        C \rightarrow A
+        $$
+        è un enunciato del Primo Ordine, 
+        dunque è decidibile se $\models C \rightarrow A$ oppure $\nvDash C \rightarrow A$. 
+        Se fosse $\models C\rightarrow A$, allora avremmo 
+        \begin{prooftree}
+                \AxiomC{$C$}
+                \AxiomC{$C \rightarrow A$}
+                \BinaryInfC{$A$}
+        \end{prooftree}
+        per modus ponens, e che quindi $RA \models A$. Se invece 
+        fosse $\nvDash C \rightarrow A$, allora per il teorema di deduzione 
+        $C \nvDash A$, dunque $RA \nvDash A$.  
+        Dunque, abbiamo deciso se $RA \models A$ oppure $RA \nvDash A$, cioè, 
+        $RA$ è decidibile. Assurdo. Pertanto, la Logica del Primo Ordine non è decidibile.
+\end{teo}
+
+Mentre l'insieme degli enunciati insoddisfacibili è enumerabile, l'insieme degli 
+enunciati soddisfacibili non è enumerabile, poiché se così fosse ci sarebbe un 
+modo per rendere decidibile una qualunque aritmetica, che è assurdo.
+enumerabile 
