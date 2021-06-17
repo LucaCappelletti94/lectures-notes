@@ -1,69 +1,57 @@
 % TEX root = ../../main.tex
 \chapter{Sintassi della Logica Proposizionale}
 
-Dopo aver introdotto la Logica Proposizionale, si può 
-ora formalizzare la struttura sintattica degli enunciati: 
-l'insieme $F_{L}$ degli enunciati costruibili 
-sul linguaggio $L$ rispettando la \textbf{sintassi 
-degli enunciati} è definito come segue: 
+Dopo aver introdotto la Logica Proposizionale, si può ora formalizzare la struttura sintattica degli enunciati: l'insieme $\mathscr{F}_\mathscr{L}$ degli enunciati costruibili sul linguaggio $\mathscr{L}$ rispettando la \textit{sintassi degli enunciati} definita come segue: 
 
 \begin{defi}{(Sintassi degli Enunciati)}
-\begin{itemize}
+Vi sono diversi modi per definire la sintassi degli enunciati:
+\begin{enumerate}
   \setlength\itemsep{0pt}
- \item $F_L$ è il più piccolo insieme tale che 
+ \item $\mathscr{F}_\mathscr{L}$ è il più piccolo insieme tale che 
     \begin{itemize}
-      \item per ogni $p \in L$ si ha $p \in F_L$
-      \item se $A,B \in F_L$ allora anche $(A\land B) \in F_L$, $(A\lor B) \in F_L$, 
-        $(A \rightarrow B) \in F_L$ e $(\neg A) \in F_L$, dove $A$ e $B$ possono 
+      \item per ogni $p \in \mathscr{L}$ si ha $p \in \mathscr{F}_\mathscr{L}$
+      \item se $A,B \in \mathscr{F}_\mathscr{L}$ allora anche $(A\land B) \in \mathscr{F}_\mathscr{L}$, $(A\lor B) \in \mathscr{F}_\mathscr{L}$, 
+        $(A \rightarrow B) \in \mathscr{F}_\mathscr{L}$ e $(\neg A) \in \mathscr{F}_\mathscr{L}$, dove $A$ e $B$ possono 
         essere a loro volta enunciati complessi. 
       \end{itemize}
-  \item $F_L$ è l'intersezione di tutti gli insiemi $X$ tali che 
+  \item $\mathscr{F}_\mathscr{L}$ è l'intersezione di tutti gli insiemi $X \subseteq (\mathscr{L} \cup \{\land, \lor, \rightarrow, \neg\})^*$\footnote{L'utilizzo dell'operatore $^*$ è paragonabile all'operatore Stella di Kleene nella Teoria dei Linguaggi e denota l'insieme di tutte le stringhe di lunghezza finita componibili utilizzando le lettere dell'alfabeto indicato, in questo caso i connettivi e le lettere proposizionali.} tali che 
     \begin{itemize}
       \item $L \subseteq X$
       \item se $A,B \in X$ allora $(A\land B)$, $(A\lor B)$, $(\neg A)$ e 
         $(A \rightarrow B)$ sono contenuti in $X$. 
     \end{itemize}
-  \item (induttiva) $F_L$ è l'insieme che rispetta le condizioni seguenti: 
+  \item (induttiva) $\mathscr{F}_\mathscr{L}$ è l'insieme che rispetta le condizioni seguenti: 
     \begin{itemize}
-      \item $L \subseteq F_L$: se $p \in L$, allora $p \in F_L$
-      \item Se $A,B \in F_L$, allora $(A\land B)$, $(A\lor B)$, $(\neg A)$ e 
-        $(A \rightarrow B)$ sono contenuti in $F_L$
-      \item Nient'altro appartiene a $F_L$.
+      \item $\mathscr{L} \subseteq \mathscr{F}_\mathscr{L}$: se $p \in \mathscr{L}$, allora $p \in \mathscr{F}_\mathscr{L}$
+      \item Se $A,B \in \mathscr{F}_\mathscr{L}$, allora $(A\land B)$, $(A\lor B)$, $(\neg A)$ e 
+        $(A \rightarrow B)$ sono contenuti in $\mathscr{F}_\mathscr{L}$
+      \item Nient'altro appartiene a $\mathscr{F}_\mathscr{L}$.
     \end{itemize}
-\end{itemize}
+\end{enumerate}
 \end{defi}
 \paragraph{Esercizio}
 Scrivere qualcosa che non sia un enunciato utilizzando solamente la sintassi della 
 logica proposizionale. Un esempio è $p q \neg$. Un altro è $\rightarrow q$.
 
-\section{L-Costruzioni}
+\section{$\mathscr{L}$-Costruzioni}
 Per stabilire se una stringa $w \in (\{\land, \lor, \neg, \rightarrow\}
-\cup L)^*$\footnote{L'utilizzo dell'operatore $^*$ è paragonabile all'operatore 
-  Stella di Kleene nella Teoria dei Linguaggi e denota l'insieme di tutte le
-  stringhe di lunghezza finita componibili utilizzando le lettere 
-  dell'alfabeto indicato, in questo caso i connettivi e le lettere 
-proposizionali.}
-è anche $w \in F_L$ si utilizza una \textbf{L-costruzione} o 
-\textbf{certificato}, ossia una sequenza finita di formule $w_1, w_2, \cdots, w_n$ tale che 
-per ogni $i = 1,\cdots, n$ si ha $w_i \in L$, ossia 
-$w$ è una lettera proposizionale, oppure esiste $j < i$ tale 
-che $w_i = \neg w_j$, ossia $w_i$ è la forma negata 
-di una formula più semplice che appare prima nell'elenco di 
-formule; oppure esistono $k,j < i$ tali per cui 
-$w_i = w_k \land w_j$ o $w_i = w_k \lor w_j$ o $w_i = w_k \rightarrow w_j$.
-Sia, per esempio $w = (p\land q)\rightarrow r$. Per dimostrare che 
-è $w \in F_L$ si possono introdurre come L-costruzione 
+\cup L)^*$ è anche $w \in \mathscr{F}_\mathscr{L}$ si deve trovare una \textbf{$\mathscr{L}$-costruzione}—o \textit{certificato}—adatta: una sequenza finita di formule $w_1, w_2, \cdots, w_n$ tale che $w_n = w$ e ogni $w_i$:
+\begin{itemize}
+  \item o è una lettera proposizionale $w_i \in \mathscr{L}$ 
+  \item o esiste $j < i$ tale che $w_i = \neg w_j$
+  \item o esistono $k,j < i$ tali per cui $w_i = w_k \land w_j$ o $w_i = w_k \lor w_j$ o $w_i = w_k \rightarrow w_j$.
+\end{itemize}
+
+Per esempio, sia $w = (p\land q)\rightarrow r$. Per dimostrare che $w \in \mathscr{F}_\mathscr{L}$ si possono introdurre come $\mathscr{L}$-costruzione:
 $$
 w_1 = p, w_2 = q, w_3 = (p\land q), w_4 = r, w_5 = (p \land q) \rightarrow r
 $$
-questa L-costruzione \textit{certifica} che $w \in F_L$.
+questa $\mathscr{L}$-costruzione \textit{certifica} che $w \in \mathscr{F}_\mathscr{L}$.
 In termini computazionali, si può controllare velocemente che quanto fatto 
-sopra sia una costruzione corretta e che pertanto $w \in F_L$. Si noti, inoltre, 
-che questa L-costruzione non è unica. 
-I certificati portano con sé una proprietà importante riguardo le formule, 
-ossia 
-\begin{pro}[di unica leggibilità dei Certificati]
-Se $w \in F_L$, allora vale uno e uno solo dei seguenti casi: o $w \in L$, 
+sopra sia una costruzione corretta e che pertanto $w \in \mathscr{F}_\mathscr{L}$. Si noti, inoltre, 
+che questa $\mathscr{L}$-costruzione non è unica.
+\begin{pro}[Proprietà di unica leggibilità dei Certificati]
+Se $w \in \mathscr{F}_\mathscr{L}$, allora vale uno e uno solo dei seguenti casi: o $w \in \mathscr{L}$, 
 o esiste $v$ tale che $w = \neg v$, o esistono $v_1, v_2$ tali che 
 $w = (v_1 \land v_2)$, 
 $(v_1 \lor v_2)$ o $(v_1 \rightarrow v_2)$, dove i $v_i$ sono determinati 
@@ -72,7 +60,8 @@ univocamente.
 Questa proprietà garantisce l'esistenza di una sorta di operazione 
 inversa della costruzione di certificati: mentre quest'ultimo ``monta'' 
 una formula, questa proprietà garantisce il fatto che sia possibile 
-``smontarla'' in un unico modo.
+``smontarla'' in un unico modo!
+
 Questa proprietà non è condivisa tra tutti i linguaggi formali: per 
 esempio nelle grammatiche una stringa $w = ciao$ può essere composta da $v_1 = \epsilon$ 
 e $v_2 = ciao$ eccetera. 
@@ -89,7 +78,7 @@ sempre vero e chiaramente $\bot = \neg \top$. Altro connettivo è $\iff$,
 definito come $(A \rightarrow B) \land (B \rightarrow A)$.
 
 Una seconda osservazione riguarda l'uso delle parentesi: per come abbiamo definito 
-le formule, l'oggetto $p \land q \notin F_L$ in quando mancano le parentesi. 
+le formule, l'oggetto $p \land q \notin \mathscr{F}_\mathscr{L}$ in quando mancano le parentesi. 
 In formule complesse, le parentesi possono aggiungere complicatezza e portare l'errore: 
 useremo il buonsenso per ``dimenticarci'' delle parentesi laddove non ci sia 
 pericolo di confusione. Tuttavia non bisogna farsi trasportare troppo, in quanto 

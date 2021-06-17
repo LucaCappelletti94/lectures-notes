@@ -1,19 +1,12 @@
 % TEX root = ../../main.tex
 \chapter{Semantica della Logica del Primo Ordine}
 \section{Semantica di Tarski}
-La semantica esprime \textit{come e quando} un $L$-enunciato è vero (o falso) in una data 
-circostanza. \`E necessario fissare e formalizzare la  nozione di \textit{circostanza}
-o ``mondo possibile''. Nel livello Proposizionale, la circostanza è un 
-\textit{assegnamento}. Una volta fatto ciò, sarà necessario formalizzare 
-l'\textit{interpretazione} degli enunciati (e quindi dei termini) in ogni circostanza 
-formalizzata. 
+La semantica esprime \textit{come e quando} un $\mathscr{L}$-enunciato è vero (o falso) in una data circostanza. È necessario fissare e formalizzare la  nozione di \textit{circostanza} o ``mondo possibile''. Una volta fatto ciò, sarà necessario formalizzare l'\textit{interpretazione} degli enunciati (e quindi dei termini) in ogni circostanza formalizzata.
 
-Un'idea per la formalizzazione del concetto di 
-\textbf{circostanza}, dovuta al logico polacco Alfred Tarski, 
-è che la \textit{verità} è una corrispondenza con lo stato di \textit{Fatto}. 
+Nella Logica Proposizionale la circostanza è un \textit{assegnamento}. \\
+Il logico polacco Alfred Tarski ha proposto di formalizzare la \textit{verità} in una \textbf{circostanza} nella Logica del Primo Ordine come corrispondenza con lo \textit{stato di fatto}. 
 
-Per la \textbf{semantica tarskiana}, nel linguaggio naturale l'enunciato
-``La neve è bianca'' è un enunciato vero se e solo se la neve è bianca. 
+Per la \textbf{semantica tarskiana}, nel linguaggio naturale l'enunciato ``La neve è bianca'' è un enunciato vero se e solo se la neve è bianca. 
 Pertanto, ci si può immaginare di matematizzare questo concetto 
 tramite la teoria degli insiemi, affermando che esista un certo 
 insieme chiamato \textit{Universo del discorso}, composto da vari individui,
@@ -53,96 +46,68 @@ un enunciato è vero a scapito di altri.
 
 Si consideri, ora,  un universo composto da altri universi: chiamando 
 ciò che abbiamo considerato fino ad ora 
-un \textit{universo} una $L$-Struttura, si costruisce l'insieme 
-di tutte le $L$-Strutture; data una teoria $\Gamma$ si potrà identificare, 
-nell'insieme di tutte le $L$-Strutture, tutte quelle che modellano $\Gamma$. 
+un \textit{universo} una $\mathscr{L}$-struttura, si costruisce l'insieme 
+di tutte le $\mathscr{L}$-strutture; data una teoria $\Gamma$ si potrà identificare, 
+nell'insieme di tutte le $\mathscr{L}$-strutture, tutte quelle che modellano $\Gamma$, ossia tutti quelli in cui le assunzioni $\Gamma$ sono valide. 
 
-Definiamo formalmente le $L$-Strutture:
-\begin{defi}[$L$-Struttura]
-        Sia dato un linguaggio elementare $L  = (\mathcal{P}, F, \alpha, \beta)$. 
-        Una $L$-struttura è una coppia $\mathcal{A} = (A, I)$, dove 
-        $A$ è un insieme detto ``universo del discorso'' o, semplicemente, 
-        \textit{universo} (o dominio), che deve rispettare 
-        $$
-        A \neq \emptyset
-        $$
-        mentre $I$ è una funzione detta \textit{interpretazione}, definita 
-        tale che per ogni simbolo di 
-        predicato $P \in \mathcal{P}$ con arità $\alpha(P) = n$ si ha 
-        $$
-        I(P) \subseteq A^{n} 
-        $$
-        ossia $I(P)$ è un insieme di $n$-ple di elementi di $A$; inoltre, 
-        per ogni $f \in F$, $\beta(f) = n$ si ha 
-        $$
-        I(f) : A^{n} \rightarrow A
-        $$
-        ossia $I(F)$ è una funzione dall'insieme delle $n$-ple di $A$ verso elementi 
-        di $A$.
+Definiamo formalmente le $\mathscr{L}$-strutture:
+\begin{defi}[$\mathscr{L}$-struttura]
+Sia dato un linguaggio elementare $\mathscr{L}  = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$. \\
+Una $\mathscr{L}$-struttura è una coppia $\mathscr{A} = (U, I)$, dove $U$ è un insieme \textit{non vuoto} detto ``universo del discorso'' (o dominio), mentre $I$ è la funzione d'\textit{interpretazione} che interpreta i simboli linguistici dentro all'universo del discorso. \\
+Più specificatamente:
+\begin{itemize}
+  \item per ogni simbolo di predicato $P \in \mathscr{P}$ con arietà $\alpha(P) = n$, $I(P) \subseteq U^{n}$ (e.g, $M(s)$)
+  \item per ogni simbolo di funzione $f \in \mathscr{F}$ con arietà $\beta(f) = n$, $I(f) : U^{n} \rightarrow U$ (e.g. $p(s)$)
+\end{itemize}
 \end{defi}
 
-La definizione di $L$-struttura data formulizza a livello del Primo ordine la 
-nozione intuitiva di ``circostanza'' o ``mondo possibile''. A livello proposizionale, 
+La definizione di $\mathscr{L}$-struttura data formulizza a livello del Primo Ordine la nozione intuitiva di ``circostanza'' o ``mondo possibile''. A livello proposizionale, 
 essa è formalizzata dalla nozione di assegnamento. 
 
 
 \begin{oss}[Costanti]
-        Se $c \in F$ e $\beta(c) = 0$ 
+        Se $c \in \mathscr{F}$ e $\beta(c) = 0$ 
         $$
-        I(c) : A^{0} \rightarrow A
+        I(c) : U^{0} \rightarrow U
         $$
-        e $A^{0} = \{f: \emptyset  \rightarrow A\}$, la cui cardinalità è  
+        e $U^{0} = \{f: \emptyset  \rightarrow U\}$, la cui cardinalità è  
         $$ 
-        |A^0| = |\{f:\emptyset\rightarrow A\}| = |\{\emptyset\}| = 1
+        |U^0| = |\{f: \emptyset \rightarrow U\}| = |\{\emptyset\}| = 1
         $$
         Pertanto 
         $$
-        I(c): \{*\} \rightarrow A
+        I(c): \{*\} \rightarrow U
         $$ 
 (la notazione $\{*\}$
         rappresenta 
         l'insieme che contiene l'insieme vuoto), che equivale a 
-        ``scegliere'' un elemento di $A$.
+        ``scegliere'' un elemento di $U$.
         Identifichiamo una funzione 
         $$
-        g : \{*\} \rightarrow A 
+        g : \{*\} \rightarrow U
         $$
         con l'elemento scelto da $g(*)$. In altre parole, le costanti sono funzioni
         zerarie.
 \end{oss}
 
 \begin{oss}[Predicati zerari]
-        Se $p \in \mathcal{P}, \alpha(P) = 0$ è un simbolo di 
-        predicato zerario, si ha 
-        $$
-        I(P) \subseteq A^0 ~~~~ I(P) \subseteq \{*\}
-        $$
-        I cui sottoinsiemi sono sé stesso $\{*\}$ e l'insieme vuoto $\emptyset$. 
-        E quindi l'interpretazione di un predicato zerario svolge le funzioni 
-        di una vecchia lettera proposizionale, in quanto l'interpretazione 
-        di una proposizione può essere identificata tramite la sua funzione 
-        caratteristica 
-        $$
-        \chi_P: A^n \rightarrow \{0,1\}
-        $$
-        definita come 
-        $$
-        \bar{a} \in A^n \in I(P) \iff \chi_P(\bar{a}) = 1
-        $$
+Se $p \in \mathscr{P}, \alpha(P) = 0$ è un simbolo di predicato zerario, si ha 
+$$
+I(P) \subseteq U^0 ~~~~ I(P) \subseteq \{*\}
+$$
+I cui sottoinsiemi sono sé stesso $\{*\}$ (quindi $1$) e l'insieme vuoto $\emptyset$ (quindi $0$). \\
+L'interpretazione di un predicato zerario svolge, quindi, la funzione di lettera proposizionale. Un modo per giustificare il significato dato a $\{*\}$ e $\emptyset$ è interpretando le proposizioni tramite la loro funzione caratteristica $\chi_P: U^n \rightarrow \{0,1\}$, definita come 
+$$
+\bar{a} \in U^n \in I(P) \iff \chi_P(\bar{a}) = 1
+$$
 \end{oss}
 
 \begin{oss}[Interpretazione fissa del predicato di Uguaglianza]
-        Se $ = \in \mathcal{P}$ allora $L$ è un linguaggio con identità e 
-        $\alpha(=) = 2$. L'interpretazione di ``='' è fissata: 
-        se $\mathcal{A}=(A,I)$ è una $L$-struttura, allora 
-        $$
-        I(=) \subseteq A^2 
-        $$
-        è fissato e definito come 
-        $$
-        I(=):= \{(a,a) : a \in A\}
-        $$
-        e, in altre parole, $x = y$ è vero se $(I(x), I(y)) \in I(=)$.
+Se $=\ \in \mathscr{P}$ con arietà $\alpha(=) = 2$, allora $\mathscr{L}$ è un \textit{linguaggio con identità} (o uguaglianza). È un predicato importante perché l'interpretazione di ``$=$'' è fissata nella $\mathscr{L}$-struttura associata $\mathscr{A}=(U,I)$:
+$$
+I(=) \subseteq U^2 ~~~ \text{ e } ~~~ I(=):= \{(a,a) : a \in U\}
+$$
+In altre parole, $x = y$ è vero se $(I(x), I(y)) \in I(=)$. Un elemento è in relazione d'identità solo con sé stesso.
 \end{oss}
 
 L'eccezione sull'interpretazione del predicato di uguaglianza, fissato per 
@@ -155,16 +120,13 @@ che di funzione, quella relazione si comporta in maniera \textit{congruenziale}.
 Anche questo non è sufficiente per inchiodare l'identità, in quanto una congruenza 
 su un insieme che non è l'identità rispetta gli stessi assiomi. 
 
-In altre parole, o l'identià si codifica a forza, come accade ora nella Logica 
-del Prim'Ordine, oppure se ne ha una versione molto indebolita, in quanto non si 
-ha modo di distinguere con formule della Logica dei Predicati l'identità 
-da una congruenza sullo stesso insieme.  
+In altre parole, o l'identià si codifica a forza come si sta facendo ora nella Logica del Primo Ordine, oppure se ne ha una versione molto indebolita, in quanto non si ha modo di distinguere con formule della Logica dei Predicati l'identità da una congruenza sullo stesso insieme.  
 
-\subsection{Semantica degli enunciati in ogni $L$-struttura}
-Abbiamo dato la nozione di $L$-Struttura ma non si è ancora detto 
+\subsection{Semantica degli enunciati in ogni $\mathscr{L}$-struttura}
+Abbiamo dato la nozione di $\mathscr{L}$-struttura ma non si è ancora detto 
 come si interpretano gli enunciati, formalmente, cioè quando un 
-enunciato è vero o meno in tale $L$-Struttura. Intuitivamente, quello che 
-si vuole fare è quanto anticipato, ossia scegliere le $L$-Strutture che 
+enunciato è vero o meno in tale $\mathscr{L}$-struttura. Intuitivamente, quello che 
+si vuole fare è quanto anticipato, ossia scegliere le $\mathscr{L}$-strutture che 
 verificano una certa teoria. Tuttavia, questo deve essere eseguito 
 seguendo una definizione rigorosa e sistematicamente.
 
@@ -174,107 +136,92 @@ Si deve catturare l'idea intuitiva: ``la neve è bianca'' verrà
 formalizzato in qualcosa come $B(n)$, dove $B$ è un predicato 
 unario e $n \in A$ è una costante (quindi esiste una funzione zeraria 
 il cui risultato è $n$). Si vorrà formalizzare il tutto in modo tale da avere una 
-qualche $L$ struttura tale che $I(n)$ sia contenuta in $I(B)$; quindi si avrà che 
-$B(n)$ è vera in $\mathcal{A}$ se e solo se $I(n) \in I(B)$: 
+qualche $\mathscr{L}$-struttura tale che $I(n)$ sia contenuta in $I(B)$; quindi si avrà che 
+$B(n)$ è vera in $\mathscr{A}$ se e solo se $I(n) \in I(B)$: 
 $$
-\mathcal{A} \in B(n) \iff I(n) \in I(B)
+\mathscr{A} \in B(n) \iff I(n) \in I(B)
 $$
 
 Il passo più ostico nella definizione di interpretazione di termini 
 e formule (ed enunciati) sarà nell'interpretazione dei quantificatori; 
 per esempio, si supponga che si vuole stabilire se 
 $$
-\mathcal{A} \models \exists x A
+\mathscr{A} \models \exists x A
 $$
-che significa: se esiste un $a \in A$ tale che $\mathcal{A} \models A[a/x]$
+che significa: se esiste un $a \in U$ tale che $\mathscr{A} \models A[a/x]$
 e  analogamente per l'altro quantificatore 
 $$
-\mathcal{A} \models \forall x A
+\mathscr{A} \models \forall x A
 $$
-che è vero se e solo se per ogni $a \in A$ vale $\mathcal{A} \models A[a/x]$. 
+che è vero se e solo se per ogni $a \in U$ vale $\mathscr{A} \models A[a/x]$. 
 
-Purtroppo $a$ non è un elemento sintattico, ma è un elemento semantico, 
-ossia non è un termine e pertanto $A[a/x]$ non è definita.
-Non c'è nessuna ragione per cui ogni elemento di una $L$-struttura 
-debba avere, a priori, un nome: piuttosto, è vero il contrario. Se si vuole 
-parlare ad esempio dei reali, si vorrebbe farlo con un linguaggio 
-elementare $L$ che contiene solo finitamente molti simboli. 
+Purtroppo $a$ non è un elemento sintattico (i.e., un termine), ma è un elemento \textit{semantico}, e pertanto $A[a/x]$ non è definita.
+Non c'è nessuna ragione per cui ogni elemento di una $\mathscr{L}$-struttura debba avere, a priori, un nome: piuttosto, è vero il contrario. Per esempio, se si vuole parlare dei reali $\mathbb{R}$, si vorrebbe farlo con un linguaggio elementare $\mathscr{L}$ che contiene solo finitamente molti simboli (e.g., $0-9$ se si vuole lavorare in base 10). \\
+Noi ovvieremo a questo problema dando un nome agli elementi semantici dell'universo derivato dalla semantica stessa.
 
-\begin{defi}[Espansione di un $L$-Struttura]
-        Dato un linguaggio $L$ e una $L$-struttura $\mathcal{A}(A,I)$, si definisce 
-        una \textbf{espansione} di $L$ in un nuovo linguaggio $L_{\mathcal{A}}$
-        come segue: 
-        per ogni $a \in A$ arricchisci l'insieme delle costanti di $L$ con un 
-        nuovo simbolo $\bar{a}$ (nome di $a$) che viene interpretato in $a$. 
-
-        $$
-        L_{\mathcal{A}} := (\mathcal{P}, F^{\mathcal{A}}, \alpha, \beta^{\mathcal{A}})
-        $$
-        con
-        $$
-        F^{\mathcal{A}} := F\cup \{\bar{a}: a \in A\}
-        $$
-        e 
-        $$
-        \begin{cases}
-                \beta^{\mathcal{A}} = B & f \in F\\
-                \beta^{\mathcal{A}}(\bar{a}) = 0 & a \in A\\
-        \end{cases}
-        $$
-        E inoltre $I(\bar{a}) := a $ per ogni $a \in A$. 
+\begin{defi}[Espansione di un $\mathscr{L}$-struttura]
+Dati un linguaggio $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$ e una $\mathscr{L}$-struttura $\mathscr{A}(U,I)$, definiamo \textbf{espansione} di $\mathscr{L}$ in un nuovo linguaggio $\mathscr{L}_{\mathscr{A}}$ come segue:
+\begin{itemize}
+  \item per ogni $a \in U$ l'insieme delle costanti di $\mathscr{L}$ viene arricchito con un nuovo simbolo $\bar{a}$ (i.e., nome di $a$)
+  \item $\bar a$ viene interpretato in $a$
+\end{itemize} 
+Formalmente:
+\begin{align*}
+  \mathscr{L}_{\mathscr{A}} := (\mathscr{P}, \mathscr{F}^{\mathscr{A}}, \alpha, \beta^{\mathscr{A}}) &&
+  I(\bar{a}) := a \text{ per ogni } a \in U
+\end{align*}
+con:
+\begin{align*}
+  \mathscr{F}^{\mathscr{A}} := \mathscr{F} \cup \{\bar{a}: a \in U\} &&
+  \begin{cases}
+    \beta^{\mathscr{A}}(f) = \beta(f) & \text{per ogni } f \in \mathscr{F} \\
+    \beta^{\mathscr{A}}(\bar{a}) = 0 & \text{per ogni } a \in U \\
+  \end{cases}
+\end{align*}
 \end{defi}
 
-\begin{defi}[Interpretazione degli $L_{\mathcal{A}}$-termini ground]
-        Dati $L = (\mathcal{P}, F, \alpha, \beta)$ e $\mathcal{A} = (A,I)$ 
-        e la $L_{\mathcal{A}}$-struttura espansa, si definisce induttivamente: 
-        \begin{itemize}
-                \item{\textbf{Base}} ogni $c \in F$ tale che $\beta(c) = 0$ ha un'interpretazione $I(c)$
-                        già definita, dalla definizione di $L$-struttura. Invece, 
-                        $\bar{a} \in F^{A} = F \cup \{\bar{a} : a \in A\}$ 
-                        ha come interpretazione $I(\bar{a}) = a \in A$. 
-                \item{\textbf{Passo Induttivo}}
-                        Sia $f \in F$ un simbolo di funzione con arità $\beta(f) = n$ e 
-                        siano $t_1, t_2, \cdots, t_n$ $L_{\mathcal{A}}$-termini ground. 
-                        Allora $I(F(t_1, \cdots, t_n)):= I(f)(I(t_1), \cdots, I(t_n))$. 
-        \end{itemize}
+\begin{defi}[Interpretazione degli $\mathscr{L}_{\mathscr{A}}$-Termini ground]
+Dati $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$ e $\mathscr{A} = (U,I)$ e la $\mathscr{L}_{\mathscr{A}}$-struttura espansa, si definisce induttivamente: 
+\begin{itemize}
+  \item \textbf{base} ($c \in \mathscr{F}$, con $\beta(c) = 0$): se $c$ è una ``vecchia'' costante già in $\mathscr{L}$, ha interpretazione $I(c)$ già definita da $\mathscr{A}$ per definizione di $\mathscr{L}$-struttura
+  \item \textbf{base} ($\bar{a} \in \mathscr{F}^\mathscr{A}$, con $\beta(a) = 0$): se $\bar{a}$ è un nome ``nuovo'' dell'elemento $a \in U$, ha interpretazione $I(\bar{a}) = a$. 
+  \item \textbf{passo}: sia $f \in \mathscr{F}$ un simbolo di funzione con arietà $\beta(f) = n$ e siano $t_1, t_2, \cdots, t_n$ $\mathscr{L}_{\mathscr{A}}$-Termini ground che hanno già un'interpretazione per ipotesi induttiva. \\
+  Allora $I(f(t_1, \cdots, t_n)):= I(f)(I(t_1), \cdots, I(t_n))$. 
+\end{itemize}
 \end{defi}
+\noindent
+Si noti che $I(f)(I(t_1), \cdots, I(t_n))$ è valida (i.e. $\in U$) perché $I(f): U^n \rightarrow U$ per definizione.
 
 \begin{defi}[Interpretazione degli Enunciati]
-        Sia data $\mathcal{A} = (A,I)$ una $L$-struttura; allora, si definisce 
-        induttivamente la nozione $\mathcal{A} \models A$ per ogni 
-        $L_{\mathcal{A}}$-enunciato $A$, ossia $A$ è vera in $\mathcal{A}$. 
-
-        \paragraph{Base}
-        Sia 
-        $A = P(t_1, \cdots, t_n)$ per $P \in \mathcal{P}$ con $\alpha(P) = n$ 
-        e $t_1, \cdots, t_n$ $L_{\mathcal{A}}$-termini ground. Allora 
-        $$
-        \mathcal{A} \models P(t_1, \cdots, t_n) \iff I(t_1), \cdots, I(t_n) \in I(P) \subseteq A^n
-        $$
-        \paragraph{Passo induttivo}
-                \begin{itemize}
-                \item $\mathcal{A} \models A_1 \land A_2 \iff \mathcal{A} \models A_1 \land \mathcal{A} \models A_2$
-                \item $\mathcal{A} \models A_1 \lor A_2 \iff \mathcal{A} \models A_1 \lor \mathcal{A} \models A_2$
-                \item $\mathcal{A} \models \neg A_1  \iff \mathcal{A} \nvdash A_1 $
-                \item $\mathcal{A} \models A_1 \rightarrow A_2 \iff \mathcal{A} \models A_1 \land \mathcal{A} \models A_2$
-                \item $\mathcal{A} \models\forall x A \iff \mathcal{A} \models A[\bar{a}/x] \text{ per ogni } a$
-                \item $\mathcal{A} \models\exists x A \iff \mathcal{A} \models A[\bar{a}/x] \text{ per almeno un } a$
-                \end{itemize}
-                Si noti che $\bar{a}$ è un termine, mentre $x$ è una variabile 
-                individuale, quindi $A$ diventa un $L_{\mathcal{A}}$-enunciato.
+Sia data $\mathscr{A} = (U,I)$ una $\mathscr{L}$-struttura; allora, si definisce induttivamente la nozione $\mathscr{A} \models A$ (i.e. $A$ è vera in $\mathscr{A}$) per ogni $\mathscr{L}_{\mathscr{A}}$\textit{-enunciato} $A$:
+\begin{itemize}
+  \item \textbf{base}: sia $A = P(t_1, \cdots, t_n)$ per $P \in \mathscr{P}$ con $\alpha(P) = n$, e $t_1, \cdots, t_n$ $\mathscr{L}_{\mathscr{A}}$-Termini ground. Allora
+  $$
+  \mathscr{A} \models P(t_1, \cdots, t_n) \iff \underbrace{\overbrace{I(t_1)}^{\in U}, \cdots, \overbrace{I(t_n)}^{\in U}}_{\in U^n} \in \underbrace{I(P)}_{\subseteq U^n}
+  $$
+  \item \textbf{passo}:
+    \begin{itemize}
+      \item $\mathscr{A} \models A_1 \land A_2 \iff \mathscr{A} \models A_1$ e $\mathscr{A} \models A_2$
+      \item $\mathscr{A} \models A_1 \lor A_2 \iff \mathscr{A} \models A_1$ o $\mathscr{A} \models A_2$
+      \item $\mathscr{A} \models \neg A_1  \iff \mathscr{A} \nvDash A_1 $
+      \item $\mathscr{A} \models A_1 \rightarrow A_2 \iff \mathscr{A} \nvDash A_1$ o $\mathscr{A} \models A_2$
+      \item $\mathscr{A} \models\forall x A \iff \mathscr{A} \models A[\bar{a}/x] \text{ per ogni } a \in U$
+      \item $\mathscr{A} \models\exists x A \iff \mathscr{A} \models A[\bar{a}/x] \text{ per almeno un } a \in U$
+    \end{itemize}
+\end{itemize}
+\noindent
+Si noti che $\bar{a}$ è un termine, mentre $x$ è una variabile individuale, quindi $A$ diventa un $\mathscr{L}_{\mathscr{A}}$-enunciato a tutti gli effetti.
 \end{defi}
 
-Abbiamo quindi definito induttivamente $\mathcal{A}\models A$ per gli 
-$L_{\mathcal{A}}$-enunciati $A$. A questo punto ci si può ``dimenticare'' degli 
-$L_{\mathcal{A}}$-enunciati che non sono $L$-enunciati, 
-ossia quelle formule in cui vi è almeno una variabile libera.  
+Abbiamo quindi definito induttivamente $\mathscr{A}\models A$ per gli 
+$\mathscr{L}_{\mathscr{A}}$-enunciati $A$. A questo punto ci si può ``dimenticare'' degli $\mathscr{L}_{\mathscr{A}}$-enunciati che non sono $\mathscr{L}$-enunciati (i.e., le formule in cui vi è almeno una variabile libera).
 
 \begin{defi}[Chiusura universale di una formula con variabili libere]
-Se $A$ è una formula ben formata, ossia $A \in F_L$ ed eventualmente,
+Se $A$ è una formula ben formata, ossia $A \in \mathscr{F}_\mathscr{L}$ ed eventualmente,
 non un enunciato, quindi $FV(A) \neq \emptyset$, dove $FV$ è definito come l'insieme 
 di variabili libere che appaiono in $A$, ci si può chiedere se 
 $$ 
-\mathcal{A} \models A
+\mathscr{A} \models A
 $$
 Definito, quindi, 
 $$
@@ -286,153 +233,131 @@ $$
 $$
 e si postula che
 $$
-\mathcal{A} \models A \iff \mathcal{A} \models \forall[A]
+\mathscr{A} \models A \iff \mathscr{A} \models \forall[A]
 $$
 \end{defi}
-ossia $\mathcal{A}$ modella una formula ben formata $A$ se e solo se 
-$\mathcal{A}$ rende vera la sua chiusura universale, che è un $L$-enunciato.
+ossia $\mathscr{A}$ modella una formula ben formata $A$ se e solo se 
+$\mathscr{A}$ rende vera la sua chiusura universale, che è un $\mathscr{L}$-enunciato.
 
 \begin{oss}
-        Se $L$ è un linguaggio con identità (o con uguaglianza), ossia 
-        $L = (\mathcal{P}, F, \alpha, \beta)$ e $= \in \mathcal{P}$, 
-        $\alpha(=) = 2$, 
-        allora, ricordando che in ogni $L$-struttura $\mathcal{A} = (A,I)$, 
-        si deve avere per definizione $I(=) = \{(a,a) : a \in A\}$. 
-        Pertanto $\mathcal{A} \models t_1 = t_2$ (che, più correttamente, 
-        andrebbe scritto in forma postfissa ``$=(t_1, t_2)$'' se e solo se 
-        $I(t_1) = I(t_2)$. 
+Se $\mathscr{L}$ è un linguaggio con identità (o con uguaglianza), ossia $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$ e $=\ \in \mathscr{P}$, $\alpha(=) = 2$, allora, ricordando che in ogni $\mathscr{L}$-struttura $\mathscr{A} = (U,I)$, si deve avere per definizione $I(=) = \{(a,a) : a \in U\}$. \\
+Pertanto $\mathscr{A} \models t_1 = t_2$ se e solo se $I(t_1) = I(t_2)$, con $t_1$ e $t_2$ $\mathscr{L}$-Termini ground (che, più correttamente, andrebbe scritto in forma postfissa ``$=(t_1, t_2)$'').
 \end{oss}
 
-\subsection{Definizione alternativa di $\mathcal{A} \models A$} 
-In questa definizione alternativa,  le variabili sono oggetti di interesse; 
-tuttavia le due definizioni, quella su $L\rightarrow L_{\mathcal{A}}$ e quella
-che andiamo a dare, sono equivalenti. 
+\subsection{Definizione alternativa di $\mathscr{A} \models A$} 
+In questa definizione alternativa,  le variabili sono oggetti di interesse; tuttavia le due definizioni—quella basata sull'ampliamento $\mathscr{L} \rightarrow \mathscr{L}_{\mathscr{A}}$ e quella che andiamo a dare—sono equivalenti. 
 \begin{defi}[Ambiente]
-        Un \textbf{ambiente di interpretazione} in una $L$-struttura $\mathcal{A} = (A,I)$ è 
-        una funzione 
-        $$
-        \mathfrak{v} : Var \rightarrow A
-        $$
-        ossia $\mathfrak{v}(x) \in A$ è un elemento di $A$.         
+Un \textbf{ambiente di interpretazione} in una $\mathscr{L}$-struttura $\mathscr{A} = (U,I)$ è una funzione
+$$
+\mathcal{v} : Var \rightarrow U
+$$
+ossia ad ogni variabile viene assegnato un elemento di $U$: $\mathcal{v}(x) \in U$.
 \end{defi}
 \begin{defi}[Variante di ambiente]
-        La \textbf{variante di ambiente} servirà a dare la semantica alle espressioni 
-        quantificate ed è indicato $\mathfrak{v}[a/x](y)$ e si definisce 
-        $$
-        \mathfrak{v}[a/x](y) :=
-        \begin{cases}
-                \mathfrak{v}(y) & y \neq x \\
-                a & y = x
-        \end{cases}
-        $$
-\end{defi}
-\begin{defi}[Interpretazione degli $L$-termini]
-        L'interpretazione degli $L$-termini, anche aperti, per ogni 
-        $x \in Var$ e $\mathfrak{v} : Var \rightarrow A$ è 
-        definita come 
-        $$
-        I_{\mathfrak{v}}(x) := \mathfrak{v}(x)
-        $$
-        e si può ora passare a definire 
-        $$
-        I_{\mathfrak{v}}(F(t_1, \cdots, t_n)) := (I(F))(I_{\mathfrak{v}}(t_1), \cdots, I_{\mathfrak{v}}(t_n))
-        $$
-        Si dirà
-        $$
-        \mathcal{A}\models_{\mathfrak{v}} A 
-        $$
-        se $\mathcal{A}$ rende vera $A$ nell'ambiente $\mathfrak{v}: Var \rightarrow A$, 
-        e si dirà 
-        $$
-        \mathcal{A} \models_{\mathfrak{v}} P(t_1, \cdots, t_2) \iff (I_{\mathfrak{v}}(t_1), \cdots, I_{\mathfrak{v}}(t_n)) \in I(P)
-        $$
-         e quindi 
-
-         \begin{itemize}
-                 \item  $\mathcal{A} \models_{\mathfrak{v}} A_1 \land A_2 \iff \mathcal{A} \models A_1 \land \mathcal{A} \models A_2$
-                 \item $\mathcal{A} \models_{\mathfrak{v}}A_1 \lor A_2 \iff \mathcal{A} \models A_1 \lor \mathcal{A} \models A_2$
-                 \item $\mathcal{A} \models_{\mathfrak{v}}  \neg A_1  \iff \mathcal{A} \nvDash A_1 $
-                 \item $\mathcal{A} \models_{\mathfrak{v}} A_1 \rightarrow A_2 \iff \mathcal{A} \models A_1 \land \mathcal{A} \models A_2$
-                 \item $\mathcal{A} \models_{\mathfrak{v}} \forall x A \iff \mathcal{A} \models_{\mathfrak{v}} A[a/x] \text{ per ogni } a$
-                 \item $\mathcal{A} \models_{\mathfrak{v}} \exists x A \iff \mathcal{A} \models_{\mathfrak{v}} A[a/x] \text{ per almeno una  } a$
-        \end{itemize}
-        A questo punto si  può dire che $\mathcal{A} \models A$ se e solo se 
-        per ogni $\mathfrak{v}: Var \rightarrow A$ si ha $\mathcal{A} \models A$. 
-\end{defi}
-
-\noindent
-Si esprime, ora, un'idea intuitiva di come avvenga il processo di interpretazione 
-di un $L$-enunciato. Nella prima definzione si ha il linguaggio $L$ e delle 
-$L$-strutture che vengono associate. 
+La \textbf{variante di ambiente} servirà a dare la semantica alle espressioni quantificate ed è indicato $\mathcal{v}[a/x](y)$ e si definisce 
 $$
-L 
-\leadsto
+\mathcal{v}[a/x](y) :=
 \begin{cases}
-        \mathcal{A}  \leadsto L_{\mathcal{A}} \\
-        \mathcal{B}  \leadsto L_{\mathcal{B}} \\
-        \mathcal{C}  \leadsto L_{\mathcal{C}} \\
-        \cdots
+  \mathcal{v}(y) & \text{se } y \neq x \\
+  a & \text{se } y = x
 \end{cases}
 $$
-Per ogni $L$-struttura si crea l'espansione associata. 
-Nella seconda definizione si ha nuovamente il linguaggio $L$ e delle $L$-strutture, 
+\end{defi}
+\begin{defi}[Interpretazione degli $\mathscr{L}$-Termini]
+L'interpretazione degli $\mathscr{L}$-Termini (anche aperti!)
+\begin{itemize}
+  \item \textit{variabili}: per ogni $x \in Var$ e $\mathcal{v} : Var \rightarrow U$,
+  $$
+  I_{\mathcal{v}}(x) := \mathcal{v}(x)
+  $$
+  \item \textit{costanti}: per ogni $c \in \mathscr{F}$ con $\beta(c) = 0$,
+  $$
+  I_{\mathcal{v}}(c) := I(c)
+  $$
+  \item \textit{termini composti}: per ogni $f \in \mathscr{F}$ con $\beta(f) > 0$
+  $$
+  I_{\mathcal{v}}(f(t_1, \cdots, t_n)) := (I(f))(I_{\mathcal{v}}(t_1), \cdots, I_{\mathcal{v}}(t_n))
+  $$
+\end{itemize}
+\end{defi}
+\begin{defi}[Interpretazione delle formule]
+Si indica con $\mathscr{A}\models_{\mathcal{v}} A$ se $\mathscr{A}$ rende vera $A$ nell'ambiente $\mathcal{v}: Var \rightarrow U$, e si definisce
+\begin{itemize}
+  \item \textit{atomica}:
+  $$
+  \mathscr{A} \models_{\mathcal{v}} P(t_1, \cdots, t_2) \iff (I_{\mathcal{v}}(t_1), \cdots, I_{\mathcal{v}}(t_n)) \in I(P)
+  $$
+  \item \textit{proposizioni}:
+    \begin{itemize}
+      \item  $\mathscr{A} \models_{\mathcal{v}} A_1 \land A_2 \iff \mathscr{A} \models A_1$ e $\mathscr{A} \models A_2$
+      \item $\mathscr{A} \models_{\mathcal{v}}A_1 \lor A_2 \iff \mathscr{A} \models A_1$ o $\mathscr{A} \models A_2$
+      \item $\mathscr{A} \models_{\mathcal{v}}  \neg A_1  \iff \mathscr{A} \nvDash A_1 $
+      \item $\mathscr{A} \models_{\mathcal{v}} A_1 \rightarrow A_2 \iff \mathscr{A} \nvDash A_1$ o $\mathscr{A} \models A_2$
+      \item $\mathscr{A} \models_{\mathcal{v}} \forall x A \iff \mathscr{A} \models_{\mathcal{v}} A[a/x] \text{ per ogni } a \in U$
+      \item $\mathscr{A} \models_{\mathcal{v}} \exists x A \iff \mathscr{A} \models_{\mathcal{v}} A[a/x] \text{ per almeno una  } a \in U$
+    \end{itemize}
+\end{itemize}
+Concludiamo dicendo che $\mathscr{A} \models A$ sse \textit{per ogni}  $\mathcal{v}: Var \rightarrow A$ si ha $\mathscr{A} \models_\mathcal{v} A$.
+\end{defi}
+
+\subsection{Intuizione: differenze delle due semantiche}
+Si esprime, ora, un'idea intuitiva di come avvenga il processo di interpretazione 
+di un $\mathscr{L}$-enunciato. Nella prima definizione si ha il linguaggio elementare $\mathscr{L}$ e delle 
+$\mathscr{L}$-strutture che vengono associate. 
+$$
+\mathscr{L} \leadsto
+\begin{cases}
+        \mathscr{A}  \leadsto \mathscr{L}_{\mathscr{A}} \\
+        \mathscr{B}  \leadsto \mathscr{L}_{\mathscr{B}} \\
+        \mathscr{C}  \leadsto \mathscr{L}_{\mathscr{C}} \\
+        \vdots 
+\end{cases}
+$$
+Per ogni $\mathscr{L}$-struttura si crea l'espansione associata. 
+
+Nella seconda definizione si ha nuovamente il linguaggio $\mathscr{L}$ e delle $\mathscr{L}$-strutture, 
 tuttavia esse non si espandono ma vi sono un numero di ambienti da considerare: 
 
 $$
-L \leadsto 
+\mathscr{L} \leadsto 
 \begin{cases}
-        \mathcal{A} \begin{cases}
-                \mathcal{A}, \mathfrak{v}_1 \\
-                \mathcal{A}, \mathfrak{v}_2 \\
-                \mathcal{A}, \mathfrak{v}_3 \\
+        \mathscr{A} \begin{cases}
+                \mathscr{A}, \mathcal{v}_1 \\
+                \mathscr{A}, \mathcal{v}_2 \\
+                \mathscr{A}, \mathcal{v}_3 \\
                 \cdots \\
         \end{cases} \\
-        \mathcal{B} \begin{cases}
-                \mathcal{B}, \mathfrak{v}_1\\
-                \mathcal{B}, \mathfrak{v}_2\\
-                \mathcal{B}, \mathfrak{v}_3\\
+        \mathscr{B} \begin{cases}
+                \mathscr{B}, \mathcal{v}_1\\
+                \mathscr{B}, \mathcal{v}_2\\
+                \mathscr{B}, \mathcal{v}_3\\
                 \cdots                     
         \end{cases} \\
-        \cdots
+        \vdots
 \end{cases}
 $$
 
 \section{Terminologia e Nozioni}
-
-\begin{defi}[$L$-Teoria]
-        Una $L$-Teoria è un insieme di $L$-enunciati. 
-        Se $\Gamma$ è una $L$-Teoria e $\mathcal{A}$ è una $L$-struttura, 
-        si dice che $\mathcal{A}$ è modello di $\Gamma$ e si scrive 
-        $\mathcal{A} \models \Gamma$ se e solo se $\mathcal{A} \models \gamma$ 
-        per ogni $\gamma \in \Gamma$. 
-
-        La $L$-teoria $\Gamma$ è soddisfacibile e solo se esiste almeno un 
-        $\mathcal{A}$ tale che $\mathcal{A} \models \Gamma$, 
-        altrimenti $\Gamma$ è insoddisfacibile.
-
-        Sia $\Gamma$ una $L$-teoria e $A$ un $L$-enunciato. 
-        Allora $A$ è conseguenza logica di $\Gamma$ e si scrive $\Gamma \models A$ 
-        se e solo se $A$ è vera in ogni modello di $\Gamma$, ossia 
-        per ogni $L$-struttura $\mathcal{A}$, se $\mathcal{A} \models \Gamma$, 
-        allora $\mathcal{A} \models A$. 
+\begin{defi}[$\mathscr{L}$-teoria]
+Una $\mathscr{L}$-teoria è un insieme di $\mathscr{L}$-enunciati.
 \end{defi}
+
+Se $\Gamma$ è una $\mathscr{L}$-teoria e $\mathscr{A}$ è una $\mathscr{L}$-struttura, si dice che $\mathscr{A}$ è modello di $\Gamma$ ($\mathscr{A} \models \Gamma$) sse $\mathscr{A} \models \gamma$ per ogni $\gamma \in \Gamma$. 
+
+La $\mathscr{L}$-teoria $\Gamma$ è soddisfacibile sse esiste almeno un $\mathscr{A}$ tale che $\mathscr{A} \models \Gamma$, altrimenti $\Gamma$ è insoddisfacibile.
+
+Sia $\Gamma$ una $\mathscr{L}$-teoria e $A$ un $\mathscr{L}$-enunciato. Allora $A$ è conseguenza logica di $\Gamma$ e si scrive $\Gamma \models A$ sse $A$ è vera in ogni modello di $\Gamma$, ossia per ogni $\mathscr{L}$-struttura $\mathscr{A}$, $\mathscr{A} \models \Gamma \implies  \mathscr{A} \models A$.
 
 \begin{defi}[Verità Logica]
-        Un $L$-enunciato $A$ è detto \textbf{verità logica} se e solo se 
-        per ogni $L$-struttura $\mathcal{A}$, $\mathcal{A} \models A$. 
+Un $\mathscr{L}$-enunciato $A$ è detto \textbf{verità logica} sse per ogni $\mathscr{L}$-struttura $\mathscr{A}$, $\mathscr{A} \models A$. 
 \end{defi}
-Il concetto di Verità Logica è analogo al concetto di tautologia nella 
-Logica Proposizionale. 
-Un esempio di verità logica è $\forall x (x = x)$. 
-
-\noindent
+Il concetto di Verità Logica è analogo al concetto di tautologia nella Logica Proposizionale.
+Un esempio di verità logica è $\forall x (x = x)$. \\
 Lo scopo della nostra indagine sarà, d'ora in poi, cercare di stabilire se
 $$
-\Gamma \models A
+\Gamma \stackrel ? \models A
 $$
-dati $\Gamma$  una $L$-teoria e $A$ un $L$-enunciato. 
-Se $\Gamma$ è finito, ossia $\Gamma = \{\gamma_1, \cdots, \gamma_n\}$, 
-varrà nuovamente il fatto 
+dati $\Gamma$  una $\mathscr{L}$-teoria e $A$ un $\mathscr{L}$-enunciato. Se $\Gamma$ è finita, ossia $\Gamma = \{\gamma_1, \cdots, \gamma_n\}$, varrà nuovamente il fatto 
 $$
 \Gamma \models A \iff \gamma_1 \land \cdots \land \gamma_n \land  \{\neg A\} \text{ insodd.}
 $$
@@ -441,108 +366,88 @@ mentre invece se $\Gamma$ è infinito, possiamo solo chiederci se
 $$
 \Gamma \models A \iff \Gamma \cup \{\neg A\} \text{ insodd.}
 $$
-Anche nel caso in cui $\Gamma$ è finito, ci saranno casi in cui il processo 
-di deduzione sarà solo \textit{semidecidibile}, mentre nella Logica Proposizionale 
-il problema di soddisfacibilità era decidibile. 
-\subsection{Esempi di $L$-Teorie} 
+Anche nel caso in cui $\Gamma$ è finito, ci saranno casi in cui il processo di deduzione sarà solo \textit{semidecidibile}, quando nella Logica Proposizionale il problema di soddisfacibilità almeno era decidibile. 
+\subsection{Esempi di $\mathscr{L}$-teorie} 
 
-\subsubsection{Congruenze su un $L$-Linguaggio $L$}
+\subsubsection{Congruenze su un $\mathscr{L}$-Linguaggio $\mathscr{L}$}
 Data una relazione $R$, si vorrebbe modellarla come congruenza.
 $$
 \Gamma := 
 \begin{cases}
-        \forall x ~~ R(x,x) \text{ riflessiva } \\
-        \forall x \forall y ~~ R(x,y) \rightarrow R(y,x)  \text{ simmetrica } \\
-        \forall x \forall y \forall z ~~ R(x,y) \land R(y,z) \rightarrow R(x,z)  \text{ transitiva }\\
+  \forall x ~~ R(x,x) & \text{ riflessiva } \\
+  \forall x \forall y ~~ R(x,y) \rightarrow R(y,x) & \text{ simmetrica } \\
+  \forall x \forall y \forall z ~~ R(x,y) \land R(y,z) \rightarrow R(x,z) & \text{ transitiva } \\
 
-        \forall x_1 \cdots \forall x_n \forall y_1 \cdots \forall y_n 
-        \begin{cases}
-        (R(x_1,y_1) \land \cdots \land R(x_n,y_n)) \rightarrow R(f(x_1, \cdots, x_n), f(y_1, \cdots y_n)) \\
-        (R(x_1, y_1) \land \cdots R(x_n, y_n)) \rightarrow (P(x_1, \cdots x_n) \rightarrow P(y_1, \cdots, y_n))
-        \end{cases}
-
+  \forall x_1 \cdots \forall x_n \forall y_1 \cdots \forall y_n \\ ~~ (R(x_1,y_1) \land \cdots \land R(x_n, y_n)) \rightarrow R(f(x_1, \cdots, x_n), f(y_1, \cdots y_n)) \\
+  \forall x_1 \cdots \forall x_n \forall y_1 \cdots \forall y_n \\ ~~ (R(x_1, y_1) \land \cdots \land R(x_n, y_n)) \rightarrow (P(x_1, \cdots x_n) \rightarrow P(y_1, \cdots, y_n))
 \end{cases}
 $$
-I primi tre $L$-enunciati (assiomi di $\Gamma$) assiomatizzano una 
-relazione d'equivalenza, ossia
+I primi tre $\mathscr{L}$-enunciati—o \textit{assiomi} di $\Gamma$—assiomatizzano una relazione d'equivalenza, ossia
 $$
-\text{ se }\mathcal{A} \models \Gamma \text{ allora } I(R) \text{ è una relazione d'equivalenza}
+\text{ se }\mathscr{A} \models \Gamma \text{ allora } I(R) \text{ è una relazione d'equivalenza}
 $$
-Il quarto $L$-enunciato assiomatizza la congruenza $R$ rispetto ad
-una generica $f \in F$ con $\beta(f) = n$, mentre il quinto fa 
-la stessa cosa rispetto un generico predicato $P \in \mathcal{P}$. 
+Il quarto $\mathscr{L}$-enunciato assiomatizza la congruenza $R$ rispetto ad
+una generica $f \in \mathscr{F}$ con $\beta(f) = n$, mentre il quinto fa 
+la stessa cosa rispetto un generico predicato $P \in \mathscr{P}$. \\
+Si noti che la relazione di uguaglianza ($=$) è una relazione di congruenza, ma non è per forza vero il contrario! Inoltre, per un limite espressivo della Logica del Primo ordine, non si riesce a distinguere queste due relazioni. Per questo noi abbiamo fissato una specifica semantica all'$=$. 
 
 \subsubsection{Relazione d'ordine (parziale)}
 $$
-        \Gamma_{po} := 
-        \begin{cases}
-                \forall x R(x,x) & \text{ riflessiva }\\
-                \forall xy (R(x,y) \land R(y,x)) \rightarrow =(x,y) & \text{ simmetrica }\\
-                \forall x \forall y \forall z (R(x,y) \land R(y,z)) \rightarrow R(x,z) & \text{ transitiva }\\
-      
-        \end{cases}
+\Gamma_{PO} := 
+\begin{cases}
+  \forall x ~~ R(x,x) & \text{ riflessiva } \\
+  \forall x,y ~~ (R(x,y) \land R(y,x)) \rightarrow =(x,y) & \text{ antisimmetrica } \\
+  \forall x \forall y \forall z ~~ (R(x,y) \land R(y,z)) \rightarrow R(x,z) & \text{ transitiva } \\    
+\end{cases}
 $$
-Si noti l'utilizzo del predicato $=$ d'uguaglianza, pertanto il Linguaggio 
-è dotato di tale predicato. 
-Un esempio, l'insieme dei naturali con la relazione di minore o uguale 
-modellano $\Gamma$: 
+Si noti l'utilizzo del predicato d'uguaglianza ( $=$), pertanto il Linguaggio è dotato di tale predicato. Un esempio è l'insieme dei naturali con la relazione di minore-o-uguale che modella $\Gamma$: 
 $$
-(\mathbb{N}, \leq) \models \Gamma
+(\mathbb{N}, \leq) \models \Gamma_{PO}
 $$
-(la notazione utilizzata significa che $I(R) = \leq$)
-così come i naturali con l'ordine di divisibilità: 
+(la notazione utilizzata significa che $I(R) =\ \leq$) così come i naturali con l'ordine di divisibilità: 
 $$
-(\mathbb{N}, |) \models \Gamma
+(\mathbb{N}, |) \models \Gamma_{PO}
 $$
 
 
 \paragraph{Relazione d'ordine (totale)}
-Esiste un modo per costruire una $L$-Teoria che ``allarga'' $\Gamma$ che è modello 
-di uno e non dell'altra? Effettivamente, il primo è un ordine totale, mentre 
-il secondo non lo è, ossia vi sono elementi tali che né $m | n$ né $n |m $; se 
-si riesce ad esprimere la totalità con un enunciato, si riesce a discernere 
-uno dall'altro: 
+Si può costruire una $\mathscr{L}$-teoria $\Gamma_{TO}$ che, ``allargando'' $\Gamma_{PO}$ con un solo $\mathscr{L}$-enunciato, modella solo uno dei due esempi:
 \begin{align*}
-        \Gamma_{to} := \Gamma_{po} \cup \{\forall x \forall y (R(x,y) \lor R(y,x))\}
+  \Gamma_{TO} := \Gamma_{PO} \cup \{\forall x \forall y ~~ (R(x,y) \lor R(y,x))\}
+\end{align*}
+Effettivamente, $(\mathbb{N}, \leq) \models \Gamma_{PO}$, mentre $(\mathbb{N}, |) \nvDash \Gamma_{PO}$ perché vi sono elementi $m$, $n$ tali che né $m | n$ né $n |m $.
+
+Aggiungendo nuovi assiomi si possono caratterizzare altri tipi di ordine: ad esempio, si può caratterizzare un ordine che abbia un elemento minimo:
+\begin{align*}
+  \Gamma_{min} := \Gamma_{PO} \cup \{\exists m \forall x ~~ (x \neq m \land \neg R(x,m))\}
 \end{align*}
 
-Aggiungendo nuovi assiomi si possono caratterizzare altri tipi di ordine: 
-ad esempio (esercizio), si può caratterizzare un ordine che abbia un elemento 
-minimo. 
-
-\subsubsection{Teoria dei gruppi}
+\subsubsection{Teoria dei gruppi (1)}
 Un gruppo è una struttura algebrica. 
-Un gruppo è un modello dell'insieme di assiomi $\Gamma_G$ sul linguaggio 
-$L = (\mathcal{P}, F, \alpha, \beta)$. 
+Un gruppo è un modello dell'insieme di assiomi $\Gamma_G$ sul linguaggio $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$. 
 $$
-\Gamma_G := 
-        \begin{cases}
-                \forall x \forall y \forall z  ~~ ((x * y)*z) = (x*(y*z))  & \text{ associatività}\\
-                \forall x (x * e) = x \land (e * x) = x  & \text{ elemento neutro}\\
-                \forall x (x * x^{-1}) = e \land (x^{-1} * x = e) & \text{ invertibilità}
-        \end{cases}
+\Gamma_{G_1} := 
+  \begin{cases}
+    \forall x \forall y \forall z  ~~ ((x * y)*z) = (x*(y*z))  & \text{ associatività}\\
+    \forall x ~~ (x * e) = x \land (e * x) = x  & \text{ elemento neutro}\\
+    \forall x ~~ (x * x^{-1}) = e \land (x^{-1} * x = e) & \text{ invertibilità}
+  \end{cases}
 $$
-con $\mathcal{P} = \{ = \}$, $F = \{*, e, ()^{-1}\}$ e relative 
-arità. 
-$(G, \cdot, ^{-1}, 0) \models \Gamma_G$ se e solo se $G$ è un gruppo; in 
-altri termini un gruppo è una struttura con un'operazione associativa in cui 
-ogni elemento è invertibile. 
-Per esempio, $(\mathbb{Z}, +, -, 0) \models \Gamma_G$ e 
-$(\mathbb{Q}\setminus{0}, \cdot, ^{-1}, 1) \models \Gamma_G$. 
+con $\mathscr{P} = \{ = \}$, $\mathscr{F} = \{*, e, \_^{-1}\}$ e relative arietà $\alpha$ e $\beta$. \\
+$(G, \cdot, ^{-1}, 0) \models \Gamma_{G_1}$ se e solo se $G$ è un gruppo; in altri termini un gruppo è una struttura con un'operazione associativa in cui ogni elemento è invertibile. \\
+Per esempio, $(\mathbb{Z}, +, -_{_1}, 0) \models \Gamma_{G_1}$ e $(\mathbb{Q}\setminus{\{0\}}, \cdot, ^{-1}, 1) \models \Gamma_{G_1}$. 
 
-\paragraph{Formulazione alternativa}
+\paragraph{Teoria dei gruppi (2)}
 Una seconda formulazione è la seguente
 $$
-        \Gamma_{G_2} := 
-                \begin{cases}
-                        \forall x \forall y \forall z  ~~ ((x * y)*z) = (x*(y*z)) & \text{ associatività}\\
-                        \forall x (x * e) = x \land (e * x) = x & \text{ elemento neutro } \\
-                        \forall x \exists y (x * y) = e \land (y * x) = e & \text{ esistenza inverso} \\
-                \end{cases}
+\Gamma_{G_2} := 
+  \begin{cases}
+    \forall x \forall y \forall z  ~~ ((x * y)*z) = (x*(y*z)) & \text{ associatività}\\
+    \forall x ~~ (x * e) = x \land (e * x) = x & \text{ elemento neutro } \\
+    \forall x \exists y ~~ (x * y) = e \land (y * x) = e & \text{ esistenza inverso} \\
+  \end{cases}
 $$
-Questa $L$-Teoria rimuove la specifica dell'inverso. Se si ottiene un gruppo 
-che modella l'altra formulazione, esso andrà bene anche per questo, ma non è detto 
-il viceversa. 
+Questa $\mathscr{L}$-teoria rimuove la specifica dell'inverso. Se si ottiene un gruppo che modella l'altra formulazione, esso andrà bene anche per questo, ma non è detto il viceversa. 
 Ora, infatti, non è più necessario specificare l'operazione inverso, 
 e si può quindi affermare $(\mathbb{Z}, +, 0) \models \Gamma_{G_2}$, $(Q, +, 0) \models \Gamma_{G_2}$, 
 eccetera. Come anticipato, questo vale anche per i gruppi esplicitati prima: 
@@ -555,44 +460,45 @@ $$
 $$
 Ma ovviamente non è vero il contrario, ossia 
 $$
-(\mathbb{Z}, +, +1, 0) \nvDash \Gamma_G
+(\mathbb{Z}, +, +1, 0) \nvDash \Gamma_{G_1}
 $$
 in questo senso, abbastanza sottile, le due formulazioni non sono equivalenti. 
-\subsubsection{Tipi di dato: stack}
-Definiamo il linguaggio $L= (\mathcal{P}, F, \alpha, \beta)$ 
+
+Possiamo quindi dire che la Teoria dei Gruppi (1) è la Teoria dei Gruppi (2) \textit{skolemizzata} perché priva dell'esistenziale).
+
+\subsubsection{Tipi di dato: Stack}
+Definiamo il linguaggio $\mathscr{L}= (\mathscr{P}, \mathscr{F}, \alpha, \beta)$ 
 con 
+\begin{align*}
+\mathscr{P} = \{Stack, Elem, =\} &&
+\mathscr{F} = \{push, pop, top, nil\}
+\end{align*}
 $$
-\mathcal{P} = \{Stack, Elem, =\}
-$$
-e 
-$$
-F = \{push, pop, top, nil\}
-$$
-$$
-        \Gamma_{Stack} := 
-        \begin{cases}
-                \forall x (Stack(x) \lor Elem(x)) \\
-                \forall x (\neg Stack(x) \lor \neg Elem(x)) \\
-                \forall x \forall y ((Stack(x) \land Elem(y)) \rightarrow top(push(x,y)) = y) \\
-                \forall x \forall y ((Stack(x) \land Elem(y)) \rightarrow pop(push(x,y)) = x) \\
-                \forall x (Stack(x) \rightarrow push(pop(x),top(x)) =x) \\
-        \end{cases}
+\Gamma_{Stack} := 
+  \begin{cases}
+    \forall x ~~ (Stack(x) \lor Elem(x)) \\
+    \forall x ~~ (\neg Stack(x) \lor \neg Elem(x)) \\
+    \forall x \forall y ~~ ((Stack(x) \land Elem(y)) \rightarrow top(push(x,y)) = y) \\
+    \forall x \forall y ~~ ((Stack(x) \land Elem(y)) \rightarrow pop(push(x,y)) = x) \\
+    \forall x ~~ (Stack(x) \rightarrow push(pop(x),top(x)) =x) \\
+  \end{cases}
 $$
 
 \subsubsection{Aritmetica di Peano}
-
-Sia $L_{P_A} = ( \mathcal{P}, F, \alpha, \beta)$, con 
-$\mathcal{P} = \{=\}$, $\alpha(=) = 2$, $F =  \{ + , *, s, 0,\}$ 
-$\beta(+) = \beta(*) = 2$, $\beta(s) = 1$, $\beta(0) =0$. 
-
-L'aritmetica di Peano afferma: 
-\begin{itemize}
-        \item $\forall x \neg (=(0,s(x)))$, ossia nessun numero ha come successore $0$. 
-        \item $\forall x, \forall y (s(x) = s(y)) \rightarrow (x = y)$
-        \item $\forall x (x + 0 = x)$
-        \item $\forall x \forall y (x + s(y)) = s(x+y)$
-        \item $\forall x (x * 0 = 0)$
-        \item $\forall x \forall y (x * s(y)) = (x + (x*y))$
-        \item $(P[0/x] \land \forall x (P[x/x] \rightarrow P[s(x)/x])) \rightarrow \forall x P[x/x]$ 
-\end{itemize}
-L'ultimo postulato è una codifica dell'induzione sui numeri naturali. 
+Sia $\mathscr{L}_{PA} = ( \mathscr{P}, \mathscr{F}, \alpha, \beta)$, con 
+$\mathscr{P} = \{=\}$, $\alpha(=) = 2$, $\mathscr{F} =  \{ + , \times, s, 0\}$ 
+$\beta(+) = \beta(\times) = 2$, $\beta(s) = 1$, $\beta(0) =0$. Inoltre sia $P$ una formula con una sola variabile libera ($FV(P) = \{v\}$). \\
+L'aritmetica di Peano afferma:
+$$
+\Gamma_{PA} := 
+  \begin{cases}
+    \forall x ~~ \neg (0 = s(x)) \\
+    \forall x, \forall y ~~ (s(x) = s(y)) \rightarrow (x = y) \\
+    \forall x ~~ (x + 0 = x) \\
+    \forall x \forall y ~~ (x + s(y)) = s(x+y) \\
+    \forall x ~~ (x \times 0 = 0) \\
+    \forall x \forall y ~~ (x \times s(y)) = (x + (x \times y)) \\
+    (P[0/v] \land \forall x ~~ (P[x/v] \rightarrow P[s(x)/v])) \rightarrow \forall x ~~ P[x/v]
+\end{cases}
+$$
+L'ultimo postulato è una descrizione di infiniti molti assiomi (uno per ogni $P$) che codificano il principio di induzione—principio alla base dei numeri naturali. 

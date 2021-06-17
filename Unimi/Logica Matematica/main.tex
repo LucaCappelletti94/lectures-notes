@@ -2,23 +2,36 @@
 \usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage{
   mathptmx, % use ~Times New Roman
+  mathtools,
+  dutchcal, % lowercase mathcal
   wrapfig,
-  graphicx, 
-  titlesec, 
+  graphicx,
+  titlesec,
   fancyhdr,
-  tikz, 
-  pgfplots, 
+  tikz,
+  pgfplots,
   amsmath,
   amssymb,
-  subcaption, 
+  subcaption,
   multirow,
-  amsthm, 
-  bussproofs
+  amsthm,
+  bussproofs,
+  hyperref
 }
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[mathscr]{euscript}
 \usepackage[italian]{babel}
 
+\theoremstyle{plain}% default
 \newtheorem{lemn}{Lemma}
 \newtheorem*{lem}{Lemma}
+\newtheorem{teon}{Teorema}
+\newtheorem*{teo}{Teorema}
+\newtheorem{corn}{Corollario}
+\newtheorem*{cor}{Corollario}
+
+\theoremstyle{definition}
 \newtheorem{ossn}{Osservazione}
 \newtheorem*{oss}{Osservazione}
 \newtheorem{defin}{Definizione}
@@ -27,14 +40,10 @@
 \newtheorem*{pro}{Proprietà}
 \newtheorem{prin}{Principio}
 \newtheorem*{pri}{Principio}
-\newtheorem{teon}{Teorema}
-\newtheorem*{teo}{Teorema}
-\newtheorem{corn}{Corollario}
-\newtheorem*{cor}{Corollario}
 
-
-
-
+\makeatletter
+\@addtoreset{ossn}{section}
+\makeatother
 
 \pgfplotsset{compat=1.17}
 \newcommand{\pgfenv}{
@@ -89,7 +98,7 @@
         
               \vspace*{2cm}
 
-         \Large{Edoardo Marangoni}
+         \Large{Carlo Castoldi e Edoardo Marangoni}
 
               \vspace*{2cm}
 

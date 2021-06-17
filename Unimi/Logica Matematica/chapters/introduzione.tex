@@ -11,8 +11,9 @@ vogliamo trarne delle conclusioni a partire di esse in un modo razionale.
 
 \section{Motivazioni}
 La Logica studia come si ragiona in maniera corretta e, per studiare come 
-si ragione, si può utilizzare come prima schematizzazione il partire da delle 
-assunzioni vere e da quelle discendere a delle conclusioni. 
+si ragiona, si può utilizzare come prima schematizzazione il partire da delle 
+assunzioni vere e da quelle discendere a delle conclusioni.
+
 Un esempio: ogni uomo è mortale. Socrate è un uomo. 
 Dunque, Socrate è mortale. Questo è, in linguaggio naturale, un esempio di quanto 
 detto prima: a partire da due informazioni date per vere (ogni uomo è mortale e 
@@ -90,14 +91,14 @@ Benché non si sappia cosa voglia dire ``lo stesso caso'', tentiamo di dare le s
 a questo problema. Nel linguaggio naturale non si può fare a meno di sentire 
 una dinamica: si vede che piove e allora si prende l'ombrello e si esce. La logica 
 proposizionale non vede questa dinamicità: per farlo si devono elaborare formule 
-che esplicitano la dinamicità. Una definizione più precisa di cosa voglia dire 
+che esplicitano la dinamicità.
+
+Una definizione più precisa di cosa voglia dire 
 che due ``frasi'' siano ``uguali'': esse sono ``equivalenti'' quando sono 
 vere nelle medesime circostanze. Questa è nuovamente una definizione che pecca 
 di precisione in quanto non espressa matematicamente. Cosa vuol dire ``medesime'' 
 e ``circostanze''? Un'interpretazione intuitiva che mette in luce la 
-``circostanza'' della frase ``Se piove prendo l'ombrello'' è la seguente. Vi 
-è una dipendenza tra il fatto che \textit{piove} e il fatto di \textit{prendere 
-l'ombrello}. 
+``circostanza'' della frase ``Se piove prendo l'ombrello'' è che vi è una dipendenza tra il fatto che \textit{piove} e il fatto di \textit{prendere l'ombrello}. 
 
 In tutte le circostanze possibili, vi sono delle situazioni in cui 
 è vero che piove e delle situazioni in cui non è vero e analogamente 
@@ -109,21 +110,21 @@ quando non piove e si prende l'ombrello.
  
 La frase si può dunque rappresentare nella forma 
 $$
-P \Rightarrow Q
+P \rightarrow Q
 $$
 che rappresenta il \textit{se...allora}. L'implicazione è infatti la più 
 difficile da accettare a livello intuitivo. Senz'altro ci sono delle situazioni 
 in cui non abbiamo dubbi: per esempio, quando sia $P$ e $Q$ sono vere, cioè, 
 sapendo che piove e che si prende l'ombrello la relazione causale sembra sussistere 
-e quindi $P \Rightarrow Q$ è verificata; quando $P$ è vero e $Q$ è falso,
-risulta infine che $P \Rightarrow Q$ è falsa. Ora, potrebbe succedere che 
+e quindi $P \rightarrow Q$ è verificata; quando $P$ è vero e $Q$ è falso,
+risulta infine che $P \rightarrow Q$ è falsa. Ora, potrebbe succedere che 
 la risposta non sia esattamente quella che ci aspettiamo: cominciamo assumendo 
-che non piova ma si prenda l'ombrello. Risulta che $P \Rightarrow Q$ è vera, 
+che non piova ma si prenda l'ombrello. Risulta che $P \rightarrow Q$ è vera, 
 anche se l'antecedente è falso: già questa cosa può suonare strano, in quanto 
 non suona giusto che il fatto che non piova implichi il fatto che si prenda l'ombrello. 
 La questione riguarda sostanzialmente il linguaggio naturale di per sé e torneremo 
 su questo discorso in futuro: con lo stesso approccio, si arriva a dire che se 
-$P$ e $Q$ sono false allora $P \Rightarrow Q$ è vera. 
+$P$ e $Q$ sono false allora $P \rightarrow Q$ è vera. 
 
 Allora, per concludere il nostro esempio: si può cominciare dicendo che l'ottava 
 frase è falsa, ossia vi sono, tra le prime sette frasi, alcune frasi equivalenti. 
@@ -134,10 +135,10 @@ che in questa situazione va interpretato come un OR inclusivo, ossia un
 $\lor$. Analizzando la frase ``O non piove o prendo l'ombrello'' ci si accorge 
 come si possa tradurre in $\neg P \lor Q$, che ha la stessa ``immagine di 
 verità'' dell'implicazione, pertanto anche la quarta è uguale. Questo è importante 
-in quanto è una realizzazione materiale dell'implicazione! 
-La quinta frase si può nuovamente interpretare come $P\Rightarrow Q$ ed è pertanto 
+in quanto è una \textbf{realizzazione materiale} dell'implicazione! 
+La quinta frase si può nuovamente interpretare come $P\rightarrow Q$ ed è pertanto 
 vera. 
-La sesta frase inverte il rapporto, facendo in modo che $Q \Rightarrow P$, che 
+La sesta frase inverte il rapporto, facendo in modo che $Q \rightarrow P$, che 
 è falso; analogamente accade per la settima. 
 
 Un'ulteriore interpretazione dell'implicazione è: Ogni qualvolta $P$ è vera, 

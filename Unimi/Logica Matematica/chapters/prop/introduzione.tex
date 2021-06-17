@@ -16,11 +16,9 @@ alcuni: ``Paolo corre?'' e ``Piove?'' non sono enunciati. Oltre al linguaggio na
 vi sono anche altre frasi che non sono enunciati, per esempio ``2''. 
 
 \section{Senso, denotazione e connotazione di un enunciato}
-Il senso filosofico dei concetti di \textbf{denotazione} 
-e \textbf{connotazione} verrà tralasciato e verranno infatti 
-trattati in una maniera poco profonda, soprattutto per capire la distinzione
-tra denotazione e connotazione. Ecco alcune espressioni del linguaggio 
-dell'aritmetica: 
+Il senso filosofico dei concetti di \textbf{denotazione} e \textbf{connotazione} verrà tralasciato e, per questo, verrà visto quanto basta per distinguerli.
+
+Si considerino le seguenti espressioni del linguaggio dell'aritmetica: 
 \begin{itemize}
   \setlength\itemsep{0pt}
   \item $4$
@@ -30,28 +28,14 @@ dell'aritmetica:
 \end{itemize}
 Nessuno di questi è un enunciato, ma non è necessario che lo siano. 
 Sappiamo dire cosa significhino, in quanto matematicamente sono sempre 
-modi per esprimere \textit{il numero naturale quattro}. Questo esempio inquadra 
-a livello intuitivo cosa sia la \textbf{denotazione} (il numero naturale 
-quattro) e la \textbf{connotazione} (quattro diversi modi per ottenere quattro). 
-Anche a questo livello stiamo dicendo una cosa interessante, in quanto 
-questo implica che dobbiamo essere molto precisi riguardo cosa dovrebbe
-essere la \textit{denotazione} di qualcosa. 
-Un'espressione ha, quindi, una denotazione che è qualcosa di diverso dalla 
-sua connotazione. In un modo astratto, una espressione $E$ è un \textit{nome}
-di qualcosa, come per esempio $4$, $2^2$, il predecessore di $5$ e $3+1$, 
-il quale si riferisce in modo univoco a qualche entità. L'\textit{entità} alla 
-quale si riferisce l'espressione è 
-essa stessa la denotazione. La connotazione, in questo senso, è quanto 
-l'espressione effettivamente esprime, ossia tutto il resto dell'informazione 
-contenuta nell'espressione stessa. 
+modi per esprimere il \textit{numero naturale} ``quattro''. \\
+Questo esempio inquadra a livello intuitivo cosa sia la \textbf{denotazione} (il numero naturale quattro) e la \textbf{connotazione} (quattro diversi modi per ottenere quattro). 
 
-La logica studia la denotazione degli enunciati (chiamati anche \textit{sentences}) e 
-non le connotazioni, in quanto esse sono troppo difficili da gestire a livello 
-iniziale. Le denotazioni godono infatti dell'importante proprietà dell'\textbf{invarianza 
-per sostituzione}, ossia se ad un'espressione si cambiano delle parti 
-sostituendole con parti denotazionalmente uguali, la denotazione globale 
-non cambia, mentre la connotazione può potenzialmente cambiare totalmente, 
-come dimostrano le quattro frasi iniziali.
+Anche a questo livello stiamo dicendo una cosa interessante, in quanto questo implica che dobbiamo essere molto precisi riguardo cosa dovrebbe essere la \textit{denotazione} di qualcosa. Un'espressione ha, quindi, una denotazione che è qualcosa di diverso dalla sua connotazione.
+
+In un modo astratto, una espressione $E$ è un \textbf{nome} (e.g., $4$, $2^2$, ``il predecessore di $5$'' o $3+1$) di qualcosa, il quale si riferisce in modo univoco a qualche \textbf{entità}. L'entità alla quale si riferisce l'espressione è essa stessa la denotazione. La connotazione, in questo senso, è quanto l'espressione effettivamente esprime, ossia tutto il resto dell'informazione contenuta nell'espressione stessa. 
+
+La logica studia la denotazione degli enunciati (chiamati anche \textit{sentences}) e non le connotazioni, in quanto esse sono troppo difficili da gestire a livello iniziale. Le denotazioni godono infatti dell'importante proprietà dell'\textbf{invarianza per sostituzione}, ossia se ad un'espressione si cambiano delle parti sostituendole con parti denotazionalmente uguali, la denotazione globale non cambia, mentre la connotazione può potenzialmente cambiare totalmente, come dimostrano le quattro frasi iniziali.
 
 \subsection{Denotazione di un Enunciato}
 Si può definire ora, più formalmente, cosa sia la \textbf{denotazione} di 
@@ -64,13 +48,10 @@ $$
 4 = 4
 $$
 Il principio d'invarianza dice che questi due enunciati sono \textbf{denotazionalmente}
-equivalenti, benché l'ultimo enunciato non contiene nessuna informazione 
-ulteriore rispetto alla denotazione stessa (circa). La denotazione 
-di un enunciato è, quindi, il loro valore di verità, ossia il fatto che sono 
-una forma connotazionale di una costante \texttt{vero} o \texttt{falso}. 
-Quindi, l'oggetto della Logica Proposizionale sono le \textbf{proposizioni}, 
-ossia il contenuto denotazionale degli enunciati, che può essere 
-\texttt{vero} o \texttt{falso}. 
+equivalenti in quanto entrambe sono enunciati ``veri''. Questo benché l'ultimo enunciato contenga meno informazioni rispetto all'altro. \\
+Questo ci dice che la denotazione di un enunciato è il suo \textit{valore di verità}, e perciò gli enunciati non sono altro che una forma connotazionale di una costante: \texttt{vero} o \texttt{falso}.
+
+L'oggetto della Logica Proposizionale sono le \textbf{proposizioni}: il contenuto denotazionale degli enunciati, che può essere \texttt{vero} o \texttt{falso}. 
 
 \section{Enunciati e Connettivi}
 Alcuni enunciati semplici come ``Piove'' o ``Paolo corre'' sono definiti 
@@ -81,18 +62,14 @@ dagli enunciati atomici ``Piove'' e ``c'è vento''. Il connettivo ``e'' è
 ciò che li unisce, come potrebbe accadere anche per ``o'', ``non'' 
 e ``se...allora''. 
 
-In una maniera più formale, gli enunciati semplici 
-devono solamente rappresentare il fatto che denotano un valore di verità e 
-saranno quindi rappresentati da \textbf{simboli} appartenente all'insieme infinito
-$L$ chiamato \textbf{linguaggio proposizionale}. I simboli 
-$p, q, r, p_1, \cdots \in L$ sono chiamati \textbf{lettere proposizionali}. 
-Oltre alla sintassi, formalmente il valore semantico (quindi denotazionale) di ogni 
-lettera proposizionale è un valore di verità. 
-
-Gli enunciati composti sono formalizzabili con una simbologia che rispetta 
-i simboli per gli enunciati atomici: $p \land q$, $p \lor q$, $\neg p$ e 
-$p \rightarrow q$ sono enunciati composti. I simboli $\land, \lor, \neg$ 
-e $\rightarrow$ sono chiamati \textbf{connettivi}. Il valore denotazionale 
-di ogni enunciato composto dipenderà dai 
-valori denotazionali degli enunciati atomici e dal valore semantico dei connettivi 
-che lo compongono. 
+\begin{defi}[Enunciato semplice]
+  Un enunciato semplice (o atomico) rappresenta un fatto \textit{denotato} da un valore di verità, detto \textbf{valore semantico}. È rappresentato da un \textit{simbolo} chiamato \textbf{lettera proposizionale} scelto dall'insieme infinito $\mathscr{L}$: il \textbf{linguaggio proposizionale}.
+  
+  Per esempio: $p, q, r, p_1, \cdots \in \mathscr{L}$
+\end{defi}
+\begin{defi}[Enunciato composto]
+  Un enunciato composto è una rappresentazione di un fatto composto da enunciati semplici tramite i seguenti \textbf{connettivi}: $\land, \lor, \neg$ e $\rightarrow$. \\ 
+  Il valore denotazionale di ogni enunciato composto dipende dai valori denotazionali degli enunciati atomici e dal valore semantico dei connettivi che lo compongono. 
+  
+  Per esempio: $p \land q$, $p \lor q$, $\neg p$
+\end{defi}

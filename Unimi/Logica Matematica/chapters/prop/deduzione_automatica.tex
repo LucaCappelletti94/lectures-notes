@@ -1,23 +1,10 @@
 \chapter{Complessità Computazionale e Deduzione Automatica}
 
-In questo momento, per decidere se una formula $F \in F_L$ che menziona $n$ lettere 
-proposizionali diverse sia soddisfacibile o meno, l'algoritmo che conosciamo
-computa la sua tabella di verità, analizzando quindi $2^n$ possibilità, ossia 
-un numero esponenziale. 
-
-Cominciamo definendo cosa sia un problema di 
-decisione:
+In questo momento, per decidere se una formula $F \in \mathscr{F}_\mathscr{L}$ che menziona $n$ lettere proposizionali diverse sia soddisfacibile o meno, l'algoritmo che conosciamo computa la sua tabella di verità, analizzando quindi $2^n$ possibilità, ossia un numero esponenziale. 
+qui
+Cominciamo definendo cosa sia un problema di decisione:
 \begin{defi}[Problema di Decisione]
- Dato un alfabeto finito $\Sigma$ e un sottoinsieme non necessariemente 
- finito di stringhe finite  
-  $$
- L \subseteq \Sigma^* 
- $$
- il problema di decisione consiste nel affermare se una precisa 
- stringa finita appartenga o meno a $L$, che viene chiamato Linguaggio, 
-dove $\Sigma^*$ è l'insieme di tutte le stringhe di lunghezza finita, 
-chiamate anche \textit{parole}, costruite 
-coi simboli di $\Sigma$. 
+Dato $\Sigma^*$ un insieme di tutte le \textit{parole} finite costruite coi simboli di $\Sigma$—un \textit{alfabeto} finito—e un \textit{Linguaggio} $L \subseteq \Sigma^*$, non necessariamente finito, il problema di decisione consiste nel verificare se una stringa finita $w$ appartenga o meno al Linguaggio $L$
 \end{defi}
 
 Ad esempio, fissato 
@@ -26,20 +13,19 @@ $$
 $$
 si possono definire alcuni problemi, per esempio
 $$
-F_L \subseteq \Sigma ^*
+\mathscr{F}_\mathscr{L} \subseteq \Sigma ^*
 $$
 dove il problema risiede nel capire se una certa formula di lunghezza finita
-risiede in $F_L$ oppure no. 
-Vi sono dei problemi principalmente di natura sintattica, come appunto $F_L$ 
+risiede in $\mathscr{F}_\mathscr{L}$ oppure no. 
+Vi sono dei problemi principalmente di natura sintattica, come appunto $\mathscr{F}_\mathscr{L}$ 
 ma anche $NNF$, $CNF$ e $DNF$. Vi sono problemi in cui la natura semantica 
 è decisiva, per esempio $SAT$, dove 
 $$
-w \in \Sigma^* : w\in SAT \iff w \in F_L \land w \text{ è soddisfacibile}
+w \in \Sigma^* : w\in SAT \iff w \in \mathscr{F}_\mathscr{L} \land w \text{ è soddisfacibile}
 $$
-oppure $TAUTO$, dove una stringa finita appartiene a $TAUTO$ se e solo se 
-è una formula ed è una tautologia, ossia
+oppure $TAUTO$, dove una stringa finita appartiene a $TAUTO$ sse è una formula ed è una tautologia, ossia
 $$
-w \in \Sigma^* : w \in TAUTO \iff w \in F_L \land \models w
+w \in \Sigma^* : w \in TAUTO \iff w \in \mathscr{F}_\mathscr{L} \land \models w
 $$
 e analogamente $UNSAT$, il problema di decidere se una certa formula è
 insoddisfacibile.
@@ -81,7 +67,7 @@ algoritmi, classifica i problemi nello stesso modo.
 Uno dei modelli di computazione è quello delle Macchine di Turing (MdT): un'idea 
 della Macchina di Turing è immaginarla come una macchina che lavora su un 
 nastro infinito in lettura e scrittura, mantenendo uno stato e operando su 
-una singola porzione di nasto in lettura utilizzando un programma per 
+una singola porzione di nastro in lettura utilizzando un programma per 
 muoversi tra gli stati e scrivere sul nastro. 
 
 Si può passare ora alla definizione formale delle classi dei problemi: 
@@ -101,7 +87,7 @@ Si può passare ora alla definizione formale delle classi dei problemi:
   tutti quei problemi tali per cui esiste una Macchina di Turing deterministica 
   e due polinomi $p,q:\mathbb{N}\rightarrow \mathbb{N}$ tali che per ogni 
   $w \in \Sigma^*$ e ogni $z \in \Gamma^*$, ossia un \textbf{certificato}, 
-  che si può immaginare prodotto oracolarmente, si ha 
+  che si può immaginare prodotto da un oracolo, si ha 
   che $T(w,z)$ termina entro $p(||w||)$ passi e si ha che per ogni 
   $w \in L$ esiste $z \in \Gamma^*$ tale che $||z|| \leq q(||w||)$ (ossia 
   il certificato è sufficientemente corto) e $T(w,z)$ accetta e per ogni 
@@ -147,246 +133,209 @@ $$
 $$
 
 \begin{teo}[di Cook-Levin]
-        $SAT \in \mathbb{NP}$-completo. $CNFSAT \in \mathbb{NP}$-completo. 
+        $CNFSAT \in \mathbb{NP}$-completo.
+        ($\implies SAT \in \mathbb{NP}$-completo)
 \end{teo}
 
-Per dimostrare che $CNFSAT \preceq SAT$, basta realizzare che una formula 
-in CNF è comunque ancora una formula e pertanto la trasformazione è ovviamente 
-polinomiale, essendo la funzione identità. Dimostrare che $SAT \preceq CNFSAT$ 
-è tutt'altra questione benché sia ovvio dal Teorema di Cook; tuttavia, questa 
-proprietà che invece non vale per le DNF, ossia $SAT \npreceq DNFSAT$, è una 
-buona motivazione per concentrarsi sulle CNF. 
-Si mostra ora, esplicitamente, che SAT si riduce polinomialmente a CNFSAT, 
-conservando non l'equivalenza logica ma la relazione di equisoddisfacibilità. 
+$CNFSAT \preceq_p SAT$ è vero perché una formula in CNF è comunque ancora una formula e pertanto la trasformazione—i.e., la funzione identità—è ovviamente polinomiale.\\
+Si mostra ora che $SAT \preceq_p CNFSAT$, conservando non l'equivalenza logica ma la \textit{relazione di equisoddisfacibilità}.
+Questo ci permetterà anche di trasformare polinomialmente le $DNF$ in $CNF$ equisoddisfacibili. Infattibile se si cercasse di mantenere l'$\equiv$.
 
 \subsection{Equisoddisfacibilità}
 \begin{defi}[Equisoddisfacibilità]
-        Siano $A, B \in F_L$. Le due formule sono equisoddisfacibili se e solo 
-        se $A$ è soddisfacibile se e solo se $B$ è soddisfacibile, ossia 
-        se $A$ e $B$ sono entrambe soddisfsacibili o entrambe insoddisfacibili. 
+Siano $A, B \in \mathscr{F}_\mathscr{L}$. $A$ e $B$ sono equisoddisfacibili ($equisodd$) sse:
+$$
+A\ sodd. \iff B\ sodd.
+$$
+ossia se $A$ e $B$ sono entrambe soddisfsacibili o entrambe insoddisfacibili. 
 \end{defi}
 
-\subsubsection{Esempi}
-\paragraph{1}
-Date le due formule $\neg (A \land B)$ e $\neg A \lor \neg B$, è noto 
+\subsubsection{Osservazioni sull'equisoddisfacibilità}
+\begin{ossn}
+L'equivalenza implica l'equisoddisfacibilità, ma non è vero il contrario.
+\begin{enumerate}
+\item Date le due formule $\neg (A \land B)$ e $\neg A \lor \neg B$, è noto 
 che sono equivalenti grazie alle leggi di De Morgan e sono, di conseguenza, 
 anche equisoddisfacibili.
-\paragraph{2} $\neg (A \land B)$ e $(\neg A \land \neg B)$ non sono equivalenti, 
+\item $\neg (A \land B)$ e $(\neg A \land \neg B)$ non sono equivalenti, 
 infatti l'assegnamento $A=1$ e $B=1$ soddisfa solo una delle due, tuttavia 
 sono equisoddisfacibili.
-\paragraph{3} $A \land \neg A$ e $\neg A \neg B$ non sono né equivalenti né
+\item $A \land \neg A$ e $\neg A \land \neg B$ non sono né equivalenti né
 equisoddisfacibili.
+\end{enumerate}
+\end{ossn}
 
-Da questi esempi si può chiaramente notare che l'equivalenza implica l'equisoddisfacibilità 
-mentre il contrario non è affatto verificato.
+\begin{ossn}
+$equisodd.$ è un tipo di relazione d'equivalenza:
+\begin{itemize}
+  \item $A\ equisodd.\ A$
+  \item $A\ equisodd.\ B$, quindi $B\ equisodd.\ A$
+  \item $A\ equisodd.\ B$ e $B\ equisodd.\ C$, quindi $A\ equisodd.\ C$
+\end{itemize}
+\end{ossn}
 
-\paragraph{4}
-L'equisoddisfacibilità è un tipo di relazione d'equivalenza, in quanto 
-valgono le proprietà di simmetria, transitività e riflessività.
-\paragraph{5} L'equisoddisfacibilità è una congruenza rispetto ai 
-connettivi, pensati come operazioni? Non lo è. Sia, per esempio 
-$\models A$, quindi $A \in [\top]$ e $B$ soddisfacibile ma non tautologica; 
-sono equisoddisfacibili, in quanto sono entrambi chiaramente soddisfacibili. 
-Se fosse una congruenza, rispetto alle varie operazioni l'equisoddisfacibilità 
-dovrebbe essere mantenuta, invece $\neg A$ è $\bot$, mentre $\neg B$ è 
-ancora soddisfacibile, pertanto non sono equisoddisfacibili.
+\begin{ossn}
+$equisodd.$ non è una congruenza rispetto ai connettivi, pensati come operazioni. \\
+Per esempio, rispetto a $\neg$: \\
+se $A\ equisodd. B$ con $\models A$ e $\nvDash B$ (i.e. $B$ non è tautologica), allora vuol dire che $\neg A$ \textbf{non} è $equisodd.$ con $\neg B$—perché $A \in \bot$ ma $B$ potrebbe essere soddisfacibile.
+\end{ossn}
 
-\paragraph{6} Le classi di equivalenza delle formule, per esempio su 
-due variabili, sono costruite nelle forme come $F_L^{(2)}/\equiv$, ossia 
-$16$ diverse classi ($2^{2^2}$). Per l'equisoddisfacibilità vi saranno unicamente 
-due classi, ossia l'insieme delle formule insoddisfacibili ($[\bot]$) e 
-tutte le rimanenti, ossia tutte quelle almeno soddisfacibili.  
+\begin{ossn} $equisodd.$ è più grezza di $\equiv$, infatti le classi di equivalenza delle formule su $n$ variabili $\mathscr{F}_\mathscr{L}^{(n)}/\equiv$, sono $2^{2^n}$. \\
+L'equisoddisfacibilità, invece, ha unicamente due classi: l'insieme delle formule insoddisfacibili ($[\bot]$) e tutte le rimanenti, ossia tutte quelle soddisfacibili da almeno un assegnamento.
+\end{ossn}
+Quest'ultima osservazione era deducibile anche dalla Osservazione 1.
 
 \subsection{Riduzione $SAT \preceq CNFSAT$}
-Sia $A \in F_L$ tale che $A$ sia in Negation Normal Form, ossia $A \in NNF$. 
-Se $A \notin CNF$, allora contiene almeno una sottoformula del tipo 
-$C \lor (D_1 \land D_2)$ oppure $(D_1 \land D_2) \lor C$. Questo si dimostra 
-semplicemente confermando che $A \in NNF$ ma non $A \in CNF$, quindi la parte 
-che non rispetta la CNF deve essere una disgiunzione di congiunzioni. Trattiamo, 
-d'ora in poi, solo il primo dei due casi, ossia quello in cui nella formula 
-appare la sottoformula $C \lor (D_1 \land D_2)$, senza perdita di generalità.
-Sia data $A \in NNF$ e sia $B = C \lor (D_1 \land D_2)$ una sua violazione; 
-per ogni violazione si introduce una nuova lettera proposizionale $a \in L$ che 
-ancora non è presente in $A$. 
-Si definisce ora 
-$$
-B' := B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg a \lor D_2)
-$$
-dove 
-$$
-B'' := B[a/D_1\land D_2]
-$$
-è la formula ottenuta rimpiazzando ogni occorrenza di $D_1 \land D_2$ con $a$ 
-in $B$. 
-Come prima osservazione, si ha che $(\neg a \lor D_1) \land (\neg a \lor D_2)$ 
-è equivalente a $a \rightarrow (D_1 \land D_2)$. 
-Si mostra che $B'$ e $B$ sono equisoddisfacibili, ma in genere non 
-sono equivalenti: 
-\begin{proof}[$B \in SAT \rightarrow B' \in SAT$]
-        Per ipotesi, dato che $B$ è soddisfacibile, sia $\mathfrak{v}:L \rightarrow \{0,1\}$
-        tale che $\mathfrak{v}(B) = 1$, ossia $\mathfrak{v} \models B$. 
+Sia $A \in \mathscr{F}_\mathscr{L}$ tale che $A$ sia in Negation Normal Form, ossia $A \in NNF$. \\
+Se $A \notin CNF$, allora contiene almeno una violazione, ovvero una sottoformula del tipo $C \lor (D_1 \land D_2)$ oppure $(D_1 \land D_2) \lor C$ (c'è un $\land$ interno ad un $\lor$).
+
+Senza perdita di generalità trattiamo, d'ora in poi, solo il primo dei due casi. Sia $A \in NNF$, ogni sua violazione $B = C \lor (D_1 \land D_2)$ si sostituisce con una nuova lettera proposizionale $a \in L$ che ancora non è presente in $A$. Si crea quindi $B'$ tale che:
+\begin{align*}
+B' := B'' \land (\neg a \lor D_1) \land (\neg a \lor D_2)
+&&
+\text{con } B'' := B[a/D_1\land D_2]
+\end{align*}
+
+Si osservi che $(\neg a \lor D_1) \land (\neg a \lor D_2) \equiv a \rightarrow (D_1 \land D_2)$. \\
+\begin{lem}
+$B'$ e $B$ sono equisoddisfacibili, ma in genere non sono equivalenti.\\
+E $B'$ ha $2n + 1$ clausole, di cui $1$ di $n$ letterali e $2n$ di $2$ letterali .
+\end{lem}
+\begin{proof}[Dimostrazione $B \in SAT \implies B' \in SAT$]
+        Per ipotesi, dato che $B$ è soddisfacibile, sia $\mathcal{v}:\mathscr{L} \rightarrow \{0,1\}$
+        tale che $\mathcal{v}(B) = 1$, ossia $\mathcal{v} \models B$. 
         Si definisce 
         $$
-        \mathfrak{v}_a: L \rightarrow \{0,1\} = 
+        \mathcal{v}_a: \mathscr{L} \rightarrow \{0,1\} = 
         \begin{cases}
-                \mathfrak{v}_a(p) = \mathfrak{v}(p) & \forall p \in L, p \neq a \\
-                \mathfrak{v}_a(a) = \mathfrak{v}(D_1 \land D_2) 
+                \mathcal{v}_a(p) = \mathcal{v}(p) & \forall p \in L, p \neq a \\
+                \mathcal{v}_a(a) = \mathcal{v}(D_1 \land D_2) 
         \end{cases} 
         $$
-        L'assegnamento $\mathfrak{v}(a)$ è ben definito, nel senso che non 
+        L'assegnamento $\mathcal{v}_a$ è ben definito, nel senso che non 
         da alla stessa lettera proposizionale due assegnamenti diversi.
-        Si nota che $\mathfrak{v}_a \models a \rightarrow (D_1 \land D_2)$, 
-        dato che per definizione $\mathfrak{v}_a(a) = \mathfrak{v}(D_1 \land D_2)$
+        Si nota che $\mathcal{v}_a \models a \rightarrow (D_1 \land D_2)$, 
+        dato che per definizione $\mathcal{v}_a(a) = \mathcal{v}(D_1 \land D_2)$
         e per interpretazione dell'implicazione $0 \rightarrow 0 = 1$ e 
-        $1 \rightarrow 1 = 1$; dunque, $\mathfrak{v}_a(B') = \mathfrak{v}_a(B'')$, 
-        in quanto la ``coda'' di $B'$, ossia $(\neg a \lor D_1) \land (\neg a \lor D_2)$, 
-        ha un assegnamento uguale a $1$, ossia 
-        $\mathfrak{v}_a(B') = \mathfrak{v}_a(B'') \land 1$.
-
-        $B$ si può riscrivere come 
-        $$
-        B = B''[D_1 \land D_2/a]
-        $$
-        dato che $a$ non appare in $B$, e quindi 
-        $$
-        B'' = (B[a/D_1 \land D_2])[a/a]
-        $$
-        e grazie al Lemma di Sostituzione si può affermare che i due valori 
-        di verità di $B$ e $B''$ sono uguali in quanto i valori di verità di $a$ 
-        e $D_1 \land D_2$ sono uguali. Ora si può scrivere 
+        $1 \rightarrow 1 = 1$; dunque:
+        \begin{align}
+        \label{dim:b'-equiv-b''}
+        \mathcal{v}_a(B') = \mathcal{v}_a(B'' \land a \rightarrow (D_1 \land D_2)) = \mathcal{v}_a(B'') \land 1 = \mathcal{v}_a(B'')
+        \end{align}
+        $B$ e $B'$ si possono riscrivere come: 
         \begin{align*}
-                1 &= \mathfrak{v}(B) \text{ per ipotesi } \\
-                  &= \mathfrak{v}_a(B) \text { poiché } a \text{ non occore in } B \\
-                  &= \mathfrak{v}_a(B'') \text{ per il lemma di sostituzione}  \\
-                  &= \mathfrak{v}_a(B') 
+        B & = B''[D_1 \land D_2/a] & \text{dato che } a \text{ non appare in } B \\
+        B'' & = B''[a/a]
+        \end{align*}
+        e grazie al Lemma~\ref{lem:sostituzione} di Sostituzione si può affermare che $\mathcal{v}(B) = \mathcal{v}(B'')$ in quanto $\mathcal{v}(a) = \mathcal{v}(D_1 \land D_2)$. \\
+        Quindi:
+        \begin{align*}
+                1 &= \mathcal{v}(B) & \text{ipotesi } \\
+                  &= \mathcal{v}_a(B) & a \text{ non occore in } B \\
+                  &= \mathcal{v}_a(B'') & \text{per il Lemma di Sost.}  \\
+                  &= \mathcal{v}_a(B') & \text{per~\ref{dim:b'-equiv-b''}}
         \end{align*}
         ossia l'assegnamento che soddisfa $B$ soddisfa anche $B'$, ossia 
         sono equisoddisfacibili. 
 \end{proof}
-\begin{proof}[$B' \in SAT \rightarrow B \in SAT$]
-        La sequenza di derivazioni utilizzata per la dimostrazione precedente 
-        è ancora buona, tuttavia c'è un vincolo all'inizio, 
-        ossia l'assunzione che se $\mathfrak{v}(B) = 1$ allora $\mathfrak{v}_a(B) = 1$; 
-        per definizione 
-        $$
-        \mathfrak{v}_a: L \rightarrow \{0,1\} = 
-        \begin{cases}
-                \mathfrak{v}_a(p) = \mathfrak{v}(p) & \forall p \in L, p \neq a \\
-                \mathfrak{v}_a(a) = \mathfrak{v}(D_1 \land D_2) 
-        \end{cases} 
-        $$
-        che non è la stessa cosa di dire che $B'$ è soddisfacibile, 
-        ossia $\mathfrak{v}_a \models B'$, poiché $B'$ potrebbe essere soddisfatto 
-        da assegnamenti che non sono nella forma $\mathfrak{v}_a$. Il ragionamento 
-        è un po' più complicato. 
-
-        Si supponga che $B'$ sia soddisfacibile da un assegnamento della forma 
-        $\mathfrak{v}_a$, ossia tale che $\mathfrak{v}_a(a) = \mathfrak{v}(D_1 \land D_2)$; 
-        allora, in questo caso si può tranquillamente ribaltare la catena di uguaglianze 
-        precedente: 
+\begin{proof}[Dimostrazione $B' \in SAT \implies B \in SAT$]
+        Se $B'$ è soddisfacibile da un assegnamento della forma $\mathcal{v}_a$—ossia tale che $\mathcal{v}_a(a) = \mathcal{v}(D_1 \land D_2)$—allora si può tranquillamente ribaltare la catena di uguaglianze precedente: 
         \begin{align*}
-                1 &= \mathfrak{v}_a(B') \\
-                  &= \mathfrak{v}_a(B'') \text{ per il lemma di sostituzione}  \\
-                  &= \mathfrak{v}_a(B) \text { poiché } a \text{ non occore in } B 
+          \mathcal{v}_a \models B' \text{ sse }1 &= \mathcal{v}_a(B') \\
+          &= \mathcal{v}_a(B'') & \text{per~\ref{dim:b'-equiv-b''}}  \\
+          &= \mathcal{v}_a(B) & \text{per il Lemma di Sost.} \\
+          \text{sse } & \mathcal{v}_a \models B
         \end{align*}
-        dunque $\mathfrak{v}_a \models B$. 
-        Si supponga, ora, che $B'$ sia soddisfatto solo da assegnamenti 
-        $\mathfrak{w}$ che non sono della forma $\mathfrak{v}_a$, 
-        ossia $\mathfrak{w}(a) \neq \mathfrak{v}(D_1 \land D_2)$. 
-        Vi sono allora due casi: nel primo $\mathfrak{w}(a)= 0 \neq \mathfrak{v}(D_1 \land D_2) =  1$, 
-        nel secondo accade il contrario, ossia 
-        $\mathfrak{w}(a) = 1 \neq \mathfrak{v}(D_1 \land D_2) = 0$ tuttavia 
-        quest'ultimo caso è impossibile, poiché 
-        $\mathfrak{w}(a \rightarrow D_1 \land D_2) = \mathfrak{w}(1 \rightarrow 0) = 0$
-        e quindi non può soddisfare $B'$. Quindi rimane 
-        il primo caso e bisogna mostrare che anche 
-        tale assegnamento effettivamente soddisfa $B'$ e non è un assurdo; come 
-        informazione di carattere generale utile per risolvere 
-        questo problema, sia E un'espressione formata solo da $0, 1, \land, \lor$ 
-        interpretati come $\min$ e $\max$. Il valore di $E$ è $0$ o $1$. 
-        Sia $E'$ ottenuta da $E$ rimpiazzando nessuna o più occorrenze 
-        del simbolo $0$ con $1$. Allora $E \leq E'$. Questo si dimostra 
-        affermando che $0, 1, \min, \max$ sono tutte funzioni 
-        non decrescenti e $E$ ed $E'$ sono composizioni di funzioni 
-        non decrescenti, pertanto sono non decrescenti (un'altra prova è 
-        per induzione strutturale su $E$).
+        Si supponga, ora, che $B'$ sia soddisfatto solo da assegnamenti $\mathcal{w}$ che non sono della forma $\mathcal{v}_a$, ossia $\mathcal{w}(a) \neq \mathcal{w}(D_1 \land D_2)$. Vi sono allora due casi:
+        \begin{itemize}
+          \item $\mathcal{w}(a) = 0 \neq \mathcal{w}(D_1 \land D_2) = 1$
+          \item $\mathcal{w}(a) = 1 \neq \mathcal{w}(D_1 \land D_2) = 0$
+        \end{itemize}
+        Tuttavia quest'ultimo caso è impossibile, poiché $\mathcal{w}(a \rightarrow D_1 \land D_2) = 1 \rightarrow 0 = 0 = \mathcal{w}(B')$ e quindi $\mathcal{w}$ non soddisferebbe $B'$.
+        
+        Quindi rimane il primo caso e bisogna mostrare che effettivamente soddisfa $B'$ e non porta ad un assurdo
+        
+        \begin{oss}
+        Sia $E$ un'espressione formata solo da $0, 1, \land, \lor$—interpretabili come $\min$ e $\max$. Il valore di $E$, quindi, è o $0$ o $1$. \\
+        Sia $E'$ ottenuta da $E$ rimpiazzando nessuna o più occorrenze  del simbolo $0$ con $1$. \\
+        Allora $E \leq E'$.
+        
+        Questo perché $0, 1, \min, \max$ sono tutte funzioni non decrescenti, e $E$ ed $E'$ sono composizioni di funzioni non decrescenti, pertanto sono non decrescenti neanche loro. \\
+        (un'altra prova è per induzione strutturale su $E$).
+        \end{oss}
 
-        Ora, tornando al problema principale, si ha che  $\mathfrak{w}(B') = 1$, 
-        $\mathfrak{w}(a) = 0$ e $\mathfrak{w}(D_1 \land D_2) = 1$. Dato 
-        che la formula iniziale era in $NNF$, anche $B'$ e $B$ sono in 
-        NNF. Dunque, considerando $\mathfrak{w}(B)$ e $\mathfrak{w}(B'')$ 
-        si possono esprimere entrambe come funzioni termine 
-        di $B''$, ossia  
+        Ora, tornando al problema principale, si ha che:
+        \begin{align*}
+        \mathcal{w}(B') = 1 &&
+        \mathcal{w}(a) = 0 &&
+        \mathcal{w}(D_1 \land D_2) = 1
+        \end{align*}
+        Se $Var(B) = \{p_1,\cdots p_n\}$, allora $\mathcal{w}(B)$ e $\mathcal{w}(B'')$ si possono esprimere come funzioni termine di $B''$:
+        \begin{align*}
+        \mathcal{w}(B'') & = \hat{B}''(\mathcal{w}(p_1), \cdots, \mathcal{w}(p_n), \mathcal{w}(a)) \\
+        \mathcal{w}(B) & = \hat{B}''(\mathcal{w}(p_1), \cdots, \mathcal{w}(p_n), \mathcal{w}(D_1 \land D_2)) & \text{per def. } B''
+        \end{align*}
+        Dato che la formula iniziale $A$ era in $NNF$, anche $B''$, $B'$ e $B$ lo sono, e $\mathcal{w}(B'')$ e $\mathcal{w}(B)$ sono quindi considerabili come espressioni costruite su $0,1,\land,\lor$, per l'osservazione precedente. \\
+        Si può concludere, quindi, che
         $$
-        \hat{B}''(\mathfrak{w}(p_1), \cdots, \mathfrak{w}(p_n), \mathfrak{w}(D_1 \land D_2))
+        \mathcal{w}(B'') = \hat{B}''(\mathcal{w}(p_1), \cdots, \mathcal{w}(p_n), 0) \leq \hat{B}''(\mathcal{w}(p_1), \cdots, \mathcal{w}(p_n), 1) = \mathcal{w}(B)
         $$
-        e
-        $$
-        \hat{B}''(\mathfrak{w}(p_1), \cdots, \mathfrak{w}(p_n), \mathfrak{w}(a))
-        $$
-        rispettivamente. Come prima osservazione, $\mathfrak{w}(B'')$ e $\mathfrak{w}(B)$
-        sono considerabili come espressioni costruite su $0,1,\land,\lor$, poiché 
-        sono entrambi in $NNF$. Si può concludere, quindi, che 
-        $$
-        \mathfrak{w}(B'') \leq \mathfrak{w}(B) \rightarrow 1 \leq \mathfrak{w}(B) \rightarrow \mathfrak{w}(B) = 1
-        $$
-        applicando le sostituzioni sui valori di verità di $a$ e $D_1 \land D_2$. 
+        ma $\mathcal{w}(B'') = 1$, quindi $\mathcal{w}(B) = 1$ 
 \end{proof}
 
 \begin{oss}[Nota finale]
         Si sarebbe potuto definire $B'$, alternativamente, come segue: 
         \begin{align*}
-                B' &:= B[a/D_1 \land D_2] \land (a \iff (D_1 \land D_2))^c \\
-                   &=  B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg A \lor D_2) \land ((D_1 \land D_2) \rightarrow a)^c \\
-                   &=  B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg A \lor D_2) \land (a \lor \neg D_1 \lor \neg D_2)
+                B' :&= B[a/D_1 \land D_2] \land (a \leftrightarrow (D_1 \land D_2))^c \\
+                   &=  B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg a \lor D_2) \land ((D_1 \land D_2) \rightarrow a)^c \\
+                   &=  B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg a \lor D_2) \land (a \lor \neg D_1 \lor \neg D_2)
         \end{align*}
-        Adottando tale definizione per $B'$, allora nella prova che $B'$ soddisfacibile 
-        implica $B$ soddisfacibile si sarebbe potuto mostrare che $B'$ è 
-        soddisfatto solo da assegnamenti nella forma $\mathfrak{v}_a$, 
-        ossia $\mathfrak{v}_a(a) = \mathfrak{v}(D_1\land D_2)$.
+        Nella prova di $B' \in SAT \implies B \in SAT$ si sarebbe potuto mostrare che $B'$ è soddisfatto solo da assegnamenti nella forma di $\mathcal{v}_a$ tali che $\mathcal{v}_a(a) = \mathcal{v}(D_1\land D_2)$.
 \end{oss}
 
-Nel passaggio da $B$ a $B'$ si osserva una dilatazione nella lunghezza della 
-formula, ossia $B'$ è \textit{più lungo} di $B$; data la formula 
+\paragraph{Dilatazione della riduzione $NNF$-$CNF$}
+Nel passaggio da $B$ a $B'$ si osserva una dilatazione nella lunghezza della formula, ossia $B'$ è \textit{più lungo} di $B$; data la formula 
 generale 
 $$
-B' \rightarrow B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg a \lor D_2)
+B' := B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg a \lor D_2)
 $$
-la parte della formula $B$ viene al massimo accorciata, però sia aggiunge una 
-decina di simboli: si può affermare che la lunghezza di 
-$B'$ sia $|B'| = |B| + k$, con $k$ una costante dipendente dal 
-modo in cui si conta la lunghezza (si contano le parentesi come simboli eccetera). 
-Per ogni ``violazione'' nella formula originale, la formula risultante equisoddisfacibile
-senza tale violazione è più lunga di $k$ caratteri e, se vi sono $v$ violazioni, 
-dopo $v$ passi la formula risultante sarà CNF e avrà lunghezza $|B| + v * k$, 
-non esponenziale rispetto alla lunghezza iniziale. 
+La parte che subisce la sostituzione può essersi accorciata, a cui però si aggiungono una decina di simboli. Quindi $||B'|| \leq ||B|| + k$, con $k$ una costante dipendente dal modo in cui si conta la lunghezza (si contano le parentesi come simboli eccetera). \\
+Per ogni ``violazione'' $B$ nella formula originale $A$, la formula risultante equisoddisfacibile senza violazioni è più lunga di $k \cdot v$ caratteri, con $v =$ \#violazioni. \\
+Inoltre, visto che in $A$ non può essere più lunga di $v$, la formula risultante $A'$ avrà lunghezza $||A'|| \leq ||A|| + k \cdot v \leq (k + 1) \cdot ||A||$, una dilatazione \textit{lineare}.
 
 La tecnica usata per ridurre $SAT \preceq_p CNFSAT$ che consiste nel rimpiazzare 
 $B$ con $B'$ equisoddisfacibile è ispirata alla riduzione 
 $$
-SAT \preceq 3CNFSAT
+SAT \preceq_p 3CNFSAT
 $$
-dovuta a Karp. Il passaggio $B \rightarrow B'$ è un esempio del cosiddetto 
-``Tseytin's Trick'', che si usa per ridurre $F \in F_L$ a una 
+dovuta a Karp. Il passaggio $B \implies B'$ è un esempio del cosiddetto 
+``Tseytin's Trick'', che si usa per ridurre $F \in \mathscr{F}_\mathscr{L}$ a una 
 in $3CNFSAT$ ad essa equisoddisfacibile. 
 
 \begin{defi}[Problemi $3CNFSAT$]
-        $3CNFSAT \subseteq CNFSAT \subseteq F_L$ è costituito da tutte 
-        e sole le CNF dove ogni clausola contiene o esattamente $3$ 
-        letterali. $3CNFSAT \in \mathbb{NP}$ ed è addirittura $\mathbb{NP}$-completo.
+$3CNFSAT \subseteq CNFSAT \subseteq \mathscr{F}_\mathscr{L}$ è costituito da tutte e sole le CNF dove ogni clausola contiene esattamente $3$ letterali. \\
+$3CNFSAT \in \mathbb{NP}$-completo.
 \end{defi}
 \begin{oss}[Problemi $2CNFSAT$]
         $2CNFSAT \in \mathbb{P}$.
 \end{oss}
-\subsubsection{Algoritmo di riduzione a CNF equisoddisfacibili}
-Sia data $F \in F_L$ e sia $A \in NNF$ $A \equiv F$, che si 
-ottiene in tempo polinomiale rispetto alla lunghezza di $F$. 
-Se $A \in CNF$, allora l'algoritmo termina, altrimenti è necessario 
-individuare la violazione $B$ sottoformula di $A$ e si sostituisce con 
-$B'$ e si ritorna al check su $A \in CNF$. 
+\begin{algorithm}
+\caption{Algoritmo di riduzione a CNF equisoddisfacibili}
+\begin{algorithmic} 
+\REQUIRE $F \in \mathscr{F}_\mathscr{L}$
+\ENSURE $A \in CNF : F\ equisodd.\ A$
+\STATE {$A : A \in NNF \land A \equiv F$}
+\WHILE{$A \notin CNF$}
+\STATE $B \leftarrow$ violazione in $A$
+\STATE $B' \leftarrow B[a/D_1 \land D_2] \land (\neg a \lor D_1) \land (\neg a \lor D_2)$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ con $a \notin Var(B)$
+\STATE $A \leftarrow A[B/B']$
+\ENDWHILE
+\RETURN{$A$}
+\end{algorithmic}
+\end{algorithm}
+
 \subsubsection{Esempi}
-\paragraph{1} Sia $A := p \lor (q \land r)$. Si trasforma ora in una 
-formula equisoddisfacibile in CNF: 
+\paragraph{1} Sia $A := p \lor (q \land r)$ in $NNF$. Si trasforma ora in una formula equisoddisfacibile in CNF: 
 $$
 A' := (p \lor a) \land (\neg a \lor q) \land (\neg a \lor r)
 $$
@@ -394,95 +343,62 @@ Queste due formule non sono equivalenti, infatti vi sono assegnamenti
 che portano a risultati diversi; tuttavia sono equisoddisfacibili.
 
 \paragraph{2} 
-Sia $A := (p_1 \land p_2) \lor (p_2 \land q_2) \lor (p_3 \land q_3)$. Si 
-ha $A'$ uguale a 
-\[
-        ((p_1 \land q_1) \lor (p_2 \land q_2) \lor a_3) \land (\neg a_2 \lor p_3) \land (\neg a_3 \lor q_3)
-\]
-e, applicando di nuovo la trasformazione, si ottiene 
-\[
-        ((p_1 \land q_1) \lor a_2 \lor a_3) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor p_2) 
-\]
-e si conclude definendo $A'''$
-\[
-(a_1 \lor a_2 \lor a_3) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor q_2) \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1)
-\]
-Data una formula con $n$ letterali si generano $2*n +1 $ clausole, 
+Sia $A := (p_1 \land p_2) \lor (p_2 \land q_2) \lor (p_3 \land q_3)$. Applicando iteramente la sostituzione, si ha:
+\begin{align*}
+(a_1 \lor (p_2 \land q_2) \lor (p_3 \land q_3)) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \\
+(a_1 \lor a_2 \lor (p_3 \land q_3)) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor p_2) \\
+(a_1 \lor a_2 \lor a_3) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor q_2) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3)
+\end{align*}
+Data una formula con $n$ letterali si generano $2 \cdot n +1 $ clausole, 
 di cui una con $n$ letterali e $2n$ con due letterali, laddove utilizzando la 
 distributività se ne generavano $2^n$ ognuna con $n$ letterali. 
 
 
 \section{Deduzione Automatica}
-Vogliamo studiare i problemi $CNFSAT$, che è $\mathbb{NP}$-completo, e 
-il suo complemento $CNFUNSAT$, che è un problema $\mathbb{NP}$-completo, 
-in quanto la riduzione polinomiale $SAT \preceq_p CNFSAT$ è valida e pertanto 
-studiare $CNFSAT$ è uguale a studiare $SAT$. Analogamente si può studiare 
-$TAUTO \preceq_p SAT^c \preceq_p CNFUNSAT$. In realtà siamo nella posizione 
-di studiare $\Gamma \models A$ tramite la risoluzione di $CNFSAT$ e $CNFUNSAT$.
-Il motivo per cui non studiare invece $DNFSAT$ e $DNFUNSAT$ è che non 
-c'è un algoritmo per ``tradurre'' una formula arbitraria equisoddisfacibile 
-in DNF in modo che sia sufficientemente corta: i metodi conosciuti allungano
-esponenzialmente la formula. 
+Ricordiamo che noi vorremmo studiare $\Gamma \stackrel{?}{\models} A$, che si può ricondurre ad un problema di soddisfacibilità o al suo complementare di insoddisfacibilità. Tuttavia:
+\begin{align*}
+  & \mathbb{NP}\text{-complete} \ni SAT \preceq_p CNFSAT \\
+  & \text{co}\mathbb{NP}\text{-complete} \ni TAUTO \preceq_p SAT^c \preceq_p CNFUNSAT
+\end{align*}
+
+Il motivo per cui non studiamo invece $DNFSAT$ e $DNFUNSAT$—che sono in $\mathbb{P}$—è che $SAT \npreceq_p DNFSAT$. Non c'è un algoritmo per ``tradurre'' una formula arbitraria equisoddisfacibile in $DNF$ in modo che sia sufficientemente corta: i metodi conosciuti allungano esponenzialmente la formula.
 
 \begin{defi}[Variazione notazionale]
-        Date $F_i \in F_L$, le formule 
-        $$
-        F_1 \land F_2 \land \cdots \land F_k
-        $$
-        e 
-        $$
-        F_1 \lor F_2 \lor \cdots \lor F_k
-        $$
-        si possono scrivere senza operatori grazie all'associatività, 
-        e inoltre le formule interne nelle formule esterne si possono 
-        scambiare ($F_1 \land F_2 \equiv F_2 \land F_1$) grazie 
-        alla commutatività e si possono espandere le singole formule 
-        ($F_1 \land F_1  \equiv F_1$) grazie all'idempotenza. 
+Date $F_i \in \mathscr{F}_\mathscr{L}$, le formule 
+\begin{align*}
+  F_1 \land F_2 \land \cdots \land F_k &&
+  F_1 \lor F_2 \lor \cdots \lor F_k
+\end{align*}
+si possono scrivere senza parentesi grazie all'associatività, si possono scambiare le formule interne nelle formule esterne ($F_1 \land F_2 \equiv F_2 \land F_1$) grazie alla commutatività e, infine, si possono espandere le singole formule ($F_1 \land F_1  \equiv F_1$) grazie all'idempotenza.
 
-        In questo frangente si possono anche ``tralasciare'' gli operatori 
-        $\land$ e $\lor$, chiaramente nel caso in cui ci sia un utilizzo uniforme. 
-        La notazione può diventare puramente insiemistica, ossia 
-        $$
-        \{F_1, F_2, \cdots, F_k\}
-        $$
-        per indicare entrambe le formule, specificando il connettivo che le 
-        unisce. D'ora in poi una CNF sarò un \textbf{insieme} di clausole, 
-        dove ogni clausola sarà un insieme di letterali. 
-        Per esempio 
-        $$
-        (p \lor q \lor \neg r) \land (q \lor r \lor a) \land p
-        $$
-        diventa 
-        $$
-        \{ \{p, q, \neg r\}, \{q, r, a\}, \{p\}\}
-        $$
-        ossia una CNF in forma insiemistica, che contiene clausole in 
-        forma insiemistica. 
-        Una teoria costruita da CNF è l'insieme di tutte le clausole appartenenti 
-        a qualche CNF della teoria. 
-        La CNF vuota è $\emptyset$, mentre la clausola vuota $\qedsymbol$ 
-        e la CNF che contiene la clausola vuota avrà la forma 
-        $\{\cdots, \qedsymbol, \cdots \}$.
+Per questo motivo d'ora in poi per le $CNF$ tralasceremo gli operatori $\land$ e $\lor$ in favore di una notazione insiemistica. Per esempio:
+\begin{align*}
+  (p \lor q \lor \neg r) \land &(q \lor r \lor a) \land p \\
+  & \Downarrow \\
+  \{ \{p, q, \neg r\}, &\{q, r, a\}, \{p\}\}
+\end{align*}
+Una teoria costituita da CNF è indicata come l'insieme di tutte le clausole appartenenti a qualche CNF della teoria (di fatto è una CNF più grande). Inoltre:
+\begin{align*}
+  & \emptyset = CNF \text{ vuota} \\
+  & \qedsymbol = \text{ clausola vuota} \\
+  & \{\cdots, \qedsymbol, \cdots \} = CNF \text{ contenente la clausola vuota}.
+\end{align*}
 \end{defi}
 
-Il problema della conseguenza logica di una teoria 
+Il problema di definire se $A$ è conseguenza logica di una teoria $\Gamma$ 
 $$
-\Gamma \models A
+\Gamma \stackrel{?}{\models} A
 $$
-si può ridurre a calcolare la soddisfacibilità di 
-$$
-S := \{\Gamma^c \cup \{\neg A\}^c\} \text{ dove } \Gamma^c := \{\gamma^c | \gamma \in \Gamma\}
-$$
-unione di CNF. 
-Si è quindi ridotto il problema $\Gamma \models A$ al problema $S \in CNFSAT$,
+si può ridurre a calcolare la insoddisfacibilità di $\Gamma \cup \{\neg A\}$, che è uguale a calcolare l'insoddisfacibilità della sua forma in CNF $S := \{\Gamma^c \cup \{\neg A\}^c\}$ dove $\Gamma^c := \{\gamma^c | \gamma \in \Gamma\}$ e $\{\neg A\}^c \in CNF$. 
+
+Il problema $\Gamma \models A$ è stato ridotto polinomialmente al problema $S \in CNFSAT$,
 dove $S$ è un insieme di clausole considerate come insiemi di letterali, 
-eventualmente infinito. 
+eventualmente infinito.
 
 
 \subsection{Metodi refutazionali}
-$S$ è soddisfacibile se esiste $\mathfrak{v}:L \rightarrow \{0,1\}$ tale 
-che $\mathfrak{v} \models C$ per ogni clausola $C \in S$, in altre parole 
-in ogni $C \in S$ esiste un letterale $l \in C$ tale che $\mathfrak{v} \models l$. 
+$S$ è soddisfacibile se esiste $\mathcal{v}:\mathscr{L} \rightarrow \{0,1\}$ tale 
+che per ogni clausola $C \in S, \mathcal{v} \models C$, in altre parole esiste un letterale $\ell \in C$ tale che $\mathcal{v} \models \ell$. 
 
 Se l'obiettivo è dimostrare che $S$ è insoddisfacibile, una strategia 
 può essere ampliare $S$ in un nuovo insieme $S \subseteq S'$ in modo 
@@ -492,7 +408,7 @@ e alla fine la clausola vuota $\qedsymbol$ appartiene a $S^{(u)}$ allora quest'u
 è insoddisfacibile, e quindi anche $S$ lo è. Questa idea può essere sfruttata 
 disegnando \textbf{metodi refutazionali}, ossia metodi che hanno l'obiettivo di 
 provare l'insoddisfacibilità di un insieme di clausole, in questo frangente, 
-ma più in generale anche di una formula o una teoria, i quali sono basati 
+ma più in generale anche di una formula o una teoria. Questi metodi sono basati 
 sulla regola di inferenza chiamata \textbf{principio di risoluzione}, 
 il quale è utile per un tipo di calcolo particolarmente adatto a essere automatizzato, 
 ossia SAT solver e Theorem Prover. 
@@ -510,45 +426,54 @@ ossia SAT solver e Theorem Prover.
 
 \subsubsection{Esercizio}
 Mostrare che $(C_1 \setminus \{\ell\}) \cup (C_2 \setminus \{\bar{\ell}\})$ può essere 
-diverso da $(C_1 \cup C_2) \setminus \{\ell, \bar{\ell}\}$. 
+diverso da $(C_1 \cup C_2) \setminus \{\ell, \bar{\ell}\}$.
+
+Sia $C_1 = \{a,\neg a\}$ e $C_2 = \{a, \neg a, b\}$. Allora
+\begin{align*}
+  (C_1 \setminus \{a\}) \cup (C_2 \setminus \{\neg a\}) & = \{a, \neg a, b\} \\
+  (C_1 \cup C_2) \setminus \{a, \neg a\} & = \{b\}
+\end{align*}
+  
 
 \subsubsection{Esempio}
-Sia $C_1 := \{x, y, \neg t\}$ e $C_2 := \{u, \neg y, t\}$; 
-si ha $D_1 = \mathbb{R}(C_1, C_2; y, \neg y) = \{x, \neg t, u\}$ e 
-$D_2 = \mathbb{R}(C_1, C_2; \neg t, t) = \{x, y, y\}$. 
+Sia $C_1 := \{x, y, \neg t\}$ e $C_2 := \{u, \neg y, t\}$; si ha
+\begin{align*}
+D_1 & = \mathbb{R}(C_1, C_2; y, \neg y) = \{x, \neg t, u\} \\
+D_2 & = \mathbb{R}(C_1, C_2; \neg t, t) = \{x, y, u, \neg y\}
+\end{align*} 
 
-\begin{lem}[di correttezza della risoluzione]
+\begin{lemn}[di correttezza della risoluzione]
+\label{lem:correttezza-risoluzione}
         Sia $D = \mathbb{R}(C_1, C_2; \ell, \bar{\ell})$, allora 
         $$
         \{C_1, C_2\} \models D
         $$
-\end{lem}
+\end{lemn}
 
 \begin{proof}
-        Bisogna dimostrare che ogni $\mathfrak{v}$ tale che $\mathfrak{v} \models C_1$ 
-        e $\mathfrak{v} \models C_2$ implica $\mathfrak{v} \models D$. Sia allora 
-        $\mathfrak{v}$ tale che $\mathfrak{v} \models C_1$ 
-        e $\mathfrak{v} \models C_2$, allora $\mathfrak{v} \models m$ e 
-        $\mathfrak{v} \models n$ per due letterali $m \in C_1$ e $n \in C_2$; 
-        se fosse il caso che $m = \ell$ e  $n = \bar{\ell}$ allora 
-        $\mathfrak{v}(\ell) = 1$ e $\mathfrak{v}(\bar\ell) = 1$, impossibile. 
-        Allora,almeno uno tra $m$ e $n$ è tale che $m \neq \ell$ o $n \neq \ell$ 
-        e assumendo senza perdita di generalità $m \neq l$ si ha 
-        $m \in D$, dunque $\mathfrak{v}(D) = 1$. 
+Dimostriamo che $\mathcal{v} \models C_1$ e $\mathcal{v} \models C_2 \implies \mathscr{v} \models D$. \\
+Sia $\mathcal{v} : \mathscr{L} \rightarrow \{0, 1\}$ tale che:
+  \begin{align*}
+    & \mathcal{v} \models C_1 \text{ e } \mathcal{v} \models C_2 \\
+    \implies & \exists m \in C_1, n \in C_2 \text{ t.c. } \mathcal{v} \models m \text{ e } \mathcal{v} \models n \\
+    & \text{Per assurdo assumiamo } m = \ell \text{ e } n = \bar \ell \\
+    \implies & \mathcal{v}(\ell) = 1 \text{ e } \mathcal{v}(\bar \ell) =1 \\
+    \implies & \bot \\
+    \implies & m \neq \ell \text{ o } n \neq \bar \ell \\
+    \implies &  m \in D \text{ o } n \in D \\
+    \implies & \mathcal{v}(D) = 1
+  \end{align*}
 \end{proof}
 
 \begin{cor}
         Se $\mathbb{R}(C_1, C_2; \ell, \bar{\ell}) = \qedsymbol$ allora 
         $\{C_1, C_2\}$ è insoddisfacibile, in quanto $\{C_1, C_2\} \models \qedsymbol$.
 \end{cor}
-\begin{cor}
-        Sia $S$ un insieme di clausole e sia $S := S_0, S_1, \cdots, S_k$ una 
-        successione di insiemi tale che per ogni $i = 0, \cdots, k-1$ 
-        si ha che $S_{i+1}$ si ottiene unendo a $S_i$ una o più risolventi 
-        di clausole in $S_i$ e che $\qedsymbol \in S_k$. $S$ è 
-        insoddisfacibile.
-\end{cor}
-L'obiettivo è mostare che i calcoli refutazionali basati su applicazioni 
+\begin{defi}[\textit{Calcolo refutazionale basato su risoluzione}]
+  Sia $S$ un insieme di clausole e sia $S := S_0, S_1, \cdots, S_k$ una successione di insiemi tale che per ogni $i = 0, \cdots, k-1$ si ha che $S_{i+1}$ si ottiene unendo a $S_i$ una o più risolventi di clausole in $S_i$. \\
+  Se $\qedsymbol \in S_k$, allora $S$ è insoddisfacibile.
+\end{defi}
+L'obiettivo è mostrare che i calcoli refutazionali basati su applicazioni 
 ripetute della risoluzione sono corretti e completi (refutazionalmente).
 In genere, per un calcolo logico si studiano infatti le due
 seguenti proprietà:
@@ -558,178 +483,136 @@ seguenti proprietà:
         non produce certificati fasulli. 
 \end{defi}
 
-Per esempio, nel frangente attuale 
-$S_0, S_1, \cdots, S_k \ni \qedsymbol$ è un certificato 
-corretto dell'insoddisfacibilità di $S = S_0$. 
+Per esempio, nel frangente attuale $S_0, S_1, \cdots, S_k \ni \qedsymbol$ è un certificato corretto dell'insoddisfacibilità di $S = S_0$. \\
+Questo genere di calcolo è corretto, e la dimostrazione scende direttamente dal Lemma~\ref{lem:correttezza-risoluzione}, come vedremo tra poco.
 
 \begin{defi}[Completezza]
         Un calcolo è completo se non omette alcun certificato. 
 \end{defi}
-Nella situazione attuale vuol dire che se $S$ è insoddisfacibile, allora 
-esiste $S_0, S_1, \cdots, S_k$ tale che si produce $\qedsymbol \in S_k$.
+Nella situazione attuale vuol dire che se $S$ è insoddisfacibile, allora esiste $S_0, S_1, \cdots, S_k$ tale che si produce $\qedsymbol \in S_k$.
 
-
-Prima di mostrare che il calcolo refutazionale è sia corretto (anche se 
-il lemma di correttezza è già stato esplicitato) e completo, è necessario 
+Prima di mostrare che il calcolo refutazionale è completo, è necessario 
 prepararsi la strada, poiché non sarà banale. 
 
 \begin{teo}[Teorema di Completezza del principio di risoluzione (o di Robinson)]
-       Un insieme $S$ di clausole è insoddisfacibile se e solo se 
-       $\qedsymbol \in R^*(S)$, dove $R^*(S)$ è definito come segue: 
-       \begin{align*}
-               R(S) &:= S \cup \{D: D = \mathbb{R}(C_1, C_2; \ell, \bar{\ell}) C_1, C_2 \in S \land \ell \in C_1 \land \bar{\ell} \in C_2\} \\
-               R^2(S) &= R(R(S)) \\
-               \cdots \\
-               R^{t+1}(S) &:= R(R^{t}(S)) \\
-               \cdots \\
-               R^*(S) &= \cup_{i \in \omega} R^i(S)
-       \end{align*}
-       dato $R^0(S) := S$. 
+Un insieme $S$ di clausole è insoddisfacibile $\iff \qedsymbol \in \mathscr{R}^*(S)$, dove $\mathscr{R}^*(S)$ è definito come segue:
+\begin{align*}
+  \mathscr{R}^0(S) &:= S \\
+  \mathscr{R}^1(S) &:= S \cup \{D: D = \mathbb{R}(C_1, C_2; \ell, \bar{\ell})\} & \text{per qualche } C_1,C_2 \in S \text{ e } \ell \in C_1 \text{ e } \bar\ell \in C_2 \\
+  \mathscr{R}^2(S) &:= \mathscr{R}(\mathscr{R}(S)) \\
+  \cdots \\
+  \mathscr{R}^{t+1}(S) &:= \mathscr{R}(\mathscr{R}^{t}(S)) \\
+  \cdots \\
+  \mathscr{R}^*(S) &:= \bigcup\limits_{i \in \omega} \mathscr{R}^i(S)
+\end{align*} 
 \end{teo}
 
-Il calcolo $R^*$ è un metodo \textit{a forza bruta}, applica il 
-Principio di Risoluzione calcolando ciecamente 
-tutte le risoluzioni possibili e non c'è da sperare che faccia molto meglio 
-delle tavole di verità. 
+Il calcolo $\mathscr{R}^*$ è un metodo \textit{a forza bruta}, applica il Principio di Risoluzione calcolando ciecamente tutte le risoluzioni possibili. Per questo non c'è da sperare che faccia molto meglio delle tavole di verità. 
 
-\begin{proof}[$\qedsymbol \in R^*(S) \rightarrow S$ insoddisfacibile (Correttezza del calcolo R)]
-        Si supponga $\qedsymbol \in R^*(S)$, allora c'è un $i \in \omega$ tale 
-        per cui, per definizione, $\qedsymbol \in R^i(S)$ e pertanto 
-        $R^i(S)$ è insoddisfacibile, per definizione di clausola vuota; 
-        $R^i(S)$ è equivalente a $R^{i-1}(S)$ per il lemma di correttezza, 
-        arrivando fino a $R^0(S) = S$, che è pertanto insoddisfacibile.
+\begin{proof}
+\textit{Correttezza del calcolo $\mathscr{R}$: $\qedsymbol \in \mathscr{R}^*(S) \implies S$ insoddisfacibile} \\
+\begin{align*}
+& \qedsymbol \in \mathscr{R}^*(S) \\
+\iff & \exists i \in \omega : \qedsymbol \in \mathscr{R}^i(S) & \text{per def. } \mathscr{R}^*(S) \\
+\iff & \mathscr{R}^i(S)\ insodd. & \text{per def. di clausola vuota} \\
+\iff & \mathscr{R}^i(S) \equiv \mathscr{R}^{i-1}(S) \equiv \cdots \equiv \mathscr{R}^0(S) = S & \text{per Lemma~\ref{lem:correttezza-risoluzione}} \\
+\iff & S\ insodd.
+\end{align*}
 \end{proof}
-\begin{proof}[$S \text{ insoddisfacibile } \rightarrow \qedsymbol \in R^*(S)$ (Completezza Refutazionale del calcolo R)]
-        Dato che $S$ è insoddisfacibile, per il Teorema di Compattezza esiste 
-        un $S_{fin} \subseteq_{\omega} S$ finito e $S_{fin}$ è insoddisfacibile; 
-        bisogna capire come sia fatto $S_{fin}$: l'insieme finito $S_{fin}$ contiene 
-        un numero finito di lettere proposizionali e si definisce, come è stato fatto 
-        precedentemente,
-        $Var(S_{fin}) \subseteq \{p_1, p_2, \cdots, p_n\}$ per qualche $n \in  \omega$, 
-        $p_i \in L$.
-        La notazione $C^{n}_L$ indica l'insieme di tutte le clausole scrivibili 
-        sulle prime $n$ lettere proposizionali, ossia $\{p_1, p_2, \cdots, p_n\}$  
-        e si ha $S_{fin} \subseteq C^{n}_L$. 
-        Si osserva che $C^{0}_L = \{ \qedsymbol \}$. A fortiori, dato che 
-        $S_{fin} \subseteq C^{n}_L$ si ha $S_{fin} \subseteq (C^{n}_L \cap S) \subseteq (C_L^{n} \cap R^*(S))$
-        e pertanto $C^{n}_L \cap R^*(S)$ è insoddisfacibile, dato che $S_{fin}$ è 
-        insoddisfacibile. 
 
-        Se si riesce a dimostrare che per ogni $ k = n, \cdots, 1,0$ si ha 
-        $$
-        C^k_L \cap R^*(S) \text{ è insoddisfacibile}
-        $$
-        allora si ha che per $k = 0$
-        $$
-        C^{0}_L \cap R^*(S) \text{ è insoddisfacibile }
-        $$
-        poichè se si dimostra che $C^0_L \cap R^*(S)$ 
-        insoddisfacibile, allora $\qedsymbol \in R^*(S)$: 
-        $$
-        C^{0}_L \cap R^*(S) = 
-        \begin{cases}
-        \emptyset  & \rightarrow C^0_L \cap R^*(S) \text{soddisfacibile, assurdo.} \\
-        \qedsymbol & \text{ unico caso possibile }
-        \end{cases}
-        $$
-        dunque $\qed \in R^*(S)$. Per dimostrare che 
-        per ogni $k = n, \cdots, 1, 0$ 
-        $$
-        C^k_L \cap R^*(S) \text{ è insoddisfacibile} 
-        $$
-        si usa l'induzione decrescente su $k$, ossia l'induzione aritmetica 
-        su $t = n - k$; se $k = n \rightarrow t = 0$ e se $k = 0 \rightarrow t = n$. 
-        La base dell'induzione è ``regalata'' dal Teorema di Compattezza, 
-        ossia che $C^k_L \cap R^*(S)$ sia insoddisfacibile è dovuto all'esistenza $S_{fin}$ 
-        insoddisfacibile. Si assume l'asserto vero per $n-0, n-1, \cdots,n-k-1 $ e 
-        si prova per $t=n-k$, ossia 
-        $$
-        C^n_L \cap R^*(S), C^{n-1}_L \cap R^*(S), \cdots, C^{k+1}_L \cap R^*(S)
-        $$
-        sono insoddisfacibili e si vuole dimostrare per $C^k_L \cap R^*(S)$ sia 
-        insoddisfacibile. 
-
-        Per assurdo, si assume $C^k_L \cap R^*(S)$ 
-        soddisfacibile, dunque esiste $\mathfrak{v} \models C$ per ogni 
-        $C \in C^k_L \cap R^*(S)$; si definiscono ora 
-        $$
-        \mathfrak{v}^+ : L \rightarrow \{0,1\} ~ ~ ~ \mathfrak{v}^+(p_{k+1}) = 1 
-        $$
-        $$
-        \mathfrak{v}^- : L \rightarrow \{0,1\} ~ ~ ~ \mathfrak{v}^-(p_{k+1}) = 0
-        $$
-        mentre per ogni altra $i$ $\mathfrak{v}(i) = \mathfrak{v}^+(i) = \mathfrak{v}^-(i)$;
-        si noti che $p_{k+1} \notin C^{(k)}_L$. 
-        Per ipotesi induttiva esiste $C_1 \in C^{k+1}_K \cap R^*(S)$ tale che 
-        $\mathfrak{v}^+(C_1) = 0$; analogamente esiste $C_2 \in C^{k+1}_L \cap R^*(S)$ 
-        tale che $\mathfrak{v}^-(C_2) = 0$, in quanto è insoddisfacibile.
-       
-        La lettera proposizionale $p_{k+1}$ occorre in $C_1$ e più precisamente come 
-        letterale $\neg p_{k+1}$, infatti $p_{k+1}$ non può occorrere come letterale 
-        positivo poiché $\mathfrak{v}^+(p_{k+1}) =1$ per definizione e dunque $ \mathfrak{v}^+(C_1) = 1$, 
-        assurdo. Deve, però, apparire nel letterale $\neg p_{k+1}$, poiché altrimenti 
-        si ottiene che $p_{k+1}, \neg p_{k+1} \notin C_1$ dunque $C_1 \in C^k_L \cap R^*(S)$ 
-        e dunque $\mathfrak{v}(C_1) = 1$. Analogamente, 
-        $p_{k+1}$ occorre in $C_2$ e più precisamente come letterale $p_{k+1}$ 
-        e la prova induttiva è identica, mutandis mutandis. 
-
-
-        Dunque, esiste $D = R(C_1, C_2; \neg p_{k+1}, p_{k+1})$, ossia 
-        $$
-        D = (C_1 \setminus \{ \neg p_{k+1}\}) \cup (C_2 \setminus \{p_{k+1}\})
-        $$
-        e $p_{k+1}, \neg p_{k+1} \notin D$ e $D \in C^{k}_L \cap R^*(S)$ 
-        e $\mathfrak{v}(D) = 1$. Vi sono due casi: il primo è che 
-        $\mathfrak{v}$ soddisfi qualche letterale in $C_1 \setminus \{p_{k+1}\}$, 
-        ma allora $\mathfrak{v}(C_1)  = 1$ e $\mathfrak{v}^+(C_1) = 1$, 
-        assurdo.
-        Il secondo caso è che $\mathfrak{v}$ soddisfi qualche letterale 
-        in $C_2 \setminus \{p_{k+1}\}$, e allora $\mathfrak{v}^-(c_2) = 1$, 
-        assurdo.
-        Non essendoci altri casi, si è raggiunta la contraddizione 
-        che conclude la dimostrazione per assurdo, dunque 
-        $C^k_L \cap R^*(S)$ è
-        insoddisfacibile per ogni $k$, che chiude la prova per induzione; dunque, 
-        per ogni $k = n, n-1, \cdots, 1, 0$, $C^k_L \cap R^*(S)$ è 
-        insoddisfacibile e $C^0_L \cap R^*(S)$ anche, pertanto 
-        $C^0\cap R^*(S) = \{\qedsymbol\}$ e $\qedsymbol \in R^*(S)$.
-\end{proof}
+\begin{proof}
+\textit{Completezza Refutazionale del calcolo $\mathscr{R}$: $S \text{ insodd. } \implies \qedsymbol \in \mathscr{R}^*(S)$} \\
+Dato che $S$ è insoddisfacibile, per il Teorema~\ref{thm:compattezza-prop} di Compattezza esiste un $S_{fin} \subseteq_{\omega} S$ finito e $S_{fin}$ è insoddisfacibile; 
+bisogna capire come sia fatto $S_{fin}$: l'insieme finito $S_{fin}$ contiene un numero finito di lettere proposizionali $Var(S_{fin}) \subseteq \{p_1, p_2, \cdots, p_n\}$ per qualche $n \in  \omega$, $p_i \in \mathscr{L}$. \\
+La notazione $C^{n}_\mathscr{L}$ indica l'insieme di tutte le clausole scrivibili sulle prime $n$ lettere proposizionali.
 \begin{oss}
-        Se $S$ è un insieme finito di clausole, la costruzione di $R^*(S)$ 
-        costituisce una procedura di decisione, cioè sia che $S$ sia insodd. 
-        sia che $S$ sia sodd. termina in tempo finito, dando la risposta 
-        corretta. Infatti, se $S$ è finito menziona solo un numero finito $n = |Var(S)|$ di 
-        lettere proposizionali diverse e i letterali scrivibili su $\{p_1, \cdots, p_n\}$ 
-        sono $2*n$, dunque in $S$ occorrono al più $2*n$ letterali diversi; le 
-        clasuole scrivibili su $2*n$ letterali sono al più $2^{2*n}$ dunque 
-        in $S$ occorrono al più $2^{2*n}$ clausole. 
-        Si nota, ora, che la risoluzione non introduce mai nuovi letterali, 
-        dunque la sequenza $R^{(0)}(S) \subseteq R(S) \subseteq \cdots R^{k}(S) \subseteq \cdots$ 
-        è tale che  che ogni $R^{i}(S)$ è un sottoinsieme delle $2^{2*n}$ clausole 
-        scrivibili su $\{p_1, \cdots, p_n\}$, dunque esiste un $t$ tale che 
-        $R^{t}(S) = R^{t+1}(S)$, poiché la sequenza non può crescere all'infinito; 
-        pertanto
-        $$
-        R^{t}(S) = R^{t+1}(S) = \cdots = R^*(S)
-        $$
-        Se si trova $\qedsymbol \in R^i(S)$, si può concludere che $S$ sia 
-        insoddisfacibile. Se, al contrario, $R^t(S) = R^{t+1}(S)$ e $\qedsymbol \notin R^t(S)$, 
-        si può concludere che $S$ sia soddisfacibile. 
+$S_{fin} \subseteq C^{n}_\mathscr{L}$ e $C^{0}_\mathscr{L} = \{ \qedsymbol \}$
 \end{oss}
+\textit{A fortiori}: dato che $S_{fin} \subseteq C^{n}_\mathscr{L}$, si ha $S_{fin} \subseteq (C^{n}_\mathscr{L} \cap S) \subseteq (C_\mathscr{L}^{n} \cap \mathscr{R}^*(S))$ e pertanto $C^{n}_\mathscr{L} \cap \mathscr{R}^*(S)$ è insodd., dato che $S_{fin}$ è insodd. \\
+Dimostreremo, quindi, che $C^k_\mathscr{L} \cap \mathscr{R}^*(S) \text{ è insodd.}$ per ogni $ k = n, \cdots, 1,0$. Compreso, per $k = 0$:
+$$
+C^{0}_\mathscr{L} \cap \mathscr{R}^*(S) \text{ insodd. }
+$$
+Tuttavia dobbiamo capire com'è fatto $C^0_\mathscr{L} \cap \mathscr{R}^*(S)$:
+$$
+C^{0}_\mathscr{L} \cap \mathscr{R}^*(S) = 
+\begin{cases}
+  \emptyset  & \leadsto C^0_\mathscr{L} \cap \mathscr{R}^*(S) \text{ sodd. } \leadsto \bot \\
+  \{\qedsymbol\} & \leadsto \text{ unico caso possibile }
+\end{cases}
+$$
+Ma quindi, per def. di $\cap$, $\qedsymbol \in \mathscr{R}^*(S)$!
+
+Per dimostrare che per ogni $k = n, \cdots, 1, 0$ 
+$$
+C^k_\mathscr{L} \cap \mathscr{R}^*(S) \text{ è insoddisfacibile} 
+$$
+si usa l'induzione decrescente su $k$:
+\begin{itemize}
+\item \textbf{base} ($k = n$): $C^n_\mathscr{L} \cap \mathscr{R}^*(S)$ insodd. (già dimostrato)
+\item \textbf{passo} ($k-1$): si assume l'asserto vero per $n, n-1, \cdots, k$ e si dimostra per $k-1$, ossia 
+$$
+C^n_\mathscr{L} \cap \mathscr{R}^*(S), C^{n-1}_\mathscr{L} \cap \mathscr{R}^*(S), \cdots, C^k_\mathscr{L} \cap \mathscr{R}^*(S) \text{  insodd.}
+$$
+
+Per assurdo, si assuma $C^{k-1}_\mathscr{L} \cap \mathscr{R}^*(S)$ sodd., dunque esiste $\mathcal{v} \models C$ per ogni $C \in C^k_\mathscr{L} \cap \mathscr{R}^*(S)$; si definiscono ora 
+\begin{align*}
+\mathcal{v}^+ : \mathscr{L} \rightarrow \{0,1\},\ \mathcal{v}^+(p_k) = 1 \\
+\mathcal{v}^- : \mathscr{L} \rightarrow \{0,1\},\ \mathcal{v}^-(p_k) = 0
+\end{align*}
+mentre per ogni altra $p_i \in C^k_\mathscr{L}$, $\mathcal{v}(p_i) = \mathcal{v}^+(p_i) = \mathcal{v}^-(p_i)$; si noti che $p_k \notin C^{k-1}_\mathscr{L}$. 
+Per ipotesi induttiva esistono $C_1, C_2 \in C^k_\mathscr{L} \cap \mathscr{R}^*(S)$ insoddisfacibili, tali che:
+\begin{align*}
+\mathcal{v}^+(C_1) = 0 && \mathcal{v}^-(C_2) = 0
+\end{align*}
+La lettera proposizionale $p_k$ occorre in $C_1$, altrimenti vorrebbe dire che $C_1 \in C^{k-1}_\mathscr{L} \cap \mathscr{R}^*(S)$ e, visto che $C^{k-1}_\mathscr{L} \cap \mathscr{R}^*(S)$ è sodd. per ipotesi assurda, vorrebbe dire che $\mathcal{v}^+(C_1) = \mathcal{v}(C_1) = 1$. Assurdo. \\
+Deve però apparire come letterale $\neg p_k$, così che $\mathcal{v}^+(C_1) = 0$ come da ipotesi. \\
+Analogamente, $p_k$ occorre in $C_2$ e più precisamente come letterale positivo $p_k$ e la prova è identica, \textit{mutantis mutandis}. 
+
+Dunque, esiste $D = \mathbb{R}(C_1, C_2; \neg p_k, p_k) = (C_1 \setminus \{ \neg p_k\}) \cup (C_2 \setminus \{p_k\})$, con:
+\begin{align*}
+& p_k, \neg p_k \notin D \\
+\iff & D \in C^{k-1}_\mathscr{L} \cap \mathscr{R}^*(S) && \text{perché non compare } p_k \\
+\iff & \mathcal{v}(D) = 1 && \text{per ipotesi assurda} \\
+\iff & \mathcal{v} \models D
+\end{align*}.
+
+Vi sono due casi:
+\begin{enumerate}
+  \item $\mathcal{v}$ soddisfa qualche letterale in $C_1 \setminus \{\neg p_k\}$. Ma allora $\mathcal{v}(C_1) = 1$ e $\mathcal{v}^+(C_1) = 1$, assurdo.
+  \item $\mathcal{v}$ soddisfa qualche letterale in $C_2 \setminus \{p_k\}$, e allora $\mathcal{v}^-(C_2) = 1$, assurdo.
+\end{enumerate}
+Non essendoci altri casi, si è raggiunta la contraddizione che conclude la dimostrazione per assurdo, dunque $C^k_\mathscr{L} \cap \mathscr{R}^*(S)$ è
+insoddisfacibile per ogni $k$, $k=0$ incluso.
+\end{itemize}
+Dunque $C^0_\mathscr{L} \cap \mathscr{R}^*(S)$ è insoddisfacibile, pertanto $C^0 \cap \mathscr{R}^*(S) = \{\qedsymbol\}$ e $\qedsymbol \in \mathscr{R}^*(S)$.
+\end{proof}
 \begin{oss}
-        Dato che $S_{fin}$ è finito, esiste $t \in \omega$ tale 
-        che $R^*(S_{fin})=R^t(S_{fin}) = R^{t+1}(S_{fin})$, 
-        tuttavia questo non fornisce una procedura di decisione per 
-        gli $S$ infiniti, ma esclusivamente di semidicesione, in quanto 
-        in genere non si sa \textit{scegliere} $S_{fin}$ e 
-        il meglio che si può fare è descrivere una successione infinita 
-        $$
-        S_1 \subseteq S_2 \subseteq \cdots \subseteq S_k  \subseteq \cdots 
-        $$
-        di sottoinsiemi finiti di $S$ tali che $\bigcup S_i = S$ e 
-        per ogni $i$ si calcola $R^*(S_i)$: se $\qedsymbol \in S_i$ allora 
-        $S$ insoddisfacibile, 
-        altrimenti si aumenta $i$ e si procede al passo successivo.
+Se $S$ è un insieme finito di clausole, la costruzione di $\mathscr{R}^*(S)$ costituisce una \textit{procedura di decisione}, cioè sia che $S$ sia insodd. sia che $S$ sia sodd. termina in tempo finito, dando la risposta corretta.
+\end{oss}
+\begin{proof} Infatti, essendo $S$ finito, vengono usate solo un numero finito $n = |Var(S)|$ di lettere proposizionali diverse, dunque:
+\begin{itemize}
+  \item letterali scrivibili su $\{p_1, \cdots, p_n\}$: $2 \cdot n$
+  \item letterali diversi che occorrono: $\leq 2 \cdot n$ 
+  \item clasuole scrivibili su $2 \cdot n$ letterali: $\leq 2^{2 \cdot n}$
+\end{itemize} 
+In $S$, quindi, occorrono al più $2^{2 \cdot n}$ clausole. \\
+Si nota, ora, che la risoluzione non introduce mai nuovi letterali, dunque la sequenza $\mathscr{R}^{0}(S) \subseteq R^1(S) \subseteq \cdots \mathscr{R}^{k}(S) \subseteq \cdots$ è tale che  che ogni $\mathscr{R}^{i}(S)$ è un sottoinsieme delle $2^{2 \cdot n}$ clausole 
+scrivibili su $\{p_1, \cdots, p_n\}$. \\
+Dunque esiste un $t \in \omega$ tale che $\mathscr{R}^{t}(S) = \mathscr{R}^{t+1}(S)$, poiché prima o poi tutte le clausole saranno contenute; 
+pertanto
+$$
+\mathscr{R}^{t}(S) = \mathscr{R}^{t+1}(S) = \cdots = \mathscr{R}^*(S)
+$$
+Se si trova $\qedsymbol \in \mathscr{R}^i(S)$, si può concludere che $S$ sia insoddisfacibile. \\
+Se, al contrario, $\mathscr{R}^t(S) = \mathscr{R}^{t+1}(S)$ e $\qedsymbol \notin \mathscr{R}^t(S)$, si può concludere che $S$ sia soddisfacibile perché non ci sono due clausole con due letterali opposti.
+\end{proof}
+\begin{oss}
+Se, invece, $S$ è un infinito di clausole, dato un qualsiasi $S_{fin} \subseteq_\omega S$ esiste $t \in \omega$ tale che $\mathscr{R}^t(S_{fin}) = \mathscr{R}^{t+1}(S_{fin}) = \mathscr{R}^*(S_{fin})$, tuttavia questo non fornisce una procedura di decisione per $S$, ma esclusivamente di \textit{semidicesione}. Questo perché in genere non si sa ``scegliere'' $S_{fin}$ e il meglio che si può fare è, presa una successione infinita di sottoinsiemi infiniti
+$$
+S_1 \subseteq S_2 \subseteq \cdots \subseteq S_k  \subseteq \cdots \text{ t.c. } \bigcup_i S_i = S
+$$
+e calcolare $\mathscr{R}^*(S_i)$ per ogni $i$: se $\qedsymbol \in S_i$ allora $S$ insoddisfacibile, altrimenti si aumenta $i$ e si procede al passo successivo.
 \end{oss}
 
 La Completezza Refutazionale non è la Completezza \textit{tout-court}. 
@@ -737,73 +620,64 @@ La Completezza Refutazionale non è la Completezza \textit{tout-court}.
 proprietà desiderabile dal punto di vista computazionale. 
 
 \begin{defi}[Deduzione per Risoluzione]
-        Una deduzione per risoluzione di una clausola $C$ da un insieme di clausole 
-        $S$, indicato 
-        $$
-                S \vdash_R C
-        $$
-        è una sequenza finita di clausole 
-        $$
-        C_1,C_2, \cdots, C_n
-        $$ 
-        tale che 
-        \begin{itemize}
-                \item $C_n = C$
-                \item $\forall C_i ~~~ C_i \in S \text{ oppure } C_i = R(C_j, C_k, \ell, \bar{\ell})$
-        \end{itemize}
+Una deduzione per risoluzione di una clausola $C$ da un insieme di clausole $S$ (indicata con $S \vdash_R C$) è una sequenza finita di clausole $C_1,C_2, \cdots, C_n$ tale che: 
+\begin{itemize}
+\item $C_n = C$
+\item $\forall C_i,\ C_i \in S \text{ oppure } C_i = \mathbb{R}(C_j, C_k, \ell, \bar{\ell})$, con $j,k < i$
+\end{itemize}
 \end{defi}
 
-In particolare, una deduzione per risoluzione della clausola vuota 
-($S \vdash_R \qedsymbol$) è detta \textbf{refutazione} di $S$. 
-\begin{teo}[Teorema di Completezza Refutazionale]
-        Un insieme di clausole $S$ è insoddisfacibile se e solo se $S \vdash_R \qedsymbol$.
-\end{teo}
-Al momento, la refutazione al momento la sappiamo costruire solo tramite 
-il metodo $R^*(S)$. 
+In particolare, una deduzione per risoluzione della clausola vuota ($S \vdash_R \qedsymbol$) è detta \textbf{refutazione} di $S$.
+\begin{teon}[di Completezza Refutazionale]
+\label{thm:completezza-refutazionale}
+  Un insieme di clausole $S$ è insodd. sse $S \vdash_R \qedsymbol$.
+\end{teon}
+Al momento, la refutazione la sappiamo costruire solo tramite il metodo $\mathscr{R}^*(S)$. 
 
 \paragraph{Esempio}
 $$
-\{\{a, b, \neg c\}, \{a, b, c\}, \{a, \neg b\}\} \models \{a\}?
+S = \{\{a, b, \neg c\}, \{a, b, c\}, \{a, \neg b\}\} \stackrel{?}{\models} \{a\}
 $$
-Si costruisce una refutazione: 
-inizialmente, si trasforma il problema in un problema di insoddisfacibilità, 
-ossia 
+Tuttavia non sappiamo risolvere questo problema direttamente, quindi si trasforma il problema in un problema di insoddisfacibilità e si crea una refutazione:
 $$
-\{\{a, b, \neg c\}, \{a, b, c\}, \{a, \neg b\}, \{\neg a\}\} \text{ è soddisfacibile?}
+S' := \{\{a, b, \neg c\}, \{a, b, c\}, \{a, \neg b\}, \{\neg a\}\} \text{ è insodd.?}
 $$
 Non è soddisfacibile, poiché 
-\begin{align*}
-        (\{a,b,\neg c\}, \{a, b, c\}) &\vdash_R \{a,b\} \\
-        (\{a,b\}, \{a, \neg b\}) &\vdash_R \{a\}\\
-        (\{a\}, \{\neg a\}) &\vdash_R \qedsymbol
-\end{align*}
-
+\begin{prooftree}
+  \AxiomC{$\{a,b,\neg c\} \in S'$}
+  \AxiomC{$\{a, b, c\} \in S$}
+  \LeftLabel{\scriptsize($\mathbb{R}$ con $\ell = c)$)}
+  \BinaryInfC{$\{a, b\}$}
+  \AxiomC{$\{a, \neg b\} \in S'$}
+  \LeftLabel{\scriptsize($\mathbb{R}$ con $\ell = b)$)}
+  \BinaryInfC{$\{a\}$}
+  \AxiomC{$\{\neg a\} \in S'$}
+  \LeftLabel{\scriptsize($\mathbb{R}$ con $\ell = a)$)}
+  \BinaryInfC{$\{\qedsymbol\}$}
+\end{prooftree}
 \noindent
-Genericamente, chiedersi se $\Gamma \models A$ è uguale a chiedersi 
-se $\Gamma, \neg A$ sia insoddisfacibile, che è 
- uguale a $\Gamma ^c, (\neg A)^c \vdash_R \qedsymbol$ per Completezza 
- Refutazionale, ma che è diverso da 
-$\Gamma^c \vdash_R A^c$; è questa la debolezza 
-della completezza refutazionale rispetto alla Completezza tout court
-($\Gamma \models A \iff \Gamma^c \vdash_c A$). Quindi, per un calcolo 
-refutazionale $R$ per il quale vale la Completezza Refutazionale si ha 
-$$
-\Gamma \models A \iff \Gamma, \neg A \text{ è insoddisfacibile } \iff \Gamma^C, (\neg A)^C \vdash_R \qedsymbol \rightarrow \nleftarrow \Gamma^C \vdash_R A^C
-$$
-Si consideri, per esempio, l'insieme di clausole 
+Si noti che, se non si considera l'ultima risoluzione, si è riusciti a dedurre $a$ da dalla teoria iniziale, come richiesto ($S \vdash_R \{a\}$)!
+
+Tuttavia non si riesce a farlo in maniera generale, infatti:
+\begin{align*}
+& \Gamma \models F \\
+\iff & \Gamma, \neg F \text{ insodd.} & \text{per Lemma~\ref{lem:conseguenza-teoria-insodd-formula}} \\
+\iff & \Gamma^c, (\neg F)^c \vdash_R \qedsymbol & \text{per Teorema}~\ref{thm:completezza-refutazionale} \\
+\Longleftarrow\ & \Gamma^c \vdash_R F^c & \text{non è un } \iff \text{!!}
+\end{align*}
+E proprio questa è la debolezza della Completezza Refutazionale rispetto alla Completezza \textit{tout court} di un calcolo $C$ (per cui invece varrebbe $\Gamma \models F \iff \Gamma \vdash_C F$). \\
+Si può dedurre un calcolo refutazionale da una deduzione per risoluzione, ma non il contrario!
+
+Si consideri, per esempio questa semplice refutazione:
 $$
 \{\{b\}, \{\neg b\}, \{\neg a\}\} \vdash_R \qedsymbol
 $$
-ma per il fatto che la Risoluzione non introduce mai nuovi letterali, 
-non si potrà mai a provare 
+ma visto che la Risoluzione non introduce mai nuovi letterali, non si potrà mai a provare 
 $$
 \{\{b\},\{\neg b\}\} \vdash_R \{a\}
 $$
 \subsection{Sistemi Assiomatici (Calcoli alla Hilbert)}
-I Sistemi Assiomatici sono un tipo di calcolo tradizionale completo 
-tout court. Hanno una formalizzazione tra le più semplici, ma non 
-sono in particolar modo adatti alla ricerca \textit{human-oriented} e nemmeno 
-alla ricerca di prove tramite algoritmi. 
+I Sistemi Assiomatici sono un tipo di calcolo tradizionale completo \textit{tout court}. Hanno una formalizzazione tra le più semplici, ma non sono in particolar modo adatti alla ricerca \textit{human-oriented} e nemmeno alla ricerca di prove tramite algoritmi. 
 
 \begin{defi}[Calcoli alla Hilbert]
         Dato un insieme di assiomi (che sono tautologie della Logica), come per esempio 
@@ -815,7 +689,7 @@ $$
         ( \neg B \rightarrow \neg A) \rightarrow (A \rightarrow B) 
 \end{cases}
 $$
-con $A, B, C \in F_L$ e avendo regole di inferenza come il \textit{modus ponens} 
+con $A, B, C \in \mathscr{F}_\mathscr{L}$ e avendo regole di inferenza come il \textit{modus ponens} 
 
 \begin{prooftree}
         \AxiomC{$A$}
@@ -823,35 +697,29 @@ con $A, B, C \in F_L$ e avendo regole di inferenza come il \textit{modus ponens}
         \BinaryInfC{$B$}
 \end{prooftree}
 
-una prova di $A$ da una teoria $\Gamma$ nel calcolo definito Calcolo H o 
-Calcolo alla Hilbert, ossia 
-$$
-\Gamma \vdash_H A
-$$
-è una successione finita di formule 
+una prova di $A$ da una teoria $\Gamma$ nel Calcolo alla Hilbert ($\Gamma \vdash_H A$) è una successione finita di formule:
 $$
 A_1, A_2, \cdots, A_u
 $$
 tale che: 
 \begin{enumerate}
-        \item $A_u = A$ 
-        \item ogni $A_i$ per $i = 1, \cdots, u$ è tale che: 
-                \begin{enumerate}
-                        \item $A_i \in \Gamma$
-                        \item $A_i$ è un'istanza di assioma 
-                        \item esistono $j,k < i$ tali che $A_j= A_k \rightarrow A_i$, quindi 
-                                \begin{prooftree}
-                                        \AxiomC{$A_k$}
-                                        \AxiomC{$A_k \rightarrow A_i$}
-                                        \BinaryInfC{$A_i$}
-                                \end{prooftree}
-                \end{enumerate}
+  \item $A_u = A$ 
+  \item ogni $A_i$ per $i = 1, \cdots, u$ è tale che: 
+    \begin{enumerate}
+      \item $A_i \in \Gamma$
+      \item $A_i$ è un'istanza di assioma 
+      \item esistono $j,k < i$ tali che $A_j= A_k \rightarrow A_i$, quindi 
+        \begin{prooftree}
+          \AxiomC{$A_k$}
+          \AxiomC{$A_k \rightarrow A_i$}
+          \BinaryInfC{$A_i$}
+        \end{prooftree}
+    \end{enumerate}
 \end{enumerate}
 \end{defi}
 
 \begin{teo}[Completezza Forte del Calcolo H]
-$\Gamma \models A \iff \Gamma \vdash_H A$, 
-anche per teorie $\Gamma$ infinite. 
+$\Gamma \models A \iff \Gamma \vdash_H A$, anche per teorie $\Gamma$ infinite. 
 \end{teo}
 
 Il Calcolo H non è particolarmente adatto alla deduzione automatica, come 
@@ -862,347 +730,271 @@ del perché non sia così saggio utilizzare il Calcolo H. Quest'ultimo è
 semplice dal punto di vista concettuale, ma tirar fuori prove è più complicato. 
 
 \subsubsection{Differenze tra i due Calcoli}
-Verificare se  $\neg \neg A \models A$ è vera. 
+Differenze nel verificare se  $\forall A \in \mathscr{F}_\mathscr{L},\ \neg \neg A \models A$ è vera. 
 
 \paragraph{Calcolo R}
-Bisogna inizialmente trasportare $A \in F_L$ in lettere proposizionali: 
+Bisogna inizialmente trasformare il $\forall A \in \mathscr{F}_\mathscr{L}$ in lettere proposizionali $\in \mathscr{L}$:
 $$
 \neg \neg p \models p 
 $$
-con $p \in L$; nel Calcolo H questo passaggio non è necessario, si potrà 
-tranquillamente ragionare sulle metavariabili.
 Si studia l'insoddisfacibilità di 
 $$
 \{ \neg \neg p, \neg p\} \models \bot
 $$
-che si traduce, in refutazione, in 
+che si traduce in forma normale e si cerca di refutarlo: 
 $$
-\{\{p\}, \{\neg p \}\} \vdash_R \qedsymbol ?
+\{\{p\}, \{\neg p \}\} \vdash_R \qedsymbol
 $$
-si ha: $\mathbb{R}(\{p\}, \{\neg p\}; p, \neg p) =  \qedsymbol$, pertanto la prima 
-formula è vera. 
+Si risolve con risoluzioni \textit{automatiche}: $\mathbb{R}(\{p\}, \{\neg p\}; p, \neg p) =  \qedsymbol$, pertanto la conseguenza logica è vera.
 
 \paragraph{Calcolo H}
-Per il Calcolo di Hilbert bisogna ``inventarsi'' una dimostrazione; si 
-comincia a scrivere 
-\begin{align*}
-\neg \neg A \rightarrow (\neg \neg \neg \neg A \rightarrow \neg \neg A), \neg \neg A ( \in \Gamma)\\
-\therefore \neg \neg \neg \neg A \rightarrow \neg \neg A, ( \neg \neg \neg \neg A \rightarrow \neg \neg A) \rightarrow (\neg A \rightarrow \neg \neg \neg \neg A)\\
-\therefore \neg A \rightarrow \neg \neg \neg \neg A, (\neg A \rightarrow \neg \neg \neg \neg A) \rightarrow ( \neg \neg A \rightarrow A) \\
-\therefore  \neg \neg A \rightarrow A, \neg \neg A \\
-\therefore A
-\end{align*}
+Nel Calcolo di Hilbert si può tranquillamente ragionare sulle metavariabili, tuttavia bisogna ``inventarsi'' una dimostrazione (MP = Modus Ponens):
+\begin{prooftree}
+  \AxiomC{}
+  \LeftLabel{\scriptsize(1)}
+  \UnaryInfC{$\neg \neg A \rightarrow (\neg \neg \neg \neg A \rightarrow \neg \neg A)$}
+  \AxiomC{}
+  \RightLabel{\scriptsize{$\in \Gamma$}}
+  \UnaryInfC{$\neg \neg A$}
+  \LeftLabel{\scriptsize{MP}}
+  \BinaryInfC{$\neg \neg \neg \neg A \rightarrow \neg \neg A$}
+  \AxiomC{}
+  \RightLabel{\scriptsize(3)}
+  \UnaryInfC{$(\neg \neg \neg \neg A \rightarrow \neg \neg A) \rightarrow (\neg A \rightarrow \neg \neg \neg A)$}
+  \RightLabel{\scriptsize{MP}}
+  \BinaryInfC{$\neg A \rightarrow \neg \neg \neg A$}
+\end{prooftree}
+\begin{prooftree}
+  \AxiomC{$\neg A \rightarrow \neg \neg \neg A$}
+  \AxiomC{}
+  \RightLabel{\scriptsize(3)}
+  \UnaryInfC{$(\neg A \rightarrow \neg \neg \neg A) \rightarrow ( \neg \neg A \rightarrow A)$}
+  \RightLabel{\scriptsize{MP}}
+  \BinaryInfC{$\neg \neg A \rightarrow A$}
+  \AxiomC{}
+  \RightLabel{\scriptsize{$\in \Gamma$}}
+  \UnaryInfC{$\neg \neg A$}
+  \RightLabel{\scriptsize{MP}}
+  \BinaryInfC{$A$}
+\end{prooftree}
+Il calcolo H non presenta un calcolo meccanico e facilmente automatizzabile. Non è facile scegliere quale assioma applicare.
 
-Il calcolo H non presenta un calcolo estremamente meccanico. 
 \paragraph{Esercizio}
 Dimostrare che $\models A \rightarrow A$
 
 Si prenda una formula $B$ soddisfacibile, già provata, ossia $\models_H B$. 
 \begin{prooftree}
-        \AxiomC{$B$}
-        \AxiomC{$B \rightarrow ( A \rightarrow B)$}
-        \BinaryInfC{$A \rightarrow B$}
+  \AxiomC{$B$}
+  \AxiomC{$B \rightarrow ( A \rightarrow B)$}
+  \BinaryInfC{$A \rightarrow B$}
+  \AxiomC{$A \rightarrow (B \rightarrow A)$}
+  \AxiomC{$(A \rightarrow (B \rightarrow A)) \rightarrow (A \rightarrow A)$}
+  \BinaryInfC{$(A \rightarrow B) \rightarrow (A \rightarrow A)$}
+  \BinaryInfC{$A \rightarrow A$}
 \end{prooftree}
-e 
-\begin{prooftree}
-        \AxiomC{$A \rightarrow (B \rightarrow A)$}
-        \AxiomC{$(A \rightarrow (B \rightarrow A)) \rightarrow (A \rightarrow A)$}
-        \BinaryInfC{$(A \rightarrow B) \rightarrow (A \rightarrow A)$}
-\end{prooftree}
-da cui si può concludere 
-$$
-(A \rightarrow A)
-$$
+
 \subsection{Procedura refutazionale di Davis-Putnam}
 Si supponga che sia stato definito un insieme di clausole
 $$
 S = \{\{p,q\}, \{p, \neg q\}, \{\neg p, q\}, \{\neg p, \neg q\}\} 
 $$
 e ci si chiede se sia refutabile.
-Si ha 
+Un umano può vedere a primo d'occhio che la soluzione più facile è:
 \begin{prooftree}
-        \AxiomC{$p,q$}
-        \AxiomC{$p,\neg q$}
-        \BinaryInfC{$p$}
-        \AxiomC{$\neg p,q$}
-        \AxiomC{$\neg p,\neg q$}
-        \BinaryInfC{$\neg p$}
-        \BinaryInfC{$\qedsymbol$}
+  \AxiomC{$p,q$}
+  \AxiomC{$p,\neg q$}
+  \BinaryInfC{$p$}
+  \AxiomC{$\neg p,q$}
+  \AxiomC{$\neg p,\neg q$}
+  \BinaryInfC{$\neg p$}
+  \BinaryInfC{$\{\qedsymbol\}$}
 \end{prooftree}
 
-Utilizzando il calcolo refutazionale $R^*(S)$ si utilizzano molti più passaggi: 
-il problema che si vuole affronare e risolvere, per quanto possibile, è 
-designare una tecnica che permetta di mantenere la completezza 
-refutazionale selezionando, in qualche modo, i risolventi da calcolare. 
+Utilizzando, invece, il calcolo refutazionale $\mathscr{R}^*(S)$ estensivamente necessiterebbero 35 passaggi visto che bisogna provare tutti i risolventi possibili (e.g., anche su $C_1 = \{p,q\}$ e $C_2 = \{\neg p, q\}$, e così via).
+
+Vorremmo designare una tecnica che permetta di mantenere la completezza refutazionale selezionando, in qualche modo, i risolventi da calcolare. 
 
 \begin{defi}[Sussunzione]
-        Una clausola $C_1$ \textbf{sussume} $C_2$ se e solo se 
-        $C_1 \subset C_2$, ossia è un insieme proprio di $C_2$. 
-        In termini logici, si ha $\models C_1 \rightarrow C_2$, 
-        ossia $\{C_1, C_2\} \equiv \{C_1\}$.
-\end{defi}        
+Una clausola $C_1$ \textbf{sussume} $C_2$ sse $C_1 \subset C_2$, ossia è un insieme proprio di $C_2$. \\
+In termini logici: $\models C_1 \rightarrow C_2$, e quindi  $\{C_1, C_2\} \equiv \{C_1\}$.
+\end{defi}
 
 \begin{defi}[Regola di Sussunzione]
-        Sia $S$ un insieme di clausole e sia $S'$ ottenuto da 
-        $S$ eliminando tutte le clausole sussunte. Allora si può 
-        concludere che 
-        $S \equiv S'$. 
+Sia $S$ un insieme di clausole e sia $S'$ ottenuto da $S$ eliminando tutte le clausole sussunte. Allora si può concludere che $S \equiv S'$. 
 \end{defi}
 
 \begin{oss}
-        $S'$ non contiene sussunte, ossia non è ulteriormente riducibile 
-        per sussunzione.
+$S'$ non contiene sussunte, ossia non è ulteriormente riducibile per sussunzione.
 \end{oss}
 
 \begin{defi}[Clausola Banale]
-        Una clausola $C$ è detta \textbf{banale} (trivial) se contiene 
-        sia $L$ che  il sua opposto $\bar{L}$ per qualche letterale 
-        $l$, ossia $C \equiv \top$ o $\models C$. 
+Una clausola $C$ è detta \textbf{banale} (trivial) se contiene sia $\ell$ che il sua opposto $\bar{\ell}$ per qualche letterale $\ell$. Ne segue che $C \equiv \top$ o $\models C$. 
 \end{defi}
 
 \begin{defi}[Regola di rimozione banali]
-        Rimuovendo da $S$ tutte le banali costruendo $S'$, 
-        si ha $S \equiv S'$, e $S'$ non contiene banali.
+Se $S'$ è ottenuta rimuovendo da $S$ tutte le banali, $S \equiv S'$.
 \end{defi}
 
 \begin{oss}
-        Risolvendo tra loro le clausole non banali $C_1$ e $C_2$, 
-        allora in $D = R(C_1, C_2; \ell, \bar{\ell})$ si ha 
-        che $\ell \notin D$ e $\bar{\ell} \notin D$, 
-        cioè $(C_1 \setminus \{\ell\}) \cup (C_2 \setminus \{ \bar{\ell}\}) = (C_1 \cup C_2) \setminus \{\ell, \bar{\ell}\}$
+Sia $D = \mathbb{R}(C_1, C_2; \ell, \bar{\ell})$ la risoluzione di clausole $C_1$ e $C_2$ non banali, allora $\ell \notin D$ e $\bar{\ell} \notin D$, cioè $(C_1 \setminus \{\ell\}) \cup (C_2 \setminus \{ \bar{\ell}\}) = (C_1 \cup C_2) \setminus \{\ell, \bar{\ell}\}$
 \end{oss}
 
-\begin{oss}
-        $R(\{a, \neg a\}, \{a, \neg a\}; a, \bar{a}) = ( \{a, \neg a\} \setminus \{a\}) \cup (\{a, \neg a\} \setminus \{\neg a\}) = \{\neg a\} \cup \{a\} = \{a, \neg a\}$
-\end{oss}
-
-
-\begin{defi}[Passo di DPP]
-        Dato un  input $S$ finito, già ripulito di banali e sussunte, 
-        un passo di David-Putnam procedure 
-        si articola nei seguenti \textit{micropassi}: 
-        \begin{enumerate}
-                \item Scegliere una lettera proposizionale $p \in L$ 
-                        tra quelle che appaiono in $S$. $p$ sarà detto 
-                        il \textit{pivot} del passo.
-                \item $S'$ è l'insieme delle $p$-esonerate, ossia 
-                        l'insieme delle clausole in $S$ in cui non 
-                        occorre $p$ come lettera proposizionale, quindi 
-                        né $p$ né $\neg p$.
-                \item $S''$ è l'insieme delle $p$-risolventi ed è l'insieme 
-                        delle clausole ottenute per risoluzione sul pivot 
-                        $p$ in $S\setminus S'$. 
-                \item $S'''$ è l'insieme  $S' \cup S''$ ripulito, che è 
-                        l'output del passo di DPP.
-        \end{enumerate}
+\begin{defi}[Passo semplice di DPP]
+Dato un  input $S$ finito, già ripulito di banali e sussunte, un passo di \textit{Davis-Putnam Procedure} si articola nei seguenti ``micropassi'': 
+\begin{enumerate}
+  \item Scegliere una lettera proposizionale $p \in Var(S)$. $p$ sarà detto il \textit{pivot} del passo.
+  \item $S'$ è l'insieme delle $p$-esonerate, ossia l'insieme delle clausole in $S$ in cui non occorre $p$ come lettera proposizionale (né come $p$, né come $\neg p$).
+  \item $S''$ è l'insieme delle $p$-risolventi ed è l'insieme delle clausole ottenute per risoluzione sul pivot $p$ in $S\setminus S'$. 
+  \item $S'''$ è l'insieme  $S' \cup S''$ ripulito. È l'output del passo di DPP.
+\end{enumerate}
 \end{defi}
 
 \subsubsection{Esempi di DPP}
 \paragraph{1}
-Sia $S_0 = \{\{a,b,\neg c\}, \{a, \neg b, \neg d\}, \{a, \neg b, \neg c, \neg d\}, 
+Sia $S_0 = \{\{a,b,\neg c\}, \{a, \neg b, d\}, \{a, \neg b, \neg c, \neg d\}, 
 \{\neg a, d\}, \{\neg a, \neg c, \neg d\}, \{c\}\}$. 
 \begin{itemize}
-        \item $S_0$ è ripulito. Si sceglie, come pivot, $c$. 
-        Le $c$-esonerate sono la seconda e la terza clausola. 
-Le $c$-risolventi sono, per esempio, $\{a,b\}, \{a, \neg b, \neg d\}, \{\neg a, \neg d\}$. 
-L'output ripulito è 
-$$
-\{\{a, \neg b, d\}, \{\neg a, d\}, \{a, b\}, \{a, \neg b, \{d\}, \{\neg a, \neg d\}\}
-        $$
-\item Per il secondo passo, si sceglie come pivot $a$. 
-Le $a$-esonerate sono $\emptyset$, mentre le $a$-risolventi sono 
-$$
-\{\neg b, d\}, \{\neg b, d, \neg d\}, \{b, d\}, \{\neg b, d\}, \{b, \neg d\}, \{\neg b, \neg d\}
-$$
-L'output ripulito è: 
-$$
-\{\{\neg b, d\}, \{b, d\}, \{b, \neg d\}, \{\neg b, \neg d\}\}
-$$
-\item Come terzo passo si prende come pivot $b$. Le $b$-esonerate sono 
-$$
-\emptyset
-$$
-e le $b$-risolventi sono 
-$$
-\{d\},\{d, \neg d\}, \{\neg d, d\} \{\neg d\}
-$$
-mentre l'output ripulito è 
-$$
-\{\{d\}, \{\neg d\}\}
-$$
-\item Per l'ultimo passo si è obbligati a scegliere come pivot $d$. 
-Si ha che le $d$-esonerate è nuovamente l'insieme vuoto $\emptyset$, 
-mentre le $d$-risolventi sono 
-$$
-\qedsymbol
-$$
-e l'output è 
-$$
-\{\qedsymbol\}
-$$
+  \item $S_0$ è ripulito.
+    \begin{itemize}
+      \item pivot: $c$
+      \item $c$-esonerate: $\{a, \neg b, d\}$ e $\{\neg a, d\}$
+      \item $c$-risolventi: $\{a,b\}, \{a, \neg b, \neg d\}, \{\neg a, \neg d\}$
+      \item output ripulito: $\{\{a, \neg b, d\}, \{\neg a, d\}, \{a, b\}, \{a, \neg b, \neg d\}, \{\neg a, \neg d\}\}$
+    \end{itemize}
+  \item
+    \begin{itemize}
+      \item pivot: $a$
+      \item $a$-esonerate: $\emptyset$
+      \item $a$-risolventi: $\{\neg b, d\}, \{\neg b, d, \neg d\}, \{b, d\}, \{\neg b, d, \neg b\}, \{b, \neg d\}, \{\neg b, \neg d\}$
+      \item output ripulito: $\{\{\neg b, d\}, \{b, d\}, \{b, \neg d\}, \{\neg b, \neg d\}\}$
+    \end{itemize}
+  \item
+    \begin{itemize}
+      \item pivot: $b$
+      \item $b$-esonerate: $\emptyset$
+      \item $b$-risolventi: $\{d\},\{d, \neg d\}, \{\neg d, d\} \{\neg d\}$
+      \item output ripulito: $\{\{d\}, \{\neg d\}\}$
+    \end{itemize}
+  \item 
+    \begin{itemize}
+      \item pivot: $d$
+      \item $d$-esonerate: $\emptyset$
+      \item $d$-risolventi: $\qedsymbol$
+      \item output ripulito: $\{\qedsymbol\}$
+    \end{itemize}
 \end{itemize}
-Dato che è stata ottenuta la clausola vuota, si dichiara la clausola 
-iniziale $S_0$ insoddisfacibile. 
+Dato che è stata ottenuta la clausola vuota, si dichiara la clausola iniziale $S_0$ insoddisfacibile. 
 \paragraph{2}
-Sia $S_0 = \{\{a, \neg b, c\}, \{b, \neg c\}, \{a,c,\neg d\}, \{\neg b, \neg d\}, \{a,b,d\}, \{\neg a, d,b\} \{b, \neg c, d\}\{b, c, d\}\}$. 
+Sia $S_0 = \{\{a, \neg b, c\}, \{b, \neg c\}, \{a,c,\neg d\}, \{\neg b, \neg d\}, \{a,b,d\}, \{\neg a,b,d\}, \{b, \neg c, d\}, \{c, \neg c\}\}$. 
 \begin{itemize}
-        \item Ripulito, si trovano le clausole 
-$$ 
-\{\{a, \neg b, c\}, \{b, \neg c\}, \{a,c,\neg d\}, \{\neg b, \neg d\}, \{a,b,d\}, \{\neg a, d,b\}\}
-$$
-Si sceglie, come pivot, $b$. 
-le $b$- esonerate sono
-$$
-\{a, c, \neg d\}
-$$
-e le $b$-risolventi sono: 
-$$
-\{a, c, \neg c\}, \{a,c,d\}, \{a, \neg a, c, d\}, \{\neg c, \neg d\}, \{a, \neg d, d\}, \{\neg a, \neg d, d\}
-$$
-e l'output è 
-$$
-S_1 := \{a, c,d\}, \{\neg c, \neg d\}, \{a, c, \neg d\}
-$$
-\item Al secondo passo si sceglie, come pivot, $c$. 
-Non vi sono $c$-esonerate, mentre 
-le $c$-risolventi sono 
-$$
-\{a, d, \neg d\}, \{a, \neg d, \neg d\}
-$$
-e l'output è 
-$$
-S_2 := \{a, \neg d\}
-$$
-\item Si sceglie, come pivot, $a$. 
-Non vi sono $a$-esonerate e non vi sono $a$-risolventi; 
-L'output di questo passaggio è l'insieme vuoto $\emptyset$ e si dimostra 
-che questo implica che $S_0$ è soddisfacibile.
-La lettera proposizionale $d$ non è mai stata scelta come lettera pivot, quindi è 
-una \textit{fuoriuscita}. 
+  \item $S_0$ ripulito: $\{\{a, \neg b, c\}, \{b, \neg c\}, \{a,c,\neg d\}, \{\neg b, \neg d\}, \{a,b,d\}, \{\neg a,b,d\}\}$
+    \begin{itemize}
+      \item pivot: $b$
+      \item $b$-esonerate: $\{a, c, \neg d\}$
+      \item $b$-risolventi: $\{a, c, \neg c\}, \{a,c,d\}, \{a, \neg a, c, d\}, \{\neg c, \neg d\}, \{a, \neg d, d\}, \{\neg a, \neg d, d\}$
+      \item output ripulito: $S_1 := \{\{a, c, \neg d\}\}, \{a, c,d\}, \{\neg c, \neg d\}$
+    \end{itemize}
+  \item
+    \begin{itemize}
+      \item pivot: $c$
+      \item $c$-esonerate: $\emptyset$
+      \item $c$-risolventi: $\{a, d, \neg d\}, \{a, \neg d\}$
+      \item output ripulito: $S_2 := \{\{a, \neg d\}\}$
+    \end{itemize}
+  \item 
+    \begin{itemize}
+      \item pivot: $a$
+      \item $a$-esonerate: $\emptyset$
+      \item $a$-risolventi: $\emptyset$
+      \item output ripulito: $S_3 := \emptyset$
+    \end{itemize}
 \end{itemize}
+Mostreremo che questo vuol dire che $S_0$ è soddisfacibile. \\
+La lettera proposizionale $d$ non è mai stata scelta come lettera pivot, quindi è una \textit{fuoriuscita}.  
 
-\begin{defi}
-        In un'esecuzione di DPP le lettere che non sono mai pivot si 
-        definiscono \textit{fuoriuscite}.
-\end{defi}
-
-Delineamo, prima di affrontare la dimostrazione, la strategia che con questi 
-dati costruisce un assegnamento che soddisfa $S$.
-Sia $\mathfrak{v}: L \rightarrow \{0,1\}$ tale che $\mathfrak{v} \models S_0$. 
-Si definisce
+Delineamo, prima di affrontare la dimostrazione, la strategia che permette di costruire un assegnamento che soddisfa $S_0$ dopo un'esecuzione di DPP giunta a buon fine. \\
+Sia $\mathcal{v}: \mathscr{L} \rightarrow \{0,1\}$ tale che $\mathcal{v} \models S_0$ definita come:
 $$
-\mathfrak{v} := 
+\mathcal{v} := 
 \begin{cases}
-        a & \mathfrak{v}(a) = 1\\
-        b & \mathfrak{v}(b) = 1\\
-        c & \mathfrak{v}(c) = 1\\
-        d & \mathfrak{v}(d) = 0 \text{ per convenzione per le fuoriuscite, arbitrario}\\
+        d :& \mathcal{v}(d) = 0 ~~~ \text{alle fuoriuscite basta un valore fissato arbitrariamente} \\ 
+        a :& \mathcal{v}(a) = 1 ~~~ \text{soddisfa } S_2 \\
+        c :& \mathcal{v}(c) = 0 ~~~ \text{soddisfa } S_1 \\
+        b :& \mathcal{v}(b) = 1 ~~~ \text{soddisfa } S_0 \\
 \end{cases}
 $$
-Si definisce $\mathfrak{v}(a)$ come un valore che soddisfi $S_2$, ossia $\{a, \neg d\}$.
-Si definisce $\mathfrak{v}(c)$ come un valore che soddisfi $S_1$ (si è liberi, in 
-quanto tutte le clausole sono già soddisfatte dagli altri assegnamenti). 
-Si definisce $\mathfrak{v}(b)$ come un valore che soddisfi $S_0$.
+Con $\mathcal{v}(c)$ si era liberi perché tutte le clausole erano già soddisfatte dai precedenti assegnamenti.
 
 \subsubsection{Teorema di completezza (e correttezza) refutazionale di DPP}
-\begin{teo}
-        Un insieme \textbf{finito} $S$ di clausole nelle lettere proposizionali 
-        $p_1, p_2, \cdots, p_n$ ($:= Var(S)$) è insoddisfacibile se e solo se 
-        entro al più $n$ passi si ottiene la clausola vuota $\qedsymbol$. 
-        $S$ è soddisfacibile se e solo se entro al più $n$ passi si ottiene 
-        l'insieme vuoto di clausole $\emptyset$.
-        Non vi sono altri modi di terminare. 
-\end{teo}
+\begin{teon}
+\label{thm:completezza-refutazionale-dpp}
+Un insieme \textbf{finito} $S$ di clausole tale che $|Var(S)| = n$ è insoddisfacibile sse entro al più $n$ passi si ottiene la clausola vuota $\qedsymbol$. \\
+$S$ è soddisfacibile sse entro al più $n$ passi si ottiene l'insieme vuoto di clausole $\emptyset$. \\
+Non vi sono altri modi di terminare. 
+\end{teon}
 
-\begin{proof}[Terminazione]
-        Sia $DPP(S) := S_0, S_1, \cdots, S_k$ una sequenza di clausole, dove
-        $S_0$ è la ripulitura di $S$ e $S_i$ è ottenuto da $S_{i-1}$ attraverso un 
-        passo di DPP sul pivot $q_i \in \{p_1, \cdots, p_n\}$.
-        Si osserva che $S_i$ non conterrà più alcuna occorrenza di $q_i$ e, quindi, 
-        dopo al più $k \leq n$ passi si ottiene $Var(S_k) = \emptyset$, dunque 
-        o $S_k = \{ \qedsymbol \}$ oppure $S_k = \emptyset$. 
+\begin{proof}[Dimostrazione di Terminazione]
+Sia $DPP(S) := S_0, S_1, \cdots, S_k$ una sequenza di clausole, dove $S_i$ è ottenuto da $S_{i-1}$ attraverso un passo di DPP sul pivot $q_i \in Var(S)$. \\
+Si osserva che $S_i$ non conterrà più alcuna occorrenza di $q_i$ e, quindi, dopo al più $k \leq n$ passi si ottiene $Var(S_k) = \emptyset$, dunque o $S_k = \{ \qedsymbol \}$ oppure $S_k = \emptyset$. 
 \end{proof}
 
-\begin{proof}[Correttezza e Completezza Refutazionale di DPP]
-        La correttezza di DPP si può specificare in due modi: 
-        $$
-        \begin{cases}
-                S_k = \{\qedsymbol\} \implies S_0 \text{ insoddisfacibile } \\
-                S_0 \text{ soddisfacibile } \implies S_k = \emptyset
-        \end{cases}
-        $$
-        La prima delle due versioni è ``gratuitamente'' provata dal Lemma di Correttezza, 
-        ancora valido, poiché il calcolo dei risolventi non è cambiato
-        (pertanto la correttezza è provata.)
+\begin{proof}[Dimostrazione di  Correttezza e Completezza Refutazionale di DPP]
+$$
+\text{Correttezza di DPP:}
+\begin{cases}
+  S_k = \{\qedsymbol\} \implies S_0 \text{ insoddisfacibile } \\
+  S_0 \text{ soddisfacibile } \implies S_k = \emptyset & \text{(contronominale)}
+\end{cases}
+$$
+Dimostrata dal Lemma~\ref{lem:correttezza-risoluzione} di Correttezza della Risoluzione {[visto che $S_k \equiv S_0$ (?!)]}.
+$$
+\text{Completezza di DPP:}
+\begin{cases}
+  S_0 \text{ insoddisfacibile } \implies S_k = \{\qedsymbol\} \\
+  S_k = \emptyset \implies S_0 \text{ soddisfacibile } & \text{(contronominale)}
+\end{cases}
+$$
+Dimostriamo la contronominale, chiamata anche \textit{Lemma di Model Building} poiché la dimostrazione si occupa di mostrare come costruire l'assegnamento che soddisfa $S$. 
 
-        La completezza di DPP si può specificare nei due modi rimanenti: 
-        $$
-        \begin{cases}
-                S_0 \text{ insoddisfacibile } \implies S_k = \{\qedsymbol\} \\
-                S_k = \emptyset \implies S_0 \text{ soddisfacibile } 
-
-        \end{cases}
-        $$
-        Ci basta dimostrare quest'ultima parte, ossia che se 
-        $S_k = \emptyset$ allora $S_0$ è soddisfacibile: 
-        questo fatto è chiamato anche \textit{Lemma di Model Building}, poiché 
-        la dimostrazione si occupa di mostrare come costruire l'assegnamento 
-        che soddisfa $S$. 
-        
-        Si dimostra per induzione decrescente su $k$, ossia induzione 
-        crescente su $t=k -i$:
-        \paragraph{base}
-        $$
-        S_k = \emptyset \rightarrow S_k \text{ soddisfacibile.}
-        $$
-        \paragraph{passo induttivo} si assume che $S_{i+1}$ soddisfacibile e si mostra $S_i$ 
-        soddisfacibile, ossia esiste $\mathfrak{v}: L \rightarrow \{0,1\}$ tale 
-        che $\mathfrak{v} \models S_i$. Dato $\mathfrak{v} : L \rightarrow \{0,1\}$ 
-        tale che $\mathfrak{v} \models S_{i+1}$ si definiscono le due varianti 
-        $$
-        \mathfrak{v}^+ : L \rightarrow \{0,1\} ~ ~ ~ \mathfrak{v}^+(p) = 1 
-        $$
-        $$
-        \mathfrak{v}^- : L \rightarrow \{0,1\} ~ ~ ~ \mathfrak{v}^-(p) = 0
-        $$
-        dove $p$ è il pivot di $S_i \leadsto S_{i+1}$, 
-        mentre 
-        $$
-        \mathfrak{v}(q) = \mathfrak{v}^+(q) = \mathfrak{v}^-(q) \forall q \in L q \neq p
-        $$
-        Si mostrerà che una delle due varianti soddisfa $S_i$. 
-        Per assurdo, si assume $\mathfrak{v}^+, \mathfrak{v}^-$ non verifichino 
-        $S_{i}$. 
-
-        Allora esistono $C_1, C_2 \in S_i$ tali che $\mathfrak{v}^+(C_1) = 0$ 
-        e $\mathfrak{v}^-(C_2) = 0$. Si assume che
-        $\neg p \in C_1$ (senza perdita di generalità), poiché altrimenti se $p \in C_1$ allora 
-        $\mathfrak{v}^+(C_1) = 1$, assurdo, e se 
-        $p \notin C_1 e \neg p_1 \notin C_1$, allora $C_1$ sarebbe $p$-esonerata, 
-        dunque $C_1 \in S_{i+1}$ e $\mathfrak{v} \models C_1$ e $\mathfrak{v}^+ \models C_1$, 
-        assurdo. Analogamente per $p \in C_2$. 
-
-        Si conclude che 
-        $D = R(C_1, C_2; \neg p, p)$ e $D \in p$-risolventi implica $D \in S_{i+1}$, 
-        che implica $\mathfrak{v} \models D$ e allora 
-        $$
-        \mathfrak{v} \models D \rightarrow \mathfrak{v}^+ \models D \text{ oppure } \mathfrak{v}^- \models D \rightarrow \mathfrak{v}^+ \models C_1 \text{ oppure } \mathfrak{v}^- \models C_2
-        $$
-        che è assurdo, dunque $S_i$ è soddisfacibile, e pertanto $S_0$ è soddisfacibile.
+Per induzione decrescente su $k$:
+\begin{itemize}
+  \item \textbf{base} ($j = k$): $S_k = \emptyset$ è soddisfacibile da qualsiasi assegnamento.
+  \item \textbf{passo induttivo} ($j$): Dato per ipotesi induttiva $\mathcal{v} : \mathscr{L} \rightarrow \{0,1\}$ tale che $\mathcal{v} \models S_{i+1}$, si definiscono le due varianti 
+  \begin{align*}
+    \mathcal{v}^+ : \mathscr{L} \rightarrow \{0,1\} ~~~ \mathcal{v}^+(p) = 1 \\
+    \mathcal{v}^- : \mathscr{L} \rightarrow \{0,1\} ~~~ \mathcal{v}^-(p) = 0
+  \end{align*}
+  dove $p$ è il pivot di $S_i \leadsto S_{i+1}$, mentre $\mathcal{v}(q) = \mathcal{v}^+(q) = \mathcal{v}^-(q)$ per tutte le lettere proposizionali $q \neq p$.
+  
+  Si mostrerà che una delle due varianti soddisfa $S_i$. \\
+  Per assurdo, si assume $\mathcal{v}^+ \nvDash S_i$ e $\mathcal{v}^- \nvDash S_i$. \\
+  Allora esistono $C_1, C_2 \in S_i$ tali che $\mathcal{v}^+(C_1) = 0$ e $\mathcal{v}^-(C_2) = 0$.
+  \begin{itemize}
+    \item $p \notin C_1 e \neg p_1 \notin C_1$: allora $C_1$ sarebbe $p$-esonerata, dunque $C_1 \in S_{i+1}$. Per ipotesi induttiva $\mathcal{v} \models S_{i+1}$, quindi anche $\mathcal{v} \models C_1$. \\
+    $\Rightarrow \mathcal{v}^+ \models C_1$, assurdo.
+    \item $\neg p \in C_1$: altrimenti, se $p \in C_1$, $\mathcal{v}^+(C_1) = 1$. Assurdo
+  \end{itemize}
+  Analogamente per $p \in C_2$. \\
+  Ne segue che $D = \mathbb{R}(C_1, C_2; \neg p, p)$ e che $D \in p$-risolventi. Quindi $D \in S_{i+1}$, il che vuol dire che $\mathcal{v} \models D$. Tuttavia:
+  \begin{align*}
+    \mathcal{v} & \models D \\
+    \implies \mathcal{v}^+ & \models D \text{ oppure } \mathcal{v}^- \models D & \mathcal{v}^\pm \text{ aggiunge una lettera proposizionale a } \mathcal{v} \\
+    \implies \mathcal{v}^+ & \models C_1 \text{ oppure } \mathcal{v}^- \models C_2 & \text{per def. }\mathcal{v}^\pm \\
+    \implies \mathcal{v}^+ & \models S_i \text{ oppure } \mathcal{v}^- \models S_i \\
+    \implies \bot && \text{per ipotesi assurda}
+  \end{align*}
+  Dunque $S_i$ è soddisfacibile e, pertanto, anche  $S_0$.
+\end{itemize}
 \end{proof}
 
 \begin{oss}
-Sia $S$ un insieme finito di clausole tale che $Var(S) \subseteq \{p_1, \cdots, p_n\}$. 
-Allora $DPP(S)$ termina in $k \leq n$ passi. Se $k \leq n \leq ||S||$, 
-si potrebbe concludere che si ha una procedura che funziona in tempo 
+Sia $S$ un insieme finito di clausole tale che $Var(S) = \{p_1, \cdots, p_n\}$. 
+Allora $DPP(S)$ termina in $k \leq n$ passi. Se $k \leq n \leq ||S||$, si potrebbe concludere che si ha una procedura che funziona in tempo 
 polinomiale e decide se $S$ è soddisfacibile o meno, e quindi $P = NP$. 
 \end{oss}
 
-Se si potesse garantire che $||S_i||$ sia sempre polinomiale rispetto 
-a $||S||$ allora davvero $k \leq n$ passi di DPP porterebbero a 
-un tempo di esecuzione complessivo che è polinomiale rispetto a $||S||$ 
-e dunque $SAT \in P$, e dunque $P = NP$, ma purtroppo questo non si 
-può garantire.
+Se si potesse garantire che $||S_i||$ sia sempre polinomiale rispetto a $||S||$ allora davvero $k \leq n$ passi di DPP porterebbero a un tempo di esecuzione complessivo che è polinomiale rispetto a $||S||$. \\
+E dunque $SAT \in P$, e $P = NP$. Purtroppo questo non si può garantire.
 
 Un risultato, dovuto ad Haken, afferma che ogni prova per refutazione del 
 \textit{Principio della Piccionaia} su $n$ ``piccioni''
@@ -1215,7 +1007,7 @@ richiede tempo almeno $T(n) = \Omega(2^n)$.
         $$
         PHP(n)
         $$
-        è esresso affermando che $n+1$ piccioni non possono occupare 
+        afferma che $n+1$ piccioni non possono occupare 
         $n$ posti nella piccionaia in modo che ogni posto abbia al più un 
         piccione. 
 \end{defi}
@@ -1223,130 +1015,100 @@ richiede tempo almeno $T(n) = \Omega(2^n)$.
 Come formalizzare in clausole il $PHP(n)$? Definendo $P$ i ``piccioni'' e 
 $H$ i ``posti'', si può definire
 $$
-\bigwedge_{i \in P} \bigvee_{j \in H} p_{ij} \text{ (ogni piccione ha trovato posto }
+\bigwedge_{i \in P} \bigvee_{j \in H} p_{ij} ~~~ \text{ (ogni piccione ha trovato posto)}
 $$
-In altre parole, per ogni piccione, il piccione ha trovato almeno un posto, 
-ossia il piccione $i$ sta nel posto $j$. 
+
 Questo, però va unito al fatto che ogni piccione ha al più un posto: 
 $$
-\bigwedge_{i \neq j ~ i,j \in P}\bigwedge_{k \in H} (\neq p_{ik} \lor \neq p_{jk}) \text{ nessuna coppia di piccioni 
-sta nel posto }k 
+\bigwedge_{i \neq j ~ i,j \in P}\bigwedge_{k \in H} (\neg p_{ik} \lor \neg p_{jk}) ~~~ \text{ nessuna coppia di piccioni sta nel posto }k 
 $$
-in altre parole non c'è nessun posto che contenga contemporaneamente due piccioni. 
 Quindi, la formalizzazione finale sarà 
 $$
-PHP(n) := \bigwedge_{i \in P} \bigvee_{j \in H} p_{ij} ~~ \land ~~ \bigwedge_{i \neq j ~ i,j \in P}\bigwedge_{k \in H} (\neq p_{ik} \lor \neq p_{jk})
+PHP(n) := \bigwedge_{i \in P} \bigvee_{j \in H} p_{ij} ~~ \land ~~ \bigwedge_{i \neq j ~ i,j \in P}\bigwedge_{k \in H} (\neg p_{ik} \lor \neg p_{jk})
 $$
 Mostrare che il Principio della Piccionaia è vero consiste nel mostrare che 
-$PHP(n)$ è insoddisfacibile, ossia che $PHP(n) \in CNFUNSAT \forall n \in \mathbb{N}$. 
-Haken ha dimostrato che la risoluzione di questo problema impiega, per ogni $n$, 
-tempo esponenziale. 
-
+$PHP(n)$ è insoddisfacibile, ossia che $PHP(n) \in CNFUNSAT\ \forall n \in \mathbb{N}$. 
+Haken ha dimostrato che la risoluzione mediante refutazione di questo problema impiega, per ogni $n$, tempo esponenziale.  
 
 \subsubsection{Complessità di DPP}
-Dato che i passi di DPP sono ``pochi'', $k \leq |Var(S)|$, anche se nel caso 
-peggiore DPP richiede tempo esponenziale, nella pratica è un 
-algoritmo molto più efficiente di $R^*$ e delle tavole di verità. 
-Alcuni frammenti, ossia sottolinguaggi di CNFSAT, sono noti avere tempo di 
-decisione, attraverso la DPP, polinomiale, come KROMSAT e HORNSAT; 
-una CNF è HORN se e solo se ogni sua clausola è una clausola di Horn, ossia 
-una clausola che ha la forma della clausola vuota o è un'unità $\{p\}$ o 
-$\{p, \neg p_1, \neg p_2, \cdots\}$ o più genericamente contiene al più un 
-letterale positivo; una clausola è di Krom se ha al più due letterali 
-(quindi $KROMSAT = 2CNFSAT$). 
+Dato che i passi di DPP sono ``pochi''—$k \leq |Var(S)|$—anche se nel caso 
+peggiore DPP richiede tempo esponenziale, nella pratica è comunque un 
+algoritmo molto più efficiente di $\mathscr{R}^*$ e delle tavole di verità. \\
+Alcuni frammenti, ossia sottolinguaggi di CNFSAT, sono noti avere tempo di decisione con DPP che è polinomiale, come KROMSAT e HORNSAT. \\
+Una CNF è HORN sse ha solo clausole di Horn, ossia della forma:
+\begin{align*}
+  \qedsymbol &&
+  \stackrel{\text{(unità)}}{\{p\}} &&
+  \stackrel{\text{(solo negati)}}{\{\neg p_1, \neg p_2, \cdots\}} &&
+  \stackrel{\text{(un solo positivo)}}{\{\neg p_1, \neg p_2, \cdots, q\}}
+\end{align*}
+Una CNF è KROM sse ha solo clausole di Krom, ossia se ha al più due letterali ($KROMSAT = 2CNFSAT$). 
 
 \subsubsection{Davis Putnam Logemann Loveland Procedure}
-La DPLL è un metodo di ``reingegnerizzazione'' della DPLL. Su un insieme $S$ di 
-clausole finito, DPLL cerca di costruire un assegnamento che soddisfi $S$. 
-L'idea è di costruire un assegnamento parziale che viene esteso ad ogni passo 
-ad una nuova lettera proposizionale $p$, chiamata pivot. Se si giunge ad assegnare 
-tutte le lettere in $Var(S)$ si è ottenuto un assegnamento che mostra $S$ soddisfacibile: 
-se non si giunge a tal punto, il teorema di completezza e correttezza di DPLL 
-dimostra che $S$ è insoddisfacibile. Si propaga, ad ogni passo, tutta l'informazione 
-che si guadagna estendendo l'assegnamento al pivot. Sostanzialmente, quello che era 
-il passo finale della DPP si utilizza come azione fondamentale nella DPLL. 
+\label{dpll}
+La DPLL è un metodo di ``reingegnerizzazione'' della DPP. Su un insieme finito $S$ di clausole, DPLL cerca di costruire un assegnamento che soddisfi $S$.
+\begin{enumerate}
+  \item L'idea è di costruire un assegnamento parziale che viene esteso ad ogni passo di una nuova lettera proposizionale $p$, chiamata pivot.
+  \item Se si riesce ad assegnare tutte le lettere in $Var(S)$ si è ottenuto un assegnamento che mostra $S$ soddisfacibile. \\
+  Se non si giunge a tal punto, il teorema di completezza e correttezza di DPLL (che non vediamo) dimostra che $S$ è insoddisfacibile.
+  \item Ad ogni passo si propaga tutta l'informazione  che si guadagna estendendo l'assegnamento al pivot. \\
+  Sostanzialmente, quello che era il passo finale della DPP si utilizza come azione fondamentale nella DPLL.
+  \item Se non ci sono informazioni sfruttabili per la scelta del pivot—guidata da regole che vedremo—allora si ``spezza'' la procedura in due parti: una in cui si assegna al pivot il valore $1$ e una a cui si assegna al pivot il valore $0$. \\
+  \item La prova risulta dunque in una struttura ad \textit{albero} i cui rami si visitano in ``backtracking''. L'implementazione del backtracking è soggetto di ampie ricerche (e.g., backtracking non cronologico)
+  \item Se in un ramo si raggiunge $\emptyset$ si è costruito un assegnamento che soddisfa l'insieme iniziale e se su \textit{tutti} i rami si raggiunge $\qedsymbol$, allora $S$ è insoddisfacibile.
+\end{enumerate}
 
-Può accadere che non vi siano informazioni sfruttabili per quanto riguarda 
-la scelta del pivot ad un certo passo codificata nelle regole che verranno 
-date, allora si ``spezza'' la procedura in due parti: in una si assegna al pivot 
-il valore di verità $1$ e alla seconda si assegna al pivot il valore di verità 
-$0$ e la prova risulta dunque in una 
-struttura ad albero i cui rami si visitano in ``backtracking'', la cui implementazione
-(anche nel caso di backtracking non cronologico) è soggetto di ampie ricerche; 
-se in un ramo si raggiunge $\emptyset$ si è costruito un assegnamento che soddisfa 
-l'insieme iniziale e se su \textit{tutti} i rami si raggiunge la clausola 
-vuota, allora $S$ è insoddisfacibile.
+Le regole utilizzate dalla DPPL sono quelle della DPP adattate a questo contesto. \\
+Il punto di partenza è un \textit{assegnamento vuoto}.
 
-Le regole utilizzate dalla DPPL sono quelle della DPP adattate a questo contesto; 
-il punto iniziale è l'assegnamento vuoto. 
-
-\begin{defi}[Assegnamento Parziale]
-        Un assegnamento parziale è una funzione parziale 
-        $$
-        \mathfrak{v}: L \rightarrow \{0,1,?\}
-        $$
-        Un assegnamento vuoto è un assegnamento parziale tale che 
-        $\mathfrak{v}(p_i) = ? \forall p_i \in \{p_1, \cdots, p_n\}$.
-        Un assegnamento completo o totale sulle prime $n$ lettere proposizionali 
-        è una mappa $\mathfrak{v}: \{p_1, \cdots, p_n\} \rightarrow \{0,1,?\}$ 
-        tale che $\mathfrak{v}(p_i) \neq ? \forall p_i \in \{p_1, \cdots, p_n\}$.
+\begin{defi}[Assegnamento Parziale e Vuoto]
+Un assegnamento parziale è una funzione parziale $\mathcal{v}: \mathscr{L} \rightarrow \{0,1,?\}$. \\
+Un \textit{assegnamento vuoto} è un assegnamento parziale tale che $\mathcal{v}(p_i) = ?\ \forall p_i \in \{p_1, \cdots, p_n\}$. \\
+Un \textit{assegnamento completo} o totale sulle prime $n$ lettere proposizionali è una mappa $\mathcal{v}: \{p_1, \cdots, p_n\} \rightarrow \{0,1,?\}$ tale che $\mathcal{v}(p_i) \neq ?\ \forall p_i \in \{p_1, \cdots, p_n\}$.
 \end{defi}
 
 \paragraph{Regole di DPLL}
 \begin{itemize}
-        \item Regola iniziale: $\emptyset \vdash S$ è la radice della prova. 
-        \item Sussunzione: se $\mathfrak{v}(p_i) = 1$ allora si possono cancellare 
-                da $S$ tutte le clausole che contengono  il letterale $p_i$
-                \begin{prooftree}
-                        \AxiomC{$\mathfrak{v}, \mathfrak{v}(p_i) = 1 \vdash S \cup \{\{p_i\} \cup C\}$}
-                                \UnaryInfC{$\mathfrak{v}, \mathfrak{v}(p_i) = 1 \vdash S$}
-                \end{prooftree}
-                analogamente, se $\mathfrak{v}(p_i) = 0$, allora si possono cancellare 
-                da $S$ tutte le clausole che contengono il letterale $\neg p_i$. 
-        \item Risoluzione unitaria: se $\mathfrak{v}(p_i) = 0$ si cancella 
-                da ogni clausola di $S$ il letterale $p_i$
-                \begin{prooftree}
-                        \AxiomC{$\mathfrak{v}(p_i) = 0$}
-                        \AxiomC{$(\{\neg p_i, \{p_i,\cdots\})$}
-                        \BinaryInfC{$C$}
-                \end{prooftree}
-                Ossia, in termini di ``nodi'' DPLL
-                \begin{prooftree}
-                        \AxiomC{$\mathfrak{v}, \mathfrak{v}(p_i) = 0 \vdash S \cup \{\{p_i\}\cup C\}$}
-                                \UnaryInfC{$\mathfrak{v},\mathfrak{v}(p_i) = 0 \vdash S \cup \{C\}$}
-                \end{prooftree}
-               mentre se $\mathfrak{v}(p_i) = 1$, 
-        allora si elimina da ogni clausola di $S$ il letterale $\neg p_i$.  
-        \item Asserzione: se $S$ contiene la clausola $\{p_i\}$, allora 
-                si estende $\mathfrak{v}$ ponendo $\mathfrak{v}(p_i) = 1$, 
-                cancellando $\{p_i\}$ da $S$
-                \begin{prooftree}
-                        \AxiomC{$\mathfrak{v}\vdash S \cup \{\{p_i\}\}$}
-                        \UnaryInfC{$\mathfrak{v}, \mathfrak{v}(p_i) = 1 \vdash S$}
-                \end{prooftree}
-                mentre si fa al contrario se $S$ contiene $\{\neg p_i\}$.
-        \item Letterale puro: Se il letterale $p_i$ occorre in $S$ e $\neg p_i$ non 
-                occorre, allora si estende $\mathfrak{v}$ ponendo $\mathfrak{v}(p_i) = 1$, 
-                \begin{prooftree}
-                        \AxiomC{$\mathfrak{v}\models S$}
-                        \UnaryInfC{$\mathfrak{v}, \mathfrak{v}(p_i)=1 \vdash S$}
-                \end{prooftree}
-                (chiaramente se $p_i \in C \in S, \neg p_i \notin C \forall C \in S$),
-                mentre si fa contrario se $\neg p_i$ occorre in $S$ e $p_i$ 
-                non occorre in $S$, ponendo $\mathfrak{v}(p_i) = 0$. 
-        \item Spezzamento: in ogni momento, si può biforcare la prova in due 
-                sottoprove, dando origine ad una struttura ad albero, in cui 
-                in una si pone per il pivot scelto $\mathfrak{v}(p) = 1$ 
-                e nell'altra si pone $\mathfrak{v}(p)= 0$. 
-                \begin{prooftree}
-                        \AxiomC{$\mathfrak{v} \vdash S$} 
-                        \UnaryInfC{$\mathfrak{v}, \mathfrak{v}(p_i) = 0 \vdash S ~~~~ ||  ~~~~ \mathfrak{v}, \mathfrak{v}(p_i) = 1 \vdash S$}
-                \end{prooftree}
-        \item Terminazione: se in un ramo si ottiene $\mathfrak{v} \vdash \emptyset$ 
-                allora si prova che $\mathfrak{v}$ è completo su 
-                $Var(S)$ e $\mathfrak{v} \models S$. Al contrario, se su tutti 
-                i rami si ottiene $\mathfrak{v} \vdash \qedsymbol$, 
-                allora $S$ è insoddisfacibile. 
-        \item Ogni ramo o ha come foglia $\mathfrak{v} \vdash \emptyset$ 
-                oppure $\mathfrak{v} \vdash \qedsymbol$.
+  \item \textit{Regola iniziale}: $\emptyset \vdash S$ è la radice dell'albero di prova. 
+  \item \textit{Sussunzione}: se $\mathcal{v}(p_i) = 1$ allora si possono cancellare a $S$ tutte le clausole che contengono  il letterale $p_i$
+    \begin{prooftree}
+      \def\fCenter{\mbox{\ $\vdash$\ }}
+      \AxiomC{$\mathcal{v}, \mathcal{v}(p_i) = 1 \fCenter S \cup \{\{p_i\} \cup C\}$}
+        \UnaryInfC{$\mathcal{v}, \mathcal{v}(p_i) = 1 \fCenter S$}
+    \end{prooftree}
+  analogamente, se $\mathcal{v}(p_i) = 0$, allora si possono cancellare da $S$ tutte le clausole che contengono il letterale $\neg p_i$.
+  \item \textit{Risoluzione unitaria}: si fanno Risolventi in cui una delle due clausole ha un solo letterale. Viene quindi codificata come assegnamento, e alla clausola rimanente è inutile avere il letterale opposto. \\
+  Se $\mathcal{v}(p_i) = 0$ si cancella da ogni clausola di $S$ il letterale $p_i$
+    \begin{prooftree}
+      \AxiomC{$\{\neg p_i\}$}
+      \AxiomC{$\{p_i\} \cup C$}
+      \RightLabel{\scriptsize$\mathbb{R}$}
+        \BinaryInfC{$C$}
+    \end{prooftree}
+  Ossia, in termini di ``nodi'' DPLL
+    \begin{prooftree}
+      \AxiomC{$\mathcal{v}, \mathcal{v}(p_i) = 0 \vdash S \cup \{\{p_i\}\cup C\}$}
+        \UnaryInfC{$\mathcal{v},\mathcal{v}(p_i) = 0 \vdash S \cup \{C\}$}
+    \end{prooftree}
+  mentre se $\mathcal{v}(p_i) = 1$, allora si elimina da ogni clausola di $S$ il letterale $\neg p_i$.  
+  \item \textit{Asserzione}: se $S$ contiene la clausola $\{p_i\}$, allora si estende $\mathcal{v}$ ponendo $\mathcal{v}(p_i) = 1$, cancellando $\{p_i\}$ da $S$
+    \begin{prooftree}
+      \AxiomC{$\mathcal{v}\vdash S \cup \{\{p_i\}\}$}
+        \UnaryInfC{$\mathcal{v}, \mathcal{v}(p_i) = 1 \vdash S$}
+    \end{prooftree}
+  mentre si fa l'opposto se $S$ contiene $\{\neg p_i\}$.
+  \item \textit{Letterale puro}: Se il letterale $p_i$ occorre in $S$ e $\neg p_i$ non occorre, allora si estende $\mathcal{v}$ ponendo $\mathcal{v}(p_i) = 1$,
+    \begin{prooftree}
+      \AxiomC{$\mathcal{v}\models S$}
+      \RightLabel{\scriptsize{se $p_i \in C \in S, \neg p_i \notin C\ \forall C \in S$}}
+         \UnaryInfC{$\mathcal{v}, \mathcal{v}(p_i)=1 \vdash S$}
+    \end{prooftree}
+    mentre si fa l'opposto se $\neg p_i$ occorre in $S$ e $p_i$ non occorre in $S$, ponendo $\mathcal{v}(p_i) = 0$.
+  \item \textit{Spezzamento}: in ogni momento, si può biforcare la prova in due sottoprove, dando origine ad una struttura ad albero, in cui in una si pone per il pivot scelto $\mathcal{v}(p) = 1$ e nell'altra si pone $\mathcal{v}(p)= 0$. 
+    \begin{prooftree}
+      \AxiomC{$\mathcal{v} \vdash S$} 
+        \UnaryInfC{$\mathcal{v}, \mathcal{v}(p_i) = 0 \vdash S ~~~~ ||  ~~~~ \mathcal{v}, \mathcal{v}(p_i) = 1 \vdash S$}
+    \end{prooftree}
+  \item \textit{Terminazione}: se in un ramo si ottiene $\mathcal{v} \vdash \emptyset$ allora si prova che $\mathcal{v}$ è completo su $Var(S)$ e $\mathcal{v} \models S$. Al contrario, se su tutti i rami si ottiene $\mathcal{v} \vdash \qedsymbol$, allora $S$ è insoddisfacibile.
+    \item Ogni ramo ha come foglia $\mathcal{v} \vdash \emptyset$ oppure $\mathcal{v} \vdash \qedsymbol$.
 \end{itemize}

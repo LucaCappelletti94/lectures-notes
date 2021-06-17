@@ -14,40 +14,28 @@ Il valore di verità di un enunciato composto dipende solo dal valore di verità
 degli enunciati che lo compongono e dal significato del connettivo che li unisce. 
 \end{pri}
 
-Dato il principio di verosimiglianza, per dare la semantica ad un connettivo come $\land$
-si deve dire qual è, sotto ogni circostanza, il valore di verità di $A \land B$, 
-il quale può essere \texttt{vero} o \texttt{falso} e può dipendere solo dal valore 
-di verità di $A$ e $B$ e dal significato fissato per $\land$. 
-\`E necessario, ora, definire informalmente cosa sia una \textit{circostanza}: 
-una \textbf{circostanza} è un assegnamento che definisce lo stato vero 
-o falso di una lettera proposizionale (o di una formula), definita come 
-una funzione $\mathfrak{v}$:
+Dato il principio di verosimiglianza, per dare la semantica ad un connettivo come $\land$ si deve dire qual è, sotto ogni circostanza, il valore di verità di $A \land B$, il quale può essere \texttt{vero} o \texttt{falso} e può dipendere solo dal valore di verità di $A$ e $B$ e dal significato fissato per $\land$. \\
+\`E per questo necessario definire informalmente una \textit{circostanza} come un assegnamento che definisce lo stato vero o falso di una lettera proposizionale (o di una formula), definita come una funzione $\mathcal{v}$:
 $$
-\mathfrak{v} : L \rightarrow \{0,1\}
+\mathcal{v} : \mathscr{L} \rightarrow \{0,1\}
 $$
 
-Quindi $\mathfrak{v}(A \land B) \in \{0,1\}$ e, grazie al principio di Verofunzionalità, 
-dipende solo da $\mathfrak{v}(A)$, 
-$\mathfrak{v}(B)$ e dal significato fissato per $\land$, definito come 
+Quindi $\mathcal{v}(A \land B) \in \{0,1\}$ e, grazie al principio di Verofunzionalità, 
+dipende solo da $\mathcal{v}(A)$, 
+$\mathcal{v}(B)$ e dal significato fissato per $\land$, definito come 
 $$
-I_{\land}: \{0,1\}^2 : \{0,1\}
+I_{\land}: \{0,1\}^2 \rightarrow \{0,1\}
 $$
 E si ha, quindi
 $$
-\mathfrak{v}(A \land B ) = I_{\land} (\mathfrak{v}(A), \mathfrak{v}(B))
+\mathcal{v}(A \land B ) = I_{\land} (\mathcal{v}(A), \mathcal{v}(B))
 $$
 \paragraph{Importanza della Verofunzionalità}
-Si supponga per un attimo che invece di Logica si stia studiando Probabilità, 
-tentando di formalizzarla come stiamo formalizzando ora la Logica Proposizionale. 
-Siamo in una circostanza in cui un certo evento ha probabilità
-$p(A) = \frac{1}{2}$ e un altro evento ha probabilità $p(B) = \frac{1}{2}$. 
-La probabilità $p(A \rightarrow A) = 1$ rappresenta l'evento certo. 
-Qual è la probabilità $p(A \rightarrow B)$? Se fossimo in una situazione verofunzionale, 
-questa probabilità dovrebbe essere $1$, in quanto se $p(\frac{1}{2} \rightarrow \frac{1}{2}) = 1$, 
-allora anche per $p(A \rightarrow B) = 1$. Per concretezza, si immagini 
-$A = $ domani piove e $B = $ a Pasqua nevica.  In conclusione, la 
-Verofunzionalità è una caratteristica stringente della Logica Proposizionale 
-da non dare affatto per scontata. 
+Non è una proprietà così scontata come sembrerebbe: si supponga per un attimo che invece di Logica si stia studiando Probabilità, tentando di formalizzarla come stiamo formalizzando ora la Logica Proposizionale. \\
+Si consideri una circostanza in cui due eventi hanno probabilità $p(A) = p(B) = \frac{1}{2}$. Sappiamo che la probabilità $p(A \rightarrow A) = 1$ rappresenta l'evento certo. Se valesse la proprietà verofunzionale si potrebbe dire che visto che $p(\frac{1}{2} \rightarrow \frac{1}{2}) = 1$, allora vale anche $p(A \rightarrow B) = 1$. Assurdo! \\
+Per concretezza, si immagini $A = $ ``domani piove'' e $B = $ ``a Pasqua nevica''.
+
+In conclusione, la Verofunzionalità è una caratteristica stringente della Logica Proposizionale da non dare affatto per scontata.
 
 \subsection{Definizione di Semantica}
 Siamo finalmente pronti per dare una definizione formale della 
@@ -55,7 +43,7 @@ Siamo finalmente pronti per dare una definizione formale della
 \begin{defi}[Semantica della Logica Proposizionale]
 Un assegnamento (o valutazione) è un'arbitraria funzione 
 $$
-\mathfrak{v} : L \rightarrow \{0,1\}
+\mathcal{v} : \mathscr{L} \rightarrow \{0,1\}
 $$ 
 \end{defi}
 che formalizza la nozione intuitiva di circostanza (o \textit{mondo possibile}). 
@@ -63,119 +51,124 @@ che formalizza la nozione intuitiva di circostanza (o \textit{mondo possibile}).
 \begin{defi}[Semantica dei connettivi]
         La \textbf{semantica dei connettivi} è espressa tramite delle funzioni:
 $$
-I_{\land} : \{0,1\}^2 : \{0,1\}
+I_{\land} : \{0,1\}^2 \rightarrow \{0,1\}
 $$
-\end{defi}
 che identificano una \textit{tabella di verità}.
+\end{defi}
+I valori di verità dei connettivi possono anche essere espressi in forma algebrica, per esempio:
+$$
+\widetilde{\mathcal{v}}(A \rightarrow B) = min\{1-\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B)\}
+$$
 
 \begin{defi}[Semantica degli Enunciati]
         La \textbf{semantica degli enunciati} è l'\textbf{estensione canonica}
 $$
-\widetilde{\mathfrak{v}}: F_L \rightarrow \{0,1\}
+\widetilde{\mathcal{v}}: \mathscr{F_L} \rightarrow \{0,1\}
 $$
-ossia l'estensione di $\mathfrak{v}$ a tutte le formule, definita in questo modo: 
+ossia l'estensione di $\mathcal{v}$ a tutte le formule, definita in questo modo: 
 \begin{itemize}
-  \item $\widetilde{\mathfrak{v}}(p) = \mathfrak{v}(p)$ se $p \in L$
-  \item $\widetilde{\mathfrak{v}}(A \land B) = I_{\land}(\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B))$ se $p \in F_L$
-  \item $\widetilde{\mathfrak{v}}(A \lor B) = I_{\lor}(\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B))$se $p \in F_L$
-  \item $\widetilde{\mathfrak{v}}(A \rightarrow B) = I_{\rightarrow}(\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B))$ se $p \in F_L$
-  \item $\widetilde{\mathfrak{v}}(\neg A) = I_{\neg}(\widetilde{\mathfrak{v}}(A))$ se $p \in F_L$
+  \item $\widetilde{\mathcal{v}}(p) = \mathcal{v}(p)$ se $p \in \mathscr{L}$
+  \item $\widetilde{\mathcal{v}}(A \land B) = I_{\land}(\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B))$ se $p \in \mathscr{F_L}$
+  \item $\widetilde{\mathcal{v}}(A \lor B) = I_{\lor}(\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B))$se $p \in \mathscr{F_L}$
+  \item $\widetilde{\mathcal{v}}(A \rightarrow B) = I_{\rightarrow}(\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B))$ se $p \in \mathscr{F_L}$
+  \item $\widetilde{\mathcal{v}}(\neg A) = I_{\neg}(\widetilde{\mathcal{v}}(A))$ se $p \in \mathscr{F_L}$
 \end{itemize}
 \end{defi}
 
-Vi sono inoltre delle forme algebriche per esprimere i valori di verità dei connettivi, 
-per esempio 
-$$
-\widetilde{\mathfrak{v}}(A \rightarrow B) = min\{1-\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B)\}
-$$
 Con un poco importante abuso notazionale, si tenderà ad evitare di esplicitare 
-$\widetilde{\mathfrak{v}}$ in favore della notazione $\mathfrak{v}$.
+$\widetilde{\mathcal{v}}$ in favore della notazione $\mathcal{v}$.
 \section{Nozioni Semantiche Fondamentali}
 
 \begin{defi}[Tautologia]
-Una formula $F \in F_L$ è una tautologia se e solo se 
+Una formula $F \in \mathscr{F_L}$ è una \textit{tautologia} se e solo se 
 $$
-\mathfrak{v}(F) = 1 \forall \mathfrak{v} : F_L \rightarrow \{0,1\}
+\forall \widetilde{\mathcal{v}} : \mathscr{F_L} \rightarrow \{0,1\} ~~~ \widetilde{\mathcal{v}}(F) = 1
 $$
 \end{defi}
 \begin{defi}[Formula Soddisfacibile]
-Una formula $F \in F_L$ è soddisfacibile se e solo se 
+Una formula $F \in \mathscr{F_L}$ è \textit{soddisfacibile} se e solo se 
 $$
-\exists \mathfrak{v}:F_L \rightarrow \{0,1\} : \mathfrak{v}(F) = 1
+\exists \widetilde{\mathcal{v}} : \mathscr{F_L} \rightarrow \{0,1\} : \widetilde{\mathcal{v}}(F) = 1
 $$
 \end{defi}
 \begin{defi}[Contraddizione]
-Una formula $F \in F_L$ è una contraddizione (o insoddisfacibile, refutabile) se e solo 
+Una formula $F \in \mathscr{F_L}$ è una \textit{contraddizione} (o insoddisfacibile, refutabile) se e solo 
 se 
 $$
-\mathfrak{v}(F) = 0 \forall \mathfrak{v}: F_L \rightarrow \{0,1\}
+\forall \widetilde{\mathcal{v}} : \mathscr{F_L} \rightarrow \{0,1\} ~~~ \widetilde{\mathcal{v}}(F) = 0
 $$
 \end{defi}
 C'è un fatto molto semplice che lega tra di loro questi concetti: 
 \begin{teo}
-$F \in F_L$ è una tautologia se e solo se $\neg F$ è insoddisfacibile. 
+$F \in \mathscr{F_L}$ è una tautologia se e solo se $\neg F$ è insoddisfacibile. 
 \end{teo}
 \begin{proof}
-  $F$ è tautologica se e solo se $\widetilde{\mathfrak{v}}(F) = 1$ per 
-  ogni $\mathfrak{v}: L \in \{0,1\}$, ossia se e solo se $\widetilde{\mathfrak{v}}(\neg F) 
-  = 0$ per ogni $\mathfrak{v}: L \in \{0,1\}$, ossia $\neg F$ è insoddisfacibile. 
+  \begin{align*}
+         & F \text{ tauto} \\
+    \iff & \widetilde{\mathcal{v}}(F) = 1 ~~~ \forall \widetilde{\mathcal{v}} : \mathscr{F_L} \rightarrow \{0,1\} & \text{per def. di tauto}\\
+    \iff & \widetilde{\mathcal{v}}(\neg F) = 0 ~~~ \forall \widetilde{\mathcal{v}} : \mathscr{F_L} \rightarrow \{0,1\} & \text{per def. } I_{\neg} \\
+    \iff & \neg F \text{ insodd.} & \text{per def. di contraddizione}
+  \end{align*}
 \end{proof}
 
-\subsection{Principio d'Induzione su $F_L$}
-Benché non sia una sfaccettatura prettamente semantica, in quanto verrà 
-(anzi, è già stato) utilizzato abbondantemente, è importante formalizzare 
-il  \textbf{principio d'induzione}. Sia 
-$P$ una proprietà delle formule; si ha che 
-$P$ vale per ogni formula $F \in F_L$ se e solo se: 
-\begin{enumerate}
-  \item \textbf{(base):} $P$ vale per ogni $p \in L$
-  \item \textbf{(passo induttivo)}: se $P$ vale per $A,B  \in F_L$, allora 
+\subsection{Principio d'Induzione su $\mathscr{F_L}$}
+Benché non sia una sfaccettatura prettamente semantica, in quanto verrà (anzi, è già stato) utilizzato abbondantemente, è importante formalizzare il  \textbf{principio d'induzione}. Sia $P$ una proprietà delle formule; si ha che $P$ vale per ogni formula $F \in \mathscr{F_L}$ se e solo se:
+\begin{itemize}
+  \item \textbf{base} ($F = p$): $P$ vale per ogni $p \in \mathscr{L}$
+  \item \textbf{passo}: se $P$ vale per $A,B  \in \mathscr{F_L}$, allora 
     vale anche per $\neg A$, $A \rightarrow B$, $A \lor B$ e $A \land B$. 
-\end{enumerate}
-Si può dimostrare induttivamente una proprietà anche grazie 
-alla definizione  induttiva di $F_L$. Sia 
+\end{itemize}
+
+Una proprietà si può dimostrare induttivamente anche grazie alla definizione  induttiva di $\mathscr{F_L}$. Sia:
 $$
-I = \{ F \in F_L : \text{ la proprietà } P \text{ vale per } F\}
+I = \{ F \in \mathscr{F_L} : \text{ la proprietà } P \text{ vale per } F\}
 $$
-vogliamo mostrare $I = F_L$, ossia che $I$ è esattamente l'insieme di tutte le formule; 
-questo si dimostra mostrando che $I \subseteq F_L$ e che $F_L \subseteq I$. 
-\`E ovvio, per definizione, che $I \subseteq F_L$ in quanto è definito 
-come un sottoinseme di formule. Per dimostrare il contrario, si dimostra che 
-$I$ soddisfa il primo punto della definizione induttiva di $F_L$, ossia contiene 
-tutte le lettere proposizionali (dalla base induttiva) e anche il secondo, in  quanto 
-se $A,B \in I$ allora anche $(\neg A)$, $(A \rightarrow B)$, $(A \land B)$ e 
-$(A \lor B)$. Grazie al terzo punto della definizione di $F_L$, si può inoltre affermare 
-che in quanto non sono contenute altre formule in $I$ (per definizione) $I = F_L$.
+Si vuole mostrare $I = \mathscr{F_L}$, ossia che $I$ è esattamente l'insieme di tutte le formule. Questo si fa mostrando che $I \subseteq \mathscr{F_L}$ (ovvio per def. di $I$) e che $\mathscr{F_L} \subseteq I$, come segue.
+\begin{proof}
+$I$ soddisfa il primo e il secondo punto della definizione induttiva di $\mathscr{F_L}$ perché contiene tutte le lettere proposizionali (base) e, induttivamente le formule composte da sottoformule $A,B \in I$. Allora $I$ conterrà anche $(\neg A)$, $(A \rightarrow B)$, $(A \land B)$ e $(A \lor B)$. \\
+Grazie al terzo punto della definizione, invece, si può affermare che $I = \mathscr{F_L}$ in quanto non sono contenute altre formule in $I$ (per definizione).
+\end{proof}
 
 Come esempio, si dimostra induttivamente il seguente lemma: 
 \begin{lem}[Verità di una Formula]
-Sia $F \in F_L$ e siano $\mathfrak{v}, \mathfrak{v}' : L \rightarrow \{0,1\}$. 
+Sia $F \in \mathscr{F_L}$ e siano $\mathcal{v}, \mathcal{v}' : \mathscr{L} \rightarrow \{0,1\}$. 
 
-Se $\mathfrak{v}(p) = \mathfrak{v}'(p) \forall p \in L \in F$\footnote{Per ogni letterale nell'insieme dei letterali nella formula.}, 
-allora $\widetilde{\mathfrak{v}}(F) = \widetilde{\mathfrak{v}}'(F)$.
+Se $\mathcal{v}(p) = \mathcal{v}'(p) \forall p \in \mathscr{L} \in F$\footnote{Per ogni letterale nell'insieme dei letterali nella formula.}, 
+allora $\widetilde{\mathcal{v}}(F) = \widetilde{\mathcal{v}}'(F)$.
 \end{lem}
 \begin{proof}
-  \textit{Per induzione su } $F_L$.
+  \textit{Per induzione su } $\mathscr{F_L}$.
   \begin{itemize}
-    \item \textbf{base:} Se $F = p \in L$ allora per ipotesi $\mathfrak{v}(p) = \mathfrak{v}'(p)$ e 
-      anche $\widetilde{\mathfrak{v}}(p) = \widetilde{\mathfrak{v}}'(p)$.
-    \item Se $F = \neg A$ allora per ipotesi induttiva 
-      $\widetilde{\mathfrak{v}}(p) = \widetilde{\mathfrak{v}}'(p)$ e $\widetilde{\mathfrak{v}}(F) = 1 - 
-      \widetilde{\mathfrak{v}}(A) = 1 - \widetilde{\mathfrak{v}}'(A) = \widetilde{\mathfrak{v}}'{F}$
-    \item Se $F = (A \land B)$ per ipotesi induttiva $\widetilde{\mathfrak{v}}(A) = \widetilde{\mathfrak{v}}'(A)$ 
-      e $\widetilde{\mathfrak{v}}(B) = \widetilde{\mathfrak{v}}'(B)$ e pertanto 
-      $\widetilde{\mathfrak{v}}(F) = \min\{\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B)\} = 
-      \min\{\widetilde{\mathfrak{v}}'(A), \widetilde{\mathfrak{v}}'(B)\} = \widetilde{\mathfrak{v}}'(F)$.
-    \item uguale per gli altri connettivi.
+    \item \textbf{base} ($F = p \in \mathscr{L}$): 
+      \begin{align*}
+        & \mathcal{v}(p) = \mathcal{v}'(p) \\
+        \iff & \widetilde{\mathcal{v}}(p) = \widetilde{\mathcal{v}}'(p) & \text{per def. }\widetilde{\mathcal{v}}
+      \end{align*}
+    \item \textbf{passo}:
+    \begin{itemize}
+      \item $F = \neg A$:
+        \begin{align*}
+          \widetilde{\mathcal{v}}(F) &= 1 - \widetilde{\mathcal{v}}(A) & \text{per def. } \widetilde{\mathcal{v}} \text{ e } I_\neg \\
+          &= 1 - \widetilde{\mathcal{v}}'(A) & \text{per I.H.} \\
+          &= \widetilde{\mathcal{v}}'(F) & \text{per def. } \widetilde{\mathcal{v}} \text{ e } I_\neg
+        \end{align*}
+      \item Se $F = (A \land B)$:
+        \begin{align*}
+          \widetilde{\mathcal{v}}(F) &= \min\{\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B)\} & \text{per def. } \widetilde{\mathcal{v}} \text{ e } I_\land \\
+          &= \min\{\widetilde{\mathcal{v}}'(A), \widetilde{\mathcal{v}}'(B)\} & \text{per I.H.} \\
+          &= \widetilde{\mathcal{v}}'(F) & \text{per def. } \widetilde{\mathcal{v}} \text{ e } I_\land        
+        \end{align*}
+      \item uguale per gli altri connettivi.
+    \end{itemize}
   \end{itemize}
 \end{proof}
-Il lemma appena provato ci garantisce che se vogliamo calcolare $\widetilde{\mathfrak{v}}(F)$ 
+Il lemma appena provato ci garantisce che se vogliamo calcolare $\widetilde{\mathcal{v}}(F)$ 
 ci basta calcolare la tabella di verità di $F$. A questo punto si può calcolare, 
 per ogni assegnamento, se una formula è vera, soddisfacibile, tautologica o 
 insoddisfacibile.
 
 \paragraph{Esercizio}
-Date $A, B \in F_L$ si esaminino le seguenti formule. 
+Date $A, B \in \mathscr{F_L}$ si esaminino le seguenti formule. 
 La formula $A \land \neg A$ è insoddisfacibile, come si può osservare dalla 
 sua tabella di verità nella Tabella \ref{table:insodd}.
 \begin{table}[!h]
@@ -214,7 +207,7 @@ possibile fare il contrario, ossia considerare lettere come delle formule:
 per esempio, non è possibile dire che una lettera sia una tautologia. 
 
 \paragraph{Esercizio}
-Verificare che le seguenti siano Tautologie per ogni $A,B \in F_L$:
+Verificare che le seguenti siano Tautologie per ogni $A,B \in \mathscr{F_L}$:
 \begin{enumerate}
   \item $A \rightarrow (B \rightarrow A)$ (Weakening, Prefixing)
   \item $(\neg A \rightarrow A) \rightarrow A$ (Consequentia Mirabilis)
@@ -235,39 +228,35 @@ $$
 
 \section{Semantica degli Insiemi di Formule}
 \begin{defi}[Teoria]
-Sia $\Gamma \subseteq F_L$ un insieme di formule. $\Gamma$ è detto 
+Sia $\Gamma \subseteq \mathscr{F_L}$ un insieme di formule. $\Gamma$ è detto 
 \textbf{teoria} ed è un modello per un mondo in cui tutte le formule che 
 gli appartengono sono vere.
 \end{defi}
-Si dice che $\Gamma$ è soddisfacibile 
-se e solo se  
+Si dice che $\Gamma$ è soddisfacibile ($\mathcal{v} \models \Gamma$) se e solo se  
 $$
-\exists \mathfrak{v}: L \rightarrow \{0,1\} ~~~ \forall \gamma \in \Gamma:\mathfrak{v}(\gamma) = 1
+\exists \mathcal{v}: \mathscr{L} \rightarrow \{0,1\} ~~~ \forall \gamma \in \Gamma:\mathcal{v}(\gamma) = 1
 $$
-o, in notazione alternativa, $\mathfrak{v} \models \gamma$ e contestualmente 
-si dice $\mathfrak{v} \models \Gamma$. Al contrario, se e solo se 
+o, in notazione alternativa, $\mathcal{v} \models \gamma$. \\
+Al contrario, la teoria $\Gamma$ è insoddisfacibile ($\mathcal{v} \nvDash \Gamma$) se e solo se 
 $$
-\forall \mathfrak{v}: L \rightarrow \{0,1\} ~~ \exists \gamma \in \Gamma : \mathfrak{v}(\gamma) = 0
+\forall \mathcal{v}: \mathscr{L} \rightarrow \{0,1\} ~~ \exists \gamma \in \Gamma : \mathcal{v} \nvDash \gamma
 $$
-la teoria $\Gamma$ è insoddisfacibile e $\mathfrak{v} \nvDash \gamma$ e 
-$\mathfrak{v} \nvDash \Gamma$. 
 
 \begin{defi}[Conseguenza Logica]
-Sia $\Gamma \subseteq F_L$ e $A \in F_L$. La formula $A$ è una 
+Sia $\Gamma \subseteq \mathscr{F_L}$ e $A \in \mathscr{F_L}$. La formula $A$ è una 
 \textbf{conseguenza logica} di $\Gamma$ se e solo se 
 $$
-\forall \mathfrak{v}: L \rightarrow \{0,1\} : \mathfrak{v} \models\gamma \in \Gamma
+\forall \mathcal{v} : \mathcal{v} \models\Gamma,\ \mathcal{v} \models A
 $$ 
-(quindi $\mathfrak{v} \models\Gamma$) e $\mathfrak{v} \models A$. 
 Si denoterà questo fatto con la notazione $\Gamma \models A$.
 \end{defi}
 
 \paragraph{Esercizio} 
 Esprimere il concetto di formula tautologica o tautologia ($\models A$)
-attraverso il concetto di conseguenza logica. 
+attraverso il concetto di conseguenza logica. \\
 Quando si ammette una teoria, si restringe il campo dei possibili assegnamenti. 
 Una formula è tautologica quanto è vera in ogni circostanza ed è verificata 
-da ogni assegnamento. Sia $\Gamma$ definito in questo modo. $\Gamma \subseteq F_L$ 
+da ogni assegnamento. Sia $\Gamma$ definito in questo modo. $\Gamma \subseteq \mathscr{F_L}$ 
 un insieme composto solo da tautologie. Allora 
 $\Gamma \models A$. Dato che è sempre meglio avere come teoria la più semplice 
 possibile, si può definire $\Gamma = \emptyset$, concludendo $\emptyset \models A$. 
@@ -278,63 +267,62 @@ a volte viene semplificato in $\Gamma,A \models B$.
 
 \subsection{Proprietà semantiche fondamentali delle Teorie}
 
-\begin{lem}[Conseguenza Logica di una Formula da una Teoria insoddisfacibile]
-Sia $\Gamma \subseteq F_L$ una teoria e $A \in F_L$. Si 
+\begin{lemn}[Conseguenza Logica di una Formula da una Teoria insoddisfacibile]
+\label{lem:conseguenza-teoria-insodd-formula}
+Sia $\Gamma \subseteq \mathscr{F_L}$ una teoria e $A \in \mathscr{F_L}$. Si 
 ha che $\Gamma \models A$ se e solo se $\Gamma \cup \{\neg A \}$ è insoddisfacibile. 
-\end{lem}
+\end{lemn}
 
 \begin{proof}
-Dimostriamo che $\Gamma \models A$ se e solo se 
-$\mathfrak{v} \models \gamma \forall \gamma \in \Gamma \rightarrow \mathfrak{v}\models A$, 
-in altre parole per ogni assegnamento di verità tale che $\mathfrak{v} \models \Gamma$ 
-si ha $\mathfrak{v}(A) = 1$.
-Si può tradurre quanto scritto utilizzando la definizione di implicazione materiale, 
-ossia 
 \begin{align*}
-  &\neg (\mathfrak{v} \models \gamma \forall \gamma \in \Gamma) \lor \mathfrak{v}\models A \\
-  \iff &\neg (\mathfrak{v}(\gamma) = 1 \forall \gamma \in \Gamma) \lor \mathfrak{v}(A) = 1\\
-  \iff & (\exists \gamma \in \Gamma : \mathfrak{v}(\gamma) = 0) \lor \mathfrak{v}(\neg A) = 0 \\
-  \iff & \exists B \in \Gamma \cup \{\neg A\}: \mathfrak{v}(B) = 0  \\
-  \iff & \Gamma \cup \{\neg A\} \text{ è insodd.}
+  & \Gamma \models A \\
+  \iff & \forall \mathcal{v} ~~~ (\forall \gamma \in \Gamma,\ \mathcal{v} \models \gamma) \text{ implica } \mathcal{v} \models A & \text{per def. } \models \\
+  \iff & \forall \mathcal{v} ~~~ \neg (\forall \gamma \in \Gamma,\ \mathcal{v} \models \gamma) \lor \mathcal{v}\models A & \text{implicazione materiale} \\
+  \iff & \forall \mathcal{v} ~~~ \neg (\forall \gamma \in \Gamma,\ \mathcal{v}(\gamma) = 1) \lor \mathcal{v}(A) = 1\\
+  \iff & \forall \mathcal{v} ~~~ (\exists \gamma \in \Gamma : \mathcal{v}(\gamma) = 0) \lor \mathcal{v}(\neg A) = 0 \\
+  \iff & \forall \mathcal{v} ~~~ \exists B \in \Gamma \cup \{\neg A\} \text{ t.c. } \mathcal{v}(B) = 0  \\
+  \iff & \Gamma \cup \{\neg A\} \text{ è insodd.} & \text{per def. insodd.}
 \end{align*}
 \end{proof}
 
-\begin{lem}[Deduzione, semantico] Siano $P$, $Q$ due formule. Allora 
-si dice che $P \models Q$ se e solo se $\models P \rightarrow Q$. 
-\end{lem}
+\begin{lemn}[Lemma semantico o di deduzione]
+\label{lem:deduzione}
+Siano $P$, $Q$ due formule. Allora si dice che $P \models Q$ se e solo se $\models P \rightarrow Q$. 
+\end{lemn}
 \begin{proof}
-Assumiamo che $P \models Q$. Per definizione, 
-$\forall \mathfrak{v}: L \rightarrow \{0,1\}:\mathfrak{v}(P) = 1 \rightarrow \mathfrak{v}(Q) = 1$. 
-Assumendo, quindi, che ogni volta che $\mathfrak{v}(P) = 1$ si ha $\mathfrak{v}(Q) = 1$, 
-si ha direttamente che $\models P\rightarrow Q$, in quanto sostanzialmente 
-si rimuove la possibilità di avere $P$ vero e $Q$ falso.
+Assumiamo che $P \models Q$.\\
+Per definizione, 
+$\forall \mathcal{v}: \mathscr{L} \rightarrow \{0,1\}:\mathcal{v}(P) = 1$ implica $\mathcal{v}(Q) = 1$. 
+È quindi chiaro che ogni volta che $\mathcal{v}(P) = 1$, si ha $\mathcal{v}(Q) = 1$; è perciò impossibile avere $P$ vero e $Q$ falso. Ne segue che $\models P\rightarrow Q$ è una tautologia, per definizione di $I_\rightarrow$.
 \end{proof}
 
 Il teorema generalizza il lemma alla seguente situazione. 
-\begin{teo}[Deduzione,semantico]
+\begin{teo}[Thm. semantico o di deduzione]
+\label{thm:deduzione}
 Sia $\Gamma$ una teoria 
 e $P$, $Q$ formule. Allora $\Gamma,P \models Q$ se e solo se
 $\Gamma \models P \rightarrow Q$. 
 \end{teo}
 \begin{proof}
-Si dimostra dicendo che $\Gamma, P \models Q$ se e solo se 
-$\forall \mathfrak{v}: L \rightarrow \{0,1\}: \mathfrak{v}(\gamma) = 1 \forall \gamma \in \Gamma$ e 
-$\mathfrak{v}(P) = 1$ si ha che $\mathfrak{v}(Q) = 1$. Questo avviene se e solo se 
-$\forall \mathfrak{v}:L \rightarrow \{0,1\} : \mathfrak{v}(\gamma) = 1$ si ha $\mathfrak{v}(P \rightarrow Q) = 1$ 
-e segue per definizione $\Gamma, P \models Q$. 
+\begin{align*}
+  &\Gamma, P \models Q \\
+  \iff & \forall \mathcal{v} ~~~ ((\forall \gamma \in \Gamma, \mathcal{v}(\gamma) = 1) \land \mathcal{v}(P) = 1) \rightarrow \mathcal{v}(Q) = 1 & \text{per def. } \models \\
+  \iff & \forall \mathcal{v} ~~~ (\forall \gamma \in \Gamma, \mathcal{v}(\gamma) = 1) \rightarrow \mathcal{v}(P \rightarrow Q) = 1 & A \land B \rightarrow C \equiv A \rightarrow (B \rightarrow C) \\
+  \iff & \Gamma \models P \rightarrow Q & \text{per def. di } \models
+\end{align*}
 \end{proof}
 
 \subsection{Teorema di Compattezza}
 Il teorema di compattezza è un teorema fondamentale della logica e varrà 
-anche per la logica del prim'ordine. Lo proviamo ora per la logica proposizionale. 
+anche per la logica del primo ordine. Lo proviamo ora per la logica proposizionale. 
 \`E in qualche modo, in forma astratta, un teorema di completezza. 
 
 Prima di mostrare l'enunciato, si introduce il concetto. \`E stata data la 
-nozione di teoria, $\Gamma \subseteq F_L$: ci si chiede se serve, nella logica 
+nozione di teoria, $\Gamma \subseteq \mathscr{F_L}$: ci si chiede se serve, nella logica 
 proposizionale, considerare teorie infinite (composte da un numero 
-infinito di formule). A priori, sembrerebbe proprio di sì - d'altronde $F_L$ è di 
+infinito di formule). A priori, sembrerebbe proprio di sì - d'altronde $\mathscr{F_L}$ è di 
 cardinalità numerabile - e si vedrà affrontando
-la Logica dei Predicati che una singola formula al Prim'Ordine contiene informazioni 
+la Logica dei Predicati che una singola formula al primo ordine contiene informazioni 
 di un numero infinito di formule proposizionali; questo basta per giustificare il caso 
 in cui $\Gamma$ sia una teoria infinita. Il punto è che non sembra possibile 
 gestire la teoria infinita: qui torna utile il teorema di compattezza. 
@@ -346,54 +334,39 @@ sottoinsiemi finiti. Tuttavia, è ovvio che il numero di sottoinsiemi finiti
 sia infinito. 
 \noindent
 
-Si enuncia, ora, il teorema di compattezza.
-\begin{teo}[Compattezza]
-Un insieme $\Gamma \subset F_L$ è soddisfacibile se e solo se lo è ogni
-$\Gamma' \subseteq \Gamma$, con $\Gamma'$ finito, con notazione: $\Gamma' \subseteq_{\omega} \Gamma$ (leggasi 
-``$\Gamma '$ sottoinsieme finito di $\Gamma$'').
-\end{teo}
-La dimostrazione consiste nel 
-provare che 
-che se ogni $\Gamma ' \subseteq_{\omega} \Gamma$ è 
-soddisfacibile allora lo è anche $\Gamma$, in quanto l'altro 
-verso è ovvio dalla definizione di soddisfacibilità di una teoria, mentre
-il fatto che sottoinsiemi di $\Gamma$ siano soddisfacibili non implica ovviamente 
-che $\Gamma$ sia soddisfacibile. 
-
-\subsubsection{Dimostrazione}
-Per prima cosa, si definisce una porzione di terminologia utile per la 
-dimostrazione. 
 \begin{defi}
-        Definiamo $\Gamma$ \textit{finitamente soddisfacibile} (fin. sodd.) 
-        se per ogni $\Gamma' \subseteq_{\omega} \Gamma$ 
+        $\Gamma$ \textit{è finitamente soddisfacibile} (fin. sodd.) 
+        se $\forall \Gamma' \subseteq_{\omega} \Gamma$ (leggasi ``$\Gamma '$ sottoinsieme finito di $\Gamma$'')
         si ha che $\Gamma'$ è soddisfacibile.
 \end{defi}
 
-Il succo della dimostrazione sarà la relazione tra 
-finitamente soddisfacibile e soddisfacibile, ossia 
-si proverà che $\Gamma$ fin. sodd. implica $\Gamma$ soddisfacibile. 
+\begin{teon}[di Compattezza]
+\label{thm:compattezza-prop}
+$\Gamma \subseteq \mathscr{F_L}$ è soddisfacibile $\iff \Gamma'$ è soddisfacibile $\forall \Gamma' \subseteq_{\omega} \Gamma$.
+\end{teon}
+$\Gamma$ è soddisfacibile $\implies \Gamma'$ è soddisfacibile $\forall \Gamma' \subseteq \Gamma$ è ovvio per definizione di soddisfacibilità di una teoria.
 
-Fissato una successione 
+\subsubsection{Dimostrazione ($\Longleftarrow$)}
+Il succo della dimostrazione sarà la relazione tra finitamente soddisfacibile e soddisfacibile: vogliamo provare $\Gamma$ fin. sodd. $\implies \Gamma$ soddisfacibile. 
+
+Fissato una successione senza ripetizioni di tutte le formule in $F_i \in \mathscr{F_L}$:
 $$
 F_1, F_2, \cdots, F_k, \cdots
 $$ 
-senza ripetizioni di tutte le formule in $F_L$ ($F_i \in F_L$), si costruisce una successione 
-infinita di insiemi di formule 
+si costruisce una successione infinita di insiemi di formule:
 $$
 D_0, D_1, \cdots, D_k, \cdots
 $$ 
-definita induttivamente sull'indice $i$ di $D_i$. Sia 
-
-$$
-\begin{cases}
-        D_0 = \Gamma \\
-        D_{n+1} = 
+definita induttivamente sull'indice $i$ di $D_i$:
+\begin{itemize}
+  \item \textbf{base}: $D_0 = \Gamma$
+  \item \textbf{passo}: $D_{n+1} = 
         \begin{cases} 
           D_n \cup \{F_{n+1}\} & \text{se } D_n \cup \{F_{n+1}\} \text{ è finitamente soddisfacibile} \\
           D_n \cup \{\neg F_{n+1}\} & \text{altrimenti}
-        \end{cases}
-\end{cases}
-$$
+        \end{cases}$
+\end{itemize}
+
 
 Bisogna sottolineare che la definizione di $D_n$ non garantisce, a priori, 
 che ogni $D_n$ sia finitamente soddisfacibile, anche se si dimostrerà che è 
@@ -411,528 +384,563 @@ un insieme infinitamente più grande, $D$; benché questa possa sembrare un'idea
 balzana, il Teorema di Compattezza ci dimostrerà che questo è il procedimento 
 giusto per ottime ragioni. 
 
-\paragraph{Primo fatto:}
-Per dimostrare che $D_n$ sia fin. sodd. per ogni $n$ ci si basa sull'induzione 
-sull'indice $n$. 
-Per la base dell'induzione, 
-$D_0 = \Gamma$ è finitamente soddisfacibile per ipotesi. Per $n \neq 0$, si suppone 
-che questo fatto sia vero per $D_0, \cdots, D_n$ e si prova vero per $D_{n+1}$. 
+\paragraph{Fatto 1:}
+\textit{$D_n$ è finitamente soddisfacibile $\forall n$.}
 
-Per mostrare $D_{n+1}$ finitamente soddisfacibile si procede per assurdo: si assume 
-$D_{n+1}$ non finitamente soddisfacibile in modo di arrivare ad una contraddizione. 
-Se $D_{n+1}$ non è finitamente soddisfacibile,
-allora esiste un insieme $D' \subseteq_{\omega} D_{n}\cup \{F_{n+1}\}$ 
-tale che $D'$ è insoddisfacibile ed esiste $D''\subseteq_{\omega} D_{n} \cup \{\neg F_{n+1}\}$
-tale che $D''$ è insoddisfacibile. 
-
-Senza perdita di generalità, si può assumere che 
-$$
-F_{n+1} \in D' \text{ e } \neg F_{n+1} \in D''
-$$
-in altre parole $D' = E' \cup \{F_{n+1}\}$ e $D'' = E'' \cup \{\neg F_{n+1}\}$. 
-Si può affermare che $E', E'' \subseteq D_{n}$ e $F_{n+1} \notin E'$, $\neg F_{n+1} \notin E''$.
-Per concludere la dimostrazione del 
-fatto, si noti che 
-$$
-E' \cup E'' \cup \{F_{n+1}\} \text{ e } E' \cup E'' \cup \{\neg F_{n+1}\}
-$$ 
-sono insoddisfacibili perché contengono $D'$ e $D''$ rispettivamente.
-Ma $E' \cup E'' \subseteq_{\omega} D_{n}$ e per ipotesi induttiva $D_n$ è 
-finitamente soddisfacibile, ed è quindi $E' \cup E''$ soddisfacibile ed esiste 
-un assegnamento tale che $\mathfrak{v} \models E' \cup E''$. Sappiamo che 
-$\mathfrak{v}(F_{n+1})$ è uguale a $0$ o a $1$ e pertanto non è possibile che entrambi
-$\{F_{n+1}\}$ e $\{\neg F_{n+1}\}$ siano falsi. 
-Abbiamo raggiunto la contraddizione che conclude la prova per assurdo 
-mostrando $D_{n+1}$ finitamente soddisfacibile. Questo chiude a sua volta la 
-prova per induzione, mostrando che ogni $D_n$ per $n \in N$ è finitamente 
-soddisfacibile. 
+\begin{proof}
+Per induzione su $n$:
+\begin{itemize}
+  \item \textbf{base}: $D_0 = \Gamma$ è finitamente soddisfacibile per ipotesi.
+  \item \textbf{passo} $D_{n+1}$: per assurdo, assumiamo $D_{n+1}$ non finitamente soddisfacibile.
+  \begin{align*}
+    \iff & \exists D' \subseteq_{\omega} D_{n}\cup \{F_{n+1}\} \text{ tale che } D' \text{ è insoddisfacibile} & (1)\\
+    \text{e}\ & \exists D''\subseteq_{\omega} D_{n} \cup \{\neg F_{n+1}\} \text{ tale che } D''   \text{ è insoddisfacibile} & (2)
+  \end{align*}
+  Senza perdita di generalità, si può assumere che:
+  \begin{align*}
+    & F_{n+1} \in D' \text{ e } \neg F_{n+1} \in D'' & \text{perchè }D_n \text{ è sodd. per ipotesi induttiva}\\
+    \iff & D' = E' \cup \{F_{n+1}\} \text{ e } D'' = E'' \cup \{\neg F_{n+1}\}
+    & \text{ con } E', E'' \subseteq_\omega D_{n} : F_{n+1} \notin E', \neg F_{n+1} \notin E''\\
+    \iff & D' \subseteq E' \cup E'' \cup \{F_{n+1}\} \text{ e } & \text{insod. per }(1)\\
+    & D'' \subseteq E' \cup E'' \cup \{\neg F_{n+1}\} & \text{insod. per }(2)
+  \end{align*}
+  Ma $E' \cup E'' \subseteq_{\omega} D_{n}$ e per ipotesi induttiva $D_n$ è finitamente soddisfacibile, ed è quindi $E' \cup E''$ soddisfacibile ed esiste un assegnamento tale che $\mathcal{v} \models E' \cup E''$. Sappiamo che $\mathcal{v}(F_{n+1})$ è uguale a $0$ o a $1$ e pertanto non è possibile che entrambi $\{F_{n+1}\}$ e $\{\neg F_{n+1}\}$ siano falsi. Abbiamo raggiunto la contraddizione che conclude la prova per assurdo mostrando $D_{n+1}$ finitamente soddisfacibile. Questo chiude a sua volta la prova per induzione, mostrando che ogni $D_n$ per $n \in N$ è finitamente soddisfacibile. 
+  \end{itemize}
+\end{proof}
  
-\paragraph{Secondo fatto:}
-$D = \cup_{i \in \omega} D_i$ è a sua volta finitamente 
-soddisfacibile. Questo non è necessariamente ovvio a partire dal fatto 
-che $D$ sia l'unione di insiemi finitamente soddisfacibili.
-Si consideri un sottoinsieme finito $D' \subseteq_{\omega} D$. Per dimostrare 
-che $D'$ sia soddisfacibile (e, vista la generalità, ogni insieme $D'$ lo sia, 
-quindi $D$ sia soddisfacibile), si può pensare di elencarne 
-i membri $D' = \{F_{i_1}, F_{i_2},\cdots,F_{i_u}\}$. Sia $k = \max_{j=1,...,u} i_j$ 
-l'indice massimo. Allora, $D' \subseteq_{\omega} D_k$, ma per il primo fatto $D_k$ è
-finitamente soddisfacibile e si può concludere $D'$ soddisfacibile
-e $D$ finitamente soddisfacibile.
+\paragraph{Fatto 2:}
+\textit{$D = \bigcup\limits_{i \in \omega} D_i$ è a sua volta finitamente 
+soddisfacibile.}
 
-\paragraph{Terzo fatto:}
-Il terzo fatto da dimostrare è che per ogni formula o enunciato $F_t$ esattamente 
-una tra $F_t$ e $\neg F_t$ appartiene a $D$. Anche questo non è necessariemente 
-garantito, in quanto $F_{n+1}$ e $\neg F_{n+1}$ non hanno lo stesso indice, 
-ossia $\neg F_{n+1}$ non ha indice ${n+1}$. La dimostrazione di questo fatto 
-arriva col  ragionamento seguente: per costruzione della sequenza dei $D_i$ 
-$F_t$ o $\neg F_t$ appartiene a $D_t$ e quindi, dato che ogni $D_t \subseteq D$ 
-si ha $F_t \in D$ o $\neg F_t \in D$. Bisogna escludere che ci siano entrambe, 
-e che quindi la congiunzione ``o'' diventi uno xor. Si ha che $\{F_t, \neg F_t\} \nsubseteq D$, 
-perché altrimenti per il secondo fatto $D$ è finitamente soddisfacibile e si avrebbe 
-che $\{F_t, \neg F_t\}$ è soddisfsacibile, ma è assurdo, dato che ovviamente 
-non può essere soddisfacibile per la semantica della negazione. 
+Questo non è necessariamente ovvio a partire dal fatto 
+che $D = \bigcup\limits_{i \in \omega} D_i$ con $D_i$ fin. sodd.\\
+\begin{proof}
+Siano:
+\begin{itemize}
+  \item $D' \subseteq_{\omega} D$, un sottoinsieme finito qualunque, con $D' = \{F_{i_1}, F_{i_2},\cdots,F_{i_u}\}$
+  \item $k = \max\limits_{j=1,...,u} i_j$, l'indice massimo
+\end{itemize}
+Allora:
+\begin{align*}
+  & D' \subseteq_{\omega} D_k\\
+  \implies & D' \text{ è finitamente soddisfacibile} & \text{per Fatto 1} \\
+  \implies & D \text{ è finitamente soddisfacibile} & \text{quando } D' = D
+\end{align*}
+\end{proof}
 
-\paragraph{Quarto fatto:}
-Infine, si definisce l'assegnamento $\mathfrak{v}_D : L \rightarrow \{0,1\}$:
-per ogni $p \in L$ si ha $\mathfrak{v}_D(p) = 1 \iff p \in D$. Si noti che 
-$\mathfrak{v}_D$ è ben 
-definito in quanto necessarimente $p \in D$ o $p \notin D$. L'ultimo fatto 
-afferma che $\mathfrak{v}_D \models D$, che significa che $\forall F \in D \mathfrak{v}_D(F) = 1$. 
-Se questo fatto è vero, allora è vero che $\mathfrak{v}_D \models \Gamma$ dato che $\Gamma \subseteq D$, 
-dunque $\Gamma$ è soddisfacibile.
-Questo fatto si dimostra per induzione 
-strutturale l'affermazione seguente: per ogni $F \in F_L$ si ha $\mathfrak{v}_D(F) = 1$ se 
-e solo se $F \in D$. Questo non è uguale alla definizione precedente, in quanto 
+\paragraph{Fatto 3:}
+\textit{Per ogni formula o enunciato $F_t$ esattamente \textbf{una} tra $F_t$ e $\neg F_t$ appartiene a $D$.}
+
+Anche questo non è necessariemente garantito, in quanto $F_t$ e $\neg F_t$ non hanno lo stesso indice, ossia $\neg F_t$ non ha indice $t$.\\
+\begin{proof}
+Per costruzione della sequenza di $D_i$:
+\begin{align*}
+  & F_t \in D_t \vee \neg F_t \in D_t\\
+  \implies & F_t \in D \vee \neg F_t \in D & \text{dato che ogni } D_t \subseteq D
+\end{align*}
+Si può escludere che ci siano entrambe: $\{F_t, \neg F_t\} \nsubseteq D$. Infatti, per assurdo:
+\begin{align*}
+  & \{F_t, \neg F_t\} \subseteq D\\
+  \implies & D \text{ è fin. sodd.} & \text{per Fatto 2}\\
+  \implies & \{F_t, \neg F_t\} \text{ è sodd.} & \text{per def. fin. sodd.} \\
+  \implies & \bot & \text{per la semantica della negazione } I_\neg
+\end{align*}
+\end{proof}
+
+\paragraph{Fatto 4:}
+\textit{Sia $\mathcal{v}_D : \mathscr{L} \rightarrow \{0,1\}$ t.c. $\forall p \in \mathscr{L},\ \mathcal{v}_D(p) = 1 \iff p \in D$. Allora:}
+$$
+  \mathcal{v}_D \models D
+$$
+\textit{Ovvero} $\forall F \in D,\ \widetilde{\mathcal{v}}_D(F) = 1$
+
+Si noti che $\mathcal{v}_D$ è \textit{ben definito} in quanto necessariamente $p \in D$ o $p \notin D$.
+
+\begin{proof}
+Per induzione strutturale proviamo la coimplicazione:
+$$
+  \forall F \in \mathscr{F_L},\ \widetilde{\mathcal{v}}_D(F) = 1 \iff F \in D
+$$
+Questo non è uguale alla definizione precedente, in quanto 
 in principio è stato definito per le lettere proposizionali e non per la 
-funzione estesa ($\tilde{\mathfrak{v}}_D$). Ci basterebbe provare che $F \in D$ 
-implica $\mathfrak{v}_D(F) = 1$ ma per convenienza proviamo anche che 
-$\mathfrak{v}_D(F) = 1$ implica $F \in D$. 
+funzione estesa ($\widetilde{\mathcal{v}}_D$). Ci basterebbe provare che $F \in D$ 
+implica $\mathcal{v}_D(F) = 1$ ma per convenienza proviamo anche che 
+$\mathcal{v}_D(F) = 1$ implica $F \in D$. 
+\begin{itemize}
+  \item \textbf{base}: $F = p$, con $p \in \mathscr{L}$
+  \begin{align*}
+    \mathcal v_D(F) = 1 \iff \mathcal v_D(p) \iff p \in D \iff F \in D \text{ per definizione di }\mathcal{v}_D
+  \end{align*}
+  \item \textbf{passo}:
+    \begin{itemize}
+      \item se $F = \neg G: $
+        \begin{align*}
+          & \mathcal{v}_D(F) = 1 \\
+          \iff & \mathcal v_D(\neg G) = 1 \\
+          \iff & \mathcal{v}_D(G) = 0 & \text{per def. di }I_\neg\\
+          \iff & G \notin D & \text{per ipotesi induttiva}\\
+          \iff & \neg G \in D & \text{per Fatto 3} \\
+          \iff & F \in D
+        \end{align*}
+      \item se $F = (G \land H):$
+        \begin{align*}
+          & \mathcal{v}_D(F) = 1 \\
+          \iff & \mathcal{v}_D(G \land H) = 1 \\
+          \iff & \mathcal{v}_D(G) = 1 \land \mathcal{v}_D(H) = 1 & \text{per def. di }I_\land \\
+          \iff & G \in D \land H \in D & \text{per ipotesi induttiva} \\
+          \iff & (G \land H) \in D
+        \end{align*}
+        L'ultima implicazione è dimostrabile per assurdo:
+        \begin{align*}
+          & (G \land H) \notin D & \text{deduzione assurda (} \Rightarrow \text ) \\
+          \implies & \neg(G \land H) \in D & \text{per Fatto 3} \\
+          \implies & \{G, H, \neg (G \land H)\} \subseteq_{\omega} D \text{ fin. sodd.} & \text{per Fatto 2, ma } \bot \text{ per } I_\neg, I_\land \\[5pt]
+          & G \notin D \lor  H \notin D & \text{deduzione assurda (} \Leftarrow \text ) \\
+          \implies & \text{se } G \notin D:\ \neg G \in D & \text{per Fatto 3} \\
+          & \{G \land H, \neg G\} \subseteq_{\omega} D \text{ fin. sodd.} & \text{ per Fatto 2, ma } \bot \text{ per } I_\neg, I_\land \\
+          & \text{se } H \notin D:\ \neg H \in D & \text{per Fatto 3} \\
+          & \{G \land H, \neg H\} \subseteq_{\omega} D \text{ fin. sodd.} & \text{ per Fatto 2, ma } \bot \text{ per } I_\neg, I_\land
+        \end{align*}
+      \item se $F = (G \lor H):$
+          \begin{align*}
+            & \mathcal{v}_D(F) = 1 \\
+            \iff & \mathcal{v}_D(G \lor H) = 1 \\
+            \iff & \mathcal{v}_D(G) = 1 \lor \mathcal{v}_D(H) = 1 & \text{per def. di }I_\lor \\
+            \iff & G \in D \lor H \in D & \text{per ipotesi induttiva} \\
+            \iff & (G \lor H) \in D
+          \end{align*}
+          L'ultima implicazione è dimostrabile per assurdo:
+          \begin{align*}
+              &(G \lor H) \notin D & \text{deduzione assurda(} \Rightarrow \text ) \\
+            \implies & \neg (G \lor H) \in D & \text{per Fatto 3} \\
+            \implies & \text{se } G \in D:\ \{G, \neg (G \lor H)\} \subseteq_{\omega} D \text{ fin. sodd.} & \text{per Fatto 2, ma }\bot \\
+            & \text{se } H \in D:\  \{H, \neg (G \lor H)\} \subseteq_{\omega} D \text{ fin. sodd.} & \text{per Fatto 2, ma } \bot \\[5pt]
+            & \neg(G \in D \lor H \in D) & \text{deduzione assurda (} \Leftarrow \text )\\
+            \implies & G \notin D \land H \notin D & \text{per De Morgan}\\
+            \implies & \neg G \in D \land \neg H \in D & \text{per Fatto 3}\\
+            \implies & \{\neg G, \neg H, \{G \lor H \}\} \subseteq_{\omega} D \text{ fin. sodd. }& \text{per Fatto 2, ma } \bot
+          \end{align*}
+       \item se $F = (G \rightarrow H): $ \textit{uguale, usa il fatto che è vero se G è falso o H è vero }
+    \end{itemize}
+\end{itemize}
+\end{proof}
 
-La base induttiva è $F = p$ e $p \in L$, l'asserto da 
-provare segue dalla definizione di $\mathfrak{v}_D$. Il passo induttivo si svolge esaminando 
-i connettivi uno per volta. Se $F = \neg G$, allora 
-$\mathfrak{v}_D(F) = 1 \iff \mathfrak{v}_D(G) = 0 \iff G \notin D \iff \neg G \in D \text{ dal fatto tre }\iff F \in D$. 
+Ora che abbiamo dimostrato che, se $\Gamma$ è fin. sodd., esiste un assegnamento $\mathcal v_D : \mathcal v_D \models D$, abbiamo dimostrato anche che $\mathcal v_D \models \Gamma$ (dato che $\Gamma \subseteq D$).\\
+$\Gamma$ è dunque soddisfacibile.
 
-Se $F = (G \land H)$ allora $\mathfrak{v}_D(F) = 1 \iff \mathfrak{v}_D(G \land H) = 1 \iff \mathfrak{v}_D(G) = 1 \land \mathfrak{v}_D(H) = 1\iff G \in D \land G \in D$. Questo ultimo fatto è dimostrabile perché se $G, H \in D$ allora 
-$G \land G \in D$, poiché altrimenti se $\neg(G \land H) \in D$ implicherebbe 
-che $\{G, H, \neg \{G \land H\}\} \subseteq_{\omega} \in D$ finitamente 
-soddisfacibile, assurdo; e se $G\land H \in D $ allora $G, H \in D$, poichè altrimenti 
-$G \notin D$ o $H \notin D$. Questo implica che $\{G\land H, \neg G\}$ 
-o $\{G\land H, \neg H\} \in D$ siano finitamente soddisfacibili, assurdo. 
- 
-Se $F = (G \lor H)$ allora $\mathfrak{v}_D(F) = \mathfrak{v}_D(G \lor H) \iff \mathfrak{v}_D(G) = 1 \lor \mathfrak{v}_D(H) = 1 \iff G \in D \text{ o } H \in D$
-allora se $G \in D$ o $H \in D$, si ha che $(G \lor H) \in D$ poiché altrimenti 
-se $(G \lor H) \notin D$ allora $\neg (G \lor H) \in D$, e se $G \in D$ allora 
-$\{G, \neg \{G \lor H \}\} \subseteq_{\omega} D$
-o se $H \in D$ allora $\{H, \neg \{G \lor H\}\} \subseteq_{\omega} D$ finitamente 
-soddisfacibili, assurdo. 
-Se $G \lor H \in D$ allora $G \in D$ o $H \in D$, 
-poiché altrimenti se $G \notin D$ e $H \notin D$ allora $\neg G \in D $ e 
-$\neg H \in D$ e $\{\neg G, \neg H, \{G \lor H \}\} \subseteq_{\omega} D$ 
-finitamente soddisfacibile, impossibile. 
-
-\subsubsection{Dimostrazione della contronominale}
-$\Gamma$ è insoddisfacibile se 
-e solo se esiste $\Gamma' \subseteq_{\omega} \Gamma$ e $\Gamma'$ è 
-insoddisfacibile. 
-\paragraph{$\leftarrow$ contronominale} 
-Se c'è $\Gamma' \subseteq_{\omega} \Gamma$ insoddisfacibile, allora $\Gamma$ 
-è insoddisfacibile in quanto $\Gamma$ è più restrittivo di $\Gamma'$, ha 
-meno assegnamenti di $\Gamma'$ che possono soddisfarlo. 
-
-\paragraph{$\rightarrow$ contronominale}
-Se $\Gamma$ è insoddisfacibile, allora esiste $\Gamma' \subseteq_{\omega} \Gamma$, 
-$\Gamma'$ insoddisfacibile. 
+\subsubsection{Contronominale}
+Noi useremo per lo più la versione \textit{contronominale} del Teorema di Compattezza:\\
+$\Gamma$ insoddisfacibile $\implies \exists \Gamma' \subseteq_{\omega} \Gamma : \Gamma'$ insoddisfacibile. 
 
 \subsection{Osservazioni sul Teorema di Completezza}
-L'idea di dimostrare la validità del teorema di compattezza partendo 
-da una teoria composta da un insieme infinito di formule per creare una catena 
-di insiemi 
+La dimostrazione del Teorema di Compattezza lavora ampliando al massimo la teoria $\Gamma$ che si vuole analizzare:
 $$
 \Gamma = D_0 \subseteq D_1 \subseteq D_2 \cdots \subseteq D_k \cdots \subseteq D
 $$
-è curioso. Si può concludere inoltre che $D$ non può essere ulteriormente ampliato 
-senza perderne la soddisfacibilità, in quanto se $F \notin D$, allora $\overline{D} = D \cup \{F\}$ 
-non è soddisfacibile: $F \notin D$ implica $\neg F \in D$.
-Questo vuol dire che $D$ è un \textbf{ampliamento massimale} di $\Gamma$. 
 
-\begin{defi}[Insieme massimale soddisfacibile]
-  Si definisce \textbf{insieme massimale soddisfacibile} 
-  ogni sottoinsieme $E \subseteq F_L$ tale che 
-$E$ è soddisfacibile e $\forall F \in F_L : F\notin E$ si ha che $E \cup \{F\}$ è 
-non soddisfacibile. 
+\begin{defi}[Insieme massimamente soddisfacibile]
+  Un sottoinsieme di formule $E \subseteq \mathscr{F_L}$ è \textbf{massimamente soddisfacibile} sse 
+$E$ è sodd. e $\forall F \in \mathscr{F_L} : F\notin E$ si ha che $E \cup \{F\}$ è insodd. 
 \end{defi}
-$D$ è solo uno di tali insiemi ed è quello che è stato 
-costruito a partire da $\Gamma$. $D$ è un ampliamento massimale di $\Gamma$ o 
-\textit{un} ampliamento di $\Gamma$? 
-Pragmaticamente, se si elencano le formule in modo differente si ottiene, in genere, 
-un ampliamento differente.
-A livello delle informazioni contenute, un insieme massimale soddisfacibile $D$ 
-si comporta come un assegnamento. Per ogni assegnamento $\mathfrak{v} : L \rightarrow \{0,1\}$ 
-si può creare $D_\mathfrak{v} = \{ F \in F_L : \mathfrak{v}(F) = 1\}$, un 
-insieme massimale soddisfacibile. 
-Il teorema di compattezza verrà usato per decidere i casi in cui $\Gamma \models A$. 
-Infatti, per un lemma che abbiamo già dimostrato, $\Gamma \models A \iff \Gamma \cup \{\neg A \} $
-è insoddisfacibile. Si supponga che $\Gamma$ sia una teoria finita, 
-$\Gamma = \{B_1, \cdots, B_n\}$ e si vuole sapere se $\Gamma \models A$. 
-Questo è vero se e solo se $B_1, \cdots, B_n \models A \iff \{B_1, \cdots,B_n,\neg A\}$ è 
-insoddisfacibile, se e solo se $B_1 \land \cdots B_n \land \neg A$ è 
-insoddisfacibile. Se, invece, $\Gamma$ è infinito viene finalmente in 
-nostro aiuto il teorema di compattezza. 
+
+\begin{ossn}
+$D$ è un \textbf{ampliamento massimale} di $\Gamma$, in quanto se $\overline{D} = D \cup \{F\}$ con $F \notin D$ allora $\overline D$ è insoddisfacibile per Fatto 3 ($\neg F \in D$).
+\end{ossn}
+$D$ è solo \textit{uno} degli ampliamenti massimali possibili, ed è quello che è stato 
+costruito a partire da $\Gamma$ e da una regola di costruzione di $D_{n+1}$ non univoca che dipende dall'elenco delle formule (i.e., può succedere che, dato un letterale $p$, sia $D_n \cup \{p\}$ sia $D_n \cup \{\neg p\}$ siano sodd.).
+
+\begin{ossn}
+A livello delle informazioni contenute, un insieme massimale soddisfacibile $D$ si comporta come un assegnamento (e viceversa).
+\end{ossn}
+Per ogni assegnamento $\mathcal{v} : \mathscr{L} \rightarrow \{0,1\}$ si può creare $D_\mathcal{v} = \{ F \in \mathscr{F_L} : \mathcal{v}(F) = 1\}$ massimamente soddisfacibile.
+
+\paragraph{Utilizzo}
+Il Teorema di Compattezza verrà usato per decidere quando $\Gamma \stackrel{?}{\models} A$ ($A$ è conseguenza logica di $\Gamma$), problema fondamentale della logica proposizionale e del primo ordine.\\
+Si usa nella sua forma contronominale assieme al Lemma~\ref{lem:conseguenza-teoria-insodd-formula}:
+$$
+\Gamma \models A \iff \Gamma \cup \{\neg A \} \text{ insodd.} \iff \exists \Gamma' \subseteq_{\omega} \Gamma : \Gamma' \text{ insoddisfacibile}
+$$
+La deduzione automatica sono infatti quei metodi refutazionali che mirano a dimostrare l'isoddisfacibilità di una teoria o di una singola formula.
+
+Si supponga che $\Gamma$ sia una teoria finita ($\Gamma = \{B_1, \cdots, B_n\}$) e che si voglia sapere se $\Gamma \stackrel{?}{\models} A$.
+\begin{align*}
+  & \Gamma \models A \\
+  \iff & B_1, \cdots, B_n \models A \\
+  \iff & \{B_1, \cdots,B_n,\neg A\} \text{ insodd.} & \text{(come teoria)}\\
+  \iff & B_1 \land \cdots B_n \land \neg A \text{ insodd.} & \text{ (come formula)}
+\end{align*}
+Decidere se la formula finale è sodd. o insodd. è NP-completo e si può parzialmente risolvere con i SAT-solver.
+
+Se, invece, $\Gamma$ è infinito non si può più risolvere la soddisfacibilità come formula. È qua che si utilizza il Teorema di Compattezza: partendo da un $\Gamma_0 = \emptyset$ si cerca il $\Gamma_i \subseteq_{\omega} \Gamma : \Gamma_i$ è insodd. Se si trova allora anche $\Gamma$ è insodd.\\
+Tuttavia non c'è un criterio \textit{generale} per sapere se $\Gamma$ è sodd. in tempo finito.
 
 \section{Equivalenza Semantica}
-Sintatticamente, come enunciati, cioè come stringhe di simboli, le 
-due formule 
+I seguenti enunciati:
+\begin{align*}
+  A \lor B & & B \lor A
+\end{align*}
+sono due formule \textit{sintatticamente} differenti perché sono stringhe di simboli scritte diversamente.\\
+Il loro \textbf{significato}, tuttavia, è uguale e, pertanto, per ogni $\mathcal{v} : \mathscr{L} \rightarrow \{0,1\}$ si ha che:
 $$
-A \lor B
-$$ 
-e 
+\mathcal{v}(A \lor B) \equiv \mathcal{v}(B \lor A)
 $$
-B \lor A 
-$$ 
-sono due formule differenti, nonostante $A$ sia $A$ e $B$ 
-sia $B$: sono \textit{scritte} in modo diverso. Il loro \textbf{significato}, 
-tuttavia, è uguale e, pertanto, per ogni $\mathfrak{v} : L \rightarrow \{0,1\}$ si ha che 
-$\mathfrak{v}(A \lor B) \equiv \mathfrak{v}(B \lor A)$. Quella appena 
-definita è una \textbf{relazione}. 
+Quella appena definita è una \textbf{relazione}. 
 
-\begin{defi}[Relazione]
-  Una relazione $n$-aria $R$ su un insieme $S$ è 
-un sottoinsieme dell'insieme di tutte le $n$-ple di tutti gli elementi di $S$, 
-in altre parole $R \subseteq S^{n}$.
+\begin{defi}[Relazione $n$-aria]
+$R \subseteq S^{n}$ è una relazione $n$-aria su un insieme $S$.
 \end{defi}
-Per esempio, una relazione binaria è 
-una relazione $R$ su $S$ tale che $R \subseteq S^2$. 
+È un sottoinsieme dell'insieme di tutte le $n$-ple di elementi di $S$, in altre parole $R \subseteq S^{n}$.\\
+Per esempio, una relazione binaria è una relazione $R$ su $S$ tale che $R \subseteq S^2 = S \times S$. 
 \begin{defi}[Relazione di equivalenza]
-Una 
-\textbf{relazione d'equivalenza} è una relazione binaria $R$ su $S$, $R \subseteq S^2$ 
-tale che 
+$R$ è una \textbf{relazione d'equivalenza} sse: 
 \begin{itemize}
-  \setlength\itemsep{0pt}
-  \item $R$ è riflessiva: $\forall s \in S ~~(s,s) \in R$
-  \item $R$ è simmetrica: $\forall s_1, s_2 \in S ~~ (s_1, s_2) \in R \rightarrow (s_2, s_1) \in R$
-  \item $R$ è transitiva: $\forall s_1, s_2, s_3 \in S ~~ (s_1, s_2), (s_2, s_3) \in R \rightarrow (s_1, s_3) \in R$
+  \item $R$ è una relazione binaria: $R \subseteq S^2$
+  \item $R$ è riflessiva: $\forall s \in S, (s,s) \in R$
+  \item $R$ è simmetrica: $\forall s_1, s_2 \in S, (s_1, s_2) \in R \rightarrow (s_2, s_1) \in R$
+  \item $R$ è transitiva: $\forall s_1, s_2, s_3 \in S, (s_1, s_2) \in R \land (s_2, s_3) \in R \rightarrow (s_1, s_3) \in R$
 \end{itemize}
 \end{defi}
 
 \subsection{Partizioni e classi di equivalenza}
-Sia $R$ una relazione di equivalenza su $S$. Per ogni $s \in S$, la 
-\textbf{classe di equivalenza} rispetto ad $R$ di $s \in S$ è definita 
-$$
-[s]_R = \{ t \in S : (s,t) \in R\}
-$$
-\`E importante osservare che se $(s,t) \in R$ allora $[s]_R = [t]_R$ e viceversa, 
-ossia se $[s]_R = [t]_R$ allora $(s,t) \in R$.  Una \textbf{partizione} di 
-un insieme $S$ è un insieme $\{B_1, \cdots, B_k, \cdots\}$ non necessariamente 
-finito di sottoinsiemi di $S$ ($B_i \subseteq S$) tale che $B_i \cap B_j = \emptyset$ 
-per ogni $i,j \in I$, dove $I$ è l'insieme di indici di $B$. Inoltre, 
-$\cup_{i \in I} B_i = S$. Gli insiemi $B_i$ vengono chiamati \textit{blocchi}
-della partizione. I due concetti, partizioni e relazioni di equivalenza, sono 
-legati tra di loro: ogni relazione di equivalenza $R$ su $S$ determina una partizione 
-$P_R$ di $S$ dove 
-$$
-P_R = \{[s]_R : s \in S\}
-$$
-ossia le classi di equivalenza definite da $R$. La relazione inversa è meno nota, 
-ossia che ogni partizione $P$ di $S$ determina una relazione d'equivalenza $R_P$ 
-su $S$, ossia 
-$$ 
-R_P := (s,t) \in R_p \implies \exists i : s,t \in B_i
-$$
+\label{partizioni-e-classi}
+Sia $R$ una relazione di equivalenza su $S$.
+\begin{defi}[Classe di equivalenza]
+  La \textit{classe di equivalenza} di $s \in S$ rispetto a $R$ è:
+  $$[s]_R = \{ t \in S : (s,t) \in R\}$$
+\end{defi}
+\begin{oss}
+  $(s,t) \in R \iff [s]_R = [t]_R$
+\end{oss}
+
+\begin{defi}[Partizione] 
+  $P(S) = \{B_1, \cdots, B_k, \cdots\}$ con i \textit{blocchi} $B_i \subseteq S$, tali che:
+  \begin{itemize}
+    \item $B_i \cap B_j = \emptyset$ per ogni $i,j \in I$, dove $I$ è l'insieme di indici di $B$
+    \item $\cup_{i \in I} B_i = S$
+  \end{itemize}
+\end{defi}
+\noindent
+I due concetti, partizioni e relazioni di equivalenza, sono legati tra di loro:
+\begin{itemize}
+  \item ogni relazione di equivalenza $R$ su $S$ determina una partizione $P_R$ di $S$ composta dalle sue classi di equivalenza.
+    $$
+      P_R = \{[s]_R : s \in S\}
+    $$
+  \item ogni partizione $P(S)$ composta da blocchi $B_i$ determina una relazione d'equivalenza $R_P$ su $S$: 
+    $$
+      \forall (s,t) \in S^2,\ (s,t) \in R_P \iff \exists! i \in I : s,t \in B_i
+    $$
 che è chiaramente riflessiva, simmetrica e transitiva. 
+\end{itemize}
 
 \subsection{Equivalenza Logica}
-Verificare che la relazione seguente (equivalenza logica $\equiv$) è d'equivalenza: 
-$$ 
-\equiv \subseteq F_L^2
-$$
-$$
-\forall A,B: (A,B) \in \equiv \forall \mathfrak{v}:L\rightarrow \{0,1\} \mathfrak{v}(A) = \mathfrak{v}(B)
-$$
-\begin{enumerate}
-  \item $\equiv$ riflessiva: $A \equiv A$ infatti $\forall \mathfrak{v}:L \rightarrow \{0,1\} \mathfrak{v}(A) = \mathfrak{v}(A)$
-  \item $\equiv$ simmetrica: per ogni $(A,B) \in F_L^2$ se $A \equiv B$ allora
-    $B \equiv A$, ossia se per ogni assegnamento $\mathfrak{v}:L \rightarrow \{0,1\}$ si 
-    ha che $\mathfrak{v}(A) = \mathfrak{v}(B)$ allora per ogni $v$ si ha $\mathfrak{v}(B) = \mathfrak{v}(A)$. 
-  \item $\equiv$ transitiva: per ogni $(A,B,C) \in F_L^3$ se $A \equiv B$ e 
-    $B \equiv C$ allora $A \equiv C$ (dalla transitività della funzione 
-    $=$ stessa). 
-\end{enumerate}
+\begin{defi}[Equivalenza Logica]
+\label{def:equivalenza}
+  Relazione $\equiv \subseteq \mathscr{F_L}^2$ tale che:
+  $$
+    \forall (A,B) \in \mathscr{F_L}^2,\ A \equiv B \iff \forall \mathcal{v}:\mathscr{L}\rightarrow \{0,1\},\ \widetilde{\mathcal{v}}(A) = \mathcal{v}(B)
+  $$
+\end{defi}
+\begin{oss}
+  $\equiv$ è una relazione di \textit{equivalenza}
+\end{oss}
+\begin{proof}
+Siano $A, B, C \in \mathscr{F_L}$:
+  \begin{itemize}
+    \item $\equiv$ è riflessiva: $A \equiv A$, infatti $\forall \mathcal{v} : \mathscr{L} \rightarrow \{0,1\},\ \widetilde{\mathcal{v}}(A) = \widetilde{\mathcal{v}}(A)$
+    \item $\equiv$ è simmetrica: $A \equiv B \rightarrow B \equiv A$, infatti $\forall \mathcal{v}:\mathscr{L} \rightarrow \{0,1\},\ \widetilde{\mathcal{v}}(A) = \widetilde{\mathcal{v}}(B) \rightarrow \forall \mathcal{v},\  \widetilde{\mathcal{v}}(B) = \widetilde{\mathcal{v}}(A)$. 
+    \item $\equiv$ è transitiva: $A \equiv B \land B \equiv C \rightarrow A \equiv C$, infatti $\forall \mathcal{v}, \widetilde{\mathcal{v}}(A) = \widetilde{\mathcal{v}}(B) \land \forall \mathcal{v}, \widetilde{\mathcal{v}}(B) = \widetilde{\mathcal{v}}(C) \rightarrow \forall \mathcal{v}, \widetilde{\mathcal{v}}(A) = \widetilde{\mathcal{v}}(C)$ 
+  \end{itemize}
+\end{proof} 
+\noindent
+Sembrerebbe che $\equiv$ catturi il significato (i.e. $\mathcal{v}$) delle formule, prescindendo dalla loro sintassi!
 
-$\equiv$ partiziona $F_L$, infatti 
-$$
-P_{\equiv} = F_L/\equiv =  \{ [A]_{\equiv} : A \in F_L\}
-$$
-\noindent 
+Essendo una relazione di equivalenza, $\equiv$ può essere vista come partizione $P_{\equiv}$ di formule $\mathscr{F_L}$ (anche scritta $\mathscr{F_L}/_{\equiv}$) e perciò:
+\begin{align*}
+\mathscr{F_L}/_{\equiv} = \{ [A]_{\equiv} : A \in \mathscr{F_L} \} & & \text{per \ref{partizioni-e-classi}}
+\end{align*}
+ovvero è l'insieme delle classi di equivalenza delle formule rispetto a $\equiv$.\\
+Prossimamente doteremo $\mathscr{F_L}/_{\equiv}$ di operazioni tali da renderla una \textit{struttura algebrica}.
+
 \subsection{Sostituzione di lettera proposizionale con Formula}
-Arricchiremo l'insieme delle classi di equivalenza delle formule, rispetto 
-all'equivalenza logica, con delle operazioni che equipaggeranno tale insieme 
-di una struttura algebrica.
-Siano $A, B \in F_L$ delle formule e sia $p \in L$ una lettera proposizionale. 
-Si definisce la formula che si ottiene sostituendo nella formula $A$ ogni 
-occorrenza della lettera proposizionale $p$ con la formula $B$
-$$
-A[B/p]
-$$
-induttivamente, con l'idea che per esempio data $(p \land \neg q)$ si ha 
-$[(t \rightarrow q)/p] = (t\rightarrow q) \land \neg q$. 
-\newline
-\textbf{base:} $A = q, p \in L$  allora 
-\begin{align*}
-  q[B/p] := 
-  \begin{cases}
-    B & p = q \\
-    q & p \neq q 
-  \end{cases}
-\end{align*}
-\newline
-\textbf{passo:}  
-$(\neg A)[B/p] := \neg(A[B/p])$, 
-$(A_1 \land A_2)[B/p] := (A_1[B/p]) \land (A_2[B/p])$, 
-$(A_1 \lor A_2)[B/p] := (A_1[B/p]) \lor (A_2[B/p])$, 
-$(A_1 \implies A_2)[B/p] := (A_1[B/p] \implies A_2[B/p])$. 
+\begin{defi}[Sostituzione di lettera proposizionale con formula]
+\label{def:sostituzione}
+  Siano $A, B \in \mathscr{F_L}$ delle formule e sia $p \in \mathscr{L}$ una lettera proposizionale.
+  Si definisce la formula $A[B/p]$ ottenuta dalla formula $A$ sostituendo induttivamente ogni occorrenza della lettera proposizionale $p$ con la formula $B$:
+  \begin{itemize}
+    \item \textbf{base}: $A = q$, con $q \in \mathscr{L}$
+      \begin{align*}
+        q [B/p] := 
+        \begin{cases}
+          B & \text{se } p = q \\
+          q & \text{se } p \neq q 
+        \end{cases}
+      \end{align*}
+    \item \textbf{passo}:
+      \begin{itemize}
+        \item caso $A = \neg A_1$: \\
+          $(\neg A_1)[B/p] := \neg(A_1[B/p])$
+        \item caso $A = (A_1 \land A_2)$: \\
+          $(A_1 \land A_2)[B/p] := (A_1[B/p]) \land (A_2[B/p])$
+        \item caso $A = (A_1 \lor A_2)$: \\
+          $(A_1 \lor A_2)[B/p] := (A_1[B/p]) \lor (A_2[B/p])$
+        \item caso $A = (A_1 \rightarrow A_2)$: \\
+          $(A_1 \rightarrow A_2)[B/p] := (A_1[B/p] \rightarrow A_2[B/p])$
+      \end{itemize}
+  \end{itemize}
+\end{defi}
+Per esempio, $(p \land \neg q) [(t \rightarrow q)/p] = (t\rightarrow q) \land \neg q$.
 
-\begin{lem}[di sostituzione]
-Sia $\mathfrak{v}: L \rightarrow \{0,1\}$ e siamo $S,T \in F_L$. 
-Se $\mathfrak{v}(S) = \mathfrak{v}(T)$,  allora per ogni $A \in F_L$ e ogni $p \in L$
-$$
-\mathfrak{v}(A[S/p]) = \mathfrak{v}(A[T/p])
-$$ 
-\end{lem}
-ossia, se si sostituisce nella stessa formula una lettera proposizionale 
-con due enunciati che hanno lo stesso valore di verità il valore delle due 
-sostituzioni è uguale. La dimostrazione è per induzione strutturale su $A$: 
-\newline 
-
-\textbf{base:} $ A = q$, $q \in L$ allora 
-\begin{align*}
-  \begin{cases}
-    q \neq p & q[S/p] = q = q[T/p] \\
-    q = p & q[S/p] = S \land q [T/p] = T, \mathfrak{v}(S) = \mathfrak{v}(T) \rightarrow \mathfrak{v}(q[S/p]) = \mathfrak{v}(q[T/p])
-  \end{cases}
-\end{align*}
-\newline 
-
-\textbf{passo}: $A= \neg B$ per ipotesi induttiva $\mathfrak{v}(B[S/p]) = \mathfrak{v}(B[T/p])$, 
-e quindi $\neg \mathfrak{v}(B[S/p]) = \neg \mathfrak{v}(B[T/p])$. Analogamente per gli 
-operatori binari: 
-$A = (B \land C)$ e per i.h. $\mathfrak{v}(B[S/p]) = \mathfrak{v}(B[T/p])$ e $\mathfrak{v}(C[S/p]) = \mathfrak{v}(c[T/p])$ 
-e quindi $\mathfrak{v}((B\land C)[S/p]) = \mathfrak{v}(B[S/p] \land C[S/p])$. 
-
-Grazie al lemma di sostituzione si può provare il seguente teorema. 
-\begin{teo}[di sostituzione]
-Se $S \equiv T$, allora per ogni $A \in F_L$ e $p \in L$ vale 
-$$ 
-A[S/p] \equiv A[T/p]
-$$ 
+\begin{lemn}[di Sostituzione]
+\label{lem:sostituzione}
+Siano $\mathcal{v}: \mathscr{L} \rightarrow \{0,1\}$ e $S,T \in \mathscr{F_L}$. \\
+$\mathcal{v}(S) = \mathcal{v}(T) \implies \forall A \in \mathscr{F_L}$ e $\forall p \in \mathscr{L},\ \mathcal{v}(A[S/p]) = \mathcal{v}(A[T/p])$
+\end{lemn}
+ossia, se si sostituisce nella stessa formula una lettera proposizionale con due enunciati che hanno lo stesso valore di verità, il valore delle due sostituzioni è uguale.
+\begin{proof}
+  Per induzione strutturale su $A$:
+  \begin{itemize}
+    \item \textbf{base}: se $A = q$, con $q \in \mathscr{L}$: 
+      \begin{align*}
+        \begin{cases}
+          \text{se } q = p & \widetilde{\mathcal{v}}(q[S/p]) = \widetilde{\mathcal{v}}(S) = \widetilde{\mathcal{v}}(T) = \widetilde{\mathcal{v}}(q[T/p]) \\
+          \text{se } q \neq p & \widetilde{\mathcal{v}}(q[S/p]) = \widetilde{\mathcal{v}}(q) = \widetilde{\mathcal{v}}(q[T/p])
+        \end{cases}
+      \end{align*}
+    \item \textbf{passo}:
+      \begin{itemize}
+        \item caso $A = \neg B$:
+          \begin{align*}
+            \widetilde{\mathcal{v}}(B[S/p]) & = \widetilde{\mathcal{v}}(B[T/p]) & \text{per ipotesi induttiva} \\
+            \neg \widetilde{\mathcal{v}}(B[S/p]) & = \neg \widetilde{\mathcal{v}}(B[T/p]) & \text{per def. } I_\neg
+          \end{align*}
+        \item caso $A = (B \land C)$:
+          \begin{align*}
+              & \widetilde{\mathcal{v}}((B\land C)[S/p]) \\
+            =\ & \widetilde{\mathcal{v}}(B[S/p] \land C[S/p]) & \text{per def. di sostituzione \ref{def:sostituzione}} \\
+            =\ & \min{\{\widetilde{\mathcal{v}}(B[S/p]),\ \widetilde{\mathcal{v}}(C[S/p])\}} & \text{per } I_\land \\[5pt]
+              & \widetilde{\mathcal{v}}((B\land C)[T/p]) \\
+            =\ & \widetilde{\mathcal{v}}(B[T/p] \land C[T/p]) & \text{per def. di sostituzione \ref{def:sostituzione}} \\
+            =\ & \min{\{\widetilde{\mathcal{v}}(B[T/p]),\ \widetilde{\mathcal{v}}(C[T/p])\}} & \text{per } I_\land \\[5pt]
+            & \begin{rcases*}
+              \widetilde{\mathcal{v}}(B[S/p]) = \widetilde{\mathcal{v}}(B[T/p]) \\
+              \widetilde{\mathcal{v}}(C[S/p]) = \widetilde{\mathcal{v}}(C[T/p])
+            \end{rcases*}
+            & \text{ per ipotesi induttiva} \\
+            \implies & \min{\{\widetilde{\mathcal{v}}(B[S/p]),\ \widetilde{\mathcal{v}}(C[S/p])\}} \\
+            =\ & \min{\{\widetilde{\mathcal{v}}(B[T/p]),\ \widetilde{\mathcal{v}}(C[T/p])\}}
+          \end{align*}
+         \item Analogamente gli altri operatori binari
+      \end{itemize} 
+  \end{itemize}
+\end{proof}
+\begin{teo}[di Sostituzione]
+Siano $S, T \in \mathscr{F_L}$, \\
+$S \equiv T \implies \forall A \in \mathscr{F_L}$ e $p \in \mathscr{L},\ A[S/p] \equiv A[T/p]$ 
 \end{teo}
-La differenza arriva dall'utilizzo di un solo assegnamento nel lemma e 
-dall'utilizzo di equivalenza in questo teorema. 
-La dimostrazione è ovvia grazie alla definizione di equivalenza e dal 
-lemma di sostituzione. Ricordando che per ogni $\mathfrak{v}: L \rightarrow \{0,1\}$ vale 
-$\mathfrak{v}(S) = \mathfrak{v}(T)$ in quanto per ipotesi $S \equiv T$ si ha che 
-per il lemma di sostituzione vale 
-$$
-\forall \mathfrak{v}: L \rightarrow \{0,1\} \mathfrak{v}(A[S/p]) = \mathfrak{v}(A[T/p])
-$$ 
-dunque, per la definizione di $\equiv$ si ha $A[S/p] \equiv A[T/p]$. 
+A differenza del Lemma~\ref{lem:sostituzione}, il Teorema di Sostituzione utilizza l'equivalenza al posto dell'assegnamento.
+\begin{proof}
+  \begin{align*}
+    & S \equiv T \\
+    \implies & \forall \mathcal{v}: \mathscr{L} \rightarrow \{0,1\},\ \mathcal{v}(S) = \mathcal{v}(T) & \text{per def. }\equiv~(\ref{def:equivalenza}) \\
+    \implies & \forall \mathcal{v}: \mathscr{L} \rightarrow \{0,1\},\ \mathcal{v}(A[S/p]) = \mathcal{v}(A[T/p]) & \text{per Lemma di Sostituzione}~(\ref{lem:sostituzione}) \\
+    \implies & A[S/p] \equiv A[T/p] & \text{per def. }\equiv
+  \end{align*}
+\end{proof}
 
+\subsection{Connettivi aggiuntivi}
+\label{connettivi-aggiuntivi}
+\paragraph{Doppia implicazione}
+$$
+F \leftrightarrow  G \equiv (F \rightarrow G) \land (G \rightarrow F)
+$$
 
-\noindent 
-\subsection{Teoremi di equivalenze logiche}
-Date $F, G, H \in F_L$ le seguenti sono equivalenze logiche: 
+Due formule sono logicamente equivalenti sse la loro coimplicazione è vera sotto ogni assegnamento:
+$$
+\models (F \leftrightarrow G) \iff F \equiv G
+$$
 
-\noindent
-\textbf{idempotenza:} 
-$$
-\begin{cases}
-  F \lor F \equiv F \\
-  F \land F \equiv F
-\end{cases}
-$$
-\noindent 
-\textbf{commutatività:}
-$$
-\begin{cases}
-  F \lor G \equiv G \lor F \\
-  F \land G \equiv F \land F 
-\end{cases}
-$$
-\noindent 
-\textbf{associatività:}
-$$
-\begin{cases}
-  F \land (G \land H) \equiv (F \land G) \land H \\
-  F \lor (G \lor H) \equiv (F \lor G) \lor H 
-\end{cases}
-$$
-\noindent 
-\textbf{assorbimento:}
-$$
-\begin{cases}
-  F \lor (F \land G) \equiv F \\
-  F \land (F\lor G) \equiv F 
-\end{cases}
-$$
-\noindent 
-\textbf{distributività:}
-$$
-\begin{cases}
-  F \land (G \lor H) \equiv (F \land G) \lor (F \land H) \\
-  F \lor (G \land H) \equiv (F \lor G) \land (F \lor H)
-\end{cases}
-$$
-\noindent 
-\textbf{doppia negazione:}
-$$
-\neg\neg F \equiv F 
-$$
-\noindent 
-\textbf{leggi di De Morgan:}
-$$
-\begin{cases}
-  \neg (F \lor G) \equiv \neg F \land \neg G \\
-  \neg (F \land G) \equiv \neg F \lor \neg G 
-\end{cases}
-$$
-\noindent 
-\textbf{interdefinibilità:}
-$$
-\begin{cases}
-  F \rightarrow G \equiv  (\neg F) \lor G \\
-  F \rightarrow G \equiv \neg(F \land \neg G) \\
-  F \lor G \equiv (\neg F) \rightarrow G \\
-  F \land G \equiv \neg(F \rightarrow G) \\
-  F \lor G \equiv \neg (\neg F \land \neg G) \\
-  F \land G \equiv \neg(\neg F \lor \neg G)
-\end{cases}
-$$
-\noindent 
-\textbf{doppia implicazione}
-$$
-F \iff G \equiv (F \rightarrow G) \land (G \rightarrow F)
-$$
-\noindent
-\textbf{tautologia iff.}
-$$
-\models F \iff G \iff F \equiv G
-$$
-\noindent 
-\textbf{costanti logiche}
-$$
-\begin{cases}
-  \bot :=  I_{\bot} : \{0,1\}^0 \rightarrow \{0,1\} \text{ la funzione costante } I_{\bot} =  0 \\
-  \top :=  I_{\top} : \{0,1\}^0 \rightarrow \{0,1\} \text{ la funzione costante } I_{\top} =  1 \\
-\end{cases}
-$$
-come primitivi oppure, come derivati
-$$
-\begin{cases}
-  \bot := (\neg \top) \text{ oppure } p \land \neg p \\
-  \top := (\neg \bot) \text{ oppure } p \rightarrow p, p \lor \neg p \\
-  \neg A \equiv A \implies \bot \\
-  A \equiv \top \implies A 
-\end{cases}
-$$
-\noindent 
-\textbf{complemento:}
-$$
-\begin{cases}
-  A \land \neg A \equiv \bot \\
-  A \lor \neg A \equiv \top 
-\end{cases}
-$$
-\noindent 
-\textbf{elementi neutri:}
-$$
-\begin{cases}
-  A \land \bot \equiv \bot \\
-  A \lor \bot \equiv A \\
-  A \land \top \equiv A \\
-  A \lor \top  \equiv\top 
-\end{cases}
-$$
-\noindent
-\textbf{De Morgan su più formule:}
-$$
-\begin{cases}
-  \neg (F_1 \lor F_2 \lor \cdots F_n) = \neg F_1 \land \neg F_2 \land \cdots \neg F_n\\
-  \neg (F_1 \land F_2 \land \cdots F_n) = \neg F_1 \lor \neg F_2  \lor \cdots \neg F_n
-\end{cases}
-$$
-\noindent 
-\textbf{Distributibilità generalizzata}
-$$
-\begin{cases}
-        (F_1 \lor \cdots \lor F_u) \land (G_1 \lor \cdots \lor G_n) \equiv \lor_{i = 1}^{u} \lor_{j = 1}^{v} (F_i \land G_j) \\
-        (F_1 \land \cdots \land F_u) \lor (G_1 \land \cdots \land G_n) \equiv \land_{i = 1}^{u} \land_{j = 1}^{v} (F_i \land G_j) \\
-
-\end{cases}
-$$
-\paragraph{Esercizio}
-Provare l'idempotenza tramite l'assorbimento. 
-
-Provare l'idempotenza tramite l'assorbimento delle formule: 
-$F \lor F \equiv F$ Sia $p \in L $, con $p \notin F$. 
-Si operano le sostutizioni 
-\begin{align*} 
-        (F\lor p) [ F/p] &= F \lor F = F 
-\end{align*} 
-\begin{align*} 
-        (F\lor p) [ F\land(F \lor F)/p] &= F \lor (F \land (F \lor F)) \\
-        = F \lor (F \land (F \lor F)) = F
+\paragraph{Costanti logiche}
+Le costanti logiche (o \textit{connettivi zerari}) possono essere derivate da altre formule:
+\begin{align*}
+  \bot & := p \land \neg p & \text{ (o qualsiasi altra contraddizione)} \\
+  \top & := p \rightarrow p & \text{ (o qualsiasi altra tautologia)}
 \end{align*}
-Le due forme sono, per assorbimento, uguali. 
 
+o primitive:
+\begin{align*}
+  \bot & :=  I_{\bot} : \{0,1\}^0 \rightarrow \{0,1\} \text{, la funzione vuota che mappa in } 0 \\
+  \top & :=  I_{\top} : \{0,1\}^0 \rightarrow \{0,1\} \text{, la funzione vuota che mappa in } 1
+\end{align*}
+
+Il che vuol dire che $\forall \mathcal{v} : \mathscr{L} \rightarrow \{0,1\}$:
+\begin{align*}
+  \widetilde{\mathcal{v}}(\bot) = 0 &&
+  \text{e}&&
+  \widetilde{\mathcal{v}}(\top) = 1
+\end{align*}
+ 
+\subsection{Equivalenze logiche notevoli}
+Date $F, G, H \in \mathscr{F_L}$ le seguenti sono equivalenze logiche:
+\begin{itemize}
+  \item Idempotenza:
+    \begin{align*}
+      F \lor F \equiv F &&
+      F \land F \equiv F
+    \end{align*}
+    
+  \item Commutatività:
+    \begin{align*}
+      F \lor G \equiv G \lor F &&
+      F \land G \equiv F \land F 
+    \end{align*}
+    
+  \item Associatività:
+    \begin{align*}
+      F \lor (G \lor H) \equiv (F \lor G) \lor H &&
+      F \land (G \land H) \equiv (F \land G) \land H
+    \end{align*}
+    
+  \item Assorbimento:
+    \label{assorbimento}
+    \begin{align*}
+      F \lor (F \land G) \equiv F &&
+      F \land (F\lor G) \equiv F 
+    \end{align*}
+
+  \item Distributività:
+    \begin{align*}
+      F \lor (G \land H) \equiv (F \lor G) \land (F \lor H) &&
+      F \land (G \lor H) \equiv (F \land G) \lor (F \land H)
+    \end{align*}
+
+  \item Doppia negazione:
+    $$
+    \neg\neg F \equiv F
+    $$
+
+  \item Leggi di De Morgan:
+    \begin{align*}
+      \neg (F \lor G) \equiv \neg F \land \neg G &&
+      \neg (F \land G) \equiv \neg F \lor \neg G 
+    \end{align*}
+
+  \item Interdefinibilità:
+    \begin{align*}
+      F \rightarrow G &\equiv  (\neg F) \lor G &
+      F \rightarrow G &\equiv \neg(F \land \neg G) \\
+      F \lor G &\equiv (\neg F) \rightarrow G &
+      F \land G &\equiv \neg(F \rightarrow G) \\
+      F \lor G &\equiv \neg (\neg F \land \neg G) &
+      F \land G &\equiv \neg(\neg F \lor \neg G)
+    \end{align*}
+    
+  \item Costanti nelle implicazioni:
+    \begin{align*}
+      \neg A \equiv A \rightarrow \bot &&
+      A \equiv \top \rightarrow A 
+    \end{align*}
+  
+  \item Complemento:
+    \begin{align*}
+      A \lor \neg A \equiv \top &&
+      A \land \neg A \equiv \bot
+    \end{align*}
+    
+  \item Elementi neutri:
+    \begin{align*}
+      A \lor \bot \equiv A &&
+      A \land \top \equiv A
+    \end{align*}
+      
+  \item Unità:
+    \begin{align*}
+      A \lor \top  \equiv\top &&
+      A \land \bot \equiv \bot
+    \end{align*}
+    
+  \item De Morgan su $n$ formule:
+    \begin{align*}
+      \neg (F_1 \lor F_2 \lor \cdots F_n) & \equiv \neg F_1 \land \neg F_2 \land \cdots \neg F_n\\
+      \neg (F_1 \land F_2 \land \cdots F_n) & \equiv \neg F_1 \lor \neg F_2  \lor \cdots \neg F_n
+    \end{align*}
+  
+  \item  Distributibilità generalizzata:
+  \label {def:distributibilita-generalizzata}
+    \begin{align*}
+      (F_1 \lor \cdots \lor F_u) \land (G_1 \lor \cdots \lor G_n) & \equiv \bigvee\limits_{i = 1}^{u} \bigvee\limits_{j = 1}^{v} (F_i \land G_j) \\
+      (F_1 \land \cdots \land F_u) \lor (G_1 \land \cdots \land G_n) & \equiv \bigwedge\limits_{i = 1}^{u} \bigwedge\limits_{j = 1}^{v} (F_i \land G_j)
+    \end{align*}
+
+\end{itemize}
+
+\paragraph{Esercizio}
+Provare l'idempotenza tramite l'assorbimento.
+\begin{proof}
+  Sia $p \in \mathscr{L}$ con $p \notin F$:
+  \begin{align}
+    \label{eq:1}
+    (F \lor p)[F/p] &= F \lor F & (F \lor p)[F \land (F \lor F)/p] &= F \lor (F \land (F \lor F))
+  \end{align}
+  Ma:
+  \begin{align*} 
+     & F \equiv F \land (F \lor F) & \text{per assorbimento \ref{assorbimento}} \\
+     \implies & (F \lor p)[F/p] \equiv (F\lor p)[F \land (F \lor F)/p] & \text{per Thm di Sostituzione} \\
+     \implies & F \lor F \equiv F \lor (F \land (F \lor F)) & \text{per \ref{eq:1}} \\
+     \implies & F \lor F \equiv F & \text{per assorbimento \ref{assorbimento}}
+  \end{align*}
+\end{proof}
 Tutte le leggi che abbiamo indicato discendono dalle 
 quattro leggi di \textbf{commutatività}, \textbf{associatività}, 
 \textbf{assorbimento}, \textbf{distrubtività} e \textbf{complemento}, 
 pertanto sarebbe stato abbastanza postulare queste quattro 
 leggi e le rimanenti sarebbero ``autonomamente'' verificate. 
 
-Per inquadrare meglio questo fatto, 
-facciamo delle osservazioni finali su $\equiv$. 
+\subsection{Osservazioni su $\equiv$}
+Per inquadrare meglio questo fatto, facciamo delle osservazioni finali su $\equiv$. 
 \begin{oss}
 Se $A$ e $B$ sono due enunciati e $A \equiv B$ e $\models A$,
 allora $\models B$.
 \end{oss}
-Una conseguenza di ciò è che tutte le tautologie sono tra di loro logicamente 
-equivalenti e analogamente le contraddizioni; in altre parole c'è una classe di equivalenza tra 
-le tautologie e una classe di equivalenza tra le 
-contraddizioni. 
+Una conseguenza di ciò è che tutte le tautologie e, analogamente le contraddizioni, sono tra di loro logicamente equivalenti. C'è, quindi, una classe di equivalenza delle tautologie e una delle contraddizioni. 
 
 \begin{oss}
-Se $A \equiv B$ e $A$ è insoddisfacibile, allora $B$ 
-è insoddisfacibile. 
+Se $A \equiv B$ e $A$ è (in)sodd., allora $B$ è (in)sodd. 
 \end{oss}
 
 \begin{oss}
 Se $A \models B$ e $B \models A$ allora $A \equiv B$. 
 \end{oss}
-Questo si può vedere grazie al teorema di deduzione: 
-$ \models A \implies B$ e $ \models B \implies A$ e 
-grazie alla definizione di coimplicazione 
-si ha $A \equiv B$. 
-
+Questo si può vedere grazie al Lemma~\ref{lem:deduzione} di Deduzione: 
+$ \models A \rightarrow B$ e $ \models B \rightarrow A$ e, grazie alla definizione di coimplicazione~(\ref{connettivi-aggiuntivi}), si ha $A \equiv B$. 
 
 L'osservazione più importante è la seguente: 
 \begin{oss}
-L'equivalenza logica è più di una relazione di equivalenza
-rispetto ad un'equivalenza semplice: infatti, $\equiv$ è 
-una \textbf{congurenza} rispetto ai connettivi pensati 
-come operazioni.
+L'equivalenza logica è più di una relazione di equivalenza rispetto ad un'equivalenza semplice: infatti, $\equiv$ è una \textbf{congruenza} rispetto ai connettivi usati come \textit{operazioni} (e.g. $\land: \mathscr{F_L} \times \mathscr{F_L} \rightarrow \mathscr{F_L}$).
 \end{oss}
-Per esempio, preso il connettivo $\land$, quattro formule $A, B, C, D \in F_L$, 
-allora se $A \equiv B$ e $C \equiv D$, si avrà $A \land C \equiv B \land D$; 
-analogamente accade per ogni connettivo. Questa proprietà non è 
-ovvia! Vi sono, infatti, situazioni in cui questo non accade anche per una 
-relazione d'equivalenza, la quale non è automaticamente 
-anche una congruenza. Per esempio,  si prenda come relazione d'equivalenza 
-quella tale per cui ogni numero dispari appartiene allo stesso blocco e ogni 
-numero pari appartiene al proprio singleton e si consideri come operazione 
-la somma dei numeri naturali. In altre parole, si ha che, fissata la relazione 
-$R$, $[3]_R = \{1, 3, 5, 7, 9, \cdots\}$, $[2]_R = \{2\}$, $[4]_R = \{4\}$ eccetera. 
+Per esempio, per la congruenza rispetto a $\land$, date quattro formule $A, B, C, D \in \mathscr{F_L}$ tali che $A \equiv B$ e $C \equiv D$, si ha che $A \land C \equiv B \land D$. Analogamente accade per ogni altro connettivo.
+
+Questa proprietà non è ovvia! Vi sono, infatti, situazioni in cui questo non accade anche per una relazione d'equivalenza, la quale non è automaticamente anche una congruenza. Per esempio,  si prenda come relazione d'equivalenza quella tale per cui ogni numero dispari appartiene allo stesso blocco e ogni numero pari appartiene al proprio singleton e si consideri come operazione la somma dei numeri naturali. In altre parole, si ha che, fissata la relazione $R$, $[3]_R = \{1, 3, 5, 7, 9, \cdots\}$, $[2]_R = \{2\}$, $[4]_R = \{4\}$ eccetera. 
 Questa è una relazione d'equivalenza poiché è una partizione di $\mathbb{N}$, 
 ma non è una congruenza rispetto alla somma dei naturali: sommando, per esempio, 
 $1+1$ il risultato ricade in $[2]$, mentre sommando $3+1$ il risultato 
 ricade in $[4]$, anche se $1 \in [3]$ appartengono alla stessa classe d'equivalenza. 
 
 \section{Algebrizzabilità}
-Il fatto che l'equivalenza logica sia una congruenza, è la chiave per 
-definire l'\textbf{algebrizzabilità} della Logica Booleana, la quale sarà 
-utilizzata per definire le \textit{Forme Normali} in seguito. 
-Prima di introdurre formalmente questo concetto, è necessario introdurre 
-un concetto molto importante, ossia le \textbf{relazioni d'ordine}.  
+Il fatto che l'equivalenza logica sia una congruenza, è la chiave per definire l'\textbf{algebrizzabilità} della Logica Booleana, la quale sarà utilizzata per definire le \textit{Forme Normali} in seguito. 
+Prima di introdurre formalmente questo concetto, è necessario introdurre un concetto molto importante, ossia le \textbf{relazioni d'ordine}.  
 
 \subsection{Relazioni d'ordine (parziale)}
-Una \textbf{relazione d'ordine} $R$ è una relazione 
-binaria $R \subseteq S^2$ che soddisfa tre 
-proprietà: 
+\begin{defi}[Relazione d'ordine]
+\label{def:poset}
+  Una \textbf{relazione d'ordine} $R$ è una relazione binaria $R \subseteq S^2$ che soddisfa le tre proprietà di: 
 \begin{itemize}
-  \item Riflessiva $\forall s \in S ~~ (s,s) \in R$
-  \item Antisimmetrica $\forall s, t \in S ~~ ((s,t)\in R \land  (t,s) \in R) \rightarrow s = t$
-  \item Transitiva $s,t,r \in S  ~~ ((s,t) \in R \land (t,r) \in R) \rightarrow (s,r) \in R$
+  \item Riflessività: $\forall s \in S,\ (s,s) \in R$
+  \item Antisimmetria: $\forall s, t \in S,\ (s,t)\in R$ e $(t,s) \in R \implies s = t$
+  \item Transitività: $s,t,r \in S,\ (s,t) \in R$ e $(t,r) \in R \implies (s,r) \in R$
 \end{itemize}
+\end{defi}
+
 
 Spesso, per indicare questa relazione si utilizza il simbolo $\leq$, a prescindere 
 dal fatto che si indichi effettivamente il senso di ordinamento che si intende 
@@ -1004,112 +1012,94 @@ invece la proprietà fondamentale dei reticoli.
 Si definiscono quindi questi due concetti. 
 
 \begin{defi}[Estremo inferiore]
-        Dati due elementi $x, y$ appartenti ad un insieme 
-        parzialmente ordinato $(P, \leq)$, si definisce 
-        $$
-        \inf(\{x,y\}) = \max\{z \in (P, \leq): z \leq x \text{ e } z \leq y\}
-        $$
+  Dati due elementi $x, y$ appartenenti ad un insieme parzialmente ordinato $(P, \leq)$, si definisce 
+  $$
+  \inf(\{x,y\}) = \max\{z \in (P, \leq): z \leq x \text{ e } z \leq y\}
+  $$
 \end{defi}
-e si definisce, analogamente 
+e analogamente si definisce 
 \begin{defi}[Estremo superiore]
-        Dati due elementi $x, y$ appartenti ad un insieme 
-        parzialmente ordinato $(P, \leq)$, si definisce 
-        $$
-        \sup(\{x,y\}) = \min\{z \in (P, \leq): x \leq z \text{ e } y \leq z\}
-        $$
+  Dati due elementi $x, y$ appartenti ad un insieme parzialmente ordinato $(P, \leq)$, si definisce 
+  $$
+  \sup(\{x,y\}) = \min\{z \in (P, \leq): x \leq z \text{ e } y \leq z\}
+  $$
 \end{defi}
-Si possono generalizzare $\inf$ e $\sup$ ad un insieme $S \subseteq P$, con 
-$P$ poset $(P, \leq)$, affermando che 
-$$
-        \inf(S) = \max\{z \in (P, \leq): z \leq s \forall s \in S\}
-$$
-e 
-$$
-        \sup(S) = \min\{z \in (P, \leq): s \leq z \forall s \in S\}
-$$
-A questo punto si può definire il massimo di un insieme (e analogamente il minimo) 
-definendolo come 
-$$
-        \max(S) = \sup(S) \text{ se } \sup(S) \in S
-$$
+Si possono generalizzare $\inf()$ e $\sup()$ da un sottoinsieme $S \subseteq P$, con 
+$P$ poset $(P, \leq)$:
+\begin{align*}
+  \inf(S) = \max\{z \in & (P, \leq): z \leq s\ \forall s \in S\} & \text{max dei minoranti di } S \\
+  \sup(S) = \min\{z \in & (P, \leq): s \leq z\ \forall s \in S\} & \text{min dei maggioranti di } S \\
+\end{align*}
+A questo punto si può definire il minimo di un sottoinsieme (e analogamente il massimo), se esiste, come: 
+\begin{align*}
+  \min(S) := z \in S : z = \inf(S) &&
+  \max(S) := z \in S : z = \sup(S)
+\end{align*}
 Si può ora definire formalmente un reticolo: 
-\begin{defi}[Reticolo]
-Un reticolo è un insieme parzialmente ordinato $(R, \leq)$ tale che 
-per ogni $x, y \in R$ esistono $\inf(\{x,y\})$ e $\sup(\{x,y\})$. 
+\begin{defi}[Reticolo come poset]
+Un reticolo è un insieme parzialmente ordinato $(R, \leq) : \forall x, y \in R$ esistono $\inf(\{x,y\})$ e $\sup(\{x,y\})$. 
 \end{defi}
 
 \noindent 
-Dopo aver definito i reticoli, si definisce un'ulteriore struttura, necessaria 
-per concludere l'argomento dell'Algebrizzazione della Logica Booleana. 
+Dopo aver definito i reticoli, si definisce un'ulteriore struttura, necessaria per concludere l'argomento dell'Algebrizzazione della Logica Booleana. 
 
 \subsection{Struttura Algebrica}
-
-Dato un insieme $S$ e
-date le operazioni $*_1, *_2, \cdots, *_n$ delle operazioni 
-in $S$, allora $(S, *_1, *_2, \cdots, *_n)$ è una \textbf{struttura algebrica}. 
-
-Visto come una struttura algebrica, un reticolo 
-è $(R, \sqcup, \sqcap)$, con $\sqcup, \sqcap$ operazioni 
-$\sqcup: R^2 \rightarrow R$ e $ \sqcap: R^2 \rightarrow R$, tale che 
-le due operazioni siano commutative, associative e 
-valga l'assorbento. 
-Ogni reticolo visto come insieme parzialmente 
-ordinato è anche una struttura algebrica 
+\begin{defi}
+Dato un insieme $S$ e le operazioni $*_1, *_2, \cdots, *_n$ delle operazioni su $S$, allora $(S, *_1, *_2, \cdots, *_n)$ è una \textbf{struttura algebrica}.
+\end{defi} 
+\begin{defi}
+  Visto come una struttura algebrica, un reticolo è $(R, \sqcup, \sqcap)$, con $\sqcup, \sqcap$ operazioni $\sqcup: R^2 \rightarrow R$ e $ \sqcap: R^2 \rightarrow R$, tale che le due operazioni siano commutative, associative e valga l'assorbimento.
+\end{defi}
+\begin{lem}
+Ogni reticolo visto come insieme parzialmente ordinato è anche una struttura algebrica
 $$
 (R, \leq) \iff (R, \sqcup, \sqcap)
 $$
-Infatti si può associare una struttura algebrica 
-a una struttura ordinata 
-(ossia si può definire il reticolo come 
-struttura algebrica partendo dalla sua definizione come 
-poset) definendo $R\equiv R$, 
-$a \sqcup b := \inf \{a,b\}$ e $a \sqcap b := \sup \{a,b\}$ 
-per ogni $a,b \in R$. Si verifichino 
-le proprietà di 
-commutatività, assorbimento e associatività. 
-
-Si può associare una struttura ordinata 
-a ogni struttura algebrica (ossia si può definire 
-il reticolo come poset partendo dalla 
-sua definizione come struttura algebrica)
-definendo $R \equiv R$ e 
-sostanzialmente definendo quando accade che $a \leq b$.
-
-Per ogni $a, b \in R$ si definisce un operatore 
-$ a = a \sqcap b $ o equivalentemente $b = a \sqcup b$. 
-Si deve verificare che $a \leq b \iff a = a \sqcap b$ sia tale 
-che $\leq$ sia riflessiva, antisimmetrica e transitiva, 
-dalla quale deriva che $R$ è un poset. 
-Per concludere che $R$ sia in particolare un poset-reticolo bisogna mostrare 
-che per ogni coppia $a,b \in R$ esiste $\inf$ e $\sup$. 
-Sia allora $c \leq a$ e $ c \leq b$: bisogna mostrare 
-che $c \leq \inf\{a,b\}$, in genere 
-$c \leq a \sqcap b$. 
-Ma $c = a \sqcap c = a \sqcap (b \sqcap c)$ per la definizione di 
-$\leq$; si può allora scrivere 
-$$
-\text{ per associatività }(a \sqcap b) \sqcap c \iff c \leq a \sqcap b 
-$$
-per definizione di $\leq$. Per il $\sup$ si ragiona 
-in modo analogo. 
+\end{lem}
+\begin{proof}
+  ($\Longrightarrow$) con $R\equiv R,\ \forall a,b \in R$, siano:
+  \begin{align*}
+     a \sqcap b := \inf \{a,b\} && a \sqcup b := \sup \{a,b\}
+  \end{align*}
+  visto che si può verificare che per $\inf()$ e $\sup()$ valgono le proprietà di commutatività, assorbimento e associatività.
+  
+  ($\Longleftarrow$) con $R \equiv R$ definiamo $\forall a,b \in R$:
+  \begin{align*}
+    a \leq b \text{ sse } a = a \sqcap b &&
+    b \leq a \text{ sse } a = a \sqcup b
+  \end{align*}
+  $(R, \leq)$ è quindi un poset, infatti si può verificare che $\leq$ è riflessiva, antisimmetrica e transitiva~(\ref{def:poset}). \\
+  $(R, \leq)$ è anche un reticolo perché $\forall a,b \in R$ esiste $\inf$ e $\sup$: sia $c \leq a$ e $ c \leq b$
+  \begin{align*}
+    & c \leq a \text{ e } c \leq b \\
+    \iff & c = c \sqcap a \text{ e } c = c \sqcap b & \text{per def. } \leq \\
+    \iff & c = (c \sqcap b) \sqcap a \\
+    \iff & c = c \sqcap (b \sqcap a) & \text{per associatività} \\
+    \iff & c \leq b \sqcap a & \text{per def. } \leq \\
+    \iff & c \leq \inf\{b, a\} & \text{per def. } \inf()
+  \end{align*}
+  Per il $\sup$ si ragiona in modo analogo. 
+\end{proof}
 
 
 \subsection{Definizione di Algebra Booleana}
 A questo punto, siamo finalmente pronti per definire cosa sia l'Algebra Booleana.
-\begin{defi}{Algebra Booleana}
-L'Algebra Booleana è un sistema $(S, \sqcap, \sqcup, 0, 1, ()^c)$ operazioni 
-tali che $(S,\sqcup,\sqcap)$ sia un reticolo limitato, complementato, 
-distributivo:
+\begin{defi}[Algebra Booleana]
+L'Algebra Booleana è un sistema $(S, \sqcap, \sqcup, 0, 1, ()^c)$ di operazioni tali che $(S,\sqcup,\sqcap)$ sia un reticolo limitato, complementato, vivo:
 \begin{itemize}
-        \item \textbf{limitato} in quanto per ogni $a \in S$ si ha $a \sqcap 0 = a$ e $a \sqcap 1 = a$ ($ a \geq 0$ e $ a \leq 1$); 
-        \item \textbf{distributivo} in quanto per ogni $a,b c \in S$ si ha 
-                $$
-                a \sqcap (b \sqcup c) = (a \sqcap b) \sqcup (a \sqcap c)
-                $$ e 
-                $$
-                a \sqcup (b \sqcap c) = (a \sqcup b) \sqcap ( a \sqcup c)
-                $$
-        \item \textbf{complementato} in quanto $a \sqcap a^c = 0$ e $a \sqcup a^c = 1$. 
+  \item \textbf{limitato}: $\forall a \in S$:
+    \begin{align*}
+      & a \sqcap 0 = a & (a \geq 0) \\
+      & a \sqcap 1 = a & (a \leq 0)
+    \end{align*}
+  \item \textbf{complementato}: $\forall a \in S$
+    \begin{align*}
+      a \sqcap a^c = 0 && a \sqcup a^c = 1
+    \end{align*}
+  \item \textbf{distributivo}: $\forall a,b, c \in S$:
+    \begin{align*}
+      a \sqcap (b \sqcup c) = (a \sqcap b) \sqcup (a \sqcap c) && a \sqcup (b \sqcap c) = (a \sqcup b) \sqcap ( a \sqcup c)
+    \end{align*}
 \end{itemize}
 \end{defi}
 
@@ -1117,252 +1107,205 @@ Un esempio è il seguente: dato un insieme $A$ si consideri
 $(P(A), \cup, \cap, \emptyset, A, ()^c)$ e si ha 
 $(P(A), \subseteq)$ tale che $A \subseteq B \iff A = A \cap B$. 
 
-\paragraph{Esercizio} 
-Sia $A$ un insieme infinito e sia $F(A)$
-l'insieme dei suoi sottoinsiemi finiti o complementi di insiemi 
-finiti. Si dimostri che $(F(A), \cup, \cap, \emptyset, A, ()^c)$ è un algebra booleana. 
-Un altro esempio di algebra 
-booleana è quella dei valori di verità $(\{0,1\}, \min, \max, 0, 2, 1-\_)$. 
+\paragraph{Esercizio}
+Si dimostri che le seguenti sistemi siano un'algebra booleana:
+\begin{itemize}
+  \item $(F(A), \cup, \cap, \emptyset, A, ()^c)$ \\
+    con $A$ un insieme infinito, e $F(A)$ l'insieme dei suoi sottoinsiemi finiti o complementi di insiemi finiti
+  \item $(\{0,1\}, \min, \max, 0, 1, 1-\_)$
+\end{itemize}
 
 \subsubsection{Algebra di Lindenbaum}
-L'algebra delle formule, chiama anche \textbf{Algebra di 
-Lindenbaum delle Formule}, è definito $(F_L/\equiv, \land, \lor, \bot, \top, \neg)$. 
-Dato che $\equiv$ è una congruenza, si può quindi procedere a definire
+L'algebra delle formule, chiamata anche \textbf{Algebra di 
+Lindenbaum delle Formule}, è definita come 
 $$
-A,B \in F_L [A]_{\equiv} \land [B]_{\equiv} = [A \land B]_{\equiv}
+(\mathscr{F_L}/_{\equiv}, \land, \lor, \bot, \top, \neg)
 $$
+Dato che $\equiv$ è una congruenza, si possono definire le seguenti operazioni con $A,B \in \mathscr{F_L}$:
+\begin{align*}
+  [A]_{\equiv} \land [B]_{\equiv} & = [A \land B]_{\equiv} \\
+  [A]_{\equiv} \lor [B]_{\equiv} & = [A \lor B]_{\equiv} \\
+  [A]_{\equiv} \rightarrow [B]_{\equiv} & = [A \rightarrow B]_{\equiv} \\
+  \neg [A]_{\equiv} & = [\neg A]_{\equiv} \\
+  [\top]_{\equiv} & = \text{ tautologie} \\
+  [\bot]_{\equiv} & = \text{ contraddizioni} \\
+\end{align*}
+La cardinalità dell'insieme delle classi di equivalenza scrivibili con $n$ variabili è:
 $$
-A,B \in F_L [A]_{\equiv} \lor [B]_{\equiv} = [A \lor B]_{\equiv}
-$$
-$$
-A,B \in F_L [A]_{\equiv} \rightarrow [B]_{\equiv} = [A \rightarrow B]_{\equiv}
-$$
-$$
-A \in F_L \neg [A]_{\equiv} = [\neg A]_{\equiv}
-$$
-$$
-[\top]_{\equiv} = \text{ tautologie}
-$$
-$$
-[\bot]_{\equiv} = \text{ contraddizioni}
-$$
-La cardinalità dell'insieme delle classi di equivalenza scrivibili con $n$
-variabili è 
-
-$$
-|F^{(n)}/\equiv| = 2 ^ {2^n} = |\{F: \{0,1\}^n \rightarrow \{0,1\}\}|
+|\mathscr{F_L}^{(n)}/\equiv| = 2 ^ {2^n} = |\{F: \{0,1\}^n \rightarrow \{0,1\}\}| = |\mathscr{P}(\{1,\cdots,2^n\})|
 $$
 
 \subsection{Funzioni Termine}
-Al fine di arrivare ad un discorso completo sulle Forme Normali, 
-si continua a ragionare sulle classi d'equivalenza delle formule e la 
-loro struttura, ora da un punto di vista che sembra essere diverso 
-ma che in conclusione si riunirà con quanto detto precedentemente. 
+Al fine di arrivare ad un discorso completo sulle Forme Normali, si continua a ragionare sulle classi d'equivalenza delle formule e la loro struttura, ora da un punto di vista che sembra essere diverso ma che in conclusione si riunirà con quanto detto precedentemente. 
 
 Si rifletta sul significato di 
+\begin{align}
+\label{fun:formula-computazionale}
+\models F \iff \forall \mathcal{v}: \mathscr{L} \rightarrow \{0,1\},\ \mathcal{v}(F) = 1
+\end{align}
+in termini ``computazionali'' significa \textit{tenere fermo} l'argomento ($F$) e far cambiare le funzioni. Sarebbe comodo scambiare i ruoli: la formula si comporta come una funzione che prende come argomenti gli assegnamenti.
+
+Siano $A \in \mathscr{F_L}$ una formula e $n \in \mathbb{N}$. Le lettere proposizionali che occorrono in $A$ si indicano con
 $$
-\models F \iff \forall \mathfrak{v}: L \rightarrow \{0,1\} ~~~  \mathfrak{v}(F) = 1
+Var(A) \subseteq \mathscr{L} \subseteq \{p_1, p_2, \cdots, p_n\}
 $$
-in termini ``computazionali'' significa \textit{tenere fermo} l'argomento 
-($F$) e far cambiare le funzioni. Sarebbe comodo scambiare i ruoli, nel 
-senso che si vorrebbe che la formula diventasse una funzione, in qualche modo,
-e gli assegnamenti degli argomenti. 
-Sia ora $A \in F_L$ una formula. Si chiama $Var(A) \subseteq L$ l'insieme delle lettere 
-proposizionali che occorrono in $A$ tale che 
-$Var(A) \subseteq \{p_1, p_2, \cdots, p_n\}$ per un qualche naturale $n$.  
-Sia ora $\hat{A}$ una funzione definita come 
+Sia ora $\hat{A}$ una \textbf{funzione termine} $\hat{A} : \{0,1\}^n \rightarrow \{0,1\}$ tale che:
 $$
-\hat{A} : \{0,1\}^n \rightarrow \{0,1\}
+\forall \mathcal{v}:\mathscr{L} \rightarrow \{0,1\},\ \hat{A}(\mathcal{v}(p_1), \mathcal{v}(p_2), \cdots, \mathcal{v}(p_n)) = \widetilde{\mathcal{v}}(A)
 $$
-tale che 
-$$
-\forall \mathfrak{v}:L \rightarrow \{0,1\} ~~~~ \hat{A}(\mathfrak{v}(p_1), \mathfrak{v}(p_2), \cdots, \mathfrak{v}(p_n)) = \tilde{\mathfrak{v}}(A)
-$$
-la fuzione $\hat{A}$ si chiama \textbf{funzione termine} e, per definirla formalmente, 
-si procede per induzione. 
-\paragraph{Caso base:} 
-Sia 
-$ A = p_i$, con $p_i \in \{p_1, p_2, \cdots, p_n\}$ un letterale.
-Allora 
-$$
-\hat{A} := \hat{p_i} : \{0,1\}^n \rightarrow \{0,1\}
-$$ 
-dove, per ogni $(t_1, \cdots, t_n)$ si ha 
-$$
-\hat{p_i}(t_1, \cdots, t_n) = t_i
-$$
-ossia l'$i$-esima proiezione. 
-Quindi, nel caso base, $\forall \mathfrak{v}: L \rightarrow \{0,1\}$ si ha che 
-$$
-\hat{A} = \hat{p_i}(\mathfrak{v}(p_1), \cdots, \mathfrak{v}(p_n)) = \mathfrak{v}(p_i)
-$$
-\paragraph{Passo induttivo:}
+
+\begin{defi}[Funziona Termine]
+Definizione di $\hat A : \{0,1\}^n \rightarrow \{0,1\}$ induttiva su $A$:
 \begin{itemize}
-        \item Se $A = \neg B$ allora $\hat{A}(t_1, \cdots, t_n) =  1 - \hat{B}(t_1, \cdots, t_n)$. 
-
-        \item Se $A = B \land C$ allora $\hat{A}(t_1, \cdots, t_n) = min \{\hat{B}(t_1, \cdots, t_n), \hat{C}(t_1, \cdots, t_n)\}$. 
-        \item Se $A = B \lor C$ allora $\hat{A}(t_1, \cdots, t_n) = max \{\hat{B}(t_1, \cdots, t_n), \hat{C}(t_1, \cdots, t_n)\}$. 
-        \item Se $A = B \rightarrow C$ allora $\hat{A}(t_1, \cdots, t_n) = max \{1 - \hat{B}(t_1, \cdots, t_n), \hat{C}(t_1, \cdots, t_n)\}$. 
+  \item \textbf{base}: Se $ A = p_i$, con $p_i \in \{p_1, p_2, \cdots, p_n\}$ un letterale:
+  $$\hat A := \hat{p_i} : \{0,1\}^n \rightarrow \{0,1\}$$
+  con $\hat{p_i}(t_1, \cdots, t_n) = t_i$, l'$i$-esima proiezione. 
+  Quindi $\forall \mathcal{v}: \mathscr{L} \rightarrow \{0,1\}$ si verifica che: 
+  $$
+  \hat{A} = \hat{p_i}(\mathcal{v}(p_1), \cdots, \mathcal{v}(p_n)) = \mathcal{v}(p_i) = \widetilde{\mathcal{v}}(p_i) = \widetilde{\mathcal{v}}(A)
+  $$
+\item \textbf{passo}: $\forall (t_1, \cdots, t_n) \in \{0,1\}^n$
+  \begin{itemize}
+    \item Se $A = \neg B$: $\hat{A}(t_1, \cdots, t_n) =  1 - \hat{B}(t_1, \cdots, t_n)$
+    \item Se $A = B \land C$: $\hat{A}(t_1, \cdots, t_n) = \min \{\hat{B}(t_1, \cdots, t_n),\ \hat{C}(t_1, \cdots, t_n)\}$
+    \item Se $A = B \lor C$: $\hat{A}(t_1, \cdots, t_n) = \max \{\hat{B}(t_1, \cdots, t_n),\ \hat{C}(t_1, \cdots, t_n)\}$
+    \item Se $A = B \rightarrow C$: $\hat{A}(t_1, \cdots, t_n) = \max \{1 - \hat{B}(t_1, \cdots, t_n),\ \hat{C}(t_1, \cdots, t_n)\}$
+  \end{itemize}
 \end{itemize}
-
-Ora si può trasformare la riflessione iniziale in termini di Funzioni Termine: 
+\end{defi}
+\noindent
+Ora si possono vedere come \textit{funzioni termine} la riflessione iniziale~(\ref{fun:formula-computazionale}): 
 $$
-\models F \iff \hat{F}(t_1, \cdots, t_n) = 1 \forall (t_1, \cdots, t_n)
+\models F \iff \hat{F}(t_1, \cdots, t_n) = 1,\ \forall (t_1, \cdots, t_n)
 $$
 e l'equivalenza logica: 
 $$
-[F]_{\equiv} = [G]_{\equiv} \iff F \equiv G \iff \hat{F}(t_1, \cdots, t_n) = \hat{G}(t_1, \cdots, t_n) \forall t_i
+[F]_{\equiv} = [G]_{\equiv} \iff F \equiv G \iff \hat{F}(t_1, \cdots, t_n) = \hat{G}(t_1, \cdots, t_n),\ \forall t_i \in \{0,1\}^n
 $$
-A questo punto, potrebbo avere una definizione diversa di Algebra Booleana da 
-esporre, che in realtà è la stessa Algebra di Lindenbaum scritta in maniera 
-diversa
-\begin{defi}[Algebra Booleana su Funzioni Termine]
+Allo stesso modo si può dare una definizione diversa di Algebra Booleana, \textit{isomorfa} all'Algebra di Lindenbaum.
+\begin{defi}[Algebra Booleana su Funzioni Termine sui primi $n$ termini]
 $$
-\hat{F}_L = (\{\hat{A}: \{0,1\}^n \rightarrow \{0,1\}, A \in F_L\}, \land, \lor, \neg, \bot, \top) 
+\hat{\mathscr{F}}_\mathscr{L}^{(n)} = (\{\hat{A}: \{0,1\}^n \rightarrow \{0,1\}, A \in \mathscr{F_L}\}, \land, \lor, \neg, \bot, \top) 
 $$
-dove i significati degli operatori sono quelli espressi precedentemente. 
+dove i significati degli operatori sono quelli espressi nella definizione di funzioni termine. 
 \end{defi}
 
-Eccetto la natura ``fisica'', l'Algebra di Lindenbaum e l'Algebra Booleana su 
-Funzioni Termine sui
-primi $n$ termini sono \textbf{isomorfe}. 
-
 \subsection{Teorema di Completezza Funzionale}
-Concentriamoci sull'Algebra appena espressa
+Concentriamoci sull'algebra $\hat{\mathscr{F}}_\mathscr{L}^{(n)}$ appena espressa e una $Funz^{(n)}$ definita come:
 $$
-\hat{F}_L = (\{\hat{A}: \{0,1\}^n \rightarrow \{0,1\}, A \in F_L\}, \land, \lor, \neg, \bot, \top) 
-$$
-e costruiamo un'altra Algebra definita come
-$$
-Funz^{(n)} = (\{F: \{0,1\}^{(n)} \rightarrow \{0,1\}\}, \land, \lor, \neg, \bot, \top)
+Funz^{(n)} = (\{f: \{0,1\}^{(n)} \rightarrow \{0,1\}\}, \land, \lor, \neg, \bot, \top)
 $$
 Che rapporto sussiste tra le due Algebre?
-La prima ha come universo l'insieme di tutte le Funzioni Termine per ogni 
-formula $A \in F_L$, mentre la seconda ha come universo tutte le funzioni
+Per ogni $n \in \mathbb{N}$, la prima ha come universo l'insieme di tutte le Funzioni Termine per ogni formula $A \in \mathscr{F_L}$, mentre la seconda ha come universo tutte le funzioni $f: \{0,1\}^n \rightarrow \{0,1\}$. \\
+Sicuramente, data la restrizione, si può affermare che:
 $$
-F: \{0,1\}^n \rightarrow \{0,1\}
+\hat{\mathscr{F}}_\mathscr{L}^{(n)} \subseteq Funz^{(n)}
 $$
-per ogni $n \in \mathbb{N}$.
-Sicuramente, data la restrizione, si può affermare che 
+Si dimostra, ora, che vale anche:
 $$
-\hat{F}_L^{(n)} \subseteq Funz^{(n)}
-$$
-Si dimostra, ora, che vale anche
-$$
-\hat{F}_L^{(n)} \supseteq Funz^{(n)}
+\hat{\mathscr{F}}_\mathscr{L}^{(n)} \supseteq Funz^{(n)}
 $$
 Questo fatto prende il nome di \textbf{Teorema di Completezza Funzionale}. 
-A parole, ciò che si afferma è che ogni funzione 
-$$
-F: \{0,1\}^n \rightarrow \{0,1\}
-$$
-è esprimibile come una formula $F \in F_L$.
-Chiaramente, dimostrando questo, si ha che le due Algebre esposte 
-sono in realtà la stessa, ossia sono \textbf{isomorfe}. 
+A parole, ciò che afferma è che ogni funzione $f: \{0,1\}^n \rightarrow \{0,1\}$ è esprimibile come una formula $F \in \mathscr{F_L}$. \\
+Chiaramente, se dimostrato, vuol dire che le due algebre sono in realtà \textit{isomorfe}. 
 \begin{teo}[di Completezza Funzionale]
-        Per ogni $n \in \mathbb{N}$
-        $$
-                \hat{F}_L^{(n)} \supseteq Funz^{(n)}
-        $$
+$$
+  \hat{F}_L^{(n)} \supseteq Funz^{(n)},\ \forall n \in \mathbb{N}
+$$
 \end{teo}
 
-La dimostrazione consiste nel fornire un metodo per ottenere una Funzione Termine 
-$$
-\hat{F} = F
-$$
-per ogni formula $F: \{0,1\}^{n} \rightarrow \{0,1\}$. 
+La dimostrazione consiste nel fornire per ogni $n \in \mathbb{N}$ e ogni funzione $f: \{0,1\}^{n} \rightarrow \{0,1\}$ una formula \textit{costruibile} $F \in \mathscr{F_L}^{(n)} : f = \hat F$. 
 \begin{proof}
-        Sia data una formula 
-        $$
-        F: \{0,1\}^{n} \rightarrow \{0,1\}
-        $$
-        La cardinalità del dominio di $F$ è 
-        $$
-        |Dom(F)| =  2^{n}
-        $$
-        e per ogni combinazione degli $n$ argomenti esiste un certo risultato 
-        associato, che definiamo $b_i ~~ i=0,\cdots,2^{n}-1$. 
-        Costruiamo una formula $F \in F_L$ in modo tale che $ \hat{F} = F$. 
-        Se $F(t_1, \cdots, t_n) = 0$ per ogni $(t_1, \cdots, t_n)$, allora 
-        si può semplicemente scegliere $F = \bot$, analogamente nel caso 
-        in cui sia sempre vera. 
-        
-        Altrimenti, sia 
-        $$
-        I \subseteq \{0, 1, \cdots, 2^{n}-1\}
-        $$
-        tale che 
-        $$
-        i \in I \iff b_i = 1
-        $$
-        (intuitivamente, $I$ contiene i numeri delle ``righe'' della tabella 
-        di verità della funzione $F$ in cui l'immagine è il numero $1$).
-        Per ogni $i \in I$ si considera la $i$-esimo elemento del 
-        dominio di $F$, che è composto come 
-        $$
-        (a_{i1}, a_{i2}, \cdots, a_{in})
-        $$
-        e per ogni $j \in \{1, \cdots, n\}$ si definisce
-        $$
-        A_{ij} = 
-        \begin{cases}
-                p_j & a_{ij} = 1 \\
-                \neg p_j & a_{ij} = 0
-        \end{cases}
-        $$
-        Si noti che $A_{ij} \in F_L$. Si pone, ora
-        $$
-        F = \lor_{i\in I}\land_{j} A_{ij}
-        $$
-        E si può mostrare $\hat{F} = F$: chiaramente, 
-        $$
-        \land_{j = 1}^{n} \hat{A}_{ij}(t_1, \cdots, t_n) = 1 
-        $$
-        se e solo se 
-        $$
-        (t_1, \cdots, t_n) = (a_{i1}, \cdots, a_{in})
-        $$
-        Altrettanto ovviamente, considerando 
-        $$
-        (A_{i1} \land A_{i2} \land \cdots \land A_{in})
-        $$
-        nel ``punto'' $(a_{i1}, a_{i2}, \cdots, a_{in})$ 
-        si sa che il suo valore di verità è $1$, ed è l'unico caso in cui 
-        sia così; in definitiva, 
-        $$
-        \hat{F} = \lor_{i\in I}\land_{j} A_{ij}(t_1, \cdots, t_n) = 1 \iff  i \in I
-        $$
-        e $\hat{F} = F$.
+Sia $f: \{0,1\}^{n} \rightarrow \{0,1\}$ una funzione, la cui cardinalità del dominio è $2^{n}$. Per ogni combinazione degli $n$ argomenti $(a_{i_1}, a_{i_2}, \cdots, a_{i_n})$ esiste un valore $b_i \in \{0,1\}$ associato:
+\begin{align}
+  f :=
+  \begin{cases}
+    (a_{1_1}, a_{1_2}, \cdots, a_{1_j}, \cdots, a_{1_n}) & \longrightarrow b_1 \\
+    (a_{2_1}, a_{2_2}, \cdots, a_{2_j}, \cdots, a_{2_n}) & \longrightarrow b_2 \\
+    ~~~~~~~~~~~~~~~     \vdots           & ~~~~~~~~ \vdots \\
+    (a_{i_1}, a_{i_2}, \cdots, a_{i_j}, \cdots, a_{i_n}) & \longrightarrow b_i \\
+    ~~~~~~~~~~~~~~~     \vdots           & ~~~~~~~~ \vdots \\
+    (a_{(2^n)_1}, a_{(2^n)_2}, \cdots, a_{(2^n)_j}, \cdots, a_{(2^n)_n}) & \longrightarrow b_{(2^n)}
+  \end{cases}
+\end{align}
+Costruiamo una formula $F \in \mathscr{F_L}$ in modo tale che $ \hat{F} = f$.
+\begin{itemize}
+  \item se $f(t_1, \cdots, t_n) = 0$ per ogni $(t_1, \cdots, t_n)$: $F = \bot$
+  \item altrimenti sia $I \subseteq \{1, 2, \cdots, 2^{n}\}$ tale che:
+  $$
+  i \in I \iff b_i = 1
+  $$
+  (intuitivamente, $I$ contiene i numeri delle ``righe'' della tabella di verità della funzione $f$ in cui l'immagine è il numero $1$). \\
+  Per ogni $i \in I$ si considera la $i$-esima tupla $(a_{i_1}, a_{i_2}, \cdots, a_{i_n})$ di argomenti di $f$. \\
+  Per ogni $j \in \{1, \cdots, n\}$ si definisce:
+  \begin{align*}
+  A_{ij} =
+  \begin{cases}
+    p_j & \text{se } a_{ij} = 1 \\
+    \neg p_j & \text{se } a_{ij} = 0
+  \end{cases} &&
+  \text{con } A_{ij} \in \mathscr{F_L}^{(n)}
+  \end{align*}
+  Si pone $F = \bigvee\limits_{i \in I}\bigwedge\limits_{j \in n} A_{ij}$
+  
+  Si mostra che $\hat{F} = f$, ovvero che per ogni riga $i \in I$:
+  $$
+  {[ \bigwedge\limits_ {j = 1}^{n} \hat{A}_{ij}(t_1, \cdots, t_n) ]} = 1
+  \iff (t_1, \cdots, t_n) = (a_{i_1}, \cdots, a_{i_n})
+  $$
+  Infatti
+  \begin{itemize}
+  \item se $(t_1, \cdots, t_n) = (a_{i_1}, \cdots, a_{i_n})$, $\forall j \leq  n$:
+    \begin{align*}
+      \hat A_{ij}(t_1, \cdots, t_n) = t_j =
+      \begin{cases*}
+        a_{i_j} \\
+        1 - a_{i_j}
+      \end{cases*}
+      &
+      \begin{rcases*}
+        \text{ se } a_{i_j} = 1 \\
+        \text{ se } a_{i_j} = 0
+      \end{rcases*} = 1
+    \end{align*}
+  \item se $(t_1, \cdots, t_n) \neq (a_{i_1}, \cdots, a_{i_n})$, $\exists t_j \neq a_{i_j}$:
+    \begin{align*}
+      \hat A_{ij}(t_1, \cdots, t_n) = t_j =
+      \begin{cases*}
+        1 - a_{i_j} \\
+        a_{i_j}
+      \end{cases*}
+      &
+      \begin{rcases*}
+        \text{ se } a_{i_j} = 1 \\
+        \text{ se } a_{i_j} = 0
+      \end{rcases*} = 0
+    \end{align*}
+  \end{itemize}
+  Quindi $(A_{i_1} \land A_{i_2} \land \cdots \land A_{i_n})$ può essere resa vera solo da un assegnamento. In definitiva, 
+  $$
+  \hat{F} = \bigvee\limits_{i\in I}\bigwedge\limits_{j}^n \hat A_{i_j}(t_1, \cdots, t_n) = 1 \iff (t_1, \cdots, t_n) \text{ è la riga } i \text{-esima, e } i \in I
+  $$
+  Quindi $\hat F = f$.  
+\end{itemize}
 \end{proof}
 
 \subsubsection{Considerazioni sul Teorema di Completezza Funzionale}
-Per come è stato provato il Teorema di Completezza Funzionale, la funzione può 
-essere espressa 
+Per come è stato provato il Teorema di Completezza Funzionale, la funzione termine si può anche esprimere come: 
 $$
-F = \lor_{i \in I} \land_{j = 1}^{n} A_{ij}
+G = \bigwedge\limits_{i \in J} \bigvee_{j = 1}^{n} B_{ij}
 $$
-e 
-$$
-G = \land_{i \in J} \lor_{j = 1}^{n} B_{ij}
-$$
-definendo 
-$$
-J \subseteq {0, \cdots, 2^n -1 } ~~j \in J \iff b_j = 0
-$$
-e 
-$$
-B_{ij} =
-\begin{cases}
-        \neg p_j & a_{ij} = 1 \\
-        p_j & a_{ij} = 0 \\
-
-\end{cases}
-$$
-Si ha che $\hat{F} = F = \hat{G}$\footnote{Ciò che è stato 
-        fatto è esattamente uguale alla costruzione dei minterm 
-e maxterm per una data tavola di verità.}, è pertanto una dimostrazione dell'esistenza 
-delle \textbf{forme normali} e si può concludere che il Teorema di Completezza 
-Formale sia un Teorema di Forma Normale. 
+con
+\begin{align*}
+  J \subseteq \{0, \cdots, 2^n-1\} &&
+  i \in J \iff b_j = 0 &&
+  B_{ij} =
+  \begin{cases}
+    \neg p_j & a_{ij} = 1 \\
+    p_j & a_{ij} = 0 \\
+  \end{cases}
+\end{align*}
+Si ha, quindi, che $\hat{F} = f = \hat{G}$\footnote{Ciò che è stato fatto è esattamente uguale alla costruzione dei minterm e maxterm per una data tavola di verità.}, il che è una dimostrazione che una qualsiasi formula può essere messa in una \textbf{forma normale} perché $\hat{\mathscr{F}}_\mathscr{L}^{(n)} = Funz^{(n)}$.
 
 Sebbene il Teorema possa sembrare banale, in quanto la sua dimostrazione è
 semplice, il suo contenuto non è nullo né scontato. Un esempio di mancanza 
@@ -1377,11 +1320,11 @@ anche in questo caso, si dovrebbe poter affermare che tale insieme
 è incluso nelle classi di equivalenza scritte nelle classi di equivalenza 
 delle formule scritte con $\omega$ variabili: 
 $$
-Funz^{\omega} \subseteq \hat{F}^{\omega}_{L} = F_L^{\omega}/\equiv
+Funz^{\omega} \subseteq \hat{\mathscr{F}}_\mathscr{L}^{\omega} = \mathscr{F_L}^{\omega}/_\equiv
 $$
 Ma in realtà
 $$
-|Funz^{\omega}| = |\mathbb{R}| \geq |\mathbb{N}| = |F_L^{\omega}/\equiv|
+|Funz^{\omega}| = |\mathbb{R}| \geq |\mathbb{N}| = |\mathscr{F_L}^{\omega}/_\equiv|
 $$
 e pertanto non è valido. 
 
@@ -1389,36 +1332,31 @@ e pertanto non è valido.
 Le forme normali che abbiamo trovato non sono desiderabili per gli scopi 
 futuri, in quanto sono molto prolisse: ognuno degli $A_{ij}$ menziona 
 tutte le lettere proposizionali $p_1, \cdots, p_n$ (analogamente per le 
-forme congiuntive) ed è infatti chiamata Forma Normale Disgiuntiva (or di and) 
-\textbf{Canonica} o \textbf{Completa}. Per esempio, siano date tre variabili 
-$p_1$, $p_2$ e $p_3$, si vuole costruire la formula 
+forme congiuntive) ed è infatti chiamata Forma Normale Disgiuntiva (or di and) \textbf{Canonica} o \textbf{Completa}. \\
+Si noti la prolissità nel costruire una $F \in \mathscr{F_L}$ t.c. $\hat F = f : \{0, 1\}^3 \rightarrow \{0, 1\}$ con: 
 $$
-F(t_1, t_2, t_3) = t_1
+f(t_1, t_2, t_3) = t_1 ~~~ \forall (t_1, t_2, t_3)
 $$
-è chiaro che la formula più ``corta'' è $\hat{F} = t_1$, ma con la forma 
-canonica il risultato è 
+È chiaro che la formula più ``corta'' è $F = t_1$, ma con la forma 
+canonica si rappresenta come:
 $$
-\hat{F} = (p_1 \land \neg p_2 \land \neg p_3) \lor (p_1 \land \neg p_2 \land p_3) \lor (p_1 \land p_2 \land \neg p_3) \lor (p_1 \land p_2 \land p_3)
+F = (p_1 \land \neg p_2 \land \neg p_3) \lor (p_1 \land \neg p_2 \land p_3) \lor (p_1 \land p_2 \land \neg p_3) \lor (p_1 \land p_2 \land p_3)
 $$
-molto più lunga.
 
 \paragraph{Insieme funzionalmente completo di connettivi}
 C'è un'altra nozione, legata alla Completezza Funzionale, che è molto interessante, 
-ossia la nozione di \textbf{insieme funzionalmente completo di connettivi}. 
+ossia la nozione di \textit{insieme funzionalmente completo di connettivi}. 
 \begin{defi}[Insieme funzionalmente completo di connettivi]
-        Un insieme 
-        $$
-        C \subseteq \{\land, \lor, \rightarrow, \neg, \iff, \bot, \top\}
-        $$
-è definito funzionalmente complete se per ogni $F \in F_L$ esiste una $G \in F_L$ 
-scritto usando solo i connettivi in $C$ tale che $F \equiv G$ e $\hat{F} = \hat{G}$, 
-ossia $[F]_{\equiv} = [G]_{\equiv}$. 
+Un insieme 
+  $$
+  C \subseteq \{\land, \lor, \rightarrow, \neg, \leftrightarrow, \bot, \top\}
+  $$
+è definito \textit{funzionalmente completo} se per ogni $F \in \mathscr{F_L}$ esiste una $G \in \mathscr{F_L}$ scritta usando solo i connettivi in $C$ tale che $F \equiv G$ e $\hat{F} = \hat{G}$, ossia $[F]_{\equiv} = [G]_{\equiv}$. 
 \end{defi}
 
 Un insieme di connettivi funzionalmente 
 completo è dato dal Teorema di Completezza Funzionale stesso, ossia 
-$C = \{\land, \lor, \neg\}$, che è funzionalmente completo grazie 
-al Teorema di Completezza Funzionale. Si può mostrare facilmente che 
+$C = \{\land, \lor, \neg\}$. Si può mostrare facilmente che 
 anche $\{\neg, \land\}$ e $\{\neg, \lor\}$ sono completi (in quanto, grazie alle 
 leggi di De Morgan, $(A \lor B) = \neg (\neg A \land \neg B)$). Questi non 
 sono gli unici insiemi funzionalmente completi: 
@@ -1449,34 +1387,35 @@ che rispettano le seguenti proprietà:
   \item $\neg$ occorre solo applicato a lettere proposizionali
 \end{itemize}
 quindi, per esempio 
-$$ 
-p_1 \land \neg(p_2 \lor p_3)
-$$
-non è una NNF, mentre 
-$$
-p_1 \land (\neg p_2 \lor \neg p_3)
-$$
-è una NNF. 
+\begin{align*}
+p_1 \land \neg(p_2 \lor p_3) \notin NNF \\
+p_1 \land (\neg p_2 \lor \neg p_3) \in NNF
+\end{align*}
+
+\begin{defi}[Sottoformula]
+$G$ è sottoformula di $F$ sse $G$ occorre in ogni $\mathscr{L}$-costruzione di $F$ e si indica con $G \preccurlyeq F$
+\end{defi}
+
 \begin{lem}
-Ogni formula $F \in F_L$ è equivalente a una $F^{N} \in NNF$. 
+Ogni formula $F \in \mathscr{F_L}$ è equivalente a una $F^{N} \in NNF$. 
 \end{lem}
 \begin{proof}
 Per provare il lemma, descriviamo come trasformare $F$ in $F^{N}$ in un numero 
 finito di passi, dove ogni passo produce una formula equivalente alla precedente. 
 Per ottenere la sequenza si applica ad ogni passo una delle seguenti 
-trasformazioni: 
+trasformazioni a $G \preccurlyeq F$:
 
 \begin{enumerate}
-  \item $C \rightarrow D$ in $(\neg C) \land D$
-  \item $\neg \neg C$ in $C$
-  \item $\neg(C \lor D)$ in $\neg C \land \neg D$
-  \item $\neg (C \land D)$ in $\neg C \lor \neg D$
+  \item $C \rightarrow D \leadsto (\neg C) \lor D$
+  \item $\neg \neg C \leadsto C$
+  \item $\neg(C \lor D) \leadsto \neg C \land \neg D$
+  \item $\neg (C \land D) \leadsto \neg C \lor \neg D$
 \end{enumerate}
 
 Un'osservazione preliminare su questo algoritmo è che si può mostrare che applicando 
 le quattro regole in un ordine qualsiasi si ottiene sempre $F^{N} \in NNF$. 
 Si mostrerà che partendo da $(1)$ e applicando le altre trasformazioni si possa 
-arrivare a $F^{N}$: sia data $F \in F_L$. In un numero finito di applicazioni 
+arrivare a $F^{N}$: sia data $F \in \mathscr{F_L}$. In un numero finito di applicazioni 
 di $(1)$ si ottiene una $F'$ in IFNF (Implication-Free Normal Form), equivalente 
 a $F$. 
 
@@ -1484,37 +1423,37 @@ Si introduce una misura di \textit{distanza}: si definisce
 $i(E)$ come il numero di connettivi $\rightarrow$ nella formula $E$. 
 Si ha, quindi, 
 che $E \in IFNF \iff i(E) = 0$. Inoltre, se $E \notin IFNF$, allora 
-$E'$ ottenuta applicando $(1)$ su $E$ deve avere $i(E) > i(E')$. 
-\`E chiaro che $F \equiv F'$ poiché l'applicazione di $(1)$ è semplicemente 
+$E'$ ottenuta applicando $(1)$ su $E$ deve avere $i(E) > i(E')$.\\
+È chiaro che $F \equiv F'$ poiché l'applicazione di $(1)$ è semplicemente 
 l'applicazione di una equivalenza eseguita grazie al Teorema di Sostituzione. 
 Quindi, in un certo numero di passi  si ha
 $$ 
 F = F_0 \equiv \cdots \equiv F' (\in IFNF) \equiv F_i \equiv \cdots \equiv F_n (\in NNF)
 $$
-e si nota che le applicazioni di $(2)$, $(3)$ e $(4)$ trattano tutte equivalenze logiche. Ciò 
-che bisogna dimostrare è che la sequenza di trasformazioni termini, ossia l'algoritmo 
-non è infinito ($n \in \mathbb{N}$). 
-Per dimostrare che l'algoritmo termina, sia ora $A \in F_L$ 
-e si definisce 
-$$ 
-l(A) = \text{ numero di occorrenze di connettivi in } A
-$$ 
-e 
+e si nota che le applicazioni di $(2)$, $(3)$ e $(4)$ trattano tutte equivalenze logiche. Ciò che bisogna dimostrare è che la sequenza di trasformazioni termini, ossia l'algoritmo non è infinito ($n \in \mathbb{N}$).
+
+Per dimostrare che l'algoritmo termina, siano ora $A,E \in \mathscr{F_L}$ e si definisce $\ell(A) = $ ``n° di occorrenze di connettivi in $A$''.
+Definiamo quindi $m(E)$ come la somma del numero di connettivi presenti nelle sottoformule $\neg A$ di $E$: 
 $$
-m(E) = \sum_{\neg A \in E} l(A)
+m(E) = \sum_{\neg A \preccurlyeq E} \ell(A)
 $$
-dove la notazione $\neg A \in E$ indica che $\neg A$ sia una sottoformula.
 Si noti che 
 $$
 m(E) = 0 \iff E \in NNF
 $$
-in quanto 
-$$
-\begin{cases}
-        E \in NNF  & \neg A \in E \iff A \in L \iff l(A) = 0 \iff m(E) = 0\\
-                m(E) = 0 & \sum_{\neg A \in E} l(A) = 0 \iff l(A) = 0 \iff A \in L 
-\end{cases}
-$$
+Infatti:
+\begin{itemize}
+  \item  se $E \in NNF$:
+    \begin{align*}
+      & \forall \neg A \preccurlyeq E,\ A \in \mathscr{L} & \text{per def. } NNF\\
+      \iff & \forall \neg A \preccurlyeq E,\ \ell(A) = 0 \\
+      \iff & m(E) = 0
+    \end{align*}
+  \item se $m(E) = 0$:
+    $$
+    \sum_{\neg A \preccurlyeq E} \ell(A) = 0 \iff \forall \neg A \preccurlyeq E,\ \ell(A) = 0 \iff \forall \neg A \preccurlyeq E,\ A \in \mathscr{L}
+    $$ 
+\end{itemize}
 In un passaggio eseguito con una delle $(2), (3), (4)$ generando 
 $$
 E \leadsto E'
@@ -1522,34 +1461,32 @@ $$
 si ha che $m(E) > m(E')$. Se si riesce a dimostrare quest'ultima affermazione, 
 allora si dimostra automaticamente che il procedimento termina in un numero 
 finito di passi. 
-\paragraph{(2)} 
+\paragraph{(2) $\neg \neg C \leadsto C$}: In questo caso
+\begin{align*}
+  \begin{cases}
+        m(\neg \neg C) & = \sum\limits_{\neg A \preccurlyeq \neg \neg C} \ell(A) = \ell(\neg C) + \sum\limits_{\neg A \preccurlyeq \neg C} \ell(A) = \ell(C) + 1 + \ell(C) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) = \\
+                       & = 1 + 2 \cdot \ell(C) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) \\
+        m(C) & = \sum\limits_{\neg A \preccurlyeq C} \ell(A) 
+  \end{cases}
+\end{align*}
 $$
-\neg \neg C \leadsto C
+  \implies m(\neg \neg C) > m(C)
 $$
-In questo caso 
 
+\paragraph{(3) $\neg (C \lor D) \leadsto \neg C \land \neg D$}: In questo caso
 \begin{align*}
-        m(\neg \neg C) = \sum_{\neg A \in \neg \neg C} l(A) &= l(\neg C) + \sum_{\neg A \in \neg C} l(A) \\
-                                                            & =l(C) + 1 + l(C) + \sum_{\neg A \in C} l(A)
+  \begin{cases}
+    m(\neg (C \lor D)) = \sum\limits_{\neg A \preccurlyeq \neg (C \lor D)} \ell(A) & = \ell(C \lor D) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) + \sum\limits_{\neg A \preccurlyeq D} \ell(A) \\
+      & = \ell(C) + \ell(D) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) + \sum\limits_{\neg A \preccurlyeq D} \ell(A) + 1 \\
+    m(\neg C \land \neg D) = \sum\limits_{\neg A \preccurlyeq \neg C \land \neg D} \ell(A) & = \ell(C) + \ell(D) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) + \sum\limits_{\neg A \preccurlyeq D} \ell(A)
+  \end{cases}
 \end{align*}
-mentre 
-\begin{align*}
-        m(C) = \sum_{\neg A \in C} l(A) < 1 + 2*l(c) + \sum_{\neg A \in C} l(A)
-\end{align*}
+$$
+  \implies m(\neg (C \lor D)) > m(\neg C \land \neg D)
+$$
+Analogamente per $(4)$.
 
-\paragraph{(3)}
-$$
-\neg (C \land D) \leadsto \neg C \land D
-$$
-In questo caso 
-\begin{align*}
-        m(\neg (C \land D)) = 1 + \sum_{\neg A \in (C \land D)} = l(C) + l(D) + 1 + \sum_{\neg A \in C} l(A) + \sum_{\neg A \in D} l(A)
-\end{align*}
-mentre 
-\begin{align*}
-        m(\neg C\lor \neg D) = l(C) + l(D) + \sum_{\neg A \in C} l(A) + \sum_{\neg A \in D} l(A) < 1 + \sum_{\neg A \in C} l(A) + \sum_{\neg A \in D} l(A) 
-\end{align*}
-Analogamente per $(4)$. Data una formula $F \in F_L$, si può costruire una successione 
+Data una formula $F \in \mathscr{F_L}$, si può costruire una successione 
 finita 
 $$ 
 F = F_0 \equiv \cdots \equiv F' (\in IFNF) \equiv F_i \equiv \cdots \equiv F_n (\in NNF)
@@ -1558,34 +1495,32 @@ e ovviamente $F \equiv F_n$, per un qualche $n \in \mathbb{N}$.
 \end{proof}
 
 \subsection{Forma Normale Congiuntiva e Disgiuntiva}
-Le FNC, Forme Normali Congiuntive o CNF, sono un superset delle CNF complete o canoniche.
+Le CNF o FNC, Forme Normali Congiuntive, sono un sovrainsieme delle CNF \textit{complete} o canoniche.
 \begin{defi}[Letterale]
-Un \textbf{letterale} è una formula nella forma $p$ o $\neg p$ per qualche 
-lettera proposizionale $p$ - o è una lettera proposizionale o è la sua negata. 
-La definizione di \textbf{letterale opposto} a uno dato è, dato $A$ letterale, 
-l'opposto di $A$
+Un \textit{letterale} è una formula nella forma $p$ o $\neg p$ per qualche lettera proposizionale $p$ (i.e., o è una lettera proposizionale o è la sua negata).
+La definizione di \textbf{letterale opposto} a uno dato è, dato $A$ letterale, l'opposto di $A$:
 $$
 \bar{A} = 
 \begin{cases}
-  \neg p & A = p \\
-  p & A = \neg p
+  \neg p & \text{se } A = p \\
+  p & \text{se } A = \neg p
 \end{cases}
 $$
 \end{defi}
 \begin{defi}[Clausola]
-Una \textbf{clausola} è una disgiunzione di un numero finito di letterali come 
+Una \textit{clausola} è una disgiunzione di un numero finito $k$ di letterali:
 $$
-l_1 \lor l_2 \cdots \lor l_k
+\ell_1 \lor \ell_2 \cdots \lor \ell_k
 $$
-dove ogni $l_i$ è un letterale. 
+dove ogni $\ell_i$ è un letterale. 
 \end{defi}
-\begin{defi}[FNC]
-Una \textbf{forma normale congiuntiva} è una congiunzione di un numero finito di 
-clausole, come 
+\begin{defi}[CNF o FNC]
+Una \textbf{forma normale congiuntiva} è una congiunzione di un numero finito $h$ di 
+clausole: 
 $$
-c_1 \land c_2 \land \cdots \land c_h
+C_1 \land C_2 \land \cdots \land C_h
 $$
-dove ogni $c_j$ è una clausola. 
+dove ogni $C_j$ è una clausola. 
 \end{defi}
 \begin{defi}[Clausola vuota]
 Una \textbf{clausola vuota} $\qedsymbol$ è definita come la disgiunzione 
@@ -1596,123 +1531,134 @@ Questo concetto è importante e non va confuso col concetto
 di \textbf{CNF vuota} $\emptyset$, definita come la congiunzione di zero clausole. 
 Prendendo una sequenza di letterali e formule
 \begin{align*}
-\qedsymbol \\
-l_1 \\
-l_1 \lor l_2 \\
-l_1 \lor l_2 \lor l_3 \\
-l_1 \lor l_2 \lor l_3 \lor l_4
+F_0 & = \qedsymbol \\
+F_1 & = \ell_1 \\
+F_2 & = \ell_1 \lor \ell_2 \\
+F_3 & = \ell_1 \lor \ell_2 \lor \ell_3 \\
+\vdots \\
+F_i & = \ell_1 \lor \ell_2 \lor \ell_3 \lor \cdots \lor \ell_i
 \end{align*}
-possiamo affermare che la catena di implicazioni dall'alto verso il basso 
-è una catena di tautologie, infatti
-ogni assegnamento che soddisfa una formula soddisfa anche la successiva, verso 
-il basso - seguendo questa definizione la clausola vuota è insoddisfacibile e 
-pertanto, per noi, è $\qedsymbol \equiv \bot$.
+possiamo notare che ogni assegnamento che soddisfa una formula $F_i$, soddisfa anche quella successiva $F_{i+1}$. Per questo $F_i \rightarrow F_{i+1}$ è una tautologia. \\
+Seguendo questa definizione la clausola vuota è insoddisfacibile e pertanto è $\qedsymbol \equiv \bot$.
 
 Per l'insieme di CNF vuote, si ha 
 \begin{align*}
-\emptyset \\
-c_1 \\
-c_1 \land c_2 \\
-c_1 \land c_2 \land c_3\\
-c_1 \land c_2 \land c_3 \land c_4
+& \emptyset \\
+& C_1 \\
+& C_1 \land C_2 \\
+& C_1 \land C_2 \land C_3\\
+& \vdots \\
+& C_1 \land C_2 \land C_3 \land C_4
 \end{align*}
-qui, al contrario, ogni assegnamento che soddisfa una clausola soddisfa anche la 
-precedente, verso l'alto - seguendo questa definizione la CNF vuota è per 
-definizione soddisfacibile ed è, in realtà, soddisfatta da ogni assegnamento 
-e $\emptyset \equiv \top$. 
+qui, al contrario, ogni assegnamento che soddisfa una clausola $C_i$, soddisfa anche la precedente $C_{i-1}$. \\
+Seguendo questa definizione la CNF vuota è soddisfacibile ed è, in realtà, soddisfatta da ogni assegnamento: $\emptyset \equiv \top$. 
 
-\begin{defi}[Forma Normale Disgiuntiva]
-Le FND, Forme Normali Disgiuntive o DNF sono definite come disgiunzione di 
-un numero finito di formule 
+\begin{defi}[DNF o FND]
+Una \textit{forma normale disgiuntiva} è una disgiunzione di un numero finito $n$ di formule:
 $$
 D_1 \lor D_2 \lor \cdots \lor D_n
 $$
-dove ogni $D_i$ è una congiunzione chiamata \textbf{co-clausola} di un numero finito 
+dove ogni $D_i$ è una congiunzione chiamata \textbf{co-clausola} di un numero finito $v$ di letterali:
 $$
-l_1 \land l_2 \land \cdots \land l_v
+\ell_1 \land \ell_2 \land \cdots \land \ell_v
 $$
-di letterali. 
 \end{defi}
 
-si tratta, quindi, di una struttura duale rispetto alle CNF. 
-Si noti la terminologia speciale per le CNF: questa terminologia è riservata 
-alle CNF in quanto la dualità tra CNF e DNG verrà spezzata. 
+DNF si tratta, quindi, di una struttura duale rispetto alle CNF.
+Si noti la terminologia speciale per le CNF: questa terminologia è riservata alle CNF in quanto la dualità tra CNF e DNF verrà spezzata. 
 
 \begin{lem}
-Ogni formula $F \in F_L$ è logicamente equivalente a una formula $F^c \in CNF$ 
+Ogni formula $F \in \mathscr{F_L}$ è logicamente equivalente a una formula $F^c \in CNF$ 
 e a una formula $F^d \in DNF$.
 \end{lem}
 
-Questo è già stato dimostrato grazie al teorema 
-di completezza funzionale, che tuttavia utilizzava le CNF e DNF complete: una 
-versione alternativa della dimostrazione è la seguente, per induzione strutturale 
-su $F$. 
-\subsubsection{Dimostrazione esistenza DNF/CNF}
+Questo è già stato dimostrato grazie al teorema di completezza funzionale, che tuttavia utilizzava le CNF e DNF complete. 
+\begin{proof}[esistenza DNF/CNF]
+Per induzione strutturale su $F$:
 \begin{itemize}
-        \item \textbf{base induttiva:} se $F = p, p \in L$ allora $p = p^c = p^d$. 
-        \item \textbf{passo induttivo:} 
-                \begin{enumerate}
-                        \item se $F = \neg G$ per ipotesi induttiva si ha $G^c \equiv G$, $G^d \equiv G$. 
-                                Allora, se 
-                        \[
-                                G = C_1 \land C_2 \land \cdots \land C_n
-                        \]
-                                con 
-                                $$
-                                C_i = l_{i1} \lor \cdots \lor l_{ik_i}
-                                $$
-                                si ha che 
-                                \begin{align*}
-                                        \neg G^c &\equiv \neg (C_1 \land \cdots \land C_n) \\
-                                        \text{(DeMorgan) } &\equiv \neg C_1 \lor \neg C_2 \lor \cdots \lor \neg C_n \\
-                                        \text{(DeMorgan) } &\rightarrow \neg C_i \equiv \neg l_{i1} \land \cdots \land \neg l_{ik_i} \\
-                                                           & \rightarrow \neg G^c \in DNF 
-                                \end{align*}
-                                e similmente
-                                \begin{align*}
-                                        \neg G^d &\equiv \neg (C_1 \lor \cdots \lor C_n) \\
-                                        \text{(DeMorgan) } &\equiv \neg C_1 \land \neg C_2 \land \cdots \land \neg C_n \\
-                                        \text{(DeMorgan) } &\rightarrow \neg C_i \equiv \neg l_{i1} \lor \cdots \lor \neg l_{ik_i} \\
-                                                           & \rightarrow \neg G^d \in CNF
-                                \end{align*}
-                                Quindi, ``scambiandosi'', esistono sia $(\neg G)^c \equiv (\neg G^d)$ 
-                                e $(\neg G)^d \equiv (\neg G^c)$. 
-                        \item se $F = (G \land H)$, per ipotesi induttiva si hanno
-                                $G^c \equiv G$, $G^d \equiv G$, $H^c \equiv H$ e 
-                                $H^d \equiv H$. 
-                                Si definisce, allora 
-                                \begin{align*}
-                                        F &\equiv F^c  \equiv G^c \land H^c
-                                \end{align*}
-                                banalmente, mentre 
-                                \begin{align*}
-                                        F &\equiv F^d \\
-                                          &\equiv (G_1 \lor \cdots \lor C_n) \land (H_1 \lor \cdots \lor H_k) \\
-                                        \text{(Dist. gen.)} &\equiv \lor_{i,j}(G_i \land H_j) \\
-                                                            &\rightarrow \lor_{i=1}^n \lor_{j=1}^k (G_i \land H_i) \in DNF
-                                \end{align*}
-                        \item se $F = (G \lor H)$, per ipotesi induttiva si hanno
-                                $G^c \equiv G$, $G^d \equiv G$, $H^c \equiv H$ e 
-                                $H^d \equiv H$.                 
-                                Si può definire, allora 
-                                \begin{align*}
-                                        F &\equiv F^d  \equiv G^d \land H^d
-                                \end{align*}
-                                banalmente, mentre 
-                                \begin{align*}
-                                        F &\equiv F^c \\
-                                          &\equiv (G_1 \land \cdots \land C_n) \lor (H_1 \land \cdots \land H_k) \\
-                                        \text{(Dist. gen.)} &\equiv \land_{i,j}(G_i \lor H_j) \\
-                                                            &\rightarrow \land_{i=1}^n \land_{j=1}^k (G_i \lor H_i) \in CNF
-                                \end{align*}                
-                \end{enumerate}
+  \item \textbf{base}: se $F = p$ con $p \in \mathscr{L}$ allora $p = p^c = p^d$.
+  \item \textbf{passo}:
+    \begin{itemize}
+      \item se $F = \neg G$, per ipotesi induttiva si ha $G^c \equiv G$ e $G^d \equiv G$. 
+        Allora, se
+        \begin{align*}
+           G = C_1 \land C_2 \land \cdots \land C_h &&
+          \text{dove ogni } C_i = \ell_{i_1} \lor \cdots \lor \ell_{i_{k_i}}
+        \end{align*}
+        si ha che:
+        \begin{align*}
+          \neg G \equiv \neg (G^c) & \equiv \neg (C_1 \land \cdots \land C_h) \\
+                   & \equiv \neg C_1 \lor \neg C_2 \lor \cdots \lor \neg C_h := (\neg G)^d & \text{per DeMorgan}
+        \end{align*}
+        \begin{align*}
+          \text{dove ogni } \neg C_i & \equiv \neg (\ell_1 \land \ell_2 \land \cdots \land \ell_v) \\
+                               & \equiv \neg \ell_{i_1} \land \cdots \land \neg \ell_{i_{k_i}} & \text{per DeMorgan} \\
+                               & \equiv \bar \ell_{i_1} \land \cdots \land \bar \ell_{i_{k_i}} & \neg \ell_{i_j} \text{ è } \equiv \text{ a un letterale opposto} \\
+          \implies (\neg G)^d \in DNF 
+        \end{align*}
+        e similmente:
+        \begin{align*}
+          \neg G \equiv \neg (G^d) & \equiv \neg (D_1 \lor \cdots \lor D_n) \\
+                   & \equiv \neg D_1 \land \neg D_2 \land \cdots \land \neg D_n := (\neg G)^c & \text{per DeMorgan}
+        \end{align*}
+        \begin{align*}
+          \text{con } \neg D_i & \equiv \neg (\ell_{i_1} \land \cdots \land \ell_{i_{k_i}}) \\
+                               & \equiv \neg \ell_{i_1} \land \cdots \land \neg \ell_{i_{v_i}} & \text{per DeMorgan} \\
+                               & \equiv \bar \ell_{i_1} \land \cdots \bar \neg \ell_{i_{v_i}} & \neg \ell_{i_j} \text{ è } \equiv \text{ a un letterale opposto} \\
+          \implies (\neg G)^c \in CNF 
+        \end{align*}
+        Quindi esistono sia $F^d := (\neg G)^d \equiv \neg (G^c)$ che $F^c := (\neg G)^c \equiv \neg (G^d)$. 
+      \item se $F = (G \land H)$, per ipotesi induttiva si ha:
+        \begin{align*}
+           G^c \equiv G && G^d \equiv G \\
+           H^c \equiv H && H^d \equiv H
+        \end{align*}
+        Si definisce, allora
+        \begin{itemize}
+          \item $F \equiv F^c$ \\
+                con $F^c := (G^c \land H^c)$ e, banalmente $(G^c \land H^c) \in CNF$
+          \item $F^d$:
+            \begin{align*}
+              F & \equiv (G^d \land H^d) \\ 
+                & \equiv (G_1 \lor \cdots \lor G_u) \land (H_1 \lor \cdots \lor H_v) \\
+                & \equiv \bigvee\limits_{i,j}(G_i \land H_j) & \text{per Distributività Generalizzata}~(\ref{def:distributibilita-generalizzata})
+            \end{align*}
+            Ma visto che $C_i$ e $H_j$ sono \textit{co-clausole}, anche $(G_i \land H_j)$ lo è.
+            $$
+            \implies F^d := \bigvee\limits_{i=1}^u \bigvee\limits_{j=1}^v (G_i \land H_i) \in DNF
+            $$
+        \end{itemize}
+      \item se $F = (G \lor H)$, per ipotesi induttiva si ha:
+        \begin{align*}
+          G^c \equiv G && G^d \equiv G \\
+          H^c \equiv H && H^d \equiv H
+        \end{align*}
+        Si definisce, allora
+        \begin{itemize}
+          \item $F \equiv F^d$ \\
+                con $F^d := (G^d \lor H^d)$ e, banalmente $(G^d \lor H^d) \in DNF$
+          \item $F^c$:
+            \begin{align*}
+              F & \equiv (G^c \lor H^c) \\ 
+                & \equiv (G_1 \land \cdots \land G_u) \lor (H_1 \land \cdots \land H_v) \\
+                & \equiv \bigwedge\limits_{i,j}(G_i \lor H_j) & \text{per Distributività Generalizzata}~(\ref{def:distributibilita-generalizzata})
+            \end{align*}
+            Ma visto che $C_i$ e $H_j$ sono \textit{clausole}, anche $(G_i \lor H_j)$ lo è.
+            $$
+            \implies F^c := \bigwedge\limits_{i=1}^u \bigwedge\limits_{j=1}^v (G_i \lor H_i) \in CNF
+            $$generalizzata
+        \end{itemize}       
+      \item se $F = (G \rightarrow H)$, ci si comporta analogamente contando che $F \equiv (\neg G \lor H)$      
+    \end{itemize}
 \end{itemize}
+\end{proof}
 
-Si nota, tuttavia, che muoversi tra DNF e CNF causa un notevole allungamento 
-delle formule: per esempio, avendo 
+Si nota, tuttavia, che muoversi tra DNF e CNF con la distributività generalizzata causa un notevole allungamento delle formule. Per esempio:
 \begin{align*}
-        \lor_{i = 1}^{n} (p_i \land q_i) \equiv \land_{i = 1}^{2^n}(l_{i1} \lor \cdots \lor l_{in})
+        \bigvee\limits_{i = 1}^{n} (p_i \land q_i) \equiv \bigwedge\limits_{i = 1}^{2^n}(\ell_{i_1} \lor \cdots \lor \ell_{i_n})
 \end{align*}
-quindi c'è una dilatazione esponenziale. Questo è ovviamente un bel problema. 
-Ci sono algoritmi più intelligenti per generare formule DNF o CNF più corte? 
+quindi c'è una dilatazione esponenziale. Questo è un bel problema.
+
+
+Ci sono algoritmi più intelligenti per generare da DNF delle formule CNF più corte? \\
 Purtroppo no. 
