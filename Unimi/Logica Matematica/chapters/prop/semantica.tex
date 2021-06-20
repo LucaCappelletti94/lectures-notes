@@ -1085,12 +1085,12 @@ $$
 \subsection{Definizione di Algebra Booleana}
 A questo punto, siamo finalmente pronti per definire cosa sia l'Algebra Booleana.
 \begin{defi}[Algebra Booleana]
-L'Algebra Booleana è un sistema $(S, \sqcap, \sqcup, 0, 1, ()^c)$ di operazioni tali che $(S,\sqcup,\sqcap)$ sia un reticolo limitato, complementato, vivo:
+L'Algebra Booleana è un sistema $(S, \sqcap, \sqcup, 0, 1, ()^c)$ di operazioni tali che $(S,\sqcup,\sqcap)$ sia un reticolo limitato, complementato, distributivo:
 \begin{itemize}
   \item \textbf{limitato}: $\forall a \in S$:
     \begin{align*}
-      & a \sqcap 0 = a & (a \geq 0) \\
-      & a \sqcap 1 = a & (a \leq 0)
+      & a \sqcup 0 = a & (a \geq 0) \\
+      & a \sqcap 1 = a & (a \leq 1)
     \end{align*}
   \item \textbf{complementato}: $\forall a \in S$
     \begin{align*}
@@ -1132,7 +1132,7 @@ Dato che $\equiv$ è una congruenza, si possono definire le seguenti operazioni 
 \end{align*}
 La cardinalità dell'insieme delle classi di equivalenza scrivibili con $n$ variabili è:
 $$
-|\mathscr{F_L}^{(n)}/\equiv| = 2 ^ {2^n} = |\{F: \{0,1\}^n \rightarrow \{0,1\}\}| = |\mathscr{P}(\{1,\cdots,2^n\})|
+|\mathscr{F_L}^{(n)}/_\equiv| = 2 ^ {2^n} = |\{F: \{0,1\}^n \rightarrow \{0,1\}\}| = |\mathscr{P}(\{1,\cdots,2^n\})|
 $$
 
 \subsection{Funzioni Termine}
@@ -1210,7 +1210,7 @@ A parole, ciò che afferma è che ogni funzione $f: \{0,1\}^n \rightarrow \{0,1\
 Chiaramente, se dimostrato, vuol dire che le due algebre sono in realtà \textit{isomorfe}. 
 \begin{teo}[di Completezza Funzionale]
 $$
-  \hat{F}_L^{(n)} \supseteq Funz^{(n)},\ \forall n \in \mathbb{N}
+  \mathscr{\hat{F}_L}^{(n)} \supseteq Funz^{(n)},\ \forall n \in \mathbb{N}
 $$
 \end{teo}
 
@@ -1259,8 +1259,8 @@ Costruiamo una formula $F \in \mathscr{F_L}$ in modo tale che $ \hat{F} = f$.
     \begin{align*}
       \hat A_{ij}(t_1, \cdots, t_n) = t_j =
       \begin{cases*}
-        a_{i_j} \\
-        1 - a_{i_j}
+        \mathcal{v}(p_j) = a_{i_j} \\
+        \mathcal{v}(\neg p_j) = 1 - a_{i_j}
       \end{cases*}
       &
       \begin{rcases*}
@@ -1272,13 +1272,13 @@ Costruiamo una formula $F \in \mathscr{F_L}$ in modo tale che $ \hat{F} = f$.
     \begin{align*}
       \hat A_{ij}(t_1, \cdots, t_n) = t_j =
       \begin{cases*}
-        1 - a_{i_j} \\
-        a_{i_j}
+        \mathcal{v}(p_j) = a_{i_j} \\
+        \mathcal{v}(\neg p_j) = 1 - a_{i_j}
       \end{cases*}
       &
       \begin{rcases*}
-        \text{ se } a_{i_j} = 1 \\
-        \text{ se } a_{i_j} = 0
+        \text{ se } a_{i_j} = 0 \\
+        \text{ se } a_{i_j} = 1
       \end{rcases*} = 0
     \end{align*}
   \end{itemize}
@@ -1464,9 +1464,10 @@ finito di passi.
 \paragraph{(2) $\neg \neg C \leadsto C$}: In questo caso
 \begin{align*}
   \begin{cases}
-        m(\neg \neg C) & = \sum\limits_{\neg A \preccurlyeq \neg \neg C} \ell(A) = \ell(\neg C) + \sum\limits_{\neg A \preccurlyeq \neg C} \ell(A) = \ell(C) + 1 + \ell(C) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) = \\
-                       & = 1 + 2 \cdot \ell(C) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) \\
-        m(C) & = \sum\limits_{\neg A \preccurlyeq C} \ell(A) 
+        m(\neg \neg C) & = \ell(\neg C) + m(\neg C)
+                         = \ell(C) + 1 + \ell(C) + m(C) \\
+                       & = 1 + 2 \cdot \ell(C) + m(C) \\
+        m(C)
   \end{cases}
 \end{align*}
 $$
@@ -1476,9 +1477,10 @@ $$
 \paragraph{(3) $\neg (C \lor D) \leadsto \neg C \land \neg D$}: In questo caso
 \begin{align*}
   \begin{cases}
-    m(\neg (C \lor D)) = \sum\limits_{\neg A \preccurlyeq \neg (C \lor D)} \ell(A) & = \ell(C \lor D) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) + \sum\limits_{\neg A \preccurlyeq D} \ell(A) \\
-      & = \ell(C) + \ell(D) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) + \sum\limits_{\neg A \preccurlyeq D} \ell(A) + 1 \\
-    m(\neg C \land \neg D) = \sum\limits_{\neg A \preccurlyeq \neg C \land \neg D} \ell(A) & = \ell(C) + \ell(D) + \sum\limits_{\neg A \preccurlyeq C} \ell(A) + \sum\limits_{\neg A \preccurlyeq D} \ell(A)
+    m(\neg (C \lor D)) & = \ell(C \lor D) + m(C) + m(D) \\
+                       & = \ell(C) + \ell(D) + m(C) + m(D) + 1 \\
+    m(\neg C \land \neg D) 
+                       & = \ell(C) + \ell(D) + m(C) + m(D)
   \end{cases}
 \end{align*}
 $$

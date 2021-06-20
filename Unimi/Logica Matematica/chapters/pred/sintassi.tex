@@ -129,14 +129,14 @@ a partire dai simboli in $\mathscr{L}$ e dai possibili connettivi.
 
 \begin{defi}[$\mathscr{L}$-termini]
   Sia $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$. \\
-  Allora l'insieme $T_\mathscr{L}$ degli $\mathscr{L}$-termini è definito come segue:
+  Allora l'insieme $\mathscr{T_L}$ degli $\mathscr{L}$-termini è definito come segue:
   \begin{itemize}
     \item \textbf{base}:
       \begin{itemize}
-        \item ogni $x \in \mathscr{V}_\mathscr{L}$ è un termine. 
+        \item ogni $x \in Var$ è un termine. 
         \item ogni $c \in \mathscr{F}$ tale che $\beta(c) = 0$, $c$ è un termine detto \textbf{costante}
       \end{itemize}
-    \item \textbf{passo}: siano $f \in \mathscr{F}$ tale che $\beta(f) = n$ e $t_1, t_2, \cdots, t_n \in T_\mathscr{L}$ termini già costruiti, allora $f(t_1, t_2, \cdots, t_n)$ è un $\mathscr{L}$-termine. 
+    \item \textbf{passo}: siano $f \in \mathscr{F}$ tale che $\beta(f) = n$ e $t_1, t_2, \cdots, t_n \in \mathscr{T_L}$ termini già costruiti, allora $f(t_1, t_2, \cdots, t_n)$ è un $\mathscr{L}$-termine. 
     \item nient'altro è un $\mathscr{L}$-termine.
   \end{itemize}
   I termini sono dei nomi che designano un oggetto nell'universo del discorso.
@@ -147,10 +147,10 @@ Il ruolo delle \textit{formule di} $\mathscr{L}$ è predicare sopra dei determin
 
 L'insieme $\mathscr{F}_\mathscr{L}$ delle $\mathscr{L}$-formule è definito induttivamente come segue:
 \begin{itemize}
-  \item \textbf{base}: siano $p \in \mathscr{P}$ tale che $\alpha(p)=n$ e $t_1, \cdots, t_n \in T_\mathscr{L}$ degli $\mathscr{L}$-termini, allora $P(t_1, \cdots, t_n)$ è una $\mathscr{L}$-formula detta \textbf{formula atomica}. \\
+  \item \textbf{base}: siano $p \in \mathscr{P}$ tale che $\alpha(p)=n$ e $t_1, \cdots, t_n \in \mathscr{T_L}$ degli $\mathscr{L}$-termini, allora $P(t_1, \cdots, t_n)$ è una $\mathscr{L}$-formula detta \textbf{formula atomica}. \\
   Le formule atomiche sono il corrispettivo nella Logica del Primo Ordine delle lettere proposizionali.
   \item \textbf{passo}: se $A,B \in \mathscr{F}_\mathscr{L}$, allora sono $\mathscr{L}$-formule anche $(A \land B)$, $(A \lor B)$, $(\neg A)$, $(A\rightarrow B)$
-  \item se $A \in \mathscr{F}_\mathscr{L}$ e $x \in \mathscr{V}_\mathscr{L}$, allora sono $\mathscr{L}$-formule anche $(\forall x A)$ e $(\exists x A)$.
+  \item se $A \in \mathscr{F}_\mathscr{L}$ e $x \in Var$, allora sono $\mathscr{L}$-formule anche $(\forall x A)$ e $(\exists x A)$.
   \item nient'altro è una $\mathscr{L}$-formula.
 \end{itemize}
 \end{defi}
@@ -191,5 +191,5 @@ Un $\mathscr{L}$-\textbf{enunciato} ($\mathscr{L}$-sentence) o \textit{formula c
 \end{defi}
 
 \begin{defi}[Sostituzione]
-Con la notazione $A[t/x]$ con $A \in \mathscr{F}_\mathscr{L}$, $x \in \mathscr{V}_\mathscr{L}$ e $t$ un $\mathscr{L}$-termine, si intende la formula ottenuta rimpiazzando simultaneamente tutte e sole le occorrenze \textbf{libere} di $x$ con $t$. 
+Con la notazione $A[t/x]$ con $A \in \mathscr{F}_\mathscr{L}$, $x \in Var$ e $t$ un $\mathscr{L}$-termine, si intende la formula ottenuta rimpiazzando simultaneamente tutte e sole le occorrenze \textbf{libere} di $x$ con $t$. 
 \end{defi}

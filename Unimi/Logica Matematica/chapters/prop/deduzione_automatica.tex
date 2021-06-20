@@ -222,12 +222,12 @@ E $B'$ ha $2n + 1$ clausole, di cui $1$ di $n$ letterali e $2n$ di $2$ letterali
         \label{dim:b'-equiv-b''}
         \mathcal{v}_a(B') = \mathcal{v}_a(B'' \land a \rightarrow (D_1 \land D_2)) = \mathcal{v}_a(B'') \land 1 = \mathcal{v}_a(B'')
         \end{align}
-        $B$ e $B'$ si possono riscrivere come: 
+        $B$ e $B''$ si possono riscrivere come: 
         \begin{align*}
         B & = B''[D_1 \land D_2/a] & \text{dato che } a \text{ non appare in } B \\
         B'' & = B''[a/a]
         \end{align*}
-        e grazie al Lemma~\ref{lem:sostituzione} di Sostituzione si può affermare che $\mathcal{v}(B) = \mathcal{v}(B'')$ in quanto $\mathcal{v}(a) = \mathcal{v}(D_1 \land D_2)$. \\
+        e grazie al Lemma~\ref{lem:sostituzione} di Sostituzione si può affermare che $\mathcal{v}_a(B) = \mathcal{v}_a(B'')$ in quanto $\mathcal{v}_a(a) = \mathcal{v}_a(D_1 \land D_2)$. \\
         Quindi:
         \begin{align*}
                 1 &= \mathcal{v}(B) & \text{ipotesi } \\
@@ -865,7 +865,7 @@ Sia $S_0 = \{\{a,b,\neg c\}, \{a, \neg b, d\}, \{a, \neg b, \neg c, \neg d\},
     \begin{itemize}
       \item pivot: $a$
       \item $a$-esonerate: $\emptyset$
-      \item $a$-risolventi: $\{\neg b, d\}, \{\neg b, d, \neg d\}, \{b, d\}, \{\neg b, d, \neg b\}, \{b, \neg d\}, \{\neg b, \neg d\}$
+      \item $a$-risolventi: $\{\neg b, d\}, \{\neg b, d, \neg d\}, \{b, d\}, \{\neg b, d, \neg d\}, \{b, \neg d\}, \{\neg b, \neg d\}$
       \item output ripulito: $\{\{\neg b, d\}, \{b, d\}, \{b, \neg d\}, \{\neg b, \neg d\}\}$
     \end{itemize}
   \item

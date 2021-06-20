@@ -363,7 +363,8 @@ $(\mathscr{A}, g) \models A^S$.
   & (\mathscr{A}, h) \models A \\
   \iff & \text{ esiste } b \in U \text{ t.c. } (\mathscr{A}, h) \models B[\bar a_1 / x_1] \cdots [\bar a_n / x_n][\bar b / y] & \text{ per ogni } (a_1, \cdots, a_n) \in U^n \\
   \iff & \text{ esiste } b \in U \text{ t.c. } \mathscr{A} \models B[\bar a_1 / x_1] \cdots [\bar a_n / x_n][\bar b / y] & \text{ per ogni } (a_1, \cdots, a_n) \in U^n \\
-  & \text{perché non vi sono occorrenze del simbolo } h
+  & \text{perché non vi sono occorrenze} \\
+  & \text{del simbolo ``} f \text{'' da interpretare in ``} h \text{''}
 \end{align*}
 Si definisce ora la funzione $g: U^n \rightarrow U$:
 $$
@@ -620,19 +621,17 @@ I due teoremi ``di Herbrand'' enunciati seguono entrambi piuttosto facilmente
 dalla semantica di Herbrand, che è il vero cuore della questione. 
 
 \subsection{Semantica di Herbrand}
-La semantica di Herbrand afferma che è necessario considerare solo le 
-$\mathscr{L}$-strutture di Herbrand. 
-
-\begin{defi}[$\mathscr{L}$-struttura di Herbrand]
-  Una $\mathscr{L}$-struttura di Herbrand è un tipo particolare di $\mathscr{L}$-struttura generale—o $\mathscr{L}$-struttura \textit{di Tarski}. \\
-  Ricordiamo i vicoli che una $\mathscr{L}$-struttura di Tarski $\mathscr{A} = (U,I)$ deve rispettare:
+Ricordiamo i vicoli che una $\mathscr{L}$-struttura di Tarski $\mathscr{A} = (U,I)$ deve rispettare:
   \begin{itemize}
     \item $U$ scelto arbitrariamente t.c. $U \neq \emptyset$
     \item $I(c) \in U$, scelto arbitrariamente
     \item $I(f)$ (se $\beta(f) = n$) è una funzione $U^n \rightarrow U$ scelto arbitrariamente
     \item $I(P) \subseteq U^n$ (con $\alpha(P) = n$), scelto arbitrariamente
   \end{itemize}
-  Una $\mathscr{L}$-struttura di Herbrand $\mathscr{H} = (H_S, H)$ deve, inoltre, rispettare: 
+Nella semantica di Herbrand si considerano solo le $\mathscr{L}$\textbf{-strutture di Herbrand}. 
+
+\begin{defi}[$\mathscr{L}$-struttura di Herbrand]
+  Una $\mathscr{L}$-struttura di Herbrand è un tipo particolare di $\mathscr{L}$-struttura \textit{di Tarski} $\mathscr{H} = (H_S, H)$, con i seguenti vincoli aggiuntivi: 
   \begin{itemize}
     \item $H_S$ è l'Universo di Herbrand, fissato. \\
     Per costruzione ha almeno un termine ground: $H_S \neq \emptyset$
@@ -658,29 +657,29 @@ $H_S$, invece, è un universo di termini, ed è quindi puramente sintattico. Con
 \noindent
 $S$ è soddisfacibile, ossia per $S$ esiste un modello (di Tarski) $\mathscr{A} = (U,I)$ tale che $\mathscr{A} \models S$ se e solo se $S$ ha un modello di Herbrand, ossia se esiste una $\mathscr{L}$-struttura di Herbrand $\mathscr{H}=(H_s, H)$ tale che $\mathscr{H} \models S$.
 
-Ora, ci chiediamo quale sia la relazione tra $(S/H_S)^*$ e $\mathscr{H}_S \models S$.
+Ora, ci chiediamo quale sia la relazione tra $(S/H_S)^*$ e $\mathscr{H} \models S$.
 \begin{lemn}
 \label{lem:herbrand-sodd}
   $$
-  \mathscr{H}_S \models S \iff \mathcal{v}_{\mathscr{H}_S}\models (S/H_S)^*
+  \mathscr{H} \models S \iff \mathcal{v}_{\mathscr{H}} \models (S/H_S)^*
   $$
 \end{lemn}
 \begin{proof} ($\implies$) \\
-Sia $\mathcal{v}_{\mathscr{H}_S}: \text{Lettere Proposizionali} \rightarrow \{0,1\}$, un assegnamento tale che:
+Sia $\mathcal{v}_{\mathscr{H}}: \text{Lettere Proposizionali} \rightarrow \{0,1\}$, un assegnamento tale che:
 $$
-\mathcal{v}_{\mathscr{H}_S}(p_{P(t_1, \cdots, t_n)}) =
+\mathcal{v}_{\mathscr{H}}(p_{P(t_1, \cdots, t_n)}) :=
 \begin{cases}
-  1 \iff \mathscr{H}_S \models P(t_1, \cdots, t_n) \\
-  0 \iff \mathscr{H}_S \nvDash P(t_1, \cdots, t_n)
+  1 & \text{ sse } \mathscr{H} \models P(t_1, \cdots, t_n) \\
+  0 & \text{ sse } \mathscr{H} \nvDash P(t_1, \cdots, t_n)
 \end{cases}
 $$
 ($\Longleftarrow$) \\
 Viceversa, data $\mathcal{v}: \text{ Lettere Proposizionali} \rightarrow \{0,1\}$, si definisce:
 $$
-\mathscr{H}_{\mathcal{v}}= (H_S, H_{\mathcal{v}}) =
+\mathscr{H}_{\mathcal{v}}= (H_S, H_{\mathcal{v}}) :=
 \begin{cases}
-  (t_1, \cdots, t_n) \in H_{\mathcal{v}}(P) \iff \mathcal{v}(p_{P(t_1, \cdots, t_n)}) = 1 \\
-  (t_1, \cdots, t_n) \not\in H_{\mathcal{v}}(P) \iff \mathcal{v}(p_{P(t_1, \cdots, t_n)}) = 0
+  (t_1, \cdots, t_n) \in H_{\mathcal{v}}(P) & \text{ sse } \mathcal{v}(p_{P(t_1, \cdots, t_n)}) = 1 \\
+  (t_1, \cdots, t_n) \not\in H_{\mathcal{v}}(P) & \text{ sse } \mathcal{v}(p_{P(t_1, \cdots, t_n)}) = 0
 \end{cases}
 $$
 \end{proof}
@@ -697,9 +696,9 @@ Dato un insieme $S$ di clausole della Logica del Primo Ordine, è equivalente af
   {[\textit{per Thm~\ref{thm:compattezza-prop} di Compattezza Proposizionale}]}
   \item Esiste $H'\subseteq_{\omega} H_S$ tale che $(S/H')^*$ è finito e proposizionalmente insoddisfacibile \\
   {[\textit{per compattezza e teoria degli insiemi}]}
-  \item Esiste $H' \subseteq_{\omega} H_S$ e $h \geq 0$ tale che $\qedsymbol \in \mathbb{R}^h((S/H)^*)$ \\
+  \item Esiste $H' \subseteq_{\omega} H_S$ e $h \geq 0$ tale che $\qedsymbol \in \mathscr{R}^h((S/H)^*)$ \\
   {[\textit{per Thm~\ref{thm:completezza-refutazionale} di Completezza Refutazionale}]}
-  \item Esiste $H' \subseteq_{\omega} H_S$ e una refutazione $DPP \vdash_\mathbb{R} (S/H')^*$ o anche $DPLL \vdash_\mathbb{R} (S/H')^*$ \\
+  \item Esiste $H' \subseteq_{\omega} H_S$ e una refutazione $DPP \vdash_R (S/H')^*$ o anche $DPLL \vdash_R (S/H')^*$ \\
   {[\textit{per Thm di Completezza Refutazionale di DPP (\ref{thm:completezza-refutazionale-dpp}) e DLPP (\ref{dpll})}]}
 \end{enumerate}
 La catena $1 \cdots 7$ fornisce un algoritmo per \textit{semidecidere} l'insoddisfacibilità di $S$. Questo perché non sappiamo come prendere $H' \subseteq_\omega H_S$, e bisogna tentare con $S'$ via via più grandi. Ci si ferma solo quando se ne trova un $(S/H')^*$ refutabile. 
@@ -866,50 +865,42 @@ sarà proprio la sostituzione il punto focale del discorso.
 \begin{defi}[Sostituzione]
 Una \textbf{sostituzione} $\sigma$ è una mappa 
 $$
-\sigma: Var \rightarrow \tau_{\mathscr{L}}
+\sigma: Var \rightarrow \mathscr{T_L}
 $$
-con $\tau_{\mathscr{L}}$ che indica l'insieme dei termini costruibili sul linguaggio $\mathscr{L}$, anche non ground; $\sigma$ ha una proprietà importante che rende la computazione delle sostituzioni molto semplice: l'insieme delle variabili $x$ tali che sono ``mosse'' dalla sostituzione, ossia $x \neq \sigma(x)$, è finito. 
-L'insieme  delle variabili ``mosse'' viene chiamato dominio di $\sigma$. 
+con $\mathscr{T_L}$ che indica l'insieme degli $\mathscr{L}$-termini costruibili sul linguaggio $\mathscr{L}$, anche non ground. \
 \end{defi}
-
-Se il dominio di $\sigma$ è 
-$$
+\begin{defi}
+Il dominio di una sostituzione $\sigma$ è l'insieme delle variabili $x$ che $\sigma$ \textit{non} manda in sé stessa: $\{x \in Var : x \neq \sigma(x)\}$
+\end{defi}
+\begin{pro}
+Il dominio di $\sigma$ è \textit{finito}.
+\begin{align*}
+\sigma: x_1 \mapsto t_1, \cdots, x_k \mapsto t_k &&
 dom(\sigma) = \{x_1, \cdots, x_k\}
-$$
-allora si può visualizzare $\sigma$ nel seguente modo: 
-$$
-\sigma: x_1 \mapsto t_1, \cdots, x_k \mapsto t_k
-$$
-Questa notazione sostituisce la notazione $([t_i/x_i])$ utilizzata fino ad ora. 
+\end{align*}
+con $k \in \mathbb{N}$
+\end{pro}
+\noindent
+Questa proprietà è importante dal punto di vista computazionale. \\
+La notazione $t_i \mapsto x_i$ sostituisce la notazione $[t_i/x_i]$ utilizzata fino ad ora. 
 
-\begin{defi}[Estensione Canonica]
+\begin{defi}[Estensione canonica]
 Una sostituzione $\sigma$ si estende canonicamente ad una mappa 
 $$
-\hat{\sigma}: \tau_\mathscr{L} \mapsto \tau_\mathscr{L}
+\hat{\sigma}: \mathscr{T_L} \mapsto \mathscr{T_L}
 $$
-con la solita definizione di estensione canonica definita induttivamente sugli $\mathscr{L}$-termini:
+in modo induttivo sugli $\mathscr{L}$-termini:
 \begin{itemize}
-  \item{\textbf{base}}:
-    $$
-    \hat{\sigma}(x)  := x ~~~~~ \text{ per ogni } x \in Var 
-    $$
-    \item{\textbf{passo}}:
-    $$
-    \hat{\sigma}(f(t_1, \cdots, t_n)) := f(\hat{\sigma}(t_1), \cdots, \hat{\sigma}(t_n))
-    $$
+  \item \textbf{base}: $\hat{\sigma}(x) := \sigma(x)$ per ogni $x \in Var$
+  \item \textbf{passo}: $\hat{\sigma}(f(t_1, \cdots, t_n)) := f(\hat{\sigma}(t_1), \cdots, \hat{\sigma}(t_n))$
 \end{itemize}
-
-Si può, inoltre, estendere $\sigma$ non solo ai termini ma a tutte le espressioni che ci servono:
+Si può, inoltre, estendere $\sigma$ non solo ai termini ma anche alle espressioni/formule $E$:
 \begin{itemize}
-  \item sia $P(t_1, \cdots, t_n)$ un'atomica del nostro linguaggio. Allora si definisce 
+  \item \textbf{base}: se $E = P(t_1, \cdots, t_n)$, allora:
   $$
   \hat{\sigma}(P(t_1, \cdots, t_n)) := P(\hat{\sigma}(t_1), \cdots, \hat{\sigma}(t_n))
   $$
-  \item sia $E$ una espressione d'interesse generica. Allora 
-  $$
-  \hat{\sigma}(E)
-  $$
-  è l'espressione sostituendo tramite $\sigma$ simultaneamente tutte le occorrenze dei termini $x_i$ che appaiono in $E$ con $\sigma(x_i)$
+  \item \textbf{passo}: se $E$ è una espressione generica, allora $  \hat{\sigma}(E)$ è l'espressione ottenuta sostituendo tramite $\sigma$ simultaneamente tutte le occorrenze dei termini $x_i$ con $\sigma(x_i)$
 \end{itemize}
 \end{defi}
 
@@ -917,21 +908,21 @@ Scriveremo spesso $E\sigma$ per indicare $\hat{\sigma}(E)$.
 
 \subsubsection{Proprietà delle Sostituzioni}
 \begin{itemize}
-  \item{\textbf{Composizione}} Se $\gamma, \tau : Var \rightarrow \tau_\mathscr{L}$ la sostituzione composta $\sigma\tau$ è data da
+  \item{\textbf{Composizione}} Se $\gamma, \tau : Var \rightarrow \mathscr{T_L}$ la sostituzione composta $\sigma\tau$ è data da
     $$
     \sigma\tau(x) = \hat{\tau}(\sigma(x))
     $$
     Ovviamente $\hat{\sigma\tau}$ applicata su una certa espressione $E$, denotato quindi $E\sigma\tau$ si ottiene applicando $\hat{\tau}(\sigma(x_i))$ ad ogni variabile occorrente in $E$.
     \item{\textbf{Sostituzione Identica}} la sostituzione $id$ è definita 
     $$
-    id(x_i) = x_i ~~~  \text{ per ogni } x_i \in Var
+    id(x_i) = x_i ~~~ \text{ per ogni } x_i \in Var
     $$
     e ha dominio vuoto ($dom(id) = \emptyset$); gode della proprietà di composizione seguente:
     $$
-    \sigma id = id \sigma = \sigma \text{ per ogni } \sigma:Var \rightarrow \tau_\mathscr{L}
+    \sigma id = id \sigma = \sigma ~~~ \text{ per ogni } \sigma:Var \rightarrow \mathscr{T_L}
     $$
     quindi svolge il ruolo di elemento neutro.
-  \item{\textbf{Rinomine}} una rinomina è una sostituzione $\rho: Var \rightarrow \tau_\mathscr{L}$ che è una permutazione del suo dominio, ossia 
+  \item{\textbf{Rinomine}} una rinomina è una sostituzione $\rho: Var \rightarrow \mathscr{T_L}$ che è una permutazione del suo dominio, ossia 
     \begin{align*}
     \rho(x_i) = x_j && \text{con $\rho$ biettiva sul suo dominio}
     \end{align*}
@@ -958,7 +949,7 @@ Scriveremo spesso $E\sigma$ per indicare $\hat{\sigma}(E)$.
 
   \item{\textbf{Ordine Parziale}} L'insieme delle sostituzioni con la relazione ``essere più generale'' quozientato rispetto a $\equiv$ è un \textit{poset}, ossia
   $$
-  \{[\sigma]_{\equiv}: \sigma : Var \rightarrow \tau_\mathscr{L}\} 
+  \{[\sigma]_{\equiv}: \sigma : Var \rightarrow \mathscr{T_L}\} 
   $$
   è un insieme con ordine parziale rispetto a $\geq$.
 \end{itemize}
@@ -972,16 +963,12 @@ Sollevata o Liftata è il seguente:
         $$
 \end{defi}
 La soluzione ad un problema di unificazione è una sostituzione che verifica tutte 
-le uguaglianze nella lista di coppie di termini, ossia una sostituzione 
-$$
-\sigma: Var \rightarrow \tau_\mathscr{L}
-$$
-tale che 
+le uguaglianze nella lista di coppie di termini, ossia una sostituzione $\sigma: Var \rightarrow \mathscr{T_L}$ tale che:
 $$
 \hat{\sigma}(t_1) = \hat{\sigma}(u_1), \cdots, \hat{\sigma}(t_n) = \hat{\sigma}(u_n)
 $$
 \begin{defi}[Unificatore]
-  Una soluzione $\mu: Var \rightarrow \tau_\mathscr{L}$ è detta \textbf{unificatore} di massima generalità (\textit{most general unifier}) se e solo se $\mu$ è più generale di ogni altra soluzione al problema di unificazione.
+  Una soluzione $\mu: Var \rightarrow \mathscr{T_L}$ è detta \textbf{unificatore} di massima generalità (\textit{most general unifier}) se e solo se $\mu$ è più generale di ogni altra soluzione al problema di unificazione.
 \end{defi}
 
 \begin{teo}[di Unificazione]
@@ -1006,7 +993,7 @@ $$
 U: t_1 \stackrel{?}{=}s_1, \cdots, t_n \stackrel{?}{=}s_n
 $$
 
-\subsection{Calcolo $\mathbb{R}$ della risoluzione liftata}
+\subsection{Calcolo $\mathscr{R}$ della risoluzione liftata}
 Si supponga di avere le seguenti regole scritte in forma 
 a sequenti: 
 $$
@@ -1023,7 +1010,7 @@ Se si riesce a calcolare un $\mu = mgu(A,B)$, allora si può risolvere la \textb
         \BinaryInfC{$\mu(\Gamma), \mu(\Gamma'), \implies \mu(\Delta), \mu(\Delta')$}
 \end{prooftree}
 
-Questa regola incarna il calcolo $\mathbb{R}$. Da sola non basta a garantire la completezza 
+Questa regola incarna il calcolo $\mathscr{R}$. Da sola non basta a garantire la completezza 
 refutazionale, ma è necessario aggiungere almeno una delle seguenti due 
 regole di fattorizzazione: 
 \begin{itemize}
@@ -1041,7 +1028,7 @@ regole di fattorizzazione:
     \end{prooftree}
 \end{itemize}
 
-Una refutazione di un insieme di clausole $S$ nel calcolo $\mathbb{R}$ è una successione di clausole $C_1, C_2, \cdots, C_u$ tale che: 
+Una refutazione di un insieme di clausole $S$ nel calcolo $\mathscr{R}$ è una successione di clausole $C_1, C_2, \cdots, C_u$ tale che: 
 \begin{enumerate}
   \item $C_u = \implies$ (clausola vuota)
   \item per ogni $C_i$:
@@ -1050,15 +1037,15 @@ Una refutazione di un insieme di clausole $S$ nel calcolo $\mathbb{R}$ è una su
       \item o $C_i$ è ottenuto da eventuali rinomine di $C_j, C_k$ con $(j,k < i)$ per risoluzione liftata o fattorizzazione (destra o sinistra)
     \end{itemize}
 \end{enumerate}
-Il calcolo $\mathbb{R}$ è \textit{refutazionalmente completo} per ogni insieme di clausole $S$, quindi anche per tutta la logica del Primo Ordine: se si ha un problema del tipo
+Il calcolo $\mathscr{R}$ è \textit{refutazionalmente completo} per ogni insieme di clausole $S$, quindi anche per tutta la logica del Primo Ordine: se si ha un problema del tipo
 $$
 \Gamma \stackrel{?}{\models} A \leadsto \stackrel {\text{insieme di clausole del Primo Ordine}} {S \text{ insod.?}} \leadsto S \stackrel ? {\vdash_\mathbb{R}} \implies
 $$
 Questo ci da, quindi:
 \begin{itemize}
-  \item \textit{completezza}: Se $S \vdash_\mathbb{R} \implies$, allora $S$ è insodd. e $\Gamma \models A$
-  \item \textit{correttezza}: se $\Gamma \models A$, allora $S \vdash_\mathbb{R} \implies$; \\
-  ovvero $S$ è insodd. e pertanto deve essere refutabile col calcolo $\mathbb{R}$
+  \item \textit{completezza}: Se $S \vdash_R \implies$, allora $S$ è insodd. e $\Gamma \models A$
+  \item \textit{correttezza}: se $\Gamma \models A$, allora $S \vdash_R \implies$; \\
+  ovvero $S$ è insodd. e pertanto deve essere refutabile col calcolo $\mathscr{R}$
 \end{itemize} 
 
 
