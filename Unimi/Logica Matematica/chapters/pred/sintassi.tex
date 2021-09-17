@@ -14,24 +14,24 @@ espresso come possibile nella Logica proposizionale diventa
         \AxiomC{$q$}
         \BinaryInfC{$r$}
 \end{prooftree}
-Ci si chiede se sia vero, quindi: è forse 
+Ci si chiede se sia vero, quindi: 
 $$
-p, q \models r
+p, q \stackrel ? \models r
 $$
 Con DPLL ci si chiede se 
 $\{p, q, \neg r\}$ sia insoddisfacibile. 
 Il primo passo di DPLL afferma
 \begin{prooftree}
         \AxiomC{$\emptyset \vdash \{\{p\}, \{q\}, \{\neg r\}\}$}
-        \UnaryInfC{$\mathfrak{v}(p) = 1 \vdash \{\{q\}, \{\neg r\}\}$}
-        \UnaryInfC{$\mathfrak{v}(p)=1, \mathfrak{v}(q) = 1 \vdash \{\{\neg r\}\}$}
-        \UnaryInfC{$\mathfrak{v}(r) = 0, \mathfrak{v}(p)=1, \mathfrak{v}(q) = 1 \vdash \emptyset$}
+        \UnaryInfC{$\mathcal{v}(p) = 1 \vdash \{\{q\}, \{\neg r\}\}$}
+        \UnaryInfC{$\mathcal{v}(p)=1, \mathcal{v}(q) = 1 \vdash \{\{\neg r\}\}$}
+        \UnaryInfC{$\mathcal{v}(r) = 0, \mathcal{v}(p)=1, \mathcal{v}(q) = 1 \vdash \emptyset$}
 \end{prooftree}
 e pertanto 
 $$
 p, q \models r \text{ è falso }
 $$
-che va ovviamente contro la nostra intuizione. 
+che va ovviamente contro la nostra intuizione. La modellizzazione della frase in italiano non è più adeguata a descrivere il mondo su cui si sta lavorando!
 Per gestire argomentazioni
 razionali come il sillogismo aristotelico è necessario dotarsi di un linguaggio 
 più \textit{espressivo} rispetto alla Logica Proposizionale, arricchendone 
@@ -68,10 +68,10 @@ Si può concludere, quindi, che il padre di Socrate sia un mortale,
 nonostante sia una designazione indiretta di un individuo dell'Universo; 
 si può inoltre tradurre quanto detto come 
 \begin{prooftree}
-        \AxiomC{$\forall x (U(x) \rightarrow M(x)$}
-        \AxiomC{$\forall (U(x) \rightarrow U(p(x))$}
-        \AxiomC{ $U(s)$}
-        \TrinaryInfC{$M(p(s))$}
+  \AxiomC{$\forall x (U(x) \rightarrow M(x)$}
+  \AxiomC{$\forall x (U(x) \rightarrow U(p(x))$}
+  \AxiomC{ $U(s)$}
+  \TrinaryInfC{$M(p(s))$}
 \end{prooftree}
 
 Per decidere questa \textit{deduzione}, ci sarà qualcosa come 
@@ -83,109 +83,81 @@ $s$, ma sarà anche necessario considerare $p(s)$. A questo punto, sarà immedia
 arrivare alla conclusione che la situazione sia in realtà un po' più complicata: 
 come si considera $p(s)$, si dovrebbe considerare anche $p(p(s))$, $p(p(p(s)))$...
 
-Nel nostro caso, una possibile refutazione è la seguente: 
-$$
-\neg U(p(s)), M(p(s))
-$$
-istanziando la $x$ su $p(s)$, in questo modo si può risolvere 
-rispetto a $\neg M(p(s))$: 
-$$
-\{\{\neg U(p(s))\}, \{\neg U(x), U(p(x))\}, \{U(s)\}\}
-$$
-e si prosegue istanziando $U(x)$ a $U(s)$, arrivando all'insieme vuoto. 
+Nel nostro caso, si trova una possibile refutazione istanziando la $x$ su $p(s)$ come segue: 
+\begin{prooftree}
+  \AxiomC{$\neg U(p(s)), M(p(s))$}
+  \AxiomC{$\neg M(p(s))$}
+  \BinaryInfC{$\neg U(p(s))$}
+  \AxiomC{$\neg U(s), U(p(s))$}
+  \BinaryInfC{$\neg U(s)$}
+  \AxiomC{$U(s)$}
+  \BinaryInfC{$\qedsymbol$}
+\end{prooftree}
 Vedremo, quindi, perché e quando si possono utilizzare queste istanzianzioni. 
 
 \section{Sintassi della Logica del Primo Ordine}
 Partiamo, dunque, fissando i dettagli sintattici, cioè il Linguaggio 
 della Logica del Primo Ordine nella sua natura grammaticale. 
 
-A livello proposizionale, si fissa $L$ come insieme infinito di lettere 
-proposizionali, e si conclude il tutto, poiché da questo insieme si arriva 
-direttamente a costruire ogni formula ammissibile nella Logica Proposizionale.
+Nella Logica Proposizionale bastava fissare $\mathscr{L}$ come insieme infinito di lettere proposizionali per costruire direttamente ogni formula ammissibile in $\mathscr{F}_\mathscr{L}$.
 
-Innanzitutto, nella Logica del Primo Ordine vi sono diversi linguaggi detti 
-\textbf{linguaggi elementari}; la situazione è simile alla situazione generica 
-dei linguaggi formali, anche se tecnicamente $L$ sarebbe un alfabeto per e $F_L$ 
-sarebbe il linguaggio formale, mentre in logica $L$ stesso è chiamato Linguaggio. 
-
-Allo stesso modo, nella logica del Prim'Ordine ci sono dei linguaggi elementari, 
-che specificano gli ``ingredienti'' per costruire le formule della Logica dei 
-Predicati, le quali sarebbero il \textit{vero} linguaggio nel senso formale. 
-In altri termini, in Logica dei Predicati 
-il termine \textit{linguaggio elementare} indica l'insieme di elementi che andranno 
-a costruire l'insieme delle formule. 
+Nella Logica del Primo Ordine, invece, vi sono diversi linguaggi detti \textbf{linguaggi elementari}. Questi sono un insieme degli elementi per costruire il \textit{vero} linguaggio in senso formale, ovvero le formule della Logica dei Predicati.
 
 \begin{defi}[Linguaggio Elementare]
-I linguaggi elementari sono definiti come $L = (\mathcal{P}, F, \alpha, \beta)$  dove $P$ è un insieme di 
-simboli, detti \textbf{predicati} (o simboli di predicato), che deve 
-essere diverso dall'insieme vuoto $\mathcal{P} \neq \emptyset$; $F$ è l'insieme 
-di simboli detti \textbf{di funzione}, disgiunto da $\mathcal{P}$: $\mathcal{P} \cap F = \emptyset$; 
-$\alpha$ è una funzione $P \rightarrow \mathbb{N}$ assegna l'arità a ogni 
-$\mathcal{P} \in P$ e, infine, $\beta$ è  l'arità di ogni $f \in F$.
+I linguaggi elementari sono definiti come $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$,  dove:
+\begin{itemize}
+ \item $\mathscr{P}$ è un insieme non vuoto di simboli, detti \textbf{predicati} (o simboli di predicato)
+ \item $\mathscr{F}$ è l'insieme di simboli detti \textbf{di funzione}. È disgiunto da $\mathscr{P}$; $\mathscr{P} \cap F = \emptyset$
+ \item $\alpha$ è una funzione $\mathscr{P} \rightarrow \mathbb{N}$ che assegna l'arietà a ogni $p \in \mathscr{P}$
+ \item $\beta$ è una funzione $\mathscr{F} \rightarrow \mathbb{N}$ che assegna l'arietà a ogni $f \in \mathscr{F}$
+\end{itemize}
 \end{defi}
 
-Ogni elemento del linguaggio varia in base al linguaggio stesso, tuttavia 
-vi sono ``ingredienti'' intrinsecamente comuni a tutti i linguaggi elementari:  
-l'insieme $V$ (o $Var$) infinito di simboli detti \textbf{variabili individuali}, 
-chiamate così perché la loro interpretazione sarà quella di un \textit{individuo 
-generico} dell'universo del discorso
-e l'insieme dei connettivi $\land, \lor, \neg, \rightarrow, \bot, \top, \iff, \cdots$; 
-differentemente dalla logica proposizionale, i linguaggi elementari contengono 
-anche i \textbf{quantificatori} $\forall, \exists$. 
+Ogni elemento del linguaggio varia in base al linguaggio stesso, tuttavia vi sono ``ingredienti'' intrinsecamente comuni a tutti i linguaggi elementari:
+\begin{itemize}
+  \item $\mathscr{V}$ (o $Var$): insieme infinito di simboli detti \textbf{variabili individuali}, chiamate così perché la loro interpretazione sarà quella di un \textit{individuo generico} dell'universo del discorso
+  \item \textit{Connettivi}: $\land, \lor, \neg, \rightarrow, \bot, \top, \leftrightarrow, \cdots$
+  \item \textit{Quantificatori}: $\forall, \exists$.
+\end{itemize} 
 
-Il linguaggio $F_L$ delle formule sul linguaggio elementare $L$ sarà definito 
-a partire dai simboli in $L$ e dai possibili connettivi. 
+Il linguaggio $\mathscr{F}_\mathscr{L}$ delle formule sul linguaggio elementare $\mathscr{L}$ sarà definito 
+a partire dai simboli in $\mathscr{L}$ e dai possibili connettivi. 
 
 \begin{oss}
-        Esiste un predicato speciale nella logica del primo ordine 
-        che a livello sintattico è uguale agli altri, ma la sua interpretazione 
-        è fissata. Se $\mathcal{P}$ contiene il simbolo $'='$, la sua arità 
-        sarà fissata $\alpha('=') = 2$ e $L = (\mathcal{P}, F, \alpha, \beta)$ 
-        è detto \textit{linguaggio con identità}.
+        Esiste un predicato speciale nella logica del primo ordine che a livello sintattico è uguale agli altri, ma la sua interpretazione è fissata. Se $\mathscr{P}$ contiene il simbolo $'='$, la sua arietà sarà fissata $\alpha('=') = 2$ e $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$ è detto \textit{linguaggio con identità}.
 \end{oss}
 
+\begin{defi}[$\mathscr{L}$-termini]
+  Sia $\mathscr{L} = (\mathscr{P}, \mathscr{F}, \alpha, \beta)$. \\
+  Allora l'insieme $\mathscr{T_L}$ degli $\mathscr{L}$-termini è definito come segue:
+  \begin{itemize}
+    \item \textbf{base}:
+      \begin{itemize}
+        \item ogni $x \in Var$ è un termine. 
+        \item ogni $c \in \mathscr{F}$ tale che $\beta(c) = 0$, $c$ è un termine detto \textbf{costante}
+      \end{itemize}
+    \item \textbf{passo}: siano $f \in \mathscr{F}$ tale che $\beta(f) = n$ e $t_1, t_2, \cdots, t_n \in \mathscr{T_L}$ termini già costruiti, allora $f(t_1, t_2, \cdots, t_n)$ è un $\mathscr{L}$-termine. 
+    \item nient'altro è un $\mathscr{L}$-termine.
+  \end{itemize}
+  I termini sono dei nomi che designano un oggetto nell'universo del discorso.
+\end{defi}
+
 \begin{defi}[Formule]
-La definizione di \textbf{Formula di} $L$ ($F \in F_L$) è data per strati 
-e induttivamente: il primo strato è quello dei \textit{termini}, 
-i quali \textbf{non sono formule} ma si \textit{usano} per costruire formule.
+Il ruolo delle \textit{formule di} $\mathscr{L}$ è predicare sopra dei determinati $\mathscr{L}$-termini, affermando se certe relazioni tra di loro sono vere o false.
 
-\begin{defi}[$L$-termini]
-        Sia $L = (\mathcal{P}, F, \alpha, \beta)$. 
-
-        Allora l'insieme $T_L$ degli $L$-termini è definito come segue: 
-
-        \paragraph{Base} 
-        \begin{itemize}
-                \item Ogni $x \in Var(L)$ è  un termine. 
-                \item Per ogni $c \in F$ tale che $\beta(c) = 0$, $c$ è un termine, 
-        detto \textbf{costante}. 
-        \end{itemize}
-
-        \paragraph{Passo Induttivo} Se $f \in F$ è tale che $\beta(f) = n$ e 
-        $t_1, t_2, \cdots, t_n \in T_L$ (sono termini già costruiti), 
-        allora $f(t_1, t_2, \cdots, t_n)$ è un $L$-termine. 
-        
-        Nient'altro è un $L$-termine.
+L'insieme $\mathscr{F}_\mathscr{L}$ delle $\mathscr{L}$-formule è definito induttivamente come segue:
+\begin{itemize}
+  \item \textbf{base}: siano $p \in \mathscr{P}$ tale che $\alpha(p)=n$ e $t_1, \cdots, t_n \in \mathscr{T_L}$ degli $\mathscr{L}$-termini, allora $P(t_1, \cdots, t_n)$ è una $\mathscr{L}$-formula detta \textbf{formula atomica}. \\
+  Le formule atomiche sono il corrispettivo nella Logica del Primo Ordine delle lettere proposizionali.
+  \item \textbf{passo}: se $A,B \in \mathscr{F}_\mathscr{L}$, allora sono $\mathscr{L}$-formule anche $(A \land B)$, $(A \lor B)$, $(\neg A)$, $(A\rightarrow B)$
+  \item se $A \in \mathscr{F}_\mathscr{L}$ e $x \in Var$, allora sono $\mathscr{L}$-formule anche $(\forall x A)$ e $(\exists x A)$.
+  \item nient'altro è una $\mathscr{L}$-formula.
+\end{itemize}
 \end{defi}
-
-        L'insieme $F_L$ delle $L$-Formule è definito come segue. 
-
-        \paragraph{Base} Se $p \in \mathcal{P}$ e $\alpha(p)=n$ e $t_1, \cdots, t_n \in T_L$
-        allora $P(t_1, \cdots, t_n)$ è una $L$-Formula detta 
-        \textbf{formula atomica}. Le formule atomiche sono il corrispettivo 
-
-        \paragraph{Passo Induttivo} Se $A,B \in F_L$ allora anche 
-        $A \land B$, $A \lor B$, $\neg A$, $A\rightarrow B$ sono $L$-Formule.
-        Se $A \in F_L$ e $x \in V$ allora anche $\forall x A$ e $\exists x A$
-        sono $L$-Formule. Se in $A$ non occorre $x$, $\forall x A$ 
-        e $\exists x A$ sono comunque formule, come anche 
-        $\forall x (\forall x A)$ e $\exists x (\forall x A)$. 
-
-        Nient'altro è una $L$-Formula.
-\end{defi}
+Nota: se in $A$ non occorre $x$, $\forall x A$ e $\exists x A$ sono comunque formule; così come anche $\forall x (\forall x A)$ e $\exists x (\forall x A)$. 
 
 \paragraph{Esercizio} Dare una nozione di \textit{certificato} per 
-$L$-termini e per $L$-Formule analoga alla $L$-costruzione in logica proposizionale. 
+$\mathscr{L}$-termini e per $\mathscr{L}$-formule analoga alla $\mathscr{L}$-costruzione in logica proposizionale. 
 
 \subsection{Terminologia}
 Introduciamo alcune nozioni terminologiche per potersi riferire alla sintassi 
@@ -194,21 +166,11 @@ Si userà liberamente la scrittura semplificata di formule omettendo coppie di p
 quando questo non causa ambiguità, ossia invece di $(\forall x A)$ si scriverà $\forall x A$.
 
 \begin{defi}[Termine Ground]
-        Un termine è detto \textbf{chiuso} o \textbf{ground} se è costruito 
-        senza utilizzare \textit{variabili}. 
+Un termine è detto \textbf{chiuso} o \textbf{ground} se è costruito senza utilizzare \textit{variabili}. 
 \end{defi}
 
-\begin{defi}[Variabile vincolata]
-        Una occorrenza di una variabile $x$ in una Formula $A \in F_L$ è 
-        detta \textbf{vincolata} se occorre all'interno di una sottoformula 
-        di $A$ (ossia una formula che appare in ogni certificato della $L$-formula $A$) 
-        del tipo $\forall x B$ o $\exists x B$. 
-\end{defi}
-
-\begin{defi}[Variabile libera]
-Una variabile $x \in V$ occorre libera in $A \in F_L$ se e solo se qualche  
-sua occorrenza è libera. Questa definizione permette di dare definizioni 
-anche nelle situazioni come l'osservazione precedente.
+\begin{defi}[Variabili vincolate e libere]
+Una occorrenza di una variabile $x$ in una formula $A \in \mathscr{F}_\mathscr{L}$ è detta \textbf{vincolata} se occorre all'interno di una sottoformula di $A$ (ossia una formula che appare in ogni certificato della $\mathscr{L}$-formula $A$) del tipo $\forall x B$ o $\exists x B$, altrimenti è detta \textbf{libera}.
 \end{defi}
 
 Per esempio, nella formula 
@@ -223,18 +185,11 @@ $$
 
 Sia $x$ che $y$ occorrono sempre vincolate. 
 
-Questo ci permette di introdurre il concetto fondamentale sul quale lavoreremo: 
-infatti, non ragioneremo più su \textit{formule} quando definiremo la semantica 
-della Logica dei Predicati, ma si ragionerà su un particoalre tipo di formula: 
-\begin{defi}[$L$-sentence o Enunciato]
-        Un $L$-\textbf{enunciato} o $L$-\textbf{sentence}, detto anche formula 
-        chiusa, è una $L$-formula senza occorrenze di variabili libere 
-        (o senza variabili libere).
+Questo ci permette di introdurre il concetto fondamentale sul quale lavoreremo: infatti, non ragioneremo più su \textit{formule} quando definiremo la semantica della Logica dei Predicati, ma si ragionerà su un particoalre tipo di formula: 
+\begin{defi}[$\mathscr{L}$-enunciato o formula chiusa]
+Un $\mathscr{L}$-\textbf{enunciato} ($\mathscr{L}$-sentence) o \textit{formula chiusa} è una $\mathscr{L}$-formula senza variabili libere.
 \end{defi}
 
 \begin{defi}[Sostituzione]
-        Con la notazione $A[t/x]$ con $A$ una formula, $x$ variabile 
-        e $t$ un termine, si intende la formula ottenuta rimpiazzando 
-        simultaneamente tutte e sole le occorrenze \textbf{libere} di $x$ 
-        con $t$. 
+Con la notazione $A[t/x]$ con $A \in \mathscr{F}_\mathscr{L}$, $x \in Var$ e $t$ un $\mathscr{L}$-termine, si intende la formula ottenuta rimpiazzando simultaneamente tutte e sole le occorrenze \textbf{libere} di $x$ con $t$. 
 \end{defi}
