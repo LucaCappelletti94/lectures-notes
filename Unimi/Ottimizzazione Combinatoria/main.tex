@@ -1,13 +1,26 @@
+\documentclass[italian]{lectures}
 \providecommand{\main}{.}
-\input{\main/../../general/packages.tex}
-\usepackage[makeroom]{cancel}
 \addbibresource{references.bib}
 
 \begin{document}
 
-\input{\main/../../general/title.tex}
+\maketitle{
+    Ottimizzazione Combinatoria
+}{
+    Luca Cappelletti
+}{
+    Marco Trubian
+}{}{
+    2019
+}{6}{
+    Informatica Magistrale
+}{
+    Università degli studi di Milano
+}{
+    Italia
+}
 
-{\hypersetup{hidelinks}\tableofcontents}
+\tableofcontents
 
 \subfile{\main/chapters/introduzione.tex}
 \subfile{\main/chapters/matching.tex}
@@ -16,8 +29,5 @@
 \subfile{\main/chapters/dijkstra.tex}
 \subfile{\main/chapters/ford_fulkerson.tex}
 \subfile{\main/chapters/push_relabel.tex}
-
-
-\input{\main/../../general/footer.tex}
 
 \end{document}

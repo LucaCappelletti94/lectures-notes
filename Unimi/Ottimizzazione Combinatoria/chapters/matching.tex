@@ -3,8 +3,6 @@
 \begin{document}
 \chapter{Matching Covers}
 
-
-
 \section{Matching}
 \setlength\columnsep{25pt}
 \begin{multicols}{2}
@@ -562,7 +560,7 @@
 	Pertanto, \(Z\) è un insieme trasversale di cardinalità pari a \(\mu(G)\).
 \end{proof}
 \clearpage
-\begin{proof}[Teorema di König (Rizzi, 1999)]
+\begin{proof}[Teorema di König]
 	Dato un grafo \(G\), per le disuguaglianze duali deboli (\ref{duali_deboli}), vale che: \(\mu(G) \leq \tau(G)\). Per assurdo ipotizziamo che esistano grafi \textbf{bipartiti} per cui valga: \(\mu(G) < \tau(G)\).
 
 	Tra tutti i possibili grafi che violano il teorema di König ne scegliamo uno come controesempio \textbf{minimo} (\textit{significa che qualsiasi grafo più piccolo andrebbe a rispettare il teorema di König}):
@@ -1631,8 +1629,8 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 		\While{\(\bmx \) è inammissibile}{
 			Step 3.1: Inizializzazione del cammino\;
 			\(Path \leftarrow nil\)\;
-			\While{\(\rnd{Path = nil}\)}{
-				\While{\(\rnd{Path = nil} \land \rnd{L \neq \emptyset}\)}{
+			\While{\(Path = nil\)}{
+				\While{\(Path = nil \land L \neq \emptyset\)}{
 					Step 3.2: Propagazione delle etichette\;
 				}
 				\If{\(Path = nil\)}{
@@ -1671,7 +1669,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 		}
 		\Hungarian{}
 		\caption{Grafo}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -1686,7 +1684,7 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -1755,7 +1753,7 @@ I valori in fondo a destra delle tabelle sono rispettivamente:
 			t4,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -1770,18 +1768,18 @@ I valori in fondo a destra delle tabelle sono rispettivamente:
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 11       & 18       & 9        & 0        & \blue{4}           \\
-			s_1          & 5        & 14       & 8        & 0        & \blue{7}           \\
-			s_2          & 10       & 14       & 16       & 0        & \blue{6}           \\
-			s_3          & 1        & 6        & 3        & 0        & \blue{5}           \\
+			s_1          & 11       & 18       & 9        & 0        & \blue{4}           \\
+			s_2          & 5        & 14       & 8        & 0        & \blue{7}           \\
+			s_3          & 10       & 14       & 16       & 0        & \blue{6}           \\
+			s_4          & 1        & 6        & 3        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{0} & \blue{0} & \blue{0} & \blue{0} & \textbf{\blue{22}} \\
+			\blue{\bmv}          & \blue{0} & \blue{0} & \blue{0} & \blue{0} & \textbf{\blue{22}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -1822,7 +1820,7 @@ I valori in fondo a destra delle tabelle sono rispettivamente:
 \begin{figure}
 	\begin{subfigure}{0.33\textwidth}
 		\DualInizializationLastStep{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -1837,18 +1835,18 @@ I valori in fondo a destra delle tabelle sono rispettivamente:
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -1863,8 +1861,8 @@ I valori in fondo a destra delle tabelle sono rispettivamente:
 		\For{\(v \in V_1 \cup V_2 \)}{
 			\(\text{Mate}_v = nil\)\;
 		}
-		\(\text{Card} \leftarrow 0\)
-		\While{\(\rnd{\exists i,j: \rnd{c_{ij} - u_i - v_j = 0}\land\rnd{\text{Mate}_i = nil}\land\rnd{\text{Mate}_j = nil}}\)}{
+		\(\text{Card} \leftarrow 0\)\;
+		\While{\(\rnd{\exists i,j: c_{ij} - u_i - v_j = 0 \land \text{Mate}_i = nil \land \text{Mate}_j = nil}\)}{
 			\(x_{ij} \leftarrow 1\)\;
 			\(\text{Card} \leftarrow \text{Card} + 1\)\;
 			\(\text{Mate}_i \leftarrow j\)\;
@@ -1910,7 +1908,7 @@ Nel caso in esempio vi sono \(7\) celle ammissibili, cioè quelle che rendono at
 			t4,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -1925,18 +1923,18 @@ Nel caso in esempio vi sono \(7\) celle ammissibili, cioè quelle che rendono at
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -1971,7 +1969,7 @@ A questo punto abbiamo ancora tre celle ammissibili, pertanto la cella \(\rnd{4,
 \begin{figure}
 	\begin{subfigure}{0.33\textwidth}
 		\PrimalInitializationLastStep{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -1986,18 +1984,18 @@ A questo punto abbiamo ancora tre celle ammissibili, pertanto la cella \(\rnd{4,
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2072,7 +2070,7 @@ Vi sono due nodi non assegnati in \(V_1\): \(L = \crl{s_2, s_3}\)
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2087,18 +2085,18 @@ Vi sono due nodi non assegnati in \(V_1\): \(L = \crl{s_2, s_3}\)
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2130,7 +2128,7 @@ La propagazione termina quando un nodo non assegnato \(v \in V_2\) viene etichet
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\For{\(j \in V_2: \rnd{Label_j = nil} \land \rnd{c_{vj} - u_v - v_v = 0}\)}{
+		\For{\(j \in V_2: Label_j = nil \land c_{vj} - u_v - v_v = 0\)}{
 			\(\text{Label}_j \leftarrow k\)\;
 			\(L \leftarrow L \cup \crl{j}\)\;
 		}
@@ -2188,7 +2186,7 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2203,18 +2201,18 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2249,7 +2247,7 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2264,18 +2262,18 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2310,7 +2308,7 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2325,18 +2323,18 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2371,7 +2369,7 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2386,18 +2384,18 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2413,7 +2411,7 @@ Nessun cammino da sorgente \(s\) a destinazione \(t\) è stato identificato. I n
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\(\delta \leftarrow \min_{j \in V_2}\crl{p_j: \text{Label}_j ) nil}\)\;
+		\(\delta \leftarrow \min_{j \in V_2}\crl{p_j: \text{Label}_j \neq nil}\)\;
 		\For{\(i \in V_1: \text{Label}_i \neq nil\)}{
 			\(u_i \leftarrow  u_i + \delta\)\;
 		}
@@ -2423,7 +2421,7 @@ Nessun cammino da sorgente \(s\) a destinazione \(t\) è stato identificato. I n
 		\For{\(j \in V_2: \text{Label}_j = nil\)}{
 			\(p_j \leftarrow  p_j - \delta\)\;
 		}
-		\For{\(j \in V_2: \rnd{\text{Label}_j = nil} \land \rnd{p_j = 0}\)}{
+		\For{\(j \in V_2: \text{Label}_j = nil \land p_j = 0\)}{
 			\(\text{Label}_j \leftarrow \rnd{\pi_j, +}\)\;
 			\(L \leftarrow L \cup \crl{j}\)\;
 		}
@@ -2459,7 +2457,7 @@ Il valore \(\delta \) è il costo minimo ridotto nella sotto-matrice di righe et
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2474,18 +2472,18 @@ Il valore \(\delta \) è il costo minimo ridotto nella sotto-matrice di righe et
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
 			\hline
-			s_0          & 10       & 12       & 6        & 0        & \blue{4}           \\
-			s_1          & 4        & 8        & 5        & 0        & \blue{7}           \\
-			s_2          & 9        & 8        & 13       & 0        & \blue{6}           \\
-			s_3          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2522,7 +2520,7 @@ Consideriamo i lati che uniscono i nodi etichettati in \(V_1\) con i nodi non et
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2537,18 +2535,18 @@ Consideriamo i lati che uniscono i nodi etichettati in \(V_1\) con i nodi non et
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2588,7 +2586,7 @@ La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2603,18 +2601,18 @@ La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2649,7 +2647,7 @@ La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2664,18 +2662,18 @@ La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2710,7 +2708,7 @@ La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2725,18 +2723,18 @@ La cella \(\rnd{4,4}\) cessa di essere ammissibile, mentre la cella \(\rnd{2, 1}
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2801,7 +2799,7 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2816,18 +2814,18 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2862,7 +2860,7 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2877,18 +2875,18 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2923,7 +2921,7 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2938,18 +2936,18 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2984,7 +2982,7 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			t3,t;
 		}
 		\Hungarian{}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
@@ -2999,18 +2997,18 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 			\hline
 		\end{tabular}
 		\caption{Matching parziali}
-	\end{subfigure}
+	\end{subfigure}%
 	\begin{subfigure}{0.33\textwidth}
 		\begin{tabular}{ |L|LLLL|L| }
 			\hline
 			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4       & \blue{\bmu}        \\
 			\hline
-			s_0          & 6        & 8        & 2        & 0         & \blue{8}           \\
-			s_1          & 0        & 4        & 1        & 0         & \blue{11}          \\
-			s_2          & 5        & 4        & 9        & 0         & \blue{10}          \\
-			s_3          & 0        & 0        & 0        & 4         & \blue{5}           \\
+			s_1          & 6        & 8        & 2        & 0         & \blue{8}           \\
+			s_2          & 0        & 4        & 1        & 0         & \blue{11}          \\
+			s_3          & 5        & 4        & 9        & 0         & \blue{10}          \\
+			s_4          & 0        & 0        & 0        & 4         & \blue{5}           \\
 			\hline
-			s_4          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{-4} & \textbf{\blue{40}} \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
