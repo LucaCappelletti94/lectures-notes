@@ -2129,7 +2129,7 @@ La propagazione termina quando un nodo non assegnato \(v \in V_2\) viene etichet
 	\begin{algorithm}[H]
 		\SetAlgoLined
 		\For{\(j \in V_2: Label_j = nil \land c_{vj} - u_v - v_v = 0\)}{
-			\(\text{Label}_j \leftarrow k\)\;
+			\(\text{Label}_j \leftarrow v\)\;
 			\(L \leftarrow L \cup \crl{j}\)\;
 		}
 		\caption{Propagazione delle etichette da \(V_1\) a \(V_2\)}
