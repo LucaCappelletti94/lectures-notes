@@ -1628,12 +1628,12 @@ Per garantire l'ottimalità della soluzione, le CSCs impongono che:
 		Step 2: Inizializzazione primale di \(\bmx \)\;
 		\While{\(\bmx \) è inammissibile}{
 			Step 3.1: Inizializzazione del cammino\;
-			\(Path \leftarrow nil\)\;
-			\While{\(Path = nil\)}{
-				\While{\(Path = nil \land L \neq \emptyset\)}{
+			\(PathEnd \leftarrow nil\)\;
+			\While{\(PathEnd = nil\)}{
+				\While{\(PathEnd = nil \land L \neq \emptyset\)}{
 					Step 3.2: Propagazione delle etichette\;
 				}
-				\If{\(Path = nil\)}{
+				\If{\(PathEnd = nil\)}{
 					Step 4: Iterazione duale, modifica di \(\bmu \) e \(\bmv \)\;
 				}
 			}
@@ -2022,8 +2022,8 @@ Il vettore \(\bmp \) mantiene il valore minimo del costo ridotto per ogni colonn
 	\begin{algorithm}[H]
 		\SetAlgoLined
 		\(L\leftarrow \emptyset\)\;
-		\For{\(v \in V_1 \cup V_2 \)}{
-			\(\text{Label}_v = nil\)\;
+		\For{\(k \in V_1 \cup V_2 \)}{
+			\(\text{Label}_k = nil\)\;
 		}
 		\For{\(j \in  V_2 \)}{
 			\(p_j \leftarrow \infty\)\;
@@ -2033,8 +2033,8 @@ Il vettore \(\bmp \) mantiene il valore minimo del costo ridotto per ogni colonn
 			\(\text{Label}_i \leftarrow s\)\;
 			\(L \leftarrow L \cup \crl{i} \)\;
 			\For{\(j \in V_2: \text{ Label}_j = nil\)}{
-				\If{\(c_{ij} - u_i - v_i < p_j\)}{
-					\(p_j \leftarrow c_{ij} - u_i - v_i\)\;
+				\If{\(c_{ij} - u_i - v_j < p_j\)}{
+					\(p_j \leftarrow c_{ij} - u_i - v_j\)\;
 					\(\pi_j \leftarrow i\)\;
 				}
 			}
@@ -2042,14 +2042,15 @@ Il vettore \(\bmp \) mantiene il valore minimo del costo ridotto per ogni colonn
 		\caption{Inizializzazione del cammino}
 	\end{algorithm}
 \end{figure}
+
 Vi sono due nodi non assegnati in \(V_1\): \(L = \crl{s_2, s_3}\)
 \begin{figure}
 	\begin{subfigure}{0.33\textwidth}
 		\NewAdigraph{Hungarian}{
 			s:0,0:\(s\);
 			s1:1.5,2:\(s_1\);
-			s2,,1:1.5,0.75:\(s\);
-			s3,,1:1.5,-0.75:\(s\);
+			s2,,1:1.5,0.75:\(s_2\);
+			s3,,1:1.5,-0.75:\(s_3\);
 			s4:1.5,-2:\(s_4\);
 			t1:3.5,2:\(t_1\);
 			t2:3.5,0.75:\(t_2\);
@@ -2098,25 +2099,167 @@ Vi sono due nodi non assegnati in \(V_1\): \(L = \crl{s_2, s_3}\)
 			\hline
 			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
 			\hline
+			\blue{\bm{p}} & \infty   & \infty   & \infty   & \infty   &     \\
+			\hline
+			\blue{\bm{\pi}} & nil     & nil      & nil      & nil      &     \\
+			\hline
 		\end{tabular}
 		\caption{Duale}
 	\end{subfigure}
 	\caption{Identificazione dei nodi non marcati}
 \end{figure}
+
+Proseguiamo inserendo \(L = \crl{s_2}\):
+
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2,,1:1.5,0.75:\(\rnd{s}\);
+			s3,,1:1.5,-0.75:\(s_3\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}%
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}%
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & \bm{4}        & \bm{8}        & \bm{5}        & \bm{0}        & \blue{7}           \\
+			s_3          & 9        & 8        & 13       & 0        & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+			\blue{\bm{p}} & 4 	  & 8		& 5        & 0        &     \\
+			\hline
+			\blue{\bm{\pi}} & s_2     & s_2      & s_2      & s_2      &     \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Inserimento di \(s_2\)}
+\end{figure}
+
+Inseriamo ora il secondo nodo non-marcato \(s_3\), portando \(L\) ad essere pari a \(\crl{s_2, s_3}\).
+Osserviamo che, siccome tutti i costi associati a \(s_2\) sono minori o uguali ai costi associati a \(s_3\),
+non osserviamo nessun cambiamento negli indici minimi di costo ridotto \(\bm{\pi}\).
+
+
+\begin{figure}
+	\begin{subfigure}{0.33\textwidth}
+		\NewAdigraph{Hungarian}{
+			s:0,0:\(s\);
+			s1:1.5,2:\(s_1\);
+			s2,,1:1.5,0.75:\(\rnd{s}\);
+			s3,,1:1.5,-0.75:\(\rnd{s}\);
+			s4:1.5,-2:\(s_4\);
+			t1:3.5,2:\(t_1\);
+			t2:3.5,0.75:\(t_2\);
+			t3:3.5,-0.75:\(t_3\);
+			t4:3.5,-2:\(t_4\);
+			t:5,0:\(t\);
+		}{
+			s,s2;
+			s,s3;
+			s1,t4,red, 1;
+			s2,t4;
+			s3,t4;
+			s4,t4;
+			s4,t1,red,1;
+			s4,t2;
+			s4,t3;
+			t2,t;
+			t3,t;
+		}
+		\Hungarian{}
+	\end{subfigure}%
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			            & t_1     & t_2       & t_3       & t_4     & \text{Mate}       \\
+			\hline
+			s_1         & 15      & 22        & 13        & \red{4} & \red{4}           \\
+			s_2         & 12      & 21        & 15        & 7       & \red{nil}         \\
+			s_3         & 16      & 20        & 22        & 6       & \red{nil}         \\
+			s_4         & \red{6} & 11        & 8         & 5       & \red{1}           \\
+			\hline
+			\text{Mate} & \red{4} & \red{nil} & \red{nil} & \red{1} & \textbf{\red{10}} \\
+			\hline
+		\end{tabular}
+		\caption{Matching parziali}
+	\end{subfigure}%
+	\begin{subfigure}{0.33\textwidth}
+		\begin{tabular}{ |L|LLLL|L| }
+			\hline
+			\blue{\bbmc} & t_1      & t_2      & t_3      & t_4      & \blue{\bmu}        \\
+			\hline
+			s_1          & 10       & 12       & 6        & 0        & \blue{4}           \\
+			s_2          & 4        & 8        & 5        & 0        & \blue{7}           \\
+			s_3          & \bm{9}   & \bm{8}   & \bm{13}  & \bm{0}   & \blue{6}           \\
+			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
+			\hline
+			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+			\blue{\bm{p}} & 4 	  & 8		& 5        & 0        &     \\
+			\hline
+			\blue{\bm{\pi}} & s_2     & s_2      & s_2      & s_2      &     \\
+			\hline
+		\end{tabular}
+		\caption{Duale}
+	\end{subfigure}
+	\caption{Inserimento di \(s_3\)}
+\end{figure}
+
 \clearpage
 \subsubsection{Step 3.2: Propagazione delle etichette}
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\(v \leftarrow L.pop\rnd{}\)\;
-		\uIf{\(v \in V_1\)}{
-			Step 3.2.A: Propagazione da \(v \in V_1\) a \(V_2\)\;
+		\(k \leftarrow L.pop\rnd{}\)\;
+		\uIf{\(k \in V_1\)}{
+			Step 3.2.A: Propagazione da \(k \in V_1\) a \(V_2\)\;
 		}
-		\uElseIf{\(\text{Mate}_v \neq nil\)}{
-			Step 3.2.B: Propagazione da \(v \in V_2\) a \(V_1\)\;
+		\uElseIf{\(\text{Mate}_k \neq nil\)}{
+			Step 3.2.B: Propagazione da \(k \in V_2\) a \(V_1\)\;
 		}
 		\Else{
-			\(\text{Path} \leftarrow v\)
+			\(\text{PathEnd} \leftarrow k\)
 		}
 		\caption{Propagazione delle etichette}
 	\end{algorithm}
@@ -2128,8 +2271,8 @@ La propagazione termina quando un nodo non assegnato \(v \in V_2\) viene etichet
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\For{\(j \in V_2: Label_j = nil \land c_{vj} - u_v - v_v = 0\)}{
-			\(\text{Label}_j \leftarrow v\)\;
+		\For{\(j \in V_2: Label_j = nil \land c_{kj} - u_k - v_j = 0\)}{
+			\(\text{Label}_j \leftarrow k\)\;
 			\(L \leftarrow L \cup \crl{j}\)\;
 		}
 		\caption{Propagazione delle etichette da \(V_1\) a \(V_2\)}
@@ -2145,13 +2288,13 @@ La propagazione da \(v \in V_1\) a \(V_2\) avviene lungo i lati tali che:
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\If{\(\text{Label}_{\text{Mate}_v} = nil\)}{
-		\(\text{Label}_{\text{Mate}_v} \leftarrow v\)\;
-		\(L \leftarrow L \cup \crl{Mate_v}\)\;
+		\If{\(\text{Label}_{\text{Mate}_k} = nil\)}{
+		\(\text{Label}_{\text{Mate}_k} \leftarrow k\)\;
+		\(L \leftarrow L \cup \crl{Mate_k}\)\;
 		\For{\(j \in V_2: \text{Label}_j = nil\)}{
-			\If{\(c_{\text{Mate}_v j} - u_{\text{Mate}_v} - v_j < p_j\)}{
-				\(p_j \leftarrow c_{\text{Mate}_v j} - u_{\text{Mate}_v} - v_j\)\;
-				\(\pi_j \leftarrow \text{Mate}_v\)\;
+			\If{\(c_{\text{Mate}_k j} - u_{\text{Mate}_k} - v_j < p_j\)}{
+				\(p_j \leftarrow c_{\text{Mate}_k j} - u_{\text{Mate}_k} - v_j\)\;
+				\(\pi_j \leftarrow \text{Mate}_k\)\;
 			}
 		}
 		}
@@ -2164,13 +2307,13 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 		\NewAdigraph{Hungarian}{
 			s:0,0:\(s\);
 			s1:1.5,2:\(s_1\);
-			s2,blue,1:1.5,0.75:\(s_2\);
-			s3:1.5,-0.75:\(s_3\);
+			s2,blue,1:1.5,0.75:\(\rnd{s}\);
+			s3:1.5,-0.75:\(\rnd{s}\);
 			s4:1.5,-2:\(s_4\);
 			t1:3.5,2:\(t_1\);
 			t2:3.5,0.75:\(t_2\);
 			t3:3.5,-0.75:\(t_3\);
-			t4,red,1:3.5,-2:\(t_4\);
+			t4,red,1:3.5,-2:\(\rnd{2}\);
 			t:5,0:\(t\);
 		}{
 			s,s2;
@@ -2213,6 +2356,10 @@ La propagazione da \(v \in V_2\) a \(V_1\) avviene lungo i lati del matching par
 			s_4          & 0        & 0        & 0        & 0        & \blue{5}           \\
 			\hline
 			\blue{\bmv}          & \blue{1} & \blue{6} & \blue{3} & \blue{0} & \textbf{\blue{32}} \\
+			\hline
+			\blue{\bm{p}} & 4 	  & 8		& 5        & 0        &     \\
+			\hline
+			\blue{\bm{\pi}} & s_2     & s_2      & s_2      & s_2      &     \\
 			\hline
 		\end{tabular}
 		\caption{Duale}
@@ -2411,7 +2558,7 @@ Nessun cammino da sorgente \(s\) a destinazione \(t\) è stato identificato. I n
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\(\delta \leftarrow \min_{j \in V_2}\crl{p_j: \text{Label}_j \neq nil}\)\;
+		\(\delta \leftarrow \min_{j \in V_2}\crl{p_j: \text{Label}_j = nil}\)\;
 		\For{\(i \in V_1: \text{Label}_i \neq nil\)}{
 			\(u_i \leftarrow  u_i + \delta\)\;
 		}
@@ -2422,12 +2569,13 @@ Nessun cammino da sorgente \(s\) a destinazione \(t\) è stato identificato. I n
 			\(p_j \leftarrow  p_j - \delta\)\;
 		}
 		\For{\(j \in V_2: \text{Label}_j = nil \land p_j = 0\)}{
-			\(\text{Label}_j \leftarrow \rnd{\pi_j, +}\)\;
+			\(\text{Label}_j \leftarrow \pi_j\)\;
 			\(L \leftarrow L \cup \crl{j}\)\;
 		}
 		\caption{Iterazione duale}
 	\end{algorithm}
 \end{figure}
+
 Il valore \(\delta \) è il costo minimo ridotto nella sotto-matrice di righe etichettate e colonne non etichettate. Almeno una nuova cella diviene ammissibile ed è utilizzata per etichettare un nodo in più in \(V_2\).
 
 \begin{figure}
@@ -2748,7 +2896,7 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 \begin{figure}
 	\begin{algorithm}[H]
 		\SetAlgoLined
-		\(j\leftarrow \text{Path}\)\;
+		\(j\leftarrow \text{PathEnd}\)\;
 		\While{\(j = s\)}{
 			\(i \leftarrow \text{Label}_j\)\;
 			\(\text{Mate}_j \leftarrow i\)\;
