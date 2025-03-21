@@ -2290,7 +2290,7 @@ La propagazione da \(v \in V_1\) a \(V_2\) avviene lungo i lati tali che:
 		\SetAlgoLined
 		\If{\(\text{Label}_{\text{Mate}_k} = nil\)}{
 		\(\text{Label}_{\text{Mate}_k} \leftarrow k\)\;
-		\(L \leftarrow L \cup \crl{Mate_k}\)\;
+		\(L \leftarrow L \cup \crl{\text{Mate}_k}\)\;
 		\For{\(j \in V_2: \text{Label}_j = nil\)}{
 			\If{\(c_{\text{Mate}_k j} - u_{\text{Mate}_k} - v_j < p_j\)}{
 				\(p_j \leftarrow c_{\text{Mate}_k j} - u_{\text{Mate}_k} - v_j\)\;
@@ -2897,7 +2897,7 @@ Il nodo estratto \(t_2\) non è assegnato: un cammino \(s\rightarrow t\) è stat
 	\begin{algorithm}[H]
 		\SetAlgoLined
 		\(j\leftarrow \text{PathEnd}\)\;
-		\While{\(j = s\)}{
+		\Repeat{\(j = s\)} {
 			\(i \leftarrow \text{Label}_j\)\;
 			\(\text{Mate}_j \leftarrow i\)\;
 			\(\text{Mate}_i \leftarrow j\)\;
