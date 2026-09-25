@@ -4,12 +4,12 @@
 \chapter{Funzioni kernel}
 \begin{multicols}{2}
 \begin{observation}[Limiti dei predittori lineari]
-    I predittori lineari possono soffrire di un errore di bias molto elevato in quanto il predittore Bayesiano ottimo \(f^*\) è spesso molto lontano dall'essere lineare. Questo crea un potenziale rischio di underfitting tutte le volte che utilizziamo un algoritmo di apprendimento che genra predittori lineari.
+    I predittori lineari possono soffrire di un errore di bias molto elevato in quanto il predittore Bayesiano ottimo \(f^*\) è spesso molto lontano dall'essere lineare. Questo crea un potenziale rischio di underfitting tutte le volte che utilizziamo un algoritmo di apprendimento che genera predittori lineari.
 \end{observation}
 \begin{observation}[Applicazione a predittori di mappe non lineari]
     Utilizzando una mappa non lineare per trasformare le istanze di un problema di apprendimento diventa possibile utilizzare predittori lineari per rappresentare predittori non lineari, alleviando il problema dell'underfitting.
     
-    Consideriamo infatti una funzione non lineari \(\funcdef{\phi}{\R^d}{\mathbb{V}}\) che mappa le istanze \(\bmx \in \R^d\) in un nuovo spazio \(\mathbb{V}\) con un numero molto maggiore, anche infinito, di dimensioni.
+    Consideriamo infatti una funzione non lineare \(\funcdef{\phi}{\R^d}{\mathbb{V}}\) che mappa le istanze \(\bmx \in \R^d\) in un nuovo spazio \(\mathbb{V}\) con un numero molto maggiore, anche infinito, di dimensioni.
     
     Costruendo la funzione \(\phi\) opportunamente, abbiamo che superfici non lineari in \(\R^d\) vengono mappate in superfici lineari in \(\mathbb{V}\).
 \end{observation}
@@ -24,7 +24,7 @@
     \begin{enumerate}
         \item Leggi il prossimo esempio \(\rnd{\bmx_t, y_t}\)
         \item Calcola \(\hat{y_t} = \operatorname{sgn}\left(\sum_{s \in S} y_{s} K\left(\boldsymbol{x}_{s}, \boldsymbol{x}_{t}\right)\right)\)
-        \item Se \(\hat{y_t} = y_t\) aggiungi \(t\) a \(S\)
+        \item Se \(\hat{y_t} \neq y_t\) aggiungi \(t\) a \(S\)
     \end{enumerate}
 \end{definition}
 \begin{definition}[Kernel Polinomiale]
@@ -55,7 +55,7 @@
 \end{definition}
 \begin{definition}[Mappa per Kernel Gaussiano]
     Per identificare la mappa associata ad un kernel gaussiano \(K_{\gamma}\) procediamo come segue:
-    \begin{align*} e^{\left(-\frac{1}{2 \gamma}\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\|^{2}\right)} &=e^{ \left(-\frac{1}{2 \gamma}\left(\|\boldsymbol{x}\|^{2}+\left\|\boldsymbol{x}^{\prime}\right\|^{2}\right)\right)} e^{\left(\frac{1}{\gamma}\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)\right)}s \\ &=e^{ \left(-\frac{\|\boldsymbol{x}\|^{2}}{2 \gamma}\right)} e^{ \left(-\frac{\left\|\boldsymbol{x}^{\prime}\right\|^{2}}{2 \gamma}\right)} \sum_{n=0}^{\infty} \frac{1}{n !} \frac{\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)^{n}}{\gamma^{n}} \end{align*}
+    \begin{align*} e^{\left(-\frac{1}{2 \gamma}\left\|\boldsymbol{x}-\boldsymbol{x}^{\prime}\right\|^{2}\right)} &=e^{ \left(-\frac{1}{2 \gamma}\left(\|\boldsymbol{x}\|^{2}+\left\|\boldsymbol{x}^{\prime}\right\|^{2}\right)\right)} e^{\left(\frac{1}{\gamma}\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)\right)} \\ &=e^{ \left(-\frac{\|\boldsymbol{x}\|^{2}}{2 \gamma}\right)} e^{ \left(-\frac{\left\|\boldsymbol{x}^{\prime}\right\|^{2}}{2 \gamma}\right)} \sum_{n=0}^{\infty} \frac{1}{n !} \frac{\left(\boldsymbol{x}^{\top} \boldsymbol{x}^{\prime}\right)^{n}}{\gamma^{n}} \end{align*}
     dove utilizziamo l'espansione in serie di Taylor \(e^{x}=1+x+\frac{x^{2}}{2 !}+\cdots\).
     
     È possibile notare che il kernel Gaussiano è una combinazione lineare di infiniti kernel polinomiali di grado crescente, ciascuno pesato dal reciproco del fattoriale del suo grado.

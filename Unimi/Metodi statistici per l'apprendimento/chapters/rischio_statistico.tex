@@ -43,8 +43,8 @@
         Iniziamo ora a calcolare il predittore Bayesiano ottimo per la funzione di perdita quadratica \(\loss{y}{\hat{y}} = \rnd{y-\hat{y}}^2\) nel caso \(\mathbb{Y} \equiv \R\):
         \begin{align*}
             \bayesf{\bmx} &= \argmin_{\hat{y} \in \R} \mean{\rnd{Y-\hat{y}}^2}{\bm{X} = \bmx}\\
-            &= \argmin_{\hat{y} \in \R} \rnd{\mean{Y^2}{\bm{X} = \bmx} + \hat{y^2} - 2\hat{y}\mean{Y}{\bm{X} = \bmx}}\\
-            &= \argmin_{\hat{y} \in \R} \rnd{\hat{y^2} - 2\hat{y}\mean{Y}{\bm{X} = \bmx}}\\
+            &= \argmin_{\hat{y} \in \R} \rnd{\mean{Y^2}{\bm{X} = \bmx} + \hat{y}^2 - 2\hat{y}\mean{Y}{\bm{X} = \bmx}}\\
+            &= \argmin_{\hat{y} \in \R} \rnd{\hat{y}^2 - 2\hat{y}\mean{Y}{\bm{X} = \bmx}}\\
             &= \mean{Y}{\bm{X} = \bmx}
         \end{align*}
         Ovvero, il predittore Bayesiano ottimo per la funzione di perdita quadratica è il valore atteso dell'etichetta condizionato sull'istanza.
@@ -135,8 +135,8 @@
         In particolare, ponendo \( e^{-2\varepsilon^2 n} = \delta\), per un qualunque \(\delta \in \rnd{0,1}\) fissato e risolvendo la disequazione per \(\varepsilon\) otteniamo: \[\varepsilon = \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}\]
         Sostituendo il valore ottenuto nella formula si ottiene:
         \begin{align*}
-            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} > \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}} &= \delta\\
-            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} \leq \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}} &= 1-\delta
+            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} > \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}} &\leq \delta\\
+            \prob{\abs{\text{er}\rnd{h} - \tilde{\text{er}}\rnd{h}} \leq \sqrt{\frac{1}{2n}\ln\rnd{\frac{2}{\delta}}}} &\geq 1-\delta
         \end{align*}
         La disuguaglianza ottenuta ci indica come stimare il rischio di un'ipotesi prodotta da un qualche algoritmo di apprendimento mediante un test set. Viceversa, la stessa disuguaglianza ci mostra come il test set, che è il modo con cui in pratica misuriamo le prestazioni di un classificatore su dati ignoti, sia ben correlato col rischio nel modello di apprendimento statistico.
     \end{multicols}
@@ -176,7 +176,7 @@
         \end{align*}
         Dato che la catena di implicazioni qui sopra vale per qualsiasi realizzazione del training set, possiamo scrivere:
         \[
-            \prob{\er\rnd{\hat{h}} - \er\rnd{h^*}> \varepsilon} \leq \prob{\exists h \in \mathbb{H}: \abs{\hat{\er}\rnd{h}} - \er\rnd{h} > \frac{\varepsilon}{2}}
+            \prob{\er\rnd{\hat{h}} - \er\rnd{h^*}> \varepsilon} \leq \prob{\exists h \in \mathbb{H}: \abs{\hat{\er}\rnd{h} - \er\rnd{h}} > \frac{\varepsilon}{2}}
         \]
         Studiamo il caso in cui lo spazio dei modelli contiene un numero finito di classificatori, cioè \(\abs{\mathbb{H}}<\infty\). Dato che l'evento:
         \(

@@ -19,7 +19,7 @@
         \]
     \end{definition}
     \begin{definition}[Celle di Voronoi]
-        Il classificatore generato dall'algoritmo Nearest Neighbour induce una partizione di \(X = \R^n\) in \textbf{celle di voronoi}, dove ogni istanza \(\bmx_t\) del training set è il centro di una stella e il confine tra due celle è costituito dai punti \(\bmx\) equidistanti dai due centri.
+        Il classificatore generato dall'algoritmo Nearest Neighbour induce una partizione di \(X = \R^d\) in \textbf{celle di voronoi}, dove ogni istanza \(\bmx_t\) del training set è il centro di una cella e il confine tra due celle è costituito dai punti \(\bmx\) equidistanti dai due centri.
     \end{definition}
     \begin{observation}[I limiti del classificatore Nearest Neighbour]
         L'algoritmo Nearest Neighbour ha diverse controindicazioni, tra cui:
@@ -33,7 +33,7 @@
         Dai predittori NN è possibile ottenere la famiglia di algoritmi \(k\)-NN: dato un training set \(S = \examples{m}\), \(k\)-NN genera un classificatore \(h_{k-\text{NN}}\) tale che \(\hkNN{\bmx}\) è l'etichetta \(y_t \in \binaryImage\) che appare nella maggioranza dei \(k\) punti \(\bmx_t \in S\) più vicini a \(\bmx\). Per valutare \(\hkNN{\bmx}\), si compiono le seguenti operazioni:
         \begin{enumerate}
             \item Trovo i \(k\) punti \(\bmx_{t_1}, \ldots, \bmx_{t_k}\) del training set più vicini a \(\bmx\) e siano \(y_{t_1}, \ldots, y_{t_k}\) le etichette di questi punti.
-            \item Se la maggioranza delle etichette \(y_{t_1}, \ldots, y_{t_k}\) è pari a \(+1\), allora \(\hkNN{\bmx} = +1\), altrimenti se è pari a \(-1\) allora \(\hkNN{\bmx} = +1\). Nel caso in cui non vi sia una maggioranza, allora predico un valore di default in \(\binaryImage\).
+            \item Se la maggioranza delle etichette \(y_{t_1}, \ldots, y_{t_k}\) è pari a \(+1\), allora \(\hkNN{\bmx} = +1\), altrimenti se è pari a \(-1\) allora \(\hkNN{\bmx} = -1\). Nel caso in cui non vi sia una maggioranza, allora predico un valore di default in \(\binaryImage\).
         \end{enumerate}
     \end{definition}
     \begin{observation}[Applicazioni di algoritmi \(k\)-NN]

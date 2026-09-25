@@ -7,7 +7,7 @@
 \end{goal}
 \begin{analysis}[Da rischio sequenziale a rischio statistico]
     \begin{multicols}{2}
-        Fissiamo una funzione di perdita \(\ell\). Dato un predittore lineare \(\bmw \in \R^d\) e un esempio \(\rnd{\bmx_t, y_t} \in \R^d\times\R\), sia \(\ell_t\rnd{\bmw} = \loss{\bmwt\bmw}{y_t}\) la perdita associata. Assumiamo che la funzione \(\ell_t\) sia convessa.
+        Fissiamo una funzione di perdita \(\ell\). Dato un predittore lineare \(\bmw \in \R^d\) e un esempio \(\rnd{\bmx_t, y_t} \in \R^d\times\R\), sia \(\ell_t\rnd{\bmw} = \loss{\bmwt\bmx_t}{y_t}\) la perdita associata. Assumiamo che la funzione \(\ell_t\) sia convessa.
         Consideriamo il caso dell'apprendimento statistico, in cui gli esempi \(\rnd{\bmx_t, y_t}\) sono realizzazioni indipendenti di variabili casuali \(\rnd{\bm{X}_t, Y_t}\) con distribuzione comune \(\mathbb{D}\) su \(\R^d\times\R\) fissata ma ignota.
     
         Il rischio statistico rispetto alla funzione di perdita \(\ell\) di un predittore lineare \(\bmw\) è definito da:
@@ -31,9 +31,9 @@
         
         Denotiamo con \(\mathbb{E}_{t-1}\) il valore atteso condizionato come sopra. Se sommiamo entrambi i membri per \(t=1, \ldots, m\) e dividiamo per \(m\) otteniamo:
         \[\frac{1}{m} \sum_{t=1}^{m} \mathbb{E}_{t-1}\left[\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)-\ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)\right]=0\]
-        éPer ogni \(t=1,\ldots,m\) sia \(Z_t\) la variabile casuale \(\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)-\ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)\). Le variabili casuali \(Z_1, \ldots, Z_m\) sono tutte funzioni del medesimo campione \(S\) e sono tali che:
+        Per ogni \(t=1,\ldots,m\) sia \(Z_t\) la variabile casuale \(\operatorname{er}_{\mathcal{D}}\left(\boldsymbol{w}_{t}\right)-\ell\left(\boldsymbol{w}_{t}^{\top} \boldsymbol{X}_{t}, Y_{t}\right)\). Le variabili casuali \(Z_1, \ldots, Z_m\) sono tutte funzioni del medesimo campione \(S\) e sono tali che:
         \[\frac{1}{m} \sum_{t=1}^{m} \mathbb{E}_{t-1}\left[Z_{t}\right]=0\]
-        Assumiamo che \(\ell_t \in \sqr{0,m}\), allora \(\abs{Z-t} \leq M\).
+        Assumiamo che \(\ell_t \in \sqr{0,M}\), allora \(\abs{Z_t} \leq M\).
         
         Questo tipo di variabili casuali, o più precisamente di processo, viene definito come una sequenza di differenze di Martingale con incrementi limitati da \(2M\). Si noti che le \(Z_t\) non sono indipendenti. Da un punto di vista statistico, però, queste variabili si comportano come se lo fossero, almeno per certi aspetti.
         

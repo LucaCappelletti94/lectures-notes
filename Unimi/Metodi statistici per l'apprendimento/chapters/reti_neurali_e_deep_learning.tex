@@ -154,7 +154,7 @@
         Nel nostro caso abbiamo quindi:
         \begin{align*}
             \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{i}}&=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} \frac{\partial s_{j}}{\partial s_{i}}\\
-            &=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} \frac{\partial s_{j}}{\partial v_{i}} \frac{d v_{i}}{s_{i}}\\
+            &=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} \frac{\partial s_{j}}{\partial v_{i}} \frac{d v_{i}}{d s_{i}}\\
             &=\sum_{j :(i, j) \in E} \frac{\partial \ell\left(v_{0}, y_{t}\right)}{\partial s_{j}} w_{i, j} \sigma^{\prime}\left(s_{i}\right)
         \end{align*}
         Quindi, introducendo la definizione ricorsiva:

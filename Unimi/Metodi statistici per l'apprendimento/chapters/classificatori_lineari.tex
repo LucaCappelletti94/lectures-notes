@@ -13,7 +13,7 @@
     Si ricordi che, detto \(\theta\) l'angolo fra due vettori \(\bmv\) e \(\bmx\), la quantità \(\bmvt\bmx\), la quantità \(\bmvt\bmx = \norm{\bmv}\norm{\bmx}\cos\theta\) è la lunghezza della proiezione di \(\bmx\) su \(\bmv\) moltiplicata per \(\norm{\bmv}\) o, equivalentemente, la lunghezza della proiezione di \(\bmv\) su \(\bmx\) moltiplicata per \(\norm{\bmx}\).
 \end{definition}
 \begin{definition}[Iperpiano]
-    Algebricamente, un iperpiano è il luogo dei punti \(\bmx \in \R^d\) che soddisfano l'equazione \(v_1x_1 + \ldots + v_dx_d = c\) dove \(v_1, \ldots, v_n, c\) sono coefficienti reali. Se definiamo la notazione
+    Algebricamente, un iperpiano è il luogo dei punti \(\bmx \in \R^d\) che soddisfano l'equazione \(v_1x_1 + \ldots + v_dx_d = c\) dove \(v_1, \ldots, v_d, c\) sono coefficienti reali. Se definiamo la notazione
     \[
         \boldsymbol{u}^{\top} \boldsymbol{v}=\sum_{i=1}^{d} u_{i} v_{i}
     \]
@@ -45,7 +45,7 @@
     ovvero l'insieme dei vettori \(\bmx\) tali che la proiezione su \(\bmv\) è almeno \(\frac{c}{\norm{\bmv}}\) e l'insieme dei vettori \(\bmx'\) tali che la proiezione su \(\bmv\) è minore di \(\frac{c}{\norm{\bmv}}\).
 \end{definition}
 \begin{definition}[Classificatore lineare associato all'iperpiano]
-    Possiamo rappresentare un classificatore lineare \(h\) associato all'iperpiano \(S\rnd{\bmv, c}\) come \(h\rnd{\bmx} = \text{sgn}\rnd{\bmvt\bmx - c}\), dove la funzione \(\text{sgm}\) è definita come:
+    Possiamo rappresentare un classificatore lineare \(h\) associato all'iperpiano \(S\rnd{\bmv, c}\) come \(h\rnd{\bmx} = \text{sgn}\rnd{\bmvt\bmx - c}\), dove la funzione \(\text{sgn}\) è definita come:
     \[
         \operatorname{sgn}(x)=\left\{\begin{array}{cc}{1} & {\text { se } x>0} \\ {-1} & {\text { altrimenti }}\end{array}\right.
     \]
@@ -54,7 +54,7 @@
     Iperpiani della forma \(S\rnd{\bmv, 0} = \crl{\bmx \in \R^d: \bmvt\bmx = 0}\) passano per l'origine e vengono detti \textbf{iperpiani omogenei}.
 \end{definition}
 \begin{definition}[Equivalenza tra iperpiano omogeneo e non omogeneo]
-    Un iperpiano non omogeneo \(S\rnd{\bmv, c}\) in \(d\) dimensioni è equivalente all'iperpiano omogeneo \(S\rnd{\tilde{\bmv}, 0}\) in \(d+1\) dimensioni con \(\tilde{\bmv} = \rnd{x_1, \ldots, x_d, 1} \in \R^{d+1}\). Infatti, \(\operatorname{sgn}\left(\boldsymbol{v}^{\top} \boldsymbol{x}-c\right)=\operatorname{sgn}\left(\widetilde{\boldsymbol{v}}^{\top} \widetilde{\boldsymbol{x}}\right)\).
+    Un iperpiano non omogeneo \(S\rnd{\bmv, c}\) in \(d\) dimensioni è equivalente all'iperpiano omogeneo \(S\rnd{\tilde{\bmv}, 0}\) in \(d+1\) dimensioni con \(\tilde{\bmv} = \rnd{v_1, \ldots, v_d, -c} \in \R^{d+1}\) e \(\tilde{\bmx} = \rnd{x_1, \ldots, x_d, 1} \in \R^{d+1}\). Infatti, \(\operatorname{sgn}\left(\boldsymbol{v}^{\top} \boldsymbol{x}-c\right)=\operatorname{sgn}\left(\widetilde{\boldsymbol{v}}^{\top} \widetilde{\boldsymbol{x}}\right)\).
 \end{definition}
 \begin{definition}[Problema di apprendimento di classificatori lineari]
     Detta \(\mathbb{H}_d\) la famiglia dei classificatori lineari \(h\rnd{\bmx} = \operatorname{sgn}\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right)\) per \(\bmw \in \R^d\), consideriamo l'algoritmo ERM che, dato un training set \(\examples{m} \in \R^d \times \binaryImage\) trova:
@@ -110,10 +110,10 @@
     \end{description}
     L'algoritmo termina se \(\bmw\) è un iperpiano separatore. L'aggiornamento \(\bmw \leftarrow \bmw + y_t\bmx_t\) quando \(y_t\bmwt\bmx_t \leq 0\) aumenta il valore di \(y_t\bmwt\bmx_t\). Infatti:
     \[y_{t}\left(\boldsymbol{w}+y_{t} \boldsymbol{x}_{t}\right)^{\top} \boldsymbol{x}_{t}=y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}+\left\|\boldsymbol{x}_{t}\right\|^{2}>y_{t} \boldsymbol{w}^{\top} \boldsymbol{x}_{t}\]
-    Geometricamente, l'algoritmo sposta \(\bmw\) verso \(\bmw_t\) se \(y_t = 1\) e lo allontana da \(\bmx_t\) se \(y_t = -1\).
+    Geometricamente, l'algoritmo sposta \(\bmw\) verso \(\bmx_t\) se \(y_t = 1\) e lo allontana da \(\bmx_t\) se \(y_t = -1\).
 \end{definition}
 \begin{corollary}
-    Sia \(S\) un training set di \(m\) esempi estratti in modo indipendenti ed identicamente distribuiti da un modello statistico \(\rnd{D,\mu}\) fissato ma ignoto. Supponiamo che l'algoritmo del \textbf{Perceptrone} con inpit \(S\) termini con output \(\bmw\) e sia \(h_{\bmw}\) il classificatore lineare definito da \(\bmw\).
+    Sia \(S\) un training set di \(m\) esempi estratti in modo indipendenti ed identicamente distribuiti da un modello statistico \(\rnd{D,\mu}\) fissato ma ignoto. Supponiamo che l'algoritmo del \textbf{Perceptrone} con input \(S\) termini con output \(\bmw\) e sia \(h_{\bmw}\) il classificatore lineare definito da \(\bmw\).
     
     Se \(M \leq \frac{m}{2}\) è la cardinalità del sottoinsieme di \(S\) degli esempi su cui è stato effettuato almeno un aggiornamento, allora:
     \[
