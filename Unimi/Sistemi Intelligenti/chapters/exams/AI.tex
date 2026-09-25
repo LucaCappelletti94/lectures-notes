@@ -4,7 +4,7 @@
 \section{Domande su Intelligenza Artificiale}
 
 \subsection{Si descriva il funzionamento della Forward Search.  Perché è considerato un template e non un algoritmo?}
-La \textbf{FOrward Search} è un template per algoritmi legate all'esplorazione di un grafo, partendo da uno stato iniziale e cercando di arrivare ad uno stato di goal.
+La \textbf{Forward Search} è un template per algoritmi legate all'esplorazione di un grafo, partendo da uno stato iniziale e cercando di arrivare ad uno stato di goal.
 
 Alla prima iterazione si marca il nodo di start come visitato e lo si inserisce nella coda, quindi si procede iterativamente: a ogni ciclo si estrae (pop) il primo elemento della coda e se è un nodo di \textbf{goal} l'algoritmo termina con successo, altrimenti marca i nodi vicini non visitati come \textbf{alive} e li inserisce in coda. Se un nodo è stato visitato e sono stati visitati tutti i nodi raggiungibili da esso, viene marcato come \textbf{dead}. Se la coda risulta vuota senza avere identificato un nodo di goal, l'algoritmo fallisce.
 
@@ -42,8 +42,8 @@ Tutti i nodi alla stessa profondità sono visitati prima di procedere al livello
 
 La ricerca risulta di tipo sistematico.
 
-\subsubsection{Deapth First Search}
-L'algoritmo Deapth First Search, o \textit{visita in profondità}, implementa la coda $Q$ come una pila LIFO, visitando quindi sempre l'ultimo nodo non visitato identificato, dando quindi priorità ai nodi più lunghi.
+\subsubsection{Depth First Search}
+L'algoritmo Depth First Search, o \textit{visita in profondità}, implementa la coda $Q$ come una pila LIFO, visitando quindi sempre l'ultimo nodo non visitato identificato, dando quindi priorità ai nodi più lunghi.
 
 Nel caso di grafi infiniti la ricerca risulta non sistematica.
 \end{document}

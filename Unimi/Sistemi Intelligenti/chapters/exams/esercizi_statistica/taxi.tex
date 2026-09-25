@@ -45,9 +45,11 @@ Per cui abbiamo che:
 \begin{align*}
   \prob{\text{Il taxi è blu}}{\text{Testimone vede blu}} = \frac{\prob{\text{Testimone vede blu}}{\text{Il taxi è blu}}\prob{{\text{Il taxi è blu}}}}{\prob{\text{Testimone vede blu}}} = \frac{0.7\cdot 0.15}{0.36} = 0.291\bar{6}
 \end{align*}
-L'affidabilità del testimone per garantire una probabilità del $99\%$ deve essere tale che:
+L'affidabilità del testimone per garantire una probabilità del $99\%$ deve essere tale che, indicando con $p$ l'affidabilità cercata e notando che $\prob{\text{Testimone vede blu}} = p \cdot 0.15 + (1-p) \cdot 0.85$:
 \begin{align*}
-  \frac{\prob{\text{Testimone vede blu}}{\text{Il taxi è blu}}\prob{{\text{Il taxi è blu}}}}{\prob{\text{Testimone vede blu}}} = 0.99 \\
-  \prob{\text{Testimone vede blu}}{\text{Il taxi è blu}} = \frac{0.99\cdot\prob{\text{Testimone vede blu}}}{\prob{{\text{Il taxi è blu}}}} = \frac{0.99\cdot 0.36}{0.7} = 0.509
+  \frac{p \cdot 0.15}{p \cdot 0.15 + (1-p) \cdot 0.85} &= 0.99 \\
+  0.15p &= 0.99(0.85 - 0.70p) \\
+  0.843p &= 0.8415 \\
+  p &\approx 0.9982
 \end{align*}
 \end{document}
