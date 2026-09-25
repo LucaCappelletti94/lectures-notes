@@ -30,7 +30,7 @@ Se non vengono rispettate il metodo puo' avere comportamento indefinito ( spetta
 
 
 \section{Post-Condizioni}
-Introdotte da ``ensure''
+Introdotte da ``ensures''
 
 Effetto garantito \textbf{AL TERMINE} del metodo.
 Cioe' devo specificare che vincolirispetta il risultato (= se ho un certo risultato cosa deve risultare vero, cosa deve aver fatto il metodo, ecc...).
@@ -74,7 +74,7 @@ E' il valore ritornato dal metodo.
 
 
 \section{Omissione}
-Omettere pre o post condizione equivale a scrivere rispettivamente ``require true'' o ``ensure true''
+Omettere pre o post condizione equivale a scrivere rispettivamente ``requires true'' o ``ensures true''
 
 
 \section{Commenti}
@@ -86,12 +86,12 @@ Vanno espresse come (*...*) con la specifica in linguaggio naturale tra gli aste
 \section{Operatori JML}
 \begin{itemize}
   \item \bs old(x): restituisce il valore del parametro x \textbf{AL MOMENTO DELLA CHIAMATA}
-  \item assigable: indica che un \textbf{PARAMETRO} puo' essere modificato, va messo \textbf{prima} della pre-condizione.
+  \item assignable: indica che un \textbf{PARAMETRO} puo' essere modificato, va messo \textbf{prima} della pre-condizione.
   \item \textbf{Metodi pubblici dele collezioni}: equals,contains,containsAll,get,subList...
   \item Quantificatori:
   \begin{itemize}
     \item \bs forall
-    \item \bs exist
+    \item \bs exists
     \item \bs sum, \bs product, \bs min, \bs max
     \item \bs num-of: restituisce il nimero di volte per cui un parametro valgono le condizioni.
   \end{itemize}
@@ -161,8 +161,8 @@ Quindi devo evitare:
 le specifiche totali hanno:
 \begin{itemize}
 \item requires true
-\item precondizioni nell' ensure
-\item violazione delle pre-condizioni nel signal
+\item precondizioni nell' ensures
+\item violazione delle pre-condizioni nel signals
 \end{itemize}
 
 

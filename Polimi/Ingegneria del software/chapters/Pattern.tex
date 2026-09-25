@@ -10,7 +10,7 @@ Sono dele soluzioni ``riutilizzabli'' di cui esiste gia' uno schema da seguire e
 \section{Tipi di Pattern}
 \begin{itemize}
 \item Creazionali
-\item Strutturai
+\item Strutturali
 \item Comportamentali
 \end{itemize}
 
@@ -18,7 +18,7 @@ Sono dele soluzioni ``riutilizzabli'' di cui esiste gia' uno schema da seguire e
 
 \begin{itemize}
 \item \textbf{Factory Method}: e' un metodo \textbf{NON COSTRUTTORE} che restituisce oggetti della sua classe, si implementa come metodo statico.Per usarlo devo dichiarare il costruttore come protected o private.
-\item \textbf{Singleton}: e0 un tipo di classe per cui puo' esistere \textbf{UNA SOLA} istanza. Devo dichiarare il costruttore protected o private. Devo implementare un metodo che permetta di avere una sola istanza:
+\item \textbf{Singleton}: e' un tipo di classe per cui puo' esistere \textbf{UNA SOLA} istanza. Devo dichiarare il costruttore protected o private. Devo implementare un metodo che permetta di avere una sola istanza:
 \begin{itemize}
 \item Dichiaro un attributo statico istanza.
 \item Dichiaro un metodo che verifica che ``istanza'' sia null, se e' un nul ritorna una nuova istanza altrimenti ritorna l'istanza gia' esistente senza crearne di nuove.
@@ -34,7 +34,7 @@ E' un interfaccia che si frappone fra due diverse interfacce,L'adapter richiama 
 \item\textbf{Model-View-Controller}: COmposto da 3 elementi:
 \begin{itemize}
 \item Model : fornisce metodi per accesso ai dati
-\item View  : visualizza i dati forniti da model e si occupa di gestire i dati a seconda dei comandi dell'utente.
+\item View  : visualizza i dati forniti dal model.
 \item Controler: riceve comandi dal utente esterno e modifcia lo stato di model e view di conseguenza.
 \end{itemize}
 \end{itemize}
