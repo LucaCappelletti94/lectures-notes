@@ -299,7 +299,7 @@ Funzionano in modo analogo fra loro il raddrizzatore a ponte e il raddrizzatore 
 
 Per entrambi i raddrizzatori, vale:
 \[V_{OUT} = (V_{IN}-1.4)\]
-\[I_D = I_C + I_R= \frac{\partial{V_C}}{\partial{t}} - \frac{V_{OUT}}{R} \]
+\[I_D = I_C + I_R= C\frac{\partial V_C}{\partial t} + \frac{V_{OUT}}{R} \]
 
 La differenza fra questi raddrizzatori e il raddrizzatore semplice visto precedentemente è che la distanza fra un'accensione del diodo e la successiva si riduce: nel raddrizzatore semplice trascorre un tempo uguale al periodo della sinusoide, con il raddrizzatore a doppia semi-onda e a ponte trascorre un tempo pare a metà periodo della sinusoide.
 
@@ -348,9 +348,9 @@ Se il diodo è ON allora $V_D$ deve essere 0.7 V.
 Supponiamo dunque $V_D=0.7 V$ e calcoliamo le correnti che scorrono nel circuito.
 
 \[I_{R1} = \frac{V_{R1}}{R_1} = \frac{5V - (-0.7V)}{2k\Omega} = 2.85mA\]
-\[I_{R2} = \frac{V_{R2}}{R_2} = \frac{0V - (-0.7V)}{3k\Omega} = 0.3mA\]
+\[I_{R2} = \frac{V_{R2}}{R_2} = \frac{0V - (-0.7V)}{3k\Omega} = 0.23mA\]
 
-Applicando la legge di Kirchhoff al nodo si ottiene che nel diodo scorre una corrente \[I_{D} = I_{R1}+I_{R2} = 3.15mA\] positiva nel verso evidenziato nella figura sottostante:
+Applicando la legge di Kirchhoff al nodo si ottiene che nel diodo scorre una corrente \[I_{D} = I_{R1}+I_{R2} = 3.08mA\] positiva nel verso evidenziato nella figura sottostante:
 
 CONTROLLARE I SEGNI E I VERSI DELLE CORRENTI!!!!
 
@@ -422,13 +422,14 @@ Dobbiamo scartare l'ipotesi del diodo OFF.
 
 \paragraph{(b)}
 Prendiamo quindi il caso diodo ON e cerchiamo $V_x$.
-Se il diodo è ON $V_{OUT}=0.7V$.
+Se il diodo è ON $V_{OUT} = V_{SS} + 0.7V = 1.7V$.
 Applichiamo la legge di Kirchhoff al nodo A. Ne segue: $I_{R1}+I_{R2}+I_{R3}=0$.
 Applico la legge di Ohm per ricavare le correnti in funzione di $V_x$.
 Ricavo:
-\[\frac{V_x-5V}{R_1} + \frac{V_x}{R_2} + \frac{V_x-0.7V}{R_3} =0 \]
-Svolgendo i calcoli ottengo \[V_x = \frac{5V}{2k\Omega} + \frac{0.7V}{k\Omega} \]
-da cui \[V_x=1.49V\].
+\[\frac{V_x-5V}{R_1} + \frac{V_x}{R_2} + \frac{V_x-1.7V}{R_3} =0 \]
+Svolgendo i calcoli ottengo
+\[V_x = \frac{\frac{V_{DD}}{R_1}+\frac{V_{OUT}}{R_3}}{\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}} = \frac{\frac{5}{2}+\frac{1.7}{1}}{\frac{11}{6}} = \frac{4.2}{\frac{11}{6}} = \frac{126}{55} \approx 2.29V\]
+da cui \[V_x \approx 2.29V\].
 
 \subsection{Esercizio 5.2}
 Dato il circuito sottostante, determinarne la polarizzazione:

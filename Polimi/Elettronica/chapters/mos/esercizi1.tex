@@ -116,12 +116,12 @@ quindi la tensione
 \[V_{out} = V_{in} = V_{GS} = V_{cc} - V_r = V_{cc} - R I_r\]
 \[V_{GS} = V_{cc} - R K_n \left(V_{GS} - V_t \right)^2\]
 Ora si ha una eq di secondo grado da risolvere in $V_{GS}$
-\[(R K_n)V_{GS}^2 - (2 R K_n V_t + 1)V_{GS} + V_t^2 + V_{cc} = 0\]
-\[V_{GS,1} = 0.7753V\]
-\[V_{GS,2} = 1.2047V\]
-Ovviamente la prima e' sbagliata poiche' $0.7753V < V_t$ quidni il mos sarebbe spento e quindi in contraddizione con quanto detto prima.
+\[(R K_n)V_{GS}^2 - (2 R K_n V_t - 1)V_{GS} + (R K_n V_t^2 - V_{cc}) = 0\]
+\[V_{GS,1} \approx 0.214V\]
+\[V_{GS,2} \approx 1.586V\]
+Ovviamente la prima e' sbagliata poiche' $0.214V < V_t$ quindi il mos sarebbe spento e quindi in contraddizione con quanto detto prima.
 
-Quindi La soglia logica e' \[V_{th} = V_{GS,2} = 1.2047V\]
+Quindi La soglia logica e' \[V_{th} = V_{GS,2} \approx 1.586V\]
 
 \textbf{Calcolo Delle Potenze Statiche $P_{STAT}$:}
 
@@ -186,7 +186,7 @@ $V_{SG} < |V_t|$ quindi il PMOS e' spento! Quindi $I_p = I_{SD} = 0A$ ora con un
 
 \textbf{Caso $V_{in} = 0V$}
 
-$V_{SG} = V_{in} - V_{cc} = -3.3V$ e $|V_{SG}| > |V_t|$ e $V_{ow} = |V_{SG}| - |V_t| = -2.3V$ quindi il PMOS e' Acceso.
+$V_{SG} = V_{cc} - V_{in} = 3.3V$ e $|V_{SG}| > |V_t|$ e $V_{ow} = |V_{SG}| - |V_t| = 2.3V$ quindi il PMOS e' Acceso.
 Ora bisogna stabilire in che zona di lavoro sia, procediamo per metodo grafico.
 
 $(1)$ Calcoliamo la corrente del PMOS alla tensione di overdrive $V_{ow}$:
@@ -205,7 +205,7 @@ $(3)$ Confrontando le due correnti $I_{DS}|_{ow} = 1mA < I_p |_{ow} = 10.58mA$ q
 Stabilito cio' si calcola il punto di lavoro col bilancio delle correnti:
 $I_r = I_{DS,Ohm}$
 
-\[\frac{V_{cc} - |V_{SD}|}{R} = K_p \left[ 2 \right(|V_{GS}| - |V_t|)V_{SD} - V_{SD}^2\]
+\[\frac{V_{cc} - |V_{SD}|}{R} = K_p \left[ 2 \left(|V_{GS}| - |V_t|\right)V_{SD} - V_{SD}^2 \right]\]
 e quindi otteniamo una equazione di secondo grado in $V_{SD}$ che risolvendola ha come soluzioni:
 
 $V_{SD1} = 4.75V$ che scarteremo poiche' $V_{SD1} > V_{cc}$ e $V_{SD1} > |V_{GS}| - |V_t|$ quindi dovrebbe essere in saturazione quando abbiamo gia' dimostrato che e' in zona ohmmica.
@@ -317,9 +317,9 @@ Quindi \[ V_{in} = 0V \Rightarrow V_{out} = 5V\]
 \[ K_n = K_n' \frac{W}{L} \]
 
 Iniziamo a studiare le fasi di funzionamento dei MOS.
-la tensione $|V_{GD,p}| = 5V > |V_{t,p}|$ quindi il PMOS e' acceso.
+la tensione $|V_{SG,p}| = 5V > |V_{t,p}|$ quindi il PMOS e' acceso.
 
-la tensione $|V_{GS,p}| = |V_{out}| = 0.5V < |V_{t,p}|$ quindi il PMOS e' in Saturazione.
+la tensione $|V_{GD,p}| = |V_{out}| = 0.5V < |V_{t,p}|$ quindi il PMOS e' in Saturazione.
 
 La tensione $V_{GS,n} = V_{in} > V_{t,n}$ quindi il NMOS e' acceso.
 
@@ -353,10 +353,10 @@ $(a)$ $V_{in} = 0V$ per i motivi sopra scritti Il' NMOS e' spento quindi la corr
 $(b)$ $V_{in} = 5V$ abbiam gia' calcolato che la corrente nei MOS e' $I = 3.2mA$ quindi
 \[ P_{STAT,On} = I V_{cc} = 16mW\]
 
-\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $T_{CLK} = 1 \mu s$}
+\textbf{Calcolo delle Potenze Dinamiche $P_{DIN}$ con un clock $T_{CLK} = 0.5 \mu s$}
 
 \[ I = \frac{\bigtriangleup Q}{T_{CLK}} = C \frac{V_f - V_i}{T_{CLK}}\]
 \[ P_{DIN} = V_{cc} I = V_{cc} C \frac{V_f - V_i}{T_{CLK}}\]
-\[ P_{DIN} = V_{cc} C \bigtriangleup V f_{CLK} = 225 \mu W\]
+\[ P_{DIN} = V_{cc} C \bigtriangleup V f_{CLK} = 450 \mu W\]
 
 \end{document}

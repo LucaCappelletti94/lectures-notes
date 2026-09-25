@@ -682,18 +682,18 @@ e quindi la corrente
 \[I_{SD} = 0\]
 
 
-Il PMOS e' in regime ohmico o lineare se $V_{SD} < V_{SG} - V_t$
+Il PMOS e' in regime ohmico o lineare se $V_{SD} < V_{SG} - |V_t|$
 
 e quindi la corrente
 
-\[I_{SD} = K_p \left[ 2 \left(V_{SG} - V_t \right)V_{SD} - V_{SD}^2 \right]\]
+\[I_{SD} = K_p \left[ 2 \left(V_{SG} - |V_t| \right)V_{SD} - V_{SD}^2 \right]\]
 
 
-Il PMOS e' in zona di saturazione se $V_{SD} > V_{SG} - V_t$
+Il PMOS e' in zona di saturazione se $V_{SD} > V_{SG} - |V_t|$
 
 e quindi la corrente
 
-\[ I_{SD} = K_p \left( V_{SG} - V_t \right)^2\]
+\[ I_{SD} = K_p \left( V_{SG} - |V_t| \right)^2\]
 
 \begin{figure}
     \begin{subfigure}{.5\textwidth}
@@ -704,7 +704,7 @@ e quindi la corrente
 
             \draw[dotted] (2,0) -- (2,5);
             \draw[dotted] (0,4) -- (2,4);
-            \filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{SG} - V_t$};
+            \filldraw [black] (2,0) circle (1pt) node[below, black] {$V_{SG} - |V_t|$};
 
             \filldraw [blue] (0,0) circle (1pt);
 
@@ -726,7 +726,7 @@ e quindi la corrente
 
             \draw[dotted] (2,0) -- (2,5);
 
-            \filldraw [black] (2,0) circle (1pt) node[below, black] {$V_t$};
+            \filldraw [black] (2,0) circle (1pt) node[below, black] {$|V_t|$};
 
             \draw[scale=1,domain=2:4,smooth,variable=\x,blue] plot ({\x},{(\x-2)^2});
 
@@ -746,7 +746,7 @@ Questo effetto chiamato Modulazaione di Canale fa si che accorciandosi il canale
 
 Per questo introduciamo un nuovo parametro $\lambda$ che tipicamente assume valori del tipo $0.05$ e le nuove equazioni del NMOS sono:
 
-\[ I_{Ohm} = K_n \left( (V_{GS} - V_t)^2 V_{DS} - V_{DS}^2 \right)(1+\lambda V_{DS})\]
+\[ I_{Ohm} = K_n \left( 2(V_{GS} - V_t) V_{DS} - V_{DS}^2 \right)(1+\lambda V_{DS})\]
 \[ I_{Sat} = K_n \left( V_{GS} - V_t \right)^2(1+\lambda V_{DS})\]
 
 \begin{figure}[H]
@@ -828,7 +828,7 @@ Quindi il MOS essendo in fondo una giunzione NPN e' approssimabile a due diodi i
     \end{subfigure}
 \end{figure}
 
-quindi se $V_{GS} < V_t$ allora vi e' canale dal lato del Source
+quindi se $V_{GS} > V_t$ allora vi e' canale dal lato del Source
 
 e se $V_{DG} > V_t$ allora vi e' canale dal lato del Drain
 
@@ -908,7 +908,7 @@ e' utile per scrivere le formule in modo piu' compatto.
 \textbf{Potenza Statica $P_{STAT}$}
 Sono le potenze consumate dalla porta per rimanere in ogni suo stato.
 
-\textbf{Potenza Statica $P_{DIM}$}
+\textbf{Potenza Dinamica $P_{DIN}$}
 Sono le potenze consumate dalla porta per commutare da stato a stato.
 
 \textbf{Tempo di propagazione $t_p$}
@@ -925,7 +925,7 @@ In questa approssimazione si approssima il MOS ad una resistenza di resistivita'
 Comunque una volta decisa l'approssimazione si calcola la corrente del condensatore $I_c$ poi si calcola il delta di carica che serve per caricare il condensatore:
 \[Q_i = C V_i\]
 \[Q_f = C V_f\]
-\[\bigtriangleup Q = Q_f - Q_i = C \left( V_f - V_il\right) \]
+\[\bigtriangleup Q = Q_f - Q_i = C \left( V_f - V_i\right) \]
 a questo punto vale la relazione:
 \[I_c = \frac{\bigtriangleup Q}{t_p}\]
 e si ricava $t_p$:

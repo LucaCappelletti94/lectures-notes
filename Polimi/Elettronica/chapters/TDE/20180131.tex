@@ -464,9 +464,9 @@ Quindi posso riassumere la polarizzazzione dei diodi al variare di $V_{IN}$ con 
 \begin{tabular}{c | c c}
     $V_{IN}$ & $D_1$ & $D_2$\\
     \hline
-    $V_{IN} \ge V_\gamma = 0.7V$ & On & Off\\
+    $V_{IN} \ge V_\gamma = 0.7V$ & Off & On\\
     $0.7V \ge V_{IN} \ge -0.7V$ & Off & Off\\
-    $-0.7V \ge V_{IN} $ & Off & On
+    $-0.7V \ge V_{IN} $ & On & Off
 \end{tabular}
 
 \textbf{Quando entrambi i diodi son spenti} il condensatore e' appeso quindi non puo' scaricarsi e quindi la tensione $V_x$ rimane costante, ma poiche' $V_{IN}$ e' un onda quadra il tempo per cui $0.7V \ge V_{IN} \ge -0.7V$ e' trascurabile rispetto al periodo quindi possiamo ignorare questo punto di funzionamento ed ottenere una buona approssimazione.
@@ -588,9 +588,9 @@ la tabella di polarizzazione dei diodi e' uguale a prima:
 \begin{tabular}{c | c c}
     $V_{IN}$ & $D_1$ & $D_2$\\
     \hline
-    $V_{IN} \ge V_\gamma = 0.7V$ & On & Off\\
+    $V_{IN} \ge V_\gamma = 0.7V$ & Off & On\\
     $0.7V \ge V_{IN} \ge -0.7V$ & Off & Off\\
-    $-0.7V \ge V_{IN} $ & Off & On
+    $-0.7V \ge V_{IN} $ & On & Off
 \end{tabular}
 
 \textbf{Quando entrambi i diodi son spenti} il condensatore e' appeso quindi non puo' scaricarsi e quindi la tensione $V_x$ rimane costante, ma poiche' $V_{IN}$ e' un onda quadra il tempo per cui $0.7V \ge V_{IN} \ge -0.7V$ e' trascurabile rispetto al periodo quindi possiamo ignorare questo punto di funzionamento ed ottenere una buona approssimazione.
@@ -748,7 +748,7 @@ Quindi poiche' possiamo intervenire solo su $R_3,R_4$
 \begin{align*}
 \rnd{1 + \frac{R_2}{R1}}\frac{R_3 R_4}{R_3 + R_4} -  R_2 &= 0\\
 \rnd{1 + \frac{R_2}{R1}}\frac{R_3 R_4}{R_3 + R_4}  &=  R_2\\
-\frac{R_3 R_4}{R_3 + R_4}  &= \rnd{ R_2 + \frac{R_2}{R1}}^{-1}\\
+\frac{R_3 R_4}{R_3 + R_4}  &= \frac{R_2}{1+\frac{R_2}{R_1}} = \frac{R_1 R_2}{R_1+R_2}\\
 \frac{R_3 R_4}{R_3 + R_4}  &= \frac{R_1 R_2}{R_1 + R_2} = 9k\Omega
 \end{align*}
 \textbf{Riassumendo}
@@ -757,7 +757,7 @@ Quindi poiche' possiamo intervenire solo su $R_3,R_4$
 \[\frac{R_4}{R_3+R_4} = \frac{1}{20}\]
 mettendo queste due equazioni a sistema si puo' risolvere e si ottiene:
 \[R_3 = 180k\Omega\]
-\[R_3 = 9.47k\Omega\]
+\[R_4 = 9.47k\Omega\]
 
 
 \clearpage
@@ -790,8 +790,8 @@ Poiche' come prima e' un non invertente
 Quindi
 \[G_{ID}(s) =  \rnd{1 + \frac{R_2}{R_1 // \frac{1}{sC_1}}} \frac{R_3 // R_4}{\frac{1}{sC_{in}} + R_3 // R_4}\]
 E trasformato in Forma canonica
-\[G_{ID}(s) = s^1 \frac{C_{IN}\rnd{R_1 + R_2}\rnd{R_3 // R_4}}{R_2} \frac{\rnd{1 + s C_1 \rnd{R_1 // R_2}}}{\rnd{1 + s C_{IN}\rnd{R_3 // R_4}}}\]
-Quindi la funzione di trasfrimento ha tipo $g = 1$ , guadagno statico $G_{ID}(0) = \frac{C_{IN}\rnd{R_1 + R_2}\rnd{R_3 // R_4}}{R_2}$ , uno zero in $z_0 = \frac{1}{ C_1 \rnd{R_1 // R_2}} = 17.7M\hz$ e un polo in $p_0 = \frac{1}{ C_{IN}\rnd{R_3 // R_4}} = 1.76k\hz$
+\[G_{ID}(s) = s^1 \frac{C_{IN}\rnd{R_1 + R_2}\rnd{R_3 // R_4}}{R_1} \frac{\rnd{1 + s C_1 \rnd{R_1 // R_2}}}{\rnd{1 + s C_{IN}\rnd{R_3 // R_4}}}\]
+Quindi la funzione di trasfrimento ha tipo $g = 1$ , guadagno statico $G_{ID}(0) = \frac{C_{IN}\rnd{R_1 + R_2}\rnd{R_3 // R_4}}{R_1}$ , uno zero in $z_0 = \frac{1}{ C_1 \rnd{R_1 // R_2}} = 17.7M\hz$ e un polo in $p_0 = \frac{1}{ C_{IN}\rnd{R_3 // R_4}} = 1.76k\hz$
 
 \begin{center}
 \begin{tikzpicture}[xscale=7/4]
@@ -808,23 +808,23 @@ right,black}
 }
 \begin{scope}[yscale=3/40]
 
-\semilog{2}{9}{-20}{60}
+\semilog{2}{9}{-30}{40}
 \BodeGraph[asymp lines,samples=1000]{2:9}
 {
-    \POAmpAsymp{6}{0.3}
-    }
+    -\IntAmp{1}+\KAmp{9e-4}+\PDAmpAsymp{1}{9e-9}+\POAmpAsymp{1}{9e-5}
+}
 \BodeGraph{2:9}{
-    \POAmp{6}{0.3}
+    -\IntAmp{1}+\KAmp{9e-4}+\PDAmp{1}{9e-9}+\POAmp{1}{9e-5}
 }
 \end{scope}
-\begin{scope}[yshift=-5.2cm,yscale=3/90]
+\begin{scope}[yshift=-7cm,yscale=3/90]
 \semilog{2}{9}{0}{90}
 \BodeGraph[asymp lines,samples=1000, const plot]{2:9}
 {
-    \POArgAsymp{6}{0.3}
+    90+\PDArgAsymp{1}{9e-9}+\POArgAsymp{1}{9e-5}
 }
 \BodeGraph{2:9}{
-    \POArg{6}{0.3}
+    90+\PDArg{1}{9e-9}+\POArg{1}{9e-5}
 }
 \end{scope}
 \end{tikzpicture}
