@@ -1,7 +1,6 @@
 \chapter{Complessità Computazionale e Deduzione Automatica}
 
 In questo momento, per decidere se una formula $F \in \mathscr{F}_\mathscr{L}$ che menziona $n$ lettere proposizionali diverse sia soddisfacibile o meno, l'algoritmo che conosciamo computa la sua tabella di verità, analizzando quindi $2^n$ possibilità, ossia un numero esponenziale. 
-qui
 Cominciamo definendo cosa sia un problema di decisione:
 \begin{defi}[Problema di Decisione]
 Dato $\Sigma^*$ un insieme di tutte le \textit{parole} finite costruite coi simboli di $\Sigma$—un \textit{alfabeto} finito—e un \textit{Linguaggio} $L \subseteq \Sigma^*$, non necessariamente finito, il problema di decisione consiste nel verificare se una stringa finita $w$ appartenga o meno al Linguaggio $L$
@@ -177,7 +176,7 @@ $equisodd.$ è un tipo di relazione d'equivalenza:
 \begin{ossn}
 $equisodd.$ non è una congruenza rispetto ai connettivi, pensati come operazioni. \\
 Per esempio, rispetto a $\neg$: \\
-se $A\ equisodd. B$ con $\models A$ e $\nvDash B$ (i.e. $B$ non è tautologica), allora vuol dire che $\neg A$ \textbf{non} è $equisodd.$ con $\neg B$—perché $A \in \bot$ ma $B$ potrebbe essere soddisfacibile.
+se $A\ equisodd. B$ con $\models A$ e $\nvDash B$ (i.e. $B$ non è tautologica), allora vuol dire che $\neg A$ \textbf{non} è $equisodd.$ con $\neg B$—perché $\neg A \equiv \bot$ ma $B$ potrebbe essere soddisfacibile.
 \end{ossn}
 
 \begin{ossn} $equisodd.$ è più grezza di $\equiv$, infatti le classi di equivalenza delle formule su $n$ variabili $\mathscr{F}_\mathscr{L}^{(n)}/\equiv$, sono $2^{2^n}$. \\
@@ -343,10 +342,10 @@ Queste due formule non sono equivalenti, infatti vi sono assegnamenti
 che portano a risultati diversi; tuttavia sono equisoddisfacibili.
 
 \paragraph{2} 
-Sia $A := (p_1 \land p_2) \lor (p_2 \land q_2) \lor (p_3 \land q_3)$. Applicando iteramente la sostituzione, si ha:
+Sia $A := (p_1 \land q_1) \lor (p_2 \land q_2) \lor (p_3 \land q_3)$. Applicando iteramente la sostituzione, si ha:
 \begin{align*}
 (a_1 \lor (p_2 \land q_2) \lor (p_3 \land q_3)) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \\
-(a_1 \lor a_2 \lor (p_3 \land q_3)) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor p_2) \\
+(a_1 \lor a_2 \lor (p_3 \land q_3)) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor q_2) \\
 (a_1 \lor a_2 \lor a_3) & \land (\neg a_1 \lor p_1) \land (\neg a_1 \lor q_1) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor q_2) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3)
 \end{align*}
 Data una formula con $n$ letterali si generano $2 \cdot n +1 $ clausole, 
@@ -438,7 +437,7 @@ Sia $C_1 = \{a,\neg a\}$ e $C_2 = \{a, \neg a, b\}$. Allora
 \subsubsection{Esempio}
 Sia $C_1 := \{x, y, \neg t\}$ e $C_2 := \{u, \neg y, t\}$; si ha
 \begin{align*}
-D_1 & = \mathbb{R}(C_1, C_2; y, \neg y) = \{x, \neg t, u\} \\
+D_1 & = \mathbb{R}(C_1, C_2; y, \neg y) = \{x, u, \neg t, t\} \\
 D_2 & = \mathbb{R}(C_1, C_2; \neg t, t) = \{x, y, u, \neg y\}
 \end{align*} 
 
@@ -788,7 +787,7 @@ Si prenda una formula $B$ soddisfacibile, già provata, ossia $\models_H B$.
   \AxiomC{$B \rightarrow ( A \rightarrow B)$}
   \BinaryInfC{$A \rightarrow B$}
   \AxiomC{$A \rightarrow (B \rightarrow A)$}
-  \AxiomC{$(A \rightarrow (B \rightarrow A)) \rightarrow (A \rightarrow A)$}
+  \AxiomC{$(A \rightarrow (B \rightarrow A)) \rightarrow ((A \rightarrow B) \rightarrow (A \rightarrow A))$}
   \BinaryInfC{$(A \rightarrow B) \rightarrow (A \rightarrow A)$}
   \BinaryInfC{$A \rightarrow A$}
 \end{prooftree}

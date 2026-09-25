@@ -139,7 +139,7 @@ il cui risultato è $n$). Si vorrà formalizzare il tutto in modo tale da avere 
 qualche $\mathscr{L}$-struttura tale che $I(n)$ sia contenuta in $I(B)$; quindi si avrà che 
 $B(n)$ è vera in $\mathscr{A}$ se e solo se $I(n) \in I(B)$: 
 $$
-\mathscr{A} \in B(n) \iff I(n) \in I(B)
+\mathscr{A} \models B(n) \iff I(n) \in I(B)
 $$
 
 Il passo più ostico nella definizione di interpretazione di termini 
@@ -285,19 +285,19 @@ Si indica con $\mathscr{A}\models_{\mathcal{v}} A$ se $\mathscr{A}$ rende vera $
 \begin{itemize}
   \item \textit{atomica}:
   $$
-  \mathscr{A} \models_{\mathcal{v}} P(t_1, \cdots, t_2) \iff (I_{\mathcal{v}}(t_1), \cdots, I_{\mathcal{v}}(t_n)) \in I(P)
+  \mathscr{A} \models_{\mathcal{v}} P(t_1, \cdots, t_n) \iff (I_{\mathcal{v}}(t_1), \cdots, I_{\mathcal{v}}(t_n)) \in I(P)
   $$
   \item \textit{proposizioni}:
     \begin{itemize}
-      \item  $\mathscr{A} \models_{\mathcal{v}} A_1 \land A_2 \iff \mathscr{A} \models A_1$ e $\mathscr{A} \models A_2$
-      \item $\mathscr{A} \models_{\mathcal{v}}A_1 \lor A_2 \iff \mathscr{A} \models A_1$ o $\mathscr{A} \models A_2$
-      \item $\mathscr{A} \models_{\mathcal{v}}  \neg A_1  \iff \mathscr{A} \nvDash A_1 $
-      \item $\mathscr{A} \models_{\mathcal{v}} A_1 \rightarrow A_2 \iff \mathscr{A} \nvDash A_1$ o $\mathscr{A} \models A_2$
-      \item $\mathscr{A} \models_{\mathcal{v}} \forall x A \iff \mathscr{A} \models_{\mathcal{v}} A[a/x] \text{ per ogni } a \in U$
-      \item $\mathscr{A} \models_{\mathcal{v}} \exists x A \iff \mathscr{A} \models_{\mathcal{v}} A[a/x] \text{ per almeno una  } a \in U$
+      \item  $\mathscr{A} \models_{\mathcal{v}} A_1 \land A_2 \iff \mathscr{A} \models_{\mathcal{v}} A_1$ e $\mathscr{A} \models_{\mathcal{v}} A_2$
+      \item $\mathscr{A} \models_{\mathcal{v}}A_1 \lor A_2 \iff \mathscr{A} \models_{\mathcal{v}} A_1$ o $\mathscr{A} \models_{\mathcal{v}} A_2$
+      \item $\mathscr{A} \models_{\mathcal{v}}  \neg A_1  \iff \mathscr{A} \nvDash_{\mathcal{v}} A_1 $
+      \item $\mathscr{A} \models_{\mathcal{v}} A_1 \rightarrow A_2 \iff \mathscr{A} \nvDash_{\mathcal{v}} A_1$ o $\mathscr{A} \models_{\mathcal{v}} A_2$
+      \item $\mathscr{A} \models_{\mathcal{v}} \forall x A \iff \mathscr{A} \models_{\mathcal{v}[a/x]} A \text{ per ogni } a \in U$
+      \item $\mathscr{A} \models_{\mathcal{v}} \exists x A \iff \mathscr{A} \models_{\mathcal{v}[a/x]} A \text{ per almeno una  } a \in U$
     \end{itemize}
 \end{itemize}
-Concludiamo dicendo che $\mathscr{A} \models A$ sse \textit{per ogni}  $\mathcal{v}: Var \rightarrow A$ si ha $\mathscr{A} \models_\mathcal{v} A$.
+Concludiamo dicendo che $\mathscr{A} \models A$ sse \textit{per ogni}  $\mathcal{v}: Var \rightarrow U$ si ha $\mathscr{A} \models_\mathcal{v} A$.
 \end{defi}
 
 \subsection{Intuizione: differenze delle due semantiche}
@@ -359,7 +359,7 @@ $$
 $$
 dati $\Gamma$  una $\mathscr{L}$-teoria e $A$ un $\mathscr{L}$-enunciato. Se $\Gamma$ è finita, ossia $\Gamma = \{\gamma_1, \cdots, \gamma_n\}$, varrà nuovamente il fatto 
 $$
-\Gamma \models A \iff \gamma_1 \land \cdots \land \gamma_n \land  \{\neg A\} \text{ insodd.}
+\Gamma \models A \iff \gamma_1 \land \cdots \land \gamma_n \land \neg A \text{ insodd.}
 $$
 ossia ci si riduce all'analisi di una singola formula, 
 mentre invece se $\Gamma$ è infinito, possiamo solo chiederci se
@@ -415,11 +415,11 @@ Si può costruire una $\mathscr{L}$-teoria $\Gamma_{TO}$ che, ``allargando'' $\G
 \begin{align*}
   \Gamma_{TO} := \Gamma_{PO} \cup \{\forall x \forall y ~~ (R(x,y) \lor R(y,x))\}
 \end{align*}
-Effettivamente, $(\mathbb{N}, \leq) \models \Gamma_{PO}$, mentre $(\mathbb{N}, |) \nvDash \Gamma_{PO}$ perché vi sono elementi $m$, $n$ tali che né $m | n$ né $n |m $.
+Effettivamente, $(\mathbb{N}, \leq) \models \Gamma_{TO}$, mentre $(\mathbb{N}, |) \nvDash \Gamma_{TO}$ perché vi sono elementi $m$, $n$ tali che né $m | n$ né $n |m $.
 
 Aggiungendo nuovi assiomi si possono caratterizzare altri tipi di ordine: ad esempio, si può caratterizzare un ordine che abbia un elemento minimo:
 \begin{align*}
-  \Gamma_{min} := \Gamma_{PO} \cup \{\exists m \forall x ~~ (x \neq m \land \neg R(x,m))\}
+  \Gamma_{min} := \Gamma_{PO} \cup \{\exists m \forall x ~~ R(m, x)\}
 \end{align*}
 
 \subsubsection{Teoria dei gruppi (1)}

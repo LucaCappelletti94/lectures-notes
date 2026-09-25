@@ -77,10 +77,10 @@ né vincolata) in $P$.
   \begin{align*}
     & \mathscr{A} \models \neg \forall x P \\
     \iff & \mathscr{A} \nvDash \forall x P \\
-    \iff & \text{non è vero che } \forall a \in A ~~ \mathscr{A} \models P[\bar{a}/x] \\
-    \iff & \text{non per tutti gli } a \in A ~~ \mathscr{A} \models P[\bar{a}/x] \\
-    \iff & \text{ per almeno un } a \in A ~~ \mathscr{A} \nvDash P[\bar{a}/x] \\
-    \iff & \text{ esiste almeno un } a \in A ~~ \mathscr{A} \models \neg P[\bar{a}/x] \\
+    \iff & \text{non è vero che } \forall a \in U ~~ \mathscr{A} \models P[\bar{a}/x] \\
+    \iff & \text{non per tutti gli } a \in U ~~ \mathscr{A} \models P[\bar{a}/x] \\
+    \iff & \text{ per almeno un } a \in U ~~ \mathscr{A} \nvDash P[\bar{a}/x] \\
+    \iff & \text{ esiste almeno un } a \in U ~~ \mathscr{A} \models \neg P[\bar{a}/x] \\
     \iff & \mathscr{A} \models \exists x \neg P 
   \end{align*}
 \end{proof}
@@ -134,7 +134,7 @@ $$
 \begin{align*}
   \exists x P(x) \land \exists x D(x) & \equiv \exists x (P(x) \land \exists x D(x)) & \text{perché } x \notin FV(\exists x D(x)) \\
   & \equiv \exists x (P(x) \land \exists y D(y)) & \text{Rinomina~(\ref{rinomina})} \\
-  & \equiv \exists x \exists y (P(x) \land D(y)) & \text{perché } y \notin FV(\exists x D(x)) \\
+  & \equiv \exists x \exists y (P(x) \land D(y)) & \text{perché } y \notin FV(P(x)) \\
 \end{align*}
 \end{proof}
 
@@ -152,8 +152,8 @@ $$
 \begin{cases}
   \forall x P \rightarrow Q \equiv \exists x (P \rightarrow Q) \\
   \exists x P \rightarrow Q \equiv \forall x (P \rightarrow Q) \\
-  Q \rightarrow \exists x P  \equiv \forall  x (Q \rightarrow P) \\
-  Q \rightarrow \forall x P  \equiv \exists x (Q \rightarrow P)
+  Q \rightarrow \exists x P  \equiv \exists x (Q \rightarrow P) \\
+  Q \rightarrow \forall x P  \equiv \forall x (Q \rightarrow P)
 \end{cases}
 $$
 
@@ -176,7 +176,7 @@ notevoli elencate, dunque $A \equiv A^P$.
 Si vuole arrivare nuovamente al calcolo refutazionale basato su \textit{risoluzione}, ma per poter dimostrare che una certa formula è insoddisfacibile non basta che sia in PNF, ma deve essere anche in Forma Normale di Skolem. 
 
 \begin{defi}[Forma Normale di Skolem]
-Un $\mathscr{L}$-enunciato $A \in PNF$ si dice in Forma Normale di Skolem sse non contiene occorrenze del quantificatore esitenziale.
+Un $\mathscr{L}$-enunciato $A \in PNF$ si dice in Forma Normale di Skolem sse non contiene occorrenze del quantificatore esistenziale.
 \begin{align*}
 \text{sia } & A := Q_1 x_1 Q_2 x_2 \cdots Q_n x_n M \\
 \text{allora } &  A \in SNF \iff Q_i = \forall i \in n
@@ -711,7 +711,7 @@ $$
 Si procede alla risoluzione del problema dell'insoddisfacibilità, seguendo 
 i passi definiti precedentemente: 
 \begin{align*}
-\mathscr{F}_S = \{c, s(\cdot), f(\cdot, \cdot)\} &&
+\mathscr{F}_S = \{c, s(\cdot), f(\cdot)\} &&
 H_S = \{c, s(c), f(c), f(s(c)), s(f(c)), s(s(c)), \cdots\, \overbrace{f(\cdots s( \cdots (c) \cdots))}^{\text{numero finito di } s \text{ e } f}, \cdots\}
 \end{align*}
 Pertanto, è impossibile costruire $(S/H_S)^*$ direttamente, in quanto è anch'esso sarebbe infinito. Si passa, quindi, a considerare sottoinsiemi finti di $H_S$, per esempio:
@@ -793,7 +793,7 @@ Si cerca, quindi, un $H \subseteq_\omega H_S$ che dimostri l'isoddisfacibilità:
   ma non si può fare nulla. 
   \paragraph{(2)} $H = \{\mathcal{z}, f(\mathcal{z})\}$:
   $$
-  S = \{\implies P(\mathcal{z}), P(f(\mathcal{z})) \implies\} \cup  \{\implies P(f(\mathcal{z})), P(f(f((\mathcal{z}))) \implies\}
+  S = \{\implies P(\mathcal{z}), P(f(\mathcal{z})) \implies\} \cup  \{\implies P(f(\mathcal{z})), P(f(f(\mathcal{z}))) \implies\}
   $$
   A questo punto si può risolvere: 
   \begin{prooftree}
@@ -830,7 +830,7 @@ Una possibile risoluzione si trova ponendo, ad esempio, $x = \mathcal{z}$, $y = 
 Allo stesso modo se ne può ha un'altra con  $x = f(\mathcal{z})$, $y = f(f(\mathcal{z}))$: 
 \begin{prooftree}
   \AxiomC{$\implies P(f(\mathcal{z}),f(f(\mathcal{z}))), Q(f(\mathcal{z}))$}
-  \AxiomC{$P(f(\mathcal{z}),f(f(\mathcal{z})) \implies$}
+  \AxiomC{$P(f(\mathcal{z}),f(f(\mathcal{z}))) \implies$}
   \BinaryInfC{$\implies Q(f(\mathcal{z}))$}
 \end{prooftree}
 e, continuando così, si possono ottenere infinite altre risoluzioni.
@@ -1043,8 +1043,8 @@ $$
 $$
 Questo ci da, quindi:
 \begin{itemize}
-  \item \textit{completezza}: Se $S \vdash_R \implies$, allora $S$ è insodd. e $\Gamma \models A$
-  \item \textit{correttezza}: se $\Gamma \models A$, allora $S \vdash_R \implies$; \\
+  \item \textit{correttezza}: Se $S \vdash_R \implies$, allora $S$ è insodd. e $\Gamma \models A$
+  \item \textit{completezza}: se $\Gamma \models A$, allora $S \vdash_R \implies$; \\
   ovvero $S$ è insodd. e pertanto deve essere refutabile col calcolo $\mathscr{R}$
 \end{itemize} 
 

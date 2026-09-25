@@ -57,7 +57,7 @@ che identificano una \textit{tabella di verità}.
 \end{defi}
 I valori di verità dei connettivi possono anche essere espressi in forma algebrica, per esempio:
 $$
-\widetilde{\mathcal{v}}(A \rightarrow B) = min\{1-\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B)\}
+\widetilde{\mathcal{v}}(A \rightarrow B) = \max\{1-\widetilde{\mathcal{v}}(A), \widetilde{\mathcal{v}}(B)\}
 $$
 
 \begin{defi}[Semantica degli Enunciati]
@@ -638,7 +638,7 @@ che è chiaramente riflessiva, simmetrica e transitiva.
 \label{def:equivalenza}
   Relazione $\equiv \subseteq \mathscr{F_L}^2$ tale che:
   $$
-    \forall (A,B) \in \mathscr{F_L}^2,\ A \equiv B \iff \forall \mathcal{v}:\mathscr{L}\rightarrow \{0,1\},\ \widetilde{\mathcal{v}}(A) = \mathcal{v}(B)
+    \forall (A,B) \in \mathscr{F_L}^2,\ A \equiv B \iff \forall \mathcal{v}:\mathscr{L}\rightarrow \{0,1\},\ \widetilde{\mathcal{v}}(A) = \widetilde{\mathcal{v}}(B)
   $$
 \end{defi}
 \begin{oss}
@@ -792,7 +792,7 @@ Date $F, G, H \in \mathscr{F_L}$ le seguenti sono equivalenze logiche:
   \item Commutatività:
     \begin{align*}
       F \lor G \equiv G \lor F &&
-      F \land G \equiv F \land F 
+      F \land G \equiv G \land F 
     \end{align*}
     
   \item Associatività:
@@ -830,7 +830,7 @@ Date $F, G, H \in \mathscr{F_L}$ le seguenti sono equivalenze logiche:
       F \rightarrow G &\equiv  (\neg F) \lor G &
       F \rightarrow G &\equiv \neg(F \land \neg G) \\
       F \lor G &\equiv (\neg F) \rightarrow G &
-      F \land G &\equiv \neg(F \rightarrow G) \\
+      F \land G &\equiv \neg(F \rightarrow \neg G) \\
       F \lor G &\equiv \neg (\neg F \land \neg G) &
       F \land G &\equiv \neg(\neg F \lor \neg G)
     \end{align*}
@@ -869,7 +869,7 @@ Date $F, G, H \in \mathscr{F_L}$ le seguenti sono equivalenze logiche:
   \label {def:distributibilita-generalizzata}
     \begin{align*}
       (F_1 \lor \cdots \lor F_u) \land (G_1 \lor \cdots \lor G_n) & \equiv \bigvee\limits_{i = 1}^{u} \bigvee\limits_{j = 1}^{v} (F_i \land G_j) \\
-      (F_1 \land \cdots \land F_u) \lor (G_1 \land \cdots \land G_n) & \equiv \bigwedge\limits_{i = 1}^{u} \bigwedge\limits_{j = 1}^{v} (F_i \land G_j)
+      (F_1 \land \cdots \land F_u) \lor (G_1 \land \cdots \land G_n) & \equiv \bigwedge\limits_{i = 1}^{u} \bigwedge\limits_{j = 1}^{v} (F_i \lor G_j)
     \end{align*}
 
 \end{itemize}
@@ -1593,7 +1593,7 @@ Per induzione strutturale su $F$:
                    & \equiv \neg C_1 \lor \neg C_2 \lor \cdots \lor \neg C_h := (\neg G)^d & \text{per DeMorgan}
         \end{align*}
         \begin{align*}
-          \text{dove ogni } \neg C_i & \equiv \neg (\ell_1 \land \ell_2 \land \cdots \land \ell_v) \\
+          \text{dove ogni } \neg C_i & \equiv \neg (\ell_{i_1} \lor \ell_{i_2} \lor \cdots \lor \ell_{i_{k_i}}) \\
                                & \equiv \neg \ell_{i_1} \land \cdots \land \neg \ell_{i_{k_i}} & \text{per DeMorgan} \\
                                & \equiv \bar \ell_{i_1} \land \cdots \land \bar \ell_{i_{k_i}} & \neg \ell_{i_j} \text{ è } \equiv \text{ a un letterale opposto} \\
           \implies (\neg G)^d \in DNF 
@@ -1605,8 +1605,8 @@ Per induzione strutturale su $F$:
         \end{align*}
         \begin{align*}
           \text{con } \neg D_i & \equiv \neg (\ell_{i_1} \land \cdots \land \ell_{i_{k_i}}) \\
-                               & \equiv \neg \ell_{i_1} \land \cdots \land \neg \ell_{i_{v_i}} & \text{per DeMorgan} \\
-                               & \equiv \bar \ell_{i_1} \land \cdots \bar \neg \ell_{i_{v_i}} & \neg \ell_{i_j} \text{ è } \equiv \text{ a un letterale opposto} \\
+                               & \equiv \neg \ell_{i_1} \lor \cdots \lor \neg \ell_{i_{v_i}} & \text{per DeMorgan} \\
+                               & \equiv \bar{\ell}_{i_1} \lor \cdots \lor \bar{\ell}_{i_{v_i}} & \neg \ell_{i_j} \text{ è } \equiv \text{ a un letterale opposto} \\
           \implies (\neg G)^c \in CNF 
         \end{align*}
         Quindi esistono sia $F^d := (\neg G)^d \equiv \neg (G^c)$ che $F^c := (\neg G)^c \equiv \neg (G^d)$. 
@@ -1625,9 +1625,9 @@ Per induzione strutturale su $F$:
                 & \equiv (G_1 \lor \cdots \lor G_u) \land (H_1 \lor \cdots \lor H_v) \\
                 & \equiv \bigvee\limits_{i,j}(G_i \land H_j) & \text{per Distributività Generalizzata}~(\ref{def:distributibilita-generalizzata})
             \end{align*}
-            Ma visto che $C_i$ e $H_j$ sono \textit{co-clausole}, anche $(G_i \land H_j)$ lo è.
+            Ma visto che $G_i$ e $H_j$ sono \textit{co-clausole}, anche $(G_i \land H_j)$ lo è.
             $$
-            \implies F^d := \bigvee\limits_{i=1}^u \bigvee\limits_{j=1}^v (G_i \land H_i) \in DNF
+            \implies F^d := \bigvee\limits_{i=1}^u \bigvee\limits_{j=1}^v (G_i \land H_j) \in DNF
             $$
         \end{itemize}
       \item se $F = (G \lor H)$, per ipotesi induttiva si ha:
@@ -1645,10 +1645,10 @@ Per induzione strutturale su $F$:
                 & \equiv (G_1 \land \cdots \land G_u) \lor (H_1 \land \cdots \land H_v) \\
                 & \equiv \bigwedge\limits_{i,j}(G_i \lor H_j) & \text{per Distributività Generalizzata}~(\ref{def:distributibilita-generalizzata})
             \end{align*}
-            Ma visto che $C_i$ e $H_j$ sono \textit{clausole}, anche $(G_i \lor H_j)$ lo è.
+            Ma visto che $G_i$ e $H_j$ sono \textit{clausole}, anche $(G_i \lor H_j)$ lo è.
             $$
-            \implies F^c := \bigwedge\limits_{i=1}^u \bigwedge\limits_{j=1}^v (G_i \lor H_i) \in CNF
-            $$generalizzata
+            \implies F^c := \bigwedge\limits_{i=1}^u \bigwedge\limits_{j=1}^v (G_i \lor H_j) \in CNF
+            $$
         \end{itemize}       
       \item se $F = (G \rightarrow H)$, ci si comporta analogamente contando che $F \equiv (\neg G \lor H)$      
     \end{itemize}

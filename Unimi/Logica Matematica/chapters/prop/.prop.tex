@@ -263,7 +263,7 @@ in modo induttivo, come è accaduto anche per $F_L$.
 Vi sono inoltre delle forme algebriche per esprimere i valori di verità dei connettivi, 
 per esempio 
 $$
-\widetilde{\mathfrak{v}}(A \rightarrow B) = min\{1-\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B)\}
+\widetilde{\mathfrak{v}}(A \rightarrow B) = \max\{1-\widetilde{\mathfrak{v}}(A), \widetilde{\mathfrak{v}}(B)\}
 $$
 \subsection{Nozioni Semantiche Fondamentali}
 
@@ -846,7 +846,7 @@ $$
 $$
 \begin{cases}
   F \lor G \equiv G \lor F \\
-  F \land G \equiv F \land F 
+  F \land G \equiv G \land F 
 \end{cases}
 $$
 \noindent 
@@ -893,7 +893,7 @@ $$
   F \rightarrow G \equiv  (\neg F) \lor G \\
   F \rightarrow G \equiv \neg(F \land \neg G) \\
   F \lor G \equiv (\neg F) \rightarrow G \\
-  F \land G \equiv \neg(F \rightarrow G) \\
+  F \land G \equiv \neg(F \rightarrow \neg G) \\
   F \lor G \equiv \neg (\neg F \land \neg G) \\
   F \land G \equiv \neg(\neg F \lor \neg G)
 \end{cases}
@@ -1147,7 +1147,7 @@ $(P(A), \subseteq)$ tale che $A \subseteq B \iff A = A \cap B$.
 Per esercizio, sia $A$ un insieme infinito e sia $F(A)$
 l'insieme dei suoi sottoinsiemi finiti o complementi di insiemi 
 finiti. Si dimostri che $(F(A), \cup, \cap, \emptyset, A, ()^c)$ è un algebra booleana. Un altro esempio di algebra 
-booleana è quella dei valori di verità $(\{0,1\}, \min, \max, 0, 2, 1-\_)$. 
+booleana è quella dei valori di verità $(\{0,1\}, \min, \max, 0, 1, 1-\_)$. 
 
 L'algebra delle formule, chiama anche \textbf{Algebra di 
 Lindenbaum delle Formule}, è definito $(F_L/\equiv, \land, \lor, \bot, \top, \neg)$. 
@@ -1190,7 +1190,7 @@ proposizionali che occorrono in $A$ e $n \in \mathbb{N}$ tale che
 $Var(A) \subseteq \{p_1, p_2, \cdots, p_n\}$.  Sia ora $\hat{A}$ una funzione 
 definita come 
 $$
-\hat{A} : \{0,1\}^n \rightarrow \{0,1\} \text{ tale che } \forall \mathfrak{v}:L \rightarrow \{0,1\}\text{ si ha } \hat{A}(\mathfrak{v}(p_1), \mathfrak{v}(p_1), \cdots, \mathfrak{v}(p_n)) = \mathfrak{v}(A)
+\hat{A} : \{0,1\}^n \rightarrow \{0,1\} \text{ tale che } \forall \mathfrak{v}:L \rightarrow \{0,1\}\text{ si ha } \hat{A}(\mathfrak{v}(p_1), \mathfrak{v}(p_2), \cdots, \mathfrak{v}(p_n)) = \mathfrak{v}(A)
 $$
 la fuzione $\hat{A}$ si chiama \textbf{funzione termine} e, per definirla formalmente, 
 si procede per induzione. 
@@ -1316,7 +1316,7 @@ $$
 è chiaro che la formula più ``corta'' è $\hat{F} = t_1$, ma con la forma 
 canonica il risultato è 
 $$
-\hat{F} = (p_1 \land \not p_2 \land \not p_3) \lor (p_1 \land \not p_2 \land p_3) \lor (p_1 \land p_2 \land \not p_3) \lor (p_1 \land p_2 \land p_3)
+\hat{F} = (p_1 \land \neg p_2 \land \neg p_3) \lor (p_1 \land \neg p_2 \land p_3) \lor (p_1 \land p_2 \land \neg p_3) \lor (p_1 \land p_2 \land p_3)
 $$
 molto più lunga.
 \paragraph{Insieme funzionalmente completo di connettivi}
@@ -1912,14 +1912,14 @@ Queste due formule non sono equivalenti, infatti vi sono assegnamenti
 che portano a risultati diversi; tuttavia sono equisoddisfacibili.
 
 \paragraph{2} 
-Sia $A := (p_1 \land p_2) \lor (p_2 \land q_2) \lor (p_3 \land q_3)$. Si 
+Sia $A := (p_1 \land q_1) \lor (p_2 \land q_2) \lor (p_3 \land q_3)$. Si 
 ha $A'$ uguale a 
 \[
-        ((p_1 \land q_1) \lor (p_2 \land q_2) \lor a_3) \land (\neg a_2 \lor p_3) \land (\neg a_3 \lor q_3)
+        ((p_1 \land q_1) \lor (p_2 \land q_2) \lor a_3) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3)
 \]
 e, applicando di nuovo la trasformazione, si ottiene 
 \[
-        ((p_1 \land q_1) \lor a_2 \lor a_3) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor p_2) 
+        ((p_1 \land q_1) \lor a_2 \lor a_3) \land (\neg a_3 \lor p_3) \land (\neg a_3 \lor q_3) \land (\neg a_2 \lor p_2) \land (\neg a_2 \lor q_2) 
 \]
 e si conclude definendo $A'''$
 \[
@@ -2019,7 +2019,7 @@ ossia SAT solver e Theorem Prover.
         \begin{itemize}
                 \item $\ell \in C_1$
                 \item $\bar{\ell} \in C_2$
-                \item $D := ((C_1 \setminus \{\ell\}) \cup (C_2 \setminus \{\bar{\ell}\})$
+                \item $D := (C_1 \setminus \{\ell\}) \cup (C_2 \setminus \{\bar{\ell}\})$
         \end{itemize}
        e si scriverà $D = \mathbb{R}(C_1,C_2; \ell, \bar{\ell})$. 
 \end{defi}
@@ -2030,8 +2030,8 @@ diverso da $(C_1 \cup C_2) \setminus \{\ell, \bar{\ell}\}$
 
 \subsubsection{Esempio}
 Sia $C_1 := \{x, y, \neg t\}$ e $C_2 := \{u, \neg y, t\}$; 
-si ha $D_1 = \mathbb{R}(C_1, C_2; y, \neg y) = \{x, \neg t, u\}$ e 
-$D_2 = \mathbb{R}(C_1, C_2; \neg t, t) = \{x, y, y\}$. 
+si ha $D_1 = \mathbb{R}(C_1, C_2; y, \neg y) = \{x, u, \neg t, t\}$ e 
+$D_2 = \mathbb{R}(C_1, C_2; \neg t, t) = \{x, y, u, \neg y\}$. 
 
 \begin{lem}[di correttezza di $\mathbb{R}$]
         Sia $D = \mathbb{R}(C_1, C_2; \ell, \bar{\ell})$, allora 
@@ -2322,7 +2322,7 @@ B ~~~~ B \rightarrow (A \rightarrow B) ~~~~ \therefore A \rightarrow B
 $$
 e 
 $$
-(A \rightarrow (B \rightarrow A)) ~~~ (A \rightarrow (B \rightarrow A) \rightarrow (A \rightarrow A)) 
+(A \rightarrow (B \rightarrow A)) ~~~ (A \rightarrow (B \rightarrow A)) \rightarrow ((A \rightarrow B) \rightarrow (A \rightarrow A))
 \therefore (A\rightarrow B) \rightarrow (A \rightarrow A)
 $$
 da cui si può concludere 
