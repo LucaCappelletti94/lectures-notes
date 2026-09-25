@@ -23,15 +23,15 @@
 \end{definition}
 \end{multicols}
 \begin{definition}[Firma]
-    Una firma è una funzione che consente di riconoscere se un elemento fa parte di un insieme \(X\) o no: essa viene definita come una funzione \(s: U \rightarrow 2^r\), che associ a ogni chiave possibile una sequenza di \(r\) bit casuali, nel senso che la probabilità che \(s\rnd{x} = s\rnd{y}\) se \(x\) e \(y\) sono presi uniformemente a caso da \(U\) è \(\frac{1}{2}^2\). Consideriamo l'enumerazione ordinata \(x_0 \leq x_1 \leq \ldots \leq x_{n-1}\) degli elementi di \(X\) e, oltre a \(f\), memorizziamo ora una tabella di \(n\) firme a \(r\) bit \(S = \ngle{s\rnd{x_0}, s\rnd{x_1}, \ldots, s\rnd{x_{n-1}}}\).
+    Una firma è una funzione che consente di riconoscere se un elemento fa parte di un insieme \(X\) o no: essa viene definita come una funzione \(s: U \rightarrow 2^r\), che associ a ogni chiave possibile una sequenza di \(r\) bit casuali, nel senso che la probabilità che \(s\rnd{x} = s\rnd{y}\) se \(x\) e \(y\) sono presi uniformemente a caso da \(U\) è \(\frac{1}{2^r}\). Consideriamo l'enumerazione ordinata \(x_0 \leq x_1 \leq \ldots \leq x_{n-1}\) degli elementi di \(X\) e, oltre a \(f\), memorizziamo ora una tabella di \(n\) firme a \(r\) bit \(S = \ngle{s\rnd{x_0}, s\rnd{x_1}, \ldots, s\rnd{x_{n-1}}}\).
     
     Per interrogare la struttura risultante su input \(x \in U\), agiamo come segue:
     \begin{enumerate}
         \item calcoliamo \(f\rnd{x}\)
         \item recuperiamo \(S_{f\rnd{x}}\)
-        \item se \(S_{f\rnd{x}} = s\rnd{x}\) restituiamo \(f\rnd{x}\), altrimenti restituiamo \(-1\) per indicare che \(x\) non fa arte dell'insieme \(X\).
+        \item se \(S_{f\rnd{x}} = s\rnd{x}\) restituiamo \(f\rnd{x}\), altrimenti restituiamo \(-1\) per indicare che \(x\) non fa parte dell'insieme \(X\).
     \end{enumerate}
-    Se \(x \in X\), il valore \(f\rnd{x}\) è il suo rango in \(X\) e quindi \(S_{f\rnd{x}}\) conterrà per definizione \(s\rnd{x}\). Se invece \(x \not\in X\), \(S_{f\rnd{x}}\) sarà una firma arbitraria, e quindi restituiremo quasi sempre \(-1\), tranne nel caso ci siano collisioni di firme, il che avviene con probabilità \(\frac{1}{2}^r\). Tarando il numero \(r\) di bit delle firme è quindi possibile bilanciare lo spazio occupato e la precisione della struttura.
+    Se \(x \in X\), il valore \(f\rnd{x}\) è il suo rango in \(X\) e quindi \(S_{f\rnd{x}}\) conterrà per definizione \(s\rnd{x}\). Se invece \(x \not\in X\), \(S_{f\rnd{x}}\) sarà una firma arbitraria, e quindi restituiremo quasi sempre \(-1\), tranne nel caso ci siano collisioni di firme, il che avviene con probabilità \(\frac{1}{2^r}\). Tarando il numero \(r\) di bit delle firme è quindi possibile bilanciare lo spazio occupato e la precisione della struttura.
 \end{definition}
 \begin{analysis}[Costruzione di un Order-preserving minimal perfect hash]
     Scegliamo \textbf{due} funzioni \(h\) e \(g\) con uno spazio dei valori \(m\) un po' più ampio della cardinalità \(n\) di \(X\), e di creare un vettore \(\bm{w}\) di interi di dimensione \(m\). Cercheremo quindi di fare in modo che:

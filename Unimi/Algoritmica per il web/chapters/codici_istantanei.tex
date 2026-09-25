@@ -88,12 +88,12 @@
     Il \textbf{codice unario} rappresenta il naturale \(x\) tramite \(x\) zeri seguiti da un uno. Il codice unario è \textbf{istantaneo} e \textbf{completo}. Le prime parole del codice sono \(1\), \(01\), \(001\) e \(0001\).
 \end{definition}
 \begin{definition}[Codice Gamma]
-    Il codice Gamma, o \(\gamma\), descrive un intero \(x\) scrivendo il numero di bit della rappresentazione binaria ridotta di \(x\) in unario, seguito dalla rappresentazione binaria ridotta di \(x\). Il fatto che il codice sia istantaneo e completo si ottiene immediatamente dal fatto che lo è il codice unario. Le prime parole del codice sono \(1\), \(010\), \(011\), \(00100\), \(00110\) e \(00111\).
+    Il codice Gamma, o \(\gamma\), descrive un intero \(x\) scrivendo il numero di bit della rappresentazione binaria ridotta di \(x\) in unario, seguito dalla rappresentazione binaria ridotta di \(x\). Il fatto che il codice sia istantaneo e completo si ottiene immediatamente dal fatto che lo è il codice unario. Le prime parole del codice sono \(1\), \(010\), \(011\), \(00100\), \(00101\), \(00110\) e \(00111\).
 \end{definition}
 \begin{definition}[Codice Delta]
-    Il codice Delta, o \(\delta\), descrive un intero \(x\) scrivendo il numero di bit della rappresentazione binaria ridotta di \(x\) in \(\gamma\), seguito dalla rappresentazione binaria ridotta \(x\). Il fatto che il codice sia istantaneo e completo deriva dal fatto che lo è il codice \(\gamma\). Le prime parole del codice sono \(1\), \(0100\), \(0101\), \(01100\), \(01110\), \(01111\), \(00100000\) e \(00100001\).
+    Il codice Delta, o \(\delta\), descrive un intero \(x\) scrivendo il numero di bit della rappresentazione binaria ridotta di \(x\) in \(\gamma\), seguito dalla rappresentazione binaria ridotta \(x\). Il fatto che il codice sia istantaneo e completo deriva dal fatto che lo è il codice \(\gamma\). Le prime parole del codice sono \(1\), \(0100\), \(0101\), \(01100\), \(01101\), \(01110\), \(01111\) e \(00100000\).
 \end{definition}
-\begin{definition}[Codice di Golonb di modulo \(b\)]
+\begin{definition}[Codice di Golomb di modulo \(b\)]
     Il \textbf{Codice di Golomb di modulo \(b\)} descrive un intero \(x\) scrivendo il quoziente \(q\) della divisione di \(x\) per \(b\) in unario, seguito dal resto \(r\) in binario.
     \[
     \begin{aligned} q &=\frac{x}{b} \\ r &=x-q \cdot b \end{aligned}
@@ -104,7 +104,7 @@
     Per quanto il codice di Golomb è definito per qualsiasi intero \(b\), i valori migliori risultano essere quelli che risultato in albero dei prefissi bilanciato. Procediamo ora a derivare il valore di \(b\) dalla probabilità \(p\).
     
     Dato un numero di estrazioni \(\ell\):
-    \[\begin{aligned} \sum_{x \geq \ell} \operatorname{prob}[x] &=\sum_{x \geq \ell} p(1-p)^{x}-1 \\ &=p(1-p)^{\ell-1} \sum_{x \geq 0}(1-p)^{x} \\ &=p(1-p)^{\ell-1}(1 / p) \\ &=(1-p)^{\ell-1} \end{aligned}\]
+    \[\begin{aligned} \sum_{x \geq \ell} \operatorname{prob}[x] &=\sum_{x \geq \ell} p(1-p)^{x-1} \\ &=p(1-p)^{\ell-1} \sum_{x \geq 0}(1-p)^{x} \\ &=p(1-p)^{\ell-1}(1 / p) \\ &=(1-p)^{\ell-1} \end{aligned}\]
     Il parametro \(b\) è scelto in modo tale che la probabilità che meno di \(b\) estrazioni siano necessarie per essere il più vicino possibile all'evento tale per cui più di \(b\) estrazioni son necessarie.
     
     Il parametro \(b\) deve essere l'intero che soddisfa quindi la seguente disuguaglianza:
@@ -214,7 +214,7 @@
     \]
     Siccome il \textbf{codice di Golomb} ha \textbf{distribuzione intesa esponenziale negativa} e un risultato importante di teoria dei codici dice che il codice ottimo per una geometrica di ragione \(p\) è un Golomb di modulo:
     \[
-        b=\left\lceil\frac{\log (2-p)}{\log (1-p)}\right\rceil
+        b=\left\lceil\frac{\log (2-p)}{\log \frac{1}{1-p}}\right\rceil
     \]
 \end{observation}
 \begin{observation}[Quali controindicazioni esistono nell'usare i codici di Golomb per scarti tra puntatori a documenti?]

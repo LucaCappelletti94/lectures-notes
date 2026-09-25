@@ -32,7 +32,7 @@
     \[
         \mathrm{tf}-\mathrm{idf}_{t, d}=\mathrm{tf}_{t, d} \times \mathrm{idf}_{t}
     \]
-    In altre parole, \(\mathrm{tf}-\mathrm{idf}_{t, d}\) assegna ad un termine \(d\) un peso in un documento \(d\) che è:
+    In altre parole, \(\mathrm{tf}-\mathrm{idf}_{t, d}\) assegna ad un termine \(t\) un peso in un documento \(d\) che è:
     \begin{enumerate}
         \item Massimo quando \(t\) occorre spesso all'interno di pochi documenti.
         \item Più basso quando il termine appare poche volte in un documento, o appare in molti documenti.
@@ -48,7 +48,7 @@
 \begin{observation}[Cosine similarity applicata al TF-IDF]
     Un modo standard per quantificare la similarità di due documenti \(d_1\) e \(d_2\) è il calcolo della \textbf{cosine similarity} dei vettori di rappresentazione dei documenti:
     \[
-        \operatorname{sim}\left(d_{1}, d_{2}\right)=\frac{\vec{V}\left(d_{1}\right) \cdot \vec{V}\left(d_{2}\right)}{\left|\vec{V}\left(d_{1}\right)\right|\left|\vec{V}\left(d_{2}\right)\right|^{\prime}}
+        \operatorname{sim}\left(d_{1}, d_{2}\right)=\frac{\vec{V}\left(d_{1}\right) \cdot \vec{V}\left(d_{2}\right)}{\left|\vec{V}\left(d_{1}\right)\right|\left|\vec{V}\left(d_{2}\right)\right|}
     \]
 \end{observation}
 \begin{definition}[Sublinear tf scaling]

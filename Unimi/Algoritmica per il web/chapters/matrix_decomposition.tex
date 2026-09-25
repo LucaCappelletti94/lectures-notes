@@ -47,13 +47,13 @@
     \]
 \end{definition}
 \begin{problem}[Low-Rank approximation]
-    Data una matrice \(C\) di dimensioni \(M \times N\) ed un intero positivo \(k\), il problema consiste nel trovare la matrice \(M \times N\) di rango al più \(C_k\) tale da minimizzare la norma di Frobenius della differenza delle matrici \(X = C - C_k\). Tipicamente, \(k\) è molto più piccolo del rango \(r\) della matrice \(C\).
+    Data una matrice \(C\) di dimensioni \(M \times N\) ed un intero positivo \(k\), il problema consiste nel trovare la matrice \(M \times N\) di rango al più \(k\) tale da minimizzare la norma di Frobenius della differenza delle matrici \(X = C - C_k\). Tipicamente, \(k\) è molto più piccolo del rango \(r\) della matrice \(C\).
 \end{problem}
 \begin{analysis}[Risolvere il problema di Low-Rank approximation usando le SVD]
     Le \textbf{singular values decompositions} (SVD) possono essere usate per risolvere il problema delle approssimazioni di Low-Rank:
     \begin{enumerate}
         \item Data \(C\), determiniamo la sua SVD: \(C=U\Sigma V^T\).
-        \item Determiniamo da \(\Sigma\) la matrice \(\Sigma\) formata sostituendo con zero gli \(r-k\) valori singolari più piccoli sulla diagonale di \(\Sigma\).
+        \item Determiniamo da \(\Sigma\) la matrice \(\Sigma_k\) formata sostituendo con zero gli \(r-k\) valori singolari più piccoli sulla diagonale di \(\Sigma\).
         \item Calcoliamo \(C_k = U \Sigma_k V^T\) come l'approssimazione a rango \(k\) di \(C\).
     \end{enumerate}
 \end{analysis}

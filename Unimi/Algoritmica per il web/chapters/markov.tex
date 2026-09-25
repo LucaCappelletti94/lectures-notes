@@ -9,7 +9,7 @@
         \operatorname{Pr}\left\{X_{k}=i_{0} | X_{k-1}=i_{1}, X_{k-2}=i_{2}, \ldots, X_{0}=i_{k}\right\}\\
         =\operatorname{Pr}\left\{X_{k}=i_{0} | X_{k-1}=i_{1}\right\}
     \end{align*}
-    e il lato destro non dipende da \(k\) (ogni qual volta il lato sinistro è definito). Il vettore \(\bm{p}\) definito da \(p_i = \prob{X_0 = 1}\) è la \textbf{distribuzione iniziale} e la matrice \(P\) definita da \(P_{ij} = \prob{X_k = j}{X_{k-1}=i}\) è la \textbf{matrice di transizione} della catena di Markov. Per ogni \(k \geq 0\), sia \(\bm{p}_{\rnd{k}}\) il vettore della distribuzione di probabilità marginale di \(X_k\):
+    e il lato destro non dipende da \(k\) (ogni qual volta il lato sinistro è definito). Il vettore \(\bm{p}\) definito da \(p_i = \prob{X_0 = i}\) è la \textbf{distribuzione iniziale} e la matrice \(P\) definita da \(P_{ij} = \prob{X_k = j}{X_{k-1}=i}\) è la \textbf{matrice di transizione} della catena di Markov. Per ogni \(k \geq 0\), sia \(\bm{p}_{\rnd{k}}\) il vettore della distribuzione di probabilità marginale di \(X_k\):
     \[
         \left(\boldsymbol{p}_{(k)}\right)_{i}=\operatorname{Pr}\left\{X_{k}=i\right\}
     \]
@@ -62,7 +62,7 @@
     \[
         p^{T}=\boldsymbol{q}^{T} P^{*}
     \]
-    per qualche \(\bm{q}\). Inoltre, \(\bm{p}\) è la dimostrazione limite di un dato \(\bm{q}\) sotto \(P\) se e solo se:
+    per qualche \(\bm{q}\). Inoltre, \(\bm{p}\) è la distribuzione limite di un dato \(\bm{q}\) sotto \(P\) se e solo se:
     \[
         p^{T}=\boldsymbol{q}^{T} P^{*}
     \]
