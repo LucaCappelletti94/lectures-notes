@@ -7,7 +7,7 @@
 Un modello di programmazione lineare si ottiene assumendo che \textbf{funzione obbiettivo} e \textbf{vincoli} e viene espresso come:
 
 \begin{align*}
-	\min x(x) = c_1x_1 + \ldots + c_nx_n       \\
+	\min z(x) = c_1x_1 + \ldots + c_nx_n       \\
 	a_{11}x_1 +  \ldots + a_{1n}x_n & \geq b_1 \\
 	                                & \vdots   \\
 	a_{m1}x_1 +  \ldots + a_{mn}x_n & \geq b_m
@@ -90,7 +90,7 @@ Basandosi sempre sul caso base del \textbf{problema di flusso a costo minimo \re
 
 \begin{figure}
 	\begin{align*}
-		\min z(x) = v                                                                                                         \\
+		\max z(x) = v                                                                                                         \\
 		\sum_{(s,j) \in \mathcal{A}} x_{sj} - \sum_{(j,s) \in \mathcal{A}} x_{js} & = b_s =v                                  \\
 		\sum_{(i,j) \in \mathcal{A}} x_{ij} - \sum_{(j,i) \in \mathcal{A}} x_{ji} & = b_i = 0 \quad \forall i \in \mathcal{N} \\
 		\sum_{(t,j) \in \mathcal{A}} x_{tj} - \sum_{(j,t) \in \mathcal{A}} x_{jt} & = b_t = -v                                \\

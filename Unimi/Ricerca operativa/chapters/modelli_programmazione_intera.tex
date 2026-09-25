@@ -32,7 +32,7 @@ Chiamo $x_j$ la variabile binaria che indica se aggiungo o meno l'oggetto $j-esi
 
 \begin{figure}
   \begin{align*}
-    \min z(x) = \sum_{j=1}^n c_jx_j           \\
+    \max z(x) = \sum_{j=1}^n c_jx_j           \\
     \sum_{j=1}^n p_{j}x_j & \leq b, \forall i \\
     x_j \in \{0,\ldots,1\}, \forall j
   \end{align*}
@@ -47,7 +47,7 @@ Avviando una nuova produzione si hanno costi fissi $f_j$ e costi per unità prod
 \begin{figure}
   \begin{align*}
     \min z(x,y) & = \sum_{j=1}^n c_jx_j + \sum_{j=1}^n f_jy_j \\
-    \min z(x,y) & = \sum_{j=1}^n b_j - x_j                    \\
+    x_j         & \geq b_j y_j \forall j                    \\
     x_j         & \leq M_j \forall j
   \end{align*}
   \caption{Modelli di ottimizzazione con costi fissi di avviamento}
@@ -82,7 +82,7 @@ Ogni oggetto ha un peso $p_i$, la variabile $x_{ij} \in \{0,1\}$ è vera quando 
 
 \begin{figure}
   \begin{align*}
-    \min z(x,y) \sum_{j=1}^n y_j                    \\
+    \min z(x,y) = \sum_{j=1}^n y_j                    \\
     \sum_{j=1}^n x_{ij}     & = 1, \forall i        \\
     \sum_{i=1}^m p_i x_{ij} & \leq q y_j, \forall j
   \end{align*}
@@ -113,7 +113,7 @@ Le variabili di decisione sono $x_j \in \{0,1\}$ e sono vere se $C_j \in SC$.
 
 \begin{figure}
   \begin{align*}
-    \min z(x) = \sum_{j=1}^n c_j x_j            \\
+    \max z(x) = \sum_{j=1}^n c_j x_j            \\
     \sum_{j=1}^n a_{ij} x_j & \leq 1, \forall i \\
   \end{align*}
   \caption{Modelli di riempimento d'insieme o set-packing}
