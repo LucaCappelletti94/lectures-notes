@@ -1,9 +1,10 @@
 \providecommand{\main}{../../../}
 \documentclass[\main/main.tex]{subfiles}
 
-\newcommand{\gauss}[3]{\frac{1}{\sqrt{2\pi #3}}\,\exp\crl{-\frac{\rnd{#1-#2}^2}{2 #3}}}
 
 \begin{document}
+\providecommand{\gauss}[3]{\frac{1}{\sqrt{2\pi #3}}\,\exp\crl{-\frac{\rnd{#1-#2}^2}{2 #3}}}
+
 \subsection{Cosa si intende per problema di regolarizzazione? Che tipo di funzione costo utilizza? Quali sono i suoi componenti?}
 La \textbf{regolarizzazione} è un processo di introduzione di informazioni aggiuntive per risolvere problemi di ottimizzazione mal posti o prevenire over-fitting sui dati o ancora per estendere la generalità del modello.
 
