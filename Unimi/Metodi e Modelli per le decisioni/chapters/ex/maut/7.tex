@@ -8,7 +8,7 @@ Si determini la soluzione ottima con la funzione di utilità $u = \w_1f_1 + \w_2
 \begin{figure}
   \begin{align*}
     \max f_1 = -x_1 + 2x_2 \\
-    \max f_1 = 2x_1 - x_2  \\
+    \max f_2 = 2x_1 - x_2  \\
     x_1 + x_2  & \leq 7    \\
     -x_1 + x_2 & \leq 3    \\
     x_1 - x_2  & \leq 3    \\
@@ -25,7 +25,7 @@ Si supponga ora di aggiungere un terzo obbiettivo, anch'esso da massimizzare $f_
 \subsubsection*{Costruisco funzione obbiettivo}
 
 \[
-  u = 0.25(-x_1 + 2x_2) + 0.75(2x_1-x_2) = 1.25x_1 + 0.75x_2
+  u = 0.25(-x_1 + 2x_2) + 0.75(2x_1-x_2) = 1.25x_1 - 0.25x_2
 \]
 \subsubsection*{Risolvo il problema lineare con la nuova funzione obbiettivo}
 
@@ -85,12 +85,12 @@ Il vertice $v_7$ non può mai essere soluzione ottima, essendo tutte le funzioni
 Per risolvere l'esercizio è sufficiente risolvere i seguenti sistemi 6 lineari.
 
 \begin{align*}
-  -6y + 3     & \geq\max\rnd{-6y + 3,-x-4y + 4,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
-  -x-4y + 4   & \geq\max\rnd{-6y + 3,-x-4y + 4,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
-  -5x-8y + 10 & \geq\max\rnd{-6y + 3,-x-4y + 4,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
-  -9x-6y + 11 & \geq\max\rnd{-6y + 3,-x-4y + 4,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
-  -11x-2y + 9 & \geq\max\rnd{-6y + 3,-x-4y + 4,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
-  -9x+ 6      & \geq\max\rnd{-6y + 3,-x-4y + 4,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
+  3x-6y + 3   & \geq\max\rnd{3x-6y + 3,x-8y + 6,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
+  x-8y + 6    & \geq\max\rnd{3x-6y + 3,x-8y + 6,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
+  -5x-8y + 10 & \geq\max\rnd{3x-6y + 3,x-8y + 6,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
+  -9x-6y + 11 & \geq\max\rnd{3x-6y + 3,x-8y + 6,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
+  -11x-2y + 9 & \geq\max\rnd{3x-6y + 3,x-8y + 6,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
+  -9x+ 6      & \geq\max\rnd{3x-6y + 3,x-8y + 6,-5x-8y + 10,-9x-6y + 11,-11x-2y + 9,-9x+ 6} \\
 \end{align*}
 
 Mi limito a plottare il risultato calcolato dal computer.
@@ -104,12 +104,12 @@ Mi limito a plottare il risultato calcolato dal computer.
         y domain=0:1
       ]
 
-      % \addplot3[mark=none,color=pink]{-6*y + 3\geq=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))-0.1?1:NaN};
-      % \addplot3[mark=none,color=blue]{-x-4*y + 4>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))-0.1?1:NaN};
-      \addplot3[mark=none,color=green]{x+y<=1 && -5*x*-8*y + 10>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
-      \addplot3[mark=none,color=black]{x+y<=1 && -9*x-6*y + 11>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
-      \addplot3[mark=none,color=red]{x+y<=1 && -11*x-2*y + 9>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
-      \addplot3[mark=none,color=blue]{x+y<=1 && -9*x+ 6>=max(-6*y + 3,max(-x-4*y + 4,max(-5*x*-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      % \addplot3[mark=none,color=pink]{3*x-6*y + 3>=max(3*x-6*y + 3,max(x-8*y + 6,max(-5*x-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))-0.1?1:NaN};
+      % \addplot3[mark=none,color=blue]{x-8*y + 6>=max(3*x-6*y + 3,max(x-8*y + 6,max(-5*x-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))-0.1?1:NaN};
+      \addplot3[mark=none,color=green]{x+y<=1 && -5*x-8*y + 10>=max(3*x-6*y + 3,max(x-8*y + 6,max(-5*x-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      \addplot3[mark=none,color=black]{x+y<=1 && -9*x-6*y + 11>=max(3*x-6*y + 3,max(x-8*y + 6,max(-5*x-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      \addplot3[mark=none,color=red]{x+y<=1 && -11*x-2*y + 9>=max(3*x-6*y + 3,max(x-8*y + 6,max(-5*x-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
+      \addplot3[mark=none,color=blue]{x+y<=1 && -9*x+ 6>=max(3*x-6*y + 3,max(x-8*y + 6,max(-5*x-8*y + 10,max(-9*x-6*y + 11,max(-11*x-2*y + 9,-9*x+ 6)))))?1:NaN};
 
       % \legend{$v_1$,$v_2$,$v_3$,$v_4$,$v_5$,$v_6$}
       \legend{$v_3$,$v_4$,$v_5$,$v_6$}

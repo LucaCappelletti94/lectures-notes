@@ -25,18 +25,18 @@ The euclidean distance from the points $A'$ and $B'$ is $5$ and $1$ respectively
 If the weights $\w_1 = \w_2 \Rightarrow \w_1 = \frac{1 - \w_3}{2}$. Therefore, the objective function is:
 
 \[
-  f^* = \frac{1 - \w_3}{2}(x^2+4x) - \frac{1 - \w_3}{2}x^2 + \w_3 x = 2(1 - \w_3)x + \w_3x = 2x - \w_3x
+  f^* = \frac{1 - \w_3}{2}(x^2-4x) - \frac{1 - \w_3}{2}x^2 + \w_3 x = -2(1 - \w_3)x + \w_3x = (3\w_3-2)x
 \]
 
 The range is obtainable by replacing $x=3$ in the function and resolving the following inequality:
 
 \begin{align*}
-  6 - 3\w_3 & \geq 2x - \w_3x \quad \forall x \in [0,3] \\
-  6 - 2x    & \geq (3-x)\w_3                            \\
-  \w_3      & \leq \frac{6-2x}{3-x} = 2
+  3(3\w_3-2) & \leq (3\w_3-2)x \quad \forall x \in [0,3] \\
+  3\w_3-2    & \leq 0                                     \\
+  \w_3       & \leq \frac{2}{3}
 \end{align*}
 
-Since the maximum value of $\w_3$ is $1$, there is no value for which $x = 3$ isn't an optimal solution.
+For $\w_3 < \frac{2}{3}$, the coefficient $3\w_3-2$ is negative and $x=3$ minimises $f^*$. For $\w_3 > \frac{2}{3}$, the minimiser is $x=0$.
 
 Let's verify graphically:
 
@@ -49,7 +49,7 @@ Let's verify graphically:
         y domain=0:1
       ]
 
-      \addplot3[mark=none,color=red]{6-3*y >= 2*x - y*x?0:NaN};
+      \addplot3[mark=none,color=red]{3*y-2 <= 0?0:NaN};
 
     \end{axis}
   \end{tikzpicture}

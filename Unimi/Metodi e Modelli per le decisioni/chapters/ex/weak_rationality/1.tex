@@ -80,8 +80,8 @@ The agreement matrix:
 The disagreement matrix is given by the following formula:
 \[
 	d_{ij} = \begin{cases}
-		\frac{\max_{f_{lj}>f_{li}}\rnd{f_{lj}-f_{li}}}{\max\abs{f_{li}-f_{lj}}}
-		0 & a_i=a_j
+		\frac{\max_{l: f_{lj}>f_{li}}(f_{lj}-f_{li})}{\max_l \abs{f_{li}-f_{lj}}} & a_i \neq a_j \\
+		0 & a_i = a_j
 	\end{cases}
 \]
 The disagreement matrix:

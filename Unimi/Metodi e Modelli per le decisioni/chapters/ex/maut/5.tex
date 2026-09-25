@@ -30,7 +30,7 @@ Si determini la soluzione ottima con la funzione di utilità $u = f_1 - 9f_2^2$ 
   x_2         & \geq 0
 \end{align*}
 
-Il problema non è vincolato, per cui la soluzione ottima si ha per $x_1 = \infty$.
+Il problema non è vincolato, per cui la soluzione ottima si ha per $x_1 \to -\infty$.
 
 \subsubsection*{Verifico la soluzione}
 
@@ -45,7 +45,7 @@ Il problema non è vincolato, per cui la soluzione ottima si ha per $x_1 = \inft
           y domain=0:10
         ]
         \addplot3[surf, unbounded coords=jump]
-        {3*x + y <= 6 && 3*x + 2*y <= 9? 4*y -18*x-16*y: NaN};
+        {3*x + y <= 6 && 3*x + 2*y <= 9? 4*y^2 -18*x-16*y: NaN};
       \end{axis}
     \end{tikzpicture}
     \caption{La funzione $f^*(x)$}

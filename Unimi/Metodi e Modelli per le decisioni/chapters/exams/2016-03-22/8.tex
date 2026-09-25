@@ -48,29 +48,29 @@ Talvolta è soggetto al \textbf{rank reversal}, cioè eliminando una soluzione (
     \hline
     \text{Scelta} & \text{Somma}               & \text{punteggio} \\
     \hline
-    A             & 3*(11+2) + 2*(2) + 1*(8+4) & 52               \\
+    A             & 3*(11+2) + 2*(2) + 1*(8+4) & 55               \\
     \hline
-    B             & 3*(8) + 2*(4) + 1*(2+2)    & 36               \\
+    B             & 3*(8) + 2*(11+4) + 1*(2+2) & 58               \\
     \hline
-    C             & 3*(2+4) + 2*(2+8) + 1*(11) & 39               \\
+    C             & 3*(2+4) + 2*(2+8) + 1*(11) & 49               \\
     \hline
   \end{tabular}
 \end{table}
 
-Per il conto di Borsa la soluzione migliore risulta essere la $A$. Se procedessimo ad eliminare la soluzione peggiore, la $B$, il punteggio cambia nel modo seguente:
+Per il conto di Borda la soluzione migliore risulta essere la $B$. Se procedessimo ad eliminare la soluzione peggiore, la $C$, il punteggio cambia nel modo seguente:
 
 \begin{table}
   \begin{tabular}{|L|L|L|}
     \hline
     \text{Scelta} & \text{Somma}         & \text{punteggio} \\
     \hline
-    A             & 2*(11+2) + 1*(2+4+8) & 40               \\
+    A             & 2*(11+2+2) + 1*(8+4) & 42               \\
     \hline
-    C             & 2*(2+4+8) + 1*(11+2) & 41               \\
+    B             & 1*(11+2+2) + 2*(8+4) & 39               \\
     \hline
   \end{tabular}
 \end{table}
 
-La soluzione $C$ diviene quella migliore: avviene quindi un rank reversal.
+La soluzione $A$ diviene quella migliore: avviene quindi un rank reversal.
 
 \end{document}

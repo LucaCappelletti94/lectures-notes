@@ -1,0 +1,105 @@
+\providecommand{\main}{../../..}
+\documentclass[\main/main.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizio 5}
+Viene dato il seguente problema di programmazione in condizioni di incertezza, i cui valori indicano utilità:
+
+\begin{table}
+  \begin{tabular}{|L|L|L|L|L|}
+    \hline
+    u_{\omega a} & a_1 & a_2 & a_3 & a_4 \\
+    \hline
+    \omega_1     & 50  & 40  & 60  & 90  \\
+    \hline
+    \omega_2     & 10  & 30  & 20  & 0   \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{enumerate}[a)]
+  \item Si indichi se vi sono alternative dominate e quali alternative le dominano.
+  \item Si indichi l'alternativa scelta con il criterio del caso pessimo.
+  \item Si mostri come cambia l'alternativa scelta con il criterio del caso medio al variare della probabilità $\pi(\omega_1)$ del primo scenario.
+\end{enumerate}
+
+\subsection{Soluzione esercizio 5}
+\subsubsection*{Alternative dominate}
+Un'alternativa domina un'altra quando, senza applicare particolari criteri, questa è migliore per almeno uno degli scenari ed uguale in tutti gli altri. Cerchiamo la soluzione che dia scenari a valore massimo poichè i valori rappresentano utilità.
+
+In questo caso, l'alternativa solamente $a_1 \prec a_3$, mentre non è possibile affermare nulla delle altre che sono preferibili l'una alle altre per almeno uno scenario.
+
+\subsubsection*{Criterio del caso pessimo}
+Nel criterio del caso pessimo, si assume che qualsiasi scelta venga effettuata accadrà il suo corrispondente caso pessimo. La scelta con scenario pessimo migliore è $a_2$.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|L|L|}
+    \hline
+    u_{\omega a} & a_1                   & a_2                   & a_3                   & a_4                 \\
+    \hline
+    \omega_1     & 50                    & 40                    & 60                    & 90                  \\
+    \hline
+    \omega_2     & \cellcolor{red!50} 10 & \cellcolor{red!50} 30 & \cellcolor{red!50} 20 & \cellcolor{red!50}0 \\
+    \hline
+  \end{tabular}
+  \caption{Casi pessimi in rosso}
+\end{table}
+
+\subsubsection*{Caso medio}
+Eseguo un'analisi di sensitività alla probabilità del primo scenario pari a $\pi(\omega_1)$ e $1-\pi(\omega_1)$ per il secondo.
+
+\begin{table}
+  \begin{tabular}{|L|L|L|L|L|}
+    \hline
+        & a_1                                   & a_2                                   & a_3                                   & a_4             \\
+    \hline
+    u_E & 50\pi(\omega_1) + 10(1-\pi(\omega_1)) & 40\pi(\omega_1) + 30(1-\pi(\omega_1)) & 60\pi(\omega_1) + 20(1-\pi(\omega_1)) & 90\pi(\omega_1) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{figure}
+  \begin{subfigure}{0.31\textwidth}
+      \begin{tabular}{|L|L|L|L|L|}
+        \hline
+            & a_1 & a_2 & a_3 & a_4 \\
+        \hline
+        u_E & 50  & 40  & 60  & 90  \\
+        \hline
+      \end{tabular}
+      \caption{Caso $\pi(\omega_1)=1$: viene scelta $a_4$}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+      \begin{tabular}{|L|L|L|L|L|}
+        \hline
+            & a_1 & a_2 & a_3 & a_4 \\
+        \hline
+        u_E & 10  & 30  & 20  & 0   \\
+        \hline
+      \end{tabular}
+      \caption{Caso $\pi(\omega_1)=0$: scelta $a_2$}
+  \end{subfigure}
+  \begin{subfigure}{0.31\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}[
+          width= \textwidth,
+          xlabel=$f$,
+          ylabel=$u_E$,
+          domain=0:1,
+          ytick = {0,10,...,90},
+          legend style={at={(0,1)},anchor=north west}
+        ]
+        \addplot[mark=none,color=red]{50*x + 10*(1-x)};
+        \addplot[mark=none,color=blue]{40*x + 30*(1-x)};
+        \addplot[mark=none,color=green]{60*x + 20*(1-x)};
+        \addplot[mark=none]{90*x};
+        \legend{$a_1$,$a_2$,$a_3$,$a_4$}
+      \end{axis}
+    \end{tikzpicture}
+    \caption{L'utilità $u_E$ al variare della probabilità}
+  \end{subfigure}
+\end{figure}
+
+
+
+\end{document}

@@ -52,13 +52,13 @@ Il giocatore $d$ considera che l'avversario farà sempre la mossa volta a danneg
 	\begin{figure}
 		\begin{subfigure}{0.49\textwidth}
 			\[
-				u^{(d)} = \max_{x^{(d)} \in X^{(d)}} \min_{x^{(j)} \in X^{(j)}, j\neq d} f^{(j)} (x^{(1)}, \ldots, x^{(\abs{D})})
+			u^{(d)} = \max_{x^{(d)} \in X^{(d)}} \min_{x^{(j)} \in X^{(j)}, j\neq d} f^{(d)} (x^{(1)}, \ldots, x^{(\abs{D})})
 			\]
 			\caption{Valore di gioco a $n$ giocatori}
 		\end{subfigure}
 		\begin{subfigure}{0.49\textwidth}
 			\[
-				u^{(r)} = \max_{x^{(r)} \in X^{(r)}} \min_{x^{(c)} \in X^{(c)}} f^{(c)} (x^{(r)}, x^{(c)})
+			u^{(r)} = \max_{x^{(r)} \in X^{(r)}} \min_{x^{(c)} \in X^{(c)}} f^{(r)} (x^{(r)}, x^{(c)})
 			\]
 			\caption{Valore di gioco a 2 giocatori ($r$ riga, $c$ colonna)}
 		\end{subfigure}
