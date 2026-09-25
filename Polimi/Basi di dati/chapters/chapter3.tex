@@ -38,18 +38,18 @@ cerca i nomi che iniziano con ``Mar'' e finiscono con ``o''. Con like si usano i
 
 \subsection{Attributi con valore null}
 Esiste un valore speciale \textbf{null}, che viene utilizzato se non si conosce un valore, se un valore non si può applicare a un determinato attributo, se non si sa se tale valore possa essere applicato a un determinato attributo.
-/textit{Null} può essere usato nelle query attraverso gli operatori
+\textit{Null} può essere usato nelle query attraverso gli operatori
 \begin{minted}{sql}
 attributo is null
 \end{minted}
 e
 \begin{minted}{sql}
-attributo is null
+attributo is not null
 \end{minted}
 che restituiscono rispettivamente le righe con valore nullo per un determinato attributo e quelle con valore non nullo per un determinato attributo.
 
 \subsection{Tabelle e join}
-Le tabelle indicate dopo la clausola \textit{where} indicano il dominio della query.
+Le tabelle indicate dopo la clausola \textit{from} indicano il dominio della query.
 Possono essere indicate più tabelle, separate da una virgola: la query ne farà automaticamente il prodotto cartesiano e cercherà l'attributo richiesto in tale prodotto cartesiano.
 Si può anche effettuare la join in modo esplicito, con l'espressione
 
@@ -118,11 +118,11 @@ update nome_tabella set attributo = valore where condizione
 È possibile riordinare i risultati di una query attraverso il comando \textbf{order by}.
 Si usa la sintassi:
 \begin{minted}{sql}
-order by AttributoOrdinamento [ crescente | descrescente ]
+ORDER BY AttributoOrdinamento [ ASC | DESC ]
 \end{minted}
 
 \subsection{Funzioni aggregate}
-Le funzioni aggregate sono funzioni, utilizzate all'interno delle espressioni della clausola \textit{where}, che utilizzano operatori complessi, che operano su più elementi del database.
+Le funzioni aggregate sono funzioni, utilizzate all'interno delle espressioni della clausola \textit{select} e \textit{having}, che utilizzano operatori complessi, che operano su più elementi del database.
 Esistono cinque operatori SQL per realizzate funzioni aggregate:
 - \textbf{count:} restituisce il numero di righe per un certo attributo. Se si aggiunge l'operatore \textit{distinct}, restituisce il numero di righe per l'attributo omettendo le righe duplicate.
 \begin{minted}{sql}
@@ -191,7 +191,7 @@ Dunque due query nidificate alla stessa query principale ma non fra loro \textbf
 Le query nidificate possono essere utilizzate anche con il comando \textbf{update}.
 È sufficiente scrivere:
 \begin{minted}{sql}
-update nome_riga
+update nome_tabella
     set attributo = Query2
 \end{minted}
 
@@ -200,9 +200,9 @@ update nome_riga
 Per concedere un permesso, si utilizza il comando \textbf{grant}. Per revocare un permesso, si utilizza il comando \textbf{revoke}.
 La sintassi è la seguente per la grant:
 \begin{minted}{sql}
-grant < nome_privilegi | all privileges > on nome_risorsa nome_utente [withgrantoption]
+grant < nome_privilegi | all privileges > on nome_risorsa to nome_utente [with grant option]
   \end{minted}
-L'espressione \textit{withgrantoption}, che è opzionale, indica che l'utente a sua volta è autorizzato a fornire il privilegio ad altri utenti.
+L'espressione \textit{with grant option}, che è opzionale, indica che l'utente a sua volta è autorizzato a fornire il privilegio ad altri utenti.
 
 La revoke invece ha sintassi:
 \begin{minted}{sql}

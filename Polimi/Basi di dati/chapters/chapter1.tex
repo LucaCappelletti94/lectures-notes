@@ -27,7 +27,7 @@ Data una tabella di studenti chiamata ``STUDENTE'', contenente matricola, nome, 
 
 Esempio: $\sigma_{Nome='Paola'}$ STUDENTE
 
-La selezione è un operatore che produce come risultato una tabella che abbia lo stesso schema (cioè le stesse colonne) di studente e come istanze le sole righe che soddisfano il predicate $Nome=Paola$.
+La selezione è un operatore che produce come risultato una tabella che abbia lo stesso schema (cioè le stesse colonne) di studente e come istanze le sole righe che soddisfano il predicato $Nome=Paola$.
 
 \subsubsection{Proiezione}
 
@@ -58,7 +58,7 @@ Esempio: TABELLA1 X TABELLA2
 
 Il prodotto cartesiano è un operatore che produce come risultato una tabella che abbia come schema le colonne delle due tabelle e come tutte le possibli coppie degli elementi di TABELLA1 e TABELLA2.
 
-\subsubsection{Unione}
+\subsubsection{Intersezione}
 
 Esempio: TABELLA1 $\cap$ TABELLA2.
 
@@ -69,7 +69,7 @@ L'intersezione è un operatore che produce come risultato una tabella che abbia 
 
 \subsubsection{Join}
 
-Esempio: TABELLA1 $\bowtie_{TABELLA1.attributo1=TABELLA.attributo1}$ TABELLA2.
+Esempio: TABELLA1 $\bowtie_{TABELLA1.attributo1=TABELLA2.attributo1}$ TABELLA2.
 
 La join è un operatore che produce come risultato una tabella che abbia come schema la concatenazione degli schemi delle due tabelle e come righe la concatenazione delle righe che soddisfano i predicato della join.
 È un'operazione derivata perché è equivalente a $\sigma_{TABELLA1.attributo1=TABELLA2.attributo1}$ TABELLA1XTABELLA2.
@@ -80,7 +80,7 @@ Un'equi-join che voglia selezionare solo gli attributi omonimi è detta \textit{
 
 \subsubsection{Semi-join}
 
-Esempio: TABELLA1 $\ltimes_{TABELLA1.attributo1=TABELLA.attributo1}$ TABELLA2.
+Esempio: TABELLA1 $\ltimes_{TABELLA1.attributo1=TABELLA2.attributo1}$ TABELLA2.
 
 La semi-join è un operatore che produce come risultato una tabella che abbia come schema lo schema di TABELLA1 e come istanze le tuple ottenute proiettando su TABELLA1 la join di TABELLA1 e TABELLA2.
 
@@ -89,7 +89,7 @@ Esiste anche la semi-join naturale, che proietta su TABELLA1 la join naturale de
 
 \section{Calcolo relazionale}
 Il calcolo relazionale è un linguaggio dichiarativo: esprime cosa si vuole ottenere ma non la ``strada'' per giungere al risultato.
-La forma standard di una qualunque query nel calcolo relazionale è ${ t | p(t) }$, dove t è una variabile e p(t) un predicato in funzione di t, detto \textit{formula}.
+La forma standard di una qualunque query nel calcolo relazionale è $\{ t \mid p(t) \}$, dove t è una variabile e p(t) un predicato in funzione di t, detto \textit{formula}.
 Ogni formula è costituita da \textit{atomi}, dove ogni atomo può essere:
 \begin{itemize}
   \item t \in R, dove R è un dominio;
