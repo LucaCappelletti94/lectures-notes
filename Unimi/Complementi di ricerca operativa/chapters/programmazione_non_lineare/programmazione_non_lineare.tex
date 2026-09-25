@@ -58,9 +58,9 @@
         \bmd^T \matr{H} \rnd{\bmxo}\bmd \geq 0 \quad \forall \bmd \in \R^n
     \]    Cioè l'hessiana è definita come \textbf{semi-positiva}.
 \end{theorem}
-\section{Condizioni necessarie di ottimalità in senso stretto del secondo ordine}
-\begin{theorem}[Condizioni necessarie di ottimalità del secondo ordine]
-    Data una funzione \(f: \R^n \rightarrow \R \) di classe \(\bm{C}^2\rnd{\bmxo}\), condizione necessarie affinché il punto \(\bmxo \) sia un minimo locale in \textbf{senso stretto} per \(f\) è che il gradiente della funzione calcolato in \(\bmxo \) sia nullo e che valga la relazione seguente:
+\section{Condizioni sufficienti di ottimalità del secondo ordine}
+\begin{theorem}[Condizioni sufficienti di ottimalità del secondo ordine]
+    Data una funzione \(f: \R^n \rightarrow \R \) di classe \(\bm{C}^2\rnd{\bmxo}\), condizione sufficiente affinché il punto \(\bmxo \) sia un minimo locale in \textbf{senso stretto} per \(f\) è che il gradiente della funzione calcolato in \(\bmxo \) sia nullo e che valga la relazione seguente:
     \[
         \bmd^T \matr{H} \rnd{\bmxo}\bmd > 0 \quad \forall \bmd \in \R^n
     \]    Cioè la matrice hessiana \(\matr{H}\) è \textbf{definita positiva}.
@@ -74,10 +74,10 @@ Nella programmazione quadratica si approssima \(f\) con il seguente modello quad
 
 \begin{description}
     \item[Se \(\matr{Q}\) non è semi-definita positiva] \(f\) non ha un punto di minimo.
-    \item[Se \(\matr{Q}\) è definita positiva] \(\bmxo = \matr{Q}^{-1}\bmb \) è l'unico minimo globale.
+    \item[Se \(\matr{Q}\) è definita positiva] \(\bmxo = -\matr{Q}^{-1}\bmb \) è l'unico minimo globale.
     \item[Se \(\matr{Q}\) è definita semi-positiva]
           \begin{description}
-              \item[Se \(\matr{Q}\) non è singolare]  \(\bmxo = \matr{Q}^{-1}\bmb \) è l'unico minimo globale.
+              \item[Se \(\matr{Q}\) non è singolare]  \(\bmxo = -\matr{Q}^{-1}\bmb \) è l'unico minimo globale.
               \item[Se \(\matr{Q}\) è singolare] non esiste una soluzione o esistono infinite soluzioni.
           \end{description}
 \end{description}
@@ -149,7 +149,7 @@ Se definiamo \(\theta_k \) come l'angolo tra \(\bmd_k \) e \(-\nabla f_k \), all
 \begin{theorem}[Convergenza dei metodi di ricerca lineare approssimata]
     Sia \(\bmd_k\) una direzione di discesa e sia \(\alpha_k\) una distanza che rispetti le condizioni di Wolfe. Sia inoltre \(f\) una funzione limitata inferiormente su \(\R^n\), \textbf{differenziabile continuamente} sull'insieme \(M\) che contiene \(L_f = \crl{\bmx: f\rnd{\bmx} \leq f\rnd{\bmx_0}}\), dove \(\bmx_0\) è il punto di inizio. Assumiamo inoltre che \(\nabla f\) sia \textbf{lipschitziana} sull'insieme \(M\). Allora:
     \[
-        \sum_{j=0}^{\infty} \cos^2 \theta_j \norm{\nabla f \rnd{\bmx_j}}^2 \leq \infty
+        \sum_{j=0}^{\infty} \cos^2 \theta_j \norm{\nabla f \rnd{\bmx_j}}^2 < \infty
     \]\end{theorem}
 
 \begin{proof}

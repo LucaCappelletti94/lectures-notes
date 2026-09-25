@@ -43,7 +43,7 @@ Mettendo assieme tutti questi risultati matematici otteniamo le \textbf{condizio
 \begin{definition}[Cono critico]
 	Dato un punto \(\bmxo \) ed i vettori di moltiplicatori \(\bm{\lambda}^*\) e \(\bm{\mu}^*\) che soddisfano le condizioni KKT, viene chiamato \textbf{cono critico} l'insieme delle direzioni di discesa verso il punto \(\bmxo \).
 	\[
-		C(\bmxo, \bm{\lambda}^*, \bm{\mu}^*) = \crl{\bmd \in F\rnd{\bmxo} : \nabla {h_j\rnd{\bmxo}}^T\bmd = 0, j \in E; {g_j\rnd{\bmxo}}^T\bmd, j \in I, \text{ con }\bm{\lambda}^*>0}
+		C(\bmxo, \bm{\lambda}^*, \bm{\mu}^*) = \crl{\bmd \in F\rnd{\bmxo} : \nabla {h_j\rnd{\bmxo}}^T\bmd = 0, j \in E; {\nabla g_j\rnd{\bmxo}}^T\bmd \leq 0, j \in I, \text{ con uguaglianza se } \mu_j^*>0}
 	\]	Queste direzioni sono ortogonali al gradiente di \(f\).
 \end{definition}
 

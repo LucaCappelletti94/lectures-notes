@@ -51,8 +51,8 @@ Il seguente è il corrispendente \textbf{rilassamento lagrangiano}:
 \begin{theorem}[Condizioni di ortogonalità lagrangiana]
     Sia dato un problema di programmazione intera \(\matr{P}\) ed il suo rilassamento lagrangiano \(RL\), in corrispondenza di un dato vettore di moltiplicatori di Lagrange \(\bm{\lambda}^*\geq 0\). Sia \(\bmxo_{RL}\) la soluzione ottima di \(RL\). Se vale che:
     \begin{enumerate}
-        \item \(\bmxo_{RL}\) è ammissibile per \(\matr{P}\), cioè \(\matr{A}\bmxo_{RL} \geq \bmb \)
-        \item \({\bm{\lambda^*}}^T \rnd{\matr{A}\bmxo_{RL}-\bmb}=0\)
+        \item \(\bmxo_{RL}\) è ammissibile per \(\matr{P}\), cioè \(\matr{D}\bmxo_{RL} \leq \bmb \)
+        \item \({\bm{\lambda^*}}^T \rnd{\matr{D}\bmxo_{RL}-\bmb}=0\)
     \end{enumerate}
     Allora la soluzione \(\bmxo_{RL}\) è ottima anche per \(\matr{P}\).
 \end{theorem}
@@ -74,7 +74,7 @@ In generale la funzione lagrangiana risulta non essere differenziabile (nei punt
 \begin{theorem}[Sottogradiente nel rilassamento lagrangiano]
     Siano \(\bm{\lambda}^{(t)} \in \R^m\) e \(\bmxo_{RL_{\bm{\lambda}^{(t)}}}^{(t)} \in \Z^n\) due vettori che soddisfano la seguente condizione:
     \[
-        L^*(\bm{\lambda}^{(t)})=\bmct\bmx^{(t)} - \bm{\lambda}^{(t)T}(\matr{A}\bmx^{(t)}-\bmb) = \min_{\bmx}\crl{\bmct\bmx-\bm{\lambda}^{(t)T}(\matr{A}\bmx-\bmb): \matr{C}\bmx \geq \bmd; \bmx \geq 0; \bmx \in \Z^n}
-    \]    Cioè \(\bmxo^{(t)}_{RL_{\bm{\lambda}^{(t)}}}\) è la soluzione ottima del lagrangiano con vettore di coefficienti \(\bm{\lambda}^{(t)}\). Allora il vettore \(s(\bm{\lambda}^{(t)}) = - (\matr{A}\bmx^{(t)}-\bmb)\) è un \textbf{sottogradiente} di \(L^*(\bm{\lambda})\) in \(\bm{\lambda}^{(t)}\).
+        L^*(\bm{\lambda}^{(t)})=\bmct\bmx^{(t)} - \bm{\lambda}^{(t)T}(\matr{D}\bmx^{(t)}-\bmb) = \min_{\bmx}\crl{\bmct\bmx-\bm{\lambda}^{(t)T}(\matr{D}\bmx-\bmb): \matr{C}\bmx \geq \bmd; \bmx \geq 0; \bmx \in \Z^n}
+    \]    Cioè \(\bmxo^{(t)}_{RL_{\bm{\lambda}^{(t)}}}\) è la soluzione ottima del lagrangiano con vettore di coefficienti \(\bm{\lambda}^{(t)}\). Allora il vettore \(s(\bm{\lambda}^{(t)}) = - (\matr{D}\bmx^{(t)}-\bmb)\) è un \textbf{sottogradiente} di \(L^*(\bm{\lambda})\) in \(\bm{\lambda}^{(t)}\).
 \end{theorem}
 \end{document}

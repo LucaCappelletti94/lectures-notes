@@ -122,7 +122,7 @@ Il vettore \(\bmp_k\) è definito come una combinazione lineare del gradiente e 
     \bmp_k = -\nabla f_k + \beta_k\bmp_{k-1}
 \]Dove \(\beta \) è definito sfruttando la definizione di vettore coniugato:
 \[
-    \beta_k = \frac{\nabla f_k^T \matr{A} \bmp_{k-1}}{\bmp^T_{k+1} \matr{A} \bmp_{k-1}}
+    \beta_k = \frac{\nabla f_k^T \matr{A} \bmp_{k-1}}{\bmp^T_{k-1} \matr{A} \bmp_{k-1}}
 \]
 Inizialmente il valore del vettore è \(\bmp_0 = -\nabla f_0\).
 
