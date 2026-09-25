@@ -39,11 +39,11 @@
 
     È possibile ibridare euristiche roll-out e multi-start: date più euristiche costruttive di base \(A^{\sqr{1}}, \ldots, A^{\sqr{l}}\), si parte dal sottoinsieme vuoto e ad ogni passo \(t\):
     \begin{enumerate}
-        \item Per ogni possibile estensione \(i \in \Ext\rnd{x^{(t-1)}}\) si esegue ogni algoritmo base \(A^{\sqr{i}}\) a partire da \(x^{\rnd{t-1}} \cup \crl{i}\).
+        \item Per ogni possibile estensione \(i \in \Ext\rnd{x^{(t-1)}}\) si esegue ogni algoritmo base \(A^{\sqr{l}}\) a partire da \(x^{\rnd{t-1}} \cup \crl{i}\).
         \item Si ottiene una stima \(f_{A^{\sqr{l}}}\rnd{x^{\rnd{t-1}} \cup \crl{i}}\)
         \item Si esegue la mossa che produce la stima migliore:
         \[
-            i^{\rnd{t}} = \argmin_{l = 1,\ldots,\mathcal{L}}\min_{i \in \Ext\rnd{x^{\rnd{t-1}}}} f\rnd{x_{A^{\sqr{l}}} \cup \crl{i}}
+            i^{\rnd{t}} = \argmin_{i \in \Ext\rnd{x^{\rnd{t-1}}}} \min_{l = 1,\ldots,\mathcal{L}} f\rnd{x_{A^{\sqr{l}}}\rnd{x^{\rnd{t-1}} \cup \crl{i}}}
         \]
         \item Si termina quando \(\Ext(x)\) è vuoto.
     \end{enumerate}
@@ -56,7 +56,7 @@
 \begin{definition}[Adaptative Research Technique (ART)]
     Spesso nei primi passi un’euristica costruttiva include elementi apparentemente buoni che portano a soluzioni finali molto cattive: la meta-euristica ART prova a \textbf{vietare elementi} allo scopo di impedire che elementi ingannevoli guidino il sotto-insieme \(x\) sul cammino sbagliato in \(\fa\).
     
-    Vietando elementi delle soluzioni già visitate si impedisce di ottenere soluzioni uguali o simili ad esse, proprietà detta di \textbf{diversificazione}, che consente di ripetere l'euristica quasi indefinitivamente e modulare la distanza delle nuove soluzioni dalla vecchie.
+    Vietando elementi delle soluzioni già visitate si impedisce di ottenere soluzioni uguali o simili ad esse, proprietà detta di \textbf{diversificazione}, che consente di ripetere l'euristica quasi indefinitamente e modulare la distanza delle nuove soluzioni dalla vecchie.
     
     Iniziando da una euristica costruttiva di base \(A\), si procede a creare una lista di elementi vietati, inizialmente vuota \(\rnd{l_i} = -\infty, \forall i \in B\). Quindi, ad ogni iterazione:
     \begin{enumerate}
@@ -148,7 +148,7 @@ La strategia più comunemente utilizzata è RCL.
     \begin{enumerate}
         \item Si fissa \(\mathcal{L}\) e si scelgono \(m\) configurazioni di parametri \(\mu_1, \ldots, \mu_m\)
         \item Si pone \(\mathcal{L}_r = \frac{\mathcal{L}}{m} \; \forall r = 1, \ldots, m\)
-        \item Si prova ogni configuzione \(\mu_r\) per \(\mathcal{L}_r\) iterazioni
+        \item Si prova ogni configurazione \(\mu_r\) per \(\mathcal{L}_r\) iterazioni
         \item Si valuta la media campionaria \(\bar{f}(\mu_r)\) dei risultati ottenuti con \(\mu_r\).
         \item Si rimodula il numero di iterazioni \(\mathcal{L}_r\) per ogni \(\mu_r\) in base a \(\bar{f}(\mu_r)\):
         \[

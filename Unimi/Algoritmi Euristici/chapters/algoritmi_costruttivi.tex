@@ -84,7 +84,7 @@ Si tratta di un grafo \textbf{aciclico} in cui ogni cammino massimale descrive u
 \begin{complexity}[Complessità dell'euristiche costruttive]
     La complessità di ogni passo è data da:
     \begin{enumerate}
-        \item La costruzione di \(\text{Etx}_A(x)\), in tempo \(T_{\text{Ext}_A}(n)\).
+        \item La costruzione di \(\text{Ext}_A(x)\), in tempo \(T_{\text{Ext}_A}(n)\).
         \item La valutazione di \(\phi_A(i, x) \quad \forall i \in \text{Ext}_A(x)\), in tempo \(T_{\phi_A}(n)\).
         \item L'estrazione del valore minimo e del corrispondente \(i\).
         \item L'aggiornamento di \(x\).
@@ -128,9 +128,9 @@ Vale a dire che ogni sottoinsieme valido si può costruire aggiungendo gli eleme
         \item I contenitori usati, tranne al più l'ultimo, hanno contenuto maggiore di \(\frac{V}{2}\): gli oggetti del secondo semi-vuoto sarebbero finiti nel primo.
         \item Il volume totale supera quello degli \(f_A -1 \) contenitori pieni.
         \[
-            \sum_{i \in O} v_i > \rnd{f_a - 1} \frac{V}{2}
+            \sum_{i \in O} v_i > \rnd{f_A - 1} \frac{V}{2}
         \]
-        \item Ne segue che: \(f_A \leq 2f^* + 1\)
+        \item Ne segue che: \(f_A \leq 2f^*\)
     \end{enumerate}
 \end{analysis}
 \begin{observation}[Come si può migliorare l'approssimazione dell'algoritmo First-Fit?]

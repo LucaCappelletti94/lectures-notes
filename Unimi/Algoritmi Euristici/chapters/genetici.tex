@@ -104,9 +104,9 @@ La codifica più diretta per problemi di Ottimizzazione Combinatoria è il \text
 Si parla di \textbf{roulette-wheel selection} o \textbf{spinning wheel selection}:
 \begin{enumerate}
     \item Data la popolazione \(X^{\rnd{g}=\crl{\xi_1, \ldots, \xi_{n_p}}}\)
-    \item Si costruiscono gli intervalli \(\Gamma_i = \left(\sum_{k=1}^{i-1} \pi_{\xi_i}; \sum_{k=1}^{1} \pi_{\xi_i}\right]\)
+    \item Si costruiscono gli intervalli \(\Gamma_i = \left(\sum_{k=1}^{i-1} \pi_{\xi_k}; \sum_{k=1}^{i} \pi_{\xi_k}\right]\)
     \item Si estrae un numero casuale \(r \in U\left(0;1\right]\)
-    \item L'individuo \(i^*\) scelto è quelle tale che \(r \in \Gamma_{i^*}\)
+    \item L'individuo \(i^*\) scelto è quello tale che \(r \in \Gamma_{i^*}\)
 \end{enumerate}
 \end{definition}
 \begin{observation}[Di quali problemi soffre la selezione proporzionale?]
@@ -146,7 +146,7 @@ Si parla di \textbf{roulette-wheel selection} o \textbf{spinning wheel selection
     Tutte le procedure di selezione ammettono la variante elitista, che include nella nuova popolazione l'individuo migliore di quella corrente.
 \end{observation}
 \begin{definition}[Crossover]
-L'operatore di crossover combina due individui procedendone altri due.
+L'operatore di crossover combina due individui producendone altri due.
 \end{definition}
     \begin{definition}[Crossover semplice]
         Crossover con un singolo split.
@@ -168,7 +168,7 @@ L'operatore di crossover combina due individui procedendone altri due.
         Si tratta di una versione generalizzata dei precedenti:
         \begin{enumerate}
             \item Si estraggono \(\alpha\) posizioni a caso con probabilità uniforme.
-            \item Si spessa la codifica in \(\alpha+1\) parti in corrispondenza a tale posizione.
+            \item Si spezza la codifica in \(\alpha+1\) parti in corrispondenza a tale posizione.
             \item Si scambiano le parti dispari delle codifiche dei due individui.
         \end{enumerate}
         Per valori di \(\a\) bassi si ha una \textbf{polarizzazione posizionale}, o \textbf{positional bias}: simboli vicini nella codifica tendono a rimanere insieme.

@@ -107,8 +107,8 @@ Un matching viene detto massimale quando è tale che qualsiasi altro lato del gr
             \]
             \item La copertura ottima di un matching \(M\) ha cardinalità \(\abs{M}\), cioè per ogni lato del matching basta e occorre un vertice diverso.
         \end{enumerate}
-        \item Includendo entrambi i vertici di gni lato nel matching si ottiene una stima per eccesso che copre sia il matching, sia i lati adiacenti, che risulta di valore \(UB(I) = 2LB(I)\), cioè vi sono due vertici diversi per ogni lato.
-        \item L'algoritmo del matching dà soluzioni di valore \(f_A(I) \leq UB(I)\) (scremando i vertici ridondanto se ve ne sono).
+        \item Includendo entrambi i vertici di ogni lato nel matching si ottiene una stima per eccesso che copre sia il matching, sia i lati adiacenti, che risulta di valore \(UB(I) = 2LB(I)\), cioè vi sono due vertici diversi per ogni lato.
+        \item L'algoritmo del matching dà soluzioni di valore \(f_A(I) \leq UB(I)\) (scremando i vertici ridondanti se ve ne sono).
     \end{enumerate}
     
     Ne deriva che \(f_A(I) \leq 2f^*(I) \quad \forall I \in \mathbb{I}\) cioè \(\alpha_A = 2\).
@@ -186,13 +186,9 @@ Ne segue che:
 \[
     \mean{f_A(I)} \geq \sum_{i \in C} w_i \cdot \sqr{1 - \rnd{\frac{1}{2}}^{k_{min}}} = \sqr{1 - \rnd{\frac{1}{2}}^{k_{min}}} \sum_{i \in C} w_i
 \]
-E siccome:
+E siccome \(f^*(I) \leq \sum_{i \in C} w_i\), si ottiene \(\mean{f_A(I)} \geq \sqr{1 - \rnd{\frac{1}{2}}^{k_{\min}}} f^*(I)\), quindi:
 \[
-    f^*(I) \leq \sum_{i \in C} w_i \quad \forall I \in \mathbb{I} \quad \text{e} \mean{\rho_A(I)} = \frac{f^*(I)}{\mean{f_A(I)}}
-\]
-Si ottiene:
-\[
-    \mean{\rho_{A}(I)} \leq \frac{1}{\sqr{1 - \rnd{\frac{1}{2}}^{k_{min}}}} \leq 2
+    \frac{f^*(I)}{\mean{f_A(I)}} \leq \frac{1}{\sqr{1 - \rnd{\frac{1}{2}}^{k_{min}}}} \leq 2
 \]
 \end{example}
 \end{multicols}
@@ -424,7 +420,7 @@ Fa però 3 ipotesi:
     \end{figure}
 \end{definition}
 \begin{definition}[Diagrammi Solution Quality Distribution (SQD)]
-    I diagrammi SQD descrivono l'andamento del livello di qualità raggiunto in un dato tempo di calcolo e sono utili quando il tempo do calcolo è una risorsa stringente.
+    I diagrammi SQD descrivono l'andamento del livello di qualità raggiunto in un dato tempo di calcolo e sono utili quando il tempo di calcolo è una risorsa stringente.
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{images/SQD.png}

@@ -16,7 +16,7 @@ Corso di Roberto Cordone, anno 18/19
   - [ ] Set Partitioning
   - [ ] Vertex Cover
   - [ ] Maximum Clique Problem
-  - [ ] Maximum Indipendent Set Problem
+  - [ ] Maximum Independent Set Problem
   - [ ] Travelling Salesman Problem
   - [ ] Capacitated Spanning Tree Problem
   - [ ] Vehicle Routing Problem

@@ -45,7 +45,7 @@
         \item Per ogni coppia di soluzioni \(x, y \in R_B \times \rnd{R_B \cup R_D}\):
         \begin{itemize}
             \item Si procede a ricombinare \(x\) e \(y\), generando \(z\).
-            \item Migliora \(z\) ottenenendo \(z'\) con una procedura di scambio
+            \item Migliora \(z\) ottenendo \(z'\) con una procedura di scambio
             \item Se \(z' \not\in R_B\) e in \(R_B\) c'è una soluzione peggiore, la sostituisce con \(z'\).
             \item Se \(z' \not\in R_D\) e in \(R_D\) c'è una soluzione più vicina, la sostituisce con \(z'\).
         \end{itemize}
@@ -72,9 +72,9 @@
         \begin{itemize}
             \item Costruisce un cammino da \(x\) a \(y\) nello spazio di ricerca dell'intorno \(N\) applicando a \(z^{\rnd{0}} = x\) l'euristica ausiliaria di scambio, ma scegliendo a ogni passo la soluzione più vicina alla destinazione \(y\):
             \[
-                z^{z+1} = \argmin_{z \in N\rnd{z^{\rnd{k}}}} D\rnd{z, y}
+                z^{\rnd{k+1}} = \argmin_{z \in N\rnd{z^{\rnd{k}}}} D\rnd{z, y}
             \]
-            dove \(R_D\) è un'opportuna funzione metrica sulle soluzioni. A pari distanza, ottimizza la funzione obbiettivo \(f\) del problema.
+            dove \(D\) è un'opportuna funzione metrica sulle soluzioni. A pari distanza, ottimizza la funzione obbiettivo \(f\) del problema.
             \item Trova la miglior soluzione \(z^*_{xy}\) lungo il cammino:
             \[
                 z_{xy}^* = \argmin_k f\rnd{z^{\rnd{k}}}
@@ -101,7 +101,7 @@
     \item[Backward path relinking] costruisce il cammino all'indietro da \(y\) a \(x\).
     \item[Back-and-forward path relinking] costruisce entrambi i cammini.
     \item[Mixed path relinking] costruisce un cammino facendo un passo per volta alternativamente da ogni estremo (aggiornando la destinazione).
-    \item[Truncated path relinking] costruisce solo il principo del cammino.
+    \item[Truncated path relinking] costruisce solo il principio del cammino.
     \end{description}    
 \end{observation}
 \end{document}

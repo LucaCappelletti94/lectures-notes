@@ -12,7 +12,7 @@
     
     Il problema principale è il rischio di visitare ciclicamente soluzioni uguali.
     
-    Esistono principalmente due strategie che consentono di controllarlo: il Simulated Annealing, che usa passi causali, ed il Tabu Search, che usa memoria.
+    Esistono principalmente due strategie che consentono di controllarlo: il Simulated Annealing, che usa passi casuali, ed il Tabu Search, che usa memoria.
 \end{observation}
 \begin{definition}[Simulated Annealing]
     Deriva dall'algoritmo di Metropolis, che intende simulare il processo di ricottura dei metalli, e possiede varie analogie con l'Ottimizzazione Combinatoria: questo suggerisce la possibilità di usarlo per l'ottimizzazione.
@@ -101,7 +101,7 @@ Siccome \(T\) è variabile, la catena di Markov \(x\) non è omogenea ma se \(T\
 \begin{observation}[Che efficienza computazionale possiede il simulated annealing?]
     Calcolare la probabilità con un'esponenziale può essere pesante: conviene pre-calcolare una tavola dei valori di 
     \[
-    e^\frac{\delta f}{T} \quad \forall \delta f = f\rnd{x} - f\rnd{f'}
+    e^\frac{\delta f}{T} \quad \forall \delta f = f\rnd{x} - f\rnd{x'}
     \]
 \end{observation}
 \begin{observation}[Quali varianti del simulated annealing esistono?]
@@ -136,7 +136,7 @@ Siccome \(T\) è variabile, la catena di Markov \(x\) non è omogenea ma se \(T\
     \end{itemize}
 \end{observation}
 \begin{observation}[Come vengono risolti i problemi della valutazione dei tabù?]
-    Il \textit{Cancellation Sequence Method} ed il \textit{Reverse Elimination Method} affrtontano questi problemi, sfruttando il fatto che in generale:
+    Il \textit{Cancellation Sequence Method} ed il \textit{Reverse Elimination Method} affrontano questi problemi, sfruttando il fatto che in generale:
     \begin{itemize}
         \item Le soluzioni visitate formano una catena con piccole variazioni.
         \item Poche soluzioni visitate cadono nell'intorno di quella corrente.

@@ -183,7 +183,7 @@
             \item[Assegnamenti coerenti] Per ogni variabile compare un solo letterale.
         \end{description}
         \[
-            X = \crl{x \subseteq B: \abs{x \cup B_v} = 1 \quad \forall v \in V}
+            X = \crl{x \subseteq B: \abs{x \cap B_v} = 1 \quad \forall v \in V}
         \]
         con \(B_{x_j} = \crl{\rnd{x_j, 0}, \rnd{x_j, 1}}\).
     \end{definition}
@@ -227,7 +227,7 @@
     \begin{definition}[Obbiettivo del Set Covering]
         L'obbiettivo è minimizzare il costo totale delle colonne scelte:
         \[
-            \min_{x \in X} f(x) = \sum:{j \in x} c_{j}
+            \min_{x \in X} f(x) = \sum_{j \in x} c_{j}
         \]
     \end{definition}
     \begin{problem}[Set Packing]
@@ -339,12 +339,12 @@
     \begin{definition}[Obbiettivo del MCP]
         L'obbiettivo è massimizzare il peso dei vertici scelti:
         \[
-            \max_{x \in X} f(x) 0 \sum_{j \in x} w_j
+            \max_{x \in X} f(x) = \sum_{j \in x} w_j
         \]
     \end{definition}
 \end{multicols}
 \begin{multicols}{2}
-    \begin{problem}[Maximum Indipendent Set Problem (MISP)]
+    \begin{problem}[Maximum Independent Set Problem (MISP)]
         Dato un grafo non orientato e una funzione peso definita sui vertici, si cerca il sottoinsieme di vertici fra loro non adiacenti di peso massimo.
         
         Viene caratterizzato da 2 elementi:
@@ -461,21 +461,21 @@
             \item Le partizioni dei nodi in sottoinsiemi di peso ciascuno non superiore a \(W\) e copribile con un ciclo.
         \end{enumerate}
     \end{definition}
-    \begin{definition}[Obbiettivo del VSP]
+    \begin{definition}[Obbiettivo del VRP]
         L'obbiettivo è minimizzare il costo degli archi scelti:
         \[
             \min_{x \in X} f(x) = \sum_{j \in x} c_j
         \]
     \end{definition}
-    \begin{observation}[Relazione tra Maximum Clique Problem e Maximum Indipendent Set Problem]
+    \begin{observation}[Relazione tra Maximum Clique Problem e Maximum Independent Set Problem]
         Dato un grafo \(G = \rnd{V, E}\) si costruisce il grafo complementare \(\bar{G} = \rnd{V, \rnd{V \times V} \setminus E}\). Si trova quindi la soluzione ottima del MISP su \(\bar{G}\). I vertici corrispondenti danno una soluzione ottima del MCP su \(G\).
     \end{observation}
-    \begin{observation}[Relazione tra Vertex Cover e Set Partitioning]
-        Ogni istanza di Vertex Cover può essere tradotta in un'istanza di Set Partitioning: ogni lato \(i\) corrisponde a una riga della matrice di copertura \(A\), ogni vertice \(j\) corrisponde a una colonna di \(A\).
+    \begin{observation}[Relazione tra Vertex Cover e Set Covering]
+        Ogni istanza di Vertex Cover può essere tradotta in un'istanza di Set Covering: ogni lato \(i\) corrisponde a una riga della matrice di copertura \(A\), ogni vertice \(j\) corrisponde a una colonna di \(A\).
         
         Se il lato \(i\) incide nel vertice \(j\), si pone \(a_{ij} = 1\), altrimenti \(a_{ij}=0\). 
         
-        La soluzione ottima del Set Partitioning dà la soluzione ottima nel Vertex Cover.
+        La soluzione ottima del Set Covering dà la soluzione ottima nel Vertex Cover.
     \end{observation}
     \begin{observation}[Relazione tra Bin Packing Problem e Parallel Machine Scheduling Problem]
         I due problemi sono equivalenti: le lavorazioni corrispondono agli oggetti e le macchine ai contenitori, ma vi sono due differenze importanti da tenere a mente:
