@@ -138,7 +138,7 @@ Un \emph{guscio convesso} di un insieme di punti $X$ in uno spazio euclideo è i
 Due insiemi di punti $X$ e $Y$ si dicono linearmente separabili se e solo se i loro gusci convessi sono tra loro disgiunti.
 \end{theorem}
 
-Questo significa che già all'interno delle funzioni booleane ne esistono alcune che non possono essere simulate da una TLU. Come, per esempio, la doppia implicazione. Sebbene solo due funzioni booleane a due argomenti non siano linearmente indipendenti, al crescere degli argomenti il numero di funzioni che sono linearmente indipendenti diminuisce rapidamente. Per un numeri di argomenti arbitrariamente grande, una singola TLU non può calcolare "quasi" nessuna funzione.
+Questo significa che già all'interno delle funzioni booleane ne esistono alcune che non possono essere simulate da una TLU. Come, per esempio, la doppia implicazione. Sebbene solo due funzioni booleane a due argomenti non siano linearmente separabili, al crescere degli argomenti il numero di funzioni che sono linearmente separabili diminuisce rapidamente. Per un numeri di argomenti arbitrariamente grande, una singola TLU non può calcolare "quasi" nessuna funzione.
 
 \begin{figure}
 \centering
@@ -173,11 +173,11 @@ Mostriamo il comportamento dell'algoritmo nel caso più semplice, in cui abbiamo
 \begin{equation}
 	y = \begin{cases}
     1 & \text{se } 0w = 0 \geq \theta \\
-    0 & \text{se } 1w = w \geq \theta
+    0 & \text{se } 1w = w < \theta
    \end{cases}
 \end{equation} 
 
-Calcoliamo la funzione errore al variare di $w$ e $\theta$. Nel caso che $x = 0$ l'errore sarà 0 per un $\theta$ negativo e 1 per un $\theta$ negativo. Il peso non avrà alcuna influenza perchè viene annullato nella moltiplicazione con l'input. Quando, invece, $x = 1$, avremo che la funzione dipenderà da entrambi i parametri (vedi Figura \ref{fig:5}).
+Calcoliamo la funzione errore al variare di $w$ e $\theta$. Nel caso che $x = 0$ l'errore sarà 0 per un $\theta$ negativo e 1 per un $\theta$ positivo. Il peso non avrà alcuna influenza perchè viene annullato nella moltiplicazione con l'input. Quando, invece, $x = 1$, avremo che la funzione dipenderà da entrambi i parametri (vedi Figura \ref{fig:5}).
 
 \begin{figure}
 \centering
@@ -596,7 +596,7 @@ d(\ww,\ee) + d(\ee,\vv) \geq d(\ww,\vv)
 $$
 Una famiglia di funzioni usate spesso nelle applicazioni è quella formulata dal matematico prussiano Hermann Minkowski e battezzata in suo onore famiglia di Minkowski. Tale famiglia è definita come:
 $$
-d(\ww,\vv)_k = (\sum (w_i - v_i)^k)^{\frac{1}{k}}
+d(\ww,\vv)_k = (\sum |w_i - v_i|^k)^{\frac{1}{k}}
 $$
 Alcuni esempi famosi di funzioni appartenenti alla famiglia sono:
 $$
@@ -815,7 +815,7 @@ Si può osservare, infatti, che il sistema può solo evolversi da uno stato con 
 Le macchine di Boltzmann (in quello che segue BM) possono considerarsi in tutto simili a degli HN, salvo che possono contenere neuroni nascosti e differiscono nella procedura di aggiornamento. Come nel caso degli HN, per risolvere problemi di ottimizzazione ci si basa sul fatto che è possibile definire una funzione energia associata ad ogni stato. Grazie a questa funzione energia si definisce una distribuzione di probabilità (di Boltzmann) rispetto agli stati del network:
 
 $$
-P(\mathbf{s}) = \frac{1}{2} e^{-\frac{E(\mathbf{s})}{kT}}
+P(\mathbf{s}) = \frac{1}{c} e^{-\frac{E(\mathbf{s})}{kT}}
 $$
 
 dove $\mathbf{s}$ rappresenta l'insieme degli stati, $c$ è una costante di normalizzazione, $E$ è la funzione energia, $T$ è la temperatura del sistema e $k$ la costante di Boltzmann ($k \simeq 1,38 \cdot 10^{-23}$). Gli stati del sistema corrispondono ai valori che possono assumere le attivazioni dei singoli neuroni. La probabilità di attivazione di un neurone è la funzione logistica del differenziale di energia tra il caso che vede il neurone attivo e quello che lo vede inattivo.
@@ -848,14 +848,14 @@ dove $p1$ si riferisce alla distribuzione del dataset e $p2$ a quella della macc
 \item{\emph{Negative phase}: tutte le unità vengono aggiornate fino al raggiungimento di uno stato stabile.}
 \end{enumerate}
 
-Se distinguiamo la probabilità che un neurone $u$ sia attivato nella positive phase ($p_u^{+}$) e quella che lo stesso neurone sia attivato nella negative phase ($p_u^{+}$) e la probabilità che due neuroni $u$ e $v$ siano attivati simultaneamente nella positive phase ($p_{uv}^{+}$) e quella che gli stessi due neuroni siano attivati nella negative phase ($p_{uv}^{-}$), possiamo definire la regola di update dei pesi e del threshold come segue:
+Se distinguiamo la probabilità che un neurone $u$ sia attivato nella positive phase ($p_u^{+}$) e quella che lo stesso neurone sia attivato nella negative phase ($p_u^{-}$) e la probabilità che due neuroni $u$ e $v$ siano attivati simultaneamente nella positive phase ($p_{uv}^{+}$) e quella che gli stessi due neuroni siano attivati nella negative phase ($p_{uv}^{-}$), possiamo definire la regola di update dei pesi e del threshold come segue:
 
 $$
-\Delta w_{uv} = \frac{1}{\eta} (p_{uv}^{+} - p_{uv}^{-}) 
+\Delta w_{uv} = \eta (p_{uv}^{+} - p_{uv}^{-}) 
 \quad
 \text{e}
 \quad
-\Delta \theta_u = -\frac{1}{\eta}(p_u^{+} - p_u^{-})
+\Delta \theta_u = -\eta(p_u^{+} - p_u^{-})
 $$
  
 Intuitivamente: se lo stesso neurone viene sempre attivato ogniqualvolta viene presentato lo stesso input allora il suo threshold dovrà essere ridotto. Allo stesso modo, se due neuroni vengono spesso attivati assieme allora il peso che corrisponde alla loro connessione verrà aumentato (“cells that fire together, wire together”).
@@ -979,7 +979,7 @@ Nel caso in cui l'insieme $\mu$ sia una funzione trapezoidale, qualsiasi suo alp
 
 \begin{enumerate}
 \item{$[\mu]_0 = X$}
-\item{$\alpha \leq \beta \implies [\mu]_\alpha \subseteq [\mu]_\beta $}
+\item{$\alpha \leq \beta \implies [\mu]_\beta \subseteq [\mu]_\alpha $}
 \item{$\cap_\alpha: \alpha < \beta, [\mu]_\alpha = [\mu]_\beta$}
 \end{enumerate} 
 
@@ -1128,14 +1128,14 @@ $$
 O ancora, come prodotto e somma drastica:
 $$
 \top_{-1}(x,y) = \begin{cases}
-				\min(x,y) \quad \text{se } \max(x+y) = 1 \\
+				\min(x,y) \quad \text{se } \max(x,y) = 1 \\
 				0 \quad \text{ altrimenti}  
 				\end{cases}
 $$
 $$
 \bot_{-1}(x,y) = \begin{cases}
-				\max(x,y) \quad \text{se } \min(x+y) = 0 \\
-				0 \quad \text{ altrimenti}  
+				\max(x,y) \quad \text{se } \min(x,y) = 0 \\
+				1 \quad \text{ altrimenti}  
 				\end{cases}
 $$
 
@@ -1233,7 +1233,7 @@ Vi sono vari tipi di insiemi fuzzy. Per quanto ci riguarda particolare rilevanza
 \label{fig:29}
 \end{figure}
 
-Particolare interesse rivestono i fuzzy interval anche detti \emph{fuzzy numbers} perchè permettono di definire \emph{variabili fuzzy quantitative}. Tali variabili assumono come valore numeri fuzzy. Quando le quantità fuzzy rappresentano concetti linguistici (come piccolo, grande, etc.) si parla di variabili linguistiche (vedi Figura \ref{fig:30}). Ogni variabile linguistica è definita da un quintupla $(v,T,X,g,m)$, dove $v$ è il nome della variabile, $T$ è l'insieme dei termini che coprono $v$, $X$ è il dominio del discorso, $g$ è la grammatica per generare i termini ed $m$ la semantica che assegna ad ogni termine un fuzzy number. Per processare questo genere di variabili occorrerà estendere le operazioni insiemistiche e aritmetiche originalmente utilizzate per i numeri. 
+Particolare interesse rivestono i fuzzy interval anche detti \emph{fuzzy numbers} perchè permettono di definire \emph{variabili fuzzy quantitative}. Tali variabili assumono come valore numeri fuzzy. Quando le quantità fuzzy rappresentano concetti linguistici (come piccolo, grande, etc.) si parla di variabili linguistiche (vedi Figura \ref{fig:29}). Ogni variabile linguistica è definita da un quintupla $(v,T,X,g,m)$, dove $v$ è il nome della variabile, $T$ è l'insieme dei termini che coprono $v$, $X$ è il dominio del discorso, $g$ è la grammatica per generare i termini ed $m$ la semantica che assegna ad ogni termine un fuzzy number. Per processare questo genere di variabili occorrerà estendere le operazioni insiemistiche e aritmetiche originalmente utilizzate…
 
 \subsubsection{Rappresentazione per insiemi}
 
@@ -1244,7 +1244,7 @@ Abbiamo visto in precedenza come, attraverso il principio di estensione, si poss
 \begin{definition}
 Una famiglia $(A_\alpha)_{\alpha \in (0,1)}$ è una \emph{rappresentazione per insiemi} di $\mu \in F_N(\mathbb{R})$ se
 \begin{enumerate}
-\item{$0 < \alpha < \beta < 1 \implies A_\alpha \subseteq A_\beta \subseteq \mathbb{R}$}
+\item{$0 < \alpha < \beta < 1 \implies A_\beta \subseteq A_\alpha \subseteq \mathbb{R}$}
 \item{$\mu(t) = \sup \{ \alpha \in [0,1] | t \in A_\alpha \} $}
 \end{enumerate} 
 \end{definition}
@@ -1339,14 +1339,14 @@ $$
 \begin{definition}
 Data una relazione $R(X,Y)$ e una relazione $Q(Y,Z)$ la loro \emph{composta}, denotata $R \circ Q (X,Z)$, è definito come quella relazione su $X \times Z$ tale che:
 $$
-R \circ Q (x,z) = \sup_{y \in Y} \{ \min \{ P(x,y),Q(y,z)\} \quad \forall x \in X, \forall z \in Z \} 
+R \circ Q (x,z) = \sup_{y \in Y} \{ \min \{ R(x,y),Q(y,z)\} \quad \forall x \in X, \forall z \in Z \} 
 $$
 \end{definition}
 
 \begin{definition}
 Data una relazione $R(X,Y)$ e una relazione $Q(Y,Z)$ il loro \emph{join}, denotata $R \star Q (X,Y,Z)$, è definito come quella relazione su $X \times Y \times Z$ tale che:
 $$
-R \star Q (x,y,z) = \min \{ P(x,y),Q(y,z)\} \quad \forall x \in X, \forall y \in Y, \forall z \in Z 
+R \star Q (x,y,z) = \min \{ R(x,y),Q(y,z)\} \quad \forall x \in X, \forall y \in Y, \forall z \in Z 
 $$
 \end{definition}
 
