@@ -9,7 +9,7 @@ Una catena di Markov è definita da 3 quantità:
   \item \(\matr{P}\), una matrice stocastica \(\sum righe =1\).
 \end{enumerate}
 \section{Proprietà fondamentali sulle catene}
-Una catena di Markov finita e omogenea definita sulla tripla \(S, \mu, \matr{P}\) è una successione \(\crl{X_u}_{n \in N}\) di variabili aleatorie a valori in \(S\) che soddisfano le seguenti proprietà seguenti:
+Una catena di Markov finita e omogenea definita sulla tripla \(S, \mu, \matr{P}\) è una successione \(\crl{X_n}_{n \in N}\) di variabili aleatorie a valori in \(S\) che soddisfano le seguenti proprietà seguenti:
 \begin{enumerate}
   \item \(\forall i \in S \qquad \prob{X_0 = i} = \mu(i)\)
   \item \textbf{Proprietà di Markov}: la probabilità di essere al passo \(n+1\) dipende solo dal passo \(n\).
@@ -87,7 +87,7 @@ Se uno stato \(i\) è ricorrente \(i \rightarrow j\) allora anche \(j\) è ricor
 \begin{proof}
   Sia \(i \in S\) essenziale e \(C\) sia la sua classe \(\Rightarrow \forall n \in \N, \forall i \in C \quad \sum_{j \in C} p^{(n)}(i,j) = 1\). Procediamo per assurdo: \(i\) è transiente \(\Rightarrow \) ogni \(j \in C\) è transiente.
   \[
-    \sum_{j \in C} p^{(n)}(i,j) < + \infty,\quad p^{(p)}(i,j) \rightarrow 0 \quad \text{per } n \rightarrow + \infty
+    \sum_{j \in C} p^{(n)}(i,j) < + \infty,\quad p^{(n)}(i,j) \rightarrow 0 \quad \text{per } n \rightarrow + \infty
   \]
   Allora:
   \[

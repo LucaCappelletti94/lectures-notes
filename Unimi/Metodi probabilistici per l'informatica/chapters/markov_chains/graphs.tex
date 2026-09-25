@@ -37,7 +37,7 @@ Dato un grado \(\mathcal{G}\), consideriamo \(v_i\), un nodo per il quale passa 
 
 \begin{figure}
   \[
-    d(v_i) = \mcd\crl{n \in \N: v_i\xrightarrow{n}v_j}
+    d(v_i) = \mcd\crl{n \in \N: v_i\xrightarrow{n}v_i}
   \]
   \caption{Periodo di un nodo}
 \end{figure}
@@ -138,7 +138,7 @@ Una matrice è stocastica se e solo se:
           \sum_{i=1}^n = 1 \quad \land \quad \sum_{j=1}^n a_{ij} = 1
         \]
   \item Se \(\matr{A} > 0\) è stocastica e primitiva allora \(1\) è l'unico autovalore di modulo massimo per \(\matr{A}\).
-  \item Se \(\mu \) è un autovettore di una matrice stocastica, allora \(\abs{\mu} < 1\).
+  \item Se \(\mu \) è un autovalore di una matrice stocastica, allora \(\abs{\mu} < 1\).
         \begin{proof}
           \(\exists \bmv' = \begin{bmatrix}
             v_1, \ldots, v_k

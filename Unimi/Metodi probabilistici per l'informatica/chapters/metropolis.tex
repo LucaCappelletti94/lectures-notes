@@ -16,8 +16,8 @@ Possiamo procedere a definire la matrice di transizione \(\matr{P}\) come:
 \[
   p_{ij} = \begin{cases}
     0                                                                                & i \neq j \, \land \, \crl{i, j} \not\in E \\
-    \frac{1}{d_i}\min\crl{\frac{\pi_j d_i}{\pi_di d_j}, 1}                           & \crl{i,j} \in E                           \\
-    1-\frac{1}{d_i}\sum_{l:\crl{i,l} \in E}\min\crl{\frac{\pi_l d_i}{\pi_di d_l}, 1} & i==j
+    \frac{1}{d_i}\min\crl{\frac{\pi_j d_i}{\pi_i d_j}, 1}                           & \crl{i,j} \in E                           \\
+    1-\frac{1}{d_i}\sum_{l:\crl{i,l} \in E}\min\crl{\frac{\pi_l d_i}{\pi_i d_l}, 1} & i==j
   \end{cases}
 \]
 Dove:

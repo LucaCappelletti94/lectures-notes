@@ -33,7 +33,7 @@ Si sceglie un nodo \(v \in V\) a caso in maniera uniforme e se \(v \in A\) allor
 \end{theorem}
 
 \begin{proof}[La catena di Markov per generazione di indipendent set è reversibile]
-	Possiamo costruire un cammino dallo stato \(A\) allo stato \(B\) rimuovendo prima i nodi dell'insieme \(A\setminus B\), ottenendo lo stato \(A\cup B\), e poi aggiungendo i nodi del set \(B \setminus A\): per la definizione della catena ognuno di questi passi ha probabilità non nulla e quindi la probabilità dell'intero cammino è positiva.
+	Possiamo costruire un cammino dallo stato \(A\) allo stato \(B\) rimuovendo prima i nodi dell'insieme \(A\setminus B\), ottenendo lo stato \(A\cap B\), e poi aggiungendo i nodi del set \(B \setminus A\): per la definizione della catena ognuno di questi passi ha probabilità non nulla e quindi la probabilità dell'intero cammino è positiva.
 
 	Per un opportuno \(n \in \N \) quindi \(\matr{P}^n\) è positiva ed è pertanto \textbf{irriducibile}.
 

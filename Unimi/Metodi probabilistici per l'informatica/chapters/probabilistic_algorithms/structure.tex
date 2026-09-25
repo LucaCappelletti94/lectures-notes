@@ -69,7 +69,7 @@ Usando il \textbf{teorema dei numeri primi} che enuncia:
 Si determina che la probabilità di scegliere un certo \(p\) risulta essere pari a:
 
 \[
-	\prob{p} = \frac{1}{\text{prim}\rnd{n^2}}, \qquad \prob{\text{errore}} = \frac{\arity{i \in \crl{1, \ldots, n^2}, i \text{ primo e divisore di }a-b}}{\text{prim}\rnd{n}^2}
+	\prob{p} = \frac{1}{\text{prim}\rnd{n^2}}, \qquad \prob{\text{errore}} = \frac{\arity{i \in \crl{1, \ldots, n^2}, i \text{ primo e divisore di }a-b}}{\text{prim}\rnd{n^2}}
 \]
 
 \[
@@ -214,7 +214,7 @@ Dove \(H_n\) è l'\(n\)-esimo numero armonico, cioè \(H_n = \sum_{i=1}^n \frac{
 
 \subsection{Numero medio di confronti in RSEL}
 \[
-	T(n,k) = n-1 + \frac{1}{n}\sum_{l=k}^{n-1} T(l,k) + \frac{1}{n} \frac{1}{n}\sum_{l=0}^{k-2} T(n-1-l, k-l-1)
+	T(n,k) = n-1 + \frac{1}{n}\sum_{l=k}^{n-1} T(l,k) + \frac{1}{n}\sum_{l=0}^{k-2} T(n-1-l, k-l-1)
 \]
 Con \(k\leq n, \arity{A_<} = l\).
 
@@ -255,7 +255,7 @@ Le risposte ``SI'' e ``NO'' sono corrette.
 
 \section{Errore limitato (2-Sided Error)}
 \[
-	f: I \rightarrow O, \qquad \exists \epsilon > 0 \quad \prob{A(x) ) f(x)} \geq \frac{1}{2} + \epsilon
+	f: I \rightarrow O, \qquad \exists \epsilon > 0 \quad \prob{A(x) = f(x)} \geq \frac{1}{2} + \epsilon
 \]
 La probabilità di rispondere correttamente è \(\prob{\text{corretto}} \geq \frac{1}{2} + \epsilon\). Non si è mai assolutamente certi della risposta ottenuta ma si sceglie quella che appare più frequentemente. Generalmente si usa la \textbf{disuguaglianza di Chernoff} per determinare il numero di ripetizioni dell'algoritmo per avere un errore accettabile.
 
@@ -263,7 +263,7 @@ La probabilità di rispondere correttamente è \(\prob{\text{corretto}} \geq \fr
 
 \section{Errore Illimitato}
 \[
-	f: I \rightarrow O, \qquad \exists \epsilon > 0 \quad \prob{A(x) ) f(x)} \geq \frac{1}{2} + \epsilon(x)
+	f: I \rightarrow O, \qquad \exists \epsilon > 0 \quad \prob{A(x) = f(x)} \geq \frac{1}{2} + \epsilon(x)
 \]
 
 Sono una tipologia di algoritmi probabilistici usati per stimare funzioni ma \textbf{non ho mai} la certezza di una risposta corretta.

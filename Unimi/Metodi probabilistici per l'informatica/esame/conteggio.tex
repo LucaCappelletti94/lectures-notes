@@ -43,7 +43,7 @@ Per ogni grafo \(G_{j-1}\) si generano diverse \(q\)-colorazioni casuali usando 
 Moltiplicando tutti questi valori tra di loro insieme alla quantità \(Z_0 = q^k\) si ottiene \(R\), un'approssimazione di \(Z_m\):
 
 \[
-  R = q^k \prod_{j=1}^m Y_j = \prod_{j=1}^m \frac{H_j}{l}
+  R = q^k \prod_{j=1}^m Y_j = q^k \prod_{j=1}^m \frac{H_j}{l}
 \]
 Dove \(H_j\) è il numero di \(q\)-colorazioni di \(G_{j-1}\) che attribuiscono colori diversi ai nodi \(x_j\) e \(y_j\)
 
@@ -54,7 +54,7 @@ Il procedimento descritto dipende da due parametri, \(l\) e \(n\):
 \end{description}
 
 \begin{theorem}[RPTAS per \(q\)-colorazioni]
-  Assumendo la notazione illustrata sopra, supponiamo che \(d\geq2\) e \(q>2d^2\). Allora esiste un \textbf{RPTAS} per il problema di determinare il numero minimo di colorazioni di \(G\).
+  Assumendo la notazione illustrata sopra, supponiamo che \(d\geq2\) e \(q>2d^2\). Allora esiste un \textbf{RPTAS} per il problema di determinare il numero di \(q\)-colorazioni di \(G\).
 \end{theorem}
 
 \end{document}

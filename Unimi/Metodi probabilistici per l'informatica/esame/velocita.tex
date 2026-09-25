@@ -9,7 +9,7 @@ Non tutte le distribuzioni di probabilità sono uguali ed è quindi lecito chied
 \begin{theorem}[Variazione totale tra distribuzioni]
   Se \(\bm{\mu} \) e \(\bm{v}\) sono due distribuzioni di probabilità definite sullo stesso insieme finito \(S\) allora la massima differenza tra le due distribuzioni valutate su un qualunque sottoinsieme di \(S\) è la \textbf{variazione totale}:
   \[
-    d_{TV}(\bm{\mu}, \bm{v}) \max_{A \subseteq S}\abs{\bm{\mu}(A) - \bmv(A)}
+    d_{TV}(\bm{\mu}, \bm{v}) = \max_{A \subseteq S}\abs{\bm{\mu}(A) - \bmv(A)}
   \]
 \end{theorem}
 
@@ -39,8 +39,8 @@ Non tutte le distribuzioni di probabilità sono uguali ed è quindi lecito chied
   \]
   Quindi, \(\forall n \in N: n > t\), ponendo \(n = mt + r\) e con \(r \in \crl{0, 1, \ldots, t-1}\) si ottiene:
   \begin{align*}
-    d_{TV}\rnd{\bm{\mu}\matr{P}^n, \bm{\pi}} & = \frac{1}{2}\norm{\bm{\mu}\matr{P}^t - \bm{\pi}}_1                            \\
-                                             & = \norm{\bm{\mu}\matr{P}^r\cdot\matr{P}^{tm} - \bm{\pi}}_1                     \\
+    d_{TV}\rnd{\bm{\mu}\matr{P}^n, \bm{\pi}} & = \frac{1}{2}\norm{\bm{\mu}\matr{P}^n - \bm{\pi}}_1                            \\
+                                             & = \frac{1}{2}\norm{\bm{\mu}\matr{P}^r\cdot\matr{P}^{tm} - \bm{\pi}}_1                     \\
                                              & \leq \frac{1}{2}\beta\rnd{\matr{P}^t}^m \norm{\bm{\mu}\matr{P}^r - \bm{\pi}}_1 \\
                                              & \leq \beta\rnd{\matr{P}^t}^{\frac{n}{t}-1}
   \end{align*}
