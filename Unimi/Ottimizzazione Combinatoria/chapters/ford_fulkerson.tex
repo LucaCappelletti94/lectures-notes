@@ -3,7 +3,7 @@
 \begin{document}
 \chapter{Algoritmo di Ford-Fulkerson}
 \section{Utilità}
-Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo} un un grafo. Spesso è chiamato \textit{metodo} invece di \textit{algoritmo} perché l'approccio per trovare i cammini aumentanti nel grafo residuo non è completamente specificato. Spesso viene implementato completamente nell'algoritmo di \textbf{Edmonds-Karp}, in cui si procede a scegliere ad ogni iterazione il \textbf{cammino aumentante più corto}.
+Si tratta di un \textbf{algoritmo greedy} che calcola il \textbf{flusso massimo} in un grafo. Spesso è chiamato \textit{metodo} invece di \textit{algoritmo} perché l'approccio per trovare i cammini aumentanti nel grafo residuo non è completamente specificato. Spesso viene implementato completamente nell'algoritmo di \textbf{Edmonds-Karp}, in cui si procede a scegliere ad ogni iterazione il \textbf{cammino aumentante più corto}.
 
 \begin{definition}[Cammino aumentante]
   Un cammino \(P\) da \(s\) a \(t\) tale che ogni arco \(\rnd{i,j} \in P\) orientato verso \(t\) (in avanti o forward) ha capacità \(x_{ij}<u_{ij}\) ed ogni arco orientato verso \(s\) (all'indietro o reverse) ha capacità \(x_{ji} > 0\) si dice \textbf{cammino aumentante}.

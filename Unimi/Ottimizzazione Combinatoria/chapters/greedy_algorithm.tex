@@ -30,7 +30,7 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
   \[
     \exists e \in I: J \cup \crl{e} \in F
   \]
-  allora \textbf{GREEDSUM} fornisce un membro di \(F\) di valore massimo per qualunque funzione di valutazione: \(e: E \rightarrow \R^+\).
+  allora \textbf{GREEDSUM} fornisce un membro di \(F\) di valore massimo per qualunque funzione di valutazione: \(c: E \rightarrow \R^+\).
   \label{primo_rado}
 \end{theorem}
 \begin{proof}[Primo teorema di Rado]
@@ -51,7 +51,7 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
   \textbf{Passo induttivo:} Supponiamo allora che per qualche \(m>1\) si abbia \(c_{e_m} < c_{e'_m}\) mentre \(c_{e_s} \geq c_{e'_s}\) per \(s = 1, \ldots, m-1\):
   \[A = \crl{e \in E: c_{e} \geq c_{e'_m}}\]
 
-  Allora l'insieme \(\crl{e_1, \ldots, e_{m-1}}\) è un indipendente massimale di \(A\) dato che se \(\crl{e_1, \ldots, e_{m-1}, e} \in I\) e \(c_{e} \geq c_{e'_m} > c_{e_m}\), \textbf{GREEDSUM} avrebbe scelto \(e\) invece di \(e_m\) come successivo elemento da aggiungere.
+  Allora l'insieme \(\crl{e_1, \ldots, e_{m-1}}\) è un indipendente massimale di \(A\) dato che se \(\crl{e_1, \ldots, e_{m-1}, e} \in F\) e \(c_{e} \geq c_{e'_m} > c_{e_m}\), \textbf{GREEDSUM} avrebbe scelto \(e\) invece di \(e_m\) come successivo elemento da aggiungere.
 
   Ciò contraddice quanto dimostrato nella prima parte dato che \(\crl{e'_1, \ldots, e'_m}\) è un altro insieme indipendente di \(A\) ed avrebbe cardinalità maggiore.
 \end{proof}
@@ -67,7 +67,7 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
 \begin{proof}[Secondo teorema di Rado]
   Procediamo \textbf{per assurdo} e supponiamo che la proprietà del primo teorema di Rado \ref{primo_rado} non valga.
 
-  Ciò significa che esistono due \textbf{insiemi indipendenti} \(I\) e \(J\) con \(\abs{I} = p\) e \(\abs{J} = p+1\) tali che per nessun elemento \(e \in J \setminus I\) accade che \(I \cup \crl{e} \in I\).
+  Ciò significa che esistono due \textbf{insiemi indipendenti} \(I\) e \(J\) con \(\abs{I} = p\) e \(\abs{J} = p+1\) tali che per nessun elemento \(e \in J \setminus I\) accade che \(I \cup \crl{e} \in F\).
 
   Consideriamo allora la seguente maniera di valutare gli elementi di \(E\):
   \[
@@ -77,9 +77,9 @@ I teoremi di Rado consentono di fare un'importante affermazione su GREEDSUM: ``G
       0   & e \not\in I \cup J
     \end{cases}
   \]
-  Se ne deduce che \(c_J \geq \rnd{p+1}^2 > p(p+2) - c_I\) e quindi \(I\) non è ottimo.
+  Se ne deduce che \(c_J \geq \rnd{p+1}^2 > p(p+2) = c_I\) e quindi \(I\) non è ottimo.
 
-  \textbf{GREEDSUM} d'altra parte per sua natura inizierà a inserire nella soluzione per primi tutti gli elementi di \(I\) e non potrà poi aumentare il valore della soluzione, dato che sarà costretto a selezione solo elementi di valore nullo.
+  \textbf{GREEDSUM} d'altra parte per sua natura inizierà a inserire nella soluzione per primi tutti gli elementi di \(I\) e non potrà poi aumentare il valore della soluzione, dato che sarà costretto a selezionare solo elementi di valore nullo.
 
   Ma allora abbiamo trovato una funzione di valutazione per cui l'algoritmo non fornisce l'ottimo, contrariamente a quanto assunto.
 \end{proof}

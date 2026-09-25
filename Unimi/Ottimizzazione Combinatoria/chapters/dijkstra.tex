@@ -426,20 +426,20 @@ L'algoritmo di Dijkstra viene utilizzato per trovare il cammino più breve tra d
       4,gray,1:0.27161988048131647\textwidth,0.4464911437037646\textwidth:;
       5,gray,:-0.4524873145484808\textwidth,-0.15727160136077425\textwidth:;
       6,gray,:-0.5\textwidth,0.44069094493931893\textwidth:;
-      7,gray,1:0.1438664795216167\textwidth,-0.1666544715634582\textwidth:;
-      1,gray,:0.41422424770655714\textwidth,0.18265790468741144\textwidth:;
+      7,gray,:0.1438664795216167\textwidth,-0.1666544715634582\textwidth:;
+      1,gray,1:0.41422424770655714\textwidth,0.18265790468741144\textwidth:;
       2,gray,:-0.11960552743818949\textwidth,-0.4297187472113053\textwidth:;
-      3,gray,1:0.4236803555055372\textwidth,-0.44038256745282994\textwidth:;
+      3,gray,:0.4236803555055372\textwidth,-0.44038256745282994\textwidth:;
     }{
       0,4,black!90,1:30:;
       0,5,gray!80,:70:;
       0,6,gray!80,:61:;
-      0,7,black!90,1:87:;
-      4,1,gray!80,:89:;
+      0,7,gray!80,:87:;
+      4,1,black!90,1:89:;
       5,2,gray!80,:31:;
       7,1,gray!80,:61:;
       7,2,gray!80,:84:;
-      7,3,black!90,1:87:;
+      7,3,gray!80,:87:;
     }[-]
     \myAdigraph{}
 
@@ -453,7 +453,7 @@ L'algoritmo di Dijkstra viene utilizzato per trovare il cammino più breve tra d
 \begin{proof}[Correttezza di Dijkstra]
   Procediamo a dimostrare la correttezza dell'algoritmo di Dijkstra \textbf{per induzione} sul numero di nodi visitati.
 
-  Per ogni nodo visitato \(v\), la distanza \(d(v)\) è la distanza minore dal nodo sorgente al nodo \(v\). Per ogni non non visitato \(u\), \(d(u)\) è assunta essere la distanza più breve attraverso solo nodi visitati, dalla radice a \(u\).
+  Per ogni nodo visitato \(v\), la distanza \(d(v)\) è la distanza minore dal nodo sorgente al nodo \(v\). Per ogni non visitato \(u\), \(d(u)\) è assunta essere la distanza più breve attraverso solo nodi visitati, dalla radice a \(u\).
 
   Questa assunzione vale solo se un cammino esiste, altrimenti la distanza è inizializzata a \(\infty \).
 
@@ -467,7 +467,7 @@ L'algoritmo di Dijkstra viene utilizzato per trovare il cammino più breve tra d
 
   Similarmente se vi fosse un cammino più breve per giungere ad \(u\) senza utilizzare nodi non visitati e se il penultimo nodo su questo cammino fosse \(w\), allora si avrebbe che \(d(u) = d(w) + \text{lunghezza}(w, u)\) \textbf{che è nuovamente una contraddizione}.
 
-  Dopo aver processato il nodo \(u\), le ipotesi iniziali si manterranno vere per ogni non visitato \(w\): la distanza \(d(w)\) sarà la distanza minore dalla radice a \(w\) utilizzando solo i nodi visitati perché se esistesse un cammino più breve non passante per \(u\) lo avremmo identificato precedentemente, e se esistesse un cammino più breve passante passante per \(u\) lo avremmo aggiornato mentre il nodo \(u\) veniva processato.
+  Dopo aver processato il nodo \(u\), le ipotesi iniziali si manterranno vere per ogni non visitato \(w\): la distanza \(d(w)\) sarà la distanza minore dalla radice a \(w\) utilizzando solo i nodi visitati perché se esistesse un cammino più breve non passante per \(u\) lo avremmo identificato precedentemente, e se esistesse un cammino più breve passante per \(u\) lo avremmo aggiornato mentre il nodo \(u\) veniva processato.
 \end{proof}
 \clearpage
 \subsection{Diagramma della dimostrazione - Correttezza di Dijkstra}
