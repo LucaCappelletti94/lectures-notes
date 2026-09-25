@@ -37,7 +37,7 @@ for i=levels,1,-1 do
         --[[We save the content to a sting]]
         local fileStringContent = fileContent:read('*a')
         --[[Closes the file]]
-        fileContent.close()
+        fileContent:close()
         --[[We save the content to a sting]]
         local fileJsonContent = utilities.json.tolua(fileStringContent)
         --[[We merge with the previous data]]
