@@ -81,7 +81,7 @@ Separo in componenti cartesiane:
 \end{cases}
 \]
 
-Nella prima relazione, $b\neq0$ e $\cos\beta = \dfrac{\sqrt{2}}{2} \neq 0$, per cui $\dot{\beta} = 0\,rad/s$.
+Nella prima relazione, $b\neq0$ e $\cos\beta = \dfrac{\sqrt{3}}{2} \neq 0$, per cui $\dot{\beta} = 0\,rad/s$.
 
 \[
 \begin{cases}
@@ -119,13 +119,13 @@ a\ddot{\alpha}\cos\alpha - a\dot{\alpha}^2\sin\alpha + b\ddot{\beta}\cos\beta = 
 \end{cases}
 \Longrightarrow
 \begin{cases}
-\ddot{\beta} =  \dfrac{a\dot{\alpha}^2 - c\dot{\gamma}^2}{b\cos\beta} = -1.33\,rad/s^2\\
+\ddot{\beta} =  \dfrac{a\dot{\alpha}^2 - c\dot{\gamma}^2}{b\cos\beta} = -\dfrac{2}{\sqrt{3}} \approx -1.155\,rad/s^2\\
 -a\ddot{\alpha} - (a\dot{\alpha}^2 - c\dot{\gamma}^2)\tan\beta = -c\ddot{\gamma}\\
 \end{cases}
 \]
 \[
 \begin{cases}
-\ddot{\beta} =  \dfrac{a\dot{\alpha}^2 - c\dot{\gamma}^2}{b\cos\beta} = -1.33\,rad/s^2\\
+\ddot{\beta} =  \dfrac{a\dot{\alpha}^2 - c\dot{\gamma}^2}{b\cos\beta} = -\dfrac{2}{\sqrt{3}} \approx -1.155\,rad/s^2\\
 \ddot{\gamma} = \dfrac{a\ddot{\alpha} + (a\dot{\alpha}^2 - c\dot{\gamma}^2)\tan\beta}{c} = 7.15\,rad/s^2\\
 \end{cases}
 \]
@@ -163,17 +163,17 @@ Derivo l'espressione ed ottengo:
 \end{enumerate}
 
 \[
-\sum W_i = Fv_{g_{BC}}\cos\left ( \dfrac{\pi}{3} \right ) = \dfrac{1}{2}F\omega \dfrac{L}{2} = \dfrac{1}{4}F\omega L + C_m\omega
+\sum W_i = Fv_{g_{BC}}\cos\left ( \dfrac{\pi}{3} \right ) + C_m\omega = \dfrac{1}{2}F\omega L + C_m\omega
 \]
 
 \paragraph{Bilancio di potenze}
 
 \[
-	\dfrac{1}{4}F\omega L + C_m\omega = J\omega\dot{\omega} + J_D\dot{\gamma}\ddot{\gamma} + M\omega\dot{\omega}(\dfrac{L}{2})^2
+	\dfrac{1}{2}F\omega L + C_m\omega = J\omega\dot{\omega} + J_D\dot{\gamma}\ddot{\gamma} + M\omega\dot{\omega}(\dfrac{L}{2})^2
 \]
 
 \[
-	C_m = J\dot{\omega} + \dfrac{J_D\dot{\gamma}\ddot{\gamma}}{\omega} + M\dot{\omega}(\dfrac{L}{2})^2 - \dfrac{1}{4}F L = -2.875\,Nm
+	C_m = J\dot{\omega} + \dfrac{J_D\dot{\gamma}\ddot{\gamma}}{\omega} + M\dot{\omega}(\dfrac{L}{2})^2 - \dfrac{1}{2}F L \approx -15.375\,Nm
 \]
 
 \end{document}

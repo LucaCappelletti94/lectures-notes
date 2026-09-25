@@ -114,10 +114,10 @@ La forza d'attrito dinamico è definita come:
 \]
 
 \begin{align*}
-	W_r &= -\dfrac{1}{2}F_gv_m(1-f_s\sqrt{3}) \\
-		   &= -\dfrac{1}{2}Mgv_m(1-f_s\sqrt{3}) \\
-		   &= -\dfrac{1}{2}Mg\dfrac{\omega_m \tau R_p}{2}(1-f_s\sqrt{3}) \\
-		   &= -\dfrac{1}{4}Mg\omega_m \tau R_p(1-f_s\sqrt{3}) \\
+	W_r &= -\dfrac{1}{2}F_gv_m(1+f_s\sqrt{3}) \\
+		   &= -\dfrac{1}{2}Mgv_m(1+f_s\sqrt{3}) \\
+		   &= -\dfrac{1}{2}Mg\dfrac{\omega_m \tau R_p}{2}(1+f_s\sqrt{3}) \\
+		   &= -\dfrac{1}{4}Mg\omega_m \tau R_p(1+f_s\sqrt{3}) \\
 \end{align*}
 
 \paragraph{Potenza perduta} Essendo in condizioni di transitorio e ipotesi di moto diretto uso la formula seguente:
@@ -132,21 +132,21 @@ La forza d'attrito dinamico è definita come:
 	W_m + W_r - (1-\mu_D)(W_m - \dfrac{dE_{c_m}}{dt}) &= \dfrac{dE_{c_m}}{dt} + \dfrac{dE_{c_r}}{dt}\\
 	W_r + \mu_D(W_m - \dfrac{dE_{c_m}}{dt}) &= \dfrac{dE_{c_r}}{dt}\\
 	W_r + \mu_DW_m &= \dfrac{dE_{c_r}}{dt} + \mu_D\dfrac{dE_{c_m}}{dt}\\
-	\mu_DC_m\omega_m -\dfrac{1}{4}Mg\omega_m \tau R_p(1-f_s\sqrt{3}) &=  \omega_m\dot{\omega}_m(\tau^2(\dfrac{1}{4}M R_p^2 + J_p) +  \mu_DJ_m)\\
+	\mu_DC_m\omega_m -\dfrac{1}{4}Mg\omega_m \tau R_p(1+f_s\sqrt{3}) &=  \omega_m\dot{\omega}_m(\tau^2(\dfrac{1}{4}M R_p^2 + J_p) +  \mu_DJ_m)\\
 \end{align*}
 
 \[
-\dot{\omega}_m = \dfrac{\mu_DC_m -\dfrac{1}{4}Mg\tau R_p(1-f_s\sqrt{3})}{\tau^2(\dfrac{1}{4}M R_p^2 + J_p) +  \mu_DJ_m)} = 323\,rad/s^2
+\dot{\omega}_m = \dfrac{\mu_DC_m -\dfrac{1}{4}Mg\tau R_p(1+f_s\sqrt{3})}{\tau^2(\dfrac{1}{4}M R_p^2 + J_p) +  \mu_DJ_m} \approx 249\,rad/s^2
 \]
 
 \[
-	a = \dfrac{\tau R_p \dot{\omega}_m}{2} = 1.615\,m/s^2
+	a = \dfrac{\tau R_p \dot{\omega}_m}{2} \approx 1.244\,m/s^2
 \]
 
 \paragraph{Verifico ipotesi di moto diretto}
 
 \[
-	\dot{\omega}_m = 323 < 500
+	\dot{\omega}_m \approx 249 < 500
 \]
 
 L'ipotesi è valida.
@@ -167,15 +167,15 @@ Essendo in condizioni di regime, non è più necessario considerare la variazion
 \]
 
 \[
-	\mu_DC_m\omega_m = \dfrac{1}{4}Mg\omega_m \tau R_p(1-f_s\sqrt{3})
+	\mu_DC_m\omega_m = \dfrac{1}{4}Mg\omega_m \tau R_p(1+f_s\sqrt{3})
 \]
 
 \[
-	\mu_DC_m = \dfrac{1}{4}Mg \tau R_p(1-f_s\sqrt{3})
+	\mu_DC_m = \dfrac{1}{4}Mg \tau R_p(1+f_s\sqrt{3})
 \]
 
 \[
-	C_m = \dfrac{Mg \tau R_p(1-f_s\sqrt{3})}{4\mu_D} = 3.56\,Nm
+	C_m = \dfrac{Mg \tau R_p(1+f_s\sqrt{3})}{4\mu_D} \approx 7.34\,Nm
 \]
 
 \subsubsection{Terzo punto}
@@ -190,15 +190,15 @@ La forza di inerzia $Ma$ ha un verso \textbf{opposto} all'accelerazione.
 \end{center}
 
 \[
-	-Ma = F_g\sin\left ( \dfrac{\pi}{3} \right ) + \dfrac{\sqrt{3}}{2}F_gf_s - F_t
+	-Ma = F_g\sin\left ( \dfrac{\pi}{6} \right ) + \dfrac{\sqrt{3}}{2}F_gf_s - F_t
 \]
 
 \[
-	-Ma = \dfrac{\sqrt{3}}{2}F_g + \dfrac{\sqrt{3}}{2}F_gf_s - F_t
+	-Ma = \dfrac{1}{2}F_g + \dfrac{\sqrt{3}}{2}F_gf_s - F_t
 \]
 
 \[
-	F_t = M(\dfrac{\sqrt{3}}{2}g(1+f_s) + a) =2361\,N
+	F_t = M\!\left(\dfrac{g}{2}(1+\sqrt{3}f_s) + a\right) \approx 1570\,N
 \]
 
 \end{document}
