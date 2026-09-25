@@ -49,7 +49,7 @@
     È una notazione compatta per \(\operatorname{PCP}(1), \frac{1}{2}[r\rnd{n}, q\rnd{n}]\).
 \end{definition}
 \begin{definition}[Classe PCP]
-    La classe di complessità PCP è definita come \(\operatorname{PCP}(1), \frac{1}{2}[O\log{n}, O\rnd{1}]\).
+    La classe di complessità PCP è definita come \(\operatorname{PCP}(1), \frac{1}{2}[O\rnd{\log n}, O\rnd{1}]\).
 \end{definition}
 \begin{observation}[P come sottoclasse di \(\operatorname{PCP}\)]
     Possiamo scrivere la classe \(\operatorname{P}\) come vari sottoclassi di complessità di \(\operatorname{PCP}[r\rnd{n}, q\rnd{n}]\), per esempio:
@@ -66,7 +66,7 @@
     \[
         \mathrm{NP}=\mathrm{PCP}[O(\log n), O(1)]
     \]
-    La classe di complessità dei problemi non polinomiali coincide con la classe di problemi che utilizzano un numero logaritmico di bit casuali e produce dimostrazioni di lunghezza costante.
+    La classe di complessità NP dei problemi verificabili in tempo polinomiale coincide con la classe di problemi che utilizzano un numero logaritmico di bit casuali e produce dimostrazioni di lunghezza costante.
 \end{theorem}
 
 \clearpage
@@ -106,7 +106,7 @@
     \end{enumerate}
 \end{proof}
 \clearpage
-\section{Da PCP a Indipendent Set}
+\section{Da PCP a Independent Set}
 \begin{multicols}{2}
 \begin{definition}[Configurazione]
     Sia \(L\) un problema \(\mathrm{NP}\)-completo, \(V\) un verificatore che mostra che \(L \in \mathrm{PCP}_{c, s}[q(n), r(n)]\). Per un input \(x\), consideriamo tutte le possibili computazioni di \(V^{w}(x)\) su tutte le possibili dimostrazioni \(w\). Una descrizione completa delle computazioni di \(V\) è data dalla specifica della casualità usata da \(V\), la lista delle query fatta da \(V\) nella dimostrazione e la lista delle risposte.
@@ -135,17 +135,17 @@
     Se \(x \in L\), allora il grafo delle configurazioni associato \(G_x\) ha un \textbf{insieme indipendente} di dimensione \(\geq c \cdot 2^{r(n)}\).
 \end{claim}
 \begin{proof}[13]
-    Se \(x \in L\), allora esiste un testimone \(w\) tale che \(V^{w}(x)\) accetta l'affermazione con probabilità almeno \(c\). Cioè esiste un testimone \(w\) tale che esistono almeno \(c \cdot 2^{r(n)}\) input casuali tali che \(V^{w}(x)\) accetti. Questo implica che esistono almeno \(c \cdot 2^{r}(n)\) configurazioni mutualmente consistenti nel grafo associato \(G_x\) e queste formano un insieme indipendente.
+    Se \(x \in L\), allora esiste un testimone \(w\) tale che \(V^{w}(x)\) accetta l'affermazione con probabilità almeno \(c\). Cioè esiste un testimone \(w\) tale che esistono almeno \(c \cdot 2^{r(n)}\) input casuali tali che \(V^{w}(x)\) accetti. Questo implica che esistono almeno \(c \cdot 2^{r(n)}\) configurazioni mutualmente consistenti nel grafo associato \(G_x\) e queste formano un insieme indipendente.
 \end{proof}
 \begin{claim}[14]
-    Se \(x \not\in L\), allora ogni \textbf{insieme indipendente} del grafo delle configurazioni associato \(G_x\) ha dimensione \(\geq s \cdot 2^{r(n)}\).
+    Se \(x \not\in L\), allora ogni \textbf{insieme indipendente} del grafo delle configurazioni associato \(G_x\) ha dimensione \(\leq s \cdot 2^{r(n)}\).
 \end{claim}
 \begin{proof}[14]
-    Procediamo per assurdo: assumiamo che esista un insieme indipendente nel grafo delle configurazioni associato \(G_x\) di dimensione \(\geq s \cdot 2^{r(n)}\), e mostriamo che questo implichi che \(x \in L\).
+    Procediamo per assurdo: assumiamo che esista un insieme indipendente nel grafo delle configurazioni associato \(G_x\) di dimensione \(> s \cdot 2^{r(n)}\), e mostriamo che questo implichi che \(x \in L\).
     
     Iniziamo definendo un testimone \(w\): per ogni configurazione nell'insieme indipendente, aggiorniamo i bit di \(w\) su cui è stata eseguita una query nella configurazione in base alle risposte nelle configurazioni. Andiamo a porre a zero i bit del testimone \(w\) su cui non è stata eseguita una query in nessuna configurazione dell'insieme indipendente.
     
-    Le \(s \cdot 2^{r(n)}\) configurazione dell'insieme indipendente corrispondono ad un numero equivalente di stringhe casuali. Quando \(V^{w}(x)\) sceglie una di queste stringhe casuali la accetta, e pertanto \(V^{w}(x)\) accetta l'affermazione con probabilità almeno \(s\), implicando che \(x \in L\), da cui l'assurdo.
+    Le configurazioni dell'insieme indipendente, in numero maggiore di \(s \cdot 2^{r(n)}\), corrispondono a più di \(s \cdot 2^{r(n)}\) stringhe casuali. Quando \(V^{w}(x)\) sceglie una di queste stringhe casuali la accetta, e pertanto \(V^{w}(x)\) accetta l'affermazione con probabilità maggiore di \(s\), implicando che \(x \in L\), da cui l'assurdo.
 \end{proof}
 \end{multicols}
 \clearpage
@@ -205,7 +205,7 @@
     
     La procedura di scelta così descritta lascerà molto probabilmente degli elementi di \(U\) scoperti: possiamo però controllare la probabilità che uno specifico elemento \(v\) rimanga scoperto:
     \[
-        \prod_{v \in S_{i}}\left(1-x_{i}\right) \leq \prod_{v \in S_{i}} e^{-x_{i}} \leq e^{-\sum_{v \in S_{i}} x_{i}} \leq e^{-1}
+        \prod_{i: v \in S_{i}}\left(1-\bar{x}_{i}\right) \leq \prod_{i: v \in S_{i}} e^{-\bar{x}_{i}} \leq e^{-\sum_{i: v \in S_{i}} \bar{x}_{i}} \leq e^{-1}
     \]
     Ne consegue che se ripetiamo la procedura \(k+\ln n\) volte e consideriamo l'unione degli insieme soluzione così generati, la probabilità che un elemento non sia coperto è controllata da:
     \[
@@ -351,17 +351,17 @@
 \begin{observation}[A cosa servono le riduzioni?]
     Se la riduzione \(M\) è trattabile anche \(L\) è trattabile, quindi se \(L\) è difficile anche la riduzione \(M\) è difficile. Possiamo quindi propagare risultati di difficoltà di approssimazione verso nuovi problemi costruendo un problema di gap con promessa opportuno, e una riduzione opportuna.
 \end{observation}
-\begin{example}[Ridurre MaxE3SAT a Maximum Indipendent Set]
-    Un problema di gap con promessa di \textbf{MaxE3SAT} si può ridurre a un problema di gap con promessa equivalente di \textbf{Maximum Indipendent Set}.
+\begin{example}[Ridurre MaxE3SAT a Maximum Independent Set]
+    Un problema di gap con promessa di \textbf{MaxE3SAT} si può ridurre a un problema di gap con promessa equivalente di \textbf{Maximum Independent Set}.
     
-    Utilizzando la riduzione da \textbf{3SAT} a \textbf{Indipendent Set}, che associa a ogni clausola con \(k\) letterali una \(k\)-cricca i cui vertici sono decorati con i rispettivi letterali, e connette vertici di cricche diverse associati a letterali opposti, è possibile vedere che il numero di clausole soddisfatte di un'istanza di \textbf{MaxE3SAT} è esattamente la dimensione del massimo insieme indipendente del grafo associato. Dato che le clausole di \textbf{MaxE3SAT} contengono esattamente tre letterali, il grafo associato a una formula con \(n\) clausole ha esattamente \(3n\) vertici.
+    Utilizzando la riduzione da \textbf{3SAT} a \textbf{Independent Set}, che associa a ogni clausola con \(k\) letterali una \(k\)-cricca i cui vertici sono decorati con i rispettivi letterali, e connette vertici di cricche diverse associati a letterali opposti, è possibile vedere che il numero di clausole soddisfatte di un'istanza di \textbf{MaxE3SAT} è esattamente la dimensione del massimo insieme indipendente del grafo associato. Dato che le clausole di \textbf{MaxE3SAT} contengono esattamente tre letterali, il grafo associato a una formula con \(n\) clausole ha esattamente \(3n\) vertici.
     
-    Se consideriamo un problema di gap con promessa che chiede di distinguere formule di \textbf{MaxE3SAT} soddisfacibili da formule con al più \(1-\epsilon\) clausole soddisfacibili (cioè dove esiste un gap \(\frac{1}{\rnd{1-\epsilon}}\)), vediamo subito che le formule vengono mappate in grafi con \(3n\) vertici, dove \(n\) è il numero di vertici della formula.
+    Se consideriamo un problema di gap con promessa che chiede di distinguere formule di \textbf{MaxE3SAT} soddisfacibili da formule con al più \(1-\epsilon\) clausole soddisfacibili (cioè dove esiste un gap \(\frac{1}{\rnd{1-\epsilon}}\)), vediamo subito che le formule vengono mappate in grafi con \(3n\) vertici, dove \(n\) è il numero di clausole della formula.
     
-    Nel caso soddisfacibile, il grafo ha un insieme indipendente di dimensione esattamente \(n\), mentre nel secondo caso non può esistere un insieme indipendente di dimensione superiore a \(\rnd{1-\epsilon}n\). Il gap associato a questa promessa è quindi di nuovo \(\frac{1}{1-\epsilon}\), e non è quindi possibile approssimare meglio \textbf{Maximum Indipendent Set}. Utilizzando il risultato ottimo di Håstad \(\varepsilon=\frac{1}{8}\) abbiamo che il \textbf{Maximum Indipendent Set} non è approssimabile meglio di \(\frac{8}{7}\), esattamente come \textbf{MaxE3SAT}.
+    Nel caso soddisfacibile, il grafo ha un insieme indipendente di dimensione esattamente \(n\), mentre nel secondo caso non può esistere un insieme indipendente di dimensione superiore a \(\rnd{1-\epsilon}n\). Il gap associato a questa promessa è quindi di nuovo \(\frac{1}{1-\epsilon}\), e non è quindi possibile approssimare meglio \textbf{Maximum Independent Set}. Utilizzando il risultato ottimo di Håstad \(\varepsilon=\frac{1}{8}\) abbiamo che il \textbf{Maximum Independent Set} non è approssimabile meglio di \(\frac{8}{7}\), esattamente come \textbf{MaxE3SAT}.
 \end{example}
-\begin{example}[Ridurre Maximum Indipendent Set a Minimum Vertex Cover]
-    Il problema di gap con promessa di \textbf{Maximum Indipendent Set} appena descritto può essere ridotto a un problema di gap con promessa per \textbf{Minimum Vertex Cover}.
+\begin{example}[Ridurre Maximum Independent Set a Minimum Vertex Cover]
+    Il problema di gap con promessa di \textbf{Maximum Independent Set} appena descritto può essere ridotto a un problema di gap con promessa per \textbf{Minimum Vertex Cover}.
     
     Dato che il complemento di un insieme indipendente è esattamente un insieme di vertici di copertura, la promessa diventa la seguente: si considerano grafi di dimensione \(3n\) per qualche \(n\geq 1\), e si sa che esiste un insieme di vertici di copertura più piccolo di \(3n -n=2n\), oppure uno maggiore di \(3 n-(1-\varepsilon) n= 2 n+\varepsilon n\). Il gap associato è quindi \((2+\varepsilon) n / 2 n=1+\varepsilon / 2\). Dato che \(\epsilon < 1\) vale che:
     \[

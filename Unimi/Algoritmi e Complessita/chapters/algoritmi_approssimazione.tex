@@ -71,7 +71,7 @@
 \begin{definition}[Algoritmo greedy per il Set Cover]
     L'algoritmo greedy costruisce la \textbf{set cover} un insieme per volta, scegliendo ad ogni iterazione l'insieme di peso minimo che copre più elementi. Se chiamiamo \(R\) l'insieme parziale di elementi ancora non coperti, definiamo il peso assegnato ad ogni insieme come:
     \[
-        \frac{w_i}{S_i \cap R}
+        \frac{w_i}{\abs{S_i \cap R}}
     \]
     Ogni volta che viene aggiunto un set \(S_i\) andiamo a rimuoverne gli elementi da \(R\) e l'algoritmo termina la sua iterazione quando \(R\) risulta vuoto.
 \end{definition}
@@ -269,7 +269,7 @@
 \vfill\null
 \columnbreak
 \begin{lemma}[Massimale del peso di Vertex Cover come problema di PI]
-    L'insieme \(S\) ottenuto tramite arrotondamento della soluzione di programmazione lineare è una \textbf{vertex cover} e \(w\rnd{S} \leq w_{\text{LP}}\)
+    L'insieme \(S\) ottenuto tramite arrotondamento della soluzione di programmazione lineare è una \textbf{vertex cover} e \(w\rnd{S} \leq 2 w_{\text{LP}}\)
 \end{lemma}
 \begin{proof}[Massimale del peso di Vertex Cover come problema di PI]
     Iniziamo provando che l'insieme \(S\) ottenuto arrotondando la soluzione di PL ottenuta sia una \textbf{vertex cover}. Consideriamo un lato \(e = \rnd{i,j}\): perché \(S\) sia una vertex cover almeno uno dei due vertici deve essere in \(S\). Una dei vincoli associati al problema di programmazione lineare intera risulta è \(x_{i}+x_{j} \geq 1\), per cui in ogni soluzione \(x^*\) che soddisfa questa disuguaglianza o \(x_{i}^{*} \geq \frac{1}{2}\) o \(x_{j}^{*} \geq \frac{1}{2}\). Pertanto almeno uno di questi due sarà arrotondato e o \(i\) o \(j\) sarà posto in \(S\).
@@ -277,7 +277,7 @@
     Consideriamo ora il peso \(w\rnd{S}\) di questa vertex cover. L'insieme \(S\) ha solo vertici con \(x_{i}^{*} \geq \frac{1}{2}\), per cui il problema di programmazione lineare \textbf{paga} almeno \(\frac{1}{2} w_{i}\) per il nodo \(i\) e paghiamo solo \(w_i\), al più pari al doppio.
     
     Più formalmente vale la seguente catena di disuguaglianze:
-    \[w_{L P} w^{t} x^{*}=\sum_{i} w_{i} x_{i}^{*} \geq \sum_{i \in S} w_{i} x_{i}^{*} \geq \frac{1}{2} \sum_{i \in S} w_{i}=\frac{1}{2} w(S)\]
+    \[w_{L P} = w^{t} x^{*}=\sum_{i} w_{i} x_{i}^{*} \geq \sum_{i \in S} w_{i} x_{i}^{*} \geq \frac{1}{2} \sum_{i \in S} w_{i}=\frac{1}{2} w(S)\]
 \end{proof}
 \end{multicols}
 \clearpage

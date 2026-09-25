@@ -74,7 +74,7 @@
     \[
         C_{n}=\frac{1}{n+1}\left(\begin{array}{l}{2 n} \\ {n}\end{array}\right)=\frac{1}{n+1} \frac{(2 n) !}{(n !)^{2}} \sim \frac{1}{n+1} \frac{\left(\frac{2 n}{e}\right)^{2 n} \sqrt{2 \pi 2 n}}{\left(\frac{n}{e}\right)^{2 n} 2 \pi n} \sim \frac{4^{n}}{\sqrt{\pi n^{3}}}
     \]
-    da cui segue che \(C_{n}=2 n-O(\log n)\). Quindi, se con \(o\rnd{n}\) bit addizionali siamo in grado di calcolare il genitore e il figlio di ogni nodo avremo ottenuto una struttura dati succinta.
+    da cui segue che \(\log_2 C_{n}=2 n-O(\log n)\). Quindi, se con \(o\rnd{n}\) bit addizionali siamo in grado di calcolare il genitore e il figlio di ogni nodo avremo ottenuto una struttura dati succinta.
     
     Dato un nodo in posizione \(p\), è possibile determinare se è interno o esterno guardando se \(b_p\) risulta pari a uno o zero.
     
@@ -288,9 +288,9 @@
     Assumendo che \(n\) non sia troppo grande (\(n \leq \sqrt[2+\varepsilon]{u}\)), si ha:
     \begin{align*}
         \frac{u !}{u^{n}(u-n) !}&=\frac{u(u-1) \cdots(u-n+1)}{u^{n}}\\
-        &\geq\left(\frac{u-n}{n}\right)^{n}\\
-        &\geq\left(1-\frac{\sqrt[2+\varepsilon]{u}}{u}\right)^{2+\xi / u}=\left(1-\frac{1}{u^{\frac{1+\varepsilon}{2+\varepsilon}}}\right)^{u^{\frac{1}{2+\varepsilon}}}\\
-        &=\left(1-\frac{1}{u^{\frac{1+\varepsilon}{2+\varepsilon}}}\right)^{\frac{1+\varepsilon}{2+\varepsilon}-\frac{1+\varepsilon}{2+\varepsilon}+\frac{1}{2+\varepsilon}}\sim\left(e^{-1}\right)^{u^{\frac{-\varepsilon}{2+\varepsilon}}} \sim 1
+        &\geq\left(\frac{u-n}{u}\right)^{n}\\
+        &\geq\left(1-\frac{\sqrt[2+\varepsilon]{u}}{u}\right)^{u^{\frac{1}{2+\varepsilon}}}=\left(1-\frac{1}{u^{\frac{1+\varepsilon}{2+\varepsilon}}}\right)^{u^{\frac{1}{2+\varepsilon}}}\\
+        &=\left(1-\frac{1}{u^{\frac{1+\varepsilon}{2+\varepsilon}}}\right)^{u^{\frac{1}{2+\varepsilon}}}\sim\left(e^{-1}\right)^{u^{\frac{-\varepsilon}{2+\varepsilon}}} \sim 1
     \end{align*}
     e quindi:
     \[
